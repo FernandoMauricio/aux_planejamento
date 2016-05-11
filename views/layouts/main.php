@@ -27,7 +27,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'Senac AM',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -45,6 +45,7 @@ AppAsset::register($this);
                          ['label' => 'Eixo', 'url' => ['/cadastros/eixo/index']],
                          ['label' => 'Segmento', 'url' => ['/cadastros/segmento/index']],
                          ['label' => 'Tipo', 'url' => ['/cadastros/tipo/index']],
+                         ['label' => 'Estrutura Física', 'url' => ['/cadastros/estruturafisica/index']],
                        ],
             ],
 

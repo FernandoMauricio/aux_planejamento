@@ -5,12 +5,12 @@ namespace app\models\cadastros;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\cadastros\Ano;
+use app\models\cadastros\Estruturafisica;
 
 /**
- * AnoSearch represents the model behind the search form about `app\models\cadastros\Ano`.
+ * EstruturafisicaSearch represents the model behind the search form about `app\models\cadastros\Estruturafisica`.
  */
-class AnoSearch extends Ano
+class EstruturafisicaSearch extends Estruturafisica
 {
     /**
      * @inheritdoc
@@ -18,7 +18,8 @@ class AnoSearch extends Ano
     public function rules()
     {
         return [
-            [['an_codano', 'an_ano', 'an_status'], 'integer'],
+            [['estr_cod', 'estr_status'], 'integer'],
+            [['estr_descricao'], 'safe'],
         ];
     }
 
@@ -40,8 +41,7 @@ class AnoSearch extends Ano
      */
     public function search($params)
     {
-        $query = Ano::find()
-        ->orderBy(['an_codano' => SORT_DESC]);
+        $query = Estruturafisica::find();
 
         // add conditions that should always apply here
 
@@ -59,10 +59,11 @@ class AnoSearch extends Ano
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'an_codano' => $this->an_codano,
-            'an_ano' => $this->an_ano,
-            'an_status' => $this->an_status,
+            'estr_cod' => $this->estr_cod,
+            'estr_status' => $this->estr_status,
         ]);
+
+        $query->andFilterWhere(['like', 'estr_descricao', $this->estr_descricao]);
 
         return $dataProvider;
     }
