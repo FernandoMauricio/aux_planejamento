@@ -4,18 +4,19 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\cadastros\Nivel */
+/* @var $model app\models\cadastros\Segmento */
 
-$this->title = 'Novo Nivel';
-$this->params['breadcrumbs'][] = ['label' => 'Cadastro de Nivel', 'url' => ['index']];
+$this->title = 'Novo Segmento';
+$this->params['breadcrumbs'][] = ['label' => 'Cadastro de Segmento', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="nivel-create">
+<div class="segmento-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
+        'eixo' => $eixo,
     ]) ?>
 
 </div>

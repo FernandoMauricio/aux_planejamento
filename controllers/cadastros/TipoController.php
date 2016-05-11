@@ -3,16 +3,16 @@
 namespace app\controllers\cadastros;
 
 use Yii;
-use app\models\cadastros\Nivel;
-use app\models\cadastros\NivelSearch;
+use app\models\cadastros\Tipo;
+use app\models\cadastros\TipoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * NivelController implements the CRUD actions for Nivel model.
+ * TipoController implements the CRUD actions for Tipo model.
  */
-class NivelController extends Controller
+class TipoController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class NivelController extends Controller
     }
 
     /**
-     * Lists all Nivel models.
+     * Lists all Tipo models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new NivelSearch();
+        $searchModel = new TipoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class NivelController extends Controller
     }
 
     /**
-     * Displays a single Nivel model.
+     * Displays a single Tipo model.
      * @param string $id
      * @return mixed
      */
@@ -57,17 +57,17 @@ class NivelController extends Controller
     }
 
     /**
-     * Creates a new Nivel model.
+     * Creates a new Tipo model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Nivel();
+        $model = new Tipo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Nível cadastrado!</strong>');
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Tipo de Ação cadastrado!</strong>');
 
             return $this->redirect(['index']);
         } else {
@@ -78,7 +78,7 @@ class NivelController extends Controller
     }
 
     /**
-     * Updates an existing Nivel model.
+     * Updates an existing Tipo model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -89,7 +89,7 @@ class NivelController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Nível atualizado!</strong>');
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Tipo de Ação atualizado!</strong>');
 
             return $this->redirect(['index']);
         } else {
@@ -100,7 +100,7 @@ class NivelController extends Controller
     }
 
     /**
-     * Deletes an existing Nivel model.
+     * Deletes an existing Tipo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -113,15 +113,15 @@ class NivelController extends Controller
     }
 
     /**
-     * Finds the Nivel model based on its primary key value.
+     * Finds the Tipo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return Nivel the loaded model
+     * @return Tipo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Nivel::findOne($id)) !== null) {
+        if (($model = Tipo::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

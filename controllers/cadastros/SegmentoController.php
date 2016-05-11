@@ -3,16 +3,17 @@
 namespace app\controllers\cadastros;
 
 use Yii;
-use app\models\cadastros\Nivel;
-use app\models\cadastros\NivelSearch;
+use app\models\cadastros\Eixo;
+use app\models\cadastros\Segmento;
+use app\models\cadastros\SegmentoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * NivelController implements the CRUD actions for Nivel model.
+ * SegmentoController implements the CRUD actions for Segmento model.
  */
-class NivelController extends Controller
+class SegmentoController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +31,12 @@ class NivelController extends Controller
     }
 
     /**
-     * Lists all Nivel models.
+     * Lists all Segmento models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new NivelSearch();
+        $searchModel = new SegmentoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +46,7 @@ class NivelController extends Controller
     }
 
     /**
-     * Displays a single Nivel model.
+     * Displays a single Segmento model.
      * @param string $id
      * @return mixed
      */
@@ -57,28 +58,30 @@ class NivelController extends Controller
     }
 
     /**
-     * Creates a new Nivel model.
+     * Creates a new Segmento model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Nivel();
+        $model = new Segmento();
+        $eixo = Eixo::find()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Nível cadastrado!</strong>');
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Segmento cadastrado!</strong>');
 
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'eixo' => $eixo,
             ]);
         }
     }
 
     /**
-     * Updates an existing Nivel model.
+     * Updates an existing Segmento model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -86,21 +89,23 @@ class NivelController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $eixo = Eixo::find()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Nível atualizado!</strong>');
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Segmento atualizado!</strong>');
 
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'eixo' => $eixo,
             ]);
         }
     }
 
     /**
-     * Deletes an existing Nivel model.
+     * Deletes an existing Segmento model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -113,15 +118,15 @@ class NivelController extends Controller
     }
 
     /**
-     * Finds the Nivel model based on its primary key value.
+     * Finds the Segmento model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return Nivel the loaded model
+     * @return Segmento the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Nivel::findOne($id)) !== null) {
+        if (($model = Segmento::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -5,12 +5,12 @@ namespace app\models\cadastros;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\cadastros\Nivel;
+use app\models\cadastros\Ano;
 
 /**
- * NivelSearch represents the model behind the search form about `app\models\cadastros\Nivel`.
+ * AnoSearch represents the model behind the search form about `app\models\cadastros\Ano`.
  */
-class NivelSearch extends Nivel
+class AnoSearch extends Ano
 {
     /**
      * @inheritdoc
@@ -18,8 +18,7 @@ class NivelSearch extends Nivel
     public function rules()
     {
         return [
-            [['niv_codnivel', 'niv_status'], 'integer'],
-            [['niv_descricao', 'niv_sigla'], 'safe'],
+            [['an_codano', 'an_ano', 'an_status'], 'integer'],
         ];
     }
 
@@ -41,7 +40,7 @@ class NivelSearch extends Nivel
      */
     public function search($params)
     {
-        $query = Nivel::find();
+        $query = Ano::find();
 
         // add conditions that should always apply here
 
@@ -59,12 +58,10 @@ class NivelSearch extends Nivel
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'niv_codnivel' => $this->niv_codnivel,
-            'niv_status' => $this->niv_status,
+            'an_codano' => $this->an_codano,
+            'an_ano' => $this->an_ano,
+            'an_status' => $this->an_status,
         ]);
-
-        $query->andFilterWhere(['like', 'niv_descricao', $this->niv_descricao])
-            ->andFilterWhere(['like', 'niv_sigla', $this->niv_sigla]);
 
         return $dataProvider;
     }

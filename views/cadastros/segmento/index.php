@@ -5,13 +5,13 @@ use kartik\grid\GridView;
 use kartik\editable\Editable;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\cadastros\NivelSearch */
+/* @var $searchModel app\models\cadastros\SegmentoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Cadastro de Nivel';
+$this->title = 'Cadastro de Segmento';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="nivel-index">
+<div class="segmento-index">
 
 <?php
 
@@ -27,19 +27,22 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Novo Nivel', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Novo Segmento', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
 
-            'niv_codnivel',
-            'niv_descricao',
-            'niv_sigla',
+            'seg_codsegmento',
+            'seg_descricao',
+            [
+                'attribute' => 'seg_codeixo',
+                'value' => 'eixo.eix_descricao'
+            ],
             [
                 'class'=>'kartik\grid\BooleanColumn',
-                'attribute'=>'niv_status', 
+                'attribute'=>'seg_status', 
                 'vAlign'=>'middle'
             ], 
                         

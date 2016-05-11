@@ -5,12 +5,12 @@ namespace app\models\cadastros;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\cadastros\Nivel;
+use app\models\cadastros\Segmento;
 
 /**
- * NivelSearch represents the model behind the search form about `app\models\cadastros\Nivel`.
+ * SegmentoSearch represents the model behind the search form about `app\models\cadastros\Segmento`.
  */
-class NivelSearch extends Nivel
+class SegmentoSearch extends Segmento
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class NivelSearch extends Nivel
     public function rules()
     {
         return [
-            [['niv_codnivel', 'niv_status'], 'integer'],
-            [['niv_descricao', 'niv_sigla'], 'safe'],
+            [['seg_codsegmento', 'seg_codeixo', 'seg_status'], 'integer'],
+            [['seg_descricao'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class NivelSearch extends Nivel
      */
     public function search($params)
     {
-        $query = Nivel::find();
+        $query = Segmento::find();
 
         // add conditions that should always apply here
 
@@ -59,12 +59,12 @@ class NivelSearch extends Nivel
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'niv_codnivel' => $this->niv_codnivel,
-            'niv_status' => $this->niv_status,
+            'seg_codsegmento' => $this->seg_codsegmento,
+            'seg_codeixo' => $this->seg_codeixo,
+            'seg_status' => $this->seg_status,
         ]);
 
-        $query->andFilterWhere(['like', 'niv_descricao', $this->niv_descricao])
-            ->andFilterWhere(['like', 'niv_sigla', $this->niv_sigla]);
+        $query->andFilterWhere(['like', 'seg_descricao', $this->seg_descricao]);
 
         return $dataProvider;
     }

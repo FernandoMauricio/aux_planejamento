@@ -37,7 +37,16 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Cadastros', 'url' => ['/site/about']],
+            [
+            'label' => 'Cadastros',
+            'items' => [
+                         ['label' => 'Ano', 'url' => ['/cadastros/ano/index']],
+                         ['label' => 'Nivel', 'url' => ['/cadastros/nivel/index']],
+                         ['label' => 'Eixo', 'url' => ['/cadastros/eixo/index']],
+                         ['label' => 'Segmento', 'url' => ['/cadastros/segmento/index']],
+                         ['label' => 'Tipo', 'url' => ['/cadastros/tipo/index']],
+                       ],
+            ],
 
         ],
     ]);

@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\cadastros\Nivel */
 
-$this->title = 'Update Nivel: ' . $model->niv_codnivel;
-$this->params['breadcrumbs'][] = ['label' => 'Nivels', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->niv_codnivel, 'url' => ['view', 'id' => $model->niv_codnivel]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Atualizar Nivel: ' . $model->niv_codnivel;
+$this->params['breadcrumbs'][] = ['label' => 'Cadastro de Nivel', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->niv_codnivel];
+$this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="nivel-update">
 

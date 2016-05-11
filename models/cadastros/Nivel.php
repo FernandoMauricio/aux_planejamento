@@ -10,6 +10,7 @@ use Yii;
  * @property string $niv_codnivel
  * @property string $niv_descricao
  * @property string $niv_sigla
+ * @property integer $niv_status
  *
  * @property PlanilhadecursoPlacu[] $planilhadecursoPlacus
  * @property PlanodeacaoPlan[] $planodeacaoPlans
@@ -38,7 +39,8 @@ class Nivel extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['niv_descricao', 'niv_sigla'], 'required'],
+            [['niv_descricao', 'niv_sigla', 'niv_status'], 'required'],
+            [['niv_status'], 'integer'],
             [['niv_descricao'], 'string', 'max' => 60],
             [['niv_sigla'], 'string', 'max' => 10],
         ];
@@ -50,9 +52,10 @@ class Nivel extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'niv_codnivel' => 'Niv Codnivel',
-            'niv_descricao' => 'Niv Descricao',
-            'niv_sigla' => 'Niv Sigla',
+            'niv_codnivel' => 'Código',
+            'niv_descricao' => 'Descrição',
+            'niv_sigla' => 'Sigla',
+            'niv_status' => 'Situação',
         ];
     }
 

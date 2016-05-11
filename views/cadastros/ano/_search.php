@@ -4,24 +4,22 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\cadastros\NivelSearch */
+/* @var $model app\models\cadastros\AnoSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="nivel-search">
+<div class="ano-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'niv_codnivel') ?>
+    <?= $form->field($model, 'an_codano') ?>
 
-    <?= $form->field($model, 'niv_descricao') ?>
+    <?= $form->field($model, 'an_ano') ?>
 
-    <?= $form->field($model, 'niv_sigla') ?>
-
-    <?= $form->field($model, 'niv_status') ?>
+    <?= $form->field($model, 'an_status') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

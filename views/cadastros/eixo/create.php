@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\cadastros\Nivel */
+/* @var $model app\models\cadastros\Eixo */
 
-$this->title = 'Novo Nivel';
-$this->params['breadcrumbs'][] = ['label' => 'Cadastro de Nivel', 'url' => ['index']];
+$this->title = 'Novo Eixo';
+$this->params['breadcrumbs'][] = ['label' => 'Cadastro de Eixo', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="nivel-create">
+<div class="eixo-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

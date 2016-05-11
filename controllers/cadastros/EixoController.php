@@ -3,16 +3,16 @@
 namespace app\controllers\cadastros;
 
 use Yii;
-use app\models\cadastros\Nivel;
-use app\models\cadastros\NivelSearch;
+use app\models\cadastros\Eixo;
+use app\models\cadastros\EixoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * NivelController implements the CRUD actions for Nivel model.
+ * EixoController implements the CRUD actions for Eixo model.
  */
-class NivelController extends Controller
+class EixoController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class NivelController extends Controller
     }
 
     /**
-     * Lists all Nivel models.
+     * Lists all Eixo models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new NivelSearch();
+        $searchModel = new EixoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class NivelController extends Controller
     }
 
     /**
-     * Displays a single Nivel model.
+     * Displays a single Eixo model.
      * @param string $id
      * @return mixed
      */
@@ -57,17 +57,17 @@ class NivelController extends Controller
     }
 
     /**
-     * Creates a new Nivel model.
+     * Creates a new Eixo model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Nivel();
+        $model = new Eixo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Nível cadastrado!</strong>');
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Eixo cadastrado!</strong>');
 
             return $this->redirect(['index']);
         } else {
@@ -78,7 +78,7 @@ class NivelController extends Controller
     }
 
     /**
-     * Updates an existing Nivel model.
+     * Updates an existing Eixo model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -89,7 +89,7 @@ class NivelController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Nível atualizado!</strong>');
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Eixo atualizado!</strong>');
 
             return $this->redirect(['index']);
         } else {
@@ -100,7 +100,7 @@ class NivelController extends Controller
     }
 
     /**
-     * Deletes an existing Nivel model.
+     * Deletes an existing Eixo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -113,15 +113,15 @@ class NivelController extends Controller
     }
 
     /**
-     * Finds the Nivel model based on its primary key value.
+     * Finds the Eixo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return Nivel the loaded model
+     * @return Eixo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Nivel::findOne($id)) !== null) {
+        if (($model = Eixo::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

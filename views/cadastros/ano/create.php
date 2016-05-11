@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\cadastros\Nivel */
+/* @var $model app\models\cadastros\Ano */
 
-$this->title = 'Novo Nivel';
-$this->params['breadcrumbs'][] = ['label' => 'Cadastro de Nivel', 'url' => ['index']];
+$this->title = 'Novo Ano';
+$this->params['breadcrumbs'][] = ['label' => 'Cadastro de Ano', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="nivel-create">
+<div class="ano-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
