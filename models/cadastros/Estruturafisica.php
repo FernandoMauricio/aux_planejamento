@@ -60,6 +60,6 @@ class Estruturafisica extends \yii\db\ActiveRecord
      */
     public function getPlanodeacaoEstruturafisicas()
     {
-        return $this->hasMany(PlanodeacaoEstruturafisica::className(), ['estruturafisica_estr_cod' => 'estr_cod']);
+        return $this->hasMany(PlanoEstruturafisica::className(), ['estruturafisica_estr_cod' => 'estr_cod']);
     }
 }
