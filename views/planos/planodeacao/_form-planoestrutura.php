@@ -86,7 +86,16 @@ $this->registerJs($js);
                                         <?= $form->field($modelPlanoEstrutura, "[{$index}]quantidade")->textInput() ?>
                                     </div>
                                     <div class="col-sm-2">
-                                        <?= $form->field($modelPlanoEstrutura, "[{$index}]tipo")->textInput() ?>
+                                            <?php
+                                                        $data_estruturafisica = ArrayHelper::map($estruturafisica, 'estr_cod', 'estr_descricao');
+                                                        echo $form->field($modelPlanoEstrutura, "[{$index}]tipo")->widget(Select2::classname(), [
+                                                                'data' =>  ['aluno'=> 'aluno', 'turma'=>'turma'],
+                                                                'options' => ['placeholder' => 'Selecione o tipo...'],
+                                                                'pluginOptions' => [
+                                                                        'allowClear' => true
+                                                                    ],
+                                                                ]);
+                                            ?>
                                     </div>
 
                             </div>

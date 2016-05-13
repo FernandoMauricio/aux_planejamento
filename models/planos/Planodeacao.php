@@ -64,11 +64,10 @@ class Planodeacao extends \yii\db\ActiveRecord
     {
         return [
             [['plan_descricao', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria', 'plan_codcolaborador', 'plan_data', 'plan_status'], 'required'],
-            [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_codcolaborador', 'plan_status'], 'integer'],
+            [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria','plan_codcolaborador', 'plan_status'], 'integer'],
             [['plan_sobre', 'plan_prerequisito', 'plan_orgcurricular', 'plan_perfTecnico', 'plan_matConsumo', 'plan_matAluno'], 'string'],
             [['plan_data'], 'safe'],
             [['plan_descricao'], 'string', 'max' => 100],
-            [['plan_cargahoraria'], 'string', 'max' => 20],
             [['plan_codeixo'], 'exist', 'skipOnError' => true, 'targetClass' => Eixo::className(), 'targetAttribute' => ['plan_codeixo' => 'eix_codeixo']],
             [['plan_codnivel'], 'exist', 'skipOnError' => true, 'targetClass' => Nivel::className(), 'targetAttribute' => ['plan_codnivel' => 'niv_codnivel']],
             [['plan_codsegmento'], 'exist', 'skipOnError' => true, 'targetClass' => Segmento::className(), 'targetAttribute' => ['plan_codsegmento' => 'seg_codsegmento']],
