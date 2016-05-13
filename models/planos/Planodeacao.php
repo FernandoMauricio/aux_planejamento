@@ -82,22 +82,22 @@ class Planodeacao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'plan_codplano' => 'Plan Codplano',
-            'plan_descricao' => 'Plan Descricao',
-            'plan_codeixo' => 'Plan Codeixo',
-            'plan_codsegmento' => 'Plan Codsegmento',
-            'plan_codtipoa' => 'Plan Codtipoa',
-            'plan_codnivel' => 'Plan Codnivel',
-            'plan_cargahoraria' => 'Plan Cargahoraria',
-            'plan_sobre' => 'Plan Sobre',
-            'plan_prerequisito' => 'Plan Prerequisito',
-            'plan_orgcurricular' => 'Plan Orgcurricular',
-            'plan_perfTecnico' => 'Plan Perf Tecnico',
-            'plan_matConsumo' => 'Plan Mat Consumo',
-            'plan_matAluno' => 'Plan Mat Aluno',
+            'plan_codplano' => 'Código',
+            'plan_descricao' => 'Título',
+            'plan_codeixo' => 'Eixo',
+            'plan_codsegmento' => 'Segmento',
+            'plan_codtipoa' => 'Tipo de Ação',
+            'plan_codnivel' => 'Nível',
+            'plan_cargahoraria' => 'Carga Horária',
+            'plan_sobre' => 'Sobre',
+            'plan_prerequisito' => 'Pré-Requisito',
+            'plan_orgcurricular' => 'Organização Curricular',
+            'plan_perfTecnico' => 'Perfil Técnico',
+            'plan_matConsumo' => 'Material de Consumo',
+            'plan_matAluno' => 'Material do Aluno',
             'plan_codcolaborador' => 'Plan Codcolaborador',
-            'plan_data' => 'Plan Data',
-            'plan_status' => 'Plan Status',
+            'plan_data' => 'Data',
+            'plan_status' => 'Situação',
         ];
     }
 
@@ -136,9 +136,9 @@ class Planodeacao extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlanCodeixo()
+    public function getEixo()
     {
-        return $this->hasOne(EixoEix::className(), ['eix_codeixo' => 'plan_codeixo']);
+        return $this->hasOne(Eixo::className(), ['eix_codeixo' => 'plan_codeixo']);
     }
 
     /**
@@ -149,13 +149,13 @@ class Planodeacao extends \yii\db\ActiveRecord
         return $this->hasOne(NivelNiv::className(), ['niv_codnivel' => 'plan_codnivel']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPlanCodsegmento()
-    {
-        return $this->hasOne(SegmentoSeg::className(), ['seg_codsegmento' => 'plan_codsegmento']);
-    }
+    // /**
+    //  * @return \yii\db\ActiveQuery
+    //  */
+    // public function getSegmento()
+    // {
+    //     return $this->hasOne(Segmento::className(), ['seg_codsegmento' => 'plan_codsegmento']);
+    // }
 
     /**
      * @return \yii\db\ActiveQuery

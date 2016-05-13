@@ -4,13 +4,17 @@ namespace app\controllers\planos;
 
 use Yii;
 use app\models\Model;
+use app\models\cadastros\Segmento;
+use app\models\cadastros\Eixo;
 use app\models\cadastros\Estruturafisica;
+use app\models\planos\Segmentotipoacao;
 use app\models\planos\PlanoEstruturafisica;
 use app\models\planos\Planodeacao;
 use app\models\planos\PlanodeacaoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * PlanodeacaoController implements the CRUD actions for Planodeacao model.
@@ -111,6 +115,44 @@ class PlanodeacaoController extends Controller
             ]);
         }
     }
+
+    //Localiza os segmentos vinculados aos eixos
+    public function actionSegmento() {
+            $out = [];
+            if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+
+            if ($parents != null) {
+            $cat_id = $parents[0];
+            $out = Segmento::getSegmentoSubCat($cat_id);
+            echo Json::encode(['output'=>$out, 'selected'=>'']);
+            return;
+            }
+            }
+            echo Json::encode(['output'=>'', 'selected'=>'']);
+            }
+
+
+
+    //Localiza os tipos de ações vinculados aos eixos e segmentos    
+    public function actionTipos() {
+            $out = [];
+            if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+
+            if ($parents != null) {
+            $cat_id = $parents[0];
+            $out = Segmentotipoacao::getTiposSubCat($cat_id);
+            echo Json::encode(['output'=>$out, 'selected'=>'']);
+            return;
+            }
+            }
+            echo Json::encode(['output'=>'', 'selected'=>'']);
+            }
+
+
+
+
 
     /**
      * Updates an existing Planodeacao model.

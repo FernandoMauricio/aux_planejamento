@@ -49,6 +49,13 @@ AppAsset::register($this);
                        ],
             ],
 
+            [
+            'label' => 'Plano de Ação',
+            'items' => [
+                         ['label' => 'Cadastro do Plano', 'url' => ['/planos/planodeacao/index']],
+                       ],
+            ],
+
         ],
     ]);
     NavBar::end();

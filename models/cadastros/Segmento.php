@@ -61,6 +61,18 @@ class Segmento extends \yii\db\ActiveRecord
         ];
     }
 
+
+    //Busca dados dos eixos vinculados aos segmentos
+    public static function getSegmentoSubCat($plan_codsegmento) {
+        $data=\app\models\cadastros\Segmento::find()
+       ->where(['seg_codeixo'=>$plan_codsegmento])
+       ->select(['seg_codsegmento AS id','seg_descricao AS name'])->asArray()->all();
+
+            return $data;
+        }
+
+
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -92,4 +104,5 @@ class Segmento extends \yii\db\ActiveRecord
     {
         return $this->hasMany(SegmentotipoacaoSegtip::className(), ['segtip_codsegmento' => 'seg_codsegmento']);
     }
+
 }

@@ -4,6 +4,7 @@ namespace app\models\cadastros;
 
 use Yii;
 
+
 /**
  * This is the model class for table "eixo_eix".
  *
