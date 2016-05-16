@@ -19,121 +19,61 @@ use app\models\cadastros\Segmento;
 <div class="planodeacao-form">
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
-
-                    <div class="row">
-                        <div class="col-md-10">
-
-                        <?= $form->field($model, 'plan_descricao')->textInput(['maxlength' => true]) ?>
-
-                         </div>
-
-                         <div class="col-md-2">
-
-                        <?= $form->field($model, 'plan_cargahoraria')->textInput(['maxlength' => true]) ?>
-
-                         </div>
-
-                        <div class="col-md-3">
-                            <?php
-                            $nivelList=ArrayHelper::map(app\models\cadastros\Nivel::find()->all(), 'niv_codnivel', 'niv_descricao' ); 
-                                        echo $form->field($model, 'plan_codnivel')->widget(Select2::classname(), [
-                                                'data' =>  $nivelList,
-                                                'options' => ['placeholder' => 'Selecione o Nivel...'],
-                                                'pluginOptions' => [
-                                                        'allowClear' => true
-                                                    ],
-                                                ]);
-                            ?>
-
-                        </div>
-
-                        <div class="col-md-3">
-                            <?php
-                                $EixoList=ArrayHelper::map(app\models\cadastros\Eixo::find()->all(), 'eix_codeixo', 'eix_descricao' ); 
-                                            echo $form->field($model, 'plan_codeixo')->widget(Select2::classname(), [
-                                                    'data' =>  $EixoList,
-                                                    'options' => ['id' => 'eixo-id','placeholder' => 'Selecione o Eixo...'],
-                                                    'pluginOptions' => [
-                                                            'allowClear' => true
-                                                        ],
-                                                    ]);
-
-
-                            ?>
-                        </div>
-
-                        <div class="col-md-3">
-                            <?php
-                                // Child # 1
-                                echo $form->field($model, 'plan_codsegmento')->widget(DepDrop::classname(), [
-                                    'type'=>DepDrop::TYPE_SELECT2,
-                                    'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
-                                    'options'=>['id'=>'segmento-id'],
-                                    'pluginOptions'=>[
-                                        'depends'=>['eixo-id'],
-                                        'placeholder'=>'Selecione o Segmento...',
-                                        'url'=>Url::to(['/planos/planodeacao/segmento'])
-                                    ]
-                                ]);
-
-
-                            ?>
-                        </div>
-
-                        <div class="col-md-3">
-                            <?php
-                                // Child # 2
-                                echo $form->field($model, 'plan_codtipoa')->widget(DepDrop::classname(), [
-                                    'type'=>DepDrop::TYPE_SELECT2,
-                                    'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
-                                    'pluginOptions'=>[
-                                        'depends'=>['segmento-id'],
-                                        'placeholder'=>'Selecione o Tipo de Ação...',
-                                        'url'=>Url::to(['/planos/planodeacao/tipos'])
-                                    ]
-                                ]);
-                            ?>
-                        </div>
-
+                   
+     <div class="panel panel-primary">
+                      <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-book"></span>  Cadastros de Planos de Ação</h3>
                       </div>
+                            <div class="panel-body">
+                                 <div id="rootwizard" class="tabbable tabs-left">
+                                  <ul>
+                                         <li><a href="#tab1" data-toggle="tab">Informações</a></li>
+                                         <li><a href="#tab2" data-toggle="tab">Material Didático</a></li>
+                                         <li><a href="#tab3" data-toggle="tab">Material de Consumo</a></li>
+                                         <li><a href="#tab4" data-toggle="tab">Material do Aluno</a></li>
+                                         <li><a href="#tab5" data-toggle="tab">Estrutura Física</a></li>
+                                         <li><a href="#tab6" data-toggle="tab">Outros Custos</a></li>
+                                  </ul>
 
-                        <?= $form->field($model, 'plan_sobre')->textarea(['rows' => 6]) ?>
+                                              <div class="tab-content">
 
-                        <?= $form->field($model, 'plan_prerequisito')->textarea(['rows' => 6]) ?>
+                                                    <div class="tab-pane" id="tab1">
+                                                        <?= $this->render('_form-plano', [
+                                                            'model' => $model,
+                                                            'estruturafisica' => $estruturafisica,
+                                                            'modelsPlanoMaterial' => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
+                                                            'modelsPlanoEstrutura' => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,
+                                                        ]) ?>
+                                                    </div>
 
-                        <?= $form->field($model, 'plan_orgcurricular')->textarea(['rows' => 6]) ?>
 
-                        <?= $form->field($model, 'plan_perfTecnico')->textarea(['rows' => 6]) ?>
+                                                    <div class="tab-pane" id="tab2">
+                                                        <?= $this->render('_form-planomaterial', [
+                                                            'form' => $form,
+                                                            'tipoplanomaterial' => $tipoplanomaterial,
+                                                            'modelsPlanoMaterial' => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
+                                                        ]) ?>
+                                                    </div>
 
 
-                                      <!--            INFORMAÇÕES DAS ESTRUTURAS FÍSICAS DO PLANO                -->
+                                                    <div class="tab-pane" id="tab5">
+                                                       <?= $this->render('_form-planoestrutura', [
+                                                           'form' => $form,
+                                                           'modelsPlanoEstrutura' => $modelsPlanoEstrutura,
+                                                           'estruturafisica' => $estruturafisica,
+                                                           //'dataProviderPlanoMaterial' => $dataProviderPlanoMaterial,
+                                                       ]) ?>
+                                                    </div>
+                                           </div> 
+                                   </div> 
+                            </div>
+                  </div>
 
-                        <?php
-                                echo $this->render('_form-planoestrutura', [
-                                    'form' => $form,
-                                    'model' => $model,
-                                    'estruturafisica' => $estruturafisica,
-                                    'modelsPlanoEstrutura' => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,
-                                ])
-                        ?>
-
-                        <?= $form->field($model, 'plan_matConsumo')->textarea(['rows' => 6]) ?>
-
-                        <?= $form->field($model, 'plan_matAluno')->textarea(['rows' => 6]) ?>
-
-                        <?= $form->field($model, 'plan_codcolaborador')->textInput() ?>
-
-                        <?= $form->field($model, 'plan_data')->textInput() ?>
-
-                        <?= $form->field($model, 'plan_status')->textInput() ?>
-
-                        <div class="form-group">
-                            <?= Html::submitButton($model->isNewRecord ? 'Criar Plano' : 'Atualizar Plano', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-                        </div>
 
                         <?php ActiveForm::end(); ?>
 
            </div>
+
 
 
             <!--          JS etapas dos formularios            -->
@@ -148,6 +88,5 @@ $this->registerJs($script);
 ?>
 
 <?php
- $this->registerJsFile(Yii::$app->request->baseUrl.'/js/bootstrap.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
  $this->registerJsFile(Yii::$app->request->baseUrl.'/js/jquery.bootstrap.wizard.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>

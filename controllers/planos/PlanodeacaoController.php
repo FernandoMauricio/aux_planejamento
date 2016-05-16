@@ -7,6 +7,9 @@ use app\models\Model;
 use app\models\cadastros\Segmento;
 use app\models\cadastros\Eixo;
 use app\models\cadastros\Estruturafisica;
+use app\models\planos\Tipoplanomaterial;
+use app\models\planos\PlanoMaterial;
+use app\models\planos\PlanoMaterialSearch;
 use app\models\planos\Segmentotipoacao;
 use app\models\planos\PlanoEstruturafisica;
 use app\models\planos\Planodeacao;
@@ -51,6 +54,18 @@ class PlanodeacaoController extends Controller
         ]);
     }
 
+
+        public function actionPlanoMaterialIndex()
+    {
+        $searchPlanoMaterialModel = new PlanoMaterialSearch();
+        $dataProviderPlanoMaterial = $searchPlanoMaterialModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('/planos/plano-material/index', [
+            'searchModel' => $searchPlanoMaterialModel,
+            'dataProviderPlanoMaterial' => $dataProviderPlanoMaterial,
+        ]);
+    }
+
     /**
      * Displays a single Planodeacao model.
      * @param string $id
@@ -71,12 +86,22 @@ class PlanodeacaoController extends Controller
     public function actionCreate()
     {
         $model = new Planodeacao();
+        $modelsPlanoMaterial = [new PlanoMaterial];
         $modelsPlanoEstrutura = [new PlanoEstruturafisica];
 
         $estruturafisica = EstruturaFisica::find()->all();
+        $tipoplanomaterial = Tipoplanomaterial::find()->all();
+
+        // $searchPlanoMaterialModel = new PlanoMaterialSearch();
+        // $dataProviderPlanoMaterial = $searchPlanoMaterialModel->search(Yii::$app->request->queryParams);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             
+            //Inserir vários Materiais Didáticos
+            $modelsPlanoMaterial = Model::createMultiple(PlanoMaterial::classname());
+            Model::loadMultiple($modelsPlanoMaterial, Yii::$app->request->post());
+
+            //Inserir várias Estruturas Físicas do Plano
             $modelsPlanoEstrutura = Model::createMultiple(PlanoEstruturafisica::classname());
             Model::loadMultiple($modelsPlanoEstrutura, Yii::$app->request->post());
 
@@ -84,11 +109,22 @@ class PlanodeacaoController extends Controller
             $valid = $model->validate();
             $valid = Model::validateMultiple($modelsPlanoEstrutura) && $valid;
 
-            if ($valid) {
-                $transaction = \Yii::$app->db_apl->beginTransaction();
+            $valid2 = $model->validate();
+            $valid_planotmaterial = Model::validateMultiple($modelsPlanoMaterial) && $valid2;
 
+
+            if ($valid && $valid_planotmaterial) {
+                $transaction = \Yii::$app->db_apl->beginTransaction();
                 try {
                     if ($flag = $model->save(false)) {
+                        foreach ($modelsPlanoMaterial as $modelPlanoMaterial) {
+                            $modelPlanoMaterial->plama_codplano = $model->plan_codplano;
+                            if (! ($flag = $modelPlanoMaterial->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+
                         foreach ($modelsPlanoEstrutura as $modelPlanoEstrutura) {
                             $modelPlanoEstrutura->planodeacao_cod = $model->plan_codplano;
                             if (! ($flag = $modelPlanoEstrutura->save(false))) {
@@ -97,21 +133,24 @@ class PlanodeacaoController extends Controller
                             }
                         }
                     }
-
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->plan_codplano]);
+                        return $this->redirect(['index']);
                     }
-                } catch (Exception $e) {
+                }  catch (Exception $e) {
                     $transaction->rollBack();
                 }
             }
-            return $this->redirect(['view', 'id' => $model->plan_codplano]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
                 'estruturafisica' => $estruturafisica,
+                'tipoplanomaterial' => $tipoplanomaterial,
+                'modelsPlanoMaterial' => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
                 'modelsPlanoEstrutura' => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,
+                // 'searchModel' => $searchPlanoMaterialModel,
+                // 'dataProviderPlanoMaterial' => $dataProviderPlanoMaterial,
             ]);
         }
     }
@@ -134,19 +173,19 @@ class PlanodeacaoController extends Controller
 
 
 
-    //Localiza os tipos de ações vinculados aos eixos e segmentos    
+    //Localiza os tipos de ações vinculados aos eixos e segmentos
     public function actionTipos() {
             $out = [];
             if (isset($_POST['depdrop_parents'])) {
             $parents = $_POST['depdrop_parents'];
 
             if ($parents != null) {
-            $cat_id = $parents[0];
-            $out = Segmentotipoacao::getTiposSubCat($cat_id);
-            echo Json::encode(['output'=>$out, 'selected'=>'']);
-            return;
-            }
-            }
+                    $cat_id = $parents[0];
+                    $out = Segmentotipoacao::getTiposSubCat($cat_id);
+                    echo Json::encode(['output'=>$out, 'selected'=>'']);
+                    return;
+                    }
+                 }
             echo Json::encode(['output'=>'', 'selected'=>'']);
             }
 
