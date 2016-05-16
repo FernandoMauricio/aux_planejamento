@@ -47,6 +47,7 @@ $config = [
         ],
         'db' => require(__DIR__ . '/db.php'),
         'db_apl' => require(__DIR__ . '/db_apl.php'),
+        'db_rep' => require(__DIR__ . '/db_rep.php'),
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,

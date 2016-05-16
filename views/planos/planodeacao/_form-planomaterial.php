@@ -3,24 +3,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
+use yii\helpers\Json;
+use yii\helpers\Url;
 
 use wbraganca\dynamicform\DynamicFormWidget;
 
-$js = '
-jQuery(".dynamicform_wrapper").on("afterInsert", function(e, item) {
-    jQuery(".dynamicform_wrapper .panel-title-planoestrutura").each(function(index) {
-        jQuery(this).html("Item: " + (index + 1))
-    });
-});
-
-jQuery(".dynamicform_wrapper").on("afterDelete", function(e) {
-    jQuery(".dynamicform_wrapper .panel-title-planoestrutura").each(function(index) {
-        jQuery(this).html("Item: " + (index + 1))
-    });
-});
-';
-
-$this->registerJs($js);
 ?>
 
 
@@ -69,21 +56,37 @@ $this->registerJs($js);
                                     }
                                 ?>
 
-                                    <div class="col-sm-3">
-                                        <?= $form->field($modelPlanoMaterial, "[{$index}]plama_codrepositorio")->textInput() ?>
+                                    <div class="col-sm-6">
+                                    <?php
+                                         $data_repositorio = ArrayHelper::map($repositorio, 'rep_codrepositorio', 'rep_titulo');
+                                         echo $form->field($modelPlanoMaterial, "[{$index}]plama_codrepositorio")->widget(Select2::classname(), [
+                                                 'data' =>  $data_repositorio,
+                                                 'options' => ['placeholder' => 'Selecione o Material Didático...',
+                                                 'onchange'=>'
+                                                         $.get( "'.Url::toRoute('/planos/planodeacao/get-repositorio').'", { repId: $(this).val() } )
+                                                         .done(function( data ) {
+                                                             var data = $.parseJSON(data);
+                                                            ;
+                                                                
+                                                         $( "#'.Html::getInputId($modelPlanoMaterial,"[{$index}]plama_valor").'" ).val( data.rep_valor );
+                                                         $( "#'.Html::getInputId($modelPlanoMaterial,"[{$index}]plama_tipomaterial").'" ).val( data.rep_codtipo );
+                                                             }
+                                                         );
+                                                         '
+                                                 ]]);
+                                      ?>
                                     </div>
 
-                                    <div class="col-sm-3">
-                                        <?= $form->field($modelPlanoMaterial, "[{$index}]plama_valor")->textInput() ?>
+                                    <div class="col-sm-2">
+                                        <?= $form->field($modelPlanoMaterial, "[{$index}]plama_valor")->textInput(['readonly'=> true]) ?>
                                     </div>
 
-                                    <div class="col-sm-3">
-                                        <?= $form->field($modelPlanoMaterial, "[{$index}]plama_tipomaterial")->textInput() ?>
+                                    <div class="col-sm-2">
+                                        <?= $form->field($modelPlanoMaterial, "[{$index}]plama_tipomaterial")->textInput(['readonly'=> true]) ?>
                                     </div>
 
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-2">
                                             <?php
-
                                                         $data_tipoplanomaterial = ArrayHelper::map($tipoplanomaterial, 'tiplama_codtiplama', 'tiplama_descricao');
                                                         echo $form->field($modelPlanoMaterial, "[{$index}]plama_codtiplama")->widget(Select2::classname(), [
                                                                 'data' =>  $data_tipoplanomaterial,
@@ -105,3 +108,41 @@ $this->registerJs($js);
                 </div>
             </div>
             <?php DynamicFormWidget::end(); ?>
+
+
+<?php
+
+//request plano material
+// $script = <<< JS
+// $('#select[id]').change(function(){
+//     var repId = $(this).val();
+
+//     $.get('index.php?r=planos/planodeacao/get-repositorio',{ repId : repId } , function(data){
+//         var data = $.parseJSON(data);
+//          $('#planomaterial-0-plama_valor').attr('value',data.rep_valor);
+//          $('#planomaterial-0-plama_tipomaterial').attr('value',data.rep_codtipo);
+//     });
+// });
+
+// JS;
+// $this->registerJs($script);
+
+$js = '
+jQuery(".dynamicform_wrapper").on("afterInsert", function(e, item) {
+    jQuery(".dynamicform_wrapper .panel-title-planoestrutura").each(function(index) {
+        jQuery(this).html("Item: " + (index + 1))
+    });
+});
+
+jQuery(".dynamicform_wrapper").on("afterDelete", function(e) {
+    jQuery(".dynamicform_wrapper .panel-title-planoestrutura").each(function(index) {
+        jQuery(this).html("Item: " + (index + 1))
+    });
+});
+';
+
+$this->registerJs($js);
+
+
+
+?>

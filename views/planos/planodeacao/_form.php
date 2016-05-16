@@ -51,6 +51,7 @@ use app\models\cadastros\Segmento;
                                                         <?= $this->render('_form-planomaterial', [
                                                             'form' => $form,
                                                             'tipoplanomaterial' => $tipoplanomaterial,
+                                                            'repositorio' => $repositorio,
                                                             'modelsPlanoMaterial' => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
                                                         ]) ?>
                                                     </div>

@@ -5,6 +5,7 @@ Yii::setAlias('@tests', dirname(__DIR__) . '/tests/codeception');
 $params = require(__DIR__ . '/params.php');
 $db = require(__DIR__ . '/db.php');
 $db_apl = require(__DIR__ . '/db_apl.php');
+$db_rep = require(__DIR__ . '/db_rep.php');
 
 $config = [
     'id' => 'basic-console',
@@ -25,6 +26,7 @@ $config = [
         ],
         'db' => $db,
         'db_apl' => $db_apl,
+        'db_rep' => $db_rep,
     ],
     'params' => $params,
     /*

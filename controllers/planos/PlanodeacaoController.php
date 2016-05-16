@@ -14,6 +14,7 @@ use app\models\planos\Segmentotipoacao;
 use app\models\planos\PlanoEstruturafisica;
 use app\models\planos\Planodeacao;
 use app\models\planos\PlanodeacaoSearch;
+use app\models\repositorio\Repositorio;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -91,12 +92,13 @@ class PlanodeacaoController extends Controller
 
         $estruturafisica = EstruturaFisica::find()->all();
         $tipoplanomaterial = Tipoplanomaterial::find()->all();
+        $repositorio = Repositorio::find()->all();
 
         // $searchPlanoMaterialModel = new PlanoMaterialSearch();
         // $dataProviderPlanoMaterial = $searchPlanoMaterialModel->search(Yii::$app->request->queryParams);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            
+
             //Inserir vários Materiais Didáticos
             $modelsPlanoMaterial = Model::createMultiple(PlanoMaterial::classname());
             Model::loadMultiple($modelsPlanoMaterial, Yii::$app->request->post());
@@ -115,6 +117,7 @@ class PlanodeacaoController extends Controller
 
             if ($valid && $valid_planotmaterial) {
                 $transaction = \Yii::$app->db_apl->beginTransaction();
+                $transactionRep = \Yii::$app->db_rep->beginTransaction();
                 try {
                     if ($flag = $model->save(false)) {
                         foreach ($modelsPlanoMaterial as $modelPlanoMaterial) {
@@ -128,17 +131,19 @@ class PlanodeacaoController extends Controller
                         foreach ($modelsPlanoEstrutura as $modelPlanoEstrutura) {
                             $modelPlanoEstrutura->planodeacao_cod = $model->plan_codplano;
                             if (! ($flag = $modelPlanoEstrutura->save(false))) {
-                                $transaction->rollBack();
+                                $transactionRep->rollBack();
                                 break;
                             }
                         }
                     }
                     if ($flag) {
                         $transaction->commit();
+                        $transactionRep->commit();
                         return $this->redirect(['index']);
                     }
                 }  catch (Exception $e) {
                     $transaction->rollBack();
+                    $transactionRep->rollBack();
                 }
             }
             return $this->redirect(['index']);
@@ -147,6 +152,7 @@ class PlanodeacaoController extends Controller
                 'model' => $model,
                 'estruturafisica' => $estruturafisica,
                 'tipoplanomaterial' => $tipoplanomaterial,
+                'repositorio' => $repositorio,
                 'modelsPlanoMaterial' => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
                 'modelsPlanoEstrutura' => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,
                 // 'searchModel' => $searchPlanoMaterialModel,
@@ -169,7 +175,7 @@ class PlanodeacaoController extends Controller
             }
             }
             echo Json::encode(['output'=>'', 'selected'=>'']);
-            }
+    }
 
 
 
@@ -187,8 +193,15 @@ class PlanodeacaoController extends Controller
                     }
                  }
             echo Json::encode(['output'=>'', 'selected'=>'']);
-            }
+    }
 
+
+    //Localiza os dados de valores e tipos de material cadastrados no repositorio
+    public function actionGetRepositorio($repId){
+
+        $getRepositorio = Repositorio::findOne($repId);
+        echo Json::encode($getRepositorio);
+    }
 
 
 
