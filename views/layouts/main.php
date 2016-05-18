@@ -50,6 +50,16 @@ AppAsset::register($this);
             ],
 
             [
+            'label' => 'Repositório',
+            'items' => [
+                         ['label' => 'Materiais', 'url' => ['/repositorio/materiais/index']],
+                         ['label' => 'Categoria', 'url' => ['/repositorio/categoria/index']],
+                         ['label' => 'Editora', 'url' => ['/repositorio/editora/index']],
+                         ['label' => 'Tipo de Material', 'url' => ['/repositorio/tipomaterial/index']],
+                       ],
+            ],
+
+            [
             'label' => 'Plano de Ação',
             'items' => [
                          ['label' => 'Cadastro do Plano', 'url' => ['/planos/planodeacao/index']],

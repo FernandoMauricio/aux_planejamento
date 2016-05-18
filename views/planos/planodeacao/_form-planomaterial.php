@@ -25,11 +25,12 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                             'model' => $modelsPlanoMaterial[0],
                                             'formId' => 'dynamic-form',
                                             'formFields' => [
-                                                'planestr_cod',
-                                                'planodeacao_cod',
-                                                'estruturafisica_cod',
-                                                'quantidade',
-                                                'tipo',
+                                                'plama_codrepositorio',
+                                                'plama_valor',
+                                                'plama_tipomaterial',
+                                                'plama_observacao',
+                                                'rep_valor',
+                                                'rep_tipo',
                                             ],
                                         ]); ?>
 
@@ -63,15 +64,16 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                  'data' =>  $data_repositorio,
                                                  'options' => ['placeholder' => 'Selecione o Material Didático...',
                                                  'onchange'=>'
-                                                         $.get( "'.Url::toRoute('/planos/planodeacao/get-repositorio').'", { repId: $(this).val() } )
+                                                         var select = this;
+                                                         $.getJSON( "'.Url::toRoute('/planos/planodeacao/get-repositorio').'", { repId: $(this).val() } )
                                                          .done(function( data ) {
-                                                             var data = $.parseJSON(data);
-                                                            ;
+                                                                var $divPanelBody =  $(select).parent().parent().parent();
+                                                                var $inputValor = $divPanelBody.find("input:eq(0)");
+                                                                var $inputTipoMaterial = $divPanelBody.find("input:eq(1)");
                                                                 
-                                                         $( "#'.Html::getInputId($modelPlanoMaterial,"[{$index}]plama_valor").'" ).val( data.rep_valor );
-                                                         $( "#'.Html::getInputId($modelPlanoMaterial,"[{$index}]plama_tipomaterial").'" ).val( data.rep_codtipo );
-                                                             }
-                                                         );
+                                                                $inputValor.val(data.rep_valor);
+                                                                $inputTipoMaterial.val(data.rep_tipo);
+                                                             });
                                                          '
                                                  ]]);
                                       ?>
@@ -110,22 +112,35 @@ use wbraganca\dynamicform\DynamicFormWidget;
             <?php DynamicFormWidget::end(); ?>
 
 
-<?php
 
+
+<?php
 //request plano material
 // $script = <<< JS
-// $('#select[id]').change(function(){
-//     var repId = $(this).val();
+// $('#planomaterial-{$index}-plama_codrepositorio').change(function(){
 
-//     $.get('index.php?r=planos/planodeacao/get-repositorio',{ repId : repId } , function(data){
+//     $.get('index.php?r=planos/planodeacao/get-repositorio',{ repId : $(this).val() } , function(data){
 //         var data = $.parseJSON(data);
-//          $('#planomaterial-0-plama_valor').attr('value',data.rep_valor);
-//          $('#planomaterial-0-plama_tipomaterial').attr('value',data.rep_codtipo);
+//          $('#planomaterial-{$index}-plama_valor').val(data.rep_valor);
+//          $('#planomaterial-{$index}-plama_tipomaterial').val(data.rep_tipo);
 //     });
 // });
 
 // JS;
 // $this->registerJs($script);
+
+// function onChangeRepositorio() {
+//     var select = this;
+//     $.getJSON( "'.Url::toRoute('/planos/planodeacao/get-repositorio').'", { repId: $(this).val() } )
+//     .done(function( data ) {
+//         var $divPanelBody =  $(select).parent().parent().parent();
+//         var $inputValor = $divPanelBody.find("input:eq(0)");
+//         var $inputTipoMaterial = $divPanelBody.find("input:eq(1)");
+        
+//         $inputValor.val(data.rep_valor);
+//         $inputTipoMaterial.val(data.rep_tipo);
+//      });
+// };
 
 $js = '
 jQuery(".dynamicform_wrapper").on("afterInsert", function(e, item) {
@@ -139,6 +154,10 @@ jQuery(".dynamicform_wrapper").on("afterDelete", function(e) {
         jQuery(this).html("Item: " + (index + 1))
     });
 });
+
+function onChangeRepositorio() {
+
+}
 ';
 
 $this->registerJs($js);
