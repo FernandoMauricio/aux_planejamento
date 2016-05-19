@@ -6,21 +6,6 @@ use kartik\select2\Select2;
 
 use wbraganca\dynamicform\DynamicFormWidget;
 
-$js = '
-jQuery(".dynamicform_wrapper").on("afterInsert", function(e, item) {
-    jQuery(".dynamicform_wrapper .panel-title-planoestrutura").each(function(index) {
-        jQuery(this).html("Item: " + (index + 1))
-    });
-});
-
-jQuery(".dynamicform_wrapper").on("afterDelete", function(e) {
-    jQuery(".dynamicform_wrapper .panel-title-planoestrutura").each(function(index) {
-        jQuery(this).html("Item: " + (index + 1))
-    });
-});
-';
-
-$this->registerJs($js);
 ?>
 
 
@@ -104,3 +89,23 @@ $this->registerJs($js);
                 </div>
             </div>
             <?php DynamicFormWidget::end(); ?>
+
+<?php
+
+$js = '
+jQuery(".dynamicform_wrapper").on("afterInsert", function(e, item) {
+    jQuery(".dynamicform_wrapper .panel-title-planoestrutura").each(function(index) {
+        jQuery(this).html("Item: " + (index + 1))
+    });
+});
+
+jQuery(".dynamicform_wrapper").on("afterDelete", function(e) {
+    jQuery(".dynamicform_wrapper .panel-title-planoestrutura").each(function(index) {
+        jQuery(this).html("Item: " + (index + 1))
+    });
+});
+';
+
+$this->registerJs($js);
+
+?>

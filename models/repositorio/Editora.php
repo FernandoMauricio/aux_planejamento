@@ -60,6 +60,6 @@ class Editora extends \yii\db\ActiveRecord
      */
     public function getRepositorioReps()
     {
-        return $this->hasMany(RepositorioRep::className(), ['rep_codeditora' => 'edi_codeditora']);
+        return $this->hasMany(RepositorioRep::className(), ['rep_editora' => 'edi_codeditora']);
     }
 }

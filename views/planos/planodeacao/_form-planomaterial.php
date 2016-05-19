@@ -28,9 +28,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                 'plama_codrepositorio',
                                                 'plama_valor',
                                                 'plama_tipomaterial',
+                                                'plama_editora',
                                                 'plama_observacao',
-                                                'rep_valor',
-                                                'rep_tipo',
                                             ],
                                         ]); ?>
 
@@ -45,7 +44,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                     <?php foreach ($modelsPlanoMaterial as $index => $modelPlanoMaterial): ?>
                         <div class="item panel panel-default"><!-- widgetBody -->
                             <div class="panel-heading">
-                                <span class="panel-title-planoestrutura">Item: <?= ($index + 1) ?></span>
+                                <span class="panel-title-planomaterial">Item: <?= ($index + 1) ?></span>
                                 <button type="button" class="pull-right remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
                                 <div class="clearfix"></div>
                             </div>
@@ -57,7 +56,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     }
                                 ?>
 
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-5">
                                     <?php
                                          $data_repositorio = ArrayHelper::map($repositorio, 'rep_codrepositorio', 'rep_titulo');
                                          echo $form->field($modelPlanoMaterial, "[{$index}]plama_codrepositorio")->widget(Select2::classname(), [
@@ -67,24 +66,33 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                          var select = this;
                                                          $.getJSON( "'.Url::toRoute('/planos/planodeacao/get-repositorio').'", { repId: $(this).val() } )
                                                          .done(function( data ) {
+
                                                                 var $divPanelBody =  $(select).parent().parent().parent();
                                                                 var $inputValor = $divPanelBody.find("input:eq(0)");
                                                                 var $inputTipoMaterial = $divPanelBody.find("input:eq(1)");
-                                                                
+                                                                var $inputEditora = $divPanelBody.find("input:eq(2)");
+
+                                                                console.log(data)
+
                                                                 $inputValor.val(data.rep_valor);
                                                                 $inputTipoMaterial.val(data.rep_tipo);
+                                                                $inputEditora.val(data.rep_editora);
                                                              });
                                                          '
                                                  ]]);
                                       ?>
                                     </div>
 
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-1">
                                         <?= $form->field($modelPlanoMaterial, "[{$index}]plama_valor")->textInput(['readonly'=> true]) ?>
                                     </div>
 
                                     <div class="col-sm-2">
                                         <?= $form->field($modelPlanoMaterial, "[{$index}]plama_tipomaterial")->textInput(['readonly'=> true]) ?>
+                                    </div>
+
+                                     <div class="col-sm-2">
+                                        <?= $form->field($modelPlanoMaterial, "[{$index}]plama_editora")->textInput(['readonly'=> true]) ?>
                                     </div>
 
                                     <div class="col-sm-2">
@@ -116,19 +124,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 <?php
 //request plano material
-// $script = <<< JS
-// $('#planomaterial-{$index}-plama_codrepositorio').change(function(){
-
-//     $.get('index.php?r=planos/planodeacao/get-repositorio',{ repId : $(this).val() } , function(data){
-//         var data = $.parseJSON(data);
-//          $('#planomaterial-{$index}-plama_valor').val(data.rep_valor);
-//          $('#planomaterial-{$index}-plama_tipomaterial').val(data.rep_tipo);
-//     });
-// });
-
-// JS;
-// $this->registerJs($script);
-
 // function onChangeRepositorio() {
 //     var select = this;
 //     $.getJSON( "'.Url::toRoute('/planos/planodeacao/get-repositorio').'", { repId: $(this).val() } )
@@ -144,13 +139,13 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 $js = '
 jQuery(".dynamicform_wrapper").on("afterInsert", function(e, item) {
-    jQuery(".dynamicform_wrapper .panel-title-planoestrutura").each(function(index) {
+    jQuery(".dynamicform_wrapper .panel-title-planomaterial").each(function(index) {
         jQuery(this).html("Item: " + (index + 1))
     });
 });
 
 jQuery(".dynamicform_wrapper").on("afterDelete", function(e) {
-    jQuery(".dynamicform_wrapper .panel-title-planoestrutura").each(function(index) {
+    jQuery(".dynamicform_wrapper .panel-title-planomaterial").each(function(index) {
         jQuery(this).html("Item: " + (index + 1))
     });
 });

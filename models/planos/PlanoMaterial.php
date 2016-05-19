@@ -45,7 +45,7 @@ class PlanoMaterial extends \yii\db\ActiveRecord
             [['plama_codplano', 'plama_codtiplama', 'plama_codrepositorio'], 'integer'],
             [['plama_valor'], 'number'],
             [['plama_titulo', 'plama_arquivo', 'plama_observacao'], 'string', 'max' => 100],
-            [['plama_tipomaterial'], 'string', 'max' => 50],
+            [['plama_tipomaterial', 'plama_editora'], 'string', 'max' => 50],
         ];
     }
 
@@ -63,6 +63,7 @@ class PlanoMaterial extends \yii\db\ActiveRecord
             'plama_valor' => 'Valor',
             'plama_arquivo' => 'Plama Arquivo',
             'plama_tipomaterial' => 'Tipo Material',
+            'plama_editora' => 'Editora',
             'plama_observacao' => 'Observação',
         ];
     }

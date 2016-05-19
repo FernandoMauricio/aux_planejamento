@@ -81,7 +81,7 @@ class Planodeacao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'plan_codplano' => 'Código',
+            'plan_codplano' => 'Código do Plano',
             'plan_descricao' => 'Título',
             'plan_codeixo' => 'Eixo',
             'plan_codsegmento' => 'Segmento',
@@ -148,19 +148,19 @@ class Planodeacao extends \yii\db\ActiveRecord
         return $this->hasOne(NivelNiv::className(), ['niv_codnivel' => 'plan_codnivel']);
     }
 
-    // /**
-    //  * @return \yii\db\ActiveQuery
-    //  */
-    // public function getSegmento()
-    // {
-    //     return $this->hasOne(Segmento::className(), ['seg_codsegmento' => 'plan_codsegmento']);
-    // }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSegmento()
+    {
+        return $this->hasOne(Segmento::className(), ['seg_codsegmento' => 'plan_codsegmento']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlanCodtipoa()
+    public function getTipo()
     {
-        return $this->hasOne(TipodeacaoTip::className(), ['tip_codtipoa' => 'plan_codtipoa']);
+        return $this->hasOne(Tipo::className(), ['tip_codtipoa' => 'plan_codtipoa']);
     }
 }

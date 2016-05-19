@@ -18,7 +18,7 @@ class RepositorioSearch extends Repositorio
     public function rules()
     {
         return [
-            [['rep_codrepositorio', 'rep_codcategoria', 'rep_codeditora', 'rep_codunidade', 'rep_codcolaborador', 'rep_codvisualizacao'], 'integer'],
+            [['rep_codrepositorio', 'rep_codcategoria', 'rep_editora', 'rep_codunidade', 'rep_codcolaborador', 'rep_codvisualizacao'], 'integer'],
             [['rep_titulo', 'rep_tipo', 'rep_sobre', 'rep_arquivo', 'rep_data', 'rep_palavrachave'], 'safe'],
             [['rep_valor'], 'number'],
         ];
@@ -62,7 +62,7 @@ class RepositorioSearch extends Repositorio
         $query->andFilterWhere([
             'rep_codrepositorio' => $this->rep_codrepositorio,
             'rep_codcategoria' => $this->rep_codcategoria,
-            'rep_codeditora' => $this->rep_codeditora,
+            'rep_editora' => $this->rep_editora,
             'rep_valor' => $this->rep_valor,
             'rep_codunidade' => $this->rep_codunidade,
             'rep_codcolaborador' => $this->rep_codcolaborador,
