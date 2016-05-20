@@ -9,7 +9,7 @@ use Yii;
  *
  * @property string $rep_codrepositorio
  * @property string $rep_titulo
- * @property string $rep_codcategoria
+ * @property string $rep_categoria
  * @property string $rep_tipo
  * @property string $rep_editora
  * @property double $rep_valor
@@ -18,12 +18,6 @@ use Yii;
  * @property integer $rep_codunidade
  * @property integer $rep_codcolaborador
  * @property string $rep_data
- * @property string $rep_codvisualizacao
- * @property string $rep_palavrachave
- *
- * @property CategoriaCat $repCodcategoria
- * @property EditoraEdi $repCodeditora
- * @property VisualizacaomaterialVis $repCodvisualizacao
  */
 class Repositorio extends \yii\db\ActiveRecord
 {
@@ -49,16 +43,14 @@ class Repositorio extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rep_titulo', 'rep_codcategoria', 'rep_tipo', 'rep_editora', 'rep_sobre', 'rep_codunidade', 'rep_codcolaborador', 'rep_data', 'rep_codvisualizacao', 'rep_palavrachave'], 'required'],
-            [['rep_codcategoria', 'rep_editora', 'rep_codunidade', 'rep_codcolaborador', 'rep_codvisualizacao'], 'integer'],
+            [['rep_titulo', 'rep_categoria', 'rep_tipo', 'rep_editora', 'rep_sobre', 'rep_codunidade', 'rep_codcolaborador', 'rep_data'], 'required'],
             [['rep_valor'], 'number'],
+            [['rep_codunidade', 'rep_codcolaborador'], 'integer'],
             [['rep_data'], 'safe'],
             [['rep_titulo'], 'string', 'max' => 80],
+            [['rep_categoria', 'rep_editora'], 'string', 'max' => 50],
             [['rep_tipo', 'rep_arquivo'], 'string', 'max' => 100],
             [['rep_sobre'], 'string', 'max' => 255],
-            [['rep_palavrachave'], 'string', 'max' => 200],
-            [['rep_codcategoria'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::className(), 'targetAttribute' => ['rep_codcategoria' => 'cat_codcategoria']],
-            [['rep_editora'], 'exist', 'skipOnError' => true, 'targetClass' => Editora::className(), 'targetAttribute' => ['rep_editora' => 'edi_codeditora']],
         ];
     }
 
@@ -70,34 +62,15 @@ class Repositorio extends \yii\db\ActiveRecord
         return [
             'rep_codrepositorio' => 'Rep Codrepositorio',
             'rep_titulo' => 'Rep Titulo',
-            'rep_codcategoria' => 'Rep Codcategoria',
+            'rep_categoria' => 'Rep Categoria',
             'rep_tipo' => 'Rep Tipo',
-            'rep_editora' => 'Rep Codeditora',
+            'rep_editora' => 'Rep Editora',
             'rep_valor' => 'Rep Valor',
             'rep_sobre' => 'Rep Sobre',
             'rep_arquivo' => 'Rep Arquivo',
             'rep_codunidade' => 'Rep Codunidade',
             'rep_codcolaborador' => 'Rep Codcolaborador',
             'rep_data' => 'Rep Data',
-            'rep_codvisualizacao' => 'Rep Codvisualizacao',
-            'rep_palavrachave' => 'Rep Palavrachave',
         ];
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRepCodcategoria()
-    {
-        return $this->hasOne(CategoriaCat::className(), ['cat_codcategoria' => 'rep_codcategoria']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRepCodeditora()
-    {
-        return $this->hasOne(EditoraEdi::className(), ['edi_codeditora' => 'rep_editora']);
-    }
-
 }

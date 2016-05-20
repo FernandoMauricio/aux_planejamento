@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'rep_titulo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'rep_codcategoria')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'rep_categoria')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'rep_tipo')->textInput(['maxlength' => true]) ?>
 
@@ -31,10 +31,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'rep_codcolaborador')->textInput() ?>
 
     <?= $form->field($model, 'rep_data')->textInput() ?>
-
-    <?= $form->field($model, 'rep_codvisualizacao')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'rep_palavrachave')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'rep_codrepositorio',
             'rep_titulo',
-            'rep_codcategoria',
+            'rep_categoria',
             'rep_tipo',
             'rep_editora',
             // 'rep_valor',
@@ -35,8 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'rep_codunidade',
             // 'rep_codcolaborador',
             // 'rep_data',
-            // 'rep_codvisualizacao',
-            // 'rep_palavrachave',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

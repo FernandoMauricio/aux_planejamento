@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'rep_titulo') ?>
 
-    <?= $form->field($model, 'rep_codcategoria') ?>
+    <?= $form->field($model, 'rep_categoria') ?>
 
     <?= $form->field($model, 'rep_tipo') ?>
 
@@ -36,10 +36,6 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'rep_codcolaborador') ?>
 
     <?php // echo $form->field($model, 'rep_data') ?>
-
-    <?php // echo $form->field($model, 'rep_codvisualizacao') ?>
-
-    <?php // echo $form->field($model, 'rep_palavrachave') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
