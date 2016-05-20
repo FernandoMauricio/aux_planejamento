@@ -52,7 +52,7 @@ AppAsset::register($this);
             [
             'label' => 'Repositório',
             'items' => [
-                         ['label' => 'Materiais', 'url' => ['/repositorio/materiais/index']],
+                         ['label' => 'Materiais Didáticos', 'url' => ['/repositorio/repositorio-materiais/index']],
                          ['label' => 'Categoria', 'url' => ['/repositorio/categoria/index']],
                          ['label' => 'Editora', 'url' => ['/repositorio/editora/index']],
                          ['label' => 'Tipo de Material', 'url' => ['/repositorio/tipomaterial/index']],

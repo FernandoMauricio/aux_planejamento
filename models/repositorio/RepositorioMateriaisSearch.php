@@ -8,9 +8,9 @@ use yii\data\ActiveDataProvider;
 use app\models\repositorio\Repositorio;
 
 /**
- * RepositorioSearch represents the model behind the search form about `app\models\repositorio\Repositorio`.
+ * RepositorioMateriaisSearch represents the model behind the search form about `app\models\repositorio\Repositorio`.
  */
-class RepositorioSearch extends Repositorio
+class RepositorioMateriaisSearch extends Repositorio
 {
     /**
      * @inheritdoc

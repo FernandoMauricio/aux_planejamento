@@ -15,13 +15,13 @@ use wbraganca\dynamicform\DynamicFormWidget;
         <div class="line line-dashed"></div>
     </div>
                                          <?php DynamicFormWidget::begin([
-                                            'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
-                                            'widgetBody' => '.container-items', // required: css class selector
-                                            'widgetItem' => '.item', // required: css class
+                                            'widgetContainer' => 'dynamicform_planomaterial', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                                            'widgetBody' => '.container-items-planomaterial', // required: css class selector
+                                            'widgetItem' => '.item-planomaterial', // required: css class
                                             'limit' => 4, // the maximum times, an element can be cloned (default 999)
                                             'min' => 1, // 0 or 1 (default 1)
-                                            'insertButton' => '.add-item', // css class
-                                            'deleteButton' => '.remove-item', // css class
+                                            'insertButton' => '.add-item-planomaterial', // css class
+                                            'deleteButton' => '.remove-item-planomaterial', // css class
                                             'model' => $modelsPlanoMaterial[0],
                                             'formId' => 'dynamic-form',
                                             'formFields' => [
@@ -30,6 +30,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                 'plama_tipomaterial',
                                                 'plama_editora',
                                                 'plama_observacao',
+                                                'plama_arquivo',
                                             ],
                                         ]); ?>
 
@@ -37,15 +38,15 @@ use wbraganca\dynamicform\DynamicFormWidget;
         <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class="glyphicon glyphicon-list-alt"></i> Listagem de Materias Didáticos
-                    <button type="button" class="pull-right add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i> Adicionar Item</button>
+                    <button type="button" class="pull-right add-item-planomaterial btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i> Adicionar Item</button>
                     <div class="clearfix"></div>
                 </div>
-                <div class="panel-body container-items"><!-- widgetContainer -->
+                <div class="panel-body container-items-planomaterial"><!-- widgetContainer -->
                     <?php foreach ($modelsPlanoMaterial as $index => $modelPlanoMaterial): ?>
-                        <div class="item panel panel-default"><!-- widgetBody -->
+                        <div class="item-planomaterial panel panel-default"><!-- widgetBody -->
                             <div class="panel-heading">
                                 <span class="panel-title-planomaterial">Item: <?= ($index + 1) ?></span>
-                                <button type="button" class="pull-right remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                <button type="button" class="pull-right remove-item-planomaterial btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="panel-body">
@@ -71,12 +72,15 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                                 var $inputValor = $divPanelBody.find("input:eq(0)");
                                                                 var $inputTipoMaterial = $divPanelBody.find("input:eq(1)");
                                                                 var $inputEditora = $divPanelBody.find("input:eq(2)");
+                                                                var $inputArquivo = $divPanelBody.find("input:eq(4)");
 
-                                                                console.log(data)
 
                                                                 $inputValor.val(data.rep_valor);
                                                                 $inputTipoMaterial.val(data.rep_tipo);
                                                                 $inputEditora.val(data.rep_editora);
+
+                                                                $("#inputArquivo").attr("href", data.rep_arquivo);
+                                                                
                                                              });
                                                          '
                                                  ]]);
@@ -91,7 +95,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         <?= $form->field($modelPlanoMaterial, "[{$index}]plama_tipomaterial")->textInput(['readonly'=> true]) ?>
                                     </div>
 
-                                     <div class="col-sm-2">
+                                    <div class="col-sm-2">
                                         <?= $form->field($modelPlanoMaterial, "[{$index}]plama_editora")->textInput(['readonly'=> true]) ?>
                                     </div>
 
@@ -112,14 +116,16 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         <?= $form->field($modelPlanoMaterial, "[{$index}]plama_observacao")->textInput() ?>
                                     </div>
 
+                                    <div class="col-sm-12" >
+                                   <?php echo  '<a id="inputArquivo" href="javascript:" target="_blank">Donwload do arquivo</a>' ?>
+                                    </div>
+
                             </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
             </div>
             <?php DynamicFormWidget::end(); ?>
-
-
 
 
 <?php
@@ -138,21 +144,18 @@ use wbraganca\dynamicform\DynamicFormWidget;
 // };
 
 $js = '
-jQuery(".dynamicform_wrapper").on("afterInsert", function(e, item) {
-    jQuery(".dynamicform_wrapper .panel-title-planomaterial").each(function(index) {
+jQuery(".dynamicform_planomaterial").on("afterInsert", function(e, item) {
+    jQuery(".dynamicform_planomaterial .panel-title-planomaterial").each(function(index) {
         jQuery(this).html("Item: " + (index + 1))
     });
 });
 
-jQuery(".dynamicform_wrapper").on("afterDelete", function(e) {
-    jQuery(".dynamicform_wrapper .panel-title-planomaterial").each(function(index) {
+jQuery(".dynamicform_planomaterial").on("afterDelete", function(e) {
+    jQuery(".dynamicform_planomaterial .panel-title-planomaterial").each(function(index) {
         jQuery(this).html("Item: " + (index + 1))
     });
 });
 
-function onChangeRepositorio() {
-
-}
 ';
 
 $this->registerJs($js);
