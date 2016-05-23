@@ -57,7 +57,19 @@ $config = [
         ],
         */
     ],
-    'params' => $params,
+    'params' => [
+    'maskMoneyOptions' => [
+        'prefix' => 'R$ ',
+        //'suffix' => ' Reais',
+        'affixesStay' => true,
+        'thousands' => ',',
+        'decimal' => '.',
+        'precision' => 2, 
+        'allowZero' => false,
+        'allowNegative' => false,
+        ]
+    ],
+
 ];
 
 if (YII_ENV_DEV) {

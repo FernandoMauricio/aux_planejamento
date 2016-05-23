@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\repositorio\Repositorio */
 
-$this->title = 'Update Repositorio: ' . $model->rep_codrepositorio;
-$this->params['breadcrumbs'][] = ['label' => 'Repositorios', 'url' => ['index']];
+$this->title = 'Atualizar Material Didático: ' . $model->rep_codrepositorio;
+$this->params['breadcrumbs'][] = ['label' => 'Materiais Didáticos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->rep_codrepositorio, 'url' => ['view', 'id' => $model->rep_codrepositorio]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="repositorio-update">
 

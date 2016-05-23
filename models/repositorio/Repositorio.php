@@ -18,9 +18,12 @@ use Yii;
  * @property integer $rep_codunidade
  * @property integer $rep_codcolaborador
  * @property string $rep_data
+ * @property integer $rep_status
  */
 class Repositorio extends \yii\db\ActiveRecord
 {
+    public $file;
+
     /**
      * @inheritdoc
      */
@@ -43,10 +46,11 @@ class Repositorio extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rep_titulo', 'rep_categoria', 'rep_tipo', 'rep_editora', 'rep_sobre', 'rep_codunidade', 'rep_codcolaborador', 'rep_data'], 'required'],
+            [['rep_titulo', 'rep_categoria', 'rep_tipo', 'rep_editora', 'rep_sobre', 'rep_codunidade', 'rep_codcolaborador', 'rep_data', 'rep_status'], 'required'],
             [['rep_valor'], 'number'],
-            [['rep_codunidade', 'rep_codcolaborador'], 'integer'],
+            [['rep_codunidade', 'rep_codcolaborador', 'rep_status'], 'integer'],
             [['rep_data'], 'safe'],
+            [['file'], 'file','checkExtensionByMimeType'=>false, 'extensions' => 'pdf, zip, rar, doc, docx'],
             [['rep_titulo'], 'string', 'max' => 80],
             [['rep_categoria', 'rep_editora'], 'string', 'max' => 50],
             [['rep_tipo', 'rep_arquivo'], 'string', 'max' => 100],
@@ -61,16 +65,18 @@ class Repositorio extends \yii\db\ActiveRecord
     {
         return [
             'rep_codrepositorio' => 'Rep Codrepositorio',
-            'rep_titulo' => 'Rep Titulo',
-            'rep_categoria' => 'Rep Categoria',
-            'rep_tipo' => 'Rep Tipo',
-            'rep_editora' => 'Rep Editora',
-            'rep_valor' => 'Rep Valor',
-            'rep_sobre' => 'Rep Sobre',
-            'rep_arquivo' => 'Rep Arquivo',
+            'rep_titulo' => 'Título',
+            'rep_categoria' => 'Categoria',
+            'rep_tipo' => 'Tipo de Material',
+            'rep_editora' => 'Editora',
+            'rep_valor' => 'Valor',
+            'rep_sobre' => 'Sobre',
+            'rep_arquivo' => 'Arquivo',
+            'file' => 'Arquivo',
             'rep_codunidade' => 'Rep Codunidade',
             'rep_codcolaborador' => 'Rep Codcolaborador',
             'rep_data' => 'Rep Data',
+            'rep_status' => 'Situação',
         ];
     }
 }

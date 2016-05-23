@@ -3,11 +3,15 @@
 namespace app\controllers\repositorio;
 
 use Yii;
+use app\models\repositorio\Categoria;
+use app\models\repositorio\Editora;
+use app\models\repositorio\Tipomaterial;
 use app\models\repositorio\Repositorio;
 use app\models\repositorio\RepositorioMateriaisSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * RepositorioMateriaisController implements the CRUD actions for Repositorio model.
@@ -63,13 +67,35 @@ class RepositorioMateriaisController extends Controller
      */
     public function actionCreate()
     {
+        $session = Yii::$app->session;
+
         $model = new Repositorio();
 
+        $categoria = Categoria::find()->all();
+        $editora = Editora::find()->all();
+        $tipomaterial = Tipomaterial::find()->all();
+
+        $model->rep_data = date('Y-m-d');
+        $model->rep_codunidade = $session['sess_codunidade'];
+        $model->rep_codcolaborador = $session['sess_codcolaborador'];
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            //get the instance of the uploaded file
+            $model->file = UploadedFile::getInstance($model, 'file');
+            $model->file->saveAs('uploads/repositorio/' .  $model->file->baseName . '.' .  $model->file->extension);
+
+            //save the path in the db column rep_arquivo
+            $model->rep_arquivo = 'uploads/repositorio/' .  $model->file->baseName . '.' .  $model->file->extension;
+            $model->save();
+
             return $this->redirect(['view', 'id' => $model->rep_codrepositorio]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'categoria' => $categoria,
+                'editora' => $editora,
+                'tipomaterial' => $tipomaterial,
             ]);
         }
     }

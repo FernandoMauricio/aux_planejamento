@@ -18,7 +18,7 @@ class RepositorioMateriaisSearch extends Repositorio
     public function rules()
     {
         return [
-            [['rep_codrepositorio', 'rep_codunidade', 'rep_codcolaborador'], 'integer'],
+            [['rep_codrepositorio', 'rep_codunidade', 'rep_codcolaborador', 'rep_status'], 'integer'],
             [['rep_titulo', 'rep_categoria', 'rep_tipo', 'rep_editora', 'rep_sobre', 'rep_arquivo', 'rep_data'], 'safe'],
             [['rep_valor'], 'number'],
         ];
@@ -65,6 +65,7 @@ class RepositorioMateriaisSearch extends Repositorio
             'rep_codunidade' => $this->rep_codunidade,
             'rep_codcolaborador' => $this->rep_codcolaborador,
             'rep_data' => $this->rep_data,
+            'rep_status' => $this->rep_status,
         ]);
 
         $query->andFilterWhere(['like', 'rep_titulo', $this->rep_titulo])

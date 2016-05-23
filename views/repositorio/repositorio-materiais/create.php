@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\repositorio\Repositorio */
 
-$this->title = 'Create Repositorio';
-$this->params['breadcrumbs'][] = ['label' => 'Repositorios', 'url' => ['index']];
+$this->title = 'Novo Material Didático';
+$this->params['breadcrumbs'][] = ['label' => 'Materiais Didáticos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="repositorio-create">
@@ -16,6 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'categoria' => $categoria,
+        'editora' => $editora,
+        'tipomaterial' => $tipomaterial,
     ]) ?>
 
 </div>

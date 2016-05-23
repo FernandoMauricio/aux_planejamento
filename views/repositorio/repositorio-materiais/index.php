@@ -1,28 +1,37 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use kartik\editable\Editable;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\repositorio\RepositorioMateriaisSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Repositorios';
+$this->title = 'Materiais Didáticos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="repositorio-index">
+
+<?php
+
+//Pega as mensagens
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+}
+
+?>
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Repositorio', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Novo Material Didático', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             'rep_codrepositorio',
             'rep_titulo',
@@ -36,7 +45,13 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'rep_codcolaborador',
             // 'rep_data',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class'=>'kartik\grid\BooleanColumn',
+                'attribute'=>'rep_status', 
+                'vAlign'=>'middle'
+            ], 
+                        
+            ['class' => 'yii\grid\ActionColumn','template' => '{update}'],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>
