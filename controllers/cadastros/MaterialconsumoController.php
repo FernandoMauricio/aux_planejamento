@@ -74,6 +74,47 @@ class MaterialconsumoController extends Controller
         }
     }
 
+    public function actionImportExcel()
+    {
+        $inputFile = 'uploads/imports/materalconsumo.xlsx';
+        try{
+            $inputFileType = \PHPExcel_IOFactory::identify($inputFile);
+            $objReader = \PHPExcel_IOFactory::createReader($inputFileType);
+            $objPHPExcel = $objReader->load($inputFile);
+        }catch(Exception $e)
+        {
+            die('Error');
+        }
+        $sheet = $objPHPExcel->getSheet(0);
+        $highestRow = $sheet->getHighestRow();
+        $highestColumn = $sheet->getHighestColumn();
+        $data = [];
+        for( $row = 1; $row <= $highestRow; $row++ )
+        {
+            $rowData = $sheet->rangeToArray('A'.$row.':'.$highestColumn.$row,NULL,TRUE,FALSE);
+
+            if($row == 1)
+            {
+                continue;
+            }
+            // $model = new Materialconsumo();
+            // $model->matcon_cod = $rowData[0][0];
+            // $model->matcon_descricao = $rowData[0][1];
+            // $model->matcon_tipo = $rowData[0][2];
+            // $model->matcon_valor = $rowData[0][3];
+            // $model->matcon_status = $rowData[0][4];
+            // $model->save();
+            if(!empty($rowData[0][0])){
+                $data[] = [$rowData[0][0],$rowData[0][1],$rowData[0][2],$rowData[0][3],$rowData[0][4]];
+            }
+        }
+        Yii::$app->db->createCommand()
+            ->batchInsert('db_apl.materialconsumo_matcon', ['matcon_cod','matcon_descricao', 'matcon_tipo', 'matcon_valor', 'matcon_status'], $data)
+            ->execute();
+        die('sucesso!!!');
+    }
+
+
     /**
      * Updates an existing Materialconsumo model.
      * If update is successful, the browser will be redirected to the 'view' page.
