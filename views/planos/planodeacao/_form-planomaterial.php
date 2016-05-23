@@ -69,6 +69,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                          .done(function( data ) {
 
                                                                 var $divPanelBody =  $(select).parent().parent().parent();
+
                                                                 var $inputValor = $divPanelBody.find("input:eq(0)");
                                                                 var $inputTipoMaterial = $divPanelBody.find("input:eq(1)");
                                                                 var $inputEditora = $divPanelBody.find("input:eq(2)");
@@ -78,7 +79,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                                 $inputValor.val(data.rep_valor);
                                                                 $inputTipoMaterial.val(data.rep_tipo);
                                                                 $inputEditora.val(data.rep_editora);
-
+                                                                
                                                                 $("#inputArquivo").attr("href", data.rep_arquivo);
                                                                 
                                                              });
@@ -101,14 +102,14 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
                                     <div class="col-sm-2">
                                             <?php
-                                                        $data_tipoplanomaterial = ArrayHelper::map($tipoplanomaterial, 'tiplama_codtiplama', 'tiplama_descricao');
-                                                        echo $form->field($modelPlanoMaterial, "[{$index}]plama_codtiplama")->widget(Select2::classname(), [
-                                                                'data' =>  $data_tipoplanomaterial,
-                                                                'options' => ['placeholder' => 'Selecione o tipo de plano...'],
-                                                                'pluginOptions' => [
-                                                                        'allowClear' => true
-                                                                    ],
-                                                                ]);
+                                                $data_tipoplanomaterial = ArrayHelper::map($tipoplanomaterial, 'tiplama_codtiplama', 'tiplama_descricao');
+                                                echo $form->field($modelPlanoMaterial, "[{$index}]plama_codtiplama")->widget(Select2::classname(), [
+                                                        'data' =>  $data_tipoplanomaterial,
+                                                        'options' => ['placeholder' => 'Selecione o tipo de plano...'],
+                                                        'pluginOptions' => [
+                                                                'allowClear' => true
+                                                            ],
+                                                        ]);
                                             ?>
                                     </div>
                                     
@@ -116,8 +117,9 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         <?= $form->field($modelPlanoMaterial, "[{$index}]plama_observacao")->textInput() ?>
                                     </div>
 
-                                    <div class="col-sm-12" >
-                                   <?php echo  '<a id="inputArquivo" href="javascript:" target="_blank">Donwload do arquivo</a>' ?>
+                                    <div class="col-sm-12">
+
+                                   <?php echo '<a id="inputArquivo" target="_blank"> Download do Arquivo</a>' ?>
                                     </div>
 
                             </div>

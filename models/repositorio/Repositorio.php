@@ -64,7 +64,7 @@ class Repositorio extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'rep_codrepositorio' => 'Rep Codrepositorio',
+            'rep_codrepositorio' => 'Código',
             'rep_titulo' => 'Título',
             'rep_categoria' => 'Categoria',
             'rep_tipo' => 'Tipo de Material',

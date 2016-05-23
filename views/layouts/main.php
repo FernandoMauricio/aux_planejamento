@@ -40,12 +40,15 @@ AppAsset::register($this);
             [
             'label' => 'Cadastros',
             'items' => [
+                        '<li class="dropdown-header">Área Administrador</li>',
                          ['label' => 'Ano', 'url' => ['/cadastros/ano/index']],
                          ['label' => 'Nivel', 'url' => ['/cadastros/nivel/index']],
                          ['label' => 'Eixo', 'url' => ['/cadastros/eixo/index']],
                          ['label' => 'Segmento', 'url' => ['/cadastros/segmento/index']],
                          ['label' => 'Tipo', 'url' => ['/cadastros/tipo/index']],
+                         '<li class="dropdown-header">Configuração Planos</li>',
                          ['label' => 'Estrutura Física', 'url' => ['/cadastros/estruturafisica/index']],
+                         ['label' => 'Material de Consumo', 'url' => ['/cadastros/materialconsumo/index']],
                        ],
             ],
 
