@@ -58,7 +58,7 @@ class PlanoMaterial extends \yii\db\ActiveRecord
             'plama_codplama' => 'Plama Codplama',
             'plama_codplano' => 'Plama Codplano',
             'plama_codtiplama' => 'Plano A/B',
-            'plama_codrepositorio' => 'Cód. Repositório',
+            'plama_codrepositorio' => 'Descrição',
             'plama_titulo' => 'Titulo',
             'plama_valor' => 'Valor',
             'plama_arquivo' => 'Plama Arquivo',

@@ -46,7 +46,6 @@ use app\models\cadastros\Segmento;
                                                         ]) ?>
                                                     </div>
 
-
                                                     <div class="tab-pane" id="tab2">
                                                         <?= $this->render('_form-planomaterial', [
                                                             'form' => $form,
@@ -56,6 +55,13 @@ use app\models\cadastros\Segmento;
                                                         ]) ?>
                                                     </div>
 
+                                                    <div class="tab-pane" id="tab3">
+                                                        <?= $this->render('_form-planoconsumo', [
+                                                            'form' => $form,
+                                                            'materialconsumo' => $materialconsumo,
+                                                            'modelsPlanoConsumo' => (empty($modelsPlanoConsumo)) ? [new PlanoMaterialconsumo] : $modelsPlanoConsumo,
+                                                        ]) ?>
+                                                    </div>
 
                                                     <div class="tab-pane" id="tab5">
                                                        <?= $this->render('_form-planoestrutura', [

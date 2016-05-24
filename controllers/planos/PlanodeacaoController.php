@@ -6,9 +6,11 @@ use Yii;
 use app\models\Model;
 use app\models\cadastros\Segmento;
 use app\models\cadastros\Eixo;
+use app\models\cadastros\Materialconsumo;
 use app\models\cadastros\Estruturafisica;
 use app\models\planos\Tipoplanomaterial;
 use app\models\planos\PlanoMaterial;
+use app\models\planos\PlanoConsumo;
 use app\models\planos\PlanoMaterialSearch;
 use app\models\planos\Segmentotipoacao;
 use app\models\planos\PlanoEstruturafisica;
@@ -87,12 +89,14 @@ class PlanodeacaoController extends Controller
     public function actionCreate()
     {
         $model = new Planodeacao();
-        $modelsPlanoMaterial = [new PlanoMaterial];
+        $modelsPlanoMaterial  = [new PlanoMaterial];
         $modelsPlanoEstrutura = [new PlanoEstruturafisica];
+        $modelsPlanoConsumo   = [new PlanoConsumo];
 
-        $estruturafisica = EstruturaFisica::find()->all();
+        $estruturafisica   = EstruturaFisica::find()->all();
         $tipoplanomaterial = Tipoplanomaterial::find()->all();
-        $repositorio = Repositorio::find()->all();
+        $repositorio       = Repositorio::find()->all();
+        $materialconsumo   = Materialconsumo::find()->orderBy('matcon_descricao')->all();
 
         // $searchPlanoMaterialModel = new PlanoMaterialSearch();
         // $dataProviderPlanoMaterial = $searchPlanoMaterialModel->search(Yii::$app->request->queryParams);
@@ -107,6 +111,10 @@ class PlanodeacaoController extends Controller
             $modelsPlanoEstrutura = Model::createMultiple(PlanoEstruturafisica::classname());
             Model::loadMultiple($modelsPlanoEstrutura, Yii::$app->request->post());
 
+            //Inserir vários materiais de consumo do plano
+            $modelsPlanoConsumo = Model::createMultiple(PlanoConsumo::classname());
+            Model::loadMultiple($modelsPlanoConsumo, Yii::$app->request->post());
+
             // validate all models
             $valid = $model->validate();
             $valid = Model::validateMultiple($modelsPlanoEstrutura) && $valid;
@@ -114,8 +122,11 @@ class PlanodeacaoController extends Controller
             $valid2 = $model->validate();
             $valid_planotmaterial = Model::validateMultiple($modelsPlanoMaterial) && $valid2;
 
+            $valid3 = $model->validate();
+            $valid_planoconsumo = Model::validateMultiple($modelsPlanoConsumo) && $valid2 && $valid3;
 
-            if ($valid && $valid_planotmaterial) {
+
+            if ($valid && $valid_planotmaterial && $valid_planoconsumo) {
                 $transaction = \Yii::$app->db_apl->beginTransaction();
                 $transactionRep = \Yii::$app->db_rep->beginTransaction();
                 try {
@@ -131,6 +142,14 @@ class PlanodeacaoController extends Controller
                         foreach ($modelsPlanoEstrutura as $modelPlanoEstrutura) {
                             $modelPlanoEstrutura->planodeacao_cod = $model->plan_codplano;
                             if (! ($flag = $modelPlanoEstrutura->save(false))) {
+                                $transactionRep->rollBack();
+                                break;
+                            }
+                        }
+
+                        foreach ($modelsPlanoConsumo as $modelPlanoConsumo) {
+                            $modelPlanoConsumo->planodeacao_cod = $model->plan_codplano;
+                            if (! ($flag = $modelPlanoConsumo->save(false))) {
                                 $transactionRep->rollBack();
                                 break;
                             }
@@ -153,8 +172,10 @@ class PlanodeacaoController extends Controller
                 'estruturafisica' => $estruturafisica,
                 'tipoplanomaterial' => $tipoplanomaterial,
                 'repositorio' => $repositorio,
+                'materialconsumo' => $materialconsumo,
                 'modelsPlanoMaterial' => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
                 'modelsPlanoEstrutura' => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,
+                'modelsPlanoConsumo' => (empty($modelsPlanoConsumo)) ? [new PlanoConsumo] : $modelsPlanoConsumo,
                 // 'searchModel' => $searchPlanoMaterialModel,
                 // 'dataProviderPlanoMaterial' => $dataProviderPlanoMaterial,
             ]);
@@ -201,6 +222,14 @@ class PlanodeacaoController extends Controller
 
         $getRepositorio = Repositorio::findOne($repId);
         echo Json::encode($getRepositorio);
+    }
+
+
+    //Localiza os dados de valores e tipos de material cadastrados no repositorio
+    public function actionGetPlanoConsumo($matconId){
+
+        $getPlanoConsumo = Materialconsumo::findOne($matconId);
+        echo Json::encode($getPlanoConsumo);
     }
 
 

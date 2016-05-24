@@ -4,6 +4,7 @@ namespace app\controllers\cadastros;
 
 use Yii;
 use app\models\cadastros\Materialconsumo;
+use app\models\cadastros\TipoUnidade;
 use app\models\cadastros\MaterialconsumoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -54,24 +55,6 @@ class MaterialconsumoController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
-    }
-
-    /**
-     * Creates a new Materialconsumo model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Materialconsumo();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->matcon_cod]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
     }
 
     public function actionImportExcel()
@@ -125,11 +108,17 @@ class MaterialconsumoController extends Controller
     {
         $model = $this->findModel($id);
 
+        $tipounidade = TipoUnidade::find()->orderBy('tipuni_descricao')->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->matcon_cod]);
+
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Material de Consumo Atualizado!</strong>');
+
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'tipounidade' => $tipounidade,
             ]);
         }
     }

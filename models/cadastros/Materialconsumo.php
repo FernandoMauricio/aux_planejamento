@@ -52,11 +52,11 @@ class Materialconsumo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'matcon_cod' => 'Matcon Cod',
-            'matcon_descricao' => 'Matcon Descricao',
-            'matcon_tipo' => 'Matcon Tipo',
-            'matcon_valor' => 'Matcon Valor',
-            'matcon_status' => 'Matcon Status',
+            'matcon_cod' => 'Código MXM',
+            'matcon_descricao' => 'Descrição',
+            'matcon_tipo' => 'Tipo',
+            'matcon_valor' => 'Valor',
+            'matcon_status' => 'Situação',
         ];
     }
 

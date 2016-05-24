@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\cadastros\Materialconsumo */
 
-$this->title = 'Update Materialconsumo: ' . $model->matcon_cod;
-$this->params['breadcrumbs'][] = ['label' => 'Materialconsumos', 'url' => ['index']];
+$this->title = 'Atualizar Material de Consumo: ' . $model->matcon_cod;
+$this->params['breadcrumbs'][] = ['label' => 'Materiais de Consumo', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->matcon_cod, 'url' => ['view', 'id' => $model->matcon_cod]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="materialconsumo-update">
 
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'tipounidade' => $tipounidade,
     ]) ?>
 
 </div>
