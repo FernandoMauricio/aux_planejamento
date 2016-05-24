@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = 'Atualizar Material de Consumo: ' . $model->matcon_cod;
 $this->params['breadcrumbs'][] = ['label' => 'Materiais de Consumo', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->matcon_cod, 'url' => ['view', 'id' => $model->matcon_cod]];
+$this->params['breadcrumbs'][] = ['label' => $model->matcon_cod];
 $this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="materialconsumo-update">

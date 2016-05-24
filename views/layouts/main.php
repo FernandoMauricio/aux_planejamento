@@ -49,6 +49,7 @@ AppAsset::register($this);
                          '<li class="dropdown-header">Configuração Planos</li>',
                          ['label' => 'Estrutura Física', 'url' => ['/cadastros/estruturafisica/index']],
                          ['label' => 'Material de Consumo', 'url' => ['/cadastros/materialconsumo/index']],
+                         ['label' => 'Material do Aluno', 'url' => ['/cadastros/materialaluno/index']],
                        ],
             ],
 

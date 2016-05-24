@@ -39,6 +39,7 @@ class Materialconsumo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['matcon_descricao', 'matcon_tipo', 'matcon_valor', 'matcon_status'], 'required'],
             [['matcon_valor'], 'number'],
             [['matcon_status'], 'integer'],
             [['matcon_descricao'], 'string', 'max' => 100],

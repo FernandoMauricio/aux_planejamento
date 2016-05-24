@@ -60,10 +60,10 @@ class PlanoConsumo extends \yii\db\ActiveRecord
         return [
             'planmatcon_cod' => 'Código',
             'planodeacao_cod' => 'Cód. Plano',
-            'materialconsumo_cod' => 'Material de Consumo',
+            'materialconsumo_cod' => 'Descrição',
             'planmatcon_quantidade' => 'Quantidade',
             'planmatcon_valor' => 'Valor',
-            'planmatcon_tipo' => 'Tipo',
+            'planmatcon_tipo' => 'Unidade',
         ];
     }
 
