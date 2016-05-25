@@ -72,7 +72,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     </div>
                                     <div class="col-sm-2">
                                             <?php
-                                                        $data_estruturafisica = ArrayHelper::map($estruturafisica, 'estr_cod', 'estr_descricao');
                                                         echo $form->field($modelPlanoEstrutura, "[{$index}]tipo")->widget(Select2::classname(), [
                                                                 'data' =>  ['Aluno'=> 'Aluno', 'Turma'=>'Turma'],
                                                                 'options' => ['placeholder' => 'Selecione o tipo...'],

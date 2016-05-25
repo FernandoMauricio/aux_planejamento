@@ -20,9 +20,11 @@ $this->params['breadcrumbs'][] = $this->title;
 	            'tipoplanomaterial' => $tipoplanomaterial,
 	            'repositorio' => $repositorio,
 	            'materialconsumo' => $materialconsumo,
+	            'materialaluno' => $materialaluno,
 	            'modelsPlanoMaterial' => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
 	            'modelsPlanoEstrutura' => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,
 	            'modelsPlanoConsumo' => (empty($modelsPlanoConsumo)) ? [new PlanoConsumo] : $modelsPlanoConsumo,
+	            'modelsPlanoAluno' => (empty($modelsPlanoAluno)) ? [new PlanoAluno] : $modelsPlanoAluno,
 	    ])
 	?>
 

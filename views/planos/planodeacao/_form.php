@@ -63,6 +63,14 @@ use app\models\cadastros\Segmento;
                                                         ]) ?>
                                                     </div>
 
+                                                    <div class="tab-pane" id="tab4">
+                                                        <?= $this->render('_form-planoaluno', [
+                                                            'form' => $form,
+                                                            'materialaluno' => $materialaluno,
+                                                            'modelsPlanoAluno' => (empty($modelsPlanoAluno)) ? [new PlanoAluno] : $modelsPlanoAluno,
+                                                        ]) ?>
+                                                    </div>
+
                                                     <div class="tab-pane" id="tab5">
                                                        <?= $this->render('_form-planoestrutura', [
                                                            'form' => $form,

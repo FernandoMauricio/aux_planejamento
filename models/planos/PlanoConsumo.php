@@ -43,7 +43,7 @@ class PlanoConsumo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['planodeacao_cod', 'materialconsumo_cod'], 'required'],
+            //[['planodeacao_cod', 'materialconsumo_cod'], 'required'],
             [['planodeacao_cod', 'materialconsumo_cod', 'planmatcon_quantidade'], 'integer'],
             [['planmatcon_valor'], 'number'],
             [['planmatcon_tipo'], 'string', 'max' => 45],
