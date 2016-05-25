@@ -70,12 +70,14 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
                                                                 var $divPanelBody =  $(select).parent().parent().parent();
 
-                                                                var $inputValor = $divPanelBody.find("input:eq(0)");
-                                                                var $inputTipoMaterial = $divPanelBody.find("input:eq(1)");
-                                                                var $inputEditora = $divPanelBody.find("input:eq(2)");
+                                                                var $inputTitulo = $divPanelBody.find("input:eq(0)");
+                                                                var $inputValor = $divPanelBody.find("input:eq(1)");
+                                                                var $inputTipoMaterial = $divPanelBody.find("input:eq(2)");
+                                                                var $inputEditora = $divPanelBody.find("input:eq(3)");
                                                                 var $inputArquivo = $divPanelBody.find("input:eq(4)");
 
 
+                                                                $inputTitulo.val(data.rep_titulo);
                                                                 $inputValor.val(data.rep_valor);
                                                                 $inputTipoMaterial.val(data.rep_tipo);
                                                                 $inputEditora.val(data.rep_editora);
@@ -86,7 +88,9 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                          '
                                                  ]]);
                                       ?>
+                                      <?= $form->field($modelPlanoMaterial, "[{$index}]plama_titulo")->hiddenInput()->label(false) ?>
                                     </div>
+
 
                                     <div class="col-sm-1">
                                         <?= $form->field($modelPlanoMaterial, "[{$index}]plama_valor")->textInput(['readonly'=> true]) ?>
@@ -113,7 +117,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                             ?>
                                     </div>
                                     
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-11">
                                         <?= $form->field($modelPlanoMaterial, "[{$index}]plama_observacao")->textInput() ?>
                                     </div>
 

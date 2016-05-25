@@ -87,8 +87,6 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'plan_prerequisito:ntext',
             // 'plan_orgcurricular:ntext',
             // 'plan_perfTecnico:ntext',
-            // 'plan_matConsumo:ntext',
-            // 'plan_matAluno:ntext',
             // 'plan_codcolaborador',
             // 'plan_data',
             // 'plan_status',

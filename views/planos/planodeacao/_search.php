@@ -37,10 +37,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'plan_perfTecnico') ?>
 
-    <?php // echo $form->field($model, 'plan_matConsumo') ?>
-
-    <?php // echo $form->field($model, 'plan_matAluno') ?>
-
     <?php // echo $form->field($model, 'plan_codcolaborador') ?>
 
     <?php // echo $form->field($model, 'plan_data') ?>

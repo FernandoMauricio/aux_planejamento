@@ -24,8 +24,6 @@ use app\models\cadastros\Tipo;
  * @property string $plan_prerequisito
  * @property string $plan_orgcurricular
  * @property string $plan_perfTecnico
- * @property string $plan_matConsumo
- * @property string $plan_matAluno
  * @property integer $plan_codcolaborador
  * @property string $plan_data
  * @property integer $plan_status
@@ -65,7 +63,7 @@ class Planodeacao extends \yii\db\ActiveRecord
         return [
             [['plan_descricao', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria', 'plan_codcolaborador', 'plan_data', 'plan_status'], 'required'],
             [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria','plan_codcolaborador', 'plan_status'], 'integer'],
-            [['plan_sobre', 'plan_prerequisito', 'plan_orgcurricular', 'plan_perfTecnico', 'plan_matConsumo', 'plan_matAluno'], 'string'],
+            [['plan_sobre', 'plan_prerequisito', 'plan_orgcurricular', 'plan_perfTecnico'], 'string'],
             [['plan_data'], 'safe'],
             [['plan_descricao'], 'string', 'max' => 100],
             [['plan_codeixo'], 'exist', 'skipOnError' => true, 'targetClass' => Eixo::className(), 'targetAttribute' => ['plan_codeixo' => 'eix_codeixo']],
@@ -92,8 +90,6 @@ class Planodeacao extends \yii\db\ActiveRecord
             'plan_prerequisito' => 'Pré-Requisito',
             'plan_orgcurricular' => 'Organização Curricular',
             'plan_perfTecnico' => 'Perfil Técnico',
-            'plan_matConsumo' => 'Material de Consumo',
-            'plan_matAluno' => 'Material do Aluno',
             'plan_codcolaborador' => 'Plan Codcolaborador',
             'plan_data' => 'Data',
             'plan_status' => 'Situação',
