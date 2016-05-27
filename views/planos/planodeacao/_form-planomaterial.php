@@ -106,9 +106,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
                                     <div class="col-sm-2">
                                             <?php
-                                                $data_tipoplanomaterial = ArrayHelper::map($tipoplanomaterial, 'tiplama_codtiplama', 'tiplama_descricao');
-                                                echo $form->field($modelPlanoMaterial, "[{$index}]plama_codtiplama")->widget(Select2::classname(), [
-                                                        'data' =>  $data_tipoplanomaterial,
+                                                echo $form->field($modelPlanoMaterial, "[{$index}]plama_tipoplano")->widget(Select2::classname(), [
+                                                        'data' =>  ['Plano A' => 'Plano A', 'Plano B' => 'Plano B'],
                                                         'options' => ['placeholder' => 'Selecione o tipo de plano...'],
                                                         'pluginOptions' => [
                                                                 'allowClear' => true

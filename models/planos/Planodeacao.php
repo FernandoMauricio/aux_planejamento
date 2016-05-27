@@ -8,6 +8,7 @@ use app\models\cadastros\Eixo;
 use app\models\cadastros\Nivel;
 use app\models\cadastros\Segmento;
 use app\models\cadastros\Tipo;
+use app\models\base\Colaborador;
 
 
 /**
@@ -139,9 +140,9 @@ class Planodeacao extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlanCodnivel()
+    public function getNivel()
     {
-        return $this->hasOne(NivelNiv::className(), ['niv_codnivel' => 'plan_codnivel']);
+        return $this->hasOne(Nivel::className(), ['niv_codnivel' => 'plan_codnivel']);
     }
 
     /**
@@ -158,5 +159,10 @@ class Planodeacao extends \yii\db\ActiveRecord
     public function getTipo()
     {
         return $this->hasOne(Tipo::className(), ['tip_codtipoa' => 'plan_codtipoa']);
+    }
+
+    public function getColaborador()
+    {
+        return $this->hasOne(Colaborador::className(), ['col_codcolaborador' => 'plan_codcolaborador']);
     }
 }

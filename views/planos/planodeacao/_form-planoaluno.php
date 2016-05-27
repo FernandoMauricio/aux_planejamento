@@ -70,9 +70,11 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
                                                                 var $divPanelBody =  $(select).parent().parent().parent();
 
-                                                                var $inputUnidade = $divPanelBody.find("input:eq(0)");
-                                                                var $inputValor = $divPanelBody.find("input:eq(1)");
+                                                                var $inputDescricao = $divPanelBody.find("input:eq(0)");
+                                                                var $inputUnidade = $divPanelBody.find("input:eq(1)");
+                                                                var $inputValor = $divPanelBody.find("input:eq(2)");
 
+                                                                $inputDescricao.val(data.matalu_descricao);
                                                                 $inputUnidade.val(data.matalu_unidade);
                                                                 $inputValor.val(data.matalu_valor);
 
@@ -80,6 +82,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                          '
                                                  ]]);
                                       ?>
+                                      <?= $form->field($modelPlanoAluno, "[{$index}]planmatalu_descricao")->hiddenInput()->label(false) ?>
                                     </div>
 
                                     <div class="col-sm-1">

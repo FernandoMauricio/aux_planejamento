@@ -18,8 +18,8 @@ class PlanoMaterialSearch extends PlanoMaterial
     public function rules()
     {
         return [
-            [['plama_codplama', 'plama_codplano', 'plama_codtiplama', 'plama_codrepositorio'], 'integer'],
-            [['plama_titulo', 'plama_arquivo', 'plama_tipomaterial', 'plama_observacao'], 'safe'],
+            [['plama_codplama', 'plama_codplano', 'plama_codrepositorio'], 'integer'],
+            [['plama_titulo', 'plama_tipoplano', 'plama_arquivo', 'plama_tipomaterial', 'plama_observacao'], 'safe'],
             [['plama_valor'], 'number'],
         ];
     }
@@ -62,12 +62,12 @@ class PlanoMaterialSearch extends PlanoMaterial
         $query->andFilterWhere([
             'plama_codplama' => $this->plama_codplama,
             'plama_codplano' => $this->plama_codplano,
-            'plama_codtiplama' => $this->plama_codtiplama,
             'plama_codrepositorio' => $this->plama_codrepositorio,
             'plama_valor' => $this->plama_valor,
         ]);
 
         $query->andFilterWhere(['like', 'plama_titulo', $this->plama_titulo])
+            ->andFilterWhere(['like', 'plama_tipoplano', $this->plama_tipoplano])
             ->andFilterWhere(['like', 'plama_arquivo', $this->plama_arquivo])
             ->andFilterWhere(['like', 'plama_tipomaterial', $this->plama_tipomaterial])
             ->andFilterWhere(['like', 'plama_observacao', $this->plama_observacao]);

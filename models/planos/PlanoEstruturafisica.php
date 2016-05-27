@@ -9,10 +9,10 @@ use app\models\cadastros\Estruturafisica;
  * This is the model class for table "plano_estruturafisica".
  *
  * @property integer $planestr_cod
- * @property string $planodeacao_cod
+ * @property string  $planodeacao_cod
  * @property integer $estruturafisica_cod
- * @property integer $quantidade
- * @property string $tipo
+ * @property integer $planestr_quantidade
+ * @property string  $planestr_tipo
  *
  * @property EstruturafisicaEstr $estruturafisicaCod
  * @property PlanodeacaoPlan $planodeacaoCod
@@ -41,9 +41,10 @@ class PlanoEstruturafisica extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-           // [['quantidade', 'tipo'], 'required'],
-            [['planestr_cod', 'planodeacao_cod', 'estruturafisica_cod', 'quantidade'], 'integer'],
-            [['tipo'], 'string', 'max' => 45],
+           // [['planestr_quantidade', 'planestr_tipo'], 'required'],
+            [['planestr_cod', 'planodeacao_cod', 'estruturafisica_cod', 'planestr_quantidade'], 'integer'],
+            [['planestr_tipo'], 'string', 'max' => 45],
+            [['planestr_descricao'], 'string', 'max' => 45],
             [['estruturafisica_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Estruturafisica::className(), 'targetAttribute' => ['estruturafisica_cod' => 'estr_cod']],
             [['planodeacao_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planodeacao_cod' => 'plan_codplano']],
         ];
@@ -57,9 +58,10 @@ class PlanoEstruturafisica extends \yii\db\ActiveRecord
         return [
             'planestr_cod' => 'Planestr Cod',
             'planodeacao_cod' => 'Planodeacao Cod',
-            'estruturafisica_cod' => 'Descrição',
-            'quantidade' => 'Quantidade',
-            'tipo' => 'Tipo',
+            'estruturafisica_cod' => 'Estrturafisica Cod',
+            'planestr_descricao' => 'Descrição',
+            'planestr_quantidade' => 'Quantidade',
+            'planestr_tipo' => 'Tipo',
         ];
     }
 

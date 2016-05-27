@@ -26,8 +26,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                 'planestr_cod',
                                                 'planodeacao_cod',
                                                 'estruturafisica_cod',
-                                                'quantidade',
-                                                'tipo',
+                                                'planestr_quantidade',
+                                                'planestr_tipo',
                                             ],
                                         ]); ?>
 
@@ -61,18 +61,33 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                         echo $form->field($modelPlanoEstrutura, "[{$index}]estruturafisica_cod")->widget(Select2::classname(), [
                                                                 'data' =>  $data_estruturafisica,
                                                                 'options' => ['placeholder' => 'Selecione o item...'],
+                                                                'onchange'=>'
+                                                                                 var select = this;
+                                                                                 $.getJSON( "'.Url::toRoute('/planos/planodeacao/get-plano-estrutura-fisica').'", { estrfisicID: $(this).val() } )
+                                                                                 .done(function( data ) {
+
+                                                                                        var $divPanelBody =  $(select).parent().parent().parent();
+
+                                                                                        var $inputDescricao = $divPanelBody.find("input:eq(0)");
+
+                                                                                        $inputDescricao.val(data.matcon_descricao);
+
+                                                                                     });
+                                                                                 '
+                                                                         ]]);
                                                                 'pluginOptions' => [
                                                                         'allowClear' => true
                                                                     ],
                                                                 ]);
                                             ?>
+                                         <?= $form->field($modelPlanoEstrutura, "[{$index}]planestr_descricao")->hiddenInput()->label(false) ?>
                                     </div>
                                     <div class="col-sm-2">
-                                        <?= $form->field($modelPlanoEstrutura, "[{$index}]quantidade")->textInput() ?>
+                                        <?= $form->field($modelPlanoEstrutura, "[{$index}]planestr_quantidade")->textInput() ?>
                                     </div>
                                     <div class="col-sm-2">
                                             <?php
-                                                        echo $form->field($modelPlanoEstrutura, "[{$index}]tipo")->widget(Select2::classname(), [
+                                                        echo $form->field($modelPlanoEstrutura, "[{$index}]planestr_tipo")->widget(Select2::classname(), [
                                                                 'data' =>  ['Aluno'=> 'Aluno', 'Turma'=>'Turma'],
                                                                 'options' => ['placeholder' => 'Selecione o tipo...'],
                                                                 'pluginOptions' => [

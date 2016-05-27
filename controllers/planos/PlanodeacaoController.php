@@ -9,7 +9,6 @@ use app\models\cadastros\Eixo;
 use app\models\cadastros\Materialaluno;
 use app\models\cadastros\Materialconsumo;
 use app\models\cadastros\Estruturafisica;
-use app\models\planos\Tipoplanomaterial;
 use app\models\planos\PlanoMaterial;
 use app\models\planos\PlanoAluno;
 use app\models\planos\PlanoConsumo;
@@ -98,7 +97,6 @@ class PlanodeacaoController extends Controller
         $modelsPlanoAluno     = [new PlanoAluno];
 
         $estruturafisica   = EstruturaFisica::find()->all();
-        $tipoplanomaterial = Tipoplanomaterial::find()->all();
         $repositorio       = Repositorio::find()->all();
         $materialconsumo   = Materialconsumo::find()->orderBy('matcon_descricao')->all();
         $materialaluno     = Materialaluno::find()->orderBy('matalu_descricao')->all();
@@ -193,7 +191,6 @@ class PlanodeacaoController extends Controller
             return $this->render('create', [
                 'model'                 => $model,
                 'estruturafisica'       => $estruturafisica,
-                'tipoplanomaterial'     => $tipoplanomaterial,
                 'repositorio'           => $repositorio,
                 'materialconsumo'       => $materialconsumo,
                 'materialaluno'         => $materialaluno,
@@ -263,6 +260,14 @@ class PlanodeacaoController extends Controller
 
         $getPlanoAluno = Materialaluno::findOne($mataluId);
         echo Json::encode($getPlanoAluno);
+    }
+
+
+    //Localiza os dados cadastrados
+    public function actionGetPlanoEstruturaFisica($estrfisicID){
+
+        $getPlanoEstruturaFisica = EstruturaFisica::findOne($estrfisicID);
+        echo Json::encode($getPlanoEstruturaFisica);
     }
 
 

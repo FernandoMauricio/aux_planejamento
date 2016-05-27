@@ -27,6 +27,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                             'formFields' => [
                                                 'planodeacao_cod',
                                                 'materialconsumo_cod',
+                                                'planmatcon_descricao',
                                                 'planmatcon_quantidade',
                                                 'planmatcon_valor',
                                                 'planmatcon_tipo',
@@ -69,9 +70,11 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
                                                                 var $divPanelBody =  $(select).parent().parent().parent();
 
-                                                                var $inputTipo = $divPanelBody.find("input:eq(0)");
-                                                                var $inputValor = $divPanelBody.find("input:eq(1)");
+                                                                var $inputDescricao = $divPanelBody.find("input:eq(0)");
+                                                                var $inputTipo      = $divPanelBody.find("input:eq(1)");
+                                                                var $inputValor     = $divPanelBody.find("input:eq(2)");
 
+                                                                $inputDescricao.val(data.matcon_descricao);
                                                                 $inputValor.val(data.matcon_valor);
                                                                 $inputTipo.val(data.matcon_tipo);
 
@@ -79,6 +82,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                          '
                                                  ]]);
                                       ?>
+                                      <?= $form->field($modelPlanoConsumo, "[{$index}]planmatcon_descricao")->hiddenInput()->label(false) ?>
                                     </div>
 
                                     <div class="col-sm-1">

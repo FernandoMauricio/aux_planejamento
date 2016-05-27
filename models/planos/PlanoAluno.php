@@ -49,6 +49,7 @@ class PlanoAluno extends \yii\db\ActiveRecord
             [['planmatalu_valor'], 'number'],
             [['planmatalu_unidade'], 'string', 'max' => 20],
             [['planmatalu_tipo'], 'string', 'max' => 45],
+            [['planmatalu_descricao'], 'string', 'max' => 100],
             [['materialaluno_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Materialaluno::className(), 'targetAttribute' => ['materialaluno_cod' => 'matalu_cod']],
             [['planodeacao_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planodeacao_cod' => 'plan_codplano']],
         ];
@@ -62,7 +63,8 @@ class PlanoAluno extends \yii\db\ActiveRecord
         return [
             'planmatalu_cod' => 'Cod',
             'planodeacao_cod' => 'Planodeacao Cod',
-            'materialaluno_cod' => 'Descrição',
+            'materialaluno_cod' => 'materialaluno cod',
+            'planmatalu_descricao' => 'Descrição',
             'planmatalu_unidade' => 'Unidade',
             'planmatalu_tipo' => 'Tipo',
             'planmatalu_valor' => 'Valor',

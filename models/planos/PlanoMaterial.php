@@ -9,7 +9,7 @@ use Yii;
  *
  * @property string $plama_codplama
  * @property string $plama_codplano
- * @property string $plama_codtiplama
+ * @property string $plama_tipoplano
  * @property integer $plama_codrepositorio
  * @property string $plama_titulo
  * @property double $plama_valor
@@ -42,9 +42,9 @@ class PlanoMaterial extends \yii\db\ActiveRecord
     {
         return [
             [['plama_codrepositorio'], 'required'],
-            [['plama_codplano', 'plama_codtiplama', 'plama_codrepositorio'], 'integer'],
+            [['plama_codplano','plama_codrepositorio'], 'integer'],
             [['plama_valor'], 'number'],
-            [['plama_titulo', 'plama_arquivo', 'plama_observacao'], 'string', 'max' => 100],
+            [['plama_titulo', 'plama_tipoplano', 'plama_arquivo', 'plama_observacao'], 'string', 'max' => 100],
             [['plama_tipomaterial', 'plama_editora'], 'string', 'max' => 50],
         ];
     }
@@ -57,7 +57,7 @@ class PlanoMaterial extends \yii\db\ActiveRecord
         return [
             'plama_codplama' => 'Plama Codplama',
             'plama_codplano' => 'Plama Codplano',
-            'plama_codtiplama' => 'Plano A/B',
+            'plama_tipoplano' => 'Plano A/B',
             'plama_codrepositorio' => 'Descrição',
             'plama_titulo' => 'Titulo',
             'plama_valor' => 'Valor',

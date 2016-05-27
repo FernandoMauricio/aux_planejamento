@@ -49,7 +49,6 @@ use app\models\cadastros\Segmento;
                                                     <div class="tab-pane" id="tab2">
                                                         <?= $this->render('_form-planomaterial', [
                                                             'form' => $form,
-                                                            'tipoplanomaterial' => $tipoplanomaterial,
                                                             'repositorio' => $repositorio,
                                                             'modelsPlanoMaterial' => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
                                                         ]) ?>
