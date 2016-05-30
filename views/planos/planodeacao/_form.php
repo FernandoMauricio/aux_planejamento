@@ -25,6 +25,7 @@ use app\models\cadastros\Segmento;
                         <h3 class="panel-title"><span class="glyphicon glyphicon-book"></span>  Cadastros de Planos de Ação</h3>
                       </div>
                             <div class="panel-body">
+                                        <?php echo $form->errorSummary($model); ?>
                                  <div id="rootwizard" class="tabbable tabs-left">
                                   <ul>
                                          <li><a href="#tab1" data-toggle="tab">Informações</a></li>

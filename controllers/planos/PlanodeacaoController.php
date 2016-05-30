@@ -113,10 +113,6 @@ class PlanodeacaoController extends Controller
             $modelsPlanoMaterial = Model::createMultiple(PlanoMaterial::classname());
             Model::loadMultiple($modelsPlanoMaterial, Yii::$app->request->post());
 
-            //Inserir várias Estruturas Físicas do Plano
-            $modelsPlanoEstrutura = Model::createMultiple(PlanoEstruturafisica::classname());
-            Model::loadMultiple($modelsPlanoEstrutura, Yii::$app->request->post());
-
             //Inserir vários materiais de consumo do plano
             $modelsPlanoConsumo = Model::createMultiple(PlanoConsumo::classname());
             Model::loadMultiple($modelsPlanoConsumo, Yii::$app->request->post());
@@ -125,21 +121,26 @@ class PlanodeacaoController extends Controller
             $modelsPlanoAluno = Model::createMultiple(PlanoAluno::classname());
             Model::loadMultiple($modelsPlanoAluno, Yii::$app->request->post());
 
+            //Inserir várias Estruturas Físicas do Plano
+            $modelsPlanoEstrutura = Model::createMultiple(PlanoEstruturafisica::classname());
+            Model::loadMultiple($modelsPlanoEstrutura, Yii::$app->request->post());
+
+
             // validate all models
             $valid = $model->validate();
-            $valid = Model::validateMultiple($modelsPlanoEstrutura) && $valid;
+            $valid = Model::validateMultiple($modelsPlanoMaterial) && $valid;
 
-            $valid2 = $model->validate();
-            $valid_planotmaterial = Model::validateMultiple($modelsPlanoMaterial) && $valid2;
+            $valid_planomaterial = $model->validate();
+            $valid_planomaterial = Model::validateMultiple($modelsPlanoConsumo) && $valid && $valid_planomaterial;
 
-            $valid3 = $model->validate();
-            $valid_planoconsumo = Model::validateMultiple($modelsPlanoConsumo) && $valid2 && $valid3;
+            $valid_planoaluno = $model->validate();
+            $valid_planoaluno = Model::validateMultiple($modelsPlanoAluno) && $valid && $valid_planomaterial && $valid_planoaluno;
 
-            $valid4 = $model->validate();
-            $valid_planoaluno = Model::validateMultiple($modelsPlanoAluno) && $valid2 && $valid3;
+            $valid_planoestrutura = $model->validate();
+            $valid_planoestrutura = Model::validateMultiple($modelsPlanoEstrutura) && $valid && $valid_planomaterial && $valid_planoconsumo && $valid_planoestrutura;
 
 
-            if ($valid && $valid_planotmaterial && $valid_planoconsumo && $valid_planoaluno) {
+            if ($valid && $valid_planomaterial && $valid_planoconsumo && $valid_planoestrutura) {
                 $transaction = \Yii::$app->db_apl->beginTransaction();
                 $transactionRep = \Yii::$app->db_rep->beginTransaction();
                 try {
@@ -148,14 +149,6 @@ class PlanodeacaoController extends Controller
                             $modelPlanoMaterial->plama_codplano = $model->plan_codplano;
                             if (! ($flag = $modelPlanoMaterial->save(false))) {
                                 $transaction->rollBack();
-                                break;
-                            }
-                        }
-
-                        foreach ($modelsPlanoEstrutura as $modelPlanoEstrutura) {
-                            $modelPlanoEstrutura->planodeacao_cod = $model->plan_codplano;
-                            if (! ($flag = $modelPlanoEstrutura->save(false))) {
-                                $transactionRep->rollBack();
                                 break;
                             }
                         }
@@ -171,6 +164,14 @@ class PlanodeacaoController extends Controller
                         foreach ($modelsPlanoAluno as $modelPlanoAluno) {
                             $modelPlanoAluno->planodeacao_cod = $model->plan_codplano;
                             if (! ($flag = $modelPlanoAluno->save(false))) {
+                                $transactionRep->rollBack();
+                                break;
+                            }
+                        }
+
+                        foreach ($modelsPlanoEstrutura as $modelPlanoEstrutura) {
+                            $modelPlanoEstrutura->planodeacao_cod = $model->plan_codplano;
+                            if (! ($flag = $modelPlanoEstrutura->save(false))) {
                                 $transactionRep->rollBack();
                                 break;
                             }
@@ -215,11 +216,11 @@ class PlanodeacaoController extends Controller
             $parents = $_POST['depdrop_parents'];
 
             if ($parents != null) {
-            $cat_id = $parents[0];
-            $out = Segmento::getSegmentoSubCat($cat_id);
-            echo Json::encode(['output'=>$out, 'selected'=>'']);
-            return;
-            }
+                $cat_id = $parents[0];
+                $out = Segmento::getSegmentoSubCat($cat_id);
+                echo Json::encode(['output'=>$out, 'selected'=>'']);
+                return;
+                }
             }
             echo Json::encode(['output'=>'', 'selected'=>'']);
     }
@@ -242,14 +243,12 @@ class PlanodeacaoController extends Controller
             echo Json::encode(['output'=>'', 'selected'=>'']);
     }
 
-
     //Localiza os dados de valores e tipos de material cadastrados no repositorio
     public function actionGetRepositorio($repId){
 
         $getRepositorio = Repositorio::findOne($repId);
         echo Json::encode($getRepositorio);
     }
-
 
     //Localiza os dados de valores e tipos de material cadastrados no repositorio
     public function actionGetPlanoConsumo($matconId){
@@ -258,14 +257,12 @@ class PlanodeacaoController extends Controller
         echo Json::encode($getPlanoConsumo);
     }
 
-
     //Localiza os dados de valores e tipos de material cadastrados no repositorio
     public function actionGetPlanoAluno($mataluId){
 
         $getPlanoAluno = Materialaluno::findOne($mataluId);
         echo Json::encode($getPlanoAluno);
     }
-
 
     //Localiza os dados cadastrados
     public function actionGetPlanoEstruturaFisica($estrfisicID){
