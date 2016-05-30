@@ -179,14 +179,18 @@ class PlanodeacaoController extends Controller
                     if ($flag) {
                         $transaction->commit();
                         $transactionRep->commit();
-                        return $this->redirect(['index']);
+                        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Plano Cadastrado!</strong>');
+                        return $this->redirect(['view', 'id' => $model->plan_codplano]);
                     }
                 }  catch (Exception $e) {
                     $transaction->rollBack();
                     $transactionRep->rollBack();
                 }
             }
-            return $this->redirect(['index']);
+
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Plano Cadastrado!</strong>');
+
+            return $this->redirect(['view', 'id' => $model->plan_codplano]);
         } else {
             return $this->render('create', [
                 'model'                 => $model,

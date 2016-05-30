@@ -18,7 +18,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                             'widgetContainer' => 'dynamicform_planomaterial', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
                                             'widgetBody' => '.container-items-planomaterial', // required: css class selector
                                             'widgetItem' => '.item-planomaterial', // required: css class
-                                            'limit' => 4, // the maximum times, an element can be cloned (default 999)
+                                            'limit' => 999, // the maximum times, an element can be cloned (default 999)
                                             'min' => 1, // 0 or 1 (default 1)
                                             'insertButton' => '.add-item-planomaterial', // css class
                                             'deleteButton' => '.remove-item-planomaterial', // css class
@@ -74,15 +74,16 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                                 var $inputValor = $divPanelBody.find("input:eq(1)");
                                                                 var $inputTipoMaterial = $divPanelBody.find("input:eq(2)");
                                                                 var $inputEditora = $divPanelBody.find("input:eq(3)");
-                                                                var $inputArquivo = $divPanelBody.find("input:eq(4)");
+                                                                var $inputArquivo = $divPanelBody.find("input:eq(5)");
 
 
                                                                 $inputTitulo.val(data.rep_titulo);
                                                                 $inputValor.val(data.rep_valor);
                                                                 $inputTipoMaterial.val(data.rep_tipo);
                                                                 $inputEditora.val(data.rep_editora);
-                                                                
-                                                                $("#inputArquivo").attr("href", data.rep_arquivo);
+                                                                $inputArquivo.val(data.rep_arquivo);
+
+                                                                //$("#inputArquivo").attr("href", data.rep_arquivo);
                                                                 
                                                              });
                                                          '
@@ -121,8 +122,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     </div>
 
                                     <div class="col-sm-12">
-
-                                   <?php echo '<a id="inputArquivo" target="_blank"> Download do Arquivo</a>' ?>
+                                   <?= $form->field($modelPlanoMaterial, "[{$index}]plama_arquivo")->hiddenInput()->label(false) ?>
+                                   <?php //echo '<a id="inputArquivo" target="_blank"> Download do Arquivo</a>' ?>
                                     </div>
 
                             </div>

@@ -23,7 +23,12 @@ $id = $model->plan_codplano;
 ?>
 
 <div class="planodeacao-view">
-
+<?php
+//Pega as mensagens
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+}
+?>
     <h1><?= Html::encode($this->title) ?></h1>
 <div class="panel panel-primary">
   <div class="panel-heading">
@@ -50,7 +55,7 @@ $attributes = [
                         [
                             'attribute'=>'plan_cargahoraria', 
                             'format'=>'raw', 
-                            'value'=>'<kbd>'.$model->plan_cargahoraria.'</kbd>',
+                            'value'=>$model->plan_cargahoraria,
                             'valueColOptions'=>['style'=>'width:30%'], 
                             'displayOnly'=>true
                         ],
@@ -97,32 +102,32 @@ $attributes = [
 
                 [
                     'attribute'=>'plan_sobre',
-                    'format'=>'raw',
-                    'value'=>'<span class="text-justify"><em>' . $model->plan_sobre . '</em></span>',
+                    'format' => 'ntext',
+                    'value'=> $model->plan_sobre,
                     'type'=>DetailView::INPUT_TEXTAREA, 
                     'options'=>['rows'=>4]
                 ],
 
                 [
                     'attribute'=>'plan_prerequisito',
-                    'format'=>'raw',
-                    'value'=>'<span class="text-justify"><em>' . $model->plan_prerequisito . '</em></span>',
+                    'format' => 'ntext',
+                    'value'=> $model->plan_prerequisito,
                     'type'=>DetailView::INPUT_TEXTAREA, 
                     'options'=>['rows'=>4]
                 ],
 
                 [
                     'attribute'=>'plan_orgcurricular',
-                    'format'=>'raw',
-                    'value'=>'<span class="text-justify"><em>' . $model->plan_orgcurricular . '</em></span>',
+                    'format' => 'ntext',
+                    'value'=> $model->plan_orgcurricular,
                     'type'=>DetailView::INPUT_TEXTAREA, 
                     'options'=>['rows'=>4]
                 ],
 
                 [
                     'attribute'=>'plan_perfTecnico',
-                    'format'=>'raw',
-                    'value'=>'<span class="text-justify"><em>' . $model->plan_perfTecnico . '</em></span>',
+                    'format' => 'ntext',
+                    'value'=> $model->plan_perfTecnico,
                     'type'=>DetailView::INPUT_TEXTAREA, 
                     'options'=>['rows'=>4]
                 ],
@@ -153,6 +158,7 @@ echo DetailView::widget([
         <th>Editora</th>
         <th>Plano</th>
         <th>Observação</th>
+        <th>Arquivo</th>
       </tr>
     </thead>
     <tbody>
@@ -169,6 +175,7 @@ echo DetailView::widget([
                 $plama_editora      = $modelPlanoMaterial["plama_editora"];
                 $plama_tipoplano    = $modelPlanoMaterial["plama_tipoplano"];
                 $plama_observacao   = $modelPlanoMaterial["plama_observacao"];
+                $plama_arquivo      = $modelPlanoMaterial["plama_arquivo"];
                 $valorTotal        += $modelPlanoMaterial["plama_valor"]; //somatório de todos os valores dos itens
 
         ?>
@@ -178,6 +185,7 @@ echo DetailView::widget([
         <td><?php echo $plama_editora ?></td>
         <td><?php echo $plama_tipoplano ?></td>
         <td><?php echo $plama_observacao ?></td>
+        <td><a target="_blank" href="http://localhost/aux_planejamento/web/uploads/repositorio/<?php echo $plama_arquivo ?>"> <?php echo $plama_arquivo ?></a></td>
       </tr>
         <?php
           }
@@ -322,8 +330,15 @@ echo DetailView::widget([
     </tbody>
   </table>
 
+  <table class="table table-condensed table-hover">
+    <thead>
+    <tr class="info"><th colspan="12">SEÇÃO 6: Auditoria</th></tr>
+        <th>Atualizado por: <?php echo $model->colaborador->usuario->usu_nomeusuario ?></th>
+        <th>Última Modifcação: <?php echo  date('d/m/Y', strtotime($model->plan_data)) ?></th>
+    </thead>
+  </table>
 
-         </div>
-
-    </div>
+           </div>
+      </div>
+  </div>
 </div>

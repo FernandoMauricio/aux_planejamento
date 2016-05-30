@@ -58,7 +58,7 @@ class PlanoEstruturafisica extends \yii\db\ActiveRecord
         return [
             'planestr_cod' => 'Planestr Cod',
             'planodeacao_cod' => 'Planodeacao Cod',
-            'estruturafisica_cod' => 'Estrturafisica Cod',
+            'estruturafisica_cod' => 'Descrição',
             'planestr_descricao' => 'Descrição',
             'planestr_quantidade' => 'Quantidade',
             'planestr_tipo' => 'Tipo',

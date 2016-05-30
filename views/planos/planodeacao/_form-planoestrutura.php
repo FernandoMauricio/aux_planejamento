@@ -3,6 +3,8 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
+use yii\helpers\Json;
+use yii\helpers\Url;
 
 use wbraganca\dynamicform\DynamicFormWidget;
 
@@ -16,7 +18,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                             'widgetContainer' => 'dynamicform_planoestrutura', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
                                             'widgetBody' => '.container-items-planoestrutura', // required: css class selector
                                             'widgetItem' => '.item-planoestrutura', // required: css class
-                                            'limit' => 4, // the maximum times, an element can be cloned (default 999)
+                                            'limit' => 999, // the maximum times, an element can be cloned (default 999)
                                             'min' => 1, // 0 or 1 (default 1)
                                             'insertButton' => '.add-item-planoestrutura', // css class
                                             'deleteButton' => '.remove-item-planoestrutura', // css class
@@ -60,7 +62,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                         $data_estruturafisica = ArrayHelper::map($estruturafisica, 'estr_cod', 'estr_descricao');
                                                         echo $form->field($modelPlanoEstrutura, "[{$index}]estruturafisica_cod")->widget(Select2::classname(), [
                                                                 'data' =>  $data_estruturafisica,
-                                                                'options' => ['placeholder' => 'Selecione o item...'],
+                                                                'options' => ['placeholder' => 'Selecione o item...',
                                                                 'onchange'=>'
                                                                                  var select = this;
                                                                                  $.getJSON( "'.Url::toRoute('/planos/planodeacao/get-plano-estrutura-fisica').'", { estrfisicID: $(this).val() } )
@@ -70,15 +72,11 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
                                                                                         var $inputDescricao = $divPanelBody.find("input:eq(0)");
 
-                                                                                        $inputDescricao.val(data.matcon_descricao);
+                                                                                        $inputDescricao.val(data.estr_descricao);
 
                                                                                      });
                                                                                  '
                                                                          ]]);
-                                                                'pluginOptions' => [
-                                                                        'allowClear' => true
-                                                                    ],
-                                                                ]);
                                             ?>
                                          <?= $form->field($modelPlanoEstrutura, "[{$index}]planestr_descricao")->hiddenInput()->label(false) ?>
                                     </div>
