@@ -1,7 +1,7 @@
 <?php
 
-use kartik\detail\DetailView;
 use yii\helpers\Html;
+use yii\widgets\DetailView;
 use app\models\planos\PlanoMaterial;
 use app\models\planos\PlanoConsumo;
 use app\models\planos\PlanoAluno;
@@ -27,125 +27,75 @@ $id = $model->plan_codplano;
     <h1><?= Html::encode($this->title) ?></h1>
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> DETALHES DO PLANO</h3>
+    <h3 class="panel-title" align="center">DETALHES DO PLANO</h3>
   </div>
     <div class="panel-body">
           <div class="row">
 
     <?php
-$attributes = [
-                [
-                    'group'=>true,
-                    'label'=>'SEÇÃO 1: Informações do Plano',
-                    'rowOptions'=>['class'=>'info']
-                ],
 
-                [
-                    'columns' => [
-                        [
-                            'attribute'=>'plan_descricao', 
-                            'displayOnly'=>true,
-                            'valueColOptions'=>['style'=>'width:30%']
-                        ],
-                        [
-                            'attribute'=>'plan_cargahoraria', 
-                            'format'=>'raw', 
-                            'value'=>'<kbd>'.$model->plan_cargahoraria.'</kbd>',
-                            'valueColOptions'=>['style'=>'width:30%'], 
-                            'displayOnly'=>true
-                        ],
+    echo DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            //'plan_codplano',
+            'plan_descricao',
 
-                        [
-                            'attribute'=>'plan_status', 
-                            'format'=>'raw',
-                            'type'=>DetailView::INPUT_SWITCH,
-                            'value'=>$model->plan_status ? '<span class="label label-success">Ativo</span>' : '<span class="label label-danger">Inativo</span>',
-                            'valueColOptions'=>['style'=>'width:30%']
-                        ],
-                    ],
-                ],
+            [
+                'attribute' => 'plan_codnivel',
+                'value' => $model->nivel->niv_descricao,
+            ],
 
-                [
-                    'columns' => [
-                        [
-                            'attribute'=>'plan_codnivel', 
-                            'value'=> $model->nivel->niv_descricao,
-                            'labelColOptions'=>['style'=>'width:0%'], 
-                            'displayOnly'=>true
-                        ],
-                        [
-                            'attribute'=>'plan_codeixo', 
-                            'value'=> $model->eixo->eix_descricao,
-                            'labelColOptions'=>['style'=>'width:0%'], 
-                            'displayOnly'=>true
-                        ],
-                        [
-                            'attribute'=>'plan_codsegmento', 
-                            'value'=> $model->segmento->seg_descricao,
-                            'labelColOptions'=>['style'=>'width:0%'], 
-                            'displayOnly'=>true
-                        ],
-                        [
-                            'attribute'=>'plan_codtipoa', 
-                            'value'=> $model->tipo->tip_descricao,
-                            'labelColOptions'=>['style'=>'width:0%'], 
-                            'displayOnly'=>true
-                        ],
-                    ],
+            [
+                'attribute' => 'plan_codeixo',
+                'value' => $model->eixo->eix_descricao,
+            ],
 
-                ],
+            [
+                'attribute' => 'plan_codsegmento',
+                'value' => $model->segmento->seg_descricao,
+            ],
 
-                [
-                    'attribute'=>'plan_sobre',
-                    'format'=>'raw',
-                    'value'=>'<span class="text-justify"><em>' . $model->plan_sobre . '</em></span>',
-                    'type'=>DetailView::INPUT_TEXTAREA, 
-                    'options'=>['rows'=>4]
-                ],
+            [
+                'attribute' => 'plan_codtipoa',
+                'value' => $model->tipo->tip_descricao,
+            ],
 
-                [
-                    'attribute'=>'plan_prerequisito',
-                    'format'=>'raw',
-                    'value'=>'<span class="text-justify"><em>' . $model->plan_prerequisito . '</em></span>',
-                    'type'=>DetailView::INPUT_TEXTAREA, 
-                    'options'=>['rows'=>4]
-                ],
 
-                [
-                    'attribute'=>'plan_orgcurricular',
-                    'format'=>'raw',
-                    'value'=>'<span class="text-justify"><em>' . $model->plan_orgcurricular . '</em></span>',
-                    'type'=>DetailView::INPUT_TEXTAREA, 
-                    'options'=>['rows'=>4]
-                ],
 
-                [
-                    'attribute'=>'plan_perfTecnico',
-                    'format'=>'raw',
-                    'value'=>'<span class="text-justify"><em>' . $model->plan_perfTecnico . '</em></span>',
-                    'type'=>DetailView::INPUT_TEXTAREA, 
-                    'options'=>['rows'=>4]
-                ],
+            'plan_cargahoraria',
+            'plan_sobre:ntext',
+            'plan_prerequisito:ntext',
+            'plan_orgcurricular:ntext',
+            'plan_perfTecnico:ntext',
+            //'plan_codcolaborador',
 
-            ];
+            [
+                'attribute' => 'plan_codcolaborador',
+                'value' => $model->colaborador->usuario->usu_nomeusuario,
+            ],
 
-echo DetailView::widget([
-    'model'=>$model,
-    'condensed'=>true,
-    'hover'=>true,
-    'mode'=>DetailView::MODE_VIEW,
-    // 'panel'=>[
-    //     'heading'=>'Plano # ' . $model->plan_codplano,
-    //     'type'=>DetailView::TYPE_INFO,
-    // ],
-    'attributes'=> $attributes,
-]);
+            [
+                'attribute' => 'plan_data',
+                'format' => ['date', 'php:d/m/Y'],
+            ],
 
+            [
+                'attribute'=>'plan_status', 
+                'label'=>'Situação',
+                'format'=>'raw',
+                'value'=>$model->plan_status ? '<span class="label label-success">Ativo</span>' : '<span class="label label-danger">Inativo</span>',
+                'valueColOptions'=>['style'=>'width:100%']
+            ],
+        ],
+    ]) 
     ?>
-                              <!-- SEÇÃO 2 - MATERIAIS DIDÁTICOS -->
+
+</div>
+
+
+  <h3>Materiais Didáticos</h3>
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 2: Materiais Didáticos</th></tr>
       <tr>
         <th>Descrição</th>
         <th>Valor Unitário</th>
@@ -184,16 +134,17 @@ echo DetailView::widget([
         ?>
     </tbody>
      <tfoot>
-            <tr class="warning kv-edit-hidden" style="border-top: #dedede">
+            <tr>
               <th>TOTAL <i>(Valor Unitário)</i> </th>
-               <th colspan="12" style="color:red"><?php echo 'R$ ' . number_format($valorTotal, 2, ',', '.') ?></th>
+               <th style="color:red"><?php echo 'R$ ' . number_format($valorTotal, 2, ',', '.') ?></th>
             </tr>
          </tfoot>
   </table>
-                              <!-- SEÇÃO 3 - MATERIAIS DE CONSUMO -->
+
+
+  <h3>Materiais de Consumo</h3>
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 3: Materiais de Consumo</th></tr>
       <tr>
         <th>Descrição</th>
         <th>Valor Unitário</th>
@@ -233,18 +184,16 @@ echo DetailView::widget([
                $query = (new \yii\db\Query())->from('db_apl.plano_materialconsumo')->where(['planodeacao_cod' => $id]);
                $sum = $query->sum('planmatcon_valor*planmatcon_quantidade');
                ?>
-               <tr class="warning kv-edit-hidden" style="border-top: #dedede">
                <th>TOTAL <i>(Valor Unitário * Quantidade)</i></th>
-               <th colspan="12" style="color:red"><?php echo 'R$ ' . number_format($sum, 2, ',', '.') ?></th>
+               <th style="color:red"><?php echo 'R$ ' . number_format($sum, 2, ',', '.') ?></th>
             </tr>
          </tfoot>
   </table>
 
-                              <!-- SEÇÃO 4 - MATERIAIS DO ALUNO -->
 
+  <h3>Materiais do Aluno</h3>
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 4: Materiais do Aluno</th></tr>
       <tr>
         <th>Descrição</th>
         <th>Valor Unitário</th>
@@ -278,7 +227,7 @@ echo DetailView::widget([
         <?php    }   ?>
     </tbody>
      <tfoot>
-            <tr class="warning kv-edit-hidden" style="border-top: #dedede">
+            <tr>
                <th>TOTAL <i>(Valor Unitário * Quantidade)</i></th>
 
                <?php
@@ -286,16 +235,14 @@ echo DetailView::widget([
                $query = (new \yii\db\Query())->from('db_apl.plano_materialaluno')->where(['planodeacao_cod' => $id]);
                $sum = $query->sum('planmatalu_valor*planmatalu_quantidade');
                ?>
-               <th colspan="12" style="color:red"><?php echo 'R$ ' . number_format($sum, 2, ',', '.') ?></th>
+               <th style="color:red"><?php echo 'R$ ' . number_format($sum, 2, ',', '.') ?></th>
             </tr>
          </tfoot>
   </table>
 
-                              <!-- SEÇÃO 5 - ESTRUTURA FÍSICA DO PLANO -->
-
+  <h3>Estrutura Física do Plano</h3>
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 5: Estrutura Física do Plano</th></tr>
       <tr>
         <th>Descrição</th>
         <th>Quantidade</th>

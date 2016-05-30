@@ -23,7 +23,8 @@
         "kartik-v/yii2-widgets": "*",
         "wbraganca/yii2-dynamicform": "*",
         "kartik-v/yii2-money": "dev-master",
-        "phpoffice/phpexcel": "^1.8"
+        "phpoffice/phpexcel": "^1.8",
+        "kartik-v/yii2-detail-view": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
