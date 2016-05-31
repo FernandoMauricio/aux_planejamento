@@ -10,10 +10,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 ?>
 
-
-    <div class="padding-v-md">
-        <div class="line line-dashed"></div>
-    </div>
                                          <?php DynamicFormWidget::begin([
                                             'widgetContainer' => 'dynamicform_planoconsumo', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
                                             'widgetBody' => '.container-items-planoconsumo', // required: css class selector
@@ -25,6 +21,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                             'model' => $modelsPlanoConsumo[0],
                                             'formId' => 'dynamic-form',
                                             'formFields' => [
+                                                'planmatcon_cod',
                                                 'planodeacao_cod',
                                                 'materialconsumo_cod',
                                                 'planmatcon_descricao',
@@ -42,10 +39,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
                     <div class="clearfix"></div>
                 </div>
                 <div class="panel-body container-items-planoconsumo"><!-- widgetContainer -->
-                    <?php foreach ($modelsPlanoConsumo as $index => $modelPlanoConsumo): ?>
+                    <?php foreach ($modelsPlanoConsumo as $i => $modelPlanoConsumo): ?>
                         <div class="item-planoconsumo panel panel-default"><!-- widgetBody -->
                             <div class="panel-heading">
-                                <span class="panel-title-planoconsumo">Item: <?= ($index + 1) ?></span>
+                                <span class="panel-title-planoconsumo">Item: <?= ($i + 1) ?></span>
                                 <button type="button" class="pull-right remove-item-planoconsumo btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
                                 <div class="clearfix"></div>
                             </div>
@@ -53,14 +50,14 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                 <?php
                                     // necessary for update action.
                                     if (!$modelPlanoConsumo->isNewRecord) {
-                                        echo Html::activeHiddenInput($modelPlanoConsumo, "[{$index}]planmatcon_cod");
+                                        echo Html::activeHiddenInput($modelPlanoConsumo, "[{$i}]planmatcon_cod");
                                     }
                                 ?>
 
                                     <div class="col-sm-8">
                                     <?php
                                          $data_planoconsumo = ArrayHelper::map($materialconsumo, 'matcon_cod', 'matcon_descricao');
-                                         echo $form->field($modelPlanoConsumo, "[{$index}]materialconsumo_cod")->widget(Select2::classname(), [
+                                         echo $form->field($modelPlanoConsumo, "[{$i}]materialconsumo_cod")->widget(Select2::classname(), [
                                                  'data' =>  $data_planoconsumo,
                                                  'options' => ['placeholder' => 'Selecione o Material de Consumo...',
                                                  'onchange'=>'
@@ -82,19 +79,19 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                          '
                                                  ]]);
                                       ?>
-                                      <?= $form->field($modelPlanoConsumo, "[{$index}]planmatcon_descricao")->hiddenInput()->label(false) ?>
+                                      <?= $form->field($modelPlanoConsumo, "[{$i}]planmatcon_descricao")->hiddenInput()->label(false) ?>
                                     </div>
 
                                     <div class="col-sm-1">
-                                        <?= $form->field($modelPlanoConsumo, "[{$index}]planmatcon_tipo")->textInput(['readonly'=> true]) ?>
+                                        <?= $form->field($modelPlanoConsumo, "[{$i}]planmatcon_tipo")->textInput(['readonly'=> true]) ?>
                                     </div>
 
                                     <div class="col-sm-2">
-                                        <?= $form->field($modelPlanoConsumo, "[{$index}]planmatcon_valor")->textInput(['readonly'=> true]) ?>
+                                        <?= $form->field($modelPlanoConsumo, "[{$i}]planmatcon_valor")->textInput(['readonly'=> true]) ?>
                                     </div>
 
                                     <div class="col-sm-1">
-                                        <?= $form->field($modelPlanoConsumo, "[{$index}]planmatcon_quantidade")->textInput() ?>
+                                        <?= $form->field($modelPlanoConsumo, "[{$i}]planmatcon_quantidade")->textInput() ?>
                                     </div>
 
                             </div>
@@ -109,14 +106,14 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 $js = '
 jQuery(".dynamicform_planoconsumo").on("afterInsert", function(e, item) {
-    jQuery(".dynamicform_planoconsumo .panel-title-planoconsumo").each(function(index) {
-        jQuery(this).html("Item: " + (index + 1))
+    jQuery(".dynamicform_planoconsumo .panel-title-planoconsumo").each(function(i) {
+        jQuery(this).html("Item: " + (i + 1))
     });
 });
 
 jQuery(".dynamicform_planoconsumo").on("afterDelete", function(e) {
-    jQuery(".dynamicform_planoconsumo .panel-title-planoconsumo").each(function(index) {
-        jQuery(this).html("Item: " + (index + 1))
+    jQuery(".dynamicform_planoconsumo .panel-title-planoconsumo").each(function(i) {
+        jQuery(this).html("Item: " + (i + 1))
     });
 });
 

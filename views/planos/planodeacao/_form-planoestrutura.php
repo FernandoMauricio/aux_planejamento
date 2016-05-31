@@ -10,10 +10,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 ?>
 
-
-    <div class="padding-v-md">
-        <div class="line line-dashed"></div>
-    </div>
                                          <?php DynamicFormWidget::begin([
                                             'widgetContainer' => 'dynamicform_planoestrutura', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
                                             'widgetBody' => '.container-items-planoestrutura', // required: css class selector
@@ -41,10 +37,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
                     <div class="clearfix"></div>
                 </div>
                 <div class="panel-body container-items-planoestrutura"><!-- widgetContainer -->
-                    <?php foreach ($modelsPlanoEstrutura as $index => $modelPlanoEstrutura): ?>
+                    <?php foreach ($modelsPlanoEstrutura as $i => $modelPlanoEstrutura): ?>
                         <div class="item-planoestrutura panel panel-default"><!-- widgetBody -->
                             <div class="panel-heading">
-                                <span class="panel-title-planoestrutura">Item: <?= ($index + 1) ?></span>
+                                <span class="panel-title-planoestrutura">Item: <?= ($i + 1) ?></span>
                                 <button type="button" class="pull-right remove-item-planoestrutura btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
                                 <div class="clearfix"></div>
                             </div>
@@ -52,7 +48,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                 <?php
                                     // necessary for update action.
                                     if (!$modelPlanoEstrutura->isNewRecord) {
-                                        echo Html::activeHiddenInput($modelPlanoEstrutura, "[{$index}]id");
+                                        echo Html::activeHiddenInput($modelPlanoEstrutura, "[{$i}]planestr_cod");
                                     }
                                 ?>
 
@@ -60,7 +56,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                             <?php
 
                                                         $data_estruturafisica = ArrayHelper::map($estruturafisica, 'estr_cod', 'estr_descricao');
-                                                        echo $form->field($modelPlanoEstrutura, "[{$index}]estruturafisica_cod")->widget(Select2::classname(), [
+                                                        echo $form->field($modelPlanoEstrutura, "[{$i}]estruturafisica_cod")->widget(Select2::classname(), [
                                                                 'data' =>  $data_estruturafisica,
                                                                 'options' => ['placeholder' => 'Selecione o item...',
                                                                 'onchange'=>'
@@ -78,14 +74,14 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                                                  '
                                                                          ]]);
                                             ?>
-                                         <?= $form->field($modelPlanoEstrutura, "[{$index}]planestr_descricao")->hiddenInput()->label(false) ?>
+                                         <?= $form->field($modelPlanoEstrutura, "[{$i}]planestr_descricao")->hiddenInput()->label(false) ?>
                                     </div>
                                     <div class="col-sm-2">
-                                        <?= $form->field($modelPlanoEstrutura, "[{$index}]planestr_quantidade")->textInput() ?>
+                                        <?= $form->field($modelPlanoEstrutura, "[{$i}]planestr_quantidade")->textInput() ?>
                                     </div>
                                     <div class="col-sm-2">
                                             <?php
-                                                        echo $form->field($modelPlanoEstrutura, "[{$index}]planestr_tipo")->widget(Select2::classname(), [
+                                                        echo $form->field($modelPlanoEstrutura, "[{$i}]planestr_tipo")->widget(Select2::classname(), [
                                                                 'data' =>  ['Aluno'=> 'Aluno', 'Turma'=>'Turma'],
                                                                 'options' => ['placeholder' => 'Selecione o tipo...'],
                                                                 'pluginOptions' => [
@@ -106,14 +102,14 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 $js = '
 jQuery(".dynamicform_planoestrutura").on("afterInsert", function(e, item) {
-    jQuery(".dynamicform_planoestrutura .panel-title-planoestrutura").each(function(index) {
-        jQuery(this).html("Item: " + (index + 1))
+    jQuery(".dynamicform_planoestrutura .panel-title-planoestrutura").each(function(i) {
+        jQuery(this).html("Item: " + (i + 1))
     });
 });
 
 jQuery(".dynamicform_planoestrutura").on("afterDelete", function(e) {
-    jQuery(".dynamicform_planoestrutura .panel-title-planoestrutura").each(function(index) {
-        jQuery(this).html("Item: " + (index + 1))
+    jQuery(".dynamicform_planoestrutura .panel-title-planoestrutura").each(function(i) {
+        jQuery(this).html("Item: " + (i + 1))
     });
 });
 ';

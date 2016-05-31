@@ -28,12 +28,12 @@ use app\models\cadastros\Segmento;
                                         <?php echo $form->errorSummary($model); ?>
                                  <div id="rootwizard" class="tabbable tabs-left">
                                   <ul>
-                                         <li><a href="#tab1" data-toggle="tab">Informações</a></li>
-                                         <li><a href="#tab2" data-toggle="tab">Material Didático</a></li>
-                                         <li><a href="#tab3" data-toggle="tab">Material de Consumo</a></li>
-                                         <li><a href="#tab4" data-toggle="tab">Material do Aluno</a></li>
-                                         <li><a href="#tab5" data-toggle="tab">Estrutura Física</a></li>
-                                         <li><a href="#tab6" data-toggle="tab">Outros Custos</a></li>
+                                         <li><a href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Informações</a></li>
+                                         <li><a href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Material Didático</a></li>
+                                         <li><a href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-tags"></span> Material de Consumo</a></li>
+                                         <li><a href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-education"></span> Material do Aluno</a></li>
+                                         <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Estrutura Física</a></li>
+                                         <li><a href="#tab6" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Outros Custos</a></li>
                                   </ul>
 
                                               <div class="tab-content">
@@ -41,9 +41,6 @@ use app\models\cadastros\Segmento;
                                                     <div class="tab-pane" id="tab1">
                                                         <?= $this->render('_form-plano', [
                                                             'model' => $model,
-                                                            'estruturafisica' => $estruturafisica,
-                                                            'modelsPlanoMaterial' => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
-                                                            'modelsPlanoEstrutura' => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,
                                                         ]) ?>
                                                     </div>
 
@@ -51,7 +48,7 @@ use app\models\cadastros\Segmento;
                                                         <?= $this->render('_form-planomaterial', [
                                                             'form' => $form,
                                                             'repositorio' => $repositorio,
-                                                            'modelsPlanoMaterial' => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
+                                                            'modelsPlanoMaterial' => $modelsPlanoMaterial,
                                                         ]) ?>
                                                     </div>
 
@@ -59,7 +56,7 @@ use app\models\cadastros\Segmento;
                                                         <?= $this->render('_form-planoconsumo', [
                                                             'form' => $form,
                                                             'materialconsumo' => $materialconsumo,
-                                                            'modelsPlanoConsumo' => (empty($modelsPlanoConsumo)) ? [new PlanoMaterialconsumo] : $modelsPlanoConsumo,
+                                                            'modelsPlanoConsumo' => $modelsPlanoConsumo,
                                                         ]) ?>
                                                     </div>
 
@@ -67,15 +64,15 @@ use app\models\cadastros\Segmento;
                                                         <?= $this->render('_form-planoaluno', [
                                                             'form' => $form,
                                                             'materialaluno' => $materialaluno,
-                                                            'modelsPlanoAluno' => (empty($modelsPlanoAluno)) ? [new PlanoAluno] : $modelsPlanoAluno,
+                                                            'modelsPlanoAluno' => $modelsPlanoAluno,
                                                         ]) ?>
                                                     </div>
 
                                                     <div class="tab-pane" id="tab5">
                                                        <?= $this->render('_form-planoestrutura', [
                                                            'form' => $form,
-                                                           'modelsPlanoEstrutura' => $modelsPlanoEstrutura,
                                                            'estruturafisica' => $estruturafisica,
+                                                           'modelsPlanoEstrutura' => $modelsPlanoEstrutura,
                                                            //'dataProviderPlanoMaterial' => $dataProviderPlanoMaterial,
                                                        ]) ?>
                                                     </div>

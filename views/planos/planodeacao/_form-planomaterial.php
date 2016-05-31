@@ -10,21 +10,18 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 ?>
 
-
-    <div class="padding-v-md">
-        <div class="line line-dashed"></div>
-    </div>
                                          <?php DynamicFormWidget::begin([
                                             'widgetContainer' => 'dynamicform_planomaterial', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
                                             'widgetBody' => '.container-items-planomaterial', // required: css class selector
                                             'widgetItem' => '.item-planomaterial', // required: css class
                                             'limit' => 999, // the maximum times, an element can be cloned (default 999)
-                                            'min' => 1, // 0 or 1 (default 1)
+                                            'min' => 2, // 0 or 1 (default 1)
                                             'insertButton' => '.add-item-planomaterial', // css class
                                             'deleteButton' => '.remove-item-planomaterial', // css class
                                             'model' => $modelsPlanoMaterial[0],
                                             'formId' => 'dynamic-form',
                                             'formFields' => [
+                                                'plama_codplama',
                                                 'plama_codrepositorio',
                                                 'plama_valor',
                                                 'plama_tipomaterial',
@@ -42,10 +39,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
                     <div class="clearfix"></div>
                 </div>
                 <div class="panel-body container-items-planomaterial"><!-- widgetContainer -->
-                    <?php foreach ($modelsPlanoMaterial as $index => $modelPlanoMaterial): ?>
+                    <?php foreach ($modelsPlanoMaterial as $i => $modelPlanoMaterial): ?>
                         <div class="item-planomaterial panel panel-default"><!-- widgetBody -->
                             <div class="panel-heading">
-                                <span class="panel-title-planomaterial">Item: <?= ($index + 1) ?></span>
+                                <span class="panel-title-planomaterial">Item: <?= ($i + 1) ?></span>
                                 <button type="button" class="pull-right remove-item-planomaterial btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
                                 <div class="clearfix"></div>
                             </div>
@@ -53,14 +50,14 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                 <?php
                                     // necessary for update action.
                                     if (!$modelPlanoMaterial->isNewRecord) {
-                                        echo Html::activeHiddenInput($modelPlanoMaterial, "[{$index}]id");
+                                        echo Html::activeHiddenInput($modelPlanoMaterial, "[{$i}]plama_codplama");
                                     }
                                 ?>
 
                                     <div class="col-sm-5">
                                     <?php
                                          $data_repositorio = ArrayHelper::map($repositorio, 'rep_codrepositorio', 'rep_titulo');
-                                         echo $form->field($modelPlanoMaterial, "[{$index}]plama_codrepositorio")->widget(Select2::classname(), [
+                                         echo $form->field($modelPlanoMaterial, "[{$i}]plama_codrepositorio")->widget(Select2::classname(), [
                                                  'data' =>  $data_repositorio,
                                                  'options' => ['placeholder' => 'Selecione o Material Didático...',
                                                  'onchange'=>'
@@ -89,25 +86,25 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                          '
                                                  ]]);
                                       ?>
-                                      <?= $form->field($modelPlanoMaterial, "[{$index}]plama_titulo")->hiddenInput()->label(false) ?>
+                                      <?= $form->field($modelPlanoMaterial, "[{$i}]plama_titulo")->hiddenInput()->label(false) ?>
                                     </div>
 
 
                                     <div class="col-sm-1">
-                                        <?= $form->field($modelPlanoMaterial, "[{$index}]plama_valor")->textInput(['readonly'=> true]) ?>
+                                        <?= $form->field($modelPlanoMaterial, "[{$i}]plama_valor")->textInput(['readonly'=> true]) ?>
                                     </div>
 
                                     <div class="col-sm-2">
-                                        <?= $form->field($modelPlanoMaterial, "[{$index}]plama_tipomaterial")->textInput(['readonly'=> true]) ?>
+                                        <?= $form->field($modelPlanoMaterial, "[{$i}]plama_tipomaterial")->textInput(['readonly'=> true]) ?>
                                     </div>
 
                                     <div class="col-sm-2">
-                                        <?= $form->field($modelPlanoMaterial, "[{$index}]plama_editora")->textInput(['readonly'=> true]) ?>
+                                        <?= $form->field($modelPlanoMaterial, "[{$i}]plama_editora")->textInput(['readonly'=> true]) ?>
                                     </div>
 
                                     <div class="col-sm-2">
                                             <?php
-                                                echo $form->field($modelPlanoMaterial, "[{$index}]plama_tipoplano")->widget(Select2::classname(), [
+                                                echo $form->field($modelPlanoMaterial, "[{$i}]plama_tipoplano")->widget(Select2::classname(), [
                                                         'data' =>  ['Plano A' => 'Plano A', 'Plano B' => 'Plano B'],
                                                         'options' => ['placeholder' => 'Selecione o tipo de plano...'],
                                                         'pluginOptions' => [
@@ -118,11 +115,11 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     </div>
                                     
                                     <div class="col-sm-11">
-                                        <?= $form->field($modelPlanoMaterial, "[{$index}]plama_observacao")->textInput() ?>
+                                        <?= $form->field($modelPlanoMaterial, "[{$i}]plama_observacao")->textInput() ?>
                                     </div>
 
                                     <div class="col-sm-12">
-                                   <?= $form->field($modelPlanoMaterial, "[{$index}]plama_arquivo")->hiddenInput()->label(false) ?>
+                                   <?= $form->field($modelPlanoMaterial, "[{$i}]plama_arquivo")->hiddenInput()->label(false) ?>
                                    <?php //echo '<a id="inputArquivo" target="_blank"> Download do Arquivo</a>' ?>
                                     </div>
 
@@ -151,14 +148,14 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 $js = '
 jQuery(".dynamicform_planomaterial").on("afterInsert", function(e, item) {
-    jQuery(".dynamicform_planomaterial .panel-title-planomaterial").each(function(index) {
-        jQuery(this).html("Item: " + (index + 1))
+    jQuery(".dynamicform_planomaterial .panel-title-planomaterial").each(function(i) {
+        jQuery(this).html("Item: " + (i + 1))
     });
 });
 
 jQuery(".dynamicform_planomaterial").on("afterDelete", function(e) {
-    jQuery(".dynamicform_planomaterial .panel-title-planomaterial").each(function(index) {
-        jQuery(this).html("Item: " + (index + 1))
+    jQuery(".dynamicform_planomaterial .panel-title-planomaterial").each(function(i) {
+        jQuery(this).html("Item: " + (i + 1))
     });
 });
 

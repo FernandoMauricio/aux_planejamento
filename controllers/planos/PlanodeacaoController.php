@@ -107,7 +107,7 @@ class PlanodeacaoController extends Controller
         // $searchPlanoMaterialModel = new PlanoMaterialSearch();
         // $dataProviderPlanoMaterial = $searchPlanoMaterialModel->search(Yii::$app->request->queryParams);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
 
             //Inserir vários Materiais Didáticos
             $modelsPlanoMaterial = Model::createMultiple(PlanoMaterial::classname());
@@ -129,18 +129,12 @@ class PlanodeacaoController extends Controller
             // validate all models
             $valid = $model->validate();
             $valid = Model::validateMultiple($modelsPlanoMaterial) && $valid;
-
-            $valid_planomaterial = $model->validate();
-            $valid_planomaterial = Model::validateMultiple($modelsPlanoConsumo) && $valid && $valid_planomaterial;
-
-            $valid_planoaluno = $model->validate();
-            $valid_planoaluno = Model::validateMultiple($modelsPlanoAluno) && $valid && $valid_planomaterial && $valid_planoaluno;
-
-            $valid_planoestrutura = $model->validate();
-            $valid_planoestrutura = Model::validateMultiple($modelsPlanoEstrutura) && $valid && $valid_planomaterial && $valid_planoconsumo && $valid_planoestrutura;
+            $valid = Model::validateMultiple($modelsPlanoConsumo) && $valid;
+            $valid = Model::validateMultiple($modelsPlanoAluno) && $valid;
+            $valid = Model::validateMultiple($modelsPlanoEstrutura) && $valid;
 
 
-            if ($valid && $valid_planomaterial && $valid_planoconsumo && $valid_planoestrutura) {
+            if ($valid ) {
                 $transaction = \Yii::$app->db_apl->beginTransaction();
                 $transactionRep = \Yii::$app->db_rep->beginTransaction();
                 try {
