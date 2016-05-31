@@ -44,7 +44,7 @@ class PlanoAluno extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            //[['planodeacao_cod', 'materialaluno_cod'], 'required'],
+            [['materialaluno_cod', 'planmatalu_unidade', 'planmatalu_valor', 'planmatalu_quantidade', 'planmatalu_tipo'], 'required'],
             [['planodeacao_cod', 'materialaluno_cod', 'planmatalu_quantidade'], 'integer'],
             [['planmatalu_valor'], 'number'],
             [['planmatalu_unidade'], 'string', 'max' => 20],
@@ -63,7 +63,7 @@ class PlanoAluno extends \yii\db\ActiveRecord
         return [
             'planmatalu_cod' => 'Cod',
             'planodeacao_cod' => 'Planodeacao Cod',
-            'materialaluno_cod' => 'materialaluno cod',
+            'materialaluno_cod' => 'Descrição',
             'planmatalu_descricao' => 'Descrição',
             'planmatalu_unidade' => 'Unidade',
             'planmatalu_tipo' => 'Tipo',

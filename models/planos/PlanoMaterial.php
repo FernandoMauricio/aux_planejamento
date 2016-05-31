@@ -41,7 +41,7 @@ class PlanoMaterial extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['plama_codrepositorio', 'plama_tipoplano', 'plama_valor','plama_observacao', 'plama_tipomaterial', 'plama_editora'], 'required'],
+            [['plama_codrepositorio', 'plama_tipoplano', 'plama_valor', 'plama_tipomaterial', 'plama_editora'], 'required'],
             [['plama_codplano','plama_codrepositorio'], 'integer'],
             [['plama_valor'], 'number'],
             [['plama_titulo', 'plama_tipoplano', 'plama_arquivo', 'plama_observacao'], 'string', 'max' => 100],

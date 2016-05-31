@@ -40,6 +40,7 @@ use app\models\cadastros\Segmento;
 
                                                     <div class="tab-pane" id="tab1">
                                                         <?= $this->render('_form-plano', [
+                                                            'form' => $form,
                                                             'model' => $model,
                                                         ]) ?>
                                                     </div>

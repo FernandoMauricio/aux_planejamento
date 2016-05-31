@@ -133,6 +133,4 @@ jQuery(".dynamicform_planoaluno").on("afterDelete", function(e) {
 
 $this->registerJs($js);
 
-
-
 ?>

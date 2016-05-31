@@ -121,6 +121,4 @@ jQuery(".dynamicform_planoconsumo").on("afterDelete", function(e) {
 
 $this->registerJs($js);
 
-
-
 ?>

@@ -18,8 +18,6 @@ use app\models\cadastros\Segmento;
 
 <div class="planodeacao-form">
 
-    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
-
                     <div class="row">
                         <div class="col-md-10">
 
@@ -57,8 +55,6 @@ use app\models\cadastros\Segmento;
                                                             'allowClear' => true
                                                         ],
                                                     ]);
-
-
                             ?>
                         </div>
 
@@ -114,8 +110,6 @@ use app\models\cadastros\Segmento;
                         <div class="form-group">
                             <?= Html::submitButton($model->isNewRecord ? 'Criar Plano' : 'Atualizar Plano', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
                         </div>
-
-                        <?php ActiveForm::end(); ?>
 
            </div>
 

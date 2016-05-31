@@ -41,7 +41,7 @@ class PlanoEstruturafisica extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-           // [['planestr_quantidade', 'planestr_tipo'], 'required'],
+            [['estruturafisica_cod', 'planestr_quantidade', 'planestr_tipo'], 'required'],
             [['planestr_cod', 'planodeacao_cod', 'estruturafisica_cod', 'planestr_quantidade'], 'integer'],
             [['planestr_tipo'], 'string', 'max' => 45],
             [['planestr_descricao'], 'string', 'max' => 45],
