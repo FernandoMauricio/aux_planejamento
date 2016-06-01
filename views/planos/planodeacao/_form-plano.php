@@ -83,7 +83,7 @@ use app\models\cadastros\Segmento;
                                     'type'=>DepDrop::TYPE_SELECT2,
                                     'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                                     'pluginOptions'=>[
-                                        'depends'=>['segmento-id'],
+                                        'depends'=>['eixo-id','segmento-id'],
                                         'placeholder'=>'Selecione o Tipo de Ação...',
                                         'url'=>Url::to(['/planos/planodeacao/tipos'])
                                     ]

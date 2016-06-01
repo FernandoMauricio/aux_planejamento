@@ -72,6 +72,16 @@ class Segmento extends \yii\db\ActiveRecord
         }
 
 
+    //Busca dados dos eixos vinculados aos segmentos
+    public static function getDefaultSubCat($id) {
+
+        $sql = 'SELECT seg_codsegmento AS id, seg_descricao AS name FROM segmento_seg, planodeacao_plan WHERE plan_codplano = "'.$id.'" AND seg_codsegmento = plan_codsegmento';
+        $data = \app\models\planos\Segmento::findBySql($sql)->asArray()->all();
+
+        return $data;
+    }
+
+
 
     /**
      * @return \yii\db\ActiveQuery

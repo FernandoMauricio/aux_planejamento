@@ -22,6 +22,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 
 /**
  * PlanodeacaoController implements the CRUD actions for Planodeacao model.
@@ -205,21 +206,18 @@ class PlanodeacaoController extends Controller
 
     //Localiza os segmentos vinculados aos eixos
     public function actionSegmento() {
-            $out = [];
-            if (isset($_POST['depdrop_parents'])) {
-            $parents = $_POST['depdrop_parents'];
-
-            if ($parents != null) {
-                $cat_id = $parents[0];
-                $out = Segmento::getSegmentoSubCat($cat_id);
-                echo Json::encode(['output'=>$out, 'selected'=>'']);
-                return;
+                $out = [];
+                if (isset($_POST['depdrop_parents'])) {
+                    $parents = $_POST['depdrop_parents'];
+                    if ($parents != null) {
+                        $cat_id = $parents[0];
+                        $out = Segmento::getSegmentoSubCat($cat_id); 
+                        echo Json::encode(['output'=>$out, 'selected'=>'']);
+                        return;
+                    }
                 }
+                echo Json::encode(['output'=>'', 'selected'=>'']);
             }
-            echo Json::encode(['output'=>'', 'selected'=>'']);
-    }
-
-
 
     //Localiza os tipos de ações vinculados aos eixos e segmentos
     public function actionTipos() {
@@ -275,12 +273,35 @@ class PlanodeacaoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelsPlanoMaterial  = $model->planoMateriais;
+        $modelsPlanoEstrutura = $model->planoEstruturafisica;
+        $modelsPlanoConsumo   = $model->planoConsumo;
+        $modelsPlanoAluno     = $model->planoAluno;
+
+        $estruturafisica   = EstruturaFisica::find()->all();
+        $repositorio       = Repositorio::find()->all();
+        $materialconsumo   = Materialconsumo::find()->orderBy('matcon_descricao')->all();
+        $materialaluno     = Materialaluno::find()->orderBy('matalu_descricao')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $oldIDs = ArrayHelper::map($modelsPlanoMaterial, 'id', 'id');
+            $modelsPlanoMaterial = Model::createMultiple(PlanoMaterial::classname(), $modelsPlanoMaterial);
+            Model::loadMultiple($modelsPlanoMaterial, Yii::$app->request->post());
+            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsPlanoMaterial, 'id', 'id')));
+
             return $this->redirect(['view', 'id' => $model->plan_codplano]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                'model'                 => $model,
+                'estruturafisica'       => $estruturafisica,
+                'repositorio'           => $repositorio,
+                'materialconsumo'       => $materialconsumo,
+                'materialaluno'         => $materialaluno,
+                'modelsPlanoMaterial'   => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
+                'modelsPlanoEstrutura'  => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,
+                'modelsPlanoConsumo'    => (empty($modelsPlanoConsumo)) ? [new PlanoConsumo] : $modelsPlanoConsumo,
+                'modelsPlanoAluno'      => (empty($modelsPlanoAluno)) ? [new PlanoAluno] : $modelsPlanoAluno,
             ]);
         }
     }

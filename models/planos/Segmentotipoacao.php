@@ -62,13 +62,20 @@ class Segmentotipoacao extends \yii\db\ActiveRecord
     }
 
     //localiza 
-    public static function getTiposSubCat($plan_codtipoa) {
+    public static function getTiposSubCat($subcat_id) {
 
-        $sql = 'SELECT tip_codtipoa AS id, tip_descricao AS name FROM tipodeacao_tip , segmentotipoacao_segtip WHERE segtip_codsegmento = "'.$plan_codtipoa.'" and segtip_codtipoa = tip_codtipoa ORDER BY tip_descricao';
+       //  $data=\app\models\planos\Segmentotipoacao::find()
+       // ->where(['segtip_codtipoa'=>$plan_codtipoa])
+       // ->select(['segtip_codsegtip AS id','segtip_codsegtip AS name'])->asArray()->all();
+
+       //      return $data;
+       //  }
+
+        $sql = 'SELECT tip_codtipoa AS id, tip_descricao AS name FROM tipodeacao_tip , segmentotipoacao_segtip WHERE segtip_codsegmento = "'.$subcat_id.'" and segtip_codtipoa = tip_codtipoa ORDER BY tip_descricao';
         $data = \app\models\planos\Segmentotipoacao::findBySql($sql)->asArray()->all();
 
         return $data;
-    }
+   }
 
 
 
@@ -83,9 +90,9 @@ class Segmentotipoacao extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSegtipCodsegmento()
+    public function getSegmento()
     {
-        return $this->hasOne(SegmentoSeg::className(), ['seg_codsegmento' => 'segtip_codsegmento']);
+        return $this->hasOne(Segmento::className(), ['seg_codsegmento' => 'segtip_codsegmento']);
     }
 
     /**

@@ -124,9 +124,33 @@ class Planodeacao extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlanodeacaoEstruturafisicas()
+    public function getPlanoEstruturafisica()
     {
-        return $this->hasMany(PlanodeacaoEstruturafisica::className(), ['planodeacao_codplano' => 'plan_codplano']);
+        return $this->hasMany(PlanoEstruturafisica::className(), ['planodeacao_cod' => 'plan_codplano']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPlanoMateriais()
+    {
+        return $this->hasMany(PlanoMaterial::className(), ['plama_codplano' => 'plan_codplano']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPlanoConsumo()
+    {
+        return $this->hasMany(PlanoConsumo::className(), ['planodeacao_cod' => 'plan_codplano']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPlanoAluno()
+    {
+        return $this->hasMany(PlanoAluno::className(), ['planodeacao_cod' => 'plan_codplano']);
     }
 
     /**
