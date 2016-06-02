@@ -64,14 +64,11 @@ class Segmentotipoacao extends \yii\db\ActiveRecord
     //localiza 
     public static function getTiposSubCat($subcat_id) {
 
-       //  $data=\app\models\planos\Segmentotipoacao::find()
-       // ->where(['segtip_codtipoa'=>$plan_codtipoa])
-       // ->select(['segtip_codsegtip AS id','segtip_codsegtip AS name'])->asArray()->all();
+        $sql = 'SELECT tip_codtipoa AS id, tip_descricao AS name 
+                FROM tipodeacao_tip, segmentotipoacao_segtip 
+                WHERE segtip_codsegmento = "'.$subcat_id.'" AND segtip_codtipoa = tip_codtipoa 
+                ORDER BY tip_descricao';
 
-       //      return $data;
-       //  }
-
-        $sql = 'SELECT tip_codtipoa AS id, tip_descricao AS name FROM tipodeacao_tip , segmentotipoacao_segtip WHERE segtip_codsegmento = "'.$subcat_id.'" and segtip_codtipoa = tip_codtipoa ORDER BY tip_descricao';
         $data = \app\models\planos\Segmentotipoacao::findBySql($sql)->asArray()->all();
 
         return $data;

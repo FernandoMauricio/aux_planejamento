@@ -21,7 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
 $id = $model->plan_codplano;
 
 ?>
-
 <div class="planodeacao-view">
 <?php
 //Pega as mensagens
@@ -30,6 +29,11 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 }
 ?>
     <h1><?= Html::encode($this->title) ?></h1>
+
+        <p>
+        <?= Html::a('Atualizar', ['update', 'id' => $id], ['class' => 'btn btn-primary']) ?>
+    </p>
+
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> DETALHES DO PLANO</h3>
@@ -213,7 +217,7 @@ echo DetailView::widget([
       <tr>
         <?php
              $valorTotal = 0;
-             $query_planoConsumo = "SELECT * FROM plano_materialconsumo WHERE planodeacao_cod = '".$id."' ORDER BY planmatcon_cod ASC";
+             $query_planoConsumo = "SELECT * FROM plano_materialconsumo WHERE planodeacao_cod = '".$id."' ORDER BY id ASC";
              $modelsPlanoConsumo = PlanoConsumo::findBySql($query_planoConsumo)->all(); 
              foreach ($modelsPlanoConsumo as $modelPlanoConsumo) {
                 

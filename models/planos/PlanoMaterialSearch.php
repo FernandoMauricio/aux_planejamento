@@ -18,7 +18,7 @@ class PlanoMaterialSearch extends PlanoMaterial
     public function rules()
     {
         return [
-            [['plama_codplama', 'plama_codplano', 'plama_codrepositorio'], 'integer'],
+            [['id', 'plama_codplano', 'plama_codrepositorio'], 'integer'],
             [['plama_titulo', 'plama_tipoplano', 'plama_arquivo', 'plama_tipomaterial', 'plama_observacao'], 'safe'],
             [['plama_valor'], 'number'],
         ];
@@ -60,7 +60,7 @@ class PlanoMaterialSearch extends PlanoMaterial
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'plama_codplama' => $this->plama_codplama,
+            'id' => $this->id,
             'plama_codplano' => $this->plama_codplano,
             'plama_codrepositorio' => $this->plama_codrepositorio,
             'plama_valor' => $this->plama_valor,

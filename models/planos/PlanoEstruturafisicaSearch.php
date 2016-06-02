@@ -18,7 +18,7 @@ class PlanoEstruturafisicaSearch extends PlanoEstruturafisica
     public function rules()
     {
         return [
-            [['planestr_cod', 'planodeacao_cod', 'estruturafisica_cod', 'planestr_quantidade'], 'integer'],
+            [['id', 'planodeacao_cod', 'estruturafisica_cod', 'planestr_quantidade'], 'integer'],
             [['planestr_tipo', 'planestr_descricao'], 'safe'],
         ];
     }
@@ -59,7 +59,7 @@ class PlanoEstruturafisicaSearch extends PlanoEstruturafisica
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'planestr_cod' => $this->planestr_cod,
+            'id' => $this->id,
             'planodeacao_cod' => $this->planodeacao_cod,
             'estruturafisica_cod' => $this->estruturafisica_cod,
             'planestr_quantidade' => $this->planestr_quantidade,

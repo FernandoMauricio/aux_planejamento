@@ -8,7 +8,7 @@ use app\models\cadastros\Estruturafisica;
 /**
  * This is the model class for table "plano_estruturafisica".
  *
- * @property integer $planestr_cod
+ * @property integer $id
  * @property string  $planodeacao_cod
  * @property integer $estruturafisica_cod
  * @property integer $planestr_quantidade
@@ -42,7 +42,7 @@ class PlanoEstruturafisica extends \yii\db\ActiveRecord
     {
         return [
             [['estruturafisica_cod', 'planestr_quantidade', 'planestr_tipo'], 'required'],
-            [['planestr_cod', 'planodeacao_cod', 'estruturafisica_cod', 'planestr_quantidade'], 'integer'],
+            [['id', 'planodeacao_cod', 'estruturafisica_cod', 'planestr_quantidade'], 'integer'],
             [['planestr_tipo'], 'string', 'max' => 45],
             [['planestr_descricao'], 'string', 'max' => 45],
             [['estruturafisica_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Estruturafisica::className(), 'targetAttribute' => ['estruturafisica_cod' => 'estr_cod']],
@@ -56,7 +56,7 @@ class PlanoEstruturafisica extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'planestr_cod' => 'Planestr Cod',
+            'id' => 'Planestr Cod',
             'planodeacao_cod' => 'Planodeacao Cod',
             'estruturafisica_cod' => 'Descrição',
             'planestr_descricao' => 'Descrição',

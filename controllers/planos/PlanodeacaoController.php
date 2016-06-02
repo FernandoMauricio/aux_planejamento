@@ -3,7 +3,7 @@
 namespace app\controllers\planos;
 
 use Yii;
-use app\models\Model;
+use app\models\MultipleModel as Model;
 use app\models\cadastros\Segmento;
 use app\models\cadastros\Eixo;
 use app\models\cadastros\Materialaluno;
@@ -93,14 +93,14 @@ class PlanodeacaoController extends Controller
         $session = Yii::$app->session;
         $model = new Planodeacao();
         $modelsPlanoMaterial  = [new PlanoMaterial];
-        $modelsPlanoEstrutura = [new PlanoEstruturafisica];
         $modelsPlanoConsumo   = [new PlanoConsumo];
         $modelsPlanoAluno     = [new PlanoAluno];
+        $modelsPlanoEstrutura = [new PlanoEstruturafisica];
 
-        $estruturafisica   = EstruturaFisica::find()->all();
-        $repositorio       = Repositorio::find()->all();
+        $repositorio       = Repositorio::find()->orderBy('rep_titulo')->all();
         $materialconsumo   = Materialconsumo::find()->orderBy('matcon_descricao')->all();
         $materialaluno     = Materialaluno::find()->orderBy('matalu_descricao')->all();
+        $estruturafisica   = EstruturaFisica::find()->orderBy('estr_descricao')->all();
 
         $model->plan_data           = date('Y-m-d');
         $model->plan_codcolaborador = $session['sess_codcolaborador'];
@@ -274,21 +274,106 @@ class PlanodeacaoController extends Controller
     {
         $model = $this->findModel($id);
         $modelsPlanoMaterial  = $model->planoMateriais;
-        $modelsPlanoEstrutura = $model->planoEstruturafisica;
         $modelsPlanoConsumo   = $model->planoConsumo;
         $modelsPlanoAluno     = $model->planoAluno;
-
-        $estruturafisica   = EstruturaFisica::find()->all();
-        $repositorio       = Repositorio::find()->all();
+        $modelsPlanoEstrutura = $model->planoEstruturafisica;
+        
+        $repositorio       = Repositorio::find()->orderBy('rep_titulo')->all();
         $materialconsumo   = Materialconsumo::find()->orderBy('matcon_descricao')->all();
         $materialaluno     = Materialaluno::find()->orderBy('matalu_descricao')->all();
+        $estruturafisica   = EstruturaFisica::find()->orderBy('estr_descricao')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            $oldIDs = ArrayHelper::map($modelsPlanoMaterial, 'id', 'id');
-            $modelsPlanoMaterial = Model::createMultiple(PlanoMaterial::classname(), $modelsPlanoMaterial);
-            Model::loadMultiple($modelsPlanoMaterial, Yii::$app->request->post());
-            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsPlanoMaterial, 'id', 'id')));
+        //--------Materiais Didáticos--------------
+        $oldIDsMateriais = ArrayHelper::map($modelsPlanoMaterial, 'id', 'id');
+        $modelsPlanoMaterial = Model::createMultiple(PlanoMaterial::classname(), $modelsPlanoMaterial);
+        Model::loadMultiple($modelsPlanoMaterial, Yii::$app->request->post());
+        $deletedIDsMateriais = array_diff($oldIDsMateriais, array_filter(ArrayHelper::map($modelsPlanoMaterial, 'id', 'id')));
+
+        //--------Materiais de Consumo--------------
+        $oldIDsConsumo = ArrayHelper::map($modelsPlanoConsumo, 'id', 'id');
+        $modelsPlanoConsumo = Model::createMultiple(PlanoConsumo::classname(), $modelsPlanoConsumo,'id');            
+        Model::loadMultiple($modelsPlanoConsumo, Yii::$app->request->post());
+        $deletedIDsConsumo = array_diff($oldIDsConsumo, array_filter(ArrayHelper::map($modelsPlanoConsumo, 'id', 'id')));
+
+        //--------Materiais do Aluno--------------
+        $oldIDsAluno = ArrayHelper::map($modelsPlanoAluno, 'id', 'id');
+        $modelsPlanoAluno = Model::createMultiple(PlanoAluno::classname(), $modelsPlanoAluno,'id');            
+        Model::loadMultiple($modelsPlanoAluno, Yii::$app->request->post());
+        $deletedIDsAluno = array_diff($oldIDsAluno, array_filter(ArrayHelper::map($modelsPlanoAluno, 'id', 'id')));
+
+        //--------Estrutura Física do Plano--------------
+        $oldIDsEstrutura = ArrayHelper::map($modelsPlanoEstrutura, 'id', 'id');
+        $modelsPlanoEstrutura = Model::createMultiple(PlanoEstruturafisica::classname(), $modelsPlanoEstrutura,'id');            
+        Model::loadMultiple($modelsPlanoEstrutura, Yii::$app->request->post());
+        $deletedIDsEstrutura = array_diff($oldIDsEstrutura, array_filter(ArrayHelper::map($modelsPlanoEstrutura, 'id', 'id')));
+
+
+        // validate all models
+        $valid = $model->validate();
+        $valid = (Model::validateMultiple($modelsPlanoMaterial) || Model::validateMultiple($modelsPlanoConsumo) || Model::validateMultiple($modelsPlanoAluno) || Model::validateMultiple($modelsPlanoEstrutura) ) && $valid;
+
+                        if ($valid) {
+                            $transaction = \Yii::$app->db->beginTransaction();
+                            try {
+                                if ($flag = $model->save(false)) {
+                                    if (! empty($deletedIDsMateriais)) {
+                                        PlanoMaterial::deleteAll(['id' => $deletedIDsMateriais]);
+                                    }
+                                    foreach ($modelsPlanoMaterial as $modelPlanoMaterial) {
+                                        $modelPlanoMaterial->plama_codplano = $model->plan_codplano;
+                                        if (! ($flag = $modelPlanoMaterial->save(false))) {
+                                            $transaction->rollBack();
+                                            break;
+                                        }
+                                    }
+
+                                    if (! empty($deletedIDsConsumo)) {
+                                        PlanoConsumo::deleteAll(['id' => $deletedIDsConsumo]);
+                                    }
+                                    foreach ($modelsPlanoConsumo as $modelPlanoConsumo) {
+                                        $modelPlanoConsumo->planodeacao_cod = $model->plan_codplano;
+                                        if (! ($flag = $modelPlanoConsumo->save(false))) {
+                                            $transaction->rollBack();
+                                            break;
+                                        }
+                                    }
+
+                                    if (! empty($deletedIDsAluno)) {
+                                        PlanoAluno::deleteAll(['id' => $deletedIDsAluno]);
+                                    }
+                                    foreach ($modelsPlanoAluno as $modelPlanoAluno) {
+                                        $modelPlanoAluno->planodeacao_cod = $model->plan_codplano;
+                                        if (! ($flag = $modelPlanoAluno->save(false))) {
+                                            $transaction->rollBack();
+                                            break;
+                                        }
+                                    }
+
+                                    if (! empty($deletedIDsEstrutura)) {
+                                        PlanoEstruturafisica::deleteAll(['id' => $deletedIDsEstrutura]);
+                                    }
+                                    foreach ($modelsPlanoEstrutura as $modelPlanoEstrutura) {
+                                        $modelPlanoEstrutura->planodeacao_cod = $model->plan_codplano;
+                                        if (! ($flag = $modelPlanoEstrutura->save(false))) {
+                                            $transaction->rollBack();
+                                            break;
+                                        }
+                                    }
+
+                                }
+                                if ($flag) {
+                                    $transaction->commit();
+                                    Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Plano '.$id.' Atualizado !</strong>');
+                                    return $this->redirect(['view', 'id' => $model->plan_codplano]);
+                                }
+                            } catch (Exception $e) {
+                                $transaction->rollBack();
+                            }
+                        }
+
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Plano '.$id.' Atualizado !</strong>');
 
             return $this->redirect(['view', 'id' => $model->plan_codplano]);
         } else {

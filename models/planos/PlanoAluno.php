@@ -9,7 +9,7 @@ use app\models\cadastros\Materialaluno;
 /**
  * This is the model class for table "plano_materialaluno".
  *
- * @property integer $planmatalu_cod
+ * @property integer $id
  * @property string $planodeacao_cod
  * @property integer $materialaluno_cod
  * @property string $planmatalu_unidade
@@ -61,7 +61,7 @@ class PlanoAluno extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'planmatalu_cod' => 'Cod',
+            'id' => 'Cod',
             'planodeacao_cod' => 'Planodeacao Cod',
             'materialaluno_cod' => 'Descrição',
             'planmatalu_descricao' => 'Descrição',

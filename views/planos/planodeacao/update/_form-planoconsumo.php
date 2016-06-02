@@ -67,9 +67,9 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
                                                                 var $divPanelBody =  $(select).parent().parent().parent();
 
-                                                                var $inputDescricao = $divPanelBody.find("input:eq(0)");
-                                                                var $inputTipo      = $divPanelBody.find("input:eq(1)");
-                                                                var $inputValor     = $divPanelBody.find("input:eq(2)");
+                                                                var $inputDescricao = $divPanelBody.find("input:eq(1)");
+                                                                var $inputTipo      = $divPanelBody.find("input:eq(2)");
+                                                                var $inputValor     = $divPanelBody.find("input:eq(3)");
 
                                                                 $inputDescricao.val(data.matcon_descricao);
                                                                 $inputValor.val(data.matcon_valor);

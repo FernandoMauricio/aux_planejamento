@@ -7,7 +7,7 @@ use Yii;
 /**
  * This is the model class for table "planomaterial_plama".
  *
- * @property string $plama_codplama
+ * @property string $id
  * @property string $plama_codplano
  * @property string $plama_tipoplano
  * @property integer $plama_codrepositorio
@@ -55,7 +55,7 @@ class PlanoMaterial extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'plama_codplama' => 'Plama Codplama',
+            'id' => 'Plama Codplama',
             'plama_codplano' => 'Plama Codplano',
             'plama_tipoplano' => 'Plano A/B',
             'plama_codrepositorio' => 'Descrição',

@@ -156,7 +156,7 @@ $id = $model->plan_codplano;
       <tr>
         <?php
              $valorTotal = 0;
-             $query_planoConsumo = "SELECT * FROM plano_materialconsumo WHERE planodeacao_cod = '".$id."' ORDER BY planmatcon_cod ASC";
+             $query_planoConsumo = "SELECT * FROM plano_materialconsumo WHERE planodeacao_cod = '".$id."' ORDER BY id ASC";
              $modelsPlanoConsumo = PlanoConsumo::findBySql($query_planoConsumo)->all(); 
              foreach ($modelsPlanoConsumo as $modelPlanoConsumo) {
                 
