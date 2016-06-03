@@ -80,18 +80,14 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
             'plan_codplano',
             'plan_descricao',
-            //'plan_codsegmento',
-            // 'plan_codnivel',
-            // 'plan_cargahoraria',
-            // 'plan_sobre:ntext',
-            // 'plan_prerequisito:ntext',
-            // 'plan_orgcurricular:ntext',
-            // 'plan_perfTecnico:ntext',
-            // 'plan_codcolaborador',
-            // 'plan_data',
-            // 'plan_status',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class'=>'kartik\grid\BooleanColumn',
+                'attribute'=>'plan_status', 
+                'vAlign'=>'middle'
+            ], 
+
+            ['class' => 'yii\grid\ActionColumn','template' => '{view} {update}'],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>
