@@ -32,64 +32,27 @@ use app\models\cadastros\Segmento;
                          </div>
 
                         <div class="col-md-3">
-                            <?php
-                            $nivelList=ArrayHelper::map(app\models\cadastros\Nivel::find()->all(), 'niv_codnivel', 'niv_descricao' ); 
-                                        echo $form->field($model, 'plan_codnivel')->widget(Select2::classname(), [
-                                                'data' =>  $nivelList,
-                                                'options' => ['placeholder' => 'Selecione o Nivel...'],
-                                                'pluginOptions' => [
-                                                        'allowClear' => true
-                                                    ],
-                                                ]);
-                            ?>
+
+                        <?= $form->field($model, 'nivelLabel')->textInput(['value'=> $model->nivel->niv_descricao,'readonly'=>true]) ?>
 
                         </div>
 
                         <div class="col-md-3">
-                            <?php
-                                $EixoList=ArrayHelper::map(app\models\cadastros\Eixo::find()->all(), 'eix_codeixo', 'eix_descricao' ); 
-                                            echo $form->field($model, 'plan_codeixo')->widget(Select2::classname(), [
-                                                    'data' =>  $EixoList,
-                                                    'options' => ['id' => 'eixo-id','placeholder' => 'Selecione o Eixo...'],
-                                                    'pluginOptions' => [
-                                                            'allowClear' => true
-                                                        ],
-                                                    ]);
-                            ?>
+
+                        <?= $form->field($model, 'eixoLabel')->textInput(['value'=> $model->eixo->eix_descricao,'readonly'=>true]) ?>
+
                         </div>
 
                         <div class="col-md-3">
-                            <?php
-                                // Child # 1
-                                echo $form->field($model, 'plan_codsegmento')->widget(DepDrop::classname(), [
-                                    'type'=>DepDrop::TYPE_SELECT2,
-                                    'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
-                                    'options'=>['id'=>'segmento-id'],
-                                    'pluginOptions'=>[
-                                        'depends'=>['eixo-id'],
-                                        'placeholder'=>'Selecione o Segmento...',
-                                        'initialize' => true,
-                                        'url'=>Url::to(['/planos/planodeacao/segmento'])
-                                    ]
-                                ]);
 
+                        <?= $form->field($model, 'segmentoLabel')->textInput(['value'=> $model->segmento->seg_descricao,'readonly'=>true]) ?>
 
-                            ?>
                         </div>
 
                         <div class="col-md-3">
-                            <?php
-                                // Child # 2
-                                echo $form->field($model, 'plan_codtipoa')->widget(DepDrop::classname(), [
-                                    'type'=>DepDrop::TYPE_SELECT2,
-                                    'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
-                                    'pluginOptions'=>[
-                                        'depends'=>['eixo-id','segmento-id'],
-                                        'placeholder'=>'Selecione o Tipo de Ação...',
-                                        'url'=>Url::to(['/planos/planodeacao/tipos'])
-                                    ]
-                                ]);
-                            ?>
+
+                        <?= $form->field($model, 'tipoLabel')->textInput(['value'=> $model->tipo->tip_descricao,'readonly'=>true]) ?>
+
                         </div>
 
                       </div>
@@ -101,10 +64,6 @@ use app\models\cadastros\Segmento;
                         <?= $form->field($model, 'plan_orgcurricular')->textarea(['rows' => 4]) ?>
 
                         <?= $form->field($model, 'plan_perfTecnico')->textarea(['rows' => 4]) ?>
-
-                        <?= $form->field($model, 'plan_codcolaborador')->textInput() ?>
-
-                        <?= $form->field($model, 'plan_data')->textInput() ?>
 
                         <?= $form->field($model, 'plan_status')->radioList(['1' => 'Ativo', '0' => 'Inativo']) ?>
 

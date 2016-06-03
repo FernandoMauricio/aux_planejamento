@@ -24,7 +24,8 @@
         "wbraganca/yii2-dynamicform": "*",
         "kartik-v/yii2-money": "dev-master",
         "phpoffice/phpexcel": "^1.8",
-        "kartik-v/yii2-detail-view": "@dev"
+        "kartik-v/yii2-detail-view": "@dev",
+        "kartik-v/yii2-nav-x": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

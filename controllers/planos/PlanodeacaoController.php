@@ -125,10 +125,10 @@ class PlanodeacaoController extends Controller
         $modelsPlanoAluno     = [new PlanoAluno];
         $modelsPlanoEstrutura = [new PlanoEstruturafisica];
 
-        $repositorio       = Repositorio::find()->orderBy('rep_titulo')->all();
-        $materialconsumo   = Materialconsumo::find()->orderBy('matcon_descricao')->all();
-        $materialaluno     = Materialaluno::find()->orderBy('matalu_descricao')->all();
-        $estruturafisica   = EstruturaFisica::find()->orderBy('estr_descricao')->all();
+        $repositorio       = Repositorio::find()->where(['rep_status' => 1])->orderBy('rep_titulo')->all();
+        $materialconsumo   = Materialconsumo::find()->where(['matcon_status' => 1])->orderBy('matcon_descricao')->all();
+        $materialaluno     = Materialaluno::find()->where(['matalu_status' => 1])->orderBy('matalu_descricao')->all();
+        $estruturafisica   = EstruturaFisica::find()->where(['estr_status' => 1])->orderBy('estr_descricao')->all();
 
         $model->plan_data           = date('Y-m-d');
         $model->plan_codcolaborador = $session['sess_codcolaborador'];
@@ -300,18 +300,23 @@ class PlanodeacaoController extends Controller
      */
     public function actionUpdate($id)
     {
+        $session = Yii::$app->session;
+        
         $model = $this->findModel($id);
         $modelsPlanoMaterial  = $model->planoMateriais;
         $modelsPlanoConsumo   = $model->planoConsumo;
         $modelsPlanoAluno     = $model->planoAluno;
         $modelsPlanoEstrutura = $model->planoEstruturafisica;
         
-        $repositorio       = Repositorio::find()->orderBy('rep_titulo')->all();
-        $materialconsumo   = Materialconsumo::find()->orderBy('matcon_descricao')->all();
-        $materialaluno     = Materialaluno::find()->orderBy('matalu_descricao')->all();
-        $estruturafisica   = EstruturaFisica::find()->orderBy('estr_descricao')->all();
+        $repositorio       = Repositorio::find()->where(['rep_status' => 1])->orderBy('rep_titulo')->all();
+        $materialconsumo   = Materialconsumo::find()->where(['matcon_status' => 1])->orderBy('matcon_descricao')->all();
+        $materialaluno     = Materialaluno::find()->where(['matalu_status' => 1])->orderBy('matalu_descricao')->all();
+        $estruturafisica   = EstruturaFisica::find()->where(['estr_status' => 1])->orderBy('estr_descricao')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+        $model->plan_data           = date('Y-m-d');
+        $model->plan_codcolaborador = $session['sess_codcolaborador'];
 
         //--------Materiais Didáticos--------------
         $oldIDsMateriais = ArrayHelper::map($modelsPlanoMaterial, 'id', 'id');

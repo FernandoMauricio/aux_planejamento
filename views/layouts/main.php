@@ -8,6 +8,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use kartik\nav\NavX;
 
 AppAsset::register($this);
 ?>
@@ -33,7 +34,7 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    echo Nav::widget([
+    echo NavX::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
@@ -46,10 +47,6 @@ AppAsset::register($this);
                          ['label' => 'Eixo', 'url' => ['/cadastros/eixo/index']],
                          ['label' => 'Segmento', 'url' => ['/cadastros/segmento/index']],
                          ['label' => 'Tipo', 'url' => ['/cadastros/tipo/index']],
-                         '<li class="dropdown-header">Configuração Planos</li>',
-                         ['label' => 'Estrutura Física', 'url' => ['/cadastros/estruturafisica/index']],
-                         ['label' => 'Material de Consumo', 'url' => ['/cadastros/materialconsumo/index']],
-                         ['label' => 'Material do Aluno', 'url' => ['/cadastros/materialaluno/index']],
                        ],
             ],
 
@@ -57,9 +54,13 @@ AppAsset::register($this);
             'label' => 'Repositório',
             'items' => [
                          ['label' => 'Materiais Didáticos', 'url' => ['/repositorio/repositorio-materiais/index']],
-                         ['label' => 'Categoria', 'url' => ['/repositorio/categoria/index']],
-                         ['label' => 'Editora', 'url' => ['/repositorio/editora/index']],
-                         ['label' => 'Tipo de Material', 'url' => ['/repositorio/tipomaterial/index']],
+                                     '<li class="divider"></li>',
+                            ['label' => 'Cadastros', 'items' => [
+                                  ['label' => 'Categoria', 'url' => ['/repositorio/categoria/index']],
+                                  ['label' => 'Editora', 'url' => ['/repositorio/editora/index']],
+                                  ['label' => 'Tipo de Material', 'url' => ['/repositorio/tipomaterial/index']],
+                            ]],
+
                        ],
             ],
 
@@ -67,7 +68,16 @@ AppAsset::register($this);
             'label' => 'Plano de Ação',
             'items' => [
                          ['label' => 'Cadastro do Plano', 'url' => ['/planos/planodeacao/index']],
-                       ],
+                                     '<li class="divider"></li>',
+                            ['label' => 'Cadastros', 'items' => [
+                                ['label' => 'Material do Aluno', 'url' => ['/cadastros/materialaluno/index']],
+                                ['label' => 'Estrutura Física', 'url' => ['/cadastros/estruturafisica/index']],
+                                '<li class="divider"></li>',
+                                ['label' => 'Material de Consumo', 'url' => ['/cadastros/materialconsumo/index']],
+
+                            ]],
+
+                     ],
             ],
 
         ],

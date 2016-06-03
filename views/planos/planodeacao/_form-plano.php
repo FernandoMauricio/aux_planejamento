@@ -102,10 +102,6 @@ use app\models\cadastros\Segmento;
 
                         <?= $form->field($model, 'plan_perfTecnico')->textarea(['rows' => 4]) ?>
 
-                        <?= $form->field($model, 'plan_codcolaborador')->textInput() ?>
-
-                        <?= $form->field($model, 'plan_data')->textInput() ?>
-
                         <?= $form->field($model, 'plan_status')->radioList(['1' => 'Ativo', '0' => 'Inativo']) ?>
 
                         <div class="form-group">
