@@ -23,6 +23,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
+use kartik\mpdf\Pdf;
+use mPDF;
 
 /**
  * PlanodeacaoController implements the CRUD actions for Planodeacao model.
@@ -70,6 +72,32 @@ class PlanodeacaoController extends Controller
             'dataProviderPlanoMaterial' => $dataProviderPlanoMaterial,
         ]);
     }
+
+
+    public function actionImprimir($id) {
+
+            $model = $this->findModel($id);
+
+            $pdf = new Pdf([
+                'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+                'format' => Pdf::FORMAT_A4,
+                'content' => $this->renderPartial('imprimir', ['model' => $model]),
+                'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+                'cssInline'=> '.kv-heading-1{font-size:18px}',
+                'options' => [
+                    'title' => 'Divisão de Educação Profissional - DEP',
+                ],
+                'methods' => [
+                    'SetHeader' => ['DETALHES DO PLANO - SENAC AM||Gerado em: ' . date("d/m/Y - H:i:s")],
+                    'SetFooter' => ['Divisão de Educação Profissional - DEP||Página {PAGENO}'],
+                ]
+            ]);
+
+        return $pdf->render('imprimir', [
+            'model' => $model,
+
+        ]);
+        }
 
     /**
      * Displays a single Planodeacao model.

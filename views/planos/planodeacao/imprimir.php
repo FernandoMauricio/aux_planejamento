@@ -7,12 +7,6 @@ use app\models\planos\PlanoConsumo;
 use app\models\planos\PlanoAluno;
 use app\models\planos\PlanoEstruturafisica;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\planos\Planodeacao */
-
-$this->title = $model->plan_codplano . ' - ' .$model->plan_descricao;
-$this->params['breadcrumbs'][] = ['label' => 'Listagem de Planos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?php
@@ -22,146 +16,46 @@ $id = $model->plan_codplano;
 
 ?>
 <div class="planodeacao-view">
-<?php
-//Pega as mensagens
-foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
-echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
-}
-?>
-    <h1><?= Html::encode($this->title) ?></h1>
-
-        <p>
-           <?= Html::a('Atualizar', ['update', 'id' => $id], ['class' => 'btn btn-primary']) ?>
-
-            <?php
-
-                  echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir','id' => $id], [
-                      'class'=>'btn btn-warning', 
-                      'target'=>'_blank', 
-                      'data-toggle'=>'tooltip', 
-                      'title'=>' Clique aqui para gerar um arquivo PDF'
-                  ]);
-
-            ?>
-        </p>
-
 <div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> DETALHES DO PLANO</h3>
-  </div>
     <div class="panel-body">
           <div class="row">
+  <table class="table table-condensed table-hover">
+    <thead>
+    <tr class="info"><th colspan="12">SEÇÃO 1: Informações do Plano</th></tr>
+    </thead>
+    <tr>
+        <td colspan="3"><strong>Título: </strong><?php echo $model->plan_descricao; ?></td>
+        <td colspan="3" ><strong>Carga Horária: </strong><?php echo $model->plan_cargahoraria; ?></td> 
+        <td colspan="2"><strong>Situação: </strong> <?php echo $model->plan_status ? '<span class="label label-success">Ativo</span>' : '<span class="label label-danger">Inativo</span>' ?></td>
+    </tr> 
+<tbody>
+    <tr>
+        <td colspan="3"><strong>Nível: </strong> <?php echo $model->nivel->niv_descricao; ?></td>
+        <td colspan="3"><strong>Eixo: </strong> <?php echo $model->eixo->eix_descricao; ?></td>
+        <td colspan="3"><strong>Segmento: </strong> <?php echo $model->segmento->seg_descricao; ?></td>
+        <td colspan="3"><strong>Tipo de Ação: </strong> <?php echo $model->tipo->tip_descricao; ?></td>
+     </tr> 
 
-    <?php
-$attributes = [
-                [
-                    'group'=>true,
-                    'label'=>'SEÇÃO 1: Informações do Plano',
-                    'rowOptions'=>['class'=>'info']
-                ],
+    <tr>
+        <td colspan="12"><strong>Sobre: </strong><?php echo $model->plan_sobre; ?></td>
+    </tr>
 
-                [
-                    'columns' => [
-                        [
-                            'attribute'=>'plan_descricao', 
-                            'displayOnly'=>true,
-                            'valueColOptions'=>['style'=>'width:30%']
-                        ],
-                        [
-                            'attribute'=>'plan_cargahoraria', 
-                            'format'=>'raw', 
-                            'value'=>$model->plan_cargahoraria,
-                            'valueColOptions'=>['style'=>'width:30%'], 
-                            'displayOnly'=>true
-                        ],
+    <tr>
+        <td colspan="12"><strong>Pré-Requisito: </strong><?php echo $model->plan_prerequisito; ?></td>
+    </tr> <br>
 
-                        [
-                            'attribute'=>'plan_status', 
-                            'format'=>'raw',
-                            'type'=>DetailView::INPUT_SWITCH,
-                            'value'=>$model->plan_status ? '<span class="label label-success">Ativo</span>' : '<span class="label label-danger">Inativo</span>',
-                            'valueColOptions'=>['style'=>'width:30%']
-                        ],
-                    ],
-                ],
+    <tr>
+        <td colspan="12"><strong>Organização Curricular: </strong><?php echo $model->plan_orgcurricular; ?></td>
+    </tr> <br>
 
-                [
-                    'columns' => [
-                        [
-                            'attribute'=>'plan_codnivel', 
-                            'value'=> $model->nivel->niv_descricao,
-                            'labelColOptions'=>['style'=>'width:0%'], 
-                            'displayOnly'=>true
-                        ],
-                        [
-                            'attribute'=>'plan_codeixo', 
-                            'value'=> $model->eixo->eix_descricao,
-                            'labelColOptions'=>['style'=>'width:0%'], 
-                            'displayOnly'=>true
-                        ],
-                        [
-                            'attribute'=>'plan_codsegmento', 
-                            'value'=> $model->segmento->seg_descricao,
-                            'labelColOptions'=>['style'=>'width:0%'], 
-                            'displayOnly'=>true
-                        ],
-                        [
-                            'attribute'=>'plan_codtipoa', 
-                            'value'=> $model->tipo->tip_descricao,
-                            'labelColOptions'=>['style'=>'width:0%'], 
-                            'displayOnly'=>true
-                        ],
-                    ],
+    <tr>
+        <td colspan="12"><strong>Perfil Docente: </strong><?php echo $model->plan_perfTecnico; ?></td>
+    </tr> 
 
-                ],
+    </tbody>
+ </table>
 
-                [
-                    'attribute'=>'plan_sobre',
-                    'format' => 'ntext',
-                    'value'=> $model->plan_sobre,
-                    'type'=>DetailView::INPUT_TEXTAREA, 
-                    'options'=>['rows'=>4]
-                ],
 
-                [
-                    'attribute'=>'plan_prerequisito',
-                    'format' => 'ntext',
-                    'value'=> $model->plan_prerequisito,
-                    'type'=>DetailView::INPUT_TEXTAREA, 
-                    'options'=>['rows'=>4]
-                ],
-
-                [
-                    'attribute'=>'plan_orgcurricular',
-                    'format' => 'ntext',
-                    'value'=> $model->plan_orgcurricular,
-                    'type'=>DetailView::INPUT_TEXTAREA, 
-                    'options'=>['rows'=>4]
-                ],
-
-                [
-                    'attribute'=>'plan_perfTecnico',
-                    'format' => 'ntext',
-                    'value'=> $model->plan_perfTecnico,
-                    'type'=>DetailView::INPUT_TEXTAREA, 
-                    'options'=>['rows'=>4]
-                ],
-
-            ];
-
-echo DetailView::widget([
-    'model'=>$model,
-    'condensed'=>true,
-    'hover'=>true,
-    'mode'=>DetailView::MODE_VIEW,
-    // 'panel'=>[
-    //     'heading'=>'Plano # ' . $model->plan_codplano,
-    //     'type'=>DetailView::TYPE_INFO,
-    // ],
-    'attributes'=> $attributes,
-]);
-
-    ?>
                               <!-- SEÇÃO 2 - MATERIAIS DIDÁTICOS -->
   <table class="table table-condensed table-hover">
     <thead>
@@ -173,10 +67,10 @@ echo DetailView::widget([
         <th>Editora</th>
         <th>Plano</th>
         <th>Observação</th>
-        <th>Arquivo</th>
       </tr>
     </thead>
     <tbody>
+      
         <?php
              $valorTotal = 0;
              $query_planoMaterial = "SELECT * FROM planomaterial_plama WHERE plama_codplano = '".$id."' ORDER BY plama_tipoplano ASC";
@@ -189,7 +83,6 @@ echo DetailView::widget([
                 $plama_editora      = $modelPlanoMaterial["plama_editora"];
                 $plama_tipoplano    = $modelPlanoMaterial["plama_tipoplano"];
                 $plama_observacao   = $modelPlanoMaterial["plama_observacao"];
-                $plama_arquivo      = $modelPlanoMaterial["plama_arquivo"];
                 $valorTotal        += $modelPlanoMaterial["plama_valor"]; //somatório de todos os valores dos itens
 
         ?>
@@ -200,8 +93,7 @@ echo DetailView::widget([
         <td><?php echo $plama_editora ?></td>
         <td><?php echo $plama_tipoplano ?></td>
         <td><?php echo $plama_observacao ?></td>
-        <td><a target="_blank" href="http://localhost/aux_planejamento/web/uploads/repositorio/<?php echo $plama_arquivo ?>"> <?php echo $plama_arquivo ?></a></td>
-      </tr>
+       </tr>
         <?php
           }
         ?>
@@ -326,7 +218,6 @@ echo DetailView::widget([
       </tr>
     </thead>
     <tbody>
-      <tr>
         <?php
              $query_PlanoEstrutura = "SELECT * FROM plano_estruturafisica WHERE planodeacao_cod = '".$id."' ORDER BY planestr_tipo ASC";
              $modelsPlanoEstrutura = PlanoEstruturafisica::findBySql($query_PlanoEstrutura)->all(); 
@@ -336,6 +227,7 @@ echo DetailView::widget([
                 $planestr_quantidade = $modelPlanoEstrutura["planestr_quantidade"];
                 $planestr_tipo       = $modelPlanoEstrutura["planestr_tipo"];
         ?>
+        <tr>
         <td><?php echo $planestr_descricao ?></td>
         <td><?php echo $planestr_quantidade ?></td>
         <td><?php echo $planestr_tipo ?></td>
@@ -348,8 +240,10 @@ echo DetailView::widget([
   <table class="table table-condensed table-hover">
     <thead>
     <tr class="info"><th colspan="12">SEÇÃO 6: Auditoria</th></tr>
+    <tr>
         <th>Atualizado por: <?php echo $model->colaborador->usuario->usu_nomeusuario ?></th>
         <th>Última Modifcação: <?php echo  date('d/m/Y', strtotime($model->plan_data)) ?></th>
+    </tr>
     </thead>
   </table>
 
