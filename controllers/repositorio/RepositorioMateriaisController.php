@@ -71,9 +71,9 @@ class RepositorioMateriaisController extends Controller
 
         $model = new Repositorio();
 
-        $categoria = Categoria::find()->all();
-        $editora = Editora::find()->all();
-        $tipomaterial = Tipomaterial::find()->all();
+        $categoria = Categoria::find()->where(['cat_status' => 1])->orderBy('cat_descricao')->all();
+        $editora = Editora::find()->where(['edi_status' => 1])->orderBy('edi_descricao')->all();
+        $tipomaterial = Tipomaterial::find()->where(['tip_status' => 1])->orderBy('tip_descricao')->all();
 
         $model->rep_data = date('Y-m-d');
         $model->rep_codunidade = $session['sess_codunidade'];

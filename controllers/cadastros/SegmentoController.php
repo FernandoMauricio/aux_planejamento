@@ -65,7 +65,7 @@ class SegmentoController extends Controller
     public function actionCreate()
     {
         $model = new Segmento();
-        $eixo = Eixo::find()->all();
+        $eixo = Eixo::find()->where(['eix_status' => 1])->orderBy('eix_descricao')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -89,7 +89,7 @@ class SegmentoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $eixo = Eixo::find()->all();
+        $eixo = Eixo::find()->where(['eix_status' => 1])->orderBy('eix_descricao')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
