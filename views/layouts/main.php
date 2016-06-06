@@ -27,15 +27,16 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+
     NavBar::begin([
         'brandLabel' => 'Senac AM',
         'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
+        'options' => ['class' => 'navbar-inverse navbar-fixed-top'],
     ]);
+
     echo NavX::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
+
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             [
@@ -76,6 +77,27 @@ AppAsset::register($this);
                                 ['label' => 'Material de Consumo', 'url' => ['/cadastros/materialconsumo/index']],
 
                             ]],
+
+                     ],
+            ],
+
+            [
+            'label' => 'Solicitações de Material',
+            'items' => [
+                         ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
+                                     '<li class="divider"></li>',
+                            ['label' => 'Administração', 'items' => [
+                                ['label' => 'Solicitações Pendentes', 'url' => ['#']],
+                                ['label' => 'Solicitações Aprovadas', 'url' => ['#']],
+                                '<li class="divider"></li>',
+                                ['label' => 'Material de Consumo', 'url' => ['#']],
+
+                            ]],
+                            ['label' => 'Cadastros', 'items' => [
+                                ['label' => 'Tipos de Acabamento', 'url' => ['/solicitacoes/acabamento/index']],
+
+                            ]],
+
 
                      ],
             ],
