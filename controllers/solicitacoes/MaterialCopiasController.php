@@ -70,11 +70,15 @@ class MaterialCopiasController extends Controller
         $model->matc_data        = date('Y-m-d');
         $model->matc_solicitante = $session['sess_codcolaborador'];
         $model->matc_unidade     = $session['sess_codunidade'];
+        $model->situacao_id      = 1;
 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
             return $this->redirect(['view', 'id' => $model->matc_id]);
         } else {
+            print_r($model->getErrors());
+
             return $this->render('create', [
                 'model' => $model,
             ]);

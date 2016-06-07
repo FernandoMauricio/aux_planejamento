@@ -40,6 +40,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'matc_solicitante',
             'matc_data',
             'situacao_id',
+            'matc_qteCopias',
+            'matc_qteTotal',
+            'matc_totalValorMono',
+            'matc_totalValorColor',
         ],
     ]) ?>
 

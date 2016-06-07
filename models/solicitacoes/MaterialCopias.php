@@ -19,6 +19,10 @@ use Yii;
  * @property string $matc_solicitante
  * @property string $matc_data
  * @property integer $situacao_id
+ * @property integer $matc_qteCopias
+ * @property integer $matc_qteTotal
+ * @property integer $matc_totalValorMono
+ * @property integer $matc_totalValorColor
  *
  * @property CopiasacabamentoCopac[] $copiasacabamentoCopacs
  * @property SituacaomatcopiasSitmat $situacao
@@ -47,9 +51,11 @@ class MaterialCopias extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['matc_descricao', 'matc_qtoriginais', 'matc_qtexemplares', 'matc_curso', 'matc_centrocusto', 'situacao_id'], 'required'],
-            [['matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id'], 'integer'],
+            [['matc_descricao', 'matc_qtoriginais', 'matc_qtexemplares', 'matc_curso', 'matc_centrocusto', 'situacao_id', 'matc_totalValorMono', 'matc_totalValorColor'], 'required'],
+            [['matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id', 'matc_qteCopias', 'matc_qteTotal'], 'integer'],
             [['matc_data'], 'safe'],
+            ['matc_totalValorMono', 'filter', 'filter' => function($value) {  return str_replace(['.', ','], '' , $value); }],
+            ['matc_totalValorColor', 'filter', 'filter' => function($value) {  return str_replace(['.', ','], '' , $value); }],
             [['matc_descricao', 'matc_curso'], 'string', 'max' => 255],
             [['matc_centrocusto', 'matc_unidade', 'matc_solicitante'], 'string', 'max' => 100],
             [['situacao_id'], 'exist', 'skipOnError' => true, 'targetClass' => Situacao::className(), 'targetAttribute' => ['situacao_id' => 'sitmat_id']],
@@ -74,6 +80,10 @@ class MaterialCopias extends \yii\db\ActiveRecord
             'matc_solicitante' => 'Usuário Solicitante',
             'matc_data' => 'Data da Solicitação',
             'situacao_id' => 'Situação',
+            'matc_qteCopias' => 'Qte Cópias',
+            'matc_qteTotal' => 'Qte Total',
+            'matc_totalValorMono' => 'Total em cópias mono',
+            'matc_totalValorColor' => 'Total em cópias coloridas',
         ];
     }
 

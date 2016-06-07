@@ -18,7 +18,7 @@ class MaterialCopiasSearch extends MaterialCopias
     public function rules()
     {
         return [
-            [['matc_id', 'matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id'], 'integer'],
+            [['matc_id', 'matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id', 'matc_qteCopias', 'matc_qteTotal', 'matc_totalValorMono', 'matc_totalValorColor'], 'integer'],
             [['matc_descricao', 'matc_curso', 'matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_data'], 'safe'],
         ];
     }
@@ -66,6 +66,10 @@ class MaterialCopiasSearch extends MaterialCopias
             'matc_color' => $this->matc_color,
             'matc_data' => $this->matc_data,
             'situacao_id' => $this->situacao_id,
+            'matc_qteCopias' => $this->matc_qteCopias,
+            'matc_qteTotal' => $this->matc_qteTotal,
+            'matc_totalValorMono' => $this->matc_totalValorMono,
+            'matc_totalValorColor' => $this->matc_totalValorColor,
         ]);
 
         $query->andFilterWhere(['like', 'matc_descricao', $this->matc_descricao])
