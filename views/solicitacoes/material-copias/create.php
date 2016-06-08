@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\solicitacoes\MaterialCopias */
 
-$this->title = 'Create Material Copias';
-$this->params['breadcrumbs'][] = ['label' => 'Material Copias', 'url' => ['index']];
+$this->title = 'Nova Solicitação de Cópia';
+$this->params['breadcrumbs'][] = ['label' => 'Solicitações de Cópias', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="material-copias-create">
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'repositorio' => $repositorio,
     ]) ?>
 
 </div>

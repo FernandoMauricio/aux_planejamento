@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\solicitacoes\MaterialCopiasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Material Copias';
+$this->title = 'Solicitações de Cópias';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="material-copias-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Material Copias', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Nova Solicitação', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

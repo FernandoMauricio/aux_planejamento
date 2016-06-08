@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\money\MaskMoney;
 use yii\widgets\MaskedInput;
+use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\solicitacoes\MaterialCopias */
@@ -17,9 +19,16 @@ use yii\widgets\MaskedInput;
 <div class="row">
 
     <div class="col-md-5">
-
-    <?= $form->field($model, 'matc_descricao')->textInput(['maxlength' => true]) ?>
-
+        <?php
+                    $data_repositorio = ArrayHelper::map($repositorio, 'rep_titulo', 'rep_titulo');
+                    echo $form->field($model, 'matc_descricao')->widget(Select2::classname(), [
+                            'data' =>  $data_repositorio,
+                            'options' => ['placeholder' => 'Selecione o Material...'],
+                            'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ]);
+        ?>
     </div>
 
     <div class="col-md-4">
@@ -30,7 +39,8 @@ use yii\widgets\MaskedInput;
 
     <div class="col-md-3">
 
-    <?= $form->field($model, 'matc_centrocusto')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'matc_centrocusto')->widget(MaskedInput::className(),['mask' => '[9][9].[9][9][9]'] ) ?>
+
 
     </div>
 

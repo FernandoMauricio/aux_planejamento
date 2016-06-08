@@ -3,6 +3,7 @@
 namespace app\controllers\solicitacoes;
 
 use Yii;
+use app\models\repositorio\Repositorio;
 use app\models\solicitacoes\MaterialCopias;
 use app\models\solicitacoes\MaterialCopiasSearch;
 use yii\web\Controller;
@@ -67,6 +68,8 @@ class MaterialCopiasController extends Controller
 
         $model = new MaterialCopias();
 
+        $repositorio = Repositorio::find()->where(['rep_status' => 1])->orderBy('rep_titulo')->all();
+
         $model->matc_data        = date('Y-m-d');
         $model->matc_solicitante = $session['sess_codcolaborador'];
         $model->matc_unidade     = $session['sess_codunidade'];
@@ -80,7 +83,8 @@ class MaterialCopiasController extends Controller
             print_r($model->getErrors());
 
             return $this->render('create', [
-                'model' => $model,
+                'model'       => $model,
+                'repositorio' => $repositorio,
             ]);
         }
     }
