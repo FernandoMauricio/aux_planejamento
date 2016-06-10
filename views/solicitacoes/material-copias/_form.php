@@ -128,6 +128,23 @@ use kartik\select2\Select2;
         </div>
      </div>
 
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> SERVIÇOS DE ACABAMENTO</h3>
+      </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+
+                        <?php 
+                        $options = ArrayHelper::map($acabamento, 'id', 'acab_descricao');
+                        echo $form->field($model, 'listAcabamento')->checkboxList($options, ['unselect'=>NULL])->label(false);
+                        ?>
+                </div>
+            </div> 
+        </div>
+     </div>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar Solicitação' : 'Atualizar Solicitação', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
@@ -135,6 +152,7 @@ use kartik\select2\Select2;
     <?php ActiveForm::end(); ?>
 
 </div>
+
 
 
 <?php

@@ -29,6 +29,7 @@ use Yii;
  */
 class MaterialCopias extends \yii\db\ActiveRecord
 {
+    public $listAcabamento;
     /**
      * @inheritdoc
      */
@@ -51,7 +52,7 @@ class MaterialCopias extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['matc_descricao', 'matc_qtoriginais', 'matc_qtexemplares', 'matc_curso', 'matc_centrocusto', 'situacao_id', 'matc_totalValorMono', 'matc_totalValorColor'], 'required'],
+            [['matc_descricao', 'matc_qtoriginais', 'listAcabamento', 'matc_qtexemplares', 'matc_curso', 'matc_centrocusto', 'situacao_id', 'matc_totalValorMono', 'matc_totalValorColor'], 'required'],
             [['matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id', 'matc_qteCopias', 'matc_qteTotal'], 'integer'],
             [['matc_data'], 'safe'],
             ['matc_totalValorMono', 'filter', 'filter' => function($value) {  return str_replace(['.', ','], '' , $value); }], //retirando ',' e '.'
@@ -86,15 +87,26 @@ class MaterialCopias extends \yii\db\ActiveRecord
             'matc_qteTotal' => 'Qte Total',
             'matc_totalValorMono' => 'Total em cópias mono',
             'matc_totalValorColor' => 'Total em cópias coloridas',
+            'listAcabamento' => 'Serviços de Acabamento',
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCopiasacabamentoCopacs()
+
+    public function getCopiasAcabamento() //Relation between Cargos & Processo table
     {
-        return $this->hasMany(CopiasacabamentoCopac::className(), ['materialcopias_id' => 'matc_id']);
+        return $this->hasMany(CopiasAcabamento::className(), ['materialcopias_id' => 'matc_id']);
+    }
+
+
+    public function afterSave($insert, $changedAttributes){
+        //Cargos
+        \Yii::$app->db_apl->createCommand()->delete('copiasacabamento_copac', 'materialcopias_id = '.(int) $this->matc_id)->execute(); //Delete existing value
+        foreach ($this->listAcabamento as $id) { //Write new values
+            $tc = new CopiasAcabamento();
+            $tc->materialcopias_id = $this->matc_id;
+            $tc->acabamento_id = $id;
+            $tc->save();
+        }
     }
 
     /**

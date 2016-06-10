@@ -3,7 +3,9 @@
 namespace app\controllers\solicitacoes;
 
 use Yii;
+
 use app\models\repositorio\Repositorio;
+use app\models\solicitacoes\Acabamento;
 use app\models\solicitacoes\MaterialCopias;
 use app\models\solicitacoes\MaterialCopiasSearch;
 use yii\web\Controller;
@@ -68,6 +70,8 @@ class MaterialCopiasController extends Controller
 
         $model = new MaterialCopias();
 
+        $acabamento = Acabamento::find()->all();
+
         $repositorio = Repositorio::find()->where(['rep_status' => 1])->orderBy('rep_titulo')->all();
 
         $model->matc_data        = date('Y-m-d');
@@ -85,6 +89,7 @@ class MaterialCopiasController extends Controller
             return $this->render('create', [
                 'model'       => $model,
                 'repositorio' => $repositorio,
+                'acabamento'  => $acabamento,
             ]);
         }
     }
@@ -97,13 +102,32 @@ class MaterialCopiasController extends Controller
      */
     public function actionUpdate($id)
     {
+        $session = Yii::$app->session;
+
         $model = $this->findModel($id);
 
+        $repositorio = Repositorio::find()->where(['rep_status' => 1])->orderBy('rep_titulo')->all();
+
+        //ACABAMENTOS
+        $acabamento = Acabamento::find()->where(['acab_status' => 1])->all();
+        //Retrieve the stored checkboxes
+        $model->listAcabamento = \yii\helpers\ArrayHelper::getColumn(
+            $model->getCopiasAcabamento()->asArray()->all(),
+            'acabamento_id'
+        );
+
+        $model->matc_data        = date('Y-m-d');
+        $model->matc_solicitante = $session['sess_codcolaborador'];
+        $model->matc_unidade     = $session['sess_codunidade'];
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
             return $this->redirect(['view', 'id' => $model->matc_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'repositorio' => $repositorio,
+                'acabamento'  => $acabamento,
             ]);
         }
     }
