@@ -26,14 +26,14 @@ use app\models\base\Unidade;
  * @property integer $matc_qteTotal
  * @property integer $matc_totalValorMono
  * @property integer $matc_totalValorColor
+ * @property string $matc_autorizacao
+ * @property string $matc_dataAut
  *
  * @property CopiasacabamentoCopac[] $copiasacabamentoCopacs
  * @property SituacaomatcopiasSitmat $situacao
  */
-class MaterialCopias extends \yii\db\ActiveRecord
+class MaterialCopiasPendentes extends \yii\db\ActiveRecord
 {
-    public $listAcabamento;
-    public $matc_totalGeral;
     /**
      * @inheritdoc
      */
@@ -56,16 +56,11 @@ class MaterialCopias extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['matc_descricao', 'matc_qtoriginais', 'listAcabamento', 'matc_qtexemplares', 'matc_curso', 'matc_centrocusto', 'situacao_id', 'matc_totalValorMono', 'matc_totalValorColor', 'matc_totalGeral'], 'required'],
-            [['matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id', 'matc_qteCopias', 'matc_qteTotal'], 'integer'],
-            [['matc_data'], 'safe'],
-            ['matc_totalValorMono', 'filter', 'filter' => function($value) {  return str_replace(['.', ','], '' , $value); }], //retirando ',' e '.'
-            ['matc_totalValorColor', 'filter', 'filter' => function($value) {  return str_replace(['.', ','], '' , $value); }],//retirando ',' e '.'
-            ['matc_totalGeral', 'filter', 'filter' => function($value) {  return str_replace(['.', ','], '' , $value); }],//retirando ',' e '.'
+            [['matc_descricao', 'matc_qtoriginais', 'matc_qtexemplares', 'matc_curso', 'matc_centrocusto', 'situacao_id', 'matc_totalValorMono', 'matc_totalValorColor'], 'required'],
+            [['matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id', 'matc_qteCopias', 'matc_qteTotal', 'matc_totalValorMono', 'matc_totalValorColor'], 'integer'],
+            [['matc_data', 'matc_dataAut'], 'safe'],
             [['matc_descricao', 'matc_curso'], 'string', 'max' => 255],
-            [['matc_centrocusto'], 'string',  'min' => 6, 'max' => 6,'tooShort' => '"{attribute}" deve conter 5 números'], // exemplo: 25.555
-            [['matc_qteTotal'], 'compare','compareAttribute'=>'matc_qteCopias'], // total copias == quantidade total (mono+color)
-            [['matc_unidade', 'matc_solicitante'], 'string', 'max' => 100],
+            [['matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_autorizacao'], 'string', 'max' => 100],
             [['situacao_id'], 'exist', 'skipOnError' => true, 'targetClass' => Situacao::className(), 'targetAttribute' => ['situacao_id' => 'sitmat_id']],
         ];
     }
@@ -92,28 +87,17 @@ class MaterialCopias extends \yii\db\ActiveRecord
             'matc_qteTotal' => 'Qte Total',
             'matc_totalValorMono' => 'Total em cópias mono',
             'matc_totalValorColor' => 'Total em cópias coloridas',
-            
-            'listAcabamento' => 'Serviços de Acabamento',
-            'matc_totalGeral' => 'Total Geral',
+            'matc_autorizacao' => 'Matc Autorizacao',
+            'matc_dataAut' => 'Matc Data Aut',
         ];
     }
 
-
-    public function getCopiasAcabamento() //Relation between Cargos & Processo table
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCopiasacabamentoCopacs()
     {
-        return $this->hasMany(CopiasAcabamento::className(), ['materialcopias_id' => 'matc_id']);
-    }
-
-
-    public function afterSave($insert, $changedAttributes){
-        //Cargos
-        \Yii::$app->db_apl->createCommand()->delete('copiasacabamento_copac', 'materialcopias_id = '.(int) $this->matc_id)->execute(); //Delete existing value
-        foreach ($this->listAcabamento as $id) { //Write new values
-            $tc = new CopiasAcabamento();
-            $tc->materialcopias_id = $this->matc_id;
-            $tc->acabamento_id = $id;
-            $tc->save();
-        }
+        return $this->hasMany(CopiasacabamentoCopac::className(), ['materialcopias_id' => 'matc_id']);
     }
 
     /**

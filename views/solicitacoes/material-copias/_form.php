@@ -48,37 +48,42 @@ use kartik\select2\Select2;
 
  <div class="row">
 
-    <div class="col-md-2">
+    <div class="col-md-4">
 
     <?= $form->field($model, 'matc_qtoriginais')->textInput() ?>
 
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-4">
 
     <?= $form->field($model, 'matc_qtexemplares')->textInput() ?>
 
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-4">
 
     <?= $form->field($model, 'matc_qteCopias')->textInput(['readonly'=>true]) ?>
 
     </div>
 
-    <div class="col-md-2">
+ </div>
+
+
+ <div class="row">
+
+    <div class="col-md-4">
 
     <?= $form->field($model, 'matc_mono')->textInput() ?>
 
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-4">
 
     <?= $form->field($model, 'matc_color')->textInput() ?>
 
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-4">
 
     <?= $form->field($model, 'matc_qteTotal')->textInput(['readonly'=>true]) ?>
 
@@ -97,13 +102,12 @@ use kartik\select2\Select2;
                 <?= $form->field($model, 'matc_totalValorMono')->widget(MaskedInput::className(),[
                                 'options' => ['readonly' => true, 'class' => 'form-control'],
                                 'clientOptions' => [
-                                    'alias' => 'numeric',
-                                     'digits' => 2,
+                                     'alias' => 'numeric',
+                                     'digits' => 0,
                                      'digitsOptional' => false,
                                      'radixPoint' => ',',
                                      'groupSeparator' => '.',
                                      'autoGroup' => true,
-                                     'clearMaskOnLostFocus'=>true,
                                 ],
                   ])
                 ?>
@@ -112,14 +116,26 @@ use kartik\select2\Select2;
                 <?= $form->field($model, 'matc_totalValorColor')->widget(MaskedInput::className(),[
                                 'options' => ['readonly' => true, 'class' => 'form-control'],
                                 'clientOptions' => [
-
-                                    'alias' => 'numeric',
-                                     'digits' => 2,
+                                     'alias' => 'numeric',
+                                     'digits' => 0,
                                      'digitsOptional' => false,
                                      'radixPoint' => ',',
                                      'groupSeparator' => '.',
                                      'autoGroup' => true,
-                                     'clearMaskOnLostFocus'=>true,
+                                ],
+                  ])
+                ?>
+                </div>
+                <div class="col-md-3">
+                <?= $form->field($model, 'matc_totalGeral')->widget(MaskedInput::className(),[
+                                'options' => ['readonly' => true, 'class' => 'form-control'],
+                                'clientOptions' => [
+                                     'alias' => 'numeric',
+                                     'digits' => 0,
+                                     'digitsOptional' => false,
+                                     'radixPoint' => ',',
+                                     'groupSeparator' => '.',
+                                     'autoGroup' => true,
                                 ],
                   ])
                 ?>
@@ -173,7 +189,7 @@ $(function() {
     $('#materialcopias-matc_color').keyup(function() {  
         updateTotal();
     });
-    console.log(updateTotal);
+
     var updateTotal = function () {
       var matc_qtoriginais  = parseInt($('#materialcopias-matc_qtoriginais').val());
       var matc_qtexemplares = parseInt($('#materialcopias-matc_qtexemplares').val());
@@ -188,6 +204,7 @@ $(function() {
 
       var matc_totalValorMono = (matc_qtexemplares * matc_mono) * mono;
       var matc_totalValorColor = (matc_qtexemplares * matc_color) * color;
+      var matc_totalGeral = matc_totalValorMono + matc_totalValorColor;
 
     if (isNaN(matc_qteCopias) || matc_qteCopias < 0) {
         matc_qteCopias = '';
@@ -210,7 +227,7 @@ $(function() {
 
       $('#materialcopias-matc_totalvalormono').val(matc_totalValorMono);
       $('#materialcopias-matc_totalvalorcolor').val(matc_totalValorColor);
-      console.log(matc_totalValorMono);
+      $('#materialcopias-matc_totalgeral').val(matc_totalGeral);
     };
  });
 EOD;

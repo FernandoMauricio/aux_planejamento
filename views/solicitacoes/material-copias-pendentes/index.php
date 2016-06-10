@@ -8,7 +8,7 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\solicitacoes\MaterialCopiasSearch */
+/* @var $searchModel app\models\solicitacoes\MaterialCopiasPendentesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $session = Yii::$app->session;
@@ -20,17 +20,12 @@ foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
 echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 }
 
-$this->title = 'Solicitações de Cópias';
+$this->title = 'Solicitações de Cópias Pendentes';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="material-copias-index">
+<div class="material-copias-pendentes-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Nova Solicitação', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+   <h1><?= Html::encode($this->title) ?></h1>
 
 <?php
 
@@ -46,18 +41,16 @@ $this->params['breadcrumbs'][] = $this->title;
                               'width'=>'5%'
                             ],
 
+
+                            [
+                              'attribute'=>'matc_unidade',
+                              'value'=> 'unidade.uni_nomeabreviado',
+                              'width'=>'20%'
+                            ],
+
                             'matc_descricao',
                             'matc_curso',
 
-                            [
-                              'attribute'=>'matc_qtoriginais',
-                              'width'=>'5%'
-                            ],
-
-                            [
-                              'attribute'=>'matc_qtexemplares',
-                              'width'=>'5%'
-                            ],
 
                             [
                                 'attribute'=>'situacao_id', 
@@ -72,7 +65,33 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'format'=>'raw'
                             ],
 
-                          ['class' => 'yii\grid\ActionColumn','options' => ['width' => '10%'],],
+
+                                ['class' => 'yii\grid\ActionColumn',
+                                'template' => '{aprovar} {reprovar}',
+                                'options' => ['width' => '15%'],
+                                'buttons' => [
+
+                                //APROVAR REQUISIÇÃO
+                                'aprovar' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-ok"></span> Aprovar', $url, [
+                                                'title' => Yii::t('app', 'Aprovar Solicitação'),
+                                                'class'=>'btn btn-success btn-xs',
+                               
+                                    ]);
+                                },
+
+                                //REPROVAR REQUISIÇÃO
+                                'reprovar' => function ($url, $despachos) {
+                                    return Html::a('<span class="glyphicon glyphicon-remove"></span> Reprovar', $url, [
+                                                'class'=>'btn btn-danger btn-xs',
+                                                'title' => Yii::t('app', 'Reprovar Solicitação'),
+
+                                    ]);
+                                },
+
+                            ],
+                            ],
+
                  ]; 
 ?>
 
@@ -84,16 +103,6 @@ $this->params['breadcrumbs'][] = $this->title;
     'dataProvider'=>$dataProvider,
     'filterModel'=>$searchModel,
     'columns'=>$gridColumns,
-    'rowOptions' =>function($model){
-                    if($model->situacao_id == 3 ){
-
-                            return['class'=>'danger'];                        
-                    } if($model->situacao_id == 2 ){
-
-                            return['class'=>'success'];                        
-                    }
-
-        },
     'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
     'headerRowOptions'=>['class'=>'kartik-sheet-style'],
     'filterRowOptions'=>['class'=>'kartik-sheet-style'],
@@ -103,7 +112,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes das Solicitações de Cópias', 'options'=>['colspan'=>7, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes das Solicitações de Cópias', 'options'=>['colspan'=>5, 'class'=>'text-center warning']], 
                 ['content'=>'Ações', 'options'=>['colspan'=>3, 'class'=>'text-center warning']], 
             ],
         ]
@@ -111,7 +120,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         'panel' => [
         'type'=>GridView::TYPE_PRIMARY,
-        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - '.utf8_encode($unidade).'</h3>',
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem de Solicitações Pendentes</h3>',
     ],
 ]);
     ?>

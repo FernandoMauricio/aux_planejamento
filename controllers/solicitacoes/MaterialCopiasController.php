@@ -82,6 +82,8 @@ class MaterialCopiasController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Cópia cadastrada!</strong>');
+
             return $this->redirect(['view', 'id' => $model->matc_id]);
         } else {
             print_r($model->getErrors());
@@ -121,6 +123,8 @@ class MaterialCopiasController extends Controller
         $model->matc_unidade     = $session['sess_codunidade'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Cópia atualizada!</strong>');
 
             return $this->redirect(['view', 'id' => $model->matc_id]);
         } else {

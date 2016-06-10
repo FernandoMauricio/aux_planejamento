@@ -154,10 +154,6 @@ echo DetailView::widget([
     'condensed'=>true,
     'hover'=>true,
     'mode'=>DetailView::MODE_VIEW,
-    // 'panel'=>[
-    //     'heading'=>'Plano # ' . $model->plan_codplano,
-    //     'type'=>DetailView::TYPE_INFO,
-    // ],
     'attributes'=> $attributes,
 ]);
 
