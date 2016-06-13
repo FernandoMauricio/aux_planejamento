@@ -4,6 +4,7 @@ namespace app\controllers\solicitacoes;
 
 use Yii;
 
+use app\models\base\Emailusuario;
 use app\models\repositorio\Repositorio;
 use app\models\solicitacoes\Acabamento;
 use app\models\solicitacoes\MaterialCopias;
@@ -75,12 +76,40 @@ class MaterialCopiasController extends Controller
         $repositorio = Repositorio::find()->where(['rep_status' => 1])->orderBy('rep_titulo')->all();
 
         $model->matc_data        = date('Y-m-d');
-        $model->matc_solicitante = $session['sess_codcolaborador'];
+        $model->matc_solicitante = $session['sess_codusuario'];
         $model->matc_unidade     = $session['sess_codunidade'];
         $model->situacao_id      = 1;
 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+
+        //ENVIANDO EMAIL PARA OS RESPONSÁVEIS DO GABINETE TÉCNICO INFORMANDO SOBRE O RECEBIMENTO DE UMA NOVA SOLICITAÇÃO DE CÓPIA 
+        //-- 16 - DIVISÃO DE EDUCAÇÃO PROFISSIONAL // 87 - GABINETE TÉCNICO
+                  $sql_email = "SELECT DISTINCT emus_email FROM emailusuario_emus,colaborador_col,responsavelambiente_ream,responsaveldepartamento_rede WHERE ream_codunidade = '15' AND rede_coddepartamento = '87' AND rede_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+              
+              $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
+              foreach ($email_solicitacao as $email)
+                  {
+                    $email_usuario  = $email["emus_email"];
+
+                                    Yii::$app->mailer->compose()
+                                    ->setFrom(['dep.suporte@am.senac.br' => 'DEP - INFORMA'])
+                                    ->setTo($email_usuario)
+                                    ->setSubject('Solicitação de Cópia - ' . $model->matc_id)
+                                    ->setTextBody('Existe uma solicitação de Cópia de código: '.$model->matc_id.' - Pendente de Autorização')
+                                    ->setHtmlBody('<p>Prezado(a) Senhor(a),</p>
+
+                                    <p>Existe uma Solicita&ccedil;&atilde;o de Cópia de c&oacute;digo: <strong><span style="color:#F7941D">'.$model->matc_id.' </span></strong>- <strong><span style="color:#F7941D">Pendente</span></strong></p>
+
+                                    <p>Por favor, n&atilde;o responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicita&ccedil;&atilde;o de Cópia.</p>
+
+                                    <p>Atenciosamente,</p>
+
+                                    <p>Divisão de Educação Profissional -&nbsp;DEP</p>
+                                    ')
+                                    ->send();
+                                } 
 
             Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Cópia cadastrada!</strong>');
 
@@ -119,7 +148,7 @@ class MaterialCopiasController extends Controller
         );
 
         $model->matc_data        = date('Y-m-d');
-        $model->matc_solicitante = $session['sess_codcolaborador'];
+        $model->matc_solicitante = $session['sess_codusuario'];
         $model->matc_unidade     = $session['sess_codunidade'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
