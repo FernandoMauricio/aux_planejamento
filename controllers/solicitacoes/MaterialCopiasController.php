@@ -84,8 +84,10 @@ class MaterialCopiasController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
 
+        $totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
+
         //ENVIANDO EMAIL PARA OS RESPONSÁVEIS DO GABINETE TÉCNICO INFORMANDO SOBRE O RECEBIMENTO DE UMA NOVA SOLICITAÇÃO DE CÓPIA 
-        //-- 16 - DIVISÃO DE EDUCAÇÃO PROFISSIONAL // 87 - GABINETE TÉCNICO
+        //-- 15 - DIVISÃO DE EDUCAÇÃO PROFISSIONAL // 87 - GABINETE TÉCNICO
                   $sql_email = "SELECT DISTINCT emus_email FROM emailusuario_emus,colaborador_col,responsavelambiente_ream,responsaveldepartamento_rede WHERE ream_codunidade = '15' AND rede_coddepartamento = '87' AND rede_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
               
               $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
@@ -100,7 +102,13 @@ class MaterialCopiasController extends Controller
                                     ->setTextBody('Existe uma solicitação de Cópia de código: '.$model->matc_id.' - Pendente de Autorização')
                                     ->setHtmlBody('<p>Prezado(a) Senhor(a),</p>
 
-                                    <p>Existe uma Solicita&ccedil;&atilde;o de Cópia de c&oacute;digo: <strong><span style="color:#F7941D">'.$model->matc_id.' </span></strong>- <strong><span style="color:#F7941D">Pendente</span></strong></p>
+                                    <p>Existe uma Solicita&ccedil;&atilde;o de Cópia de c&oacute;digo: <strong><span style="color:#F7941D">'.$model->matc_id.' </span></strong>- <strong><span style="color:#F7941D">Pendente de Autorização</span></strong></p>
+
+                                    <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
+
+                                    <p><strong>Material</strong>: '.$model->matc_descricao.'</p>
+
+                                    <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
 
                                     <p>Por favor, n&atilde;o responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicita&ccedil;&atilde;o de Cópia.</p>
 

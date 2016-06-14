@@ -66,7 +66,7 @@ class MaterialCopiasAprovadasController extends Controller
          if($model->situacao_id == 4){
 
              //ENVIANDO EMAIL PARA O USUÁRIO INFORMANDO SOBRE UMA NOVA MENSAGEM....
-              $sql_email = "SELECT emus_email FROM `db_base`.emailusuario_emus WHERE emus_codusuario = '".$model->matc_solicitante."'";
+          $sql_email = "SELECT DISTINCT emus_email FROM `db_base`.emailusuario_emus, `db_base`.colaborador_col WHERE col_codusuario = emus_codusuario AND col_codcolaborador = '".$model->matc_solicitante."'";
           
           $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
           foreach ($email_solicitacao as $email)
@@ -131,7 +131,7 @@ class MaterialCopiasAprovadasController extends Controller
          if($model->situacao_id == 5){
 
              //ENVIANDO EMAIL PARA O USUÁRIO INFORMANDO SOBRE UMA NOVA MENSAGEM....
-              $sql_email = "SELECT emus_email FROM `db_base`.emailusuario_emus WHERE emus_codusuario = '".$model->matc_solicitante."'";
+          $sql_email = "SELECT DISTINCT emus_email FROM `db_base`.emailusuario_emus, `db_base`.colaborador_col WHERE col_codusuario = emus_codusuario AND col_codcolaborador = '".$model->matc_solicitante."'";
           
           $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
           foreach ($email_solicitacao as $email)

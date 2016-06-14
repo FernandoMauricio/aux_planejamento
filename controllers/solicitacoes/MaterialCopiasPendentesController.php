@@ -66,8 +66,8 @@ class MaterialCopiasPendentesController extends Controller
          $model->situacao_id = 2;
          if($model->situacao_id == 2){
 
-             //ENVIANDO EMAIL PARA O USUÁRIO INFORMANDO SOBRE UMA NOVA MENSAGEM....
-              $sql_email = "SELECT emus_email FROM `db_base`.emailusuario_emus WHERE emus_codusuario = '".$model->matc_solicitante."'";
+             //ENVIANDO EMAIL PARA O USUÁRIO SOLICITANTE INFORMANDO SOBRE A APROVAÇÃO....
+              $sql_email = "SELECT DISTINCT emus_email FROM `db_base`.emailusuario_emus, `db_base`.colaborador_col WHERE col_codusuario = emus_codusuario AND col_codcolaborador = '".$model->matc_solicitante."'";
           
           $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
           foreach ($email_solicitacao as $email)
@@ -101,7 +101,42 @@ class MaterialCopiasPendentesController extends Controller
                                 ->send();
                    } 
 
-               }
+      //ENVIANDO EMAIL PARA OS RESPONSÁVEIS DA REPROGRAFIA SOBRE A APROVAÇÃO DA REQUISIÇÃO
+        //-- 12 - GERENCIA DE MANUTENÇÃO E TRANSPORTE - GMT // 21 - REPROGRAFIA
+                  $sql_emailRepro = "SELECT DISTINCT emus_email FROM emailusuario_emus,colaborador_col,responsavelambiente_ream,responsaveldepartamento_rede WHERE ream_codunidade = '12' AND rede_coddepartamento = '21' AND rede_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+              
+              $email_solicitacaoRepro = Emailusuario::findBySql($sql_emailRepro)->all(); 
+              foreach ($email_solicitacaoRepro as $emailRepro)
+                  {
+                    $email_usuarioRepro  = $emailRepro["emus_email"];
+
+                                    Yii::$app->mailer->compose()
+                                    ->setFrom(['dep.suporte@am.senac.br' => 'DEP - INFORMA'])
+                                    ->setTo($email_usuarioRepro)
+                                    ->setSubject('Solicitação de Cópia - ' . $model->matc_id)
+                                    ->setTextBody('Existe uma solicitação de Cópia de código: '.$model->matc_id.' - Pendente de Encaminhamento')
+                                    ->setHtmlBody('<p>Prezado(a), Senhor(a)</p>
+
+                                   <p>A solicitação de cópia de código <span style="color:rgb(247, 148, 29)"><strong>'.$model->matc_id.'</strong></span> foi atualizada:</p>
+
+                                   <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
+
+                                   <p><strong>Material</strong>: '.$model->matc_descricao.'</p>
+
+                                   <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
+
+                                   <p><strong>Responsável pela Aprovação</strong>: '.$model->matc_ResponsavelAut.'</p>
+
+                                   <p><strong>Data/Hora da Autorização</strong>: '.date('d/m/Y H:i', strtotime($model->matc_dataAut)).'</p>
+
+                                   <p>Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br</p>
+
+                                   <p>Atenciosamente,</p>
+
+                                   <p>Divisão de Educação Profissional - DEP</p>')
+                                       ->send();
+                                } 
+                    }
 
             Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Cópia de código:  <strong> '.$model->matc_id.'</strong> '.$model->situacao->sitmat_descricao.'!');
      
@@ -127,8 +162,8 @@ class MaterialCopiasPendentesController extends Controller
          $model->situacao_id = 3;
          if($model->situacao_id == 3){
 
-             //ENVIANDO EMAIL PARA O USUÁRIO INFORMANDO SOBRE UMA NOVA MENSAGEM....
-              $sql_email = "SELECT emus_email FROM `db_base`.emailusuario_emus WHERE emus_codusuario = '".$model->matc_solicitante."'";
+             //ENVIANDO EMAIL PARA O USUÁRIO SOLICITANTE INFORMANDO SOBRE A REPROVAÇÃO....
+              $sql_email = "SELECT DISTINCT emus_email FROM `db_base`.emailusuario_emus, `db_base`.colaborador_col WHERE col_codusuario = emus_codusuario AND col_codcolaborador = '".$model->matc_solicitante."'";
           
           $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
           foreach ($email_solicitacao as $email)
