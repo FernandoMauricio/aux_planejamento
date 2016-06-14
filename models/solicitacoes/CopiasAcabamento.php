@@ -62,7 +62,7 @@ class CopiasAcabamento extends \yii\db\ActiveRecord
      */
     public function getAcabamento()
     {
-        return $this->hasOne(AcabamentoAcab::className(), ['id' => 'acabamento_id']);
+        return $this->hasOne(Acabamento::className(), ['id' => 'acabamento_id']);
     }
 
     /**

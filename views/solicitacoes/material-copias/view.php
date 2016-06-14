@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\detail\DetailView;
+use app\models\solicitacoes\Acabamento;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\solicitacoes\MaterialCopias */
@@ -18,12 +19,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 ?>
 <div class="material-copias-view">
 
-    <h1><?php //echo Html::encode($this->title) ?></h1>
-
-    <p>
-        <?php // echo Html::a('Atualizar', ['update', 'id' => $model->matc_id], ['class' => 'btn btn-primary']) ?>
-
-    </p>
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> DETALHES DA SOLICITAÇÃO DE CÓPIA</h3>
@@ -186,6 +181,30 @@ $attributes = [
     ]);
 
     ?>
+
+                <!-- SESSÃO 3 SERVIÇOS DE ACABAMENTO -->
+  <table class="table table-condensed table-hover">
+    <thead>
+    <tr class="info"><th colspan="12">SEÇÃO 3: Serviços de Acabamento</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td colspan="3"><strong>Acabamentos: </strong>
+            <?php
+
+  $query_acabamento = "SELECT acab_descricao FROM acabamento_acab, copiasacabamento_copac WHERE materialcopias_id = '".$model->matc_id."' AND acabamento_id = acabamento_acab.id";
+  $acabamento = Acabamento::findBySql($query_acabamento)->all(); 
+  foreach ($acabamento as $acabamentos) {
+   $Acabamento = $acabamentos["acab_descricao"];
+   ?>
+
+    <?php echo $Acabamento . " / " ?>
+
+   <?php } ?>
+            </td>
+        </tr> 
+    </tbody>
+ </table>
 
                     <!-- TOTAIS -->
 <table class="table table-striped table-hover">
