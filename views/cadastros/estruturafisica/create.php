@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\cadastros\Estruturafisica */
 
-$this->title = 'Nova Estrutura Física';
-$this->params['breadcrumbs'][] = ['label' => 'Cadastro de Estrutura Física', 'url' => ['index']];
+$this->title = 'Novo Equipamentos / Utensílios';
+$this->params['breadcrumbs'][] = ['label' => 'Cadastro de Equipamentos / Utensílios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="estruturafisica-create">

@@ -45,6 +45,10 @@ $id = $model->plan_codplano;
     </tr> <br>
 
     <tr>
+        <td colspan="12"><strong>Perfil Profissional de Conclusão: </strong><?php echo $model->plan_perfConclusao; ?></td>
+    </tr> <br>
+
+    <tr>
         <td colspan="12"><strong>Organização Curricular: </strong><?php echo $model->plan_orgcurricular; ?></td>
     </tr> <br>
 
@@ -206,11 +210,11 @@ $id = $model->plan_codplano;
          </tfoot>
   </table>
 
-                              <!-- SEÇÃO 5 - ESTRUTURA FÍSICA DO PLANO -->
+                              <!-- SEÇÃO 5 - Equipamentos / Utensílios DO PLANO -->
 
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 5: Estrutura Física do Plano</th></tr>
+    <tr class="info"><th colspan="12">SEÇÃO 5: Equipamentos / Utensílios do Plano</th></tr>
       <tr>
         <th>Descrição</th>
         <th>Quantidade</th>

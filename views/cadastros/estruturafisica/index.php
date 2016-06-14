@@ -8,7 +8,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel app\models\cadastros\EstruturafisicaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Cadastro de Estrutura Física';
+$this->title = 'Cadastro de Equipamentos / Utensílios';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="estruturafisica-index">
@@ -27,7 +27,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Nova Estrutura Física', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Novo Equipamentos / Utensílios', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,

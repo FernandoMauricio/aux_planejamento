@@ -67,7 +67,7 @@ class EstruturafisicaController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Estrutura Física cadastrada!</strong>');
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Equipamentos / Utensílios cadastrada!</strong>');
 
             return $this->redirect(['index']);
         } else {
@@ -89,7 +89,7 @@ class EstruturafisicaController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Estrutura Física atualizada!</strong>');
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Equipamentos / Utensílios atualizada!</strong>');
 
             return $this->redirect(['index']);
         } else {

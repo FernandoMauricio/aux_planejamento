@@ -72,10 +72,12 @@ class MaterialCopiasSearch extends MaterialCopias
             'matc_totalValorColor' => $this->matc_totalValorColor,
         ]);
 
-        $query->andFilterWhere(['like', 'matc_descricao', $this->matc_descricao])
+        $session = Yii::$app->session;
+
+        $query->andFilterWhere(['matc_unidade' => $session['sess_codunidade']])
+            ->andFilterWhere(['like', 'matc_descricao', $this->matc_descricao])
             ->andFilterWhere(['like', 'matc_curso', $this->matc_curso])
             ->andFilterWhere(['like', 'matc_centrocusto', $this->matc_centrocusto])
-            ->andFilterWhere(['like', 'matc_unidade', $this->matc_unidade])
             ->andFilterWhere(['like', 'matc_solicitante', $this->matc_solicitante]);
 
         return $dataProvider;

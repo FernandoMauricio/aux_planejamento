@@ -72,7 +72,7 @@ AppAsset::register($this);
                                      '<li class="divider"></li>',
                             ['label' => 'Cadastros', 'items' => [
                                 ['label' => 'Material do Aluno', 'url' => ['/cadastros/materialaluno/index']],
-                                ['label' => 'Estrutura Física', 'url' => ['/cadastros/estruturafisica/index']],
+                                ['label' => 'Equipamentos / Utensílios', 'url' => ['/cadastros/estruturafisica/index']],
                                 '<li class="divider"></li>',
                                 ['label' => 'Material de Consumo', 'url' => ['/cadastros/materialconsumo/index']],
 
@@ -89,9 +89,6 @@ AppAsset::register($this);
                             ['label' => 'Administração', 'items' => [
                                 ['label' => 'Solicitações Pendentes', 'url' => ['/solicitacoes/material-copias-pendentes/index']],
                                 ['label' => 'Solicitações Aprovadas', 'url' => ['/solicitacoes/material-copias-aprovadas/index']],
-                                '<li class="divider"></li>',
-                                ['label' => 'Material de Consumo', 'url' => ['#']],
-
                             ]],
                             ['label' => 'Cadastros', 'items' => [
                                 ['label' => 'Tipos de Acabamento', 'url' => ['/solicitacoes/acabamento/index']],

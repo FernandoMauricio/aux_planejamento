@@ -32,7 +32,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
         <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="glyphicon glyphicon-list-alt"></i> Listagem de Estrutura Física
+                    <i class="glyphicon glyphicon-list-alt"></i> Listagem de Equipamentos / Utensílios
                     <button type="button" class="pull-right add-item-planoestrutura btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i> Adicionar Item</button>
                     <div class="clearfix"></div>
                 </div>

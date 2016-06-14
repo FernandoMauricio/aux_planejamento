@@ -13,9 +13,7 @@ use app\models\cadastros\Segmento;
 /* @var $this yii\web\View */
 /* @var $model app\models\planos\Planodeacao */
 /* @var $form yii\widgets\ActiveForm */
-
 ?>
-
 <div class="planodeacao-form">
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
@@ -32,8 +30,7 @@ use app\models\cadastros\Segmento;
                                          <li><a href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Material Didático</a></li>
                                          <li><a href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-tags"></span> Material de Consumo</a></li>
                                          <li><a href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-education"></span> Material do Aluno</a></li>
-                                         <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Estrutura Física</a></li>
-                                         <li><a href="#tab6" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Outros Custos</a></li>
+                                         <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Equipamentos / Utensílios</a></li>
                                   </ul>
 
                                               <div class="tab-content">
@@ -76,18 +73,19 @@ use app\models\cadastros\Segmento;
                                                            'modelsPlanoEstrutura' => $modelsPlanoEstrutura,
                                                            //'dataProviderPlanoMaterial' => $dataProviderPlanoMaterial,
                                                        ]) ?>
+
+                                                       <!-- SUBMIT CRIAÇÃO DO PLANO -->
+                                             <div class="form-group">
+                                            <?= Html::submitButton($model->isNewRecord ? 'Criar Plano' : 'Atualizar Plano', ['class' => $model->isNewRecord ?'btn btn-success btn-lg btn-block' : 'btn btn-primary btn-lg btn-block']) ?>
+                                        </div>
+
                                                     </div>
                                            </div> 
                                    </div> 
                             </div>
                   </div>
-
-
                         <?php ActiveForm::end(); ?>
-
            </div>
-
-
 
             <!--          JS etapas dos formularios            -->
 <?php

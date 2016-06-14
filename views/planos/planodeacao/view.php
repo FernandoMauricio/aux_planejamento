@@ -132,6 +132,14 @@ $attributes = [
                 ],
 
                 [
+                    'attribute'=>'plan_perfConclusao',
+                    'format' => 'ntext',
+                    'value'=> $model->plan_perfConclusao,
+                    'type'=>DetailView::INPUT_TEXTAREA, 
+                    'options'=>['rows'=>4]
+                ],
+
+                [
                     'attribute'=>'plan_orgcurricular',
                     'format' => 'ntext',
                     'value'=> $model->plan_orgcurricular,
@@ -310,11 +318,11 @@ echo DetailView::widget([
          </tfoot>
   </table>
 
-                              <!-- SEÇÃO 5 - ESTRUTURA FÍSICA DO PLANO -->
+                              <!-- SEÇÃO 5 - Equipamentos / Utensílios DO PLANO -->
 
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 5: Estrutura Física do Plano</th></tr>
+    <tr class="info"><th colspan="12">SEÇÃO 5: Equipamentos / Utensílios do Plano</th></tr>
       <tr>
         <th>Descrição</th>
         <th>Quantidade</th>

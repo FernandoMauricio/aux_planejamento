@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\cadastros\Estruturafisica */
 
-$this->title = 'Atualizar Estrutura Física: ' . $model->estr_cod;
-$this->params['breadcrumbs'][] = ['label' => 'Cadastro de Estrutura Física', 'url' => ['index']];
+$this->title = 'Atualizar Equipamentos / Utensílios: ' . $model->estr_cod;
+$this->params['breadcrumbs'][] = ['label' => 'Cadastro de Equipamentos / Utensílios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->estr_cod];
 $this->params['breadcrumbs'][] = 'Atualizar';
 ?>

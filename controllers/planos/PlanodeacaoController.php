@@ -336,7 +336,7 @@ class PlanodeacaoController extends Controller
         Model::loadMultiple($modelsPlanoAluno, Yii::$app->request->post());
         $deletedIDsAluno = array_diff($oldIDsAluno, array_filter(ArrayHelper::map($modelsPlanoAluno, 'id', 'id')));
 
-        //--------Estrutura Física do Plano--------------
+        //--------Equipamentos / Utensílios do Plano--------------
         $oldIDsEstrutura = ArrayHelper::map($modelsPlanoEstrutura, 'id', 'id');
         $modelsPlanoEstrutura = Model::createMultiple(PlanoEstruturafisica::classname(), $modelsPlanoEstrutura,'id');            
         Model::loadMultiple($modelsPlanoEstrutura, Yii::$app->request->post());

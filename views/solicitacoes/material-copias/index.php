@@ -92,6 +92,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             return['class'=>'success'];                        
                     }
+                    if($model->situacao_id == 4 ){
+
+                            return['class'=>'warning'];                        
+                    }
+                    if($model->situacao_id == 5 ){
+
+                            return['class'=>'info'];                        
+                    }
 
         },
     'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
