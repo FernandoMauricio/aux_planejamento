@@ -47,7 +47,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'matc_totalValorColor') ?>
 
-    <?php // echo $form->field($model, 'matc_autorizacao') ?>
+    <?php // echo $form->field($model, 'matc_ResponsavelAut') ?>
 
     <?php // echo $form->field($model, 'matc_dataAut') ?>
 

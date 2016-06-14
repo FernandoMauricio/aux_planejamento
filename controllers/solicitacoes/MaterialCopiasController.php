@@ -76,7 +76,7 @@ class MaterialCopiasController extends Controller
         $repositorio = Repositorio::find()->where(['rep_status' => 1])->orderBy('rep_titulo')->all();
 
         $model->matc_data        = date('Y-m-d');
-        $model->matc_solicitante = $session['sess_codusuario'];
+        $model->matc_solicitante = $session['sess_codcolaborador'];
         $model->matc_unidade     = $session['sess_codunidade'];
         $model->situacao_id      = 1;
 
@@ -148,7 +148,7 @@ class MaterialCopiasController extends Controller
         );
 
         $model->matc_data        = date('Y-m-d');
-        $model->matc_solicitante = $session['sess_codusuario'];
+        $model->matc_solicitante = $session['sess_codcolaborador'];
         $model->matc_unidade     = $session['sess_codunidade'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

@@ -5,26 +5,10 @@ use kartik\detail\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\solicitacoes\MaterialCopias */
-
-$this->title = $model->matc_id;
-$this->params['breadcrumbs'][] = ['label' => 'Solicitações de Cópias', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-
-//Pega as mensagens
-foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
-echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
-}
-
 ?>
 <div class="material-copias-view">
 
-    <h1><?php //echo Html::encode($this->title) ?></h1>
-
-    <p>
-        <?php // echo Html::a('Atualizar', ['update', 'id' => $model->matc_id], ['class' => 'btn btn-primary']) ?>
-
-    </p>
-<div class="panel panel-primary">
+<div class="panel panel-info">
   <div class="panel-heading">
     <h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> DETALHES DA SOLICITAÇÃO DE CÓPIA</h3>
   </div>
@@ -212,7 +196,8 @@ $attributes = [
                <td>TOTAL GERAL<i> (Total Mono + Total Color)</i></td>
                <td style="color:red"><strong><?php echo 'R$ ' . number_format($sum, 2, ',', '.') ?></strong></td>
         </tr>
-    </tbody>                            
+    </tbody>
+
   </table>
                         <!-- CAIXA DE AUTORIZAÇÃO DEP -->
 <div class="container">

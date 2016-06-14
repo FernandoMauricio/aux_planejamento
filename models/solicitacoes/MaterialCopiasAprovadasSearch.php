@@ -5,12 +5,12 @@ namespace app\models\solicitacoes;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\solicitacoes\MaterialCopiasPendentes;
+use app\models\solicitacoes\MaterialCopiasAprovadas;
 
 /**
- * MaterialCopiasPendentesSearch represents the model behind the search form about `app\models\solicitacoes\MaterialCopiasPendentes`.
+ * MaterialCopiasAprovadasSearch represents the model behind the search form about `app\models\solicitacoes\MaterialCopiasAprovadas`.
  */
-class MaterialCopiasPendentesSearch extends MaterialCopiasPendentes
+class MaterialCopiasAprovadasSearch extends MaterialCopiasAprovadas
 {
     /**
      * @inheritdoc
@@ -19,7 +19,7 @@ class MaterialCopiasPendentesSearch extends MaterialCopiasPendentes
     {
         return [
             [['matc_id', 'matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id', 'matc_qteCopias', 'matc_qteTotal', 'matc_totalValorMono', 'matc_totalValorColor'], 'integer'],
-            [['matc_descricao', 'matc_curso', 'matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_data', 'matc_ResponsavelAut', 'matc_dataAut'], 'safe'],
+            [['matc_descricao', 'matc_curso', 'matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_data', 'matc_ResponsavelAut', 'matc_dataAut', 'matc_ResponsavelRepro', 'matc_dataRepro'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class MaterialCopiasPendentesSearch extends MaterialCopiasPendentes
      */
     public function search($params)
     {
-        $query = MaterialCopiasPendentes::find();
+        $query = MaterialCopiasAprovadas::find();
 
         // add conditions that should always apply here
 
@@ -71,7 +71,8 @@ class MaterialCopiasPendentesSearch extends MaterialCopiasPendentes
             'matc_totalValorColor' => $this->matc_totalValorColor,
             'matc_dataAut' => $this->matc_dataAut,
             'matc_dataRepro' => $this->matc_dataRepro,
-            'situacao_id' => 1, //APROVADAS
+            'situacao_id' => 2, //APROVADAS
+
         ]);
 
         $query->andFilterWhere(['like', 'matc_descricao', $this->matc_descricao])
@@ -79,7 +80,8 @@ class MaterialCopiasPendentesSearch extends MaterialCopiasPendentes
             ->andFilterWhere(['like', 'matc_centrocusto', $this->matc_centrocusto])
             ->andFilterWhere(['like', 'matc_unidade', $this->matc_unidade])
             ->andFilterWhere(['like', 'matc_solicitante', $this->matc_solicitante])
-            ->andFilterWhere(['like', 'matc_ResponsavelAut', $this->matc_ResponsavelAut]);
+            ->andFilterWhere(['like', 'matc_ResponsavelAut', $this->matc_ResponsavelAut])
+            ->andFilterWhere(['like', 'matc_ResponsavelRepro', $this->matc_ResponsavelRepro]);
 
         return $dataProvider;
     }

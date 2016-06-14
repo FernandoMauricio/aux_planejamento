@@ -88,7 +88,7 @@ AppAsset::register($this);
                                      '<li class="divider"></li>',
                             ['label' => 'Administração', 'items' => [
                                 ['label' => 'Solicitações Pendentes', 'url' => ['/solicitacoes/material-copias-pendentes/index']],
-                                ['label' => 'Solicitações Aprovadas', 'url' => ['#']],
+                                ['label' => 'Solicitações Aprovadas', 'url' => ['/solicitacoes/material-copias-aprovadas/index']],
                                 '<li class="divider"></li>',
                                 ['label' => 'Material de Consumo', 'url' => ['#']],
 

@@ -7,8 +7,9 @@ use kartik\widgets\Select2;
 use yii\helpers\ArrayHelper;
 use yii\widgets\Pjax;
 
+
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\solicitacoes\MaterialCopiasPendentesSearch */
+/* @var $searchModel app\models\solicitacoes\MaterialCopiasAprovadasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 //Pega as mensagens
@@ -16,15 +17,15 @@ foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
 echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 }
 
-$this->title = 'Solicitações de Cópias Pendentes';
+$this->title = 'Solicitações de Cópias Aprovadas';
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
-<div class="material-copias-pendentes-index">
+<div class="material-copias-aprovadas-index">
 
-   <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-<?php
+  <?php
 
     $gridColumns = [
 
@@ -77,35 +78,34 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                 ['class' => 'yii\grid\ActionColumn',
-                                'template' => '{aprovar} {reprovar}',
-                                'options' => ['width' => '15%'],
+                                'template' => '{encaminharterceirizada} {producaointerna}',
+                                'options' => ['width' => '28%'],
                                 'buttons' => [
 
-                                //APROVAR REQUISIÇÃO
-                                'aprovar' => function ($url, $model) {
-                                    return Html::a('<span class="glyphicon glyphicon-ok"></span> Aprovar', $url, [
-                                                'class' => 'btn btn-success btn-xs',
-                                                'title' => Yii::t('app', 'Aprovar Solicitação'),
+                                //ENCAMINHADO À TERCEIRIZADA
+                                'encaminharterceirizada' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-share"></span> Terceirizada', $url, [
+                                                'class' => 'btn btn-warning btn-xs',
+                                                'title' => Yii::t('app', 'Encaminhado à Terceirizada'),
                                                 'data'  => [
-                                                    'confirm' => 'Você tem CERTEZA que deseja APROVAR a solicitação?',
+                                                    'confirm' => 'Você tem CERTEZA que deseja ENCAMINHAR À TERCEIRIZADA?',
                                                     'method' => 'post',
                                                      ],
                                                 ]);
                                             },
 
-                                //REPROVAR REQUISIÇÃO
-                                'reprovar' => function ($url, $model) {
-                                    return Html::a('<span class="glyphicon glyphicon-remove"></span> Reprovar', $url, [
-                                                'class' => 'btn btn-danger btn-xs',
+                                //PRODUÇÃO INTERNA
+                                'producaointerna' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-book"></span> Produção Interna', $url, [
+                                                'class' => 'btn btn-info btn-xs',
                                                 'title' => Yii::t('app', 'Reprovar Solicitação'),
                                                 'data'  => [
-                                                    'confirm' => 'Você tem CERTEZA que deseja REPROVAR a solicitação?',
+                                                    'confirm' => 'Você tem CERTEZA que deseja ENCAMINHAR PARA PRODUÇÃO INTERNA?',
                                                     'method' => 'post',
                                                      ],
                                                 ]);
                                             },
-
-                            ],
+                                 ],
                             ],
 
                  ]; 

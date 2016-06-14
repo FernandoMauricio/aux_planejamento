@@ -32,7 +32,7 @@ use app\models\base\Unidade;
  * @property CopiasacabamentoCopac[] $copiasacabamentoCopacs
  * @property SituacaomatcopiasSitmat $situacao
  */
-class MaterialCopiasPendentes extends \yii\db\ActiveRecord
+class MaterialCopiasAprovadas extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -58,9 +58,9 @@ class MaterialCopiasPendentes extends \yii\db\ActiveRecord
         return [
             [['matc_descricao', 'matc_qtoriginais', 'matc_qtexemplares', 'matc_curso', 'matc_centrocusto', 'situacao_id', 'matc_totalValorMono', 'matc_totalValorColor'], 'required'],
             [['matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id', 'matc_qteCopias', 'matc_qteTotal', 'matc_totalValorMono', 'matc_totalValorColor', 'matc_autorizado', 'matc_encaminhadoRepro'], 'integer'],
-            [['matc_data', 'matc_dataAut', 'matc_dataRepro'], 'safe'],
+            [['matc_data', 'matc_dataAut','matc_dataRepro'], 'safe'],
             [['matc_descricao', 'matc_curso'], 'string', 'max' => 255],
-            [['matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_ResponsavelAut', 'matc_ResponsavelRepro'], 'string', 'max' => 100],
+            [['matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_ResponsavelAut'], 'string', 'max' => 100],
             [['situacao_id'], 'exist', 'skipOnError' => true, 'targetClass' => Situacao::className(), 'targetAttribute' => ['situacao_id' => 'sitmat_id']],
         ];
     }
