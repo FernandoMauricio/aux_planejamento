@@ -48,12 +48,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
 
                             [
-                              'attribute'=>'matc_centrocusto',
-                              'width'=>'5%'
-                            ],
-
-
-                            [
                               'attribute'=>'matc_unidade',
                               'value'=> 'unidade.uni_nomeabreviado',
                               'width'=>'20%'
@@ -61,7 +55,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             'matc_descricao',
                             'matc_curso',
-
 
                             [
                                 'attribute'=>'situacao_id', 
@@ -79,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 ['class' => 'yii\grid\ActionColumn',
                                 'template' => '{encaminharterceirizada} {producaointerna}',
-                                'options' => ['width' => '28%'],
+                                'options' => ['width' => '25%'],
                                 'buttons' => [
 
                                 //ENCAMINHADO À TERCEIRIZADA
@@ -108,6 +101,25 @@ $this->params['breadcrumbs'][] = $this->title;
                                  ],
                             ],
 
+                                ['class' => 'yii\grid\ActionColumn',
+                                'template' => '{finalizar}',
+                                'options' => ['width' => '10%'],
+                                'buttons' => [
+
+                                //ENCAMINHADO À TERCEIRIZADA
+                                'finalizar' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-floppy-disk"></span> Finalizar', $url, [
+                                                'class' => 'btn btn-success btn-xs',
+                                                'title' => Yii::t('app', 'Finalizar Solicitação'),
+                                                'data'  => [
+                                                    'confirm' => 'Você tem CERTEZA que deseja FINALIZAR A SOLICITAÇÃO?',
+                                                    'method' => 'post',
+                                                     ],
+                                                ]);
+                                            },
+                                 ],
+                            ],
+
                  ]; 
 ?>
 
@@ -128,15 +140,16 @@ $this->params['breadcrumbs'][] = $this->title;
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes das Solicitações de Cópias', 'options'=>['colspan'=>7, 'class'=>'text-center warning']], 
-                ['content'=>'Ações', 'options'=>['colspan'=>3, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes das Solicitações de Cópias', 'options'=>['colspan'=>6, 'class'=>'text-center warning']], 
+                ['content'=>'Encaminhamentos', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
+                ['content'=>'Ações', 'options'=>['colspan'=>2, 'class'=>'text-center warning']], 
             ],
         ]
     ],
 
         'panel' => [
         'type'=>GridView::TYPE_PRIMARY,
-        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem de Solicitações Pendentes</h3>',
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem de Solicitações Aprovadas pela DEP</h3>',
     ],
 ]);
     ?>

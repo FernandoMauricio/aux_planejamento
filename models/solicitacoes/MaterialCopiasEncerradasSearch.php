@@ -5,12 +5,12 @@ namespace app\models\solicitacoes;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\solicitacoes\MaterialCopiasAprovadas;
+use app\models\solicitacoes\MaterialCopiasEncerradas;
 
 /**
- * MaterialCopiasAprovadasSearch represents the model behind the search form about `app\models\solicitacoes\MaterialCopiasAprovadas`.
+ * MaterialCopiasEncerradasSearch represents the model behind the search form about `app\models\solicitacoes\MaterialCopiasEncerradas`.
  */
-class MaterialCopiasAprovadasSearch extends MaterialCopiasAprovadas
+class MaterialCopiasEncerradasSearch extends MaterialCopiasEncerradas
 {
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class MaterialCopiasAprovadasSearch extends MaterialCopiasAprovadas
     public function rules()
     {
         return [
-            [['matc_id', 'matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id', 'matc_qteCopias', 'matc_qteTotal', 'matc_totalValorMono', 'matc_totalValorColor'], 'integer'],
+            [['matc_id', 'matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id', 'matc_qteCopias', 'matc_qteTotal', 'matc_totalValorMono', 'matc_totalValorColor', 'matc_autorizado', 'matc_encaminhadoRepro'], 'integer'],
             [['matc_descricao', 'matc_curso', 'matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_data', 'matc_ResponsavelAut', 'matc_dataAut', 'matc_ResponsavelRepro', 'matc_dataRepro'], 'safe'],
         ];
     }
@@ -41,7 +41,7 @@ class MaterialCopiasAprovadasSearch extends MaterialCopiasAprovadas
      */
     public function search($params)
     {
-        $query = MaterialCopiasAprovadas::find();
+        $query = MaterialCopiasEncerradas::find();
 
         // add conditions that should always apply here
 
@@ -70,9 +70,10 @@ class MaterialCopiasAprovadasSearch extends MaterialCopiasAprovadas
             'matc_totalValorMono' => $this->matc_totalValorMono,
             'matc_totalValorColor' => $this->matc_totalValorColor,
             'matc_dataAut' => $this->matc_dataAut,
+            'matc_autorizado' => $this->matc_autorizado,
             'matc_dataRepro' => $this->matc_dataRepro,
-            'situacao_id' => [2,4,5], //APROVADAS, ENCAMINHADO À TERCEIRIZADA, PRODUÇÃO INTERNA
-
+            'matc_encaminhadoRepro' => $this->matc_encaminhadoRepro,
+            'situacao_id' => 6, //ENCERRADAS
         ]);
 
         $query->andFilterWhere(['like', 'matc_descricao', $this->matc_descricao])

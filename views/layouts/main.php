@@ -89,6 +89,7 @@ AppAsset::register($this);
                             ['label' => 'Administração', 'items' => [
                                 ['label' => 'Solicitações Pendentes', 'url' => ['/solicitacoes/material-copias-pendentes/index']],
                                 ['label' => 'Solicitações Aprovadas', 'url' => ['/solicitacoes/material-copias-aprovadas/index']],
+                                ['label' => 'Solicitações Encerradas', 'url' => ['/solicitacoes/material-copias-encerradas/index']],
                             ]],
                             ['label' => 'Cadastros', 'items' => [
                                 ['label' => 'Tipos de Acabamento', 'url' => ['/solicitacoes/acabamento/index']],
