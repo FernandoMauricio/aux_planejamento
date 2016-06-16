@@ -131,6 +131,24 @@ $this->params['breadcrumbs'][] = $this->title;
     'dataProvider'=>$dataProvider,
     'filterModel'=>$searchModel,
     'columns'=>$gridColumns,
+    'rowOptions' =>function($model){
+                    if($model->situacao_id == 3 ){
+
+                            return['class'=>'danger'];                        
+                    } if($model->situacao_id == 2 ){
+
+                            return['class'=>'success'];                        
+                    }
+                    if($model->situacao_id == 4 ){
+
+                            return['class'=>'warning'];                        
+                    }
+                    if($model->situacao_id == 5 ){
+
+                            return['class'=>'info'];                        
+                    }
+
+        },
     'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
     'headerRowOptions'=>['class'=>'kartik-sheet-style'],
     'filterRowOptions'=>['class'=>'kartik-sheet-style'],

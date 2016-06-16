@@ -6,10 +6,20 @@ use app\models\solicitacoes\Acabamento;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\solicitacoes\MaterialCopias */
+
+$this->title = $model->matc_id;
+$this->params['breadcrumbs'][] = ['label' => 'Solicitações de Cópias', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+
+//Pega as mensagens
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+}
+
 ?>
 <div class="material-copias-view">
 
-<div class="panel panel-info">
+<div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> DETALHES DA SOLICITAÇÃO DE CÓPIA</h3>
   </div>
@@ -199,14 +209,13 @@ $attributes = [
                 <!-- SESSÃO 4 INFORMAÇÕES FINANCEIRAS -->
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 4: Informações Financeiras</th></tr>
+    <tr class="info"><th colspan="8">SEÇÃO 4: Informações Financeiras</th></tr>
     </thead>
     <tbody>
 
                <tr class="warning" style="border-top: #dedede">
                <td>Subtotal Mono<i> (Qte Exemplares * Mono) * R$ 0,1</i></td>
                <td style="color:red"><?php echo 'R$ ' . number_format($model->matc_totalValorMono, 2, ',', '.') ?></td>
-
             </tr>
 
                <tr class="warning" style="border-top: #dedede">
@@ -232,7 +241,7 @@ $attributes = [
 <div class="col-md-6">
     <?php if($model->matc_ResponsavelAut != NULL){ ?>
 
-     <table class="table" colspan="2"  border="1" style="max-width: 30%; margin-left:5%">
+     <table class="table" colspan="2" border="1" style="max-width: 30%; margin-left:5%">
         <thead>
           <tr>
             <th class="warning" colspan="2" style="border-top: #dedede;text-align: center;">AUTORIZAÇÃO</th>
@@ -261,7 +270,7 @@ $attributes = [
 
     <?php if($model->matc_ResponsavelRepro != NULL){ ?>
 <div class="col-md-6">
-     <table class="table" colspan="2"  border="1" style="max-width: 50%; margin-left:5%">
+     <table class="table" colspan="2" border="1" style="max-width: 50%; margin-left:5%">
         <thead>
           <tr>
             <th class="warning" colspan="2" style="border-top: #dedede;text-align: center;">REPROGRAFIA</th>

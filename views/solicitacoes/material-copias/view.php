@@ -107,10 +107,10 @@ $attributes = [
                     ],
                 ],
 
-//-------------- SESSÃO 2 INFORMAÇÕES FINANCEIRAS
+//-------------- SESSÃO 2 INFORMAÇÕES DE IMPRESSÃO
                 [
                     'group'=>true,
-                    'label'=>'SEÇÃO 2: Informações Financeiras',
+                    'label'=>'SEÇÃO 2: Informações das Impressões',
                     'rowOptions'=>['class'=>'info']
                 ],
 
@@ -206,8 +206,11 @@ $attributes = [
     </tbody>
  </table>
 
-                    <!-- TOTAIS -->
-<table class="table table-striped table-hover">
+                <!-- SESSÃO 4 INFORMAÇÕES FINANCEIRAS -->
+  <table class="table table-condensed table-hover">
+    <thead>
+    <tr class="info"><th colspan="12">SEÇÃO 4: Informações Financeiras</th></tr>
+    </thead>
     <tbody>
 
                <tr class="warning" style="border-top: #dedede">

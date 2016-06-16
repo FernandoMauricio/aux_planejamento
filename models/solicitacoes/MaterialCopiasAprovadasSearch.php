@@ -18,8 +18,8 @@ class MaterialCopiasAprovadasSearch extends MaterialCopiasAprovadas
     public function rules()
     {
         return [
-            [['matc_id', 'matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id', 'matc_qteCopias', 'matc_qteTotal', 'matc_totalValorMono', 'matc_totalValorColor'], 'integer'],
-            [['matc_descricao', 'matc_curso', 'matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_data', 'matc_ResponsavelAut', 'matc_dataAut', 'matc_ResponsavelRepro', 'matc_dataRepro'], 'safe'],
+            [['matc_id', 'matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color','matc_qteCopias', 'matc_qteTotal', 'matc_totalValorMono', 'matc_totalValorColor'], 'integer'],
+            [['matc_descricao', 'matc_curso', 'matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_data', 'matc_ResponsavelAut', 'matc_dataAut', 'matc_ResponsavelRepro', 'matc_dataRepro', 'situacao_id'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class MaterialCopiasAprovadasSearch extends MaterialCopiasAprovadas
      */
     public function search($params)
     {
-        $query = MaterialCopiasAprovadas::find();
+        $query = MaterialCopiasAprovadas::find()->orderBy(['situacao_id' => SORT_ASC]);
 
         // add conditions that should always apply here
 
@@ -56,6 +56,8 @@ class MaterialCopiasAprovadasSearch extends MaterialCopiasAprovadas
             // $query->where('0=1');
             return $dataProvider;
         }
+
+        $query->joinWith('situacao');
 
         // grid filtering conditions
         $query->andFilterWhere([
@@ -81,7 +83,8 @@ class MaterialCopiasAprovadasSearch extends MaterialCopiasAprovadas
             ->andFilterWhere(['like', 'matc_unidade', $this->matc_unidade])
             ->andFilterWhere(['like', 'matc_solicitante', $this->matc_solicitante])
             ->andFilterWhere(['like', 'matc_ResponsavelAut', $this->matc_ResponsavelAut])
-            ->andFilterWhere(['like', 'matc_ResponsavelRepro', $this->matc_ResponsavelRepro]);
+            ->andFilterWhere(['like', 'matc_ResponsavelRepro', $this->matc_ResponsavelRepro])
+            ->andFilterWhere(['=', 'situacaomatcopias_sitmat.sitmat_descricao', $this->situacao_id]);
 
         return $dataProvider;
     }

@@ -18,8 +18,8 @@ class MaterialCopiasPendentesSearch extends MaterialCopiasPendentes
     public function rules()
     {
         return [
-            [['matc_id', 'matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id', 'matc_qteCopias', 'matc_qteTotal', 'matc_totalValorMono', 'matc_totalValorColor'], 'integer'],
-            [['matc_descricao', 'matc_curso', 'matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_data', 'matc_ResponsavelAut', 'matc_dataAut'], 'safe'],
+            [['matc_id', 'matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'matc_qteCopias', 'matc_qteTotal', 'matc_totalValorMono', 'matc_totalValorColor'], 'integer'],
+            [['matc_descricao', 'matc_curso', 'matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_data', 'matc_ResponsavelAut', 'matc_dataAut', 'situacao_id'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class MaterialCopiasPendentesSearch extends MaterialCopiasPendentes
      */
     public function search($params)
     {
-        $query = MaterialCopiasPendentes::find();
+        $query = MaterialCopiasPendentes::find()->orderBy(['matc_id' => SORT_DESC]);;
 
         // add conditions that should always apply here
 
@@ -56,6 +56,8 @@ class MaterialCopiasPendentesSearch extends MaterialCopiasPendentes
             // $query->where('0=1');
             return $dataProvider;
         }
+
+        $query->joinWith('situacao');
 
         // grid filtering conditions
         $query->andFilterWhere([
@@ -79,7 +81,8 @@ class MaterialCopiasPendentesSearch extends MaterialCopiasPendentes
             ->andFilterWhere(['like', 'matc_centrocusto', $this->matc_centrocusto])
             ->andFilterWhere(['like', 'matc_unidade', $this->matc_unidade])
             ->andFilterWhere(['like', 'matc_solicitante', $this->matc_solicitante])
-            ->andFilterWhere(['like', 'matc_ResponsavelAut', $this->matc_ResponsavelAut]);
+            ->andFilterWhere(['like', 'matc_ResponsavelAut', $this->matc_ResponsavelAut])
+            ->andFilterWhere(['=', 'situacaomatcopias_sitmat.sitmat_descricao', $this->situacao_id]);
 
         return $dataProvider;
     }
