@@ -97,14 +97,12 @@ class MaterialconsumoController extends Controller
             ->batchInsert('db_apl.materialconsumo_matcon', ['matcon_cod','matcon_descricao', 'matcon_tipo', 'matcon_valor', 'matcon_status'], $data)
             ->execute();
         
-
         //-------atualiza os planos já criados com os valores de materiais de consumo atuais
         Yii::$app->db_apl->createCommand('UPDATE `plano_materialconsumo`, `materialconsumo_matcon` SET `planmatcon_valor` = `matcon_valor` WHERE `materialconsumo_cod` = `matcon_cod`')
             ->execute();
 
         die('sucesso!!!');
     }
-
 
     /**
      * Updates an existing Materialconsumo model.

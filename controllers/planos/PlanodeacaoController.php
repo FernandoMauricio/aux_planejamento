@@ -61,19 +61,6 @@ class PlanodeacaoController extends Controller
         ]);
     }
 
-
-        public function actionPlanoMaterialIndex()
-    {
-        $searchPlanoMaterialModel = new PlanoMaterialSearch();
-        $dataProviderPlanoMaterial = $searchPlanoMaterialModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('/planos/plano-material/index', [
-            'searchModel' => $searchPlanoMaterialModel,
-            'dataProviderPlanoMaterial' => $dataProviderPlanoMaterial,
-        ]);
-    }
-
-
     public function actionImprimir($id) {
 
             $model = $this->findModel($id);
@@ -132,9 +119,6 @@ class PlanodeacaoController extends Controller
 
         $model->plan_data           = date('Y-m-d');
         $model->plan_codcolaborador = $session['sess_codcolaborador'];
-
-        // $searchPlanoMaterialModel = new PlanoMaterialSearch();
-        // $dataProviderPlanoMaterial = $searchPlanoMaterialModel->search(Yii::$app->request->queryParams);
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -226,8 +210,6 @@ class PlanodeacaoController extends Controller
                 'modelsPlanoEstrutura'  => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,
                 'modelsPlanoConsumo'    => (empty($modelsPlanoConsumo)) ? [new PlanoConsumo] : $modelsPlanoConsumo,
                 'modelsPlanoAluno'      => (empty($modelsPlanoAluno)) ? [new PlanoAluno] : $modelsPlanoAluno,
-                // 'searchModel' => $searchPlanoMaterialModel,
-                // 'dataProviderPlanoMaterial' => $dataProviderPlanoMaterial,
             ]);
         }
     }
@@ -290,7 +272,6 @@ class PlanodeacaoController extends Controller
         $getPlanoEstruturaFisica = EstruturaFisica::findOne($estrfisicID);
         echo Json::encode($getPlanoEstruturaFisica);
     }
-
 
     /**
      * Updates an existing Planodeacao model.
