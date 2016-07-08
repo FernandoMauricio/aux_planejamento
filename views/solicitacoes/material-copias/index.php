@@ -62,16 +62,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             'matc_descricao',
                             'matc_curso',
 
-                            // [
-                            //   'attribute'=>'matc_qtoriginais',
-                            //   'width'=>'5%'
-                            // ],
-
-                            // [
-                            //   'attribute'=>'matc_qtexemplares',
-                            //   'width'=>'5%'
-                            // ],
-
                             [
                                 'attribute'=>'situacao_id', 
                                 'vAlign'=>'middle',

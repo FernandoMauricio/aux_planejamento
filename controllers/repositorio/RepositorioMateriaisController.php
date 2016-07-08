@@ -108,13 +108,35 @@ class RepositorioMateriaisController extends Controller
      */
     public function actionUpdate($id)
     {
+        $session = Yii::$app->session;
+
         $model = $this->findModel($id);
 
+        $categoria = Categoria::find()->where(['cat_status' => 1])->orderBy('cat_descricao')->all();
+        $editora = Editora::find()->where(['edi_status' => 1])->orderBy('edi_descricao')->all();
+        $tipomaterial = Tipomaterial::find()->where(['tip_status' => 1])->orderBy('tip_descricao')->all();
+
+        $model->rep_data = date('Y-m-d');
+        $model->rep_codunidade = $session['sess_codunidade'];
+        $model->rep_codcolaborador = $session['sess_codcolaborador'];
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            //get the instance of the uploaded file
+            $model->file = UploadedFile::getInstance($model, 'file');
+            $model->file->saveAs('uploads/repositorio/' .  $model->file->baseName . '.' .  $model->file->extension);
+
+            //save the path in the db column rep_arquivo
+            $model->rep_arquivo = 'uploads/repositorio/' .  $model->file->baseName . '.' .  $model->file->extension;
+            $model->save();
+            
             return $this->redirect(['view', 'id' => $model->rep_codrepositorio]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'categoria' => $categoria,
+                'editora' => $editora,
+                'tipomaterial' => $tipomaterial,
             ]);
         }
     }

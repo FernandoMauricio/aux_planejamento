@@ -75,9 +75,9 @@ use app\models\cadastros\Segmento;
                                                        ]) ?>
 
                                                        <!-- SUBMIT CRIAÇÃO DO PLANO -->
-                                             <div class="form-group">
+                                            <div class="form-group">
                                             <?= Html::submitButton($model->isNewRecord ? 'Criar Plano' : 'Atualizar Plano', ['class' => $model->isNewRecord ?'btn btn-success btn-lg btn-block' : 'btn btn-primary btn-lg btn-block']) ?>
-                                        </div>
+                                            </div>
 
                                                     </div>
                                            </div> 

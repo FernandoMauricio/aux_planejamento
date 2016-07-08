@@ -57,7 +57,7 @@ class MaterialconsumoController extends Controller
         ]);
     }
 
-    public function actionImportExcel()
+    public function actionImportExcelMaterialConsumo()
     {
         $inputFile = 'uploads/imports/materalconsumo.xlsx';
         try{
@@ -66,7 +66,9 @@ class MaterialconsumoController extends Controller
             $objPHPExcel = $objReader->load($inputFile);
         }catch(Exception $e)
         {
-            die('Error');
+            Yii::$app->session->setFlash('danger', '<strong>ERRO! </strong> Houve algum problema na importação do Material de Consumo!</strong>');
+
+            return $this->redirect(['/cadastros/materialconsumo/index']);
         }
         $sheet = $objPHPExcel->getSheet(0);
         $highestRow = $sheet->getHighestRow();
@@ -101,7 +103,10 @@ class MaterialconsumoController extends Controller
         Yii::$app->db_apl->createCommand('UPDATE `plano_materialconsumo`, `materialconsumo_matcon` SET `planmatcon_valor` = `matcon_valor` WHERE `materialconsumo_cod` = `matcon_cod`')
             ->execute();
 
-        die('sucesso!!!');
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Material de Consumo importado!</strong>');
+
+        return $this->redirect(['/cadastros/materialconsumo/index']);
+
     }
 
     /**

@@ -42,7 +42,7 @@ $attributes = [
                             'attribute'=>'matc_id', 
                             'displayOnly'=>true,
                             'valueColOptions'=>['style'=>'width:0%'],
-                            'labelColOptions'=>['style'=>'width:0%'],
+                            'labelColOptions'=>['style'=>'width:5%'],
                         ],
 
                         [
@@ -104,6 +104,17 @@ $attributes = [
                             'labelColOptions'=>['style'=>'width:15%'],
                         ],
 
+                    ],
+                ],
+
+                [
+                    'columns' => [
+                        [
+                            'attribute'=>'matc_observacao', 
+                            'displayOnly'=>true,
+                            //'valueColOptions'=>['style'=>'width:30%'],
+                            'labelColOptions'=>['style'=>'width:5%'],
+                        ],
                     ],
                 ],
 

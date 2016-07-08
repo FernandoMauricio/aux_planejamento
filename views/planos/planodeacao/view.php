@@ -222,6 +222,7 @@ echo DetailView::widget([
     <thead>
     <tr class="info"><th colspan="12">SEÇÃO 3: Materiais de Consumo</th></tr>
       <tr>
+        <th>Cód MXM</th>
         <th>Descrição</th>
         <th>Valor Unitário</th>
         <th>Quantidade</th>
@@ -234,15 +235,15 @@ echo DetailView::widget([
              $query_planoConsumo = "SELECT * FROM plano_materialconsumo WHERE planodeacao_cod = '".$id."' ORDER BY id ASC";
              $modelsPlanoConsumo = PlanoConsumo::findBySql($query_planoConsumo)->all(); 
              foreach ($modelsPlanoConsumo as $modelPlanoConsumo) {
-                
+                $materialconsumo_cod   = $modelPlanoConsumo["materialconsumo_cod"];
                 $planmatcon_descricao  = $modelPlanoConsumo["planmatcon_descricao"];
                 $planmatcon_valor      = $modelPlanoConsumo["planmatcon_valor"];
                 $planmatcon_tipo       = $modelPlanoConsumo["planmatcon_tipo"];
                 $planmatcon_quantidade = $modelPlanoConsumo["planmatcon_quantidade"];
                 $valorTotal           += $modelPlanoConsumo["planmatcon_valor"]; //somatório de todos os valores dos itens
-
         ?>
         <tr>
+        <td><?php echo $materialconsumo_cod ?></td>
         <td><?php echo $planmatcon_descricao ?></td>
         <td><?php echo 'R$ ' . number_format($planmatcon_valor, 2, ',', '.') ?></td>
         <td><?php echo $planmatcon_quantidade ?></td>
@@ -261,8 +262,8 @@ echo DetailView::widget([
                $sum = $query->sum('planmatcon_valor*planmatcon_quantidade');
                ?>
                <tr class="warning kv-edit-hidden" style="border-top: #dedede">
-               <th>TOTAL <i>(Valor Unitário * Quantidade)</i></th>
-               <th colspan="12" style="color:red"><?php echo 'R$ ' . number_format($sum, 2, ',', '.') ?></th>
+               <th colspan="2">TOTAL <i>(Valor Unitário * Quantidade)</i></th>
+               <th colspan="4" style="color:red"><?php echo 'R$ ' . number_format($sum, 2, ',', '.') ?></th>
             </tr>
          </tfoot>
   </table>

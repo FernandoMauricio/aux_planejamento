@@ -114,6 +114,7 @@ $id = $model->plan_codplano;
     <thead>
     <tr class="info"><th colspan="12">SEÇÃO 3: Materiais de Consumo</th></tr>
       <tr>
+        <th>Cód MXM</th>
         <th>Descrição</th>
         <th>Valor Unitário</th>
         <th>Quantidade</th>
@@ -126,7 +127,7 @@ $id = $model->plan_codplano;
              $query_planoConsumo = "SELECT * FROM plano_materialconsumo WHERE planodeacao_cod = '".$id."' ORDER BY id ASC";
              $modelsPlanoConsumo = PlanoConsumo::findBySql($query_planoConsumo)->all(); 
              foreach ($modelsPlanoConsumo as $modelPlanoConsumo) {
-                
+                $materialconsumo_cod   = $modelPlanoConsumo["materialconsumo_cod"];
                 $planmatcon_descricao  = $modelPlanoConsumo["planmatcon_descricao"];
                 $planmatcon_valor      = $modelPlanoConsumo["planmatcon_valor"];
                 $planmatcon_tipo       = $modelPlanoConsumo["planmatcon_tipo"];
@@ -135,6 +136,7 @@ $id = $model->plan_codplano;
 
         ?>
         <tr>
+        <td><?php echo $materialconsumo_cod ?></td>
         <td><?php echo $planmatcon_descricao ?></td>
         <td><?php echo 'R$ ' . number_format($planmatcon_valor, 2, ',', '.') ?></td>
         <td><?php echo $planmatcon_quantidade ?></td>

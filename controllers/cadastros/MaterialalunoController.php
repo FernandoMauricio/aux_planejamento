@@ -57,6 +57,59 @@ class MaterialalunoController extends Controller
         ]);
     }
 
+    //----------------* Verificar se será viável essa função, uma vez que os itens sem saldo estarão zerados
+    public function actionImportExcelMaterialAluno()
+    {
+        $inputFile = 'uploads/imports/materalaluno.xlsx';
+        try{
+            $inputFileType = \PHPExcel_IOFactory::identify($inputFile);
+            $objReader = \PHPExcel_IOFactory::createReader($inputFileType);
+            $objPHPExcel = $objReader->load($inputFile);
+        }catch(Exception $e)
+        {
+            Yii::$app->session->setFlash('danger', '<strong>ERRO! </strong> Houve algum problema na importação do Material de Aluno!</strong>');
+
+            return $this->redirect(['/cadastros/materialaluno/index']);
+        }
+        $sheet = $objPHPExcel->getSheet(0);
+        $highestRow = $sheet->getHighestRow();
+        $highestColumn = $sheet->getHighestColumn();
+        $data = [];
+        for( $row = 1; $row <= $highestRow; $row++ )
+        {
+            $rowData = $sheet->rangeToArray('A'.$row.':'.$highestColumn.$row,NULL,TRUE,FALSE);
+
+            if($row == 1)
+            {
+                continue;
+            }
+            // $model = new Materialaluno();
+            // $model->matalu_cod = $rowData[0][0];
+            // $model->matalu_descricao = $rowData[0][1];
+            // $model->matalu_unidade = $rowData[0][2];
+            // $model->matalu_valor = $rowData[0][3];
+            // $model->matalu_status = $rowData[0][4];
+            // $model->save();
+            if(!empty($rowData[0][0])){
+                $data[] = [$rowData[0][0],$rowData[0][1],$rowData[0][2],$rowData[0][3],$rowData[0][4]];
+            }
+        }
+
+        //--------insere em massa os materiais de aluno exportados do MXM
+        Yii::$app->db->createCommand()
+            ->batchInsert('db_apl.materialaluno_matalu', ['matalu_cod','matalu_descricao', 'matalu_unidade', 'matalu_valor', 'matalu_status'], $data)
+            ->execute();
+        
+        //-------atualiza os planos já criados com os valores de materiais de aluno atuais
+        Yii::$app->db_apl->createCommand('UPDATE `plano_materialaluno`, `materialaluno_matalu` SET `planmatalu_valor` = `matalu_valor` WHERE `materialaluno_cod` = `matalu_cod`')
+            ->execute();
+
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Material de Aluno importado!</strong>');
+
+        return $this->redirect(['/cadastros/materialaluno/index']);
+
+    }
+
     /**
      * Creates a new Materialaluno model.
      * If creation is successful, the browser will be redirected to the 'view' page.

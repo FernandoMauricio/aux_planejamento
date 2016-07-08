@@ -90,6 +90,16 @@ use kartik\select2\Select2;
     </div>
 
  </div>
+ 
+ <div class="row">
+
+    <div class="col-md-12">
+
+    <?= $form->field($model, 'matc_observacao')->textInput() ?>
+
+    </div>
+
+ </div>
 
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -197,7 +207,7 @@ $(function() {
       var matc_color        = parseInt($('#materialcopias-matc_color').val());
 
       var matc_qteCopias = matc_qtoriginais * matc_qtexemplares;
-      var matc_qteTotal  = matc_mono + matc_color;
+      var matc_qteTotal  = (matc_mono + matc_color) * matc_qtexemplares ;
 
       var mono = 0.1;
       var color = 0.6;

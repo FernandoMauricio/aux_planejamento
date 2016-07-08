@@ -64,7 +64,7 @@ class MaterialCopias extends \yii\db\ActiveRecord
             ['matc_totalValorMono', 'filter', 'filter' => function($value) {  return str_replace(['.', ','], '' , $value); }], //retirando ',' e '.'
             ['matc_totalValorColor', 'filter', 'filter' => function($value) {  return str_replace(['.', ','], '' , $value); }],//retirando ',' e '.'
             ['matc_totalGeral', 'filter', 'filter' => function($value) {  return str_replace(['.', ','], '' , $value); }],//retirando ',' e '.'
-            [['matc_descricao', 'matc_curso'], 'string', 'max' => 255],
+            [['matc_descricao', 'matc_curso', 'matc_observacao'], 'string', 'max' => 255],
             [['matc_centrocusto'], 'string',  'min' => 6, 'max' => 6,'tooShort' => '"{attribute}" deve conter 5 números'], // exemplo: 25.555
             [['matc_qteTotal'], 'compare','compareAttribute'=>'matc_qteCopias'], // total copias == quantidade total (mono+color)
             [['matc_unidade', 'matc_solicitante', 'matc_ResponsavelAut','matc_ResponsavelRepro'], 'string', 'max' => 100],
@@ -94,6 +94,7 @@ class MaterialCopias extends \yii\db\ActiveRecord
             'matc_qteTotal' => 'Qte Total',
             'matc_totalValorMono' => 'Total em cópias mono',
             'matc_totalValorColor' => 'Total em cópias coloridas',
+            'matc_observacao' => 'Observação',
             
             'listAcabamento' => 'Serviços de Acabamento',
             'matc_totalGeral' => 'Total Geral',
