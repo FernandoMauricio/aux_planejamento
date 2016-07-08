@@ -98,10 +98,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return Html::a('<span class="glyphicon glyphicon-remove"></span> Reprovar', $url, [
                                                 'class' => 'btn btn-danger btn-xs',
                                                 'title' => Yii::t('app', 'Reprovar Solicitação'),
-                                                'data'  => [
-                                                    'confirm' => 'Você tem CERTEZA que deseja REPROVAR a solicitação?',
-                                                    'method' => 'post',
-                                                     ],
                                                 ]);
                                             },
 

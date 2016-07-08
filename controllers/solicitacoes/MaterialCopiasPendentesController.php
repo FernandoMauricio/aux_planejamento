@@ -5,6 +5,7 @@ namespace app\controllers\solicitacoes;
 use Yii;
 
 use app\models\base\Emailusuario;
+use app\models\solicitacoes\MaterialCopias;
 use app\models\solicitacoes\MaterialCopiasPendentes;
 use app\models\solicitacoes\MaterialCopiasPendentesSearch;
 use yii\web\Controller;
@@ -141,6 +142,20 @@ class MaterialCopiasPendentesController extends Controller
             Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Cópia de código:  <strong> '.$model->matc_id.'</strong> '.$model->situacao->sitmat_descricao.'!');
      
              return $this->redirect(['index']);
+    }
+
+
+    public function actionCorrecao($id) 
+    {
+
+
+        $model = MaterialCopias::findOne($id);
+        $session = Yii::$app->session;
+        $session->set('sess_materialcopias', $model->matc_id);
+
+        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=solicitacoes/material-copias-justificativas/index', [
+             'model' => $model,
+         ]);
     }
 
     public function actionReprovar($id)
