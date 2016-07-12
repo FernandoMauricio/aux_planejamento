@@ -145,7 +145,7 @@ class MaterialCopiasPendentesController extends Controller
     }
 
 
-    public function actionCorrecao($id) 
+    public function actionReprovar($id) 
     {
 
 
@@ -157,68 +157,6 @@ class MaterialCopiasPendentesController extends Controller
              'model' => $model,
          ]);
     }
-
-    public function actionReprovar($id)
-    {
-        $session = Yii::$app->session;
-
-        $model = $this->findModel($id);
-
-        $model->matc_dataAut     = date('Y-m-d H:i:s');
-        $model->matc_ResponsavelAut = $session['sess_nomeusuario'];
-
-            //-------atualiza a situação pra aprovado
-            Yii::$app->db_apl->createCommand('UPDATE `materialcopias_matc` SET `situacao_id` = 3, `matc_autorizado` = 0, `matc_ResponsavelAut` = "'.$model->matc_ResponsavelAut.'" , `matc_dataAut` = "'.$model->matc_dataAut.'" WHERE `matc_id` = '.$model->matc_id.'')
-            ->execute();
-
-            $totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
-
-
-         $model->situacao_id = 3;
-         if($model->situacao_id == 3){
-
-             //ENVIANDO EMAIL PARA O USUÁRIO SOLICITANTE INFORMANDO SOBRE A REPROVAÇÃO....
-              $sql_email = "SELECT DISTINCT emus_email FROM `db_base`.emailusuario_emus, `db_base`.colaborador_col WHERE col_codusuario = emus_codusuario AND col_codcolaborador = '".$model->matc_solicitante."'";
-          
-          $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
-          foreach ($email_solicitacao as $email)
-              {
-                $email_usuario  = $email["emus_email"];
-
-                                Yii::$app->mailer->compose()
-                                ->setFrom(['dep.suporte@am.senac.br' => 'DEP - INFORMA'])
-                                ->setTo($email_usuario)
-                                ->setSubject('Reprovada! - Solicitação de Cópia '.$model->matc_id.'')
-                                ->setTextBody('Por favor, verique a situação da solicitação de cópia de código: '.$model->matc_id.' com status de '.$model->situacao->sitmat_descricao.' ')
-                                ->setHtmlBody('<p>Prezado(a), Senhor(a)</p>
-
-                                <p>A solicitação de cópia de código <span style="color:rgb(247, 148, 29)"><strong>'.$model->matc_id.'</strong></span> foi atualizada:</p>
-
-                                <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
-
-                                <p><strong>Material</strong>: '.$model->matc_descricao.'</p>
-
-                                <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
-
-                                <p><strong>Responsável pela Reprovação</strong>: '.$model->matc_ResponsavelAut.'</p>
-
-                                <p><strong>Data/Hora da Autorização</strong>: '.date('d/m/Y H:i', strtotime($model->matc_dataAut)).'</p>
-
-                                <p>Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br</p>
-
-                                <p>Atenciosamente,</p>
-
-                                <p>Divisão de Educação Profissional - DEP</p>')
-                                ->send();
-                   } 
-
-               }
-
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Cópia de código:  <strong> '.$model->matc_id.'</strong> '.$model->situacao->sitmat_descricao.'!');
-     
-             return $this->redirect(['index']);
-    }
-
 
     /**
      * Finds the MaterialCopiasPendentes model based on its primary key value.

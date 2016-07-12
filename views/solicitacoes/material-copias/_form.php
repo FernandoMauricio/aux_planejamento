@@ -113,10 +113,10 @@ use kartik\select2\Select2;
                                 'options' => ['readonly' => true, 'class' => 'form-control'],
                                 'clientOptions' => [
                                      'alias' => 'numeric',
-                                     'digits' => 0,
+                                     'digits' => 2,
                                      'digitsOptional' => false,
-                                     'radixPoint' => ',',
-                                     'groupSeparator' => '.',
+                                     'radixPoint' => '.',
+                                     'groupSeparator' => ',',
                                      'autoGroup' => true,
                                 ],
                   ])
@@ -127,10 +127,10 @@ use kartik\select2\Select2;
                                 'options' => ['readonly' => true, 'class' => 'form-control'],
                                 'clientOptions' => [
                                      'alias' => 'numeric',
-                                     'digits' => 0,
+                                     'digits' => 2,
                                      'digitsOptional' => false,
-                                     'radixPoint' => ',',
-                                     'groupSeparator' => '.',
+                                     'radixPoint' => '.',
+                                     'groupSeparator' => ',',
                                      'autoGroup' => true,
                                 ],
                   ])
@@ -141,10 +141,10 @@ use kartik\select2\Select2;
                                 'options' => ['readonly' => true, 'class' => 'form-control'],
                                 'clientOptions' => [
                                      'alias' => 'numeric',
-                                     'digits' => 0,
+                                     'digits' => 2,
                                      'digitsOptional' => false,
-                                     'radixPoint' => ',',
-                                     'groupSeparator' => '.',
+                                     'radixPoint' => '.',
+                                     'groupSeparator' => ',',
                                      'autoGroup' => true,
                                 ],
                   ])

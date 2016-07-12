@@ -47,6 +47,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'descricao',
             'usuario',
+            [
+                'attribute' => 'data',
+                'format' => ['date', 'php:d/m/Y'],
+            ],
         ],
     ]); ?>
 

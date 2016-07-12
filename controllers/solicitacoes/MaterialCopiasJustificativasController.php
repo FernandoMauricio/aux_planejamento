@@ -3,6 +3,8 @@
 namespace app\controllers\solicitacoes;
 
 use Yii;
+
+use app\models\base\Emailusuario;
 use app\models\solicitacoes\MaterialCopias;
 use app\models\solicitacoes\MaterialCopiasJustificativas;
 use app\models\solicitacoes\MaterialCopiasJustificativasSearch;
@@ -64,45 +66,69 @@ class MaterialCopiasJustificativasController extends Controller
      */
     public function actionCreate()
     {
-        $session = Yii::$app->session;
+        
+    $session = Yii::$app->session;
 
-        $model = new MaterialCopiasJustificativas();
+    $model = new MaterialCopiasJustificativas();
 
-        $model->id_materialcopias = $session['sess_materialcopias'];
-        $model->usuario = $session['sess_nomeusuario'];
+    $model->id_materialcopias = $session['sess_materialcopias'];
+    $model->usuario = $session['sess_nomeusuario'];
+    $model->data = date('Y-m-d H:i:s');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-     //envia para reprovação a solicitação de cópia que está pendente
+    //envia para reprovação a solicitação de cópia que está pendente
     $sql_materialCopia = "SELECT * FROM materialcopias_matc WHERE matc_id = '".$model->id_materialcopias."' ";
 
-     $materialCopia = MaterialCopias::findBySql($sql_materialCopia)->one(); 
+    $materialCopia = MaterialCopias::findBySql($sql_materialCopia)->one(); 
 
-     $connection = Yii::$app->db;
-     $command = $connection->createCommand(
-     "UPDATE `db_apl`.`materialcopias_matc` SET `situacao_id` = '3' WHERE `matc_id` = '".$materialCopia->matc_id."'");
-     $command->execute();
+    $connection = Yii::$app->db;
+    $command = $connection->createCommand(
+    "UPDATE `db_apl`.`materialcopias_matc` SET `situacao_id` = 3, `matc_dataAut` = '".date('Y-m-d H:i:s')."', `matc_ResponsavelAut` = '". $session['sess_nomeusuario']."'   WHERE `matc_id` = '".$materialCopia->matc_id."'");
+    $command->execute();
 
-     //$contratacao->situacao_id = 2;
-     // if($contratacao->situacao_id == 2){
+            $totalGeral = $model->materialcopias->matc_totalValorMono + $model->materialcopias->matc_totalValorColor;
 
-     //     //ENVIANDO EMAIL PARA O SOLICITANTE INFORMANDO SOBRE A SOLICITAÇÃO DE CÓPIA REPROVADA
-     //      $sql_email = "SELECT emus_email FROM emailusuario_emus, colaborador_col, responsavelambiente_ream WHERE ream_codunidade = '".$contratacao->cod_unidade_solic."' AND ream_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
-      
-     //          $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
-     //          foreach ($email_solicitacao as $email)
-     //              {
-     //                $email_gerente  = $email["emus_email"];
+            $model->materialcopias->situacao_id = 3;
+            if($model->materialcopias->situacao_id == 3){
 
-     //                                Yii::$app->mailer->compose()
-     //                                ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
-     //                                ->setTo($email_gerente)
-     //                                ->setSubject('Solicitação de Contratação '.$contratacao->id.' - ' . $contratacao->situacao->descricao)
-     //                                ->setTextBody('A solicitação de contratação de código: '.$contratacao->id.' está com status de '.$contratacao->situacao->descricao.' ')
-     //                                ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$contratacao->id.'</strong> com status de '.$contratacao->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
-     //                                ->send();
-     //             } 
-     //    }
+             //ENVIANDO EMAIL PARA O USUÁRIO SOLICITANTE INFORMANDO SOBRE A REPROVAÇÃO....
+              $sql_email = "SELECT DISTINCT emus_email FROM `db_base`.emailusuario_emus, `db_base`.colaborador_col WHERE col_codusuario = emus_codusuario AND col_codcolaborador = '".$model->materialcopias->matc_solicitante."'";
+          
+                      $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
+                      foreach ($email_solicitacao as $email)
+                          {
+                            $email_usuario  = $email["emus_email"];
+
+                                Yii::$app->mailer->compose()
+                                ->setFrom(['dep.suporte@am.senac.br' => 'DEP - INFORMA'])
+                                ->setTo($email_usuario)
+                                ->setSubject('Reprovada! - Solicitação de Cópia '.$model->materialcopias->matc_id.'')
+                                ->setTextBody('Por favor, verique a situação da solicitação de cópia de código: '.$model->materialcopias->matc_id.' com status de '.$model->materialcopias->situacao->sitmat_descricao.' ')
+                                ->setHtmlBody('<p>Prezado(a), Senhor(a)</p>
+
+                                <p>A solicitação de cópia de código <span style="color:rgb(247, 148, 29)"><strong>'.$model->materialcopias->matc_id.'</strong></span> foi atualizada:</p>
+
+                                <p><strong>Situação</strong>: '.$model->materialcopias->situacao->sitmat_descricao.'</p>
+
+                                <p><strong>Material</strong>: '.$model->materialcopias->matc_descricao.'</p>
+
+                                <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
+
+                                <p><strong>Responsável pela Reprovação</strong>: '.$model->materialcopias->matc_ResponsavelAut.'</p>
+
+                                <p><strong>Data/Hora da Reprovação</strong>: '.date('d/m/Y H:i', strtotime($model->materialcopias->matc_dataAut)).'</p>
+
+                                <p><strong>Motivo da Reprovação</strong>: '.$model->descricao.'</p>
+
+                                <p>Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br</p>
+
+                                <p>Atenciosamente,</p>
+
+                                <p>Divisão de Educação Profissional - DEP</p>')
+                                ->send();
+                   }
+            } 
 
          //MENSAGEM DE CONFIRMAÇÃO DA SOLICITAÇÃO DE CÓPIA REPROVADA
 
@@ -111,25 +137,6 @@ class MaterialCopiasJustificativasController extends Controller
             return $this->redirect(['solicitacoes/material-copias-pendentes/index']);
         } else {
             return $this->renderAjax('create', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Updates an existing MaterialCopiasJustificativas model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
                 'model' => $model,
             ]);
         }

@@ -63,7 +63,9 @@ class MaterialCopiasJustificativasSearch extends MaterialCopiasJustificativas
             'id_materialcopias' => $this->id_materialcopias,
         ]);
 
-        $query->andFilterWhere(['like', 'descricao', $this->descricao])
+        $session = Yii::$app->session;
+        $query->andFilterWhere(['id_materialcopias' => $session['sess_materialcopias']])
+            ->andFilterWhere(['like', 'descricao', $this->descricao])
             ->andFilterWhere(['like', 'usuario', $this->usuario]);
 
         return $dataProvider;

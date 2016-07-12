@@ -39,6 +39,7 @@ class MaterialCopiasJustificativas extends \yii\db\ActiveRecord
     {
         return [
             [['descricao', 'usuario', 'id_materialcopias'], 'required'],
+            [['data'], 'safe'],
             [['id_materialcopias'], 'integer'],
             [['descricao', 'usuario'], 'string', 'max' => 100],
             [['id_materialcopias'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialCopias::className(), 'targetAttribute' => ['id_materialcopias' => 'matc_id']],
@@ -54,6 +55,7 @@ class MaterialCopiasJustificativas extends \yii\db\ActiveRecord
             'id' => 'ID',
             'descricao' => 'Descrição',
             'usuario' => 'Usuário',
+            'data' => 'Data',
             'id_materialcopias' => 'Código da Solicitação',
         ];
     }
@@ -61,8 +63,8 @@ class MaterialCopiasJustificativas extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getIdMaterialcopias()
+    public function getMaterialcopias()
     {
-        return $this->hasOne(MaterialcopiasMatc::className(), ['matc_id' => 'id_materialcopias']);
+        return $this->hasOne(Materialcopias::className(), ['matc_id' => 'id_materialcopias']);
     }
 }

@@ -75,8 +75,30 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'format'=>'raw'
                             ],
 
-                        ['class' => 'yii\grid\ActionColumn','template' => '{view}'],
-                 ]; 
+                            ['class' => 'yii\grid\ActionColumn',
+                            'template' => '{view} {update}',
+                            'options' => ['width' => '10%'],
+                            'buttons' => [
+
+                            //VIEW BUTTON
+                            'view' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', $url, [
+                                            'class'=>'btn btn-xs',
+                            
+                                ]);
+                            },
+
+                            //UPDATE BUTTON
+                            'update' => function ($url, $model) {
+                                return $model->situacao_id == 3 ? Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
+                                            'class'=>'btn btn-xs',
+                               
+                                    ]): '';
+                                },
+                            ],
+                        ],
+
+                   ]; 
 ?>
 
     <?php Pjax::begin(['id'=>'w0-pjax']); ?>

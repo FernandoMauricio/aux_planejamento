@@ -78,11 +78,12 @@ use kartik\widgets\FileInput;
         echo FileInput::widget([
                 'model' => $model,
                 'attribute' => 'file',
-                'options' => ['accept'=>'.pdf, .zip, .rar, .doc, .docx',
-                ],
-            'pluginOptions' => [
+                'options' => ['accept'=>'.pdf, .zip, .rar, .doc, .docx'],
+                'language' => 'pt',
+                'pluginOptions' => [
                     'showRemove'=> false,
                     'showUpload'=> false,
+                    'initialCaption'=>$model->rep_arquivo,
                     ],
         ]);
     ?><br>

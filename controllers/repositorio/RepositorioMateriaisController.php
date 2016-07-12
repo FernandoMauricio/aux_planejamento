@@ -81,6 +81,7 @@ class RepositorioMateriaisController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
+            if (Yii::$app->request->isPost) {
             //get the instance of the uploaded file
             $model->file = UploadedFile::getInstance($model, 'file');
             $model->file->saveAs('uploads/repositorio/' .  $model->file->baseName . '.' .  $model->file->extension);
@@ -88,6 +89,8 @@ class RepositorioMateriaisController extends Controller
             //save the path in the db column rep_arquivo
             $model->rep_arquivo = 'uploads/repositorio/' .  $model->file->baseName . '.' .  $model->file->extension;
             $model->save();
+
+          }
 
             return $this->redirect(['view', 'id' => $model->rep_codrepositorio]);
         } else {
@@ -119,17 +122,26 @@ class RepositorioMateriaisController extends Controller
         $model->rep_data = date('Y-m-d');
         $model->rep_codunidade = $session['sess_codunidade'];
         $model->rep_codcolaborador = $session['sess_codcolaborador'];
+        $model->file = $model->rep_arquivo;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            //get the instance of the uploaded file
+            //INCLUSÃO DO ARQUIVO
             $model->file = UploadedFile::getInstance($model, 'file');
-            $model->file->saveAs('uploads/repositorio/' .  $model->file->baseName . '.' .  $model->file->extension);
+            if ($model->file && $model->validate()) 
+            {  
+                $model->rep_arquivo = 'uploads/repositorio/' . $model->file->baseName . '.' . $model->file->extension;
+                $model->save();
 
-            //save the path in the db column rep_arquivo
-            $model->rep_arquivo = 'uploads/repositorio/' .  $model->file->baseName . '.' .  $model->file->extension;
-            $model->save();
-            
+                if($model->save())
+                {
+                    if (!empty($_POST)) 
+                    {
+                          $model->file->saveAs('uploads/repositorio/' . $model->file->baseName . '.' . $model->file->extension);
+                    }   
+                }
+            }  
+
             return $this->redirect(['view', 'id' => $model->rep_codrepositorio]);
         } else {
             return $this->render('update', [

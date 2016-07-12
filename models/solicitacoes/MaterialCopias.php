@@ -61,9 +61,7 @@ class MaterialCopias extends \yii\db\ActiveRecord
             [['matc_descricao', 'matc_qtoriginais', 'listAcabamento', 'matc_qtexemplares', 'matc_curso', 'matc_centrocusto', 'situacao_id', 'matc_totalValorMono', 'matc_totalValorColor', 'matc_totalGeral'], 'required'],
             [['matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id', 'matc_qteCopias', 'matc_qteTotal', 'matc_autorizado', 'matc_encaminhadoRepro'], 'integer'],
             [['matc_data', 'matc_dataAut','matc_dataRepro'], 'safe'],
-            ['matc_totalValorMono', 'filter', 'filter' => function($value) {  return str_replace(['.', ','], '' , $value); }], //retirando ',' e '.'
-            ['matc_totalValorColor', 'filter', 'filter' => function($value) {  return str_replace(['.', ','], '' , $value); }],//retirando ',' e '.'
-            ['matc_totalGeral', 'filter', 'filter' => function($value) {  return str_replace(['.', ','], '' , $value); }],//retirando ',' e '.'
+            [['matc_totalValorMono', 'matc_totalValorColor'], 'number'],
             [['matc_descricao', 'matc_curso', 'matc_observacao'], 'string', 'max' => 255],
             [['matc_centrocusto'], 'string',  'min' => 6, 'max' => 6,'tooShort' => '"{attribute}" deve conter 5 números'], // exemplo: 25.555
             [['matc_qteTotal'], 'compare','compareAttribute'=>'matc_qteCopias'], // total copias == quantidade total (mono+color)
