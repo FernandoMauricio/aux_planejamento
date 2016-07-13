@@ -76,25 +76,31 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
 
                             ['class' => 'yii\grid\ActionColumn',
-                            'template' => '{view} {update}',
+                            'template' => '{view} {update} {observacoes}',
                             'options' => ['width' => '10%'],
                             'buttons' => [
 
                             //VIEW BUTTON
                             'view' => function ($url, $model) {
                                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', $url, [
-                                            'class'=>'btn btn-xs',
-                            
-                                ]);
-                            },
+                                    'title' => Yii::t('app', 'Visualizar'),        
+                                    ]);
+                                },
 
                             //UPDATE BUTTON
                             'update' => function ($url, $model) {
                                 return $model->situacao_id == 3 ? Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
-                                            'class'=>'btn btn-xs',
-                               
+                                    'title' => Yii::t('app', 'Atualizar'),        
                                     ]): '';
                                 },
+
+                            //JUSTIFICATIVA PARA A REPROVAÇÃO
+                            'observacoes' => function ($url, $model) {
+                                return  $model->situacao_id == 3 ? Html::a('<span class="glyphicon glyphicon-info-sign"></span>', $url, [
+                                    'title' => Yii::t('app', 'Observações'),
+                                    ]): '';
+                                },
+
                             ],
                         ],
 

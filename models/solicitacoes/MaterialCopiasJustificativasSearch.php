@@ -41,7 +41,8 @@ class MaterialCopiasJustificativasSearch extends MaterialCopiasJustificativas
      */
     public function search($params)
     {
-        $query = MaterialCopiasJustificativas::find();
+        $query = MaterialCopiasJustificativas::find()
+        ->orderBy(['id' => SORT_DESC]);
 
         // add conditions that should always apply here
 

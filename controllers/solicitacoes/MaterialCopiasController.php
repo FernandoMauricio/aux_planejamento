@@ -133,6 +133,17 @@ class MaterialCopiasController extends Controller
         }
     }
 
+    public function actionObservacoes($id) 
+    {
+        $model = MaterialCopias::findOne($id);
+        $session = Yii::$app->session;
+        $session->set('sess_materialcopias', $model->matc_id);
+
+        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=solicitacoes/material-copias-justificativas/observacoes', [
+             'model' => $model,
+         ]);
+    }
+
     /**
      * Updates an existing MaterialCopias model.
      * If update is successful, the browser will be redirected to the 'view' page.

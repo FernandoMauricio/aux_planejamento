@@ -147,8 +147,6 @@ class MaterialCopiasPendentesController extends Controller
 
     public function actionReprovar($id) 
     {
-
-
         $model = MaterialCopias::findOne($id);
         $session = Yii::$app->session;
         $session->set('sess_materialcopias', $model->matc_id);

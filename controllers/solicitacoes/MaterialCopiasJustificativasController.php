@@ -47,6 +47,17 @@ class MaterialCopiasJustificativasController extends Controller
         ]);
     }
 
+    public function actionObservacoes()
+    {
+        $searchModel = new MaterialCopiasJustificativasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('observacoes', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single MaterialCopiasJustificativas model.
      * @param integer $id
