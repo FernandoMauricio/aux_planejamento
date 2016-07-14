@@ -23,6 +23,7 @@ use Yii;
 class Repositorio extends \yii\db\ActiveRecord
 {
     public $file;
+    public $image;
 
     /**
      * @inheritdoc
@@ -49,12 +50,15 @@ class Repositorio extends \yii\db\ActiveRecord
             [['rep_titulo', 'rep_categoria', 'rep_tipo', 'rep_editora', 'rep_sobre', 'rep_codunidade', 'rep_codcolaborador', 'rep_data', 'rep_status'], 'required'],
             [['rep_valor'], 'number'],
             [['rep_codunidade', 'rep_codcolaborador', 'rep_status'], 'integer'],
-            [['rep_data'], 'safe'],
+            [['rep_data', 'image'], 'safe'],
             [['file'], 'file','checkExtensionByMimeType'=>false, 'extensions' => 'pdf, zip, rar, doc, docx'],
+            [['image'], 'file', 'extensions'=>'jpg, gif, png'],
+            [['image'], 'file', 'maxSize'=>'100000'],
             [['rep_titulo'], 'string', 'max' => 80],
             [['rep_categoria', 'rep_editora'], 'string', 'max' => 50],
-            [['rep_tipo', 'rep_arquivo'], 'string', 'max' => 100],
-            [['rep_sobre'], 'string', 'max' => 255],
+            [['rep_tipo'], 'string', 'max' => 100],
+            [['rep_sobre','rep_arquivo','rep_arquivo_filename','image_src_filename','image_web_filename'], 'string', 'max' => 255],
+
         ];
     }
 
@@ -77,6 +81,9 @@ class Repositorio extends \yii\db\ActiveRecord
             'rep_codcolaborador' => 'Rep Codcolaborador',
             'rep_data' => 'Rep Data',
             'rep_status' => 'Situação',
+            'image_src_filename' => Yii::t('app', 'Filename'),
+            'image_web_filename' => Yii::t('app', 'Pathname'),
+            'rep_arquivo_filename' => Yii::t('app', 'Pathname'),
         ];
     }
 }

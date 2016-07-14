@@ -81,26 +81,55 @@ class RepositorioMateriaisController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            if (Yii::$app->request->isPost) {
-            //get the instance of the uploaded file
-            $model->file = UploadedFile::getInstance($model, 'file');
-            $model->file->saveAs('uploads/repositorio/' .  $model->file->baseName . '.' .  $model->file->extension);
+            // //INCLUSÃO DO ARQUIVO
+            // $model->file = UploadedFile::getInstance($model, 'file');
+            // if ($model->file && $model->validate()) 
+            // {  
+            //     $model->rep_arquivo = $model->file->baseName . '.' . $model->file->extension;
+            //     $model->save();
 
-            //save the path in the db column rep_arquivo
-            $model->rep_arquivo = 'uploads/repositorio/' .  $model->file->baseName . '.' .  $model->file->extension;
-            $model->save();
+            //     if($model->save())
+            //     {
+            //         if (!empty($_POST)) 
+            //         {
+            //               $model->file->saveAs($model->file->baseName . '.' . $model->file->extension);
+            //         }   
+            //     }
+            // }
+            ///VERIRICAR UPLOAD DO ARQUIVO
+            $model->file = UploadedFile::getInstance($model, 'image');
+                       if (!is_null($model->file)) {
+                         $model->rep_arquivo = $model->file->baseName . '.' . $model->file->extension;
+                          Yii::$app->params['uploadPath'] = Yii::$app->basePath . '/web/uploads/repositorio/capas/';
+                          $path = Yii::$app->params['uploadPath'] . $model->file;
+                           $model->file->saveAs($path);
 
-          }
-
-            return $this->redirect(['view', 'id' => $model->rep_codrepositorio]);
-        } else {
+                        }
+              //INCLUSÃO DA CAPA
+            $image = UploadedFile::getInstance($model, 'image');
+                       if (!is_null($image)) {
+                         $model->image_src_filename = $image->name;
+                         $ext = end((explode(".", $image->name)));
+                          // generate a unique file name to prevent duplicate filenames
+                          $model->image_web_filename = Yii::$app->security->generateRandomString().".{$ext}";
+                          // the path to save file, you can set an uploadPath
+                          // in Yii::$app->params (as used in example below)                       
+                          Yii::$app->params['uploadPath'] = Yii::$app->basePath . '/web/uploads/repositorio/capas/';
+                          $path = Yii::$app->params['uploadPath'] . $model->image_web_filename;
+                           $image->saveAs($path);
+                        }
+                        if ($model->save()) {             
+                            return $this->redirect(['view', 'id' => $model->rep_codrepositorio]);       
+                        }  else {
+                            var_dump ($model->getErrors()); die();
+                         }
+                } 
             return $this->render('create', [
                 'model' => $model,
                 'categoria' => $categoria,
                 'editora' => $editora,
                 'tipomaterial' => $tipomaterial,
             ]);
-        }
     }
 
     /**

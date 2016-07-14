@@ -69,26 +69,58 @@ use kartik\widgets\FileInput;
                     ]);
         ?>
     </div>
-</div>
 
-    <?= $form->field($model, 'rep_sobre')->textInput(['maxlength' => true]) ?>
 
-    <?php
-        echo '<label class="control-label">Arquivo</label>  <strong style="color: #E61238""><small>extensões permitidas: .pdf / .zip / .rar / .doc / .docx</small></strong>';
-        echo FileInput::widget([
-                'model' => $model,
-                'attribute' => 'file',
-                'options' => ['accept'=>'.pdf, .zip, .rar, .doc, .docx'],
-                'language' => 'pt',
-                'pluginOptions' => [
-                    'showRemove'=> false,
-                    'showUpload'=> false,
-                    'initialCaption'=>$model->rep_arquivo,
+    <div class="col-md-12">
+        <?= $form->field($model, 'rep_sobre')->textarea(['rows' => 4]) ?>
+    </div>
+
+<!--     <div class="col-md-6">
+        <?php
+            // echo '<label class="control-label">Arquivo</label>  <strong style="color: #E61238""><small>extensões permitidas: .pdf / .zip / .rar / .doc / .docx</small></strong>';
+            // echo FileInput::widget([
+            //         'model' => $model,
+            //         'attribute' => 'file',
+            //         'options' => ['accept'=>'.pdf, .zip, .rar, .doc, .docx'],
+            //         'language' => 'pt',
+            //         'pluginOptions' => [
+            //             'showRemove'=> false,
+            //             'showUpload'=> false,
+            //             'initialCaption'=>$model->rep_arquivo,
+            //             ],
+            // ]);
+        ?>
+    </div> -->
+
+    <div class="col-md-6">
+          <?= $form->field($model, 'file')->widget(FileInput::classname(), [
+                   // 'options' => ['accept' => 'image/*'],
+                   'language' => 'pt',
+                   'pluginOptions'=>['allowedFileExtensions'=>['pdf', 'zip', 'rar', 'doc', 'docx'],'showUpload' => false,
+                   'initialPreview' => [
+                    $model->rep_arquivo,
                     ],
-        ]);
-    ?><br>
-        
+
+                ],
+              ]);   ?>
+    </div>
+
+    <div class="col-md-6">
+          <?= $form->field($model, 'image')->widget(FileInput::classname(), [
+                  'options' => ['accept' => 'image/*'], 'language' => 'pt',
+                   'pluginOptions'=>['allowedFileExtensions'=>['jpg','gif','png'],'showUpload' => false,
+                   'initialPreview' => [
+                    $model->image_web_filename ? Html::img(Yii::$app->request->baseUrl. '/uploads/repositorio/capas/' . $model->image_web_filename) : null, 
+                    ]
+                ],
+              ]);   ?>
+    </div>
+ 
+    <div class="col-md-12">
     <?= $form->field($model, 'rep_status')->radioList(['1' => 'Ativo', '0' => 'Inativo']) ?>
+    </div>
+
+  </div>  
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

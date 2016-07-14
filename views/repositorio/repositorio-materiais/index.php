@@ -38,13 +38,23 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             'rep_categoria',
             'rep_tipo',
             'rep_editora',
-            // 'rep_valor',
-            // 'rep_sobre',
-            // 'rep_arquivo',
-            // 'rep_codunidade',
-            // 'rep_codcolaborador',
-            // 'rep_data',
-
+            [
+                         'label'=>'Arquivo',
+                         'format'=>'raw',
+                         'contentOptions'=>['style'=>'max-width: 300px;'],
+                         'value' => function($model, $key, $index){
+                             $url = Yii::$app->request->baseUrl. '/uploads/repositorio/' . $model->rep_arquivo;
+                             return Html::a($model->rep_arquivo, $url, ['target'=> '_blank']); 
+                         }
+            ],
+            [
+                     'attribute' => 'Image',
+                     'format' => 'raw',
+                     'value' => function ($model) {   
+                        if ($model->image_web_filename!='')
+                          return '<img src="'.Yii::$app->request->baseUrl. '/uploads/repositorio/capas/'.$model->image_web_filename.'" width="100px" height="auto">'; else return 'sem imagem';
+                     },
+            ],
             [
                 'class'=>'kartik\grid\BooleanColumn',
                 'attribute'=>'rep_status', 
