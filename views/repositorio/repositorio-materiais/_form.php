@@ -110,7 +110,7 @@ use kartik\widgets\FileInput;
                   'options' => ['accept' => 'image/*'], 'language' => 'pt',
                    'pluginOptions'=>['allowedFileExtensions'=>['jpg','gif','png'],'showUpload' => false,
                    'initialPreview' => [
-                    $model->image_web_filename ? Html::img(Yii::$app->request->baseUrl. '/uploads/repositorio/capas/' . $model->image_web_filename) : null, 
+                    $model->rep_image_web_filename ? Html::img(Yii::$app->request->baseUrl. '/uploads/repositorio/capas/' . $model->rep_image_web_filename) : null, 
                     ]
                 ],
               ]);   ?>

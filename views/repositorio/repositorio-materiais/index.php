@@ -28,7 +28,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     <p>
         <?= Html::a('Novo Material Didático', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+<?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -39,20 +39,20 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             'rep_tipo',
             'rep_editora',
             [
-                         'label'=>'Arquivo',
+                         'attribute'=>'rep_arquivo',
                          'format'=>'raw',
                          'contentOptions'=>['style'=>'max-width: 300px;'],
                          'value' => function($model, $key, $index){
-                             $url = Yii::$app->request->baseUrl. '/uploads/repositorio/' . $model->rep_arquivo;
+                             $url = Yii::$app->request->baseUrl. '/uploads/repositorio/' . $model->rep_codrepositorio . '/' . $model->rep_arquivo;
                              return Html::a($model->rep_arquivo, $url, ['target'=> '_blank']); 
                          }
             ],
             [
-                     'attribute' => 'Image',
+                     'attribute' => 'image',
                      'format' => 'raw',
                      'value' => function ($model) {   
-                        if ($model->image_web_filename!='')
-                          return '<img src="'.Yii::$app->request->baseUrl. '/uploads/repositorio/capas/'.$model->image_web_filename.'" width="100px" height="auto">'; else return 'sem imagem';
+                        if ($model->rep_image_web_filename!='')
+                          return '<img src="'.Yii::$app->request->baseUrl. '/uploads/repositorio/capas/'.$model->rep_image_web_filename.'" width="100px" height="auto">'; else return '<img src="'.Yii::$app->request->baseUrl. '/uploads/repositorio/capas/capa_nao_disponivel.png" width="100px" height="auto">';
                      },
             ],
             [
@@ -64,4 +64,4 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             ['class' => 'yii\grid\ActionColumn','template' => '{update}'],
         ],
     ]); ?>
-<?php Pjax::end(); ?></div>
+</div>

@@ -42,7 +42,7 @@ class RepositorioMateriaisSearch extends Repositorio
      */
     public function search($params)
     {
-        $query = Repositorio::find();
+        $query = Repositorio::find()->orderBy(['rep_codrepositorio' => SORT_DESC]);
 
         // add conditions that should always apply here
 

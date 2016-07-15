@@ -37,8 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <?php
-       // if ($model->image_web_filename!='') {
-       //   echo '<br /><p><img src="'.Yii::$app->baseUrl. '/uploads/repositorio/capas/'.$model->image_web_filename.'"></p>';
+       // if ($model->rep_image_web_filename!='') {
+       //   echo '<br /><p><img src="'.Yii::$app->baseUrl. '/uploads/repositorio/capas/'.$model->rep_image_web_filename.'"></p>';
        // }    
     ?>
     
