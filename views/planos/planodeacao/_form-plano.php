@@ -19,18 +19,33 @@ use app\models\cadastros\Segmento;
 <div class="planodeacao-form">
 
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-5">
 
                         <?= $form->field($model, 'plan_descricao')->textInput(['maxlength' => true]) ?>
 
-                         </div>
+                        </div>
 
-                         <div class="col-md-2">
+                        <div class="col-md-2">
 
                         <?= $form->field($model, 'plan_cargahoraria')->textInput(['maxlength' => true]) ?>
 
-                         </div>
+                        </div>
 
+                        <div class="col-md-2">
+
+                        <?= $form->field($model, 'plan_status')->radioList([1 => 'Ativo', 0 => 'Inativo']) ?>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                        <?= $form->field($model, 'plan_modelonacional')->radioList([1 => 'Sim', 0 => 'Não']) ?>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-3">
                             <?php
                             $nivelList=ArrayHelper::map(app\models\cadastros\Nivel::find()->all(), 'niv_codnivel', 'niv_descricao' ); 
@@ -92,7 +107,7 @@ use app\models\cadastros\Segmento;
                             ?>
                         </div>
 
-                      </div>
+                    </div>
 
                         <?= $form->field($model, 'plan_sobre')->textarea(['rows' => 4]) ?>
 
@@ -103,8 +118,5 @@ use app\models\cadastros\Segmento;
                         <?= $form->field($model, 'plan_orgcurricular')->textarea(['rows' => 4]) ?>
 
                         <?= $form->field($model, 'plan_perfTecnico')->textarea(['rows' => 4]) ?>
-
-                        <?= $form->field($model, 'plan_status')->radioList(['1' => 'Ativo', '0' => 'Inativo']) ?>
-
            </div>
 

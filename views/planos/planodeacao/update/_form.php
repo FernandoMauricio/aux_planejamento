@@ -35,7 +35,7 @@ use app\models\cadastros\Segmento;
                                          <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Equipamentos / Utensílios</a></li>
                                   </ul>
 
-                                              <div class="tab-content">
+                                              <div class="tab-content"><br>
 
                                                     <div class="tab-pane" id="tab1">
                                                         <?= $this->render('_form-plano', [

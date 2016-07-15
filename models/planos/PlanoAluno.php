@@ -66,9 +66,9 @@ class PlanoAluno extends \yii\db\ActiveRecord
             'materialaluno_cod' => 'Descrição',
             'planmatalu_descricao' => 'Descrição',
             'planmatalu_unidade' => 'Unidade',
-            'planmatalu_tipo' => 'Tipo',
+            'planmatalu_tipo' => 'Fonte de Recursos',
             'planmatalu_valor' => 'Valor',
-            'planmatalu_quantidade' => 'Quantidade',
+            'planmatalu_quantidade' => 'Qnt',
         ];
     }
 

@@ -24,9 +24,10 @@ $id = $model->plan_codplano;
     <tr class="info"><th colspan="12">SEÇÃO 1: Informações do Plano</th></tr>
     </thead>
     <tr>
-        <td colspan="3"><strong>Título: </strong><?php echo $model->plan_descricao; ?></td>
-        <td colspan="3" ><strong>Carga Horária: </strong><?php echo $model->plan_cargahoraria; ?></td> 
-        <td colspan="2"><strong>Situação: </strong> <?php echo $model->plan_status ? '<span class="label label-success">Ativo</span>' : '<span class="label label-danger">Inativo</span>' ?></td>
+        <td colspan="4"><strong>Título: </strong><?php echo $model->plan_descricao; ?></td>
+        <td colspan="3" ><strong>CH: </strong><?php echo $model->plan_cargahoraria; ?></td> 
+        <td colspan="3"><strong>Situação: </strong> <?php echo $model->plan_status ? '<span class="label label-success">Ativo</span>' : '<span class="label label-danger">Inativo</span>' ?></td>
+        <td colspan="2"><strong>Novo Modelo Pedagógico: </strong> <?php echo $model->plan_modelonacional ? '<span class="label label-success">Sim</span>' : '<span class="label label-danger">Não</span>' ?></td>
     </tr> 
 <tbody>
     <tr>
@@ -171,7 +172,7 @@ $id = $model->plan_codplano;
         <th>Valor Unitário</th>
         <th>Quantidade</th>
         <th>Unidade</th>
-        <th>Tipo</th>
+        <th>Fonte de Recursos</th>
       </tr>
     </thead>
     <tbody>

@@ -18,7 +18,7 @@ class PlanodeacaoSearch extends Planodeacao
     public function rules()
     {
         return [
-            [['plan_codplano', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_codcolaborador', 'plan_status'], 'integer'],
+            [['plan_codplano', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_codcolaborador', 'plan_status', 'plan_modelonacional'], 'integer'],
             [['plan_descricao', 'plan_cargahoraria', 'plan_sobre', 'plan_prerequisito', 'plan_orgcurricular', 'plan_perfTecnico', 'plan_data'], 'safe'],
         ];
     }
@@ -67,6 +67,7 @@ class PlanodeacaoSearch extends Planodeacao
             'plan_codcolaborador' => $this->plan_codcolaborador,
             'plan_data' => $this->plan_data,
             'plan_status' => $this->plan_status,
+            'plan_modelonacional' => $this->plan_modelonacional,
         ]);
 
         $query->andFilterWhere(['like', 'plan_descricao', $this->plan_descricao])

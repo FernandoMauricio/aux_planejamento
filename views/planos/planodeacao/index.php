@@ -87,6 +87,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'vAlign'=>'middle'
             ], 
 
+            [
+                'label' => 'Novo Modelo <br> Pedagógico',
+                'class'=>'kartik\grid\BooleanColumn',
+                'trueLabel' => 'Sim',
+                'falseLabel' => 'Não',
+                'attribute'=>'plan_modelonacional', 
+                'vAlign'=>'middle',
+                'encodeLabel' => false,
+            ],
+
             ['class' => 'yii\grid\ActionColumn','template' => '{view} {update}'],
         ],
     ]); ?>

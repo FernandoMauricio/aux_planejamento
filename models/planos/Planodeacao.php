@@ -67,8 +67,8 @@ class Planodeacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['plan_descricao', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria', 'plan_codcolaborador', 'plan_data', 'plan_status'], 'required'],
-            [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria','plan_codcolaborador', 'plan_status'], 'integer'],
+            [['plan_descricao', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria', 'plan_codcolaborador', 'plan_data', 'plan_status', 'plan_modelonacional'], 'required'],
+            [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria','plan_codcolaborador', 'plan_status','plan_modelonacional'], 'integer'],
             [['plan_sobre', 'plan_prerequisito', 'plan_orgcurricular', 'plan_perfConclusao','plan_perfTecnico'], 'string'],
             [['plan_data','nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoLabel'], 'safe'],
             [['plan_descricao'], 'string', 'max' => 100],
@@ -100,6 +100,7 @@ class Planodeacao extends \yii\db\ActiveRecord
             'plan_codcolaborador' => 'Plan Codcolaborador',
             'plan_data' => 'Data',
             'plan_status' => 'Situação',
+            'plan_modelonacional' => 'Novo Modelo Pedagógico',
 
             'nivelLabel' => 'Nível',
             'segmentoLabel' => 'Segmento',

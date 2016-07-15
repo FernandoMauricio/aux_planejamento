@@ -65,13 +65,15 @@ $attributes = [
                         [
                             'attribute'=>'plan_descricao', 
                             'displayOnly'=>true,
+                            'labelColOptions'=>['style'=>'width:0%'],
                             'valueColOptions'=>['style'=>'width:30%']
                         ],
+
                         [
                             'attribute'=>'plan_cargahoraria', 
                             'format'=>'raw', 
                             'value'=>$model->plan_cargahoraria,
-                            'valueColOptions'=>['style'=>'width:30%'], 
+                            'valueColOptions'=>['style'=>'width:0%'], 
                             'displayOnly'=>true
                         ],
 
@@ -80,7 +82,15 @@ $attributes = [
                             'format'=>'raw',
                             'type'=>DetailView::INPUT_SWITCH,
                             'value'=>$model->plan_status ? '<span class="label label-success">Ativo</span>' : '<span class="label label-danger">Inativo</span>',
-                            'valueColOptions'=>['style'=>'width:30%']
+                            'valueColOptions'=>['style'=>'width:0%']
+                        ],
+
+                        [
+                            'attribute'=>'plan_modelonacional', 
+                            'format'=>'raw',
+                            'type'=>DetailView::INPUT_SWITCH,
+                            'value'=>$model->plan_modelonacional ? '<span class="label label-success">Sim</span>' : '<span class="label label-danger">Não</span>',
+                            'valueColOptions'=>['style'=>'width:0%']
                         ],
                     ],
                 ],
@@ -278,7 +288,7 @@ echo DetailView::widget([
         <th>Valor Unitário</th>
         <th>Quantidade</th>
         <th>Unidade</th>
-        <th>Tipo</th>
+        <th>Fonte de Recursos</th>
       </tr>
     </thead>
     <tbody>

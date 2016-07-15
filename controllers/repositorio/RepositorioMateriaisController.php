@@ -82,7 +82,7 @@ class RepositorioMateriaisController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            // //INCLUSÃO DO ARQUIVO
+            //INCLUSÃO DO ARQUIVO
             $model->file = UploadedFile::getInstance($model, 'file');
                        if (!is_null($model->file)) {
                            //criação da pasta que constará o arquivo 
@@ -144,7 +144,7 @@ class RepositorioMateriaisController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            // //INCLUSÃO DO ARQUIVO
+            //INCLUSÃO DO ARQUIVO
             $model->file = UploadedFile::getInstance($model, 'file');
                        if (!is_null($model->file)) {
                           $model->rep_arquivo = $model->file->baseName . '.' . $model->file->extension;
@@ -153,7 +153,7 @@ class RepositorioMateriaisController extends Controller
                           $path = Yii::$app->params['uploadPath'] . $model->file;
                            $model->file->saveAs($path);
                         }
-              //INCLUSÃO DA CAPA
+            //INCLUSÃO DA CAPA
             $image = UploadedFile::getInstance($model, 'image');
                        if (!is_null($image)) {
                          $model->rep_image_src_filename = $image->name;
