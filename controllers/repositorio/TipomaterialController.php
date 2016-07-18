@@ -3,11 +3,14 @@
 namespace app\controllers\repositorio;
 
 use Yii;
+use app\models\repositorio\Elementodespesa;
 use app\models\repositorio\Tipomaterial;
 use app\models\repositorio\TipomaterialSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 
 /**
  * TipomaterialController implements the CRUD actions for Tipomaterial model.
@@ -56,6 +59,14 @@ class TipomaterialController extends Controller
         ]);
     }
 
+    //Localiza os dados de elementos de despesa cadastrados no repositorio
+    public function actionGetElementoDespesa($eledId){
+
+        $getElementodespesa = Elementodespesa::findOne($eledId);
+
+        echo Json::encode($getElementodespesa);
+    }
+
     /**
      * Creates a new Tipomaterial model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -65,6 +76,8 @@ class TipomaterialController extends Controller
     {
         $model = new Tipomaterial();
 
+        $elementodespesa = Elementodespesa::find()->where(['eled_status' => 1])->orderBy('eled_despesa')->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Tipo de Material cadastrado!</strong>');
@@ -73,6 +86,7 @@ class TipomaterialController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'elementodespesa' => $elementodespesa,
             ]);
         }
     }
@@ -87,6 +101,8 @@ class TipomaterialController extends Controller
     {
         $model = $this->findModel($id);
 
+        $elementodespesa = Elementodespesa::find()->where(['eled_status' => 1])->orderBy('eled_despesa')->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Tipo de Material atualizado!</strong>');
@@ -95,6 +111,7 @@ class TipomaterialController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'elementodespesa' => $elementodespesa,
             ]);
         }
     }

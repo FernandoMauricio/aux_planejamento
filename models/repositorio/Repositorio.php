@@ -47,7 +47,7 @@ class Repositorio extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rep_titulo', 'rep_categoria', 'rep_tipo', 'rep_editora', 'rep_sobre', 'rep_codunidade', 'rep_codcolaborador', 'rep_data', 'rep_status'], 'required'],
+            [['rep_titulo', 'rep_categoria', 'rep_tipo', 'rep_elementodespesa', 'rep_editora', 'rep_sobre', 'rep_codunidade', 'rep_codcolaborador', 'rep_data', 'rep_status'], 'required'],
             [['rep_valor'], 'number'],
             [['rep_codunidade', 'rep_codcolaborador', 'rep_status'], 'integer'],
             [['rep_data', 'image'], 'safe'],
@@ -72,6 +72,7 @@ class Repositorio extends \yii\db\ActiveRecord
             'rep_titulo' => 'Título',
             'rep_categoria' => 'Categoria',
             'rep_tipo' => 'Tipo de Material',
+            'rep_elementodespesa' => 'Elemento de Despesa',
             'rep_editora' => 'Editora',
             'rep_valor' => 'Valor',
             'rep_sobre' => 'Sobre',

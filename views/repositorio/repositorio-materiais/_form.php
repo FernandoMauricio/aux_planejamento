@@ -6,6 +6,9 @@ use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use kartik\money\MaskMoney;
 use kartik\widgets\FileInput;
+use kartik\depdrop\DepDrop;
+use yii\helpers\Url;
+use yii\helpers\Json;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\repositorio\Repositorio */
@@ -31,7 +34,7 @@ use kartik\widgets\FileInput;
 
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         <?php
             $data_categoria = ArrayHelper::map($categoria, 'cat_descricao', 'cat_descricao');
             echo $form->field($model, 'rep_categoria')->widget(Select2::classname(), [
@@ -44,7 +47,7 @@ use kartik\widgets\FileInput;
         ?>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         <?php
             $data_editora = ArrayHelper::map($editora, 'edi_descricao', 'edi_descricao');
             echo $form->field($model, 'rep_editora')->widget(Select2::classname(), [
@@ -57,40 +60,37 @@ use kartik\widgets\FileInput;
         ?>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         <?php
             $data_tipo = ArrayHelper::map($tipomaterial, 'tip_descricao', 'tip_descricao');
             echo $form->field($model, 'rep_tipo')->widget(Select2::classname(), [
                     'data' =>  $data_tipo,
-                    'options' => ['placeholder' => 'Selecione o tipo de Material...'],
-                    'pluginOptions' => [
-                            'allowClear' => true
-                        ],
-                    ]);
+                    'options' => ['id' => 'tipomaterial-id','placeholder' => 'Selecione o tipo de Material...',
+                    'onchange'=>'
+                                                         var select = this;
+                                                         $.getJSON( "'.Url::toRoute('/repositorio/repositorio-materiais/get-tipo-material').'", { tipmatId: $(this).val() } )
+                                                         .done(function( data ) {
+
+                                                                var $divPanelBody = $(select).parent().parent().parent();
+
+                                                                var $inputDescricao = $divPanelBody.find("input:eq(3)");
+                                                                
+                                                                $inputDescricao.val(data.tip_elementodespesa_id);
+                                                                
+                                                             });
+                                                         '
+                                                 ]]);
         ?>
+    </div>
+
+    <div class="col-md-3">
+        <?= $form->field($model, 'rep_elementodespesa')->textInput(['readonly' => true]) ?>
     </div>
 
 
     <div class="col-md-12">
         <?= $form->field($model, 'rep_sobre')->textarea(['rows' => 4]) ?>
     </div>
-
-<!--     <div class="col-md-6">
-        <?php
-            // echo '<label class="control-label">Arquivo</label>  <strong style="color: #E61238""><small>extensões permitidas: .pdf / .zip / .rar / .doc / .docx</small></strong>';
-            // echo FileInput::widget([
-            //         'model' => $model,
-            //         'attribute' => 'file',
-            //         'options' => ['accept'=>'.pdf, .zip, .rar, .doc, .docx'],
-            //         'language' => 'pt',
-            //         'pluginOptions' => [
-            //             'showRemove'=> false,
-            //             'showUpload'=> false,
-            //             'initialCaption'=>$model->rep_arquivo,
-            //             ],
-            // ]);
-        ?>
-    </div> -->
 
     <div class="col-md-6">
           <?= $form->field($model, 'file')->widget(FileInput::classname(), [

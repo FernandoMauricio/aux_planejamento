@@ -36,6 +36,10 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             'tip_codtipo',
             'tip_descricao',
             [
+                'attribute' => 'tip_elementodespesa_id',
+                'value' => 'elementodespesa.eled_despesa'
+            ],
+            [
                 'class'=>'kartik\grid\BooleanColumn',
                 'attribute'=>'tip_status', 
                 'vAlign'=>'middle'

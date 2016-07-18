@@ -3,6 +3,7 @@
 namespace app\controllers\repositorio;
 
 use Yii;
+use app\models\repositorio\Elementodespesa;
 use app\models\repositorio\Categoria;
 use app\models\repositorio\Editora;
 use app\models\repositorio\Tipomaterial;
@@ -13,6 +14,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
+use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 
 /**
  * RepositorioMateriaisController implements the CRUD actions for Repositorio model.
@@ -59,6 +62,14 @@ class RepositorioMateriaisController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    //Localiza os dados de tipos de material cadastrados no repositorio
+    public function actionGetTipoMaterial($tipmatId){
+
+        $getTipomaterial = Tipomaterial::find()->where(['tip_descricao' => $tipmatId])->one();
+
+        echo Json::encode($getTipomaterial);
     }
 
     /**

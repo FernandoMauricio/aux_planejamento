@@ -35,9 +35,11 @@ class Tipomaterial extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tip_descricao', 'tip_status'], 'required'],
+            [['tip_descricao', 'tip_status', 'tip_elementodespesa_id'], 'required'],
             [['tip_status'], 'integer'],
             [['tip_descricao'], 'string', 'max' => 45],
+            [['tip_elementodespesa_id'], 'string', 'max' => 255],
+            [['tip_elementodespesa_id'], 'exist', 'skipOnError' => true, 'targetClass' => Elementodespesa::className(), 'targetAttribute' => ['tip_elementodespesa_id' => 'eled_despesa']],
         ];
     }
 
@@ -47,9 +49,18 @@ class Tipomaterial extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'tip_codtipo' => 'Tip Codtipo',
+            'tip_codtipo' => 'Código',
             'tip_descricao' => 'Descrição',
+            'tip_elementodespesa_id' => 'Elemento de Despesa',
             'tip_status' => 'Situação',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getElementodespesa()
+    {
+        return $this->hasOne(Elementodespesa::className(), ['eled_despesa' => 'tip_elementodespesa_id']);
     }
 }

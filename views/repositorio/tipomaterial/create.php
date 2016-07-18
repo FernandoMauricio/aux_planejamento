@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\repositorio\Tipomaterial */
 
-$this->title = 'Nova Tipomaterial';
+$this->title = 'Novo Tipo de Material';
 $this->params['breadcrumbs'][] = ['label' => 'Cadastro de Tipos de Materiais', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'elementodespesa' => $elementodespesa,
     ]) ?>
 
 </div>

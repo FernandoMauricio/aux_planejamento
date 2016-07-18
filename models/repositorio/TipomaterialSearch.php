@@ -19,7 +19,7 @@ class TipomaterialSearch extends Tipomaterial
     {
         return [
             [['tip_codtipo'], 'integer'],
-            [['tip_descricao'], 'safe'],
+            [['tip_descricao', 'tip_elementodespesa_id'], 'safe'],
         ];
     }
 
@@ -57,12 +57,15 @@ class TipomaterialSearch extends Tipomaterial
             return $dataProvider;
         }
 
+        $query->joinWith('elementodespesa');
+
         // grid filtering conditions
         $query->andFilterWhere([
             'tip_codtipo' => $this->tip_codtipo,
         ]);
 
-        $query->andFilterWhere(['like', 'tip_descricao', $this->tip_descricao]);
+        $query->andFilterWhere(['like', 'tip_descricao', $this->tip_descricao])
+              ->andFilterWhere(['like', 'elementodespesa_eled.eled_despesa', $this->tip_elementodespesa_id]);
 
         return $dataProvider;
     }
