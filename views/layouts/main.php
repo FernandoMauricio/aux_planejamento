@@ -48,6 +48,8 @@ AppAsset::register($this);
                          ['label' => 'Eixo', 'url' => ['/cadastros/eixo/index']],
                          ['label' => 'Segmento', 'url' => ['/cadastros/segmento/index']],
                          ['label' => 'Tipo', 'url' => ['/cadastros/tipo/index']],
+                          '<li class="divider"></li>',
+                         ['label' => 'Centro de Custo', 'url' => ['/cadastros/centrocusto/index']],
                        ],
             ],
 

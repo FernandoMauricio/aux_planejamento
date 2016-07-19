@@ -231,7 +231,6 @@ $(function() {
     if (isNaN(matc_totalValorColor) || matc_totalValorColor < 0) {
         matc_totalValorColor = '';
     }
-    console.log(matc_qteCopias);
       $('#materialcopias-matc_qtecopias').val(matc_qteCopias);
       $('#materialcopias-matc_qtetotal').val(matc_qteTotal);
 
