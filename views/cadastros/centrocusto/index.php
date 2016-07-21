@@ -13,6 +13,15 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="centrocusto-index">
 
+<?php
+
+//Pega as mensagens
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+}
+
+?>
+
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -23,9 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+            'cen_codcentrocusto',
             'cen_codano',
             [
-                'attribute' => 'cen_codcentrocusto',
+                'attribute' => 'cen_codunidade',
                 'value' => 'unidade.uni_nomeabreviado'
             ],
             'cen_centrocusto',
@@ -46,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'vAlign'=>'middle'
             ], 
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn','template' => '{update}'],
         ],
     ]); ?>
 </div>

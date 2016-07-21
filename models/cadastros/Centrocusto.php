@@ -47,10 +47,11 @@ class Centrocusto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cen_centrocusto', 'cen_nomecentrocusto', 'cen_codsituacao', 'cen_codunidade', 'cen_codano', 'cen_centrocustoreduzido'], 'required'],
+            [['cen_centrocusto', 'cen_nomecentrocusto', 'cen_codsituacao', 'cen_codunidade', 'cen_codano'], 'required'],
             [['cen_coddepartamento', 'cen_codsituacao', 'cen_codunidade', 'cen_codsegmento', 'cen_codtipoacao', 'cen_codano'], 'integer'],
+            [['cen_data'], 'safe'],
             [['cen_centrocusto'], 'string', 'max' => 45],
-            [['cen_nomecentrocusto'], 'string', 'max' => 100],
+            [['cen_nomecentrocusto', 'cen_usuario'], 'string', 'max' => 100],
             [['cen_centrocustoreduzido'], 'string', 'max' => 10],
             [['cen_centrocusto'], 'string',  'min' => 23, 'max' => 23,'tooShort' => '"{attribute}" deve conter 17 números'], // exemplo: 25.555
             [['cen_codano'], 'exist', 'skipOnError' => true, 'targetClass' => Anocentrocusto::className(), 'targetAttribute' => ['cen_codano' => 'ance_coddocano']],
@@ -75,6 +76,8 @@ class Centrocusto extends \yii\db\ActiveRecord
             'cen_codtipoacao' => 'Cód. Tipo de Ação',
             'cen_codano' => 'Ano',
             'cen_centrocustoreduzido' => 'Centro de Custo',
+            'cen_data' => 'Data Cadastro/Atualização',
+            'cen_usuario' => 'Cadastrado/Atualizado por',
         ];
     }
 

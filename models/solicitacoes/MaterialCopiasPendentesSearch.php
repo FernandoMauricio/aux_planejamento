@@ -41,7 +41,7 @@ class MaterialCopiasPendentesSearch extends MaterialCopiasPendentes
      */
     public function search($params)
     {
-        $query = MaterialCopiasPendentes::find()->orderBy(['matc_id' => SORT_DESC]);;
+        $query = MaterialCopiasPendentes::find()->orderBy(['matc_id' => SORT_DESC]);
 
         // add conditions that should always apply here
 

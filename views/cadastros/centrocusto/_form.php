@@ -18,14 +18,14 @@ use yii\helpers\Json;
     <?php $form = ActiveForm::begin(); ?>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-3">
     <?= $form->field($model, 'cen_centrocusto')->widget(\yii\widgets\MaskedInput::className(), [
     'mask' => '[9][9].[9][9].[9][9][9][9].[9][9].[9][9].[9][9].[9][9][9]',
 ]) ?>
     </div>
 
-    <div class="col-md-4">
-    <?= $form->field($model, 'cen_centrocustoreduzido')->textInput(['maxlength' => true]) ?>
+    <div class="col-md-5">
+    <?= $form->field($model, 'cen_nomecentrocusto')->textInput(['maxlength' => true]) ?>
     </div>
 
     <div class="col-md-2">
@@ -40,11 +40,16 @@ use yii\helpers\Json;
                             ]);
         ?>
     </div>
+
+    <div class="col-md-2">
+    <?= $form->field($model, 'cen_codsituacao')->radioList(['1' => 'Ativo', '0' => 'Inativo']) ?>
+    </div>
+
 </div>
 
 <div class="row">
 
-    <div class="col-md-4">
+    <div class="col-md-6">
         <?php
                     $data_segmento = ArrayHelper::map($segmento, 'seg_codsegmento', 'seg_descricao');
                     echo $form->field($model, 'cen_codsegmento')->widget(Select2::classname(), [
@@ -57,7 +62,7 @@ use yii\helpers\Json;
         ?>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-6">
         <?php
                     $data_tipoacao = ArrayHelper::map($tipoacao, 'tip_codtipoa', 'tip_descricao');
                     echo $form->field($model, 'cen_codtipoacao')->widget(Select2::classname(), [
@@ -70,9 +75,7 @@ use yii\helpers\Json;
         ?>
     </div>
 
-    <div class="col-md-4">
-    <?= $form->field($model, 'cen_nomecentrocusto')->textInput(['maxlength' => true]) ?>
-    </div>
+
 
 </div>
 
@@ -112,7 +115,17 @@ use yii\helpers\Json;
     </div>
 </div>
 
-    <?= $form->field($model, 'cen_codsituacao')->radioList(['1' => 'Ativo', '0' => 'Inativo']) ?>
+<div class="row">
+
+
+    <div class="col-md-4">
+    <?= $form->field($model, 'cen_usuario')->textInput(['readonly' => true]) ?>
+    </div>
+
+    <div class="col-md-3">
+    <?= $form->field($model, 'cen_data')->textInput(['readonly' => true]) ?>
+    </div>
+</div>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

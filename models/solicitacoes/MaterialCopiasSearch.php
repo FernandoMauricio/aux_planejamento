@@ -41,7 +41,7 @@ class MaterialCopiasSearch extends MaterialCopias
      */
     public function search($params)
     {
-        $query = MaterialCopias::find()->orderBy(['matc_id' => SORT_DESC]);;
+        $query = MaterialCopias::find()->orderBy(['matc_id' => SORT_DESC]);
 
         // add conditions that should always apply here
 

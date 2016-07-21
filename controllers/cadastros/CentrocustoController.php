@@ -84,6 +84,8 @@ class CentrocustoController extends Controller
      */
     public function actionCreate()
     {
+        $session = Yii::$app->session;
+
         $model = new Centrocusto();
 
         $segmento = Segmento::find()->where(['seg_status' => 1])->orderBy('seg_descricao')->all();
@@ -91,8 +93,19 @@ class CentrocustoController extends Controller
         $unidades = Unidade::find()->where(['uni_codsituacao'=> 1])->orderBy('uni_nomecompleto')->all();
         $anocentrocusto = Anocentrocusto::find()->where(['ance_ano'=> date('Y')])->all();
 
+        $model->cen_data           = date('Y-m-d');
+        $model->cen_usuario = $session['sess_nomeusuario'];
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->cen_codcentrocusto]);
+
+                //atualiza com os últimos 5 dígitos da classificação orçamentária
+                Yii::$app->db->createCommand(
+                'UPDATE centrocusto_cen SET cen_centrocustoreduzido= '.substr($model->cen_centrocusto, 17, 6).' WHERE cen_codcentrocusto='.$model->cen_codcentrocusto.'')
+                ->execute();
+
+                Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Centro de Custo cadastrado!</strong>');
+
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -112,13 +125,35 @@ class CentrocustoController extends Controller
      */
     public function actionUpdate($id)
     {
+        $session = Yii::$app->session;
+
         $model = $this->findModel($id);
 
+        $segmento = Segmento::find()->where(['seg_status' => 1])->orderBy('seg_descricao')->all();
+        $tipoacao = Tipo::find()->where(['tip_status' => 1])->orderBy('tip_descricao')->all();
+        $unidades = Unidade::find()->where(['uni_codsituacao'=> 1])->orderBy('uni_nomecompleto')->all();
+        $anocentrocusto = Anocentrocusto::find()->where(['ance_ano'=> date('Y')])->all();
+        
+        $model->cen_data           = date('Y-m-d');
+        $model->cen_usuario = $session['sess_nomeusuario'];
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->cen_codcentrocusto]);
+
+                //atualiza com os últimos 5 dígitos da classificação orçamentária
+                Yii::$app->db->createCommand(
+                'UPDATE centrocusto_cen SET cen_centrocustoreduzido= '.substr($model->cen_centrocusto, 17, 6).' WHERE cen_codcentrocusto='.$model->cen_codcentrocusto.'')
+                ->execute();
+
+                Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Centro de Custo cadastrado!</strong>');
+
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'segmento' => $segmento,
+                'tipoacao' => $tipoacao,
+                'unidades' => $unidades,
+                'anocentrocusto' => $anocentrocusto,
             ]);
         }
     }

@@ -41,7 +41,7 @@ class CentrocustoSearch extends Centrocusto
      */
     public function search($params)
     {
-        $query = Centrocusto::find();
+        $query = Centrocusto::find()->orderBy(['cen_codcentrocusto' => SORT_DESC]);;
 
         // add conditions that should always apply here
 
