@@ -6,6 +6,10 @@ use kartik\money\MaskMoney;
 use yii\widgets\MaskedInput;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
+use yii\helpers\Url;
+use yii\helpers\Json;
+use kartik\depdrop\DepDrop;
+use app\models\cadastros\Segmento;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\solicitacoes\MaterialCopias */
@@ -18,12 +22,13 @@ use kartik\select2\Select2;
 
 <div class="row">
 
-    <div class="col-md-5">
+    <div class="col-md-3">
+
         <?php
-                    $data_repositorio = ArrayHelper::map($repositorio, 'rep_titulo', 'rep_titulo');
-                    echo $form->field($model, 'matc_descricao')->widget(Select2::classname(), [
-                            'data' =>  $data_repositorio,
-                            'options' => ['placeholder' => 'Selecione o Material...'],
+        $segmentoList=ArrayHelper::map(app\models\cadastros\Segmento::find()->all(), 'seg_codsegmento', 'seg_descricao' );
+                    echo $form->field($model, 'matc_segmento')->widget(Select2::classname(), [
+                            'data' =>  $segmentoList,
+                           'options' => ['id' => 'cat-id','placeholder' => 'Selecione o Segmento...'],
                             'pluginOptions' => [
                                     'allowClear' => true
                                 ],
@@ -31,13 +36,42 @@ use kartik\select2\Select2;
         ?>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
 
-    <?= $form->field($model, 'matc_curso')->textInput(['maxlength' => true]) ?>
-
+          <?php
+              // Child # 1
+              echo $form->field($model, 'matc_tipoacao')->widget(DepDrop::classname(), [
+                  'type'=>DepDrop::TYPE_SELECT2,
+                  'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                  'options'=>['id' => 'subcat-id'],
+                  'pluginOptions'=>[
+                      'depends'=>['cat-id'],
+                      'placeholder'=>'Selecione o Tipo de Ação...',
+                      //'initialize' => true,
+                      'url'=>Url::to(['/planos/planodeacao/tipos'])
+                  ]
+              ]);
+          ?>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-4">
+
+          <?php
+              // Child # 2
+              echo $form->field($model, 'matc_curso')->widget(DepDrop::classname(), [
+                  'type'=>DepDrop::TYPE_SELECT2,
+                  'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                  'pluginOptions'=>[
+                      'depends'=>['cat-id', 'subcat-id'],
+                      'placeholder'=>'Selecione o Curso...',
+                      //'initialize' => true,
+                      'url'=>Url::to(['/solicitacoes/material-copias/cursos'])
+                  ]
+              ]);
+          ?>
+    </div>
+
+    <div class="col-md-2">
 
     <?= $form->field($model, 'matc_centrocusto')->widget(MaskedInput::className(),['mask' => '[9][9].[9][9][9]'] ) ?>
 
@@ -48,19 +82,42 @@ use kartik\select2\Select2;
 
  <div class="row">
 
-    <div class="col-md-4">
+    <div class="col-md-6">
+        <?php
+           $data_repositorio = ArrayHelper::map($repositorio, 'rep_titulo', 'rep_titulo');
+           echo $form->field($model, 'matc_descricao')->widget(Select2::classname(), [
+                   'data' =>  $data_repositorio,
+                   'options' => ['id' => 'repositorio-id','placeholder' => 'Selecione o Material...',
+                   'onchange'=>'
+                                var select = this;
+                                $.getJSON( "'.Url::toRoute('/solicitacoes/material-copias/get-repositorio').'", { repId: $(this).val() } )
+                                .done(function( data ) {
 
-    <?= $form->field($model, 'matc_qtoriginais')->textInput() ?>
+                                    var $divPanelBody = $(select).parent().parent().parent();
+
+                                    var $inputDescricao = $divPanelBody.find("input:eq(0)");
+                                    
+                                    $inputDescricao.val(data.rep_qtdoriginais);
+                                       
+                                    });
+                                '
+                         ]]);
+        ?>
+    </div>
+
+    <div class="col-md-2">
+
+    <?= $form->field($model, 'matc_qtoriginais')->textInput(['readonly'=>true]) ?>
 
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-2">
 
     <?= $form->field($model, 'matc_qtexemplares')->textInput() ?>
 
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-2">
 
     <?= $form->field($model, 'matc_qteCopias')->textInput(['readonly'=>true]) ?>
 

@@ -58,8 +58,8 @@ class MaterialCopias extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['matc_descricao', 'matc_qtoriginais', 'listAcabamento', 'matc_qtexemplares', 'matc_curso', 'matc_centrocusto', 'situacao_id', 'matc_totalValorMono', 'matc_totalValorColor', 'matc_totalGeral'], 'required'],
-            [['matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id', 'matc_qteCopias', 'matc_qteTotal', 'matc_autorizado', 'matc_encaminhadoRepro'], 'integer'],
+            [['matc_descricao', 'matc_qtoriginais', 'listAcabamento', 'matc_qtexemplares', 'matc_curso', 'matc_centrocusto', 'situacao_id', 'matc_totalValorMono', 'matc_totalValorColor', 'matc_totalGeral', 'matc_segmento', 'matc_tipoacao'], 'required'],
+            [['matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id', 'matc_qteCopias', 'matc_qteTotal', 'matc_autorizado', 'matc_encaminhadoRepro', 'matc_segmento', 'matc_tipoacao'], 'integer'],
             [['matc_data', 'matc_dataAut','matc_dataRepro'], 'safe'],
             [['matc_totalValorMono', 'matc_totalValorColor'], 'number'],
             [['matc_descricao', 'matc_curso', 'matc_observacao'], 'string', 'max' => 255],
@@ -77,6 +77,8 @@ class MaterialCopias extends \yii\db\ActiveRecord
     {
         return [
             'matc_id' => 'Código',
+            'matc_segmento' => 'Segmento',
+            'matc_tipoacao' => 'Tipo de Ação',
             'matc_descricao' => 'Material',
             'matc_qtoriginais' => 'Qte Originais',
             'matc_qtexemplares' => 'Qte Exemplares',

@@ -21,12 +21,18 @@ use yii\helpers\Json;
 
 <div class="row">
 
-    <div class="col-md-10">
+    <div class="col-md-8">
 
     <?= $form->field($model, 'rep_titulo')->textInput(['maxlength' => true]) ?>
 
     </div>
 
+
+    <div class="col-md-2">
+
+    <?php echo $form->field($model, 'rep_qtdoriginais')->textInput() ?>
+
+    </div>
 
     <div class="col-md-2">
 
@@ -67,19 +73,19 @@ use yii\helpers\Json;
                     'data' =>  $data_tipo,
                     'options' => ['id' => 'tipomaterial-id','placeholder' => 'Selecione o tipo de Material...',
                     'onchange'=>'
-                                                         var select = this;
-                                                         $.getJSON( "'.Url::toRoute('/repositorio/repositorio-materiais/get-tipo-material').'", { tipmatId: $(this).val() } )
-                                                         .done(function( data ) {
+                                var select = this;
+                                $.getJSON( "'.Url::toRoute('/repositorio/repositorio-materiais/get-tipo-material').'", { tipmatId: $(this).val() } )
+                                .done(function( data ) {
 
-                                                                var $divPanelBody = $(select).parent().parent().parent();
+                                       var $divPanelBody = $(select).parent().parent().parent();
 
-                                                                var $inputDescricao = $divPanelBody.find("input:eq(3)");
-                                                                
-                                                                $inputDescricao.val(data.tip_elementodespesa_id);
-                                                                
-                                                             });
-                                                         '
-                                                 ]]);
+                                       var $inputDescricao = $divPanelBody.find("input:eq(3)");
+                                       
+                                       $inputDescricao.val(data.tip_elementodespesa_id);
+                                       
+                                    });
+                                '
+                          ]]);
         ?>
     </div>
 

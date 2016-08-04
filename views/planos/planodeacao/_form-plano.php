@@ -87,8 +87,6 @@ use app\models\cadastros\Segmento;
                                         'url'=>Url::to(['/planos/planodeacao/segmento'])
                                     ]
                                 ]);
-
-
                             ?>
                         </div>
 

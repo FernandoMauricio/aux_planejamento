@@ -74,11 +74,7 @@ use yii\helpers\Json;
                             ]);
         ?>
     </div>
-
-
-
 </div>
-
 
 <div class="row">
 
@@ -134,24 +130,3 @@ use yii\helpers\Json;
     <?php ActiveForm::end(); ?>
 
 </div>
-
-<?php
-// $script = <<<EOD
-
-// $(function() {
-//      $('#centrocusto-cen_centrocusto').keyup(function() {  
-//         updateTotal();
-//     });
-
-//     var updateTotal = function () {
-        
-//       var cen_centrocusto  = parseInt($('#centrocusto-cen_centrocusto').val());
-      
-//       $('#centrocusto-cen_centrocustoreduzido').val(cen_centrocustoreduzido);
-
-//     };
-//  });
-
-// EOD;
-// $this->registerJs($script, yii\web\View::POS_END);      
-?>

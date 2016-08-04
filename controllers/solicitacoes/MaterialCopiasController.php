@@ -4,6 +4,7 @@ namespace app\controllers\solicitacoes;
 
 use Yii;
 
+use app\models\planos\Planodeacao;
 use app\models\base\Emailusuario;
 use app\models\repositorio\Repositorio;
 use app\models\solicitacoes\Acabamento;
@@ -12,6 +13,9 @@ use app\models\solicitacoes\MaterialCopiasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\FileHelper;
+use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 
 /**
  * MaterialCopiasController implements the CRUD actions for MaterialCopias model.
@@ -58,6 +62,31 @@ class MaterialCopiasController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    //Localiza os dados de tipos de material cadastrados no repositorio
+    public function actionGetRepositorio($repId){
+
+        $getRepositorio = Repositorio::find()->where(['rep_titulo' => $repId])->one();
+
+        echo Json::encode($getRepositorio);
+    }
+
+    //Localiza os cursos onde foram selecionados o segmento e tipo de ação
+    public function actionCursos() {
+            $out = [];
+            if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+
+            if ($parents != null) {
+                    $cat_id = $parents[0];
+                    $subcat_id = $parents[1];
+                    $out = Planodeacao::getPlanodeacaoSubCat($cat_id, $subcat_id);
+                    echo Json::encode(['output'=>$out, 'selected'=>'']);
+                    return;
+                    }
+                 }
+            echo Json::encode(['output'=>'', 'selected'=>'']);
     }
 
     /**

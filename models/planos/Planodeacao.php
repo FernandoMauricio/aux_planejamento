@@ -109,6 +109,15 @@ class Planodeacao extends \yii\db\ActiveRecord
         ];
     }
 
+    //Busca dados de segmentos e tipos de ação vinculados aos planos de cursos
+    public static function getPlanodeacaoSubCat($cat_id, $subcat_id) {
+        $data=\app\models\planos\Planodeacao::find()
+       ->where(['plan_codsegmento'=>$cat_id, 'plan_codtipoa'=> $subcat_id])
+       ->select(['plan_codplano AS id','plan_descricao AS name'])->asArray()->all();
+
+            return $data;
+        }
+        
     /**
      * @return \yii\db\ActiveQuery
      */

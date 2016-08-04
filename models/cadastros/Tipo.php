@@ -60,6 +60,15 @@ class Tipo extends \yii\db\ActiveRecord
         ];
     }
 
+    // //Busca dados dos eixos vinculados aos segmentos
+    // public static function getTipoacaoSubCat($subcat_id) {
+    //     $data=\app\models\cadastros\Tipo::find()
+    //    ->where(['plan_codsegmento'=>$subcat_id])
+    //    ->select(['plan_codplano AS id','plan_descricao AS name'])->asArray()->all();
+
+    //         return $data;
+    //     }
+
     /**
      * @return \yii\db\ActiveQuery
      */
