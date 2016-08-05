@@ -117,7 +117,7 @@ class Planodeacao extends \yii\db\ActiveRecord
 
             return $data;
         }
-        
+ 
     /**
      * @return \yii\db\ActiveQuery
      */

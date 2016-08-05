@@ -6,6 +6,7 @@ use Yii;
 
 use app\models\planos\Planodeacao;
 use app\models\base\Emailusuario;
+use app\models\cadastros\Centrocusto;
 use app\models\repositorio\Repositorio;
 use app\models\solicitacoes\Acabamento;
 use app\models\solicitacoes\MaterialCopias;
@@ -64,13 +65,32 @@ class MaterialCopiasController extends Controller
         ]);
     }
 
-    //Localiza os dados de tipos de material cadastrados no repositorio
+    //Localiza os dados de quantidade de originais de materiais didático cadastrados no repositorio
     public function actionGetRepositorio($repId){
 
         $getRepositorio = Repositorio::find()->where(['rep_titulo' => $repId])->one();
 
         echo Json::encode($getRepositorio);
     }
+
+    //Localiza os dados de tipos de material cadastrados no repositorio
+    public function actionCentrocusto(){
+
+            $out = [];
+            if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+
+            if ($parents != null) {
+                    $cat_id = $parents[0];
+                    $subcat_id = $parents[1];
+                    $out = MaterialCopias::getCentroCustoSubCat($cat_id, $subcat_id);
+                    echo Json::encode(['output'=>$out, 'selected'=>'']);
+                    return;
+                    }
+                 }
+            echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+
 
     //Localiza os cursos onde foram selecionados o segmento e tipo de ação
     public function actionCursos() {
@@ -108,10 +128,8 @@ class MaterialCopiasController extends Controller
         $model->matc_solicitante = $session['sess_codcolaborador'];
         $model->matc_unidade     = $session['sess_codunidade'];
         $model->situacao_id      = 1;
-
-
+  
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
 
         $totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
 

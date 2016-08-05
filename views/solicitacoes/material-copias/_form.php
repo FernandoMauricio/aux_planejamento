@@ -73,9 +73,19 @@ use app\models\cadastros\Segmento;
 
     <div class="col-md-2">
 
-    <?= $form->field($model, 'matc_centrocusto')->widget(MaskedInput::className(),['mask' => '[9][9].[9][9][9]'] ) ?>
-
-
+          <?php
+              // Child # 2
+              echo $form->field($model, 'matc_centrocusto')->widget(DepDrop::classname(), [
+                  'type'=>DepDrop::TYPE_SELECT2,
+                  'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                  'pluginOptions'=>[
+                      'depends'=>['cat-id', 'subcat-id'],
+                      'placeholder'=>'Selecione o Centro de Custo...',
+                      //'initialize' => true,
+                      'url'=>Url::to(['/solicitacoes/material-copias/centrocusto'])
+                  ]
+              ]);
+          ?>
     </div>
 
  </div>
