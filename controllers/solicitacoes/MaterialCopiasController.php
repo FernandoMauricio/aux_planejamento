@@ -9,6 +9,7 @@ use app\models\base\Emailusuario;
 use app\models\cadastros\Centrocusto;
 use app\models\repositorio\Repositorio;
 use app\models\solicitacoes\Acabamento;
+use app\models\solicitacoes\MaterialCopiasItens;
 use app\models\solicitacoes\MaterialCopias;
 use app\models\solicitacoes\MaterialCopiasSearch;
 use yii\web\Controller;
@@ -101,7 +102,7 @@ class MaterialCopiasController extends Controller
             if ($parents != null) {
                     $cat_id = $parents[0];
                     $subcat_id = $parents[1];
-                    $out = Planodeacao::getPlanodeacaoSubCat($cat_id, $subcat_id);
+                    $out = MaterialCopias::getPlanodeacaoSubCat($cat_id, $subcat_id);
                     echo Json::encode(['output'=>$out, 'selected'=>'']);
                     return;
                     }
@@ -119,6 +120,7 @@ class MaterialCopiasController extends Controller
         $session = Yii::$app->session;
 
         $model = new MaterialCopias();
+        $modelsItens  = [new MaterialCopiasItens];
 
         $acabamento = Acabamento::find()->all();
 
@@ -176,6 +178,7 @@ class MaterialCopiasController extends Controller
                 'model'       => $model,
                 'repositorio' => $repositorio,
                 'acabamento'  => $acabamento,
+                'modelsItens'   => (empty($modelsItens)) ? [new MaterialCopiasItens] : $modelsItens,
             ]);
         }
     }

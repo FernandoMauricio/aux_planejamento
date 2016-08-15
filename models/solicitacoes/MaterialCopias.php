@@ -58,7 +58,8 @@ class MaterialCopias extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['matc_descricao', 'matc_qtoriginais', 'listAcabamento', 'matc_qtexemplares', 'matc_curso', 'situacao_id', 'matc_totalValorMono', 'matc_totalValorColor', 'matc_totalGeral', 'matc_segmento', 'matc_tipoacao','matc_centrocusto'], 'required'],
+            [['matc_centrocusto'], 'validarTipo', 'skipOnEmpty' => false, 'skipOnError' => false],
+            [['matc_descricao', 'matc_qtoriginais', 'listAcabamento', 'matc_qtexemplares', 'matc_curso', 'situacao_id', 'matc_totalValorMono', 'matc_totalValorColor', 'matc_totalGeral', 'matc_segmento', 'matc_tipoacao'], 'required'],
             [['matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id', 'matc_qteCopias', 'matc_qteTotal', 'matc_autorizado', 'matc_encaminhadoRepro', 'matc_segmento', 'matc_tipoacao'], 'integer'],
             [['matc_data', 'matc_dataAut','matc_dataRepro'], 'safe'],
             [['matc_totalValorMono', 'matc_totalValorColor'], 'number'],
@@ -70,6 +71,16 @@ class MaterialCopias extends \yii\db\ActiveRecord
         ];
     }
 
+    public function validarTipo($attribute, $params){
+
+        //Coletar a sessão do usuário
+        $session = Yii::$app->session;
+
+                if($this->matc_centrocusto == NULL) {
+
+                    $this->addError($attribute, 'Verifique se existe Centro de Custo, caso não tenha, por favor contate a GIC!!');        
+                    }
+                }
     /**
      * @inheritdoc
      */
@@ -102,11 +113,20 @@ class MaterialCopias extends \yii\db\ActiveRecord
     }
 
     //Busca dados de segmentos e tipos de ação vinculados aos planos de cursos
+    public static function getPlanodeacaoSubCat($cat_id, $subcat_id) {
+        $data=\app\models\planos\Planodeacao::find()
+       ->where(['plan_codsegmento'=>$cat_id, 'plan_codtipoa'=> $subcat_id])
+       ->select(['plan_descricao AS id','plan_descricao AS name'])->asArray()->all();
+
+            return $data;
+        }
+        
+    //Busca dados de segmentos e tipos de ação vinculados aos planos de cursos
     public static function getCentroCustoSubCat($cat_id, $subcat_id) {
         $session = Yii::$app->session;
         $data=\app\models\cadastros\CentroCusto::find()
        ->where(['cen_codsegmento'=>$cat_id, 'cen_codtipoacao'=> $subcat_id, 'cen_codano' => date('Y'), 'cen_codunidade' => $session['sess_codunidade']])
-       ->select(['cen_codcentrocusto AS id','cen_centrocustoreduzido AS name'])->asArray()->all();
+       ->select(['cen_centrocustoreduzido AS id','cen_centrocustoreduzido AS name'])->asArray()->all();
 
             return $data;
         }

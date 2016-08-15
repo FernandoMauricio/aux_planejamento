@@ -14,11 +14,17 @@ use app\models\cadastros\Segmento;
 /* @var $this yii\web\View */
 /* @var $model app\models\solicitacoes\MaterialCopias */
 /* @var $form yii\widgets\ActiveForm */
+
+//Pega as mensagens
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+}
+
 ?>
 
 <div class="material-copias-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
 <div class="row">
 
@@ -90,81 +96,13 @@ use app\models\cadastros\Segmento;
 
  </div>
 
- <div class="row">
-
-    <div class="col-md-6">
-        <?php
-           $data_repositorio = ArrayHelper::map($repositorio, 'rep_titulo', 'rep_titulo');
-           echo $form->field($model, 'matc_descricao')->widget(Select2::classname(), [
-                   'data' =>  $data_repositorio,
-                   'options' => ['id' => 'repositorio-id','placeholder' => 'Selecione o Material...',
-                   'onchange'=>'
-                                var select = this;
-                                $.getJSON( "'.Url::toRoute('/solicitacoes/material-copias/get-repositorio').'", { repId: $(this).val() } )
-                                .done(function( data ) {
-
-                                    var $divPanelBody = $(select).parent().parent().parent();
-
-                                    var $inputDescricao = $divPanelBody.find("input:eq(0)");
-                                    
-                                    $inputDescricao.val(data.rep_qtdoriginais);
-                                       
-                                    });
-                                '
-                         ]]);
-        ?>
-    </div>
-
-    <div class="col-md-2">
-
-    <?= $form->field($model, 'matc_qtoriginais')->textInput(['readonly'=>true]) ?>
-
-    </div>
-
-    <div class="col-md-2">
-
-    <?= $form->field($model, 'matc_qtexemplares')->textInput() ?>
-
-    </div>
-
-    <div class="col-md-2">
-
-    <?= $form->field($model, 'matc_qteCopias')->textInput(['readonly'=>true]) ?>
-
-    </div>
-
- </div>
-
-
- <div class="row">
-
-    <div class="col-md-4">
-
-    <?= $form->field($model, 'matc_mono')->textInput() ?>
-
-    </div>
-
-    <div class="col-md-4">
-
-    <?= $form->field($model, 'matc_color')->textInput() ?>
-
-    </div>
-
-    <div class="col-md-4">
-
-    <?= $form->field($model, 'matc_qteTotal')->textInput(['readonly'=>true]) ?>
-
-    </div>
-
- </div>
- 
- <div class="row">
-
-    <div class="col-md-12">
-
-    <?= $form->field($model, 'matc_observacao')->textInput() ?>
-
-    </div>
+    <?= $this->render('_form-itens', [
+        'form' => $form,
+        'repositorio' => $repositorio,
+        'acabamento'  => $acabamento,
+        'modelsItens' => $modelsItens,
+    ]) ?>
+    
 
  </div>
 
@@ -249,63 +187,63 @@ use app\models\cadastros\Segmento;
 
 
 <?php
-$script = <<<EOD
-$(function() {
-     $('#materialcopias-matc_qtoriginais').keyup(function() {  
-        updateTotal();
-    });
+// $script = <<<EOD
+// $(function() {
+//      $('#materialcopias-matc_qtoriginais').keyup(function() {  
+//         updateTotal();
+//     });
 
-    $('#materialcopias-matc_qtexemplares').keyup(function() {  
-        updateTotal();
-    });
+//     $('#materialcopias-matc_qtexemplares').keyup(function() {  
+//         updateTotal();
+//     });
 
-    $('#materialcopias-matc_mono').keyup(function() {  
-        updateTotal();
-    });
+//     $('#materialcopias-matc_mono').keyup(function() {  
+//         updateTotal();
+//     });
 
-    $('#materialcopias-matc_color').keyup(function() {  
-        updateTotal();
-    });
+//     $('#materialcopias-matc_color').keyup(function() {  
+//         updateTotal();
+//     });
 
-    var updateTotal = function () {
-      var matc_qtoriginais  = parseInt($('#materialcopias-matc_qtoriginais').val());
-      var matc_qtexemplares = parseInt($('#materialcopias-matc_qtexemplares').val());
-      var matc_mono         = parseInt($('#materialcopias-matc_mono').val());
-      var matc_color        = parseInt($('#materialcopias-matc_color').val());
+//     var updateTotal = function () {
+//       var matc_qtoriginais  = parseInt($('#materialcopias-matc_qtoriginais').val());
+//       var matc_qtexemplares = parseInt($('#materialcopias-matc_qtexemplares').val());
+//       var matc_mono         = parseInt($('#materialcopias-matc_mono').val());
+//       var matc_color        = parseInt($('#materialcopias-matc_color').val());
 
-      var matc_qteCopias = matc_qtoriginais * matc_qtexemplares;
-      var matc_qteTotal  = (matc_mono + matc_color) * matc_qtexemplares ;
+//       var matc_qteCopias = matc_qtoriginais * matc_qtexemplares;
+//       var matc_qteTotal  = (matc_mono + matc_color) * matc_qtexemplares ;
 
-      var mono = 0.1;
-      var color = 0.6;
+//       var mono = 0.1;
+//       var color = 0.6;
 
-      var matc_totalValorMono = (matc_qtexemplares * matc_mono) * mono;
-      var matc_totalValorColor = (matc_qtexemplares * matc_color) * color;
-      var matc_totalGeral = matc_totalValorMono + matc_totalValorColor;
+//       var matc_totalValorMono = (matc_qtexemplares * matc_mono) * mono;
+//       var matc_totalValorColor = (matc_qtexemplares * matc_color) * color;
+//       var matc_totalGeral = matc_totalValorMono + matc_totalValorColor;
 
-    if (isNaN(matc_qteCopias) || matc_qteCopias < 0) {
-        matc_qteCopias = '';
-    }
+//     if (isNaN(matc_qteCopias) || matc_qteCopias < 0) {
+//         matc_qteCopias = '';
+//     }
 
-    if (isNaN(matc_qteTotal) || matc_qteTotal < 0) {
-        matc_qteTotal = '';
-    }
+//     if (isNaN(matc_qteTotal) || matc_qteTotal < 0) {
+//         matc_qteTotal = '';
+//     }
 
-    if (isNaN(matc_totalValorMono) || matc_totalValorMono < 0) {
-        matc_totalValorMono = '';
-    }
+//     if (isNaN(matc_totalValorMono) || matc_totalValorMono < 0) {
+//         matc_totalValorMono = '';
+//     }
 
-    if (isNaN(matc_totalValorColor) || matc_totalValorColor < 0) {
-        matc_totalValorColor = '';
-    }
-      $('#materialcopias-matc_qtecopias').val(matc_qteCopias);
-      $('#materialcopias-matc_qtetotal').val(matc_qteTotal);
+//     if (isNaN(matc_totalValorColor) || matc_totalValorColor < 0) {
+//         matc_totalValorColor = '';
+//     }
+//       $('#materialcopias-matc_qtecopias').val(matc_qteCopias);
+//       $('#materialcopias-matc_qtetotal').val(matc_qteTotal);
 
-      $('#materialcopias-matc_totalvalormono').val(matc_totalValorMono);
-      $('#materialcopias-matc_totalvalorcolor').val(matc_totalValorColor);
-      $('#materialcopias-matc_totalgeral').val(matc_totalGeral);
-    };
- });
-EOD;
-$this->registerJs($script, yii\web\View::POS_END);      
+//       $('#materialcopias-matc_totalvalormono').val(matc_totalValorMono);
+//       $('#materialcopias-matc_totalvalorcolor').val(matc_totalValorColor);
+//       $('#materialcopias-matc_totalgeral').val(matc_totalGeral);
+//     };
+//  });
+// EOD;
+// $this->registerJs($script, yii\web\View::POS_END);      
 ?>
