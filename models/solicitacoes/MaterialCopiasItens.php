@@ -44,7 +44,7 @@ class MaterialCopiasItens extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['item_id', 'item_descricao', 'item_qtoriginais', 'item_qtexemplares', 'item_qteCopias', 'item_mono', 'item_color', 'item_qteTotal', 'materialcopias_id'], 'required'],
+            [['item_descricao', 'item_qtoriginais', 'item_qtexemplares', 'item_qteCopias', 'item_mono', 'item_color', 'item_qteTotal'], 'required'],
             [['item_id', 'item_qtoriginais', 'item_qtexemplares', 'item_qteCopias', 'item_mono', 'item_color', 'item_qteTotal', 'materialcopias_id'], 'integer'],
             [['item_descricao', 'item_observacao'], 'string', 'max' => 255],
             //[['item_color'], 'compare','compareAttribute'=>'item_mono'],

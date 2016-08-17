@@ -4,6 +4,7 @@ namespace app\controllers\solicitacoes;
 
 use Yii;
 
+use app\models\MultipleModel as Model;
 use app\models\planos\Planodeacao;
 use app\models\base\Emailusuario;
 use app\models\cadastros\Centrocusto;
@@ -131,9 +132,40 @@ class MaterialCopiasController extends Controller
         $model->matc_unidade     = $session['sess_codunidade'];
         $model->situacao_id      = 1;
   
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
 
-        $totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
+            $totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
+
+            //Inserir vários itens na solicitação
+            $modelsItens = Model::createMultiple(MaterialCopiasItens::classname());
+            Model::loadMultiple($modelsItens, Yii::$app->request->post());
+
+            // validate all models
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($modelsItens) && $valid;
+
+             if ($valid ) {
+                $transaction = \Yii::$app->db_apl->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                        foreach ($modelsItens as $modelItens) {
+                            $modelItens->materialcopias_id = $model->matc_id;
+                            if (! ($flag = $modelItens->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if ($flag) {
+                        $transaction->commit();
+                        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Cópia cadastrada!</strong>');
+                        return $this->redirect(['view', 'id' => $model->matc_id]);
+                    }
+                }  catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+
 
         //ENVIANDO EMAIL PARA OS RESPONSÁVEIS DO GABINETE TÉCNICO INFORMANDO SOBRE O RECEBIMENTO DE UMA NOVA SOLICITAÇÃO DE CÓPIA 
         //-- 15 - DIVISÃO DE EDUCAÇÃO PROFISSIONAL // 87 - GABINETE TÉCNICO
@@ -155,7 +187,7 @@ class MaterialCopiasController extends Controller
 
                                     <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
 
-                                    <p><strong>Material</strong>: '.$model->matc_descricao.'</p>
+                                    <p><strong>Material</strong>: </p>
 
                                     <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
 
@@ -167,8 +199,10 @@ class MaterialCopiasController extends Controller
                                     ')
                                     ->send();
                                 } 
+            if($model->save()){
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Cópia cadastrada!</strong>');
+                Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Cópia cadastrada!</strong>');
+            }
 
             return $this->redirect(['view', 'id' => $model->matc_id]);
         } else {
@@ -247,7 +281,7 @@ class MaterialCopiasController extends Controller
 
                                     <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
 
-                                    <p><strong>Material</strong>: '.$model->matc_descricao.'</p>
+                                    <p><strong>Material</strong>: </p>
 
                                     <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
 

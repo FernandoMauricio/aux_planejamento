@@ -10,6 +10,27 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 ?>
 
+<?php
+$js = '
+jQuery(".dynamicform_copia").on("afterInsert", function(e, item) {
+    jQuery(".dynamicform_copia .panel-title-copia").each(function(i) {
+        jQuery(this).html("Item: " + (i + 1))
+    });
+});
+
+jQuery(".dynamicform_copia").on("afterDelete", function(e) {
+    jQuery(".dynamicform_copia .panel-title-copia").each(function(i) {
+        jQuery(this).html("Item: " + (i + 1))
+    });
+});
+
+';
+
+$this->registerJs($js);
+
+?>
+
+
                                          <?php DynamicFormWidget::begin([
                                             'widgetContainer' => 'dynamicform_copia', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
                                             'widgetBody' => '.container-items-copia', // required: css class selector
@@ -264,55 +285,55 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
                                                                  
                                                                    //valores output mono
-                                                                  if(item_totalValorMono > 0){
+                                                                  if(item_totalValorMono >= 0){
                                                                    $('#materialcopias-matc_totalvalormono').val(item_totalValorMono)
                                                                   }
 
-                                                                  if(item_totalValorMono1 > 0){
+                                                                  if(item_totalValorMono1 >= 0){
                                                                    $('#materialcopias-matc_totalvalormono').val(item_totalValorMono + item_totalValorMono1)
                                                                   }
 
-                                                                  if(item_totalValorMono2 > 0){
+                                                                  if(item_totalValorMono2 >= 0){
                                                                    $('#materialcopias-matc_totalvalormono').val(item_totalValorMono + item_totalValorMono1 + item_totalValorMono2)
                                                                   }
 
-                                                                  if(item_totalValorMono3 > 0){
+                                                                  if(item_totalValorMono3 >= 0){
                                                                    $('#materialcopias-matc_totalvalormono').val(item_totalValorMono + item_totalValorMono1 + item_totalValorMono2 + item_totalValorMono3)
                                                                   }
 
 
                                                                   //valores output color
-                                                                  if(item_totalValorColor > 0){
+                                                                  if(item_totalValorColor >= 0){
                                                                    $('#materialcopias-matc_totalvalorcolor').val(item_totalValorColor)
                                                                   }
 
-                                                                  if(item_totalValorColor1 > 0){
+                                                                  if(item_totalValorColor1 >= 0){
                                                                    $('#materialcopias-matc_totalvalorcolor').val(item_totalValorColor + item_totalValorColor1)
                                                                   }
 
-                                                                  if(item_totalValorColor2 > 0){
+                                                                  if(item_totalValorColor2 >= 0){
                                                                    $('#materialcopias-matc_totalvalorcolor').val(item_totalValorColor + item_totalValorColor1 + item_totalValorColor2)
                                                                   }
 
-                                                                  if(item_totalValorColor3 > 0){
+                                                                  if(item_totalValorColor3 >= 0){
                                                                    $('#materialcopias-matc_totalvalorcolor').val(item_totalValorColor + item_totalValorColor1 + item_totalValorColor2 + item_totalValorColor3)
                                                                   }
 
 
                                                                   //valores output Geral
-                                                                  if(item_totalGeral > 0){
+                                                                  if(item_totalGeral >= 0){
                                                                    $('#materialcopias-matc_totalgeral').val(item_totalGeral)
                                                                   }
 
-                                                                  if(item_totalValorColor1 > 0){
+                                                                  if(item_totalValorColor1 >= 0){
                                                                    $('#materialcopias-matc_totalgeral').val(item_totalGeral1)
                                                                   }
 
-                                                                  if(item_totalValorColor2 > 0){
+                                                                  if(item_totalValorColor2 >= 0){
                                                                    $('#materialcopias-matc_totalgeral').val(item_totalGeral2)
                                                                   }
 
-                                                                  if(item_totalValorColor3 > 0){
+                                                                  if(item_totalValorColor3 >= 0){
                                                                    $('#materialcopias-matc_totalgeral').val(item_totalGeral3)
                                                                   }
 
@@ -350,88 +371,3 @@ use wbraganca\dynamicform\DynamicFormWidget;
                 </div>
             </div>
             <?php DynamicFormWidget::end(); ?>
-
-
-<?php
-$js = '
-jQuery(".dynamicform_copia").on("afterInsert", function(e, item) {
-    jQuery(".dynamicform_copia .panel-title-copia").each(function(i) {
-        jQuery(this).html("Item: " + (i + 1))
-    });
-});
-
-jQuery(".dynamicform_copia").on("afterDelete", function(e) {
-    jQuery(".dynamicform_copia .panel-title-copia").each(function(i) {
-        jQuery(this).html("Item: " + (i + 1))
-    });
-});
-
-';
-
-$this->registerJs($js);
-
-?>
-
-<?php
-// $script = <<<EOD
-// $(function() {
-//     $('#materialcopiasitens-{$i}-item_qtoriginais').keyup(function() {  
-//         updateTotal();
-//     });
-
-//     $('#materialcopiasitens-{$i}-item_qtexemplares').keyup(function() {  
-//         updateTotal();
-//     });
-
-//     $('#materialcopiasitens-{$i}-item_mono').keyup(function() {  
-//         updateTotal();
-//     });
-
-//     $('#materialcopiasitens-{$i}-item_color').keyup(function() {  
-//         updateTotal();
-//     });
-
-//     var updateTotal = function () {
-//       var item_qtoriginais  = parseInt($('#materialcopiasitens-{$i}-item_qtoriginais').val());
-//       var item_qtexemplares = parseInt($('#materialcopiasitens-{$i}-item_qtexemplares').val());
-//       var item_mono         = parseInt($('#materialcopiasitens-{$i}-item_mono').val());
-//       var item_color        = parseInt($('#materialcopiasitens-{$i}-item_color').val());
-
-//       var item_qteCopias = item_qtoriginais * item_qtexemplares;
-//       var item_qteTotal  = (item_mono + item_color) * item_qtexemplares ;
-
-//       var mono = 0.1;
-//       var color = 0.6;
-
-//       var item_totalValorMono = (item_qtexemplares * item_mono) * mono;
-//       var item_totalValorColor = (item_qtexemplares * item_color) * color;
-//       var item_totalGeral = item_totalValorMono + item_totalValorColor;
-
-
-
-//     if (isNaN(item_qteCopias) || item_qteCopias < 0) {
-//         item_qteCopias = '';
-//     }
-
-//     if (isNaN(item_qteTotal) || item_qteTotal < 0) {
-//         item_qteTotal = '';
-//     }
-
-//     if (isNaN(item_totalValorMono) || item_totalValorMono < 0) {
-//         item_totalValorMono = '';
-//     }
-
-//     if (isNaN(item_totalValorColor) || item_totalValorColor < 0) {
-//         item_totalValorColor = '';
-//     }
-//       $('#materialcopiasitens-{$i}-item_qtecopias').val(item_qteCopias);
-//       $('#materialcopiasitens-{$i}-item_qtetotal').val(item_qteTotal);
-
-//       $('#materialcopiasitens-{$i}-item_totalvalormono').val(item_totalValorMono);
-//       $('#materialcopiasitens-{$i}-item_totalvalorcolor').val(item_totalValorColor);
-//       $('#materialcopiasitens-{$i}-item_totalgeral').val(item_totalGeral);
-//     };
-//  });
-// EOD;
-// $this->registerJs($script, yii\web\View::POS_END);      
-?>

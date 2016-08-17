@@ -59,7 +59,6 @@ $this->params['breadcrumbs'][] = $this->title;
                               'width'=>'5%'
                             ],
 
-                            'matc_descricao',
                             'matc_curso',
 
                             [
@@ -142,7 +141,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes das Solicitações de Cópias', 'options'=>['colspan'=>6, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes das Solicitações de Cópias', 'options'=>['colspan'=>5, 'class'=>'text-center warning']], 
                 ['content'=>'Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]

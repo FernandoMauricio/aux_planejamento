@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\detail\DetailView;
 use app\models\solicitacoes\Acabamento;
+use app\models\solicitacoes\MaterialCopiasItens;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\solicitacoes\MaterialCopias */
@@ -83,12 +84,6 @@ $attributes = [
 
                 [
                     'columns' => [
-                        [
-                            'attribute'=>'matc_descricao', 
-                            'displayOnly'=>true,
-                            'valueColOptions'=>['style'=>'width:30%'],
-                            'labelColOptions'=>['style'=>'width:0%'],
-                        ],
 
                         [
                             'attribute'=>'matc_curso', 
@@ -107,80 +102,6 @@ $attributes = [
                     ],
                 ],
 
-                [
-                    'columns' => [
-                        [
-                            'attribute'=>'matc_observacao', 
-                            'displayOnly'=>true,
-                            //'valueColOptions'=>['style'=>'width:30%'],
-                            'labelColOptions'=>['style'=>'width:5%'],
-                        ],
-                    ],
-                ],
-
-//-------------- SESSÃO 2 INFORMAÇÕES DE IMPRESSÃO
-                [
-                    'group'=>true,
-                    'label'=>'SEÇÃO 2: Informações das Impressões',
-                    'rowOptions'=>['class'=>'info']
-                ],
-
-                [
-                    'columns' => [
-                        [
-                            'attribute'=>'matc_qtoriginais', 
-                            'displayOnly'=>true,
-                            'valueColOptions'=>['style'=>'width:10%'],
-                            'labelColOptions'=>['style'=>'width:10%'],
-                        ],
-
-                        [
-                            'attribute'=>'matc_qtexemplares', 
-                            'displayOnly'=>true,
-                            'valueColOptions'=>['style'=>'width:10%'],
-                            'labelColOptions'=>['style'=>'width:10%'],
-                        ],
-
-
-                    ],
-
-                ],
-
-                [
-                    'columns' => [
-
-                        [
-                            'attribute'=>'matc_mono', 
-                            'displayOnly'=>true,
-                            'valueColOptions'=>['style'=>'width:10%'],
-                            'labelColOptions'=>['style'=>'width:10%'],
-                        ],
-
-                        [
-                            'attribute'=>'matc_color', 
-                            'displayOnly'=>true,
-                            'valueColOptions'=>['style'=>'width:10%'],
-                            'labelColOptions'=>['style'=>'width:10%'],
-                        ],
-
-                    ],
-
-                ],
-
-                [
-                    'columns' => [
-
-                        [
-                            'attribute'=>'matc_qteTotal', 
-                            'displayOnly'=>true,
-                            'valueColOptions'=>['style'=>'width:75%'],
-                            'labelColOptions'=>['style'=>'width:0%'],
-                        ],
-
-                    ],
-
-                ],
-
             ];
 
     echo DetailView::widget([
@@ -192,6 +113,62 @@ $attributes = [
     ]);
 
     ?>
+
+                <!-- SEÇÃO 2 INFORMAÇÕES DAS IMPRESSÕES -->
+
+<table class="table table-condensed table-hover">
+    <thead>
+    <tr class="info"><th colspan="12">SEÇÃO 2: Informações das Impressões</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Material</th>
+        <th>Qte Originais</th>
+        <th>Qte Exempalres</th>
+        <th>Qte Cópias</th>
+        <th>Mono</th>
+        <th>Color</th>
+        <th>Qte Total</th>
+        <th>Observação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+
+      <?php
+
+  $query_itens = "SELECT * FROM materialcopias_item WHERE materialcopias_id = '".$model->matc_id."'";
+  $itensModel = MaterialCopiasItens::findBySql($query_itens)->all(); 
+  foreach ($itensModel as $itens) {
+   $item_descricao    = $itens["item_descricao"];
+   $item_qtoriginais    = $itens["item_qtoriginais"];
+   $item_qtexemplares   = $itens["item_qtexemplares"];
+   $item_qteCopias    = $itens["item_qteCopias"];
+   $item_mono         = $itens["item_mono"];
+   $item_color        = $itens["item_color"];
+   $item_qteTotal     = $itens["item_qteTotal"];
+   $item_observacao   = $itens["item_observacao"];
+   ?>
+        <td><?php echo $item_descricao; ?></td>
+        <td><?php echo $item_qtoriginais; ?></td>
+        <td><?php echo $item_qtexemplares; ?></td>
+        <td><?php echo $item_qteCopias; ?></td>
+        <td><?php echo $item_mono; ?></td>
+        <td><?php echo $item_color; ?></td>
+        <td><?php echo $item_qteTotal; ?></td>
+        <td><?php echo $item_observacao; ?></td>
+      </tr>
+
+    <?php } ?>
+
+    </tbody>
+  </table>
+        </tr> 
+    </tbody>
+ </table>
 
                 <!-- SESSÃO 3 SERVIÇOS DE ACABAMENTO -->
   <table class="table table-condensed table-hover">
@@ -225,7 +202,7 @@ $attributes = [
     <tbody>
 
                <tr class="warning" style="border-top: #dedede">
-               <td>Subtotal Mono<i> (Qte Exemplares * Mono) * R$ 0,1</i></td>
+               <td>Subtotal Mono<i> (Qte Exemplares * Mono) * R$ 0,12</i></td>
                <td style="color:red"><?php echo 'R$ ' . number_format($model->matc_totalValorMono, 2, ',', '.') ?></td>
 
             </tr>

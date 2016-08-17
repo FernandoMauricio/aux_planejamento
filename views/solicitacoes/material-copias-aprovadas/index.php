@@ -53,7 +53,6 @@ $this->params['breadcrumbs'][] = $this->title;
                               'width'=>'20%'
                             ],
 
-                            'matc_descricao',
                             'matc_curso',
 
                             [

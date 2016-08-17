@@ -83,12 +83,12 @@ $attributes = [
 
                 [
                     'columns' => [
-                        [
-                            'attribute'=>'matc_descricao', 
-                            'displayOnly'=>true,
-                            'valueColOptions'=>['style'=>'width:30%'],
-                            'labelColOptions'=>['style'=>'width:0%'],
-                        ],
+                        // [
+                        //     'attribute'=>'matc_descricao', 
+                        //     'displayOnly'=>true,
+                        //     'valueColOptions'=>['style'=>'width:30%'],
+                        //     'labelColOptions'=>['style'=>'width:0%'],
+                        // ],
 
                         [
                             'attribute'=>'matc_curso', 
@@ -138,19 +138,19 @@ $attributes = [
                 [
                     'columns' => [
 
-                        [
-                            'attribute'=>'matc_mono', 
-                            'displayOnly'=>true,
-                            'valueColOptions'=>['style'=>'width:10%'],
-                            'labelColOptions'=>['style'=>'width:10%'],
-                        ],
+                        // [
+                        //     'attribute'=>'matc_mono', 
+                        //     'displayOnly'=>true,
+                        //     'valueColOptions'=>['style'=>'width:10%'],
+                        //     'labelColOptions'=>['style'=>'width:10%'],
+                        // ],
 
-                        [
-                            'attribute'=>'matc_color', 
-                            'displayOnly'=>true,
-                            'valueColOptions'=>['style'=>'width:10%'],
-                            'labelColOptions'=>['style'=>'width:10%'],
-                        ],
+                        // [
+                        //     'attribute'=>'matc_color', 
+                        //     'displayOnly'=>true,
+                        //     'valueColOptions'=>['style'=>'width:10%'],
+                        //     'labelColOptions'=>['style'=>'width:10%'],
+                        // ],
 
                     ],
 
@@ -159,12 +159,12 @@ $attributes = [
                 [
                     'columns' => [
 
-                        [
-                            'attribute'=>'matc_qteTotal', 
-                            'displayOnly'=>true,
-                            'valueColOptions'=>['style'=>'width:75%'],
-                            'labelColOptions'=>['style'=>'width:0%'],
-                        ],
+                        // [
+                        //     'attribute'=>'matc_qteTotal', 
+                        //     'displayOnly'=>true,
+                        //     'valueColOptions'=>['style'=>'width:75%'],
+                        //     'labelColOptions'=>['style'=>'width:0%'],
+                        // ],
 
                     ],
 
