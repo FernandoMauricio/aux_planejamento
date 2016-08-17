@@ -6,6 +6,8 @@ use Yii;
 
 use app\models\base\Colaborador;
 use app\models\base\Unidade;
+use app\models\cadastros\Segmento;
+use app\models\cadastros\Tipo;
 
 /**
  * This is the model class for table "materialcopias_matc".
@@ -155,6 +157,16 @@ class MaterialCopias extends \yii\db\ActiveRecord
     public function getUnidade()
     {
         return $this->hasOne(Unidade::className(), ['uni_codunidade' => 'matc_unidade']);
+    }
+
+    public function getSegmento()
+    {
+        return $this->hasOne(Segmento::className(), ['seg_codsegmento' => 'matc_segmento']);
+    }
+
+    public function getTipo()
+    {
+        return $this->hasOne(Tipo::className(), ['tip_codtipoa' => 'matc_tipoacao']);
     }
 
 }

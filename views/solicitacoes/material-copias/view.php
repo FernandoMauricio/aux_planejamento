@@ -67,16 +67,16 @@ $attributes = [
                             'attribute'=>'matc_solicitante', 
                             'displayOnly'=>true,
                             'value'=> $model->colaborador->usuario->usu_nomeusuario,
-                            'valueColOptions'=>['style'=>'width:30%'],
-                            'labelColOptions'=>['style'=>'width:0%'],
+                            'valueColOptions'=>['style'=>'width:0%'],
+                            'labelColOptions'=>['style'=>'width:10%'],
                         ],
 
                         [
                             'attribute'=>'matc_unidade', 
                             'displayOnly'=>true,
                             'value'=> $model->unidade->uni_nomeabreviado,
-                            'valueColOptions'=>['style'=>'width:40%'],
-                            'labelColOptions'=>['style'=>'width:0%'],
+                            'valueColOptions'=>['style'=>'width:0%'],
+                            'labelColOptions'=>['style'=>'width:10%'],
                         ],
 
                     ],
@@ -86,16 +86,32 @@ $attributes = [
                     'columns' => [
 
                         [
+                            'attribute'=>'matc_segmento', 
+                            'displayOnly'=>true,
+                            'value'=> $model->segmento->seg_descricao,
+                            'valueColOptions'=>['style'=>'width:20%'],
+                            'labelColOptions'=>['style'=>'width:0%'],
+                        ],
+
+                        [
+                            'attribute'=>'matc_tipoacao', 
+                            'displayOnly'=>true,
+                            'value'=> $model->tipo->tip_descricao,
+                            'valueColOptions'=>['style'=>'width:20%'],
+                            'labelColOptions'=>['style'=>'width:12%'],
+                        ],
+
+                        [
                             'attribute'=>'matc_curso', 
                             'displayOnly'=>true,
-                            'valueColOptions'=>['style'=>'width:40%'],
+                            'valueColOptions'=>['style'=>'width:30%'],
                             'labelColOptions'=>['style'=>'width:0%'],
                         ],
 
                         [
                             'attribute'=>'matc_centrocusto', 
                             'displayOnly'=>true,
-                            'valueColOptions'=>['style'=>'width:30%'],
+                            'valueColOptions'=>['style'=>'width:0%'],
                             'labelColOptions'=>['style'=>'width:15%'],
                         ],
 
@@ -116,13 +132,12 @@ $attributes = [
 
                 <!-- SEÇÃO 2 INFORMAÇÕES DAS IMPRESSÕES -->
 
-<table class="table table-condensed table-hover">
+                <!-- SEÇÃO 2 INFORMAÇÕES DAS IMPRESSÕES -->
+
+  <table class="table table-condensed table-hover">
     <thead>
     <tr class="info"><th colspan="12">SEÇÃO 2: Informações das Impressões</th></tr>
     </thead>
-    <tbody>
-        <tr>
-<table class="table table-striped">
     <thead>
       <tr>
         <th>Material</th>
@@ -136,15 +151,14 @@ $attributes = [
       </tr>
     </thead>
     <tbody>
-      <tr>
-
-      <?php
+        <tr>
+<?php
 
   $query_itens = "SELECT * FROM materialcopias_item WHERE materialcopias_id = '".$model->matc_id."'";
   $itensModel = MaterialCopiasItens::findBySql($query_itens)->all(); 
   foreach ($itensModel as $itens) {
    $item_descricao    = $itens["item_descricao"];
-   $item_qtoriginais    = $itens["item_qtoriginais"];
+   $item_qtoriginais = $itens["item_qtoriginais"];
    $item_qtexemplares   = $itens["item_qtexemplares"];
    $item_qteCopias    = $itens["item_qteCopias"];
    $item_mono         = $itens["item_mono"];
@@ -152,6 +166,7 @@ $attributes = [
    $item_qteTotal     = $itens["item_qteTotal"];
    $item_observacao   = $itens["item_observacao"];
    ?>
+      <tr>
         <td><?php echo $item_descricao; ?></td>
         <td><?php echo $item_qtoriginais; ?></td>
         <td><?php echo $item_qtexemplares; ?></td>
@@ -163,9 +178,6 @@ $attributes = [
       </tr>
 
     <?php } ?>
-
-    </tbody>
-  </table>
         </tr> 
     </tbody>
  </table>

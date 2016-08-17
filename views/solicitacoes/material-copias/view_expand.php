@@ -33,7 +33,7 @@ $attributes = [
                             'attribute'=>'matc_id', 
                             'displayOnly'=>true,
                             'valueColOptions'=>['style'=>'width:0%'],
-                            'labelColOptions'=>['style'=>'width:0%'],
+                            'labelColOptions'=>['style'=>'width:5%'],
                         ],
 
                         [
@@ -57,16 +57,16 @@ $attributes = [
                             'attribute'=>'matc_solicitante', 
                             'displayOnly'=>true,
                             'value'=> $model->colaborador->usuario->usu_nomeusuario,
-                            'valueColOptions'=>['style'=>'width:30%'],
-                            'labelColOptions'=>['style'=>'width:0%'],
+                            'valueColOptions'=>['style'=>'width:0%'],
+                            'labelColOptions'=>['style'=>'width:10%'],
                         ],
 
                         [
                             'attribute'=>'matc_unidade', 
                             'displayOnly'=>true,
                             'value'=> $model->unidade->uni_nomeabreviado,
-                            'valueColOptions'=>['style'=>'width:40%'],
-                            'labelColOptions'=>['style'=>'width:0%'],
+                            'valueColOptions'=>['style'=>'width:0%'],
+                            'labelColOptions'=>['style'=>'width:10%'],
                         ],
 
                     ],
@@ -74,17 +74,34 @@ $attributes = [
 
                 [
                     'columns' => [
+
+                        [
+                            'attribute'=>'matc_segmento', 
+                            'displayOnly'=>true,
+                            'value'=> $model->segmento->seg_descricao,
+                            'valueColOptions'=>['style'=>'width:20%'],
+                            'labelColOptions'=>['style'=>'width:0%'],
+                        ],
+
+                        [
+                            'attribute'=>'matc_tipoacao', 
+                            'displayOnly'=>true,
+                            'value'=> $model->tipo->tip_descricao,
+                            'valueColOptions'=>['style'=>'width:20%'],
+                            'labelColOptions'=>['style'=>'width:12%'],
+                        ],
+
                         [
                             'attribute'=>'matc_curso', 
                             'displayOnly'=>true,
-                            'valueColOptions'=>['style'=>'width:40%'],
+                            'valueColOptions'=>['style'=>'width:30%'],
                             'labelColOptions'=>['style'=>'width:0%'],
                         ],
 
                         [
                             'attribute'=>'matc_centrocusto', 
                             'displayOnly'=>true,
-                            'valueColOptions'=>['style'=>'width:30%'],
+                            'valueColOptions'=>['style'=>'width:0%'],
                             'labelColOptions'=>['style'=>'width:15%'],
                         ],
 
@@ -152,34 +169,6 @@ $attributes = [
         </tr> 
     </tbody>
  </table>
-
-<!-- <table class="table table-condensed table-hover">
-    <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 2: Informações das Impressões</th></tr>
-    </thead>
-    <tbody>
-        <tr>
-<table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Material</th>
-        <th>Qte Originais</th>
-        <th>Qte Exempalres</th>
-        <th>Qte Cópias</th>
-        <th>Mono</th>
-        <th>Color</th>
-        <th>Qte Total</th>
-        <th>Observação</th>
-      </tr>
-    </thead>
-    <tbody>
-
-
-    </tbody>
-  </table>
-        </tr> 
-    </tbody>
- </table> -->
 
                 <!-- SESSÃO 3 SERVIÇOS DE ACABAMENTO -->
   <table class="table table-condensed table-hover">

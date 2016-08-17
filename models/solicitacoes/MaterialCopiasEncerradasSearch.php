@@ -18,8 +18,8 @@ class MaterialCopiasEncerradasSearch extends MaterialCopiasEncerradas
     public function rules()
     {
         return [
-            [['matc_id', 'matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'matc_qteCopias', 'matc_qteTotal', 'matc_totalValorMono', 'matc_totalValorColor', 'matc_autorizado', 'matc_encaminhadoRepro'], 'integer'],
-            [['matc_descricao', 'matc_curso', 'matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_data', 'matc_ResponsavelAut', 'matc_dataAut', 'matc_ResponsavelRepro', 'matc_dataRepro', 'situacao_id'], 'safe'],
+            [['matc_id','matc_totalValorMono', 'matc_totalValorColor', 'matc_autorizado', 'matc_encaminhadoRepro'], 'integer'],
+            [['matc_curso', 'matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_data', 'matc_ResponsavelAut', 'matc_dataAut', 'matc_ResponsavelRepro', 'matc_dataRepro', 'situacao_id'], 'safe'],
         ];
     }
 
@@ -62,13 +62,7 @@ class MaterialCopiasEncerradasSearch extends MaterialCopiasEncerradas
         // grid filtering conditions
         $query->andFilterWhere([
             'matc_id' => $this->matc_id,
-            'matc_qtoriginais' => $this->matc_qtoriginais,
-            'matc_qtexemplares' => $this->matc_qtexemplares,
-            'matc_mono' => $this->matc_mono,
-            'matc_color' => $this->matc_color,
             'matc_data' => $this->matc_data,
-            'matc_qteCopias' => $this->matc_qteCopias,
-            'matc_qteTotal' => $this->matc_qteTotal,
             'matc_totalValorMono' => $this->matc_totalValorMono,
             'matc_totalValorColor' => $this->matc_totalValorColor,
             'matc_dataAut' => $this->matc_dataAut,
@@ -78,8 +72,7 @@ class MaterialCopiasEncerradasSearch extends MaterialCopiasEncerradas
             'situacao_id' => 6, //ENCERRADAS
         ]);
 
-        $query->andFilterWhere(['like', 'matc_descricao', $this->matc_descricao])
-            ->andFilterWhere(['like', 'matc_curso', $this->matc_curso])
+        $query->andFilterWhere(['like', 'matc_curso', $this->matc_curso])
             ->andFilterWhere(['like', 'matc_centrocusto', $this->matc_centrocusto])
             ->andFilterWhere(['like', 'matc_unidade', $this->matc_unidade])
             ->andFilterWhere(['like', 'matc_solicitante', $this->matc_solicitante])

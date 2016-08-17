@@ -56,10 +56,10 @@ class MaterialCopiasAprovadas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['matc_descricao', 'matc_qtoriginais', 'matc_qtexemplares', 'matc_curso', 'matc_centrocusto', 'situacao_id', 'matc_totalValorMono', 'matc_totalValorColor'], 'required'],
-            [['matc_qtoriginais', 'matc_qtexemplares', 'matc_mono', 'matc_color', 'situacao_id', 'matc_qteCopias', 'matc_qteTotal', 'matc_totalValorMono', 'matc_totalValorColor', 'matc_autorizado', 'matc_encaminhadoRepro'], 'integer'],
+            [['matc_curso', 'matc_centrocusto', 'situacao_id', 'matc_totalValorMono', 'matc_totalValorColor'], 'required'],
+            [['situacao_id', 'matc_qteCopias', 'matc_qteTotal', 'matc_totalValorMono', 'matc_totalValorColor', 'matc_autorizado', 'matc_encaminhadoRepro'], 'integer'],
             [['matc_data', 'matc_dataAut','matc_dataRepro'], 'safe'],
-            [['matc_descricao', 'matc_curso'], 'string', 'max' => 255],
+            [['matc_curso'], 'string', 'max' => 255],
             [['matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_ResponsavelAut'], 'string', 'max' => 100],
             [['situacao_id'], 'exist', 'skipOnError' => true, 'targetClass' => Situacao::className(), 'targetAttribute' => ['situacao_id' => 'sitmat_id']],
         ];
@@ -72,19 +72,12 @@ class MaterialCopiasAprovadas extends \yii\db\ActiveRecord
     {
         return [
             'matc_id' => 'Código',
-            'matc_descricao' => 'Material',
-            'matc_qtoriginais' => 'Qte Originais',
-            'matc_qtexemplares' => 'Qte Exemplares',
-            'matc_mono' => 'Mono',
-            'matc_color' => 'Color',
             'matc_curso' => 'Curso',
             'matc_centrocusto' => 'Centro de Custo',
             'matc_unidade' => 'Unidade',
             'matc_solicitante' => 'Solicitante',
             'matc_data' => 'Data da Solicitação',
             'situacao_id' => 'Situação',
-            'matc_qteCopias' => 'Qte Cópias',
-            'matc_qteTotal' => 'Qte Total',
             'matc_totalValorMono' => 'Total em cópias mono',
             'matc_totalValorColor' => 'Total em cópias coloridas',
             'matc_ResponsavelAut' => 'Matc Autorizacao',

@@ -17,12 +17,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'matc_id') ?>
 
-    <?= $form->field($model, 'matc_qtoriginais') ?>
-
-    <?= $form->field($model, 'matc_qtexemplares') ?>
-
-    <?= $form->field($model, 'matc_mono') ?>
-
     <?php // echo $form->field($model, 'matc_color') ?>
 
     <?php // echo $form->field($model, 'matc_curso') ?>
