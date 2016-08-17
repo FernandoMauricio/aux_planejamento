@@ -37,6 +37,9 @@ class MaterialCopias extends \yii\db\ActiveRecord
 {
     public $listAcabamento;
     public $matc_totalGeral;
+    public $segmentoLabel;
+    public $tipoLabel;
+
     /**
      * @inheritdoc
      */
@@ -62,7 +65,7 @@ class MaterialCopias extends \yii\db\ActiveRecord
             [['matc_centrocusto'], 'validarTipo', 'skipOnEmpty' => false, 'skipOnError' => false],
             [['listAcabamento', 'matc_curso', 'situacao_id', 'matc_totalValorMono', 'matc_totalValorColor', 'matc_totalGeral', 'matc_segmento', 'matc_tipoacao'], 'required'],
             [['situacao_id','matc_autorizado', 'matc_encaminhadoRepro', 'matc_segmento', 'matc_tipoacao'], 'integer'],
-            [['matc_data', 'matc_dataAut','matc_dataRepro'], 'safe'],
+            [['matc_data', 'matc_dataAut','matc_dataRepro', 'segmentoLabel', 'tipoLabel'], 'safe'],
             [['matc_totalValorMono', 'matc_totalValorColor'], 'number'],
             [['matc_curso'], 'string', 'max' => 255],
             //[['matc_centrocusto'], 'string',  'min' => 6, 'max' => 6,'tooShort' => '"{attribute}" deve conter 5 números'], // exemplo: 25.555
@@ -102,6 +105,8 @@ class MaterialCopias extends \yii\db\ActiveRecord
 
             'listAcabamento' => 'Serviços de Acabamento',
             'matc_totalGeral' => 'Total Geral',
+            'segmentoLabel' => 'Segmento',
+            'tipoLabel' => 'Tipo de Ação',
         ];
     }
 
