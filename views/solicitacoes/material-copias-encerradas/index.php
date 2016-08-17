@@ -47,6 +47,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
 
                             [
+                              'attribute'=>'matc_centrocusto',
+                              'width'=>'5%'
+                            ],
+
+                            [
                               'attribute'=>'matc_unidade',
                               'value'=> 'unidade.uni_nomeabreviado',
                               'width'=>'20%'

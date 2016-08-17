@@ -6,6 +6,8 @@ use Yii;
 
 use app\models\base\Colaborador;
 use app\models\base\Unidade;
+use app\models\cadastros\Segmento;
+use app\models\cadastros\Tipo;
 
 /**
  * This is the model class for table "materialcopias_matc".
@@ -56,11 +58,12 @@ class MaterialCopiasAprovadas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['matc_curso', 'matc_centrocusto', 'situacao_id', 'matc_totalValorMono', 'matc_totalValorColor'], 'required'],
-            [['situacao_id', 'matc_qteCopias', 'matc_qteTotal', 'matc_totalValorMono', 'matc_totalValorColor', 'matc_autorizado', 'matc_encaminhadoRepro'], 'integer'],
-            [['matc_data', 'matc_dataAut','matc_dataRepro'], 'safe'],
+            [['matc_segmento', 'matc_tipoacao', 'matc_curso', 'situacao_id', 'matc_totalValorMono', 'matc_totalValorColor'], 'required'],
+            [['matc_segmento', 'matc_tipoacao', 'situacao_id', 'matc_autorizado', 'matc_encaminhadoRepro'], 'integer'],
+            [['matc_data', 'matc_dataGer', 'matc_dataAut', 'matc_dataRepro'], 'safe'],
+            [['matc_totalValorMono', 'matc_totalValorColor'], 'number'],
             [['matc_curso'], 'string', 'max' => 255],
-            [['matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_ResponsavelAut'], 'string', 'max' => 100],
+            [['matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_ResponsavelAut', 'matc_ResponsavelRepro'], 'string', 'max' => 100],
             [['situacao_id'], 'exist', 'skipOnError' => true, 'targetClass' => Situacao::className(), 'targetAttribute' => ['situacao_id' => 'sitmat_id']],
         ];
     }
@@ -113,6 +116,16 @@ class MaterialCopiasAprovadas extends \yii\db\ActiveRecord
     public function getUnidade()
     {
         return $this->hasOne(Unidade::className(), ['uni_codunidade' => 'matc_unidade']);
+    }
+
+    public function getSegmento()
+    {
+        return $this->hasOne(Segmento::className(), ['seg_codsegmento' => 'matc_segmento']);
+    }
+
+    public function getTipo()
+    {
+        return $this->hasOne(Tipo::className(), ['tip_codtipoa' => 'matc_tipoacao']);
     }
 
 }

@@ -86,8 +86,6 @@ class MaterialCopiasPendentesController extends Controller
 
                                 <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
 
-                                <p><strong>Material</strong>: '.$model->matc_descricao.'</p>
-
                                 <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
 
                                 <p><strong>Responsável pela Aprovação</strong>: '.$model->matc_ResponsavelAut.'</p>
@@ -121,8 +119,6 @@ class MaterialCopiasPendentesController extends Controller
                                    <p>A solicitação de cópia de código <span style="color:rgb(247, 148, 29)"><strong>'.$model->matc_id.'</strong></span> foi atualizada:</p>
 
                                    <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
-
-                                   <p><strong>Material</strong>: '.$model->matc_descricao.'</p>
 
                                    <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
 

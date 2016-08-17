@@ -5,12 +5,12 @@ namespace app\models\solicitacoes;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\solicitacoes\MaterialCopiasPendentes;
+use app\models\solicitacoes\MaterialCopiasAutGerencia;
 
 /**
- * MaterialCopiasPendentesSearch represents the model behind the search form about `app\models\solicitacoes\MaterialCopiasPendentes`.
+ * MaterialCopiasAutGerenciaSearch represents the model behind the search form about `app\models\solicitacoes\MaterialCopiasAutGerencia`.
  */
-class MaterialCopiasPendentesSearch extends MaterialCopiasPendentes
+class MaterialCopiasAutGerenciaSearch extends MaterialCopiasAutGerencia
 {
     /**
      * @inheritdoc
@@ -18,8 +18,9 @@ class MaterialCopiasPendentesSearch extends MaterialCopiasPendentes
     public function rules()
     {
         return [
-            [['matc_id', 'matc_totalValorMono', 'matc_totalValorColor'], 'integer'],
-            [['matc_curso', 'matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_data', 'matc_ResponsavelAut', 'matc_dataAut', 'situacao_id'], 'safe'],
+            [['matc_id', 'matc_segmento', 'matc_tipoacao', 'situacao_id', 'matc_autorizadoGer', 'matc_autorizado', 'matc_encaminhadoRepro'], 'integer'],
+            [['matc_curso', 'matc_centrocusto', 'matc_unidade', 'matc_solicitante', 'matc_data', 'matc_ResponsavelGer', 'matc_dataGer', 'matc_ResponsavelAut', 'matc_dataAut', 'matc_ResponsavelRepro', 'matc_dataRepro'], 'safe'],
+            [['matc_totalValorMono', 'matc_totalValorColor'], 'number'],
         ];
     }
 
@@ -41,7 +42,7 @@ class MaterialCopiasPendentesSearch extends MaterialCopiasPendentes
      */
     public function search($params)
     {
-        $query = MaterialCopiasPendentes::find()->orderBy(['matc_id' => SORT_DESC]);
+        $query = MaterialCopiasAutGerencia::find();
 
         // add conditions that should always apply here
 
@@ -57,25 +58,30 @@ class MaterialCopiasPendentesSearch extends MaterialCopiasPendentes
             return $dataProvider;
         }
 
-        $query->joinWith('situacao');
-
         // grid filtering conditions
         $query->andFilterWhere([
             'matc_id' => $this->matc_id,
+            'matc_segmento' => $this->matc_segmento,
+            'matc_tipoacao' => $this->matc_tipoacao,
             'matc_data' => $this->matc_data,
             'matc_totalValorMono' => $this->matc_totalValorMono,
             'matc_totalValorColor' => $this->matc_totalValorColor,
+            'matc_dataGer' => $this->matc_dataGer,
+            'matc_autorizadoGer' => $this->matc_autorizadoGer,
             'matc_dataAut' => $this->matc_dataAut,
+            'matc_autorizado' => $this->matc_autorizado,
             'matc_dataRepro' => $this->matc_dataRepro,
-            'situacao_id' => 7, //AUTORIZADO PELO SETOR RESPONSÁVEL
+            'matc_encaminhadoRepro' => $this->matc_encaminhadoRepro,
+            'situacao_id' => 1, //PARA AUTORIZAÇÃO DO GERENTE DE SETOR
         ]);
 
         $query->andFilterWhere(['like', 'matc_curso', $this->matc_curso])
             ->andFilterWhere(['like', 'matc_centrocusto', $this->matc_centrocusto])
             ->andFilterWhere(['like', 'matc_unidade', $this->matc_unidade])
             ->andFilterWhere(['like', 'matc_solicitante', $this->matc_solicitante])
+            ->andFilterWhere(['like', 'matc_ResponsavelGer', $this->matc_ResponsavelGer])
             ->andFilterWhere(['like', 'matc_ResponsavelAut', $this->matc_ResponsavelAut])
-            ->andFilterWhere(['=', 'situacaomatcopias_sitmat.sitmat_descricao', $this->situacao_id]);
+            ->andFilterWhere(['like', 'matc_ResponsavelRepro', $this->matc_ResponsavelRepro]);
 
         return $dataProvider;
     }

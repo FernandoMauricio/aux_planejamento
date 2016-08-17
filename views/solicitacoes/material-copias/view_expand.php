@@ -202,7 +202,7 @@ $attributes = [
     <tbody>
 
                <tr class="warning" style="border-top: #dedede">
-               <td>Subtotal Mono<i> (Qte Exemplares * Mono) * R$ 0,1</i></td>
+               <td>Subtotal Mono<i> (Qte Exemplares * Mono) * R$ 0,12</i></td>
                <td style="color:red"><?php echo 'R$ ' . number_format($model->matc_totalValorMono, 2, ',', '.') ?></td>
 
             </tr>
@@ -224,16 +224,48 @@ $attributes = [
         </tr>
     </tbody>                            
   </table>
+
+                          <!-- CAIXA DE AUTORIZAÇÃO GERÊNCIA DO SETOR -->
+<div class="container">
+<div class="row">
+<div class="col-md-4">
+    <?php if($model->matc_ResponsavelGer != NULL){ ?>
+
+     <table class="table" colspan="2"  border="1" style="max-width: 80%;">
+        <thead>
+          <tr>
+            <th class="warning" colspan="2" style="border-top: #dedede;text-align: center;">AUTORIZAÇÃO DO SETOR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="2" style="text-align: center;">
+
+            <?php echo $model->matc_autorizadoGer ? '<span class="label label-success">AUTORIZADO</span>' : '<span class="label label-danger">NÃO AUTORIZADO</span>' ?>
+
+          </tr>
+          <tr>
+            <td colspan="2"><strong>Responsável:</strong> <?php echo $model->matc_ResponsavelGer ?></td>
+          </tr>
+          <tr>
+            <td colspan="2"><strong>Data</strong>: <?php echo date('d/m/Y à\s H:i', strtotime( $model->matc_dataGer )) ?></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <?php } ?>
+</div>
+
                         <!-- CAIXA DE AUTORIZAÇÃO DEP -->
 <div class="container">
 <div class="row">
-<div class="col-md-6">
+<div class="col-md-4">
     <?php if($model->matc_ResponsavelAut != NULL){ ?>
 
-     <table class="table" colspan="2"  border="1" style="max-width: 30%; margin-left:5%">
+     <table class="table" colspan="2"  border="1" style="max-width: 30%;">
         <thead>
           <tr>
-            <th class="warning" colspan="2" style="border-top: #dedede;text-align: center;">AUTORIZAÇÃO</th>
+            <th class="warning" colspan="2" style="border-top: #dedede;text-align: center;">AUTORIZAÇÃO DEP</th>
           </tr>
         </thead>
         <tbody>
@@ -258,8 +290,8 @@ $attributes = [
 
 
     <?php if($model->matc_ResponsavelRepro != NULL){ ?>
-<div class="col-md-6">
-     <table class="table" colspan="2"  border="1" style="max-width: 50%; margin-left:5%">
+<div class="col-md-4">
+     <table class="table" colspan="2"  border="1" style="max-width: 50%;">
         <thead>
           <tr>
             <th class="warning" colspan="2" style="border-top: #dedede;text-align: center;">REPROGRAFIA</th>

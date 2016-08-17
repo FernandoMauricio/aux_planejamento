@@ -122,8 +122,6 @@ class MaterialCopiasJustificativasController extends Controller
 
                                 <p><strong>Situação</strong>: '.$model->materialcopias->situacao->sitmat_descricao.'</p>
 
-                                <p><strong>Material</strong>: '.$model->materialcopias->matc_descricao.'</p>
-
                                 <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
 
                                 <p><strong>Responsável pela Reprovação</strong>: '.$model->materialcopias->matc_ResponsavelAut.'</p>

@@ -56,7 +56,7 @@ class MaterialCopiasAprovadasController extends Controller
         $model->matc_ResponsavelRepro = $session['sess_nomeusuario'];
 
             //-------atualiza a situação pra encaminhado a terceirizada
-            Yii::$app->db_apl->createCommand('UPDATE `materialcopias_matc` SET `situacao_id` = 4 , `matc_ResponsavelRepro` = "'.$model->matc_ResponsavelRepro.'" , `matc_dataRepro` = "'.$model->matc_dataRepro.'" WHERE `matc_id` = '.$model->matc_id.'')
+            Yii::$app->db_apl->createCommand('UPDATE `materialcopias_matc` SET `situacao_id` = 4, `matc_encaminhadoRepro` = 1, `matc_ResponsavelRepro` = "'.$model->matc_ResponsavelRepro.'" , `matc_dataRepro` = "'.$model->matc_dataRepro.'" WHERE `matc_id` = '.$model->matc_id.'')
             ->execute();
 
             $totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
@@ -83,8 +83,6 @@ class MaterialCopiasAprovadasController extends Controller
                                 <p>A solicitação de cópia de código <span style="color:rgb(247, 148, 29)"><strong>'.$model->matc_id.'</strong></span> foi atualizada:</p>
 
                                 <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
-
-                                <p><strong>Material</strong>: '.$model->matc_descricao.'</p>
 
                                 <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
 
@@ -121,7 +119,7 @@ class MaterialCopiasAprovadasController extends Controller
         $model->matc_ResponsavelRepro = $session['sess_nomeusuario'];
 
             //-------atualiza a situação pra produção interna
-            Yii::$app->db_apl->createCommand('UPDATE `materialcopias_matc` SET `situacao_id` = 5 , `matc_ResponsavelRepro` = "'.$model->matc_ResponsavelRepro.'" , `matc_dataRepro` = "'.$model->matc_dataRepro.'" WHERE `matc_id` = '.$model->matc_id.'')
+            Yii::$app->db_apl->createCommand('UPDATE `materialcopias_matc` SET `situacao_id` = 5, `matc_encaminhadoRepro` = 0, `matc_ResponsavelRepro` = "'.$model->matc_ResponsavelRepro.'" , `matc_dataRepro` = "'.$model->matc_dataRepro.'" WHERE `matc_id` = '.$model->matc_id.'')
             ->execute();
 
             $totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
@@ -148,8 +146,6 @@ class MaterialCopiasAprovadasController extends Controller
                                 <p>A solicitação de cópia de código <span style="color:rgb(247, 148, 29)"><strong>'.$model->matc_id.'</strong></span> foi atualizada:</p>
 
                                 <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
-
-                                <p><strong>Material</strong>: '.$model->matc_descricao.'</p>
 
                                 <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
 
@@ -217,8 +213,6 @@ class MaterialCopiasAprovadasController extends Controller
                                 <p>A solicitação de cópia de código <span style="color:rgb(247, 148, 29)"><strong>'.$model->matc_id.'</strong></span> foi atualizada:</p>
 
                                 <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
-
-                                <p><strong>Material</strong>: '.$model->matc_descricao.'</p>
 
                                 <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
 

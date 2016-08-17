@@ -9,7 +9,7 @@ use yii\widgets\Pjax;
 
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\solicitacoes\MaterialCopiasAprovadasSearch */
+/* @var $searchModel app\models\solicitacoes\MaterialCopiasAutGerenciaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 //Pega as mensagens
@@ -17,15 +17,14 @@ foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
 echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 }
 
-$this->title = 'Solicitações de Cópias Aprovadas';
+$this->title = 'Solicitações Pendentes';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="material-copias-aprovadas-index">
+<div class="material-copias-aut-gerencia-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <h1><?= Html::encode($this->title) . '<small> Autorização Gerencial</small>' ?></h1>
 
-  <?php
+<?php
 
     $gridColumns = [
 
@@ -51,7 +50,8 @@ $this->params['breadcrumbs'][] = $this->title;
                               'attribute'=>'matc_centrocusto',
                               'width'=>'5%'
                             ],
-                            
+
+
                             [
                               'attribute'=>'matc_unidade',
                               'value'=> 'unidade.uni_nomeabreviado',
@@ -59,6 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
 
                             'matc_curso',
+
 
                             [
                                 'attribute'=>'situacao_id', 
@@ -75,53 +76,31 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                 ['class' => 'yii\grid\ActionColumn',
-                                'template' => '{encaminharterceirizada} {producaointerna}',
-                                'options' => ['width' => '25%'],
+                                'template' => '{aprovar} {reprovar}',
+                                'options' => ['width' => '15%'],
                                 'buttons' => [
 
-                                //ENCAMINHADO À TERCEIRIZADA
-                                'encaminharterceirizada' => function ($url, $model) {
-                                    return Html::a('<span class="glyphicon glyphicon-share"></span> Terceirizada', $url, [
-                                                'class' => 'btn btn-warning btn-xs',
-                                                'title' => Yii::t('app', 'Encaminhado à Terceirizada'),
-                                                'data'  => [
-                                                    'confirm' => 'Você tem CERTEZA que deseja ENCAMINHAR À TERCEIRIZADA?',
-                                                    'method' => 'post',
-                                                     ],
-                                                ]);
-                                            },
-
-                                //PRODUÇÃO INTERNA
-                                'producaointerna' => function ($url, $model) {
-                                    return Html::a('<span class="glyphicon glyphicon-book"></span> Produção Interna', $url, [
-                                                'class' => 'btn btn-info btn-xs',
-                                                'title' => Yii::t('app', 'Reprovar Solicitação'),
-                                                'data'  => [
-                                                    'confirm' => 'Você tem CERTEZA que deseja ENCAMINHAR PARA PRODUÇÃO INTERNA?',
-                                                    'method' => 'post',
-                                                     ],
-                                                ]);
-                                            },
-                                 ],
-                            ],
-
-                                ['class' => 'yii\grid\ActionColumn',
-                                'template' => '{finalizar}',
-                                'options' => ['width' => '10%'],
-                                'buttons' => [
-
-                                //ENCAMINHADO À TERCEIRIZADA
-                                'finalizar' => function ($url, $model) {
-                                    return Html::a('<span class="glyphicon glyphicon-floppy-disk"></span> Finalizar', $url, [
+                                //APROVAR REQUISIÇÃO
+                                'aprovar' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-ok"></span> Aprovar', $url, [
                                                 'class' => 'btn btn-success btn-xs',
-                                                'title' => Yii::t('app', 'Finalizar Solicitação'),
+                                                'title' => Yii::t('app', 'Aprovar Solicitação'),
                                                 'data'  => [
-                                                    'confirm' => 'Você tem CERTEZA que deseja FINALIZAR A SOLICITAÇÃO?',
+                                                    'confirm' => 'Você tem CERTEZA que deseja APROVAR a solicitação?',
                                                     'method' => 'post',
                                                      ],
                                                 ]);
                                             },
-                                 ],
+
+                                //REPROVAR REQUISIÇÃO
+                                'reprovar' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-remove"></span> Reprovar', $url, [
+                                                'class' => 'btn btn-danger btn-xs',
+                                                'title' => Yii::t('app', 'Reprovar Solicitação'),
+                                                ]);
+                                            },
+
+                            ],
                             ],
 
                  ]; 
@@ -135,24 +114,6 @@ $this->params['breadcrumbs'][] = $this->title;
     'dataProvider'=>$dataProvider,
     'filterModel'=>$searchModel,
     'columns'=>$gridColumns,
-    'rowOptions' =>function($model){
-                    if($model->situacao_id == 3 ){
-
-                            return['class'=>'danger'];                        
-                    } if($model->situacao_id == 2 ){
-
-                            return['class'=>'success'];                        
-                    }
-                    if($model->situacao_id == 4 ){
-
-                            return['class'=>'warning'];                        
-                    }
-                    if($model->situacao_id == 5 ){
-
-                            return['class'=>'info'];                        
-                    }
-
-        },
     'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
     'headerRowOptions'=>['class'=>'kartik-sheet-style'],
     'filterRowOptions'=>['class'=>'kartik-sheet-style'],
@@ -163,15 +124,14 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'columns'=>[
                 ['content'=>'Detalhes das Solicitações de Cópias', 'options'=>['colspan'=>6, 'class'=>'text-center warning']], 
-                ['content'=>'Encaminhamentos', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
-                ['content'=>'Ações', 'options'=>['colspan'=>2, 'class'=>'text-center warning']], 
+                ['content'=>'Ações', 'options'=>['colspan'=>3, 'class'=>'text-center warning']], 
             ],
         ]
     ],
 
         'panel' => [
         'type'=>GridView::TYPE_PRIMARY,
-        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem de Solicitações Aprovadas pela DEP</h3>',
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem de Solicitações Pendentes</h3>',
     ],
 ]);
     ?>

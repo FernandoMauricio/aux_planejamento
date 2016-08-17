@@ -120,6 +120,10 @@ class MaterialCopiasController extends Controller
     {
         $session = Yii::$app->session;
 
+        //conexão com os bancos
+        $connection = Yii::$app->db;
+        $connection = Yii::$app->db_apl;
+
         $model = new MaterialCopias();
         $modelsItens  = [new MaterialCopiasItens];
 
@@ -159,17 +163,9 @@ class MaterialCopiasController extends Controller
                     if ($flag) {
                         $transaction->commit();
                         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Cópia cadastrada!</strong>');
-                        return $this->redirect(['view', 'id' => $model->matc_id]);
-                    }
-                }  catch (Exception $e) {
-                    $transaction->rollBack();
-                }
-            }
 
-
-        //ENVIANDO EMAIL PARA OS RESPONSÁVEIS DO GABINETE TÉCNICO INFORMANDO SOBRE O RECEBIMENTO DE UMA NOVA SOLICITAÇÃO DE CÓPIA 
-        //-- 15 - DIVISÃO DE EDUCAÇÃO PROFISSIONAL // 87 - GABINETE TÉCNICO
-                  $sql_email = "SELECT DISTINCT emus_email FROM emailusuario_emus,colaborador_col,responsavelambiente_ream,responsaveldepartamento_rede WHERE ream_codunidade = '15' AND rede_coddepartamento = '87' AND rede_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+         //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE A SOLICITAÇÃO PENDENTE DE AUTORIZAÇÃO
+          $sql_email = "SELECT emus_email FROM emailusuario_emus, colaborador_col, responsavelambiente_ream WHERE ream_codunidade = '".$model->matc_unidade."' AND ream_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
               
               $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
               foreach ($email_solicitacao as $email)
@@ -180,14 +176,12 @@ class MaterialCopiasController extends Controller
                                     ->setFrom(['dep.suporte@am.senac.br' => 'DEP - INFORMA'])
                                     ->setTo($email_usuario)
                                     ->setSubject('Solicitação de Cópia - ' . $model->matc_id)
-                                    ->setTextBody('Existe uma solicitação de Cópia de código: '.$model->matc_id.' - Pendente de Autorização')
+                                    ->setTextBody('Existe uma solicitação de Cópia de código: '.$model->matc_id.' - Pendente de Autorização pelo Setor')
                                     ->setHtmlBody('<p>Prezado(a) Senhor(a),</p>
 
-                                    <p>Existe uma Solicita&ccedil;&atilde;o de Cópia de c&oacute;digo: <strong><span style="color:#F7941D">'.$model->matc_id.' </span></strong>- <strong><span style="color:#F7941D">Pendente de Autorização</span></strong></p>
+                                    <p>Existe uma Solicita&ccedil;&atilde;o de Cópia de c&oacute;digo: <strong><span style="color:#F7941D">'.$model->matc_id.' </span></strong>- <strong><span style="color:#F7941D">Pendente de Autorização pelo Setor</span></strong></p>
 
                                     <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
-
-                                    <p><strong>Material</strong>: </p>
 
                                     <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
 
@@ -199,6 +193,13 @@ class MaterialCopiasController extends Controller
                                     ')
                                     ->send();
                                 } 
+                        return $this->redirect(['view', 'id' => $model->matc_id]);
+                    }
+                }  catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+
             if($model->save()){
 
                 Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Cópia cadastrada!</strong>');
@@ -212,7 +213,7 @@ class MaterialCopiasController extends Controller
                 'model'       => $model,
                 'repositorio' => $repositorio,
                 'acabamento'  => $acabamento,
-                'modelsItens'   => (empty($modelsItens)) ? [new MaterialCopiasItens] : $modelsItens,
+                'modelsItens' => (empty($modelsItens)) ? [new MaterialCopiasItens] : $modelsItens,
             ]);
         }
     }
@@ -239,6 +240,7 @@ class MaterialCopiasController extends Controller
         $session = Yii::$app->session;
 
         $model = $this->findModel($id);
+        $modelsItens = $model->materialCopiasItens;
 
         $repositorio = Repositorio::find()->where(['rep_status' => 1])->orderBy('rep_titulo')->all();
 
@@ -261,48 +263,85 @@ class MaterialCopiasController extends Controller
          
            $totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
 
-        //ENVIANDO EMAIL PARA OS RESPONSÁVEIS DO GABINETE TÉCNICO INFORMANDO SOBRE O RECEBIMENTO DE UMA NOVA SOLICITAÇÃO DE CÓPIA 
-        //-- 15 - DIVISÃO DE EDUCAÇÃO PROFISSIONAL // 87 - GABINETE TÉCNICO
-                  $sql_email = "SELECT DISTINCT emus_email FROM emailusuario_emus,colaborador_col,responsavelambiente_ream,responsaveldepartamento_rede WHERE ream_codunidade = '15' AND rede_coddepartamento = '87' AND rede_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
-              
-              $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
-              foreach ($email_solicitacao as $email)
-                  {
-                    $email_usuario  = $email["emus_email"];
+        //--------Materiais Didáticos--------------
+        $oldIDsItens = ArrayHelper::map($modelsItens, 'id', 'id');
+        $modelsItens = Model::createMultiple(MaterialCopiasItens::classname(), $modelsItens);
+        Model::loadMultiple($modelsItens, Yii::$app->request->post());
+        $deletedIDsItens = array_diff($oldIDsItens, array_filter(ArrayHelper::map($modelsItens, 'id', 'id')));
 
-                                    Yii::$app->mailer->compose()
-                                    ->setFrom(['dep.suporte@am.senac.br' => 'DEP - INFORMA'])
-                                    ->setTo($email_usuario)
-                                    ->setSubject('Solicitação de Cópia - ' . $model->matc_id)
-                                    ->setTextBody('Existe uma solicitação de Cópia de código: '.$model->matc_id.' - Pendente de Autorização')
-                                    ->setHtmlBody('<p>Prezado(a) Senhor(a),</p>
+        // validate all models
+        $valid = $model->validate();
+        $valid = Model::validateMultiple($modelsItens) && $valid;
 
-                                    <p>Existe uma Solicita&ccedil;&atilde;o de Cópia de c&oacute;digo: <strong><span style="color:#F7941D">'.$model->matc_id.' </span></strong>- <strong><span style="color:#F7941D">Pendente de Autorização</span></strong></p>
+if ($valid) {
+                            $transaction = \Yii::$app->db->beginTransaction();
+                            try {
+                                if ($flag = $model->save(false)) {
+                                    if (! empty($deletedIDsItens)) {
+                                        PlanoMaterial::deleteAll(['id' => $deletedIDsItens]);
+                                    }
+                                    foreach ($modelsItens as $modelItens) {
+                                        $modelItens->materialcopias_id = $model->matc_id;
+                                        if (! ($flag = $modelItens->save(false))) {
+                                            $transaction->rollBack();
+                                            break;
+                                        }
+                                    }
+                                }
+                                if ($flag) {
+                                    $transaction->commit();
 
-                                    <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
+                                    Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Cópia atualizada!</strong>');
 
-                                    <p><strong>Material</strong>: </p>
+                              //ENVIANDO EMAIL PARA OS RESPONSÁVEIS DO GABINETE TÉCNICO INFORMANDO SOBRE O RECEBIMENTO DE UMA NOVA SOLICITAÇÃO DE CÓPIA 
+                              //-- 15 - DIVISÃO DE EDUCAÇÃO PROFISSIONAL // 87 - GABINETE TÉCNICO
+                          $sql_email = "SELECT DISTINCT emus_email FROM emailusuario_emus,colaborador_col,responsavelambiente_ream,responsaveldepartamento_rede WHERE ream_codunidade = '15' AND rede_coddepartamento = '87' AND rede_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+                      
+                      $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
+                      foreach ($email_solicitacao as $email)
+                          {
+                            $email_usuario  = $email["emus_email"];
 
-                                    <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
+                                            Yii::$app->mailer->compose()
+                                            ->setFrom(['dep.suporte@am.senac.br' => 'DEP - INFORMA'])
+                                            ->setTo($email_usuario)
+                                            ->setSubject('Solicitação de Cópia - ' . $model->matc_id)
+                                            ->setTextBody('Existe uma solicitação de Cópia de código: '.$model->matc_id.' - Pendente de Autorização')
+                                            ->setHtmlBody('<p>Prezado(a) Senhor(a),</p>
 
-                                    <p>Por favor, n&atilde;o responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicita&ccedil;&atilde;o de Cópia.</p>
+                                            <p>Existe uma Solicita&ccedil;&atilde;o de Cópia de c&oacute;digo: <strong><span style="color:#F7941D">'.$model->matc_id.' </span></strong>- <strong><span style="color:#F7941D">Pendente de Autorização</span></strong></p>
 
-                                    <p>Atenciosamente,</p>
+                                            <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
 
-                                    <p>Divisão de Educação Profissional -&nbsp;DEP</p>
-                                    ')
-                                    ->send();
-                                } 
+                                            <p><strong>Material</strong>: </p>
+
+                                            <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
+
+                                            <p>Por favor, n&atilde;o responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicita&ccedil;&atilde;o de Cópia.</p>
+
+                                            <p>Atenciosamente,</p>
+
+                                            <p>Divisão de Educação Profissional -&nbsp;DEP</p>
+                                            ')
+                                            ->send();
+                                        } 
  
+                                    return $this->redirect(['view', 'id' => $model->matc_id]);
+                                }
+                            } catch (Exception $e) {
+                                $transaction->rollBack();
+                            }
+                        }
 
             Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Cópia atualizada!</strong>');
 
             return $this->redirect(['view', 'id' => $model->matc_id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                'model'       => $model,
                 'repositorio' => $repositorio,
                 'acabamento'  => $acabamento,
+                'modelsItens' => (empty($modelsItens)) ? [new MaterialCopiasItens] : $modelsItens,
             ]);
         }
     }

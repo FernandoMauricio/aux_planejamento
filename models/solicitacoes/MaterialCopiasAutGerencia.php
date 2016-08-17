@@ -13,28 +13,29 @@ use app\models\cadastros\Tipo;
  * This is the model class for table "materialcopias_matc".
  *
  * @property integer $matc_id
- * @property string $matc_descricao
- * @property integer $matc_qtoriginais
- * @property integer $matc_qtexemplares
- * @property integer $matc_mono
- * @property integer $matc_color
+ * @property integer $matc_segmento
+ * @property integer $matc_tipoacao
  * @property string $matc_curso
  * @property string $matc_centrocusto
  * @property string $matc_unidade
  * @property string $matc_solicitante
  * @property string $matc_data
  * @property integer $situacao_id
- * @property integer $matc_qteCopias
- * @property integer $matc_qteTotal
- * @property integer $matc_totalValorMono
- * @property integer $matc_totalValorColor
+ * @property double $matc_totalValorMono
+ * @property double $matc_totalValorColor
  * @property string $matc_ResponsavelAut
  * @property string $matc_dataAut
+ * @property integer $matc_autorizado
+ * @property string $matc_ResponsavelRepro
+ * @property string $matc_dataRepro
+ * @property integer $matc_encaminhadoRepro
  *
  * @property CopiasacabamentoCopac[] $copiasacabamentoCopacs
+ * @property MaterialcopiasItem[] $materialcopiasItems
+ * @property MaterialcopiasJustificativas[] $materialcopiasJustificativas
  * @property SituacaomatcopiasSitmat $situacao
  */
-class MaterialCopiasPendentes extends \yii\db\ActiveRecord
+class MaterialCopiasAutGerencia extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -103,6 +104,22 @@ class MaterialCopiasPendentes extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getMaterialcopiasItems()
+    {
+        return $this->hasMany(MaterialcopiasItem::className(), ['materialcopias_id' => 'matc_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMaterialcopiasJustificativas()
+    {
+        return $this->hasMany(MaterialcopiasJustificativas::className(), ['id_materialcopias' => 'matc_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getSituacao()
     {
         return $this->hasOne(Situacao::className(), ['sitmat_id' => 'situacao_id']);
@@ -127,5 +144,4 @@ class MaterialCopiasPendentes extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Tipo::className(), ['tip_codtipoa' => 'matc_tipoacao']);
     }
-
 }

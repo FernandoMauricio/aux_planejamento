@@ -7,7 +7,7 @@ use Yii;
 /**
  * This is the model class for table "materialcopias_item".
  *
- * @property integer $item_id
+ * @property integer $id
  * @property string $item_descricao
  * @property integer $item_qtoriginais
  * @property integer $item_qtexemplares
@@ -45,7 +45,7 @@ class MaterialCopiasItens extends \yii\db\ActiveRecord
     {
         return [
             [['item_descricao', 'item_qtoriginais', 'item_qtexemplares', 'item_qteCopias', 'item_mono', 'item_color', 'item_qteTotal'], 'required'],
-            [['item_id', 'item_qtoriginais', 'item_qtexemplares', 'item_qteCopias', 'item_mono', 'item_color', 'item_qteTotal', 'materialcopias_id'], 'integer'],
+            [['id', 'item_qtoriginais', 'item_qtexemplares', 'item_qteCopias', 'item_mono', 'item_color', 'item_qteTotal', 'materialcopias_id'], 'integer'],
             [['item_descricao', 'item_observacao'], 'string', 'max' => 255],
             //[['item_color'], 'compare','compareAttribute'=>'item_mono'],
             [['materialcopias_id'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialCopias::className(), 'targetAttribute' => ['materialcopias_id' => 'matc_id']],
@@ -58,7 +58,7 @@ class MaterialCopiasItens extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'item_id' => 'Item ID',
+            'id' => 'Item ID',
             'item_descricao' => 'Material',
             'item_qtoriginais' => 'Qte Originais',
             'item_qtexemplares' => 'Qte Exemplares',

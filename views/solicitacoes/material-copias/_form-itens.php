@@ -42,7 +42,7 @@ $this->registerJs($js);
                                             'model' => $modelsItens[0],
                                             'formId' => 'dynamic-form',
                                             'formFields' => [
-                                                'item_id',
+                                                'id',
                                                 'item_descricao',
                                                 'item_qtoriginais',
                                                 'item_qtexemplares',
@@ -73,7 +73,7 @@ $this->registerJs($js);
                                 <?php
                                     // necessary for update action.
                                     if (!$modelItens->isNewRecord) {
-                                        echo Html::activeHiddenInput($modelItens, "'[{$i}]'item_id");
+                                        echo Html::activeHiddenInput($modelItens, "[{$i}]id");
                                     }
                                 ?>
 
