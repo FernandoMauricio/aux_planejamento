@@ -160,7 +160,7 @@ class MaterialCopiasController extends Controller
                             }
                         }
                     }
-                    if ($flag) {
+                    if ($flag && $session['sess_responsavelsetor'] == 0) {
                         $transaction->commit();
                         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Cópia cadastrada!</strong>');
 
@@ -195,6 +195,62 @@ class MaterialCopiasController extends Controller
                                 } 
                         return $this->redirect(['view', 'id' => $model->matc_id]);
                     }
+
+                    if ($flag && $session['sess_responsavelsetor'] == 1) {
+                //SE FOR GERENTE ENVIA DIRETAMENTE PARA A DEP COM A AUTORIZAÇÃO DO SETOR
+                $transaction->commit();
+                Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Cópia cadastrada!</strong>');
+
+                $model->matc_dataGer     = date('Y-m-d H:i:s');
+                $model->matc_ResponsavelGer = $session['sess_nomeusuario'];
+
+                //-------atualiza a situação pra aprovado pela gerência do setor
+                Yii::$app->db_apl->createCommand('UPDATE `materialcopias_matc` SET `situacao_id` = 7 , `matc_autorizadoGer` = 1, `matc_ResponsavelGer` = "'.$model->matc_ResponsavelGer.'" , `matc_dataGer` = "'.$model->matc_dataGer.'" WHERE `matc_id` = '.$model->matc_id.'')
+                ->execute();
+
+                $model->matc_totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
+
+                $model->situacao_id = 7;
+                if($model->situacao_id == 7){
+
+            //ENVIANDO EMAIL PARA OS RESPONSÁVEIS DO GABINETE TÉCNICO INFORMANDO SOBRE O RECEBIMENTO DE UMA NOVA SOLICITAÇÃO DE CÓPIA 
+            //-- 15 - DIVISÃO DE EDUCAÇÃO PROFISSIONAL // 87 - GABINETE TÉCNICO
+                  $sql_email = "SELECT DISTINCT emus_email FROM emailusuario_emus,colaborador_col,responsavelambiente_ream,responsaveldepartamento_rede WHERE ream_codunidade = '15' AND rede_coddepartamento = '87' AND rede_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+                  
+                  $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
+                  foreach ($email_solicitacao as $email)
+                      {
+                        $email_usuario  = $email["emus_email"];
+
+                                    Yii::$app->mailer->compose()
+                                    ->setFrom(['dep.suporte@am.senac.br' => 'DEP - INFORMA'])
+                                    ->setTo($email_usuario)
+                                    ->setSubject('Aprovada! - Solicitação de Cópia '.$model->matc_id.'')
+                                    ->setTextBody('Por favor, verique a situação da solicitação de cópia de código: '.$model->matc_id.' com status de '.$model->situacao->sitmat_descricao.' ')
+                                    ->setHtmlBody('<p>Prezado(a), Senhor(a)</p>
+
+                                    <p>A solicitação de cópia de código <span style="color:rgb(247, 148, 29)"><strong>'.$model->matc_id.'</strong></span> foi atualizada:</p>
+
+                                    <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
+
+                                    <p><strong>Total de Despesa</strong>: R$ ' .number_format($model->matc_totalGeral, 2, ',', '.').'</p>
+
+                                    <p><strong>Responsável pela Aprovação do Setor</strong>: '.$model->matc_ResponsavelGer.'</p>
+
+                                    <p><strong>Data/Hora da Aprovação do Setor</strong>: '.date('d/m/Y H:i', strtotime($model->matc_dataGer)).'</p>
+
+                                    <p>Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br</p>
+
+                                    <p>Atenciosamente,</p>
+
+                                    <p>Divisão de Educação Profissional - DEP</p>')
+                                    ->send();
+                                } 
+                            }
+ 
+                        return $this->redirect(['view', 'id' => $model->matc_id]);
+                    }
+
                 }  catch (Exception $e) {
                     $transaction->rollBack();
                 }

@@ -90,7 +90,7 @@ $this->registerJs($js);
 
                                                                 var $divPanelBody =  $(select).parent().parent().parent();
 
-                                                                var $inputTitulo = $divPanelBody.find("input:eq(0)");
+                                                                var $inputTitulo = $divPanelBody.find("input:eq(1)");
 
                                                                 $inputTitulo.val(data.rep_qtdoriginais) ;
                                                                 
