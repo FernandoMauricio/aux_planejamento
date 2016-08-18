@@ -98,7 +98,7 @@ class MaterialCopiasJustificativasController extends Controller
     "UPDATE `db_apl`.`materialcopias_matc` SET `situacao_id` = 3, `matc_dataAut` = '".date('Y-m-d H:i:s')."', `matc_ResponsavelAut` = '". $session['sess_nomeusuario']."'   WHERE `matc_id` = '".$materialCopia->matc_id."'");
     $command->execute();
 
-            $totalGeral = $model->materialcopias->matc_totalValorMono + $model->materialcopias->matc_totalValorColor;
+            $model->matc_totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
 
             $model->materialcopias->situacao_id = 3;
             if($model->materialcopias->situacao_id == 3){
@@ -122,7 +122,7 @@ class MaterialCopiasJustificativasController extends Controller
 
                                 <p><strong>Situação</strong>: '.$model->materialcopias->situacao->sitmat_descricao.'</p>
 
-                                <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
+                                <p><strong>Total de Despesa</strong>: R$ ' .number_format($model->matc_totalGeral, 2, ',', '.').'</p>
 
                                 <p><strong>Responsável pela Reprovação</strong>: '.$model->materialcopias->matc_ResponsavelAut.'</p>
 

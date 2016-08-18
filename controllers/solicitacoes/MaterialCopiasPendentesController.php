@@ -61,7 +61,7 @@ class MaterialCopiasPendentesController extends Controller
             Yii::$app->db_apl->createCommand('UPDATE `materialcopias_matc` SET `situacao_id` = 2 , `matc_autorizado` = 1, `matc_ResponsavelAut` = "'.$model->matc_ResponsavelAut.'" , `matc_dataAut` = "'.$model->matc_dataAut.'" WHERE `matc_id` = '.$model->matc_id.'')
             ->execute();
 
-            $totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
+            $model->matc_totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
 
 
          $model->situacao_id = 2;
@@ -86,7 +86,7 @@ class MaterialCopiasPendentesController extends Controller
 
                                 <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
 
-                                <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
+                                <p><strong>Total de Despesa</strong>: R$ ' .number_format($model->matc_totalGeral, 2, ',', '.').'</p>
 
                                 <p><strong>Responsável pela Aprovação</strong>: '.$model->matc_ResponsavelAut.'</p>
 
@@ -120,7 +120,7 @@ class MaterialCopiasPendentesController extends Controller
 
                                    <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
 
-                                   <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
+                                   <p><strong>Total de Despesa</strong>: R$ ' .number_format($model->matc_totalGeral, 2, ',', '.').'</p>
 
                                    <p><strong>Responsável pela Aprovação</strong>: '.$model->matc_ResponsavelAut.'</p>
 

@@ -262,7 +262,7 @@ $attributes = [
 <div class="col-md-4">
     <?php if($model->matc_ResponsavelAut != NULL){ ?>
 
-     <table class="table" colspan="2"  border="1" style="max-width: 30%;">
+     <table class="table" colspan="2"  border="1" style="max-width: 80%;">
         <thead>
           <tr>
             <th class="warning" colspan="2" style="border-top: #dedede;text-align: center;">AUTORIZAÇÃO DEP</th>

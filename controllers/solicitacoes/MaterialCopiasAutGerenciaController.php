@@ -62,7 +62,7 @@ class MaterialCopiasAutGerenciaController extends Controller
                 Yii::$app->db_apl->createCommand('UPDATE `materialcopias_matc` SET `situacao_id` = 7 , `matc_autorizadoGer` = 1, `matc_ResponsavelGer` = "'.$model->matc_ResponsavelGer.'" , `matc_dataGer` = "'.$model->matc_dataGer.'" WHERE `matc_id` = '.$model->matc_id.'')
                 ->execute();
 
-                $totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
+                $model->matc_totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
 
              $model->situacao_id = 7;
              if($model->situacao_id == 7){
@@ -87,7 +87,7 @@ class MaterialCopiasAutGerenciaController extends Controller
 
                                     <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
 
-                                    <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
+                                    <p><strong>Total de Despesa</strong>: R$ ' .number_format($model->matc_totalGeral, 2, ',', '.').'</p>
 
                                     <p><strong>Responsável pela Aprovação do Setor</strong>: '.$model->matc_ResponsavelGer.'</p>
 
@@ -120,7 +120,7 @@ class MaterialCopiasAutGerenciaController extends Controller
                 Yii::$app->db_apl->createCommand('UPDATE `materialcopias_matc` SET `situacao_id` = 8 , `matc_autorizadoGer` = 0, `matc_ResponsavelGer` = "'.$model->matc_ResponsavelGer.'" , `matc_dataGer` = "'.$model->matc_dataGer.'" WHERE `matc_id` = '.$model->matc_id.'')
                 ->execute();
 
-                $totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
+                $model->matc_totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
 
              $model->situacao_id = 8;
              if($model->situacao_id == 8){
@@ -144,7 +144,7 @@ class MaterialCopiasAutGerenciaController extends Controller
 
                                     <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
 
-                                    <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
+                                    <p><strong>Total de Despesa</strong>: R$ ' .number_format($model->matc_totalGeral, 2, ',', '.').'</p>
 
                                     <p><strong>Responsável pela Reprovação do Setor</strong>: '.$model->matc_ResponsavelGer.'</p>
 

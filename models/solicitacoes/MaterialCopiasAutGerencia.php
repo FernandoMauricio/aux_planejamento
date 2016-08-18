@@ -76,6 +76,8 @@ class MaterialCopiasAutGerencia extends \yii\db\ActiveRecord
     {
         return [
             'matc_id' => 'Código',
+            'matc_segmento' => 'Segmento',
+            'matc_tipoacao' => 'Tipo de Ação',
             'matc_curso' => 'Curso',
             'matc_centrocusto' => 'Centro de Custo',
             'matc_unidade' => 'Unidade',
@@ -84,12 +86,7 @@ class MaterialCopiasAutGerencia extends \yii\db\ActiveRecord
             'situacao_id' => 'Situação',
             'matc_totalValorMono' => 'Total em cópias mono',
             'matc_totalValorColor' => 'Total em cópias coloridas',
-            'matc_ResponsavelAut' => 'Matc Autorizacao',
-            'matc_dataAut' => 'Matc Data Aut',
-            'matc_autorizado' => 'Matc Autorizado',
-            'matc_ResponsavelRepro' => 'Matc  Responsavel Repro',
-            'matc_dataRepro' => 'Matc Data Repro',
-            'matc_encaminhadoRepro' => 'Matc Encaminhado Repro',
+            'matc_totalGeral' => 'Total Geral',
         ];
     }
 

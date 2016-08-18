@@ -138,7 +138,7 @@ class MaterialCopiasController extends Controller
   
         if ($model->load(Yii::$app->request->post())) {
 
-            $totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
+            $model->matc_totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
 
             //Inserir vários itens na solicitação
             $modelsItens = Model::createMultiple(MaterialCopiasItens::classname());
@@ -183,7 +183,7 @@ class MaterialCopiasController extends Controller
 
                                     <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
 
-                                    <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
+                                    <p><strong>Total de Despesa</strong>: R$ ' .number_format($model->matc_totalGeral, 2, ',', '.').'</p>
 
                                     <p>Por favor, n&atilde;o responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicita&ccedil;&atilde;o de Cópia.</p>
 
@@ -259,9 +259,11 @@ class MaterialCopiasController extends Controller
         $model->matc_ResponsavelAut = NULL;
         $model->matc_dataAut = NULL;
         
+        $model->matc_totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
          
-           $totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
+           $model->matc_totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;
 
         //--------Materiais Didáticos--------------
         $oldIDsItens = ArrayHelper::map($modelsItens, 'id', 'id');
@@ -316,7 +318,7 @@ class MaterialCopiasController extends Controller
 
                                     <p><strong>Situação</strong>: '.$model->situacao->sitmat_descricao.'</p>
 
-                                    <p><strong>Total de Despesa</strong>: R$ ' .number_format($totalGeral, 2, ',', '.').'</p>
+                                    <p><strong>Total de Despesa</strong>: R$ ' .number_format($model->matc_totalGeral, 2, ',', '.').'</p>
 
                                     <p>Por favor, n&atilde;o responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicita&ccedil;&atilde;o de Cópia.</p>
 

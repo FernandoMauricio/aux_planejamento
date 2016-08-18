@@ -86,14 +86,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]);
                                 },
 
-                            //UPDATE BUTTON
+                            //UPDATE BUTTON 3 = Reprovado pela DEP || 8 = Reprovado pelo gerente do setor
                             'update' => function ($url, $model) {
-                                return $model->situacao_id == 3 ? Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
+                                if($model->situacao_id == 3) {
+                                return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
                                     'title' => Yii::t('app', 'Atualizar'),        
-                                    ]): '';
+                                    ]);
+                                }if($model->situacao_id == 8) {
+                                return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
+                                    'title' => Yii::t('app', 'Atualizar'),        
+                                    ]);
+                                }else{
+                                    '';
+                                    }
                                 },
 
-                            //JUSTIFICATIVA PARA A REPROVAÇÃO
+                            //JUSTIFICATIVA PARA A REPROVAÇÃO DA DEP
                             'observacoes' => function ($url, $model) {
                                 return  $model->situacao_id == 3 ? Html::a('<span class="glyphicon glyphicon-info-sign"></span>', $url, [
                                     'title' => Yii::t('app', 'Observações'),
@@ -118,7 +126,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     if($model->situacao_id == 3 ){
 
                             return['class'=>'danger'];                        
-                    } if($model->situacao_id == 2 ){
+                    } 
+                    if($model->situacao_id == 8 ){
+
+                            return['class'=>'danger'];                        
+                    } 
+                    if($model->situacao_id == 2 ){
+
+                            return['class'=>'success'];                        
+                    }
+                    if($model->situacao_id == 7 ){
 
                             return['class'=>'success'];                        
                     }

@@ -129,7 +129,7 @@ $attributes = [
     ]);
 
     ?>
-                <!-- SEÇÃO 2 INFORMAÇÕES DAS IMPRESSÕES -->
+               <!-- SEÇÃO 2 INFORMAÇÕES DAS IMPRESSÕES -->
 
   <table class="table table-condensed table-hover">
     <thead>
@@ -154,14 +154,14 @@ $attributes = [
   $query_itens = "SELECT * FROM materialcopias_item WHERE materialcopias_id = '".$model->matc_id."'";
   $itensModel = MaterialCopiasItens::findBySql($query_itens)->all(); 
   foreach ($itensModel as $itens) {
-   $item_descricao      = $itens["item_descricao"];
-   $item_qtoriginais    = $itens["item_qtoriginais"];
+   $item_descricao    = $itens["item_descricao"];
+   $item_qtoriginais = $itens["item_qtoriginais"];
    $item_qtexemplares   = $itens["item_qtexemplares"];
-   $item_qteCopias      = $itens["item_qteCopias"];
-   $item_mono           = $itens["item_mono"];
-   $item_color          = $itens["item_color"];
-   $item_qteTotal       = $itens["item_qteTotal"];
-   $item_observacao     = $itens["item_observacao"];
+   $item_qteCopias    = $itens["item_qteCopias"];
+   $item_mono         = $itens["item_mono"];
+   $item_color        = $itens["item_color"];
+   $item_qteTotal     = $itens["item_qteTotal"];
+   $item_observacao   = $itens["item_observacao"];
    ?>
       <tr>
         <td><?php echo $item_descricao; ?></td>
@@ -234,13 +234,13 @@ $attributes = [
     </tbody>                            
   </table>
 
-<!-- CAIXA DE AUTORIZAÇÃO GERÊNCIA DO SETOR -->
+                          <!-- CAIXA DE AUTORIZAÇÃO GERÊNCIA DO SETOR -->
 <div class="container">
 <div class="row">
-<div class="col-md-8">
+<div class="col-md-4">
     <?php if($model->matc_ResponsavelGer != NULL){ ?>
 
-     <table class="table" colspan="2"  border="1" style="max-width: 30%; margin-left:5%">
+     <table class="table" colspan="2"  border="1" style="max-width: 80%;">
         <thead>
           <tr>
             <th class="warning" colspan="2" style="border-top: #dedede;text-align: center;">AUTORIZAÇÃO DO SETOR</th>
@@ -268,10 +268,10 @@ $attributes = [
                         <!-- CAIXA DE AUTORIZAÇÃO DEP -->
 <div class="container">
 <div class="row">
-<div class="col-md-8">
+<div class="col-md-4">
     <?php if($model->matc_ResponsavelAut != NULL){ ?>
 
-     <table class="table" colspan="2"  border="1" style="max-width: 30%; margin-left:5%">
+     <table class="table" colspan="2"  border="1" style="max-width: 80%;">
         <thead>
           <tr>
             <th class="warning" colspan="2" style="border-top: #dedede;text-align: center;">AUTORIZAÇÃO DEP</th>
@@ -299,8 +299,8 @@ $attributes = [
 
 
     <?php if($model->matc_ResponsavelRepro != NULL){ ?>
-<div class="col-md-8">
-     <table class="table" colspan="2"  border="1" style="max-width: 50%; margin-left:5%">
+<div class="col-md-4">
+     <table class="table" colspan="2"  border="1" style="max-width: 50%;">
         <thead>
           <tr>
             <th class="warning" colspan="2" style="border-top: #dedede;text-align: center;">REPROGRAFIA</th>
@@ -326,8 +326,8 @@ $attributes = [
       </div>
   </div>
 </div>
-            </div>
-        </div>
-    </div>
+              </div>
+          </div>
+      </div>
   </div>
 </div>
