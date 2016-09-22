@@ -104,6 +104,24 @@ AppAsset::register($this);
                      ],
             ],
 
+            [
+            'label' => 'Planilhas',
+            'items' => [
+                         ['label' => 'Cadastro de Planilhas', 'url' => ['#']],
+                                     '<li class="divider"></li>',
+
+                         ['label' => 'Precificação de Custos', 'url' => ['#']],
+                                     '<li class="divider"></li>',
+                            ['label' => 'Parâmetros', 'items' => [
+                                ['label' => 'Despesas da Unidade', 'url' => ['/despesas/custosunidade/index']],
+                                ['label' => 'Salas', 'url' => ['/despesas/salas/index']],
+
+                            ]],
+
+
+                     ],
+            ],
+
         ],
     ]);
     NavBar::end();

@@ -75,9 +75,11 @@ class MaterialCopiasAutGerenciaSearch extends MaterialCopiasAutGerencia
             'situacao_id' => 1, //PARA AUTORIZAÇÃO DO GERENTE DE SETOR
         ]);
 
-        $query->andFilterWhere(['like', 'matc_curso', $this->matc_curso])
+        $session = Yii::$app->session;
+        
+        $query->andFilterWhere(['matc_unidade' => $session['sess_codunidade']])
+            ->andFilterWhere(['like', 'matc_curso', $this->matc_curso])
             ->andFilterWhere(['like', 'matc_centrocusto', $this->matc_centrocusto])
-            ->andFilterWhere(['like', 'matc_unidade', $this->matc_unidade])
             ->andFilterWhere(['like', 'matc_solicitante', $this->matc_solicitante])
             ->andFilterWhere(['like', 'matc_ResponsavelGer', $this->matc_ResponsavelGer])
             ->andFilterWhere(['like', 'matc_ResponsavelAut', $this->matc_ResponsavelAut])
