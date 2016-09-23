@@ -3,6 +3,7 @@
 namespace app\models\despesas;
 
 use Yii;
+use app\models\base\Unidade;
 
 /**
  * This is the model class for table "custosunidade_cust".
@@ -57,8 +58,14 @@ class Custosunidade extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSalasSals()
+    public function getSalas()
     {
-        return $this->hasMany(SalasSal::className(), ['custosunidade_id' => 'cust_codcusto']);
+        return $this->hasMany(Salas::className(), ['custosunidade_id' => 'cust_codcusto']);
     }
+
+    public function getUnidade()
+    {
+        return $this->hasOne(Unidade::className(), ['uni_codunidade' => 'cust_codunidade']);
+    }
+
 }
