@@ -45,8 +45,8 @@ class Custosindireto extends \yii\db\ActiveRecord
     {
         return [
             [['salas_id', 'custin_capmaximo', 'custin_metragem'], 'required'],
-            [['salas_id', 'custin_capmaximo', 'custin_totalcapmaximo', 'custosunidade_id'], 'integer'],
-            [['custin_metragem', 'custin_porcentagem', 'custin_totalmetragem', 'custin_custoindireto'], 'number'],
+            [['salas_id', 'custin_capmaximo', 'custosunidade_id'], 'integer'],
+            [['custin_metragem', 'custin_porcentagem', 'custin_custoindireto'], 'number'],
             [['salas_id'], 'exist', 'skipOnError' => true, 'targetClass' => Salas::className(), 'targetAttribute' => ['salas_id' => 'sal_codsala']],
             [['custosunidade_id'], 'exist', 'skipOnError' => true, 'targetClass' => Custosunidade::className(), 'targetAttribute' => ['custosunidade_id' => 'cust_codcusto']],
         ];
@@ -63,8 +63,6 @@ class Custosindireto extends \yii\db\ActiveRecord
             'custin_capmaximo' => 'Cap. Máx. de Alunos',
             'custin_metragem' => 'Metragem',
             'custin_porcentagem' => 'Custin Porcentagem',
-            'custin_totalcapmaximo' => 'Custin Totalcapmaximo',
-            'custin_totalmetragem' => 'Custin Totalmetragem',
             'custin_custoindireto' => 'Custin Custoindireto',
             'custosunidade_id' => 'Custosunidade ID',
         ];

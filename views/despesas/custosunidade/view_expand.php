@@ -5,29 +5,10 @@ use kartik\detail\DetailView;
 use app\models\despesas\Custosindireto;
 use app\models\despesas\Salas;
 
-
-/* @var $this yii\web\View */
-/* @var $model app\models\despesas\Custosunidade */
-
-$this->title = $model->cust_codcusto;
-$this->params['breadcrumbs'][] = ['label' => 'Listagem de Custos da Unidade', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-
-//Pega as mensagens
-foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
-echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
-}
-
 ?>
-
-    <p>
-        <?= Html::a('Atualizar', ['update', 'id' => $model->cust_codcusto], ['class' => 'btn btn-primary']) ?>
-
-    </p>
-
 <div class="custosunidade-view">
 
-    <div class="panel panel-primary">
+    <div class="panel panel-info">
       <div class="panel-heading">
         <h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> DETALHES DE CUSTOS DA UNIDADE</h3>
       </div>

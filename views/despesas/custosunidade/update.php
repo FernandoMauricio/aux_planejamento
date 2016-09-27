@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\despesas\Custosunidade */
 
-$this->title = 'Update Custosunidade: ' . $model->cust_codcusto;
-$this->params['breadcrumbs'][] = ['label' => 'Custosunidades', 'url' => ['index']];
+$this->title = 'Atualizar Custos da Unidade: ' . $model->cust_codcusto;
+$this->params['breadcrumbs'][] = ['label' => 'Listagem de Custos da Unidade', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->cust_codcusto, 'url' => ['view', 'id' => $model->cust_codcusto]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="custosunidade-update">
 
@@ -16,6 +16,9 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'unidades' => $unidades,
+        'salas' => $salas,
+        'modelsCustosIndireto'  => $modelsCustosIndireto,
     ]) ?>
 
 </div>

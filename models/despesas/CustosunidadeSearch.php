@@ -18,7 +18,7 @@ class CustosunidadeSearch extends Custosunidade
     public function rules()
     {
         return [
-            [['cust_codcusto', 'cust_codunidade', 'cust_status'], 'integer'],
+            [['cust_codcusto', 'cust_codunidade', 'cust_ano', 'cust_MediaPorcentagem', 'cust_MediaCustoIndireto', 'cust_status'], 'integer'],
         ];
     }
 
@@ -59,6 +59,9 @@ class CustosunidadeSearch extends Custosunidade
         // grid filtering conditions
         $query->andFilterWhere([
             'cust_codcusto' => $this->cust_codcusto,
+            'cust_ano' => $this->cust_ano,
+            'cust_MediaPorcentagem' => $this->cust_MediaPorcentagem,
+            'cust_MediaCustoIndireto' => $this->cust_MediaCustoIndireto,
             'cust_codunidade' => $this->cust_codunidade,
             'cust_status' => $this->cust_status,
         ]);

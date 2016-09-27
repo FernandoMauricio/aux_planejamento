@@ -55,6 +55,8 @@ class Custosunidade extends \yii\db\ActiveRecord
             'cust_codcusto' => 'Código',
             'cust_codunidade' => 'Unidade',
             'cust_indireto' => 'Custo Indireto',
+            'cust_MediaPorcentagem' => '(%) Média fixa por sala',
+            'cust_MediaCustoIndireto' => 'Custo Médio por sala R$',
             'cust_status' => 'Situação',
             'cust_ano' => 'Ano',
         ];
@@ -74,10 +76,14 @@ class Custosunidade extends \yii\db\ActiveRecord
         return $this->hasOne(Unidade::className(), ['uni_codunidade' => 'cust_codunidade']);
     }
 
-
     public function getAno()
     {
         return $this->hasOne(Ano::className(), ['an_codano' => 'cust_ano']);
+    }
+
+    public function getCustosindireto()
+    {
+        return $this->hasMany(Custosindireto::className(), ['custosunidade_id' => 'cust_codcusto']);
     }
 
 
