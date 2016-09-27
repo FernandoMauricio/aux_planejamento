@@ -74,6 +74,8 @@ class CustosunidadeController extends Controller
         $unidades = Unidade::find()->where(['uni_codsituacao'=> 1])->orderBy('uni_nomecompleto')->all();
         $salas    = Salas::find()->where(['sal_status' => 1])->orderBy('sal_descricao')->all();
 
+
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             //Inserir vários custos indiretos (salas, metragem, cap máxima de alunos)
@@ -90,6 +92,7 @@ class CustosunidadeController extends Controller
                     if ($flag = $model->save(false)) {
                         foreach ($modelsCustosIndireto as $modelCustosIndireto) {
                             $modelCustosIndireto->custosunidade_id = $model->cust_codcusto;
+
                             if (! ($flag = $modelCustosIndireto->save(false))) {
                                 $transaction->rollBack();
                                 break;
@@ -98,6 +101,57 @@ class CustosunidadeController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
+
+                        if($model->save()){
+
+                            $valorTotalPorcentagem = 0;
+
+                            //realiza a soma da capitação máxima de alunos
+                            $query = (new \yii\db\Query())->from('db_apl.custosindireto_custin')->where(['custosunidade_id' => $model->cust_codcusto]);
+                            $totalCapmaximo = $query->sum('custin_capmaximo');
+             
+                            //busca pelas despesas cadastradas para cada custo da unidade
+                            $query_custoIndireto = "SELECT * FROM custosindireto_custin WHERE custosunidade_id = '".$model->cust_codcusto."' ORDER BY id ASC";
+                            $modelsCustosIndireto = Custosindireto::findBySql($query_custoIndireto)->all(); 
+                            foreach ($modelsCustosIndireto as $modelCustosIndireto) {
+
+                            $custin_capmaximo       = $modelCustosIndireto["custin_capmaximo"];
+                            $custin_porcentagem     = $modelCustosIndireto["custin_porcentagem"];
+
+                            $porcentagem = $custin_capmaximo / $totalCapmaximo; //---------capacidade máxima / TOTAL da capacidade máxima
+                            $custin_custoindireto   = $porcentagem * $model->cust_indireto; //---------Porcentagem x custo indireto informado
+
+                            $modelCustosIndireto->custin_porcentagem = $porcentagem; //---------save porcentagem 
+                            $modelCustosIndireto->custin_custoindireto = $custin_custoindireto;//save custo indireto
+
+                            $modelCustosIndireto->save();
+
+                            //realiza a soma da porcentagem
+                            $query = (new \yii\db\Query())->from('db_apl.custosindireto_custin')->where(['custosunidade_id' => $model->cust_codcusto]);
+                            $totalPorcentagem = $query->sum('custin_porcentagem');
+
+                            //realiza a soma do custo indireto
+                            $query = (new \yii\db\Query())->from('db_apl.custosindireto_custin')->where(['custosunidade_id' => $model->cust_codcusto]);
+                            $totalCustoIndireto = $query->sum('custin_custoindireto');
+
+                            //Busca no banco o quantitativo de linhas da porcentagem
+                            $sql = "SELECT * FROM custosindireto_custin WHERE custosunidade_id = '".$model->cust_codcusto."'";
+                            $qnt_porcentagem = Custosindireto::findBySql($sql)->count();
+
+                            //Busca no banco o quantitativo de linhas do custo indireto
+                            $sql = "SELECT * FROM custosindireto_custin WHERE custosunidade_id = '".$model->cust_codcusto."'";
+                            $qnt_custoidireto = Custosindireto::findBySql($sql)->count();
+
+
+                            $model->cust_MediaPorcentagem = ($totalPorcentagem / $qnt_porcentagem) * 100; //save média porcentagem-->Porcentagem / Quantidade de linhas x 100
+
+                            $model->cust_MediaCustoIndireto = ($totalCustoIndireto / $qnt_custoidireto); //save média porcentagem-->Porcentagem / Quantidade de linhas x 100
+
+                            $model->save();
+                            }
+
+                        }
+
                         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Custo Indireto Cadastrado!</strong>');
                         return $this->redirect(['view', 'id' => $model->cust_codcusto]);
                     }
