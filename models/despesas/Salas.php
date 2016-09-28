@@ -49,7 +49,7 @@ class Salas extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'sal_codsala' => '´Código',
+            'sal_codsala' => 'Código',
             'sal_descricao' => 'Descrição da Sala',
             'sal_status' => 'Situação',
         ];

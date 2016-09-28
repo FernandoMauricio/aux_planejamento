@@ -114,6 +114,7 @@ AppAsset::register($this);
                                      '<li class="divider"></li>',
                             ['label' => 'Parâmetros', 'items' => [
                                 ['label' => 'Despesas da Unidade', 'url' => ['/despesas/custosunidade/index']],
+                                ['label' => 'Markup', 'url' => ['/despesas/markup/batch-update']],
                                 ['label' => 'Salas', 'url' => ['/despesas/salas/index']],
 
                             ]],
