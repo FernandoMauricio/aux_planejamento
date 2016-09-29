@@ -22,7 +22,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php
 
-
     $gridColumns = [
                             [
                                 'class'=>'kartik\grid\ExpandRowColumn',
@@ -82,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
      ?>
 
 
-     <?php Pjax::begin(['id'=>'w0-pjax']); ?>
+    <?php Pjax::begin(['id'=>'w0-pjax']); ?>
 
     <?php 
 

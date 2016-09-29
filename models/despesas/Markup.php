@@ -39,8 +39,8 @@ class Markup extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['mark_codunidade', 'mark_custoindireto', 'mark_ipca', 'mark_reservatecnica', 'mark_despesasede'], 'required'],
-            [['mark_codunidade'], 'integer'],
+            [['mark_codunidade', 'mark_ano', 'mark_custoindireto', 'mark_ipca', 'mark_reservatecnica', 'mark_despesasede'], 'required'],
+            [['mark_codunidade', 'mark_ano'], 'integer'],
             [['mark_ipca', 'mark_reservatecnica', 'mark_custoindireto', 'mark_despesasede', 'mark_totalincidencias', 'mark_divisor'], 'number'],
         ];
     }
@@ -52,6 +52,7 @@ class Markup extends \yii\db\ActiveRecord
     {
         return [
             'mark_id' => 'Mark ID',
+            'mark_ano' => 'Ano',
             'mark_codunidade' => 'Unidade',
             'mark_custoindireto' => 'C. Indiretos(%)',
             'mark_ipca' => 'IPCA/Mês(%)',

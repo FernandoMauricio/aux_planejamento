@@ -29,8 +29,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
 <?php
 
-
-
 echo TabularForm::widget([
     'form' => $form,
     'dataProvider' => $dataProvider,

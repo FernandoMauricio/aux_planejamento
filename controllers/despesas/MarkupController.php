@@ -63,14 +63,23 @@ class MarkupController extends Controller
         $sourceModel = new MarkupSearch();
         $dataProvider = $sourceModel->search(Yii::$app->request->getQueryParams());
         $models = $dataProvider->getModels();
+
+        //Realiza a Verificação se as configurações estão atualizadas do Markup
+        foreach ($models as $model) {
+                    if($model->mark_ano != date('Y')){
+                         Yii::$app->session->setFlash('danger', "As Configurações de Markup estão configuradas para o ano de <strong>" .$model->mark_ano. "</strong>. Por gentileza, atualize as informações para o ano corrente(" .date('Y').") clicando em <strong>Salvar Dados</strong>!" );
+                    }else{
+                        Yii::$app->session->removeFlash('danger',null);
+                    }
+        }
+
         if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models)) {
             $count = 0;
             foreach ($models as $index => $model) {
                 // populate and save records for each model
+                $model->mark_ano = date('Y');
                 $model->mark_totalincidencias = $model->mark_custoindireto + $model->mark_ipca + $model->mark_reservatecnica + $model->mark_despesasede;
-
                 $model->mark_divisor = (100 - $model->mark_totalincidencias);
-
 
                 if ($model->save()) {
                     $count++;
