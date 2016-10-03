@@ -70,7 +70,7 @@ class Planodeacao extends \yii\db\ActiveRecord
             [['plan_descricao', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria', 'plan_codcolaborador', 'plan_data', 'plan_status', 'plan_modelonacional'], 'required'],
             [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria','plan_codcolaborador', 'plan_status','plan_modelonacional'], 'integer'],
             [['plan_sobre', 'plan_prerequisito', 'plan_orgcurricular', 'plan_perfConclusao','plan_perfTecnico'], 'string'],
-            [['plan_data','nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoLabel'], 'safe'],
+            [['plan_data','nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoLabel', 'plan_custoTotal'], 'safe'],
             [['plan_descricao'], 'string', 'max' => 100],
             [['plan_codeixo'], 'exist', 'skipOnError' => true, 'targetClass' => Eixo::className(), 'targetAttribute' => ['plan_codeixo' => 'eix_codeixo']],
             [['plan_codnivel'], 'exist', 'skipOnError' => true, 'targetClass' => Nivel::className(), 'targetAttribute' => ['plan_codnivel' => 'niv_codnivel']],

@@ -71,6 +71,14 @@ class PrecificacaoController extends Controller
     }
 
 
+    //Localiza os dados do Plano
+    public function actionGetPlano($plano){
+
+        $getPlano = Planodeacao::find()->where(['plan_codplano' => $plano])->one();
+
+        echo Json::encode($getPlano);
+    }
+
     //Localiza os dados de nível de docente
     public function actionGetNivelDocente($niveldocente){
 

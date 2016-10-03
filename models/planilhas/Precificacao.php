@@ -39,6 +39,7 @@ use app\models\despesas\Despesasdocente;
  */
 class Precificacao extends \yii\db\ActiveRecord
 {
+    public $hiddenPlanejamento;
     /**
      * @inheritdoc
      */
@@ -63,7 +64,7 @@ class Precificacao extends \yii\db\ActiveRecord
         return [
             [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente'], 'required'],
             [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_servpedagogico'], 'integer'],
-            [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto'], 'number'],
+            [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'hiddenPlanejamento'], 'safe'],
             [['planp_docente'], 'exist', 'skipOnError' => true, 'targetClass' => Despesasdocente::className(), 'targetAttribute' => ['planp_docente' => 'doce_id']],
             [['planp_planodeacao'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planp_planodeacao' => 'plan_codplano']],
         ];
@@ -82,17 +83,17 @@ class Precificacao extends \yii\db\ActiveRecord
             'planp_qntaluno' => 'Qnt de Alunos',
             'planp_totalhorasdocente' => 'Total de horas docente',
             'planp_docente' => 'Nível Docente',
-            'planp_valorhoraaula' => 'Valor hora/aula docente',
-            'planp_servpedagogico' => 'Valor hora/aula Serviço Pedagógico (s/produtividade)',
+            'planp_valorhoraaula' => 'Valor hora/aula',
+            'planp_servpedagogico' => 'Vr. hora/aula S. Pedagógico (s/produtividade)',
             'planp_horaaulaplanejamento' => 'Valor hora/aula Planejamento',
-            'planp_totalcustodocente' => 'Total Custo Docente',
-            'planp_decimo' => 'Decimo',
-            'planp_ferias' => 'Ferias',
-            'planp_tercoferias' => 'Tercoferias',
-            'planp_totalsalario' => 'Totalsalario',
-            'planp_encargos' => 'Encargos',
-            'planp_totalencargos' => 'Totalencargos',
-            'planp_totalsalarioencargo' => 'Totalsalarioencargo',
+            'planp_totalcustodocente' => 'Custo de Mão de Obra Direta' ,
+            'planp_decimo' => '1/12 de 13º',
+            'planp_ferias' => '1/12 de Férias',
+            'planp_tercoferias' => '1/12 de 1/3 de férias',
+            'planp_totalsalario' => 'Total de Salários',
+            'planp_encargos' => '(%) Encargos s/13º, férias e salários',
+            'planp_totalencargos' => 'Total de Encargos',
+            'planp_totalsalarioencargo' => 'Total de Salários + Encargos',
             'planp_diarias' => 'Diarias',
             'planp_passagens' => 'Passagens',
             'planp_pessoafisica' => 'Pessoafisica',
