@@ -52,9 +52,12 @@ use yii\helpers\Url;
                                       .done(function( data ) {
 
                                              var $divPanelBody = $(select).parent().parent().parent().parent().parent();
+                                             var $zerahoratotal = $divPanelBody.find("input:eq(0)");
+                                             var $zeraqntaluno = $divPanelBody.find("input:eq(1)");
+                                             var $inputCustoPlano = $divPanelBody.find("input:eq(19)");
 
-                                             var $inputCustoPlano = $divPanelBody.find("input:eq(15)");
-
+                                             $zerahoratotal.val(0);
+                                             $zeraqntaluno.val(0);
                                              $inputCustoPlano.val(data.plan_custoTotal);
 
                                           });
@@ -83,7 +86,7 @@ use yii\helpers\Url;
         <div class="panel-body">
             <div class="row">
 
-                <div class="col-md-4">
+                <div class="col-md-6">
 
                 <?php
                         $data_nivelDocente = ArrayHelper::map($nivelDocente, 'doce_id', 'doce_descricao');
@@ -96,13 +99,15 @@ use yii\helpers\Url;
                                       .done(function( data ) {
 
                                              var $divPanelBody = $(select).parent().parent().parent().parent().parent();
-
+                                             var $zerahora = $divPanelBody.find("input:eq(2)");
+                                             var $zeraplanejmanento = $divPanelBody.find("input:eq(3)");
                                              var $inputPlanejamento = $divPanelBody.find("input:eq(4)");
-
                                              var $inputCustoindireto = $divPanelBody.find("input:eq(5)");
 
+                                             //inputa valores
+                                             $zerahora.val(0);
+                                             $zeraplanejmanento.val(0);
                                              $inputCustoindireto.val(data.doce_valorhoraaula);
-
                                              $inputPlanejamento.val(data.doce_planejamento);
 
                                           });
@@ -136,6 +141,8 @@ use yii\helpers\Url;
                 <?= $form->field($model, 'planp_valorhoraaula')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',', 
                             'digits' => 2,
                             ],
                             'options' => ['readonly' => true, 'class' => 'form-control']
@@ -150,6 +157,8 @@ use yii\helpers\Url;
                             'alias' => 'decimal',
                             'digits' => 2,
                             'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',', 
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
@@ -158,13 +167,15 @@ use yii\helpers\Url;
 
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-6">
 
                 <?= $form->field($model, 'planp_totalcustodocente')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,
                             'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
@@ -184,6 +195,8 @@ use yii\helpers\Url;
                             'alias' => 'decimal',
                             'digits' => 2,
                             'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
@@ -199,6 +212,8 @@ use yii\helpers\Url;
                             'alias' => 'decimal',
                             'digits' => 2,
                             'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
@@ -214,6 +229,8 @@ use yii\helpers\Url;
                             'alias' => 'decimal',
                             'digits' => 2,
                             'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
@@ -229,6 +246,8 @@ use yii\helpers\Url;
                             'alias' => 'decimal',
                             'digits' => 2,
                             'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
@@ -263,6 +282,8 @@ use yii\helpers\Url;
                             'alias' => 'decimal',
                             'digits' => 2,
                             'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
@@ -271,13 +292,15 @@ use yii\helpers\Url;
 
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-6">
 
                 <?= $form->field($model, 'planp_totalsalarioencargo')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,
                             'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
@@ -288,6 +311,83 @@ use yii\helpers\Url;
 
             </div>
 
+            <div class="row">
+
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_diarias')->textInput(['placeholder' => 'Insira 0 caso não tenha valores']) ?>
+                </div>
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_passagens')->textInput(['placeholder' => 'Insira 0 caso não tenha valores']) ?>
+                </div>
+
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_pessoafisica')->textInput(['placeholder' => 'Insira 0 caso não tenha valores']) ?>
+                </div>
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_pessoajuridica')->textInput(['placeholder' => 'Insira 0 caso não tenha valores']) ?>
+                </div>
+                  
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_custosmateriais')->textInput(['readonly' => true]); ?>
+
+
+                </div>
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_totalcustodireto')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => [ 'readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+
+                </div>
+
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_totalhoraaulacustodireto')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 3,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => [ 'readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+
+                </div>
+
+                <div class="col-md-3">
+
+
+                </div>
+                  
+            </div>
+            
         </div>
 
             <table class="table table-condensed table-hover">
@@ -298,43 +398,11 @@ use yii\helpers\Url;
 
         <div class="panel-body">
 
-            <div class="row">
 
-                <div class="col-md-3">
-
-                <?= $form->field($model, 'planp_diarias')->textInput() ?>
-
-                </div>
-
-                <div class="col-md-3">
-
-                <?= $form->field($model, 'planp_passagens')->textInput() ?>
-
-                </div>
-
-
-                <div class="col-md-3">
-
-                <?= $form->field($model, 'planp_pessoafisica')->textInput() ?>
-
-                </div>
-
-                <div class="col-md-3">
-
-                <?= $form->field($model, 'planp_pessoajuridica')->textInput() ?>
-
-                </div>
-                  
-            </div>
         </div>
 
 </div>
     
-
-    <?= $form->field($model, 'planp_totalcustodireto')->textInput() ?>
-
-    <?= $form->field($model, 'planp_totalhoraaulacustodireto')->textInput() ?>
-
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
@@ -343,80 +411,4 @@ use yii\helpers\Url;
 
 </div>
 
-<?php
-$script = <<<EOD
-$(function() {
-    $('#precificacao-hiddenplanejamento').keyup(function() {  
-       updateTotal();
-    });
-
-    $('#precificacao-planp_servpedagogico').keyup(function() {  
-       updateTotal();
-    });
-
-    $('#precificacao-planp_horaaulaplanejamento').keyup(function() {  
-       updateTotal();
-    });
-
-
-    $('#precificacao-planp_totalhorasdocente').keyup(function() {  
-       updateTotal();
-    });
-
-
-    $('#precificacao-planp_valorhoraaula').keyup(function() {  
-       updateTotal();
-    });
-
-    var updateTotal = function () {
-
-      var planp_totalhorasdocente    = parseFloat($('#precificacao-planp_totalhorasdocente').val());
-      var planp_valorhoraaula        = parseFloat($('#precificacao-planp_valorhoraaula').val());
-      var hiddenplanejamento         = parseFloat($('#precificacao-hiddenplanejamento').val());
-      var planp_servpedagogico       = parseFloat($('#precificacao-planp_servpedagogico').val());
-      var planp_horaaulaplanejamento = parseFloat($('#precificacao-planp_horaaulaplanejamento').val());
-
-
-      //CÁLCULOS REALIZADOS
-      var valor_servpedagogico  = planp_servpedagogico * hiddenplanejamento;
-      var valorTotalMaoDeObra   = (planp_totalhorasdocente * planp_valorhoraaula) + valor_servpedagogico;
-      var valorDecimo           = valorTotalMaoDeObra / 12;
-      var valorTercoFerias      = valorTotalMaoDeObra / 12 / 3;
-      var totalSalarios         = valorTotalMaoDeObra + valorDecimo + valorDecimo + valorTercoFerias;
-      var totalEncargos         = (totalSalarios * 32.7) / 100;
-      var totalSalariosEncargos = totalSalarios + totalEncargos;
-
-        //OCULTAR O NAN
-        if (isNaN(valor_servpedagogico) || valor_servpedagogico < 0) {
-            valor_servpedagogico = '';
-        }
-
-        if (isNaN(valorTotalMaoDeObra) || valorTotalMaoDeObra < 0) {
-            valorTotalMaoDeObra = '';
-        }
-
-        if (isNaN(valorDecimo) || valorDecimo < 0) {
-            valorDecimo = '';
-        }
-
-      $('#precificacao-planp_horaaulaplanejamento').val(valor_servpedagogico); // Valor hora/aula Planejamento
-
-      $('#precificacao-planp_totalcustodocente').val(valorTotalMaoDeObra); // Custo de Mão de Obra Direta
-
-      $('#precificacao-planp_decimo').val(valorDecimo); // 1/12 de 13º
-
-      $('#precificacao-planp_ferias').val(valorDecimo); // 1/12 de Férias
-
-      $('#precificacao-planp_tercoferias').val(valorTercoFerias); // 1/12 de 1/3 de férias
-
-      $('#precificacao-planp_totalsalario').val(totalSalarios); // Total de Salários
-
-      $('#precificacao-planp_totalencargos').val(totalEncargos); // Total de Salários x 32.7% (encargos)
-
-      $('#precificacao-planp_totalsalarioencargo').val(totalSalariosEncargos); // Total de Salários + Total de Encargos 
-
-    };
- });
-EOD;
-$this->registerJs($script, yii\web\View::POS_END);      
-?>
+<?php $this->registerJsFile(Yii::$app->request->baseUrl.'/js/precificacao.js', ['position'=>$this::POS_READY]); ?>

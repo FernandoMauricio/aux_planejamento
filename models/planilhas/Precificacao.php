@@ -56,19 +56,50 @@ class Precificacao extends \yii\db\ActiveRecord
         return Yii::$app->get('db_apl');
     }
 
+    // 'numberPattern' => '/^\s*[-+]?[0-9]*[.,]?[0-9]+([eE][-+]?[0-9]+)?\s*$/'
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente'], 'required'],
+            [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica' ], 'required'],
             [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_servpedagogico'], 'integer'],
-            [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'hiddenPlanejamento'], 'safe'],
+            [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo','planp_custosmateriais', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'hiddenPlanejamento'], 'safe'],
             [['planp_docente'], 'exist', 'skipOnError' => true, 'targetClass' => Despesasdocente::className(), 'targetAttribute' => ['planp_docente' => 'doce_id']],
             [['planp_planodeacao'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planp_planodeacao' => 'plan_codplano']],
         ];
     }
+
+
+    public function beforeSave($insert) {
+            if (parent::beforeSave($insert)) {
+                $this->planp_valorhoraaula            = str_replace(",", ".", $this->planp_valorhoraaula);
+                $this->planp_horaaulaplanejamento     = str_replace(",", ".", $this->planp_horaaulaplanejamento);
+                $this->planp_totalcustodocente        = str_replace(",", ".", $this->planp_totalcustodocente);
+                $this->planp_decimo                   = str_replace(",", ".", $this->planp_decimo);
+                $this->planp_ferias                   = str_replace(",", ".", $this->planp_ferias);
+                $this->planp_tercoferias              = str_replace(",", ".", $this->planp_tercoferias);
+                $this->planp_totalsalario             = str_replace(",", ".", $this->planp_totalsalario);
+                $this->planp_encargos                 = str_replace(",", ".", $this->planp_encargos);
+                $this->planp_totalencargos            = str_replace(",", ".", $this->planp_totalencargos);
+                $this->planp_totalsalarioencargo      = str_replace(",", ".", $this->planp_totalsalarioencargo);
+                $this->planp_custosmateriais          = str_replace(",", ".", $this->planp_custosmateriais);
+                $this->planp_diarias                  = str_replace(",", ".", $this->planp_diarias);
+                $this->planp_passagens                = str_replace(",", ".", $this->planp_passagens);
+                $this->planp_pessoafisica             = str_replace(",", ".", $this->planp_pessoafisica);
+                $this->planp_pessoajuridica           = str_replace(",", ".", $this->planp_pessoajuridica);
+                $this->planp_totalcustodireto         = str_replace(",", ".", $this->planp_totalcustodireto);
+                $this->planp_totalhoraaulacustodireto = str_replace(",", ".", $this->planp_totalhoraaulacustodireto);
+                $this->hiddenPlanejamento             = str_replace(",", ".", $this->hiddenPlanejamento);
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+
 
     /**
      * @inheritdoc
@@ -94,12 +125,13 @@ class Precificacao extends \yii\db\ActiveRecord
             'planp_encargos' => '(%) Encargos s/13º, férias e salários',
             'planp_totalencargos' => 'Total de Encargos',
             'planp_totalsalarioencargo' => 'Total de Salários + Encargos',
+            'planp_custosmateriais' => 'Material Didático/Aluno/Consumo',
             'planp_diarias' => 'Diarias',
             'planp_passagens' => 'Passagens',
-            'planp_pessoafisica' => 'Pessoafisica',
-            'planp_pessoajuridica' => 'Pessoajuridica',
-            'planp_totalcustodireto' => 'Totalcustodireto',
-            'planp_totalhoraaulacustodireto' => 'Totalhoraaulacustodireto',
+            'planp_pessoafisica' => 'Serv. Terceiros (PF)',
+            'planp_pessoajuridica' => 'Serv. Terceiros (PJ)',
+            'planp_totalcustodireto' => 'Total de Custo Direto',
+            'planp_totalhoraaulacustodireto' => 'Vr. hora/aula de Custo Direto',
         ];
     }
 
