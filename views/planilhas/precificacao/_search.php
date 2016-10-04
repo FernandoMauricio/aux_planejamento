@@ -51,6 +51,8 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'planp_totalsalarioencargo') ?>
 
+    <?php // echo $form->field($model, 'planp_custosmateriais') ?>
+
     <?php // echo $form->field($model, 'planp_diarias') ?>
 
     <?php // echo $form->field($model, 'planp_passagens') ?>
@@ -62,6 +64,40 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'planp_totalcustodireto') ?>
 
     <?php // echo $form->field($model, 'planp_totalhoraaulacustodireto') ?>
+
+    <?php // echo $form->field($model, 'planp_custosindiretos') ?>
+
+    <?php // echo $form->field($model, 'planp_ipca') ?>
+
+    <?php // echo $form->field($model, 'planp_reservatecnica') ?>
+
+    <?php // echo $form->field($model, 'planp_despesadm') ?>
+
+    <?php // echo $form->field($model, 'planp_totalincidencias') ?>
+
+    <?php // echo $form->field($model, 'planp_totalcustoindireto') ?>
+
+    <?php // echo $form->field($model, 'planp_despesatotal') ?>
+
+    <?php // echo $form->field($model, 'planp_markdivisor') ?>
+
+    <?php // echo $form->field($model, 'planp_markmultiplicador') ?>
+
+    <?php // echo $form->field($model, 'planp_vendaturma') ?>
+
+    <?php // echo $form->field($model, 'planp_vendaaluno') ?>
+
+    <?php // echo $form->field($model, 'planp_horaaulaaluno') ?>
+
+    <?php // echo $form->field($model, 'planp_retorno') ?>
+
+    <?php // echo $form->field($model, 'planp_porcentretorno') ?>
+
+    <?php // echo $form->field($model, 'planp_precosugerido') ?>
+
+    <?php // echo $form->field($model, 'planp_retornoprecosugerido') ?>
+
+    <?php // echo $form->field($model, 'planp_minimoaluno') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

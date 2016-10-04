@@ -27,12 +27,30 @@ use app\models\despesas\Despesasdocente;
  * @property double $planp_encargos
  * @property double $planp_totalencargos
  * @property double $planp_totalsalarioencargo
+ * @property double $planp_custosmateriais
  * @property double $planp_diarias
  * @property double $planp_passagens
  * @property double $planp_pessoafisica
  * @property double $planp_pessoajuridica
  * @property double $planp_totalcustodireto
  * @property double $planp_totalhoraaulacustodireto
+ * @property double $planp_custosindiretos
+ * @property double $planp_ipca
+ * @property double $planp_reservatecnica
+ * @property double $planp_despesadm
+ * @property double $planp_totalincidencias
+ * @property double $planp_totalcustoindireto
+ * @property double $planp_despesatotal
+ * @property double $planp_markdivisor
+ * @property double $planp_markmultiplicador
+ * @property double $planp_vendaturma
+ * @property double $planp_vendaaluno
+ * @property double $planp_horaaulaaluno
+ * @property double $planp_retorno
+ * @property double $planp_porcentretorno
+ * @property double $planp_precosugerido
+ * @property double $planp_retornoprecosugerido
+ * @property double $planp_minimoaluno
  *
  * @property DespesasDocente $planpDocente
  * @property PlanodeacaoPlan $planpPlanodeacao
@@ -66,13 +84,13 @@ class Precificacao extends \yii\db\ActiveRecord
         return [
             [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica' ], 'required'],
             [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_servpedagogico'], 'integer'],
-            [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo','planp_custosmateriais', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'hiddenPlanejamento'], 'safe'],
+            [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_custosmateriais', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'planp_custosindiretos', 'planp_ipca', 'planp_reservatecnica', 'planp_despesadm', 'planp_totalincidencias', 'planp_totalcustoindireto', 'planp_despesatotal', 'planp_markdivisor', 'planp_markmultiplicador', 'planp_vendaturma', 'planp_vendaaluno', 'planp_horaaulaaluno', 'planp_retorno', 'planp_porcentretorno', 'planp_precosugerido', 'planp_retornoprecosugerido', 'planp_minimoaluno', 'hiddenPlanejamento'], 'safe'],
             [['planp_docente'], 'exist', 'skipOnError' => true, 'targetClass' => Despesasdocente::className(), 'targetAttribute' => ['planp_docente' => 'doce_id']],
             [['planp_planodeacao'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planp_planodeacao' => 'plan_codplano']],
         ];
     }
 
-
+    //Replace de ',' por '.' nos valores da precificação
     public function beforeSave($insert) {
             if (parent::beforeSave($insert)) {
                 $this->planp_valorhoraaula            = str_replace(",", ".", $this->planp_valorhoraaula);
@@ -93,6 +111,23 @@ class Precificacao extends \yii\db\ActiveRecord
                 $this->planp_totalcustodireto         = str_replace(",", ".", $this->planp_totalcustodireto);
                 $this->planp_totalhoraaulacustodireto = str_replace(",", ".", $this->planp_totalhoraaulacustodireto);
                 $this->hiddenPlanejamento             = str_replace(",", ".", $this->hiddenPlanejamento);
+                $this->planp_custosindiretos          = str_replace(",", ".", $this->planp_custosindiretos);
+                $this->planp_ipca                     = str_replace(",", ".", $this->planp_ipca);
+                $this->planp_reservatecnica           = str_replace(",", ".", $this->planp_reservatecnica);
+                $this->planp_despesadm                = str_replace(",", ".", $this->planp_despesadm);
+                $this->planp_totalincidencias         = str_replace(",", ".", $this->planp_totalincidencias);
+                $this->planp_totalcustoindireto       = str_replace(",", ".", $this->planp_totalcustoindireto);
+                $this->planp_despesatotal             = str_replace(",", ".", $this->planp_despesatotal);
+                $this->planp_markdivisor              = str_replace(",", ".", $this->planp_markdivisor);
+                $this->planp_markmultiplicador        = str_replace(",", ".", $this->planp_markmultiplicador);
+                $this->planp_vendaturma               = str_replace(",", ".", $this->planp_vendaturma);
+                $this->planp_vendaaluno               = str_replace(",", ".", $this->planp_vendaaluno);
+                $this->planp_horaaulaaluno            = str_replace(",", ".", $this->planp_horaaulaaluno);
+                $this->planp_retorno                  = str_replace(",", ".", $this->planp_retorno);
+                $this->planp_porcentretorno           = str_replace(",", ".", $this->planp_porcentretorno);
+                $this->planp_precosugerido            = str_replace(",", ".", $this->planp_precosugerido);
+                $this->planp_retornoprecosugerido     = str_replace(",", ".", $this->planp_retornoprecosugerido);
+                $this->planp_minimoaluno              = str_replace(",", ".", $this->planp_minimoaluno);
 
                 return true;
             } else {
@@ -132,6 +167,23 @@ class Precificacao extends \yii\db\ActiveRecord
             'planp_pessoajuridica' => 'Serv. Terceiros (PJ)',
             'planp_totalcustodireto' => 'Total de Custo Direto',
             'planp_totalhoraaulacustodireto' => 'Vr. hora/aula de Custo Direto',
+            'planp_custosindiretos' => 'Custos Indiretos(%)',
+            'planp_ipca' => 'IPCA/Mês(%)',
+            'planp_reservatecnica' => 'R.Técnica(%)',
+            'planp_despesadm' => 'Despesa Sede ADM ' .  date('Y') . '(%)',
+            'planp_totalincidencias' => 'Total Incidências(%)',
+            'planp_totalcustoindireto' => 'Total Custo Indireto',
+            'planp_despesatotal' => 'Despesa Total',
+            'planp_markdivisor' => 'Markdivisor',
+            'planp_markmultiplicador' => 'Markmultiplicador',
+            'planp_vendaturma' => 'Vendaturma',
+            'planp_vendaaluno' => 'Vendaaluno',
+            'planp_horaaulaaluno' => 'Horaaulaaluno',
+            'planp_retorno' => 'Retorno',
+            'planp_porcentretorno' => 'Porcentretorno',
+            'planp_precosugerido' => 'Precosugerido',
+            'planp_retornoprecosugerido' => 'Retornoprecosugerido',
+            'planp_minimoaluno' => 'Minimoaluno',
         ];
     }
 

@@ -32,12 +32,28 @@ use yii\helpers\Url;
                         $data_unidades = ArrayHelper::map($unidades, 'uni_codunidade', 'uni_nomeabreviado');
                         echo $form->field($model, 'planp_codunidade')->widget(Select2::classname(), [
                                 'data' =>  $data_unidades,
-                                'options' => ['placeholder' => 'Selecione a Unidade...'],
-                                'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
-                                ]);
-                    ?>
+                                'options' => ['id' => 'unidade-id','placeholder' => 'Selecione a Unidade...',
+                                'onchange'=>'
+                                      var select = this;
+                                      $.getJSON( "'.Url::toRoute('/planilhas/precificacao/get-markup').'", { markup: $(this).val() } )
+                                      .done(function( data ) {
+
+                                             var $divPanelBody = $(select).parent().parent().parent().parent().parent();
+
+                                             var $inputCustoIndireto   = $divPanelBody.find("input:eq(22)");
+                                             var $inputIPCA            = $divPanelBody.find("input:eq(23)");
+                                             var $inputReservaTecnica  = $divPanelBody.find("input:eq(24)");
+                                             var $inputDespesaSede     = $divPanelBody.find("input:eq(25)");
+
+                                             $inputCustoIndireto.val(data.mark_custoindireto);
+                                             $inputIPCA.val(data.mark_ipca);
+                                             $inputReservaTecnica.val(data.mark_reservatecnica);
+                                             $inputDespesaSede.val(data.mark_despesasede);
+
+                                          });
+                                      '
+                                ]]);
+                ?>
                 </div>
 
                 <div class="col-md-4">
@@ -52,11 +68,12 @@ use yii\helpers\Url;
                                       .done(function( data ) {
 
                                              var $divPanelBody = $(select).parent().parent().parent().parent().parent();
+
                                              var $zerahoratotal = $divPanelBody.find("input:eq(0)");
                                              var $zeraqntaluno = $divPanelBody.find("input:eq(1)");
                                              var $inputCustoPlano = $divPanelBody.find("input:eq(19)");
 
-                                             $zerahoratotal.val(0);
+                                             $zerahoratotal.val(data.plan_cargahoraria);
                                              $zeraqntaluno.val(0);
                                              $inputCustoPlano.val(data.plan_custoTotal);
 
@@ -67,7 +84,7 @@ use yii\helpers\Url;
                 </div>
 
                 <div class="col-md-2">
-                <?= $form->field($model, 'planp_cargahoraria')->textInput() ?>
+                <?= $form->field($model, 'planp_cargahoraria')->textInput(['readonly' => true]) ?>
                 </div>
 
                 <div class="col-md-2">
@@ -99,6 +116,7 @@ use yii\helpers\Url;
                                       .done(function( data ) {
 
                                              var $divPanelBody = $(select).parent().parent().parent().parent().parent();
+
                                              var $zerahora = $divPanelBody.find("input:eq(2)");
                                              var $zeraplanejmanento = $divPanelBody.find("input:eq(3)");
                                              var $inputPlanejamento = $divPanelBody.find("input:eq(4)");
@@ -141,8 +159,6 @@ use yii\helpers\Url;
                 <?= $form->field($model, 'planp_valorhoraaula')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
-                            'groupSeparator' => '.',
-                            'radixPoint' => ',', 
                             'digits' => 2,
                             ],
                             'options' => ['readonly' => true, 'class' => 'form-control']
@@ -313,7 +329,6 @@ use yii\helpers\Url;
 
             <div class="row">
 
-
                 <div class="col-md-3">
 
                 <?= $form->field($model, 'planp_diarias')->textInput(['placeholder' => 'Insira 0 caso não tenha valores']) ?>
@@ -363,7 +378,6 @@ use yii\helpers\Url;
 
                 </div>
 
-
                 <div class="col-md-3">
 
                 <?= $form->field($model, 'planp_totalhoraaulacustodireto')->widget(\yii\widgets\MaskedInput::className(), [
@@ -381,11 +395,6 @@ use yii\helpers\Url;
 
                 </div>
 
-                <div class="col-md-3">
-
-
-                </div>
-                  
             </div>
             
         </div>
@@ -398,6 +407,72 @@ use yii\helpers\Url;
 
         <div class="panel-body">
 
+            <div class="row">
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_custosindiretos')->textInput(['readonly' => true]) ?>
+                </div>
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_ipca')->textInput() ?>
+                </div>
+
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_reservatecnica')->textInput(['readonly' => true]) ?>
+                </div>
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_despesadm')->textInput(['readonly' => true]) ?>
+                </div>
+                  
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_totalincidencias')->textInput(['readonly' => true]) ?>
+                </div>
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_totalcustoindireto')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => [ 'readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+
+                <div class="col-md-6">
+
+                <?= $form->field($model, 'planp_despesatotal')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => [ 'readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+                  
+            </div>
 
         </div>
 

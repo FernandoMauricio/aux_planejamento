@@ -4,6 +4,7 @@ namespace app\controllers\planilhas;
 
 use Yii;
 use app\models\base\Unidade;
+use app\models\despesas\Markup;
 use app\models\despesas\Despesasdocente;
 use app\models\despesas\Custosunidade;
 use app\models\planos\Planodeacao;
@@ -63,11 +64,11 @@ class PrecificacaoController extends Controller
 
 
     //Localiza os dados de custos indiretos da unidade escolhida
-    public function actionGetCustoUnidade($custounidade){
+    public function actionGetMarkup($markup){
 
-        $getcustoUnidade = Custosunidade::find()->where(['cust_codunidade' => $custounidade])->one();
+        $getmarkup = Markup::find()->where(['mark_codunidade' => $markup])->one();
 
-        echo Json::encode($getcustoUnidade);
+        echo Json::encode($getmarkup);
     }
 
 

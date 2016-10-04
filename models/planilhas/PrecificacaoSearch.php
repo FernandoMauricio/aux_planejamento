@@ -19,7 +19,7 @@ class PrecificacaoSearch extends Precificacao
     {
         return [
             [['planp_id', 'planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_servpedagogico'], 'integer'],
-            [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto'], 'number'],
+            [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_custosmateriais', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'planp_custosindiretos', 'planp_ipca', 'planp_reservatecnica', 'planp_despesadm', 'planp_totalincidencias', 'planp_totalcustoindireto', 'planp_despesatotal', 'planp_markdivisor', 'planp_markmultiplicador', 'planp_vendaturma', 'planp_vendaaluno', 'planp_horaaulaaluno', 'planp_retorno', 'planp_porcentretorno', 'planp_precosugerido', 'planp_retornoprecosugerido', 'planp_minimoaluno'], 'number'],
         ];
     }
 
@@ -77,12 +77,30 @@ class PrecificacaoSearch extends Precificacao
             'planp_encargos' => $this->planp_encargos,
             'planp_totalencargos' => $this->planp_totalencargos,
             'planp_totalsalarioencargo' => $this->planp_totalsalarioencargo,
+            'planp_custosmateriais' => $this->planp_custosmateriais,
             'planp_diarias' => $this->planp_diarias,
             'planp_passagens' => $this->planp_passagens,
             'planp_pessoafisica' => $this->planp_pessoafisica,
             'planp_pessoajuridica' => $this->planp_pessoajuridica,
             'planp_totalcustodireto' => $this->planp_totalcustodireto,
             'planp_totalhoraaulacustodireto' => $this->planp_totalhoraaulacustodireto,
+            'planp_custosindiretos' => $this->planp_custosindiretos,
+            'planp_ipca' => $this->planp_ipca,
+            'planp_reservatecnica' => $this->planp_reservatecnica,
+            'planp_despesadm' => $this->planp_despesadm,
+            'planp_totalincidencias' => $this->planp_totalincidencias,
+            'planp_totalcustoindireto' => $this->planp_totalcustoindireto,
+            'planp_despesatotal' => $this->planp_despesatotal,
+            'planp_markdivisor' => $this->planp_markdivisor,
+            'planp_markmultiplicador' => $this->planp_markmultiplicador,
+            'planp_vendaturma' => $this->planp_vendaturma,
+            'planp_vendaaluno' => $this->planp_vendaaluno,
+            'planp_horaaulaaluno' => $this->planp_horaaulaaluno,
+            'planp_retorno' => $this->planp_retorno,
+            'planp_porcentretorno' => $this->planp_porcentretorno,
+            'planp_precosugerido' => $this->planp_precosugerido,
+            'planp_retornoprecosugerido' => $this->planp_retornoprecosugerido,
+            'planp_minimoaluno' => $this->planp_minimoaluno,
         ]);
 
         return $dataProvider;

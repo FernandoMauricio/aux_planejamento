@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\planilhas\PrecificacaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Precificacao', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -42,14 +42,32 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'planp_encargos',
             // 'planp_totalencargos',
             // 'planp_totalsalarioencargo',
+            // 'planp_custosmateriais',
             // 'planp_diarias',
             // 'planp_passagens',
             // 'planp_pessoafisica',
             // 'planp_pessoajuridica',
             // 'planp_totalcustodireto',
             // 'planp_totalhoraaulacustodireto',
+            // 'planp_custosindiretos',
+            // 'planp_ipca',
+            // 'planp_reservatecnica',
+            // 'planp_despesadm',
+            // 'planp_totalincidencias',
+            // 'planp_totalcustoindireto',
+            // 'planp_despesatotal',
+            // 'planp_markdivisor',
+            // 'planp_markmultiplicador',
+            // 'planp_vendaturma',
+            // 'planp_vendaaluno',
+            // 'planp_horaaulaaluno',
+            // 'planp_retorno',
+            // 'planp_porcentretorno',
+            // 'planp_precosugerido',
+            // 'planp_retornoprecosugerido',
+            // 'planp_minimoaluno',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-<?php Pjax::end(); ?></div>
+</div>

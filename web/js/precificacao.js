@@ -53,6 +53,27 @@ $(function() {
        updateTotal();
     });
 
+    //SEÇÃO 3
+    $('#precificacao-planp_custosindiretos').keyup(function() {  
+       updateTotal();
+    });
+
+    $('#precificacao-planp_ipca').keyup(function() {  
+       updateTotal();
+    });
+
+    $('#precificacao-planp_reservatecnica').keyup(function() {  
+       updateTotal();
+    });
+    
+    $('#precificacao-planp_despesadm').keyup(function() {  
+       updateTotal();
+    });
+
+    $('#precificacao-planp_totalincidencias').keyup(function() {  
+       updateTotal();
+    });
+
     var updateTotal = function () {
       //SEÇÃO 2  
       var planp_cargahoraria         = parseFloat($('#precificacao-planp_cargahoraria').val());
@@ -69,6 +90,13 @@ $(function() {
       var planp_custosmateriais      = parseFloat($('#precificacao-planp_custosmateriais').val());
       var totalhoraaulacustodireto   = parseFloat($('#precificacao-totalhoraaulacustodireto').val());
 
+      //SEÇÃO 3
+      var planp_custosindiretos  = parseFloat($('#precificacao-planp_custosindiretos').val());
+      var planp_ipca             = parseFloat($('#precificacao-planp_ipca').val());
+      var planp_reservatecnica   = parseFloat($('#precificacao-planp_reservatecnica').val());
+      var planp_despesadm        = parseFloat($('#precificacao-planp_despesadm').val());
+      var planp_totalincidencias = parseFloat($('#precificacao-planp_totalincidencias').val());
+
       //CÁLCULOS REALIZADOS
       //SEÇÃO 2
       var valor_servpedagogico     = planp_servpedagogico * hiddenplanejamento;
@@ -80,6 +108,12 @@ $(function() {
       var totalSalariosEncargos    = totalSalarios + totalEncargos;
       var valorTotalDireto         = totalSalariosEncargos + planp_diarias + planp_passagens + planp_pessoafisica + planp_pessoajuridica + planp_custosmateriais;
       var totalhoraaulacustodireto = valorTotalDireto / planp_cargahoraria / planp_qntaluno;
+
+      //SEÇÃO 3
+      var totalIncidencia       = planp_custosindiretos + planp_ipca + planp_reservatecnica + planp_despesadm;
+      var totalCustoIndireto    = (valorTotalDireto * planp_totalincidencias) / 100;
+      var despesaTotal          = totalCustoIndireto + valorTotalDireto;
+
 
         //OCULTAR O NAN
         //SEÇÃO 2
@@ -103,6 +137,20 @@ $(function() {
             totalhoraaulacustodireto = '';
         }
 
+        //SEÇÃO 3
+
+        if (isNaN(totalIncidencia) || totalIncidencia < 0) {
+            totalIncidencia = '';
+        }
+
+        if (isNaN(totalCustoIndireto) || totalCustoIndireto < 0) {
+            totalCustoIndireto = '';
+        }
+
+        if (isNaN(despesaTotal) || despesaTotal < 0) {
+            despesaTotal = '';
+        }
+
       //RESULTADO DOS VALORES
       //SEÇÃO 2 
       $('#precificacao-planp_horaaulaplanejamento').val(valor_servpedagogico); // Valor hora/aula Planejamento
@@ -124,6 +172,13 @@ $(function() {
       $('#precificacao-planp_totalcustodireto').val(valorTotalDireto); // Valor Total Custo Direto (Total Salários e encargos + custos materiais + diárias + passagens + pf + pj)
 
       $('#precificacao-planp_totalhoraaulacustodireto').val(totalhoraaulacustodireto); // Valor hora/aula de custo direto (Total de custo direto / CH Total / Qnt Aluno)
+
+      //SEÇÃO 3
+      $('#precificacao-planp_totalincidencias').val(totalIncidencia); // Valor Custos indireto + IPCA/MES + reserva técnica + despesa adm
+
+      $('#precificacao-planp_totalcustoindireto').val(totalCustoIndireto); // Valor Custo Direto x Total Incidencias 
+
+      $('#precificacao-planp_despesatotal').val(despesaTotal); // Valor Custo Indireto + Custo Direto 
 
     };
  });
