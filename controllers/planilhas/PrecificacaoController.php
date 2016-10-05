@@ -95,11 +95,16 @@ class PrecificacaoController extends Controller
      */
     public function actionCreate()
     {
+        $session = Yii::$app->session;
+
         $model = new Precificacao();
 
         $planos       = Planodeacao::find()->where(['plan_status' => 1])->orderBy('plan_descricao')->all();
         $unidades     = Unidade::find()->where(['uni_codsituacao' => 1, 'uni_coddisp' => 1])->orderBy('uni_nomeabreviado')->all();
         $nivelDocente = Despesasdocente::find()->where(['doce_status' => 1])->all();
+
+        $model->planp_data           = date('Y-m-d');
+        $model->planp_codcolaborador = $session['sess_codcolaborador'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->planp_id]);
@@ -121,13 +126,25 @@ class PrecificacaoController extends Controller
      */
     public function actionUpdate($id)
     {
+        $session = Yii::$app->session;
+        
         $model = $this->findModel($id);
+
+        $planos       = Planodeacao::find()->where(['plan_status' => 1])->orderBy('plan_descricao')->all();
+        $unidades     = Unidade::find()->where(['uni_codsituacao' => 1, 'uni_coddisp' => 1])->orderBy('uni_nomeabreviado')->all();
+        $nivelDocente = Despesasdocente::find()->where(['doce_status' => 1])->all();
+
+        $model->planp_data           = date('Y-m-d');
+        $model->planp_codcolaborador = $session['sess_codcolaborador'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->planp_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'planos' => $planos,
+                'unidades' => $unidades,
+                'nivelDocente' => $nivelDocente,
             ]);
         }
     }

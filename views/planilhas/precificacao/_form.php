@@ -334,23 +334,23 @@ use yii\helpers\Url;
 
                 <div class="col-md-3">
 
-                <?= $form->field($model, 'planp_diarias')->textInput(['placeholder' => 'Insira 0 caso não tenha valores']) ?>
+                <?= $form->field($model, 'planp_diarias')->textInput(['value' => 0]) ?>
                 </div>
 
                 <div class="col-md-3">
 
-                <?= $form->field($model, 'planp_passagens')->textInput(['placeholder' => 'Insira 0 caso não tenha valores']) ?>
+                <?= $form->field($model, 'planp_passagens')->textInput(['value' => 0]) ?>
                 </div>
 
 
                 <div class="col-md-3">
 
-                <?= $form->field($model, 'planp_pessoafisica')->textInput(['placeholder' => 'Insira 0 caso não tenha valores']) ?>
+                <?= $form->field($model, 'planp_pessoafisica')->textInput(['value' => 0]) ?>
                 </div>
 
                 <div class="col-md-3">
 
-                <?= $form->field($model, 'planp_pessoajuridica')->textInput(['placeholder' => 'Insira 0 caso não tenha valores']) ?>
+                <?= $form->field($model, 'planp_pessoajuridica')->textInput(['value' => 0]) ?>
                 </div>
                   
             </div>
@@ -542,25 +542,9 @@ use yii\helpers\Url;
                     ]); ?>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-6">
 
                 <?= $form->field($model, 'planp_vendaturma')->widget(\yii\widgets\MaskedInput::className(), [
-                            'clientOptions' => [
-                            'alias' => 'decimal',
-                            'digits' => 2,
-                            'prefix' => 'R$ ',
-                            'groupSeparator' => '.',
-                            'radixPoint' => ',',
-                            'autoGroup' => true,
-                            'removeMaskOnSubmit' => true,
-                            ],
-                            'options' => ['readonly' => true, 'class' => 'form-control' ]
-                    ]); ?>
-                </div>
-
-                <div class="col-md-3">
-
-                <?= $form->field($model, 'planp_vendaaluno')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,
@@ -580,7 +564,7 @@ use yii\helpers\Url;
 
                 <div class="col-md-3">
 
-                <?= $form->field($model, 'planp_horaaulaaluno')->widget(\yii\widgets\MaskedInput::className(), [
+                <?= $form->field($model, 'planp_vendaaluno')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,
@@ -597,6 +581,22 @@ use yii\helpers\Url;
                 <div class="col-md-3">
 
                 <?= $form->field($model, 'planp_retorno')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_horaaulaaluno')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,

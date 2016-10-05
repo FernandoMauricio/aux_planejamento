@@ -188,17 +188,25 @@ class PlanodeacaoController extends Controller
                         $transaction->commit();
                         $transactionRep->commit();
 
-                        // if($model->save()){
+                            if($model->save()){
 
-                        //     //realiza a soma dos custos de material didático
-                        //     $query = (new \yii\db\Query())->from('db_apl.custosindireto_custin')->where(['custosunidade_id' => $model->cust_codcusto]);
-                        //     $totalPorcentagem = $query->sum('custin_porcentagem');
+                                //realiza a soma dos custos de material didático
+                                $query = (new \yii\db\Query())->from('db_apl.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano]);
+                                $totalValorMaterial = $query->sum('plama_valor');
 
-                        //     //Busca no banco o quantitativo de linhas da porcentagem
-                        //     $sql = "SELECT * FROM custosindireto_custin WHERE custosunidade_id = '".$model->cust_codcusto."'";
-                        //     $qnt_porcentagem = Custosindireto::findBySql($sql)->count();
+                                //realiza a soma dos custos de materiais de consumo (somatória de Quantidade * Valor de todas as linhas)
+                                $query = (new \yii\db\Query())->from('db_apl.plano_materialconsumo')->where(['planodeacao_cod' => $id]);
+                                $totalValorConsumo = $query->sum('planmatcon_valor*planmatcon_quantidade');
 
-                        // }
+                                //realiza a soma dos custos de material de consumo
+                                $query = (new \yii\db\Query())->from('db_apl.plano_materialaluno')->where(['planodeacao_cod' => $id]);
+                                $totalValorAluno = $query->sum('planmatalu_valor*planmatalu_quantidade');
+
+                                $model->plan_custoTotal = $totalValorMaterial + $totalValorConsumo + $totalValorAluno; //save custo material aluno
+                                $model->save();
+
+                            }
+                            
                         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Plano Cadastrado!</strong>');
                         return $this->redirect(['view', 'id' => $model->plan_codplano]);
                     }
@@ -410,7 +418,6 @@ class PlanodeacaoController extends Controller
                                     $model->save();
 
                                 }
-
 
                                     Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Plano '.$id.' Atualizado !</strong>');
                                     return $this->redirect(['view', 'id' => $model->plan_codplano]);

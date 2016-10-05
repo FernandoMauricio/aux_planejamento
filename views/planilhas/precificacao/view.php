@@ -1,7 +1,7 @@
 <?php
 
+use kartik\detail\DetailView;
 use yii\helpers\Html;
-use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\planilhas\Precificacao */
@@ -14,63 +14,187 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->planp_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->planp_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'planp_id',
-            'planp_codunidade',
-            'planp_planodeacao',
-            'planp_cargahoraria',
-            'planp_qntaluno',
-            'planp_totalhorasdocente',
-            'planp_docente',
-            'planp_valorhoraaula',
-            'planp_servpedagogico',
-            'planp_horaaulaplanejamento',
-            'planp_totalcustodocente',
-            'planp_decimo',
-            'planp_ferias',
-            'planp_tercoferias',
-            'planp_totalsalario',
-            'planp_encargos',
-            'planp_totalencargos',
-            'planp_totalsalarioencargo',
-            'planp_custosmateriais',
-            'planp_diarias',
-            'planp_passagens',
-            'planp_pessoafisica',
-            'planp_pessoajuridica',
-            'planp_totalcustodireto',
-            'planp_totalhoraaulacustodireto',
-            'planp_custosindiretos',
-            'planp_ipca',
-            'planp_reservatecnica',
-            'planp_despesadm',
-            'planp_totalincidencias',
-            'planp_totalcustoindireto',
-            'planp_despesatotal',
-            'planp_markdivisor',
-            'planp_markmultiplicador',
-            'planp_vendaturma',
-            'planp_vendaaluno',
-            'planp_horaaulaaluno',
-            'planp_retorno',
-            'planp_porcentretorno',
-            'planp_precosugerido',
-            'planp_retornoprecosugerido',
-            'planp_minimoaluno',
-        ],
-    ]) ?>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> DETALHES DA PRECIFICAÇÃO DE CUSTO</h3>
+  </div>
+    <div class="panel-body">
 
+                                 <div id="rootwizard" class="tabbable tabs-left">
+                                  <ul>
+                                         <li><a href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Precificação</a></li>
+                                         <li><a href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Todas as Unidades</a></li>
+                                  </ul>
+
+          <div class="row">
+              <p class="bg-info" style="padding: 10px"><strong> SEÇÃO 1: Informações do Curso</strong></p>
+
+                  <div class="col-md-4"><strong>Unidade:</strong> <?php echo $model->unidade->uni_nomeabreviado; ?></div>
+
+                  <div class="col-md-4"><strong>Plano de Ação:</strong> <?php echo $model->planodeacao->plan_descricao; ?></div>
+
+                  <div class="col-md-2"><strong>Carga Horária:</strong> <?php echo $model->planp_cargahoraria; ?></div>
+
+                  <div class="col-md-2"><strong>Qnt Alunos:</strong> <?php echo $model->planp_qntaluno; ?></div>
+          </div>
+
+        <br>
+
+          <div class="row">
+              <p class="bg-info" style="padding: 10px"><strong> SEÇÃO 2: Cálculos de Custos Diretos</strong></p>
+
+                  <div class="col-md-3"><strong>Nível Docente:</strong><br> <?php echo $model->despesasdocente->doce_descricao; ?></div>
+
+                  <div class="col-md-3"><strong>T. Horas Docente:</strong><br> <?php echo $model->planp_totalhorasdocente; ?></div>
+
+                  <div class="col-md-4"><strong>Vr. hora/aula S. Pedagógico (s/produtividade):</strong><br> <?php echo $model->planp_servpedagogico; ?></div>
+          </div>
+
+        <br>
+
+          <div class="row">
+
+                  <div class="col-md-3"><strong>V. Hora/Aula:</strong><br> <?php echo 'R$ ' . number_format($model->planp_valorhoraaula, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-3"><strong>V. Hora/Aula Planejamento:</strong><br> <?php  echo 'R$ ' . number_format($model->planp_horaaulaplanejamento, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-3"><strong>Custo de Mão de Obra Direta:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalcustodocente, 2, ',', '.'); ?></div>
+          </div>
+
+        <br>
+
+          <div class="row">
+
+                  <div class="col-md-3"><strong>1/12 de 13º:</strong><br> <?php echo 'R$ ' . number_format($model->planp_decimo, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-3"><strong>1/12 de Férias:</strong><br> <?php  echo 'R$ ' . number_format($model->planp_ferias, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-3"><strong>1/12 de 1/3 de férias:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_tercoferias, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-3"><strong>Total de Salários:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalsalario, 2, ',', '.'); ?></div>
+          </div>
+
+        <br>
+
+          <div class="row">
+
+                  <div class="col-md-3"><strong>(%) Encargos s/13º, férias e salários:</strong><br> <?php echo number_format($model->planp_encargos, 2, ',', '.') . '%'; ?></div>
+
+                  <div class="col-md-3"><strong>Total de Encargos:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalencargos, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-3"><strong>Total de Salários + Encargos:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalsalarioencargo, 2, ',', '.'); ?></div>
+          </div>
+
+          <br>
+
+          <div class="row">
+
+                  <div class="col-md-3"><strong>Diárias:</strong><br> <?php echo 'R$ ' . number_format($model->planp_diarias, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-3"><strong>Passagens:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_passagens, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-3"><strong>Serv. Terceiros (PF):</strong><br> <?php echo 'R$ ' . number_format( $model->planp_pessoafisica, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-3"><strong>Serv. Terceiros (PJ):</strong><br> <?php echo 'R$ ' . number_format( $model->planp_pessoajuridica, 2, ',', '.'); ?></div>
+          </div>
+
+         <br>
+
+          <div class="row">
+
+                  <div class="col-md-3"><strong>Material Didático/Aluno/Consumo:</strong><br> <?php echo 'R$ ' .  number_format($model->planp_custosmateriais, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-3"><strong>Total de Custo Direto:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalcustodireto, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-3"><strong>V. Hora/Aula de Custo Direto:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalhoraaulacustodireto, 2, ',', '.'); ?></div>
+          </div>
+           
+        <br>
+
+          <div class="row">
+              <p class="bg-info" style="padding: 10px"><strong> SEÇÃO 3: Cálculos de Custos Indiretos</strong></p>
+
+                  <div class="col-md-3"><strong>Custos Indiretos(%):</strong><br> <?php echo number_format($model->planp_custosindiretos, 2, ',', '.') . '%'; ?></div>
+
+                  <div class="col-md-3"><strong>IPCA/Mês(%):</strong><br> <?php echo number_format($model->planp_ipca, 2, ',', '.') . '%'; ?></div>
+
+                  <div class="col-md-3"><strong>Rerserva Técnica(%):</strong><br> <?php echo number_format($model->planp_reservatecnica, 2, ',', '.') . '%'; ?></div>
+
+                  <div class="col-md-3"><strong>Despesa Sede ADM 2016(%):</strong><br> <?php echo number_format($model->planp_despesadm, 2, ',', '.') . '%'; ?></div>
+          </div>
+
+        <br>
+
+          <div class="row">
+
+                  <div class="col-md-3"><strong>Total Incidências(%):</strong><br> <?php echo number_format($model->planp_totalincidencias, 2, ',', '.') . '%'; ?></div>
+
+                  <div class="col-md-3"><strong>Total Custo Indireto:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalcustoindireto, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-4"><strong>Despesa Total:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_despesatotal, 2, ',', '.'); ?></div>
+          </div>
+
+        <br>
+
+          <div class="row">
+
+                  <div class="col-md-3"><strong>Mark-Up Divisor 100-X/100:</strong><br> <?php echo number_format($model->planp_markdivisor, 2, ',', '.') . '%'; ?></div>
+
+                  <div class="col-md-3"><strong>Mark-Up Multiplicador 100/Markup:</strong><br> <?php echo number_format($model->planp_markmultiplicador, 2, ',', '.') . '%'; ?></div>
+
+                  <div class="col-md-4"><strong>Preço de Venda Total da Turma:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaturma, 2, ',', '.'); ?></div>
+          </div>
+
+        <br>
+
+          <div class="row">
+
+                  <div class="col-md-3"><strong>Preço de Venda Total por Aluno:</strong><br> <?php echo number_format($model->planp_vendaaluno, 2, ',', '.') . '%'; ?></div>
+
+                  <div class="col-md-3"><strong>Retorno com Preço de Venda:</strong><br> <?php echo number_format($model->planp_horaaulaaluno, 2, ',', '.') . '%'; ?></div>
+
+                  <div class="col-md-3"><strong>V. Hora/Aula por Aluno:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_retorno, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-3"><strong>% de Retorno:</strong><br>  <?php echo number_format($model->planp_porcentretorno, 2, ',', '.') . '%'; ?></div>
+          </div>
+           
+        <br>
+
+          <div class="row">
+
+                  <div class="col-md-3"><strong>Preço Sugerido:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_precosugerido, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-3"><strong>Retorno com preço sugerido:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_retornoprecosugerido, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-3"><strong>Numero minimo de alunos por turma:</strong><br> <?php echo $model->planp_minimoaluno; ?></div>
+
+          </div>
+
+        <br>
+
+          <div class="row">
+              <p class="bg-info" style="padding: 10px"><strong> SEÇÃO 4: Auditoria</strong></p>
+
+                  <div class="col-md-5"><strong>Cadastrado por:</strong> <?php echo $model->colaborador->usuario->usu_nomeusuario ?></div>
+
+                  <div class="col-md-5"><strong>Data de Cadastro:</strong> <?php echo  date('d/m/Y', strtotime($model->planp_data)) ?></div>
+
+          </div>
+        </div>
+        </div>
+    </div>
 </div>
+
+            <!--          JS etapas dos formularios            -->
+<?php
+$script = <<< JS
+$(document).ready(function() {
+    $('#rootwizard').bootstrapWizard({'tabClass': 'nav nav-tabs'});
+});
+
+JS;
+$this->registerJs($script);
+?>
+
+<?php  $this->registerJsFile(Yii::$app->request->baseUrl.'/js/jquery.bootstrap.wizard.js', ['depends' => [\yii\web\JqueryAsset::className()]]); ?>
