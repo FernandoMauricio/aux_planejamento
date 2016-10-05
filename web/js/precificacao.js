@@ -74,6 +74,10 @@ $(function() {
        updateTotal();
     });
 
+    $('#precificacao-planp_precosugerido').keyup(function() {  
+       updateTotal();
+    });
+
     var updateTotal = function () {
       //SEÇÃO 2  
       var planp_cargahoraria         = parseFloat($('#precificacao-planp_cargahoraria').val());
@@ -96,6 +100,8 @@ $(function() {
       var planp_reservatecnica   = parseFloat($('#precificacao-planp_reservatecnica').val());
       var planp_despesadm        = parseFloat($('#precificacao-planp_despesadm').val());
       var planp_totalincidencias = parseFloat($('#precificacao-planp_totalincidencias').val());
+      var planp_precosugerido    = parseFloat($('#precificacao-planp_precosugerido').val());
+
 
       //CÁLCULOS REALIZADOS
       //SEÇÃO 2
@@ -114,6 +120,16 @@ $(function() {
       var totalCustoIndireto    = (valorTotalDireto * planp_totalincidencias) / 100;
       var despesaTotal          = totalCustoIndireto + valorTotalDireto;
 
+      var MarkupDivisor        = (100 - totalIncidencia);
+      var MarkupMultiplicador  = ((100 / MarkupDivisor) - 1) * 100; // Valores em %
+      var PrecoVendaTurma      = (valorTotalDireto / MarkupDivisor) * 100; // Valores em %
+      var PrecoVendaAluno      = (PrecoVendaTurma / planp_qntaluno);
+      var ValorhoraAulaAluno   = PrecoVendaTurma / planp_cargahoraria / planp_qntaluno; //Preço de Venda da Turma / CH TOTAL / QNT Alunos
+      var RetornoPrecoVenda    = PrecoVendaTurma - despesaTotal; // Preço de venda da turma - Despesa Total;
+      var PorcentagemRetorno   = (RetornoPrecoVenda / PrecoVendaTurma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
+      var RetornoPrecoSugerido = (planp_precosugerido * planp_qntaluno) - despesaTotal; // Preço Sugerido x Qnt de Alunos - Despesa Total;
+
+      var MinimoAlunos = Math.ceil(despesaTotal / planp_precosugerido); // Despesa Total / Preço Sugerido;
 
         //OCULTAR O NAN
         //SEÇÃO 2
@@ -151,6 +167,10 @@ $(function() {
             despesaTotal = '';
         }
 
+        if (isNaN(MinimoAlunos) || MinimoAlunos < 0) {
+            MinimoAlunos = '';
+        }
+        
       //RESULTADO DOS VALORES
       //SEÇÃO 2 
       $('#precificacao-planp_horaaulaplanejamento').val(valor_servpedagogico); // Valor hora/aula Planejamento
@@ -179,6 +199,27 @@ $(function() {
       $('#precificacao-planp_totalcustoindireto').val(totalCustoIndireto); // Valor Custo Direto x Total Incidencias 
 
       $('#precificacao-planp_despesatotal').val(despesaTotal); // Valor Custo Indireto + Custo Direto 
+
+      $('#precificacao-planp_markdivisor').val(MarkupDivisor); // Markup Divisor 100 - x / 100 
+
+      $('#precificacao-planp_markmultiplicador').val(MarkupMultiplicador); // Markup Multiplicador  ((100 / x ) -1) * 100 
+
+      $('#precificacao-planp_vendaturma').val(PrecoVendaTurma); // Valor Total Direto / MarkupDivisor
+
+      $('#precificacao-planp_vendaaluno').val(PrecoVendaAluno); // Preço de Venda por Turma /  Qnt de Alunos
+
+      $('#precificacao-planp_horaaulaaluno').val(ValorhoraAulaAluno); // Preço de Venda da Turma / CH TOTAL / QNT Alunos
+
+      $('#precificacao-planp_retorno').val(RetornoPrecoVenda); // Preço de venda da turma - Despesa Total
+
+      $('#precificacao-planp_porcentretorno').val(PorcentagemRetorno); // % de Retorno / Preço de venda da Turma
+
+      $('#precificacao-planp_retornoprecosugerido').val(RetornoPrecoSugerido); // Preço Sugerido x Qnt de Alunos - Despesa Total;
+
+      $('#precificacao-planp_minimoaluno').val(MinimoAlunos); // Despesa Total / Preço Sugerido;
+
+      
+
 
     };
  });

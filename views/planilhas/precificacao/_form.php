@@ -40,11 +40,13 @@ use yii\helpers\Url;
 
                                              var $divPanelBody = $(select).parent().parent().parent().parent().parent();
 
+                                             var $zerahora = $divPanelBody.find("input:eq(2)");
                                              var $inputCustoIndireto   = $divPanelBody.find("input:eq(22)");
                                              var $inputIPCA            = $divPanelBody.find("input:eq(23)");
                                              var $inputReservaTecnica  = $divPanelBody.find("input:eq(24)");
                                              var $inputDespesaSede     = $divPanelBody.find("input:eq(25)");
 
+                                             $zerahora.val(0);
                                              $inputCustoIndireto.val(data.mark_custoindireto);
                                              $inputIPCA.val(data.mark_ipca);
                                              $inputReservaTecnica.val(data.mark_reservatecnica);
@@ -283,10 +285,11 @@ use yii\helpers\Url;
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,
+                            'suffix' => '%',
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
-                            'options' => ['readonly' => true, 'value' => 32.7,'class' => 'form-control']
+                            'options' => ['value'=> 32.7, 'readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
 
                 </div>
@@ -320,7 +323,7 @@ use yii\helpers\Url;
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
-                            'options' => [ 'readonly' => true, 'class' => 'form-control' ]
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
 
                 </div>
@@ -373,7 +376,7 @@ use yii\helpers\Url;
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
-                            'options' => [ 'readonly' => true, 'class' => 'form-control' ]
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
 
                 </div>
@@ -390,7 +393,7 @@ use yii\helpers\Url;
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
-                            'options' => [ 'readonly' => true, 'class' => 'form-control' ]
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
 
                 </div>
@@ -411,7 +414,16 @@ use yii\helpers\Url;
 
                 <div class="col-md-3">
 
-                <?= $form->field($model, 'planp_custosindiretos')->textInput(['readonly' => true]) ?>
+                <?= $form->field($model, 'planp_custosindiretos')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
                 </div>
 
                 <div class="col-md-3">
@@ -422,12 +434,30 @@ use yii\helpers\Url;
 
                 <div class="col-md-3">
 
-                <?= $form->field($model, 'planp_reservatecnica')->textInput(['readonly' => true]) ?>
+                <?= $form->field($model, 'planp_reservatecnica')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
                 </div>
 
                 <div class="col-md-3">
 
-                <?= $form->field($model, 'planp_despesadm')->textInput(['readonly' => true]) ?>
+                <?= $form->field($model, 'planp_despesadm')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
                 </div>
                   
             </div>
@@ -436,7 +466,16 @@ use yii\helpers\Url;
 
                 <div class="col-md-3">
 
-                <?= $form->field($model, 'planp_totalincidencias')->textInput(['readonly' => true]) ?>
+                <?= $form->field($model, 'planp_totalincidencias')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
                 </div>
 
                 <div class="col-md-3">
@@ -451,10 +490,9 @@ use yii\helpers\Url;
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
-                            'options' => [ 'readonly' => true, 'class' => 'form-control' ]
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
                 </div>
-
 
                 <div class="col-md-6">
 
@@ -468,10 +506,154 @@ use yii\helpers\Url;
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
-                            'options' => [ 'readonly' => true, 'class' => 'form-control' ]
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
                 </div>
                   
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_markdivisor')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_markmultiplicador')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_vendaturma')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_vendaaluno')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_horaaulaaluno')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_retorno')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_porcentretorno')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_precosugerido')->textInput() ?>
+                </div>
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_retornoprecosugerido')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+                <div class="col-md-3">
+
+                <?= $form->field($model, 'planp_minimoaluno')->textInput(['readonly' => true]) ?>
+                </div>
+
             </div>
 
         </div>

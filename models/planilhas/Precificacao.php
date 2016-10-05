@@ -82,11 +82,14 @@ class Precificacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica' ], 'required'],
+            [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_precosugerido'], 'required'],
             [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_servpedagogico'], 'integer'],
             [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_custosmateriais', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'planp_custosindiretos', 'planp_ipca', 'planp_reservatecnica', 'planp_despesadm', 'planp_totalincidencias', 'planp_totalcustoindireto', 'planp_despesatotal', 'planp_markdivisor', 'planp_markmultiplicador', 'planp_vendaturma', 'planp_vendaaluno', 'planp_horaaulaaluno', 'planp_retorno', 'planp_porcentretorno', 'planp_precosugerido', 'planp_retornoprecosugerido', 'planp_minimoaluno', 'hiddenPlanejamento'], 'safe'],
+            [['planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_ipca', 'planp_precosugerido'], 'number'],
             [['planp_docente'], 'exist', 'skipOnError' => true, 'targetClass' => Despesasdocente::className(), 'targetAttribute' => ['planp_docente' => 'doce_id']],
             [['planp_planodeacao'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planp_planodeacao' => 'plan_codplano']],
+            ['planp_totalhorasdocente', 'compare', 'compareValue' => 0, 'operator' => '>'],
+
         ];
     }
 
@@ -174,16 +177,20 @@ class Precificacao extends \yii\db\ActiveRecord
             'planp_totalincidencias' => 'Total Incidências(%)',
             'planp_totalcustoindireto' => 'Total Custo Indireto',
             'planp_despesatotal' => 'Despesa Total',
-            'planp_markdivisor' => 'Markdivisor',
-            'planp_markmultiplicador' => 'Markmultiplicador',
-            'planp_vendaturma' => 'Vendaturma',
-            'planp_vendaaluno' => 'Vendaaluno',
-            'planp_horaaulaaluno' => 'Horaaulaaluno',
-            'planp_retorno' => 'Retorno',
-            'planp_porcentretorno' => 'Porcentretorno',
-            'planp_precosugerido' => 'Precosugerido',
-            'planp_retornoprecosugerido' => 'Retornoprecosugerido',
-            'planp_minimoaluno' => 'Minimoaluno',
+            
+            'planp_markdivisor' => 'Mark-Up Divisor 100-X/100',
+            'planp_markmultiplicador' => 'Mark-Up Multiplicador 100/Markup',
+
+            'planp_vendaturma' => 'Preço de venda total da turma',
+            'planp_vendaaluno' => 'Preço de venda total por aluno',
+
+            'planp_horaaulaaluno' => 'Vr. Hora/aula por aluno',
+            'planp_retorno' => 'Retorno com preço de venda',
+            'planp_porcentretorno' => '% de Retorno',
+            'planp_precosugerido' => 'Preço Sugerido',
+            
+            'planp_retornoprecosugerido' => 'Retorno com preço sugerido',
+            'planp_minimoaluno' => 'Numero minimo de alunos por turma',
         ];
     }
 
