@@ -7,13 +7,34 @@ use yii\helpers\Html;
 /* @var $model app\models\planilhas\Precificacao */
 
 $this->title = $model->planp_id;
-$this->params['breadcrumbs'][] = ['label' => 'Precificacaos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Listagem de Precificação de Custo', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="precificacao-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+        <p>
+            <?php
+                  echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir','id' => $model->planp_id], [
+                      'class'=>'btn btn-warning', 
+                      'target'=>'_blank', 
+                      'data-toggle'=>'tooltip', 
+                      'title'=>' Clique aqui para gerar um arquivo PDF'
+                  ]);
+
+            ?>
+        </p>
+
+
+<?php
+
+//Pega as mensagens
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+}
+
+?>
 
   <div class="panel panel-primary">
     <div class="panel-heading">

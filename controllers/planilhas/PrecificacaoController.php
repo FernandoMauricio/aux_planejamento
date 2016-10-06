@@ -15,6 +15,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use kartik\mpdf\Pdf;
+//use mPDF;
 
 /**
  * PrecificacaoController implements the CRUD actions for Precificacao model.
@@ -50,6 +52,31 @@ class PrecificacaoController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    public function actionImprimir($id) {
+
+            $model = $this->findModel($id);
+
+            $pdf = new Pdf([
+                'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+                'format' => Pdf::FORMAT_A4,
+                'content' => $this->renderPartial('view_expand', ['model' => $model]),
+                'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+                'cssInline'=> '.kv-heading-1{font-size:18px}',
+                'options' => [
+                    'title' => 'Gerência de Planejamento e Orçamento - GPO',
+                ],
+                'methods' => [
+                    'SetHeader' => ['DETALHES DA PRECIFICAÇÃO DE CUSTO - SENAC AM||Gerado em: ' . date("d/m/Y - H:i:s")],
+                    'SetFooter' => ['Gerência de Planejamento e Orçamento - GPO||Página {PAGENO}'],
+                ]
+            ]);
+
+        return $pdf->render('view_expand', [
+            'model' => $model,
+
+        ]);
+        }
 
     /**
      * Displays a single Precificacao model.
@@ -136,6 +163,8 @@ class PrecificacaoController extends Controller
 
                     $precificacaoUnidades->save();
                 }
+
+                Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Precificação de Custo criada!</strong>');
 
             return $this->redirect(['view', 'id' => $model->planp_id]);
         } else {

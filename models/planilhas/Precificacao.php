@@ -189,6 +189,7 @@ class Precificacao extends \yii\db\ActiveRecord
             'planp_precosugerido' => 'Preço Sugerido',
             'planp_retornoprecosugerido' => 'Retorno com preço sugerido',
             'planp_minimoaluno' => 'Numero minimo de alunos por turma',
+            'planp_data' => 'Ano', 
         ];
     }
 

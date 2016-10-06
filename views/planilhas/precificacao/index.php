@@ -1,13 +1,17 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use yii\widgets\Pjax;
+use yii\helpers\ArrayHelper;
+
+use app\models\base\Unidade;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\planilhas\PrecificacaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Precificacaos';
+$this->title = 'Listagem de Precificação de Custo';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="precificacao-index">
@@ -16,58 +20,101 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Precificacao', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Nova', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'planp_id',
-            'planp_codunidade',
-            'planp_planodeacao',
-            'planp_cargahoraria',
-            'planp_qntaluno',
-            // 'planp_totalhorasdocente',
-            // 'planp_docente',
-            // 'planp_valorhoraaula',
-            // 'planp_servpedagogico',
-            // 'planp_horaaulaplanejamento',
-            // 'planp_totalcustodocente',
-            // 'planp_decimo',
-            // 'planp_ferias',
-            // 'planp_tercoferias',
-            // 'planp_totalsalario',
-            // 'planp_encargos',
-            // 'planp_totalencargos',
-            // 'planp_totalsalarioencargo',
-            // 'planp_custosmateriais',
-            // 'planp_diarias',
-            // 'planp_passagens',
-            // 'planp_pessoafisica',
-            // 'planp_pessoajuridica',
-            // 'planp_totalcustodireto',
-            // 'planp_totalhoraaulacustodireto',
-            // 'planp_custosindiretos',
-            // 'planp_ipca',
-            // 'planp_reservatecnica',
-            // 'planp_despesadm',
-            // 'planp_totalincidencias',
-            // 'planp_totalcustoindireto',
-            // 'planp_despesatotal',
-            // 'planp_markdivisor',
-            // 'planp_markmultiplicador',
-            // 'planp_vendaturma',
-            // 'planp_vendaaluno',
-            // 'planp_horaaulaaluno',
-            // 'planp_retorno',
-            // 'planp_porcentretorno',
-            // 'planp_precosugerido',
-            // 'planp_retornoprecosugerido',
-            // 'planp_minimoaluno',
+<?php
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+    $gridColumns = [
+                    [
+                        'class'=>'kartik\grid\ExpandRowColumn',
+                        'width'=>'5%',
+                        'value'=>function ($model, $key, $index, $column) {
+                            return GridView::ROW_COLLAPSED;
+                        },
+                        'detail'=>function ($model, $key, $index, $column) {
+                            return Yii::$app->controller->renderPartial('/planilhas/precificacao/view_expand', ['model'=>$model]);
+                        },
+                        'headerOptions'=>['class'=>'kartik-sheet-style'],
+                        'expandOneOnly'=>true,
+                    ],
+
+                    [
+                    'attribute'=>'planp_codunidade', 
+                    'width'=>'30%',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                        return $model->unidade->uni_nomeabreviado;
+                    },
+                    'filterType'=>GridView::FILTER_SELECT2,
+                    'filter'=>ArrayHelper::map(Unidade::find()->where(['uni_codsituacao' => 1, 'uni_coddisp' => 1])->orderBy('uni_nomeabreviado')->asArray()->all(), 'uni_codunidade', 'uni_nomeabreviado'), 
+                    'filterWidgetOptions'=>[
+                        'pluginOptions'=>['allowClear'=>true],
+                    ],
+                         'filterInputOptions'=>['placeholder'=>'Selecione a Unidade'],
+                         'group'=>true,  // enable grouping
+                    ],
+
+                    [
+                      'attribute'=>'planp_data',
+                      'format' => ['date', 'php:Y'],
+                      'width'=>'5%',
+                    ],
+
+                    [
+                      'attribute'=>'planp_id',
+                      'width'=>'5%',
+                    ],
+
+
+                    [
+                      'attribute'=>'planp_planodeacao',
+                      'value'=> 'planodeacao.plan_descricao',
+                    ],
+
+                    [
+                      'attribute'=>'planp_cargahoraria',
+                      'width'=>'5%',
+                    ],  
+
+                    [
+                      'attribute'=>'planp_qntaluno',
+                      'width'=>'5%',
+                    ],    
+
+            ['class' => 'yii\grid\ActionColumn','template' => '{view}'],
+        ];
+     ?>
+
+
+ <?php Pjax::begin(['id'=>'w0-pjax']); ?>
+
+    <?php 
+
+    echo GridView::widget([
+    'dataProvider'=>$dataProvider,
+    'filterModel'=>$searchModel,
+    'columns'=>$gridColumns,
+    'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
+    'headerRowOptions'=>['class'=>'kartik-sheet-style'],
+    'filterRowOptions'=>['class'=>'kartik-sheet-style'],
+    'pjax'=>true, // pjax is set to always true for this demo
+    'condensed' => true,
+    'hover' => true,
+    'beforeHeader'=>[
+        [
+            'columns'=>[
+                ['content'=>'Detalhes da Precificação de Custo', 'options'=>['colspan'=>7, 'class'=>'text-center warning']],
+                ['content'=>'Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
+            ],
+        ]
+    ],
+
+        'panel' => [
+        'type'=>GridView::TYPE_PRIMARY,
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem de Custos da Unidade </h3>',
+    ],
+]);
+    ?>
+    <?php Pjax::end(); ?>
+
 </div>

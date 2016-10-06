@@ -8,7 +8,9 @@ use app\models\base\Unidade;
 <div class="precificacao2-view">
 
  <div class="row">
-     <p class="bg-info" style="padding: 10px; text-align: center;"><strong> PLANILHA DE CUSTO E FORMAÇÃO DE PREÇO DE VENDA<br> <?php echo $model->planodeacao->plan_descricao; ?></strong></p>
+     <p class="bg-info" style="padding: 10px; text-align: center;"><strong> PLANILHA DE CUSTO E FORMAÇÃO DE PREÇO DE VENDA <br>
+     <span style="color: #F7941D;"><?php echo $model->planodeacao->plan_descricao; ?></strong></span>
+     </p>
 </div>
 
   <table class="table table-condensed table-hover">
@@ -71,10 +73,10 @@ use app\models\base\Unidade;
         <td><?php echo $nomeUnidade; ?></td>
         <td><?php echo $uprec_cargahoraria; ?></td>
         <td><?php echo $uprec_qntaluno; ?></td>
-        <td><?php  echo 'R$ ' . number_format($uprec_totalcustodireto, 2, ',', '.'); ?></td>
-        <td><?php  echo 'R$ ' . number_format($uprec_vendaturma, 2, ',', '.'); ?></td>
-        <td><?php  echo 'R$ ' . number_format($uprec_vendaaluno, 2, ',', '.'); ?></td>
-        <td><?php  echo 'R$ ' . number_format($uprec_horaaula, 2, ',', '.'); ?></td>
+        <td><?php echo 'R$ ' . number_format($uprec_totalcustodireto, 2, ',', '.'); ?></td>
+        <td><?php echo 'R$ ' . number_format($uprec_vendaturma, 2, ',', '.'); ?></td>
+        <td><?php echo 'R$ ' . number_format($uprec_vendaaluno, 2, ',', '.'); ?></td>
+        <td><?php echo 'R$ ' . number_format($uprec_horaaula, 2, ',', '.'); ?></td>
       </tr>
       <?php
         }
@@ -86,10 +88,10 @@ use app\models\base\Unidade;
               <th>Média Total </th>
                <th colspan="1" style="color:red"><?php echo $uprec_cargahoraria; ?></th>
                <th colspan="1" style="color:red"><?php echo $uprec_qntaluno; ?></th>
-               <th colspan="1" style="color:red"><?php  echo 'R$ ' . number_format($uprec_totalcustodireto, 2, ',', '.'); ?></th>
-               <th colspan="1" style="color:red"><?php  echo 'R$ ' . number_format($MediaVendaTurma, 2, ',', '.'); ?></th>
-               <th colspan="1" style="color:red"><?php  echo 'R$ ' . number_format($MediaVendaAluno, 2, ',', '.'); ?></th>
-               <th colspan="1" style="color:red"><?php  echo 'R$ ' . number_format($MediaHoraAula, 2, ',', '.'); ?></th>
+               <th colspan="1" style="color:red"><?php echo 'R$ ' . number_format($uprec_totalcustodireto, 2, ',', '.'); ?></th>
+               <th colspan="1" style="color:red"><?php echo 'R$ ' . number_format($MediaVendaTurma, 2, ',', '.'); ?></th>
+               <th colspan="1" style="color:red"><?php echo 'R$ ' . number_format($MediaVendaAluno, 2, ',', '.'); ?></th>
+               <th colspan="1" style="color:red"><?php echo 'R$ ' . number_format($MediaHoraAula, 2, ',', '.'); ?></th>
             </tr>
     </tfoot>
 

@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\planilhas\Precificacao */
 
-$this->title = 'Create Precificacao';
-$this->params['breadcrumbs'][] = ['label' => 'Precificacaos', 'url' => ['index']];
+$this->title = 'Nova Precificação de Custo';
+$this->params['breadcrumbs'][] = ['label' => 'Listagem de Precificação de Custo', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="precificacao-create">
