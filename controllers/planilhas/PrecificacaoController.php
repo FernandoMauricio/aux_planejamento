@@ -8,6 +8,7 @@ use app\models\despesas\Markup;
 use app\models\despesas\Despesasdocente;
 use app\models\despesas\Custosunidade;
 use app\models\planos\Planodeacao;
+use app\models\planilhas\PrecificacaoUnidades;
 use app\models\planilhas\Precificacao;
 use app\models\planilhas\PrecificacaoSearch;
 use yii\web\Controller;
@@ -99,6 +100,8 @@ class PrecificacaoController extends Controller
 
         $model = new Precificacao();
 
+        $precificacaoUnidades = new PrecificacaoUnidades();
+
         $planos       = Planodeacao::find()->where(['plan_status' => 1])->orderBy('plan_descricao')->all();
         $unidades     = Unidade::find()->where(['uni_codsituacao' => 1, 'uni_coddisp' => 1])->orderBy('uni_nomeabreviado')->all();
         $nivelDocente = Despesasdocente::find()->where(['doce_status' => 1])->all();
@@ -107,10 +110,38 @@ class PrecificacaoController extends Controller
         $model->planp_codcolaborador = $session['sess_codcolaborador'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            if($model->save()){
+
+                $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_custosmateriais; 
+
+                //Localiza as unidades configuradas pelo MARKUP
+                $listagemUnidades = "SELECT * FROM markup_mark";
+                $unidadesMarkup = Markup::findBySql($listagemUnidades)->all(); 
+
+                foreach ($unidadesMarkup as $unidadeMarkup) {
+
+                    $mark_codunidade = $unidadeMarkup['mark_codunidade'];
+                    $mark_divisor    = $unidadeMarkup['mark_divisor'];
+
+                    $PrecoVendaTurma    = ($model->planp_totalcustodireto / $mark_divisor) * 100; // Valores em % -> Preço de Venda = Total Custo Direto / Markup Divisor
+                    $PrecoVendaAluno    = $PrecoVendaTurma / $model->planp_qntaluno; //Preço de Venda da Turma / QNT Alunos
+                    $ValorHoraAulaAluno = $PrecoVendaTurma / $model->planp_cargahoraria / $model->planp_qntaluno; //Preço de Venda da Turma / CH TOTAL / QNT Alunos
+
+                    $command = Yii::$app->db_apl->createCommand();
+                    $command->insert('db_apl.precificacao_unidades', array('uprec_codunidade'=>$mark_codunidade, 'precificacao_id' => $model->planp_id, 'uprec_cargahoraria' => $model->planp_cargahoraria, 'uprec_qntaluno' => $model->planp_qntaluno, 'uprec_totalcustodireto' => $model->planp_totalcustodireto, 'uprec_vendaturma' => $PrecoVendaTurma, 'uprec_vendaaluno' => $PrecoVendaAluno, 'uprec_horaaula' => $ValorHoraAulaAluno));
+                    $command->execute();
+                    
+                    }
+
+                    $precificacaoUnidades->save();
+                }
+
             return $this->redirect(['view', 'id' => $model->planp_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'precificacaoUnidades' => $precificacaoUnidades,
                 'planos' => $planos,
                 'unidades' => $unidades,
                 'nivelDocente' => $nivelDocente,

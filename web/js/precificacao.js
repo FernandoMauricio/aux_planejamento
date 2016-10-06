@@ -108,8 +108,9 @@ $(function() {
       var valor_servpedagogico     = planp_servpedagogico * hiddenplanejamento;
       var valorTotalMaoDeObra      = (planp_totalhorasdocente * planp_valorhoraaula) + valor_servpedagogico;
       var valorDecimo              = valorTotalMaoDeObra / 12;
+      var valorFerias              = valorTotalMaoDeObra / 12;
       var valorTercoFerias         = valorTotalMaoDeObra / 12 / 3;
-      var totalSalarios            = valorTotalMaoDeObra + valorDecimo + valorDecimo + valorTercoFerias;
+      var totalSalarios            = valorTotalMaoDeObra + valorDecimo + valorFerias + valorTercoFerias;
       var totalEncargos            = (totalSalarios * 32.7) / 100;
       var totalSalariosEncargos    = totalSalarios + totalEncargos;
       var valorTotalDireto         = totalSalariosEncargos + planp_diarias + planp_passagens + planp_pessoafisica + planp_pessoajuridica + planp_custosmateriais;
@@ -179,7 +180,7 @@ $(function() {
 
       $('#precificacao-planp_decimo').val(valorDecimo); // 1/12 de 13º
 
-      $('#precificacao-planp_ferias').val(valorDecimo); // 1/12 de Férias
+      $('#precificacao-planp_ferias').val(valorFerias); // 1/12 de Férias
 
       $('#precificacao-planp_tercoferias').val(valorTercoFerias); // 1/12 de 1/3 de férias
 
