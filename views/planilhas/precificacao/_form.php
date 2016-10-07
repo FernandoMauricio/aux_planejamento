@@ -13,6 +13,15 @@ use yii\helpers\Url;
 
 <div class="precificacao-form">
 
+<?php
+
+//Pega as mensagens
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+}
+
+?>
+
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="panel panel-primary">

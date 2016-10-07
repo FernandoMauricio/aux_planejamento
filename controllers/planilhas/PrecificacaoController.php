@@ -5,6 +5,7 @@ namespace app\controllers\planilhas;
 use Yii;
 use app\models\base\Unidade;
 use app\models\despesas\Markup;
+use app\models\despesas\MarkupSearch;
 use app\models\despesas\Despesasdocente;
 use app\models\despesas\Custosunidade;
 use app\models\planos\Planodeacao;
@@ -60,9 +61,10 @@ class PrecificacaoController extends Controller
             $pdf = new Pdf([
                 'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
                 'format' => Pdf::FORMAT_A4,
-                'content' => $this->renderPartial('view_expand', ['model' => $model]),
+                'content' => $this->renderPartial('imprimir', ['model' => $model]),
                 'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
                 'cssInline'=> '.kv-heading-1{font-size:18px}',
+                'defaultFontSize' => '6px',
                 'options' => [
                     'title' => 'Gerência de Planejamento e Orçamento - GPO',
                 ],
@@ -72,7 +74,7 @@ class PrecificacaoController extends Controller
                 ]
             ]);
 
-        return $pdf->render('view_expand', [
+        return $pdf->render('imprimir', [
             'model' => $model,
 
         ]);
@@ -126,8 +128,11 @@ class PrecificacaoController extends Controller
         $session = Yii::$app->session;
 
         $model = new Precificacao();
-
         $precificacaoUnidades = new PrecificacaoUnidades();
+
+        $sourceMarkup = new MarkupSearch();
+        $dataProvider = $sourceMarkup->search(Yii::$app->request->getQueryParams());
+        $markups = $dataProvider->getModels();
 
         $planos       = Planodeacao::find()->where(['plan_status' => 1])->orderBy('plan_descricao')->all();
         $unidades     = Unidade::find()->where(['uni_codsituacao' => 1, 'uni_coddisp' => 1])->orderBy('uni_nomeabreviado')->all();
@@ -136,7 +141,33 @@ class PrecificacaoController extends Controller
         $model->planp_data           = date('Y-m-d');
         $model->planp_codcolaborador = $session['sess_codcolaborador'];
 
+        //Realiza a Verificação se as configurações estão atualizadas do Markup
+        foreach ($markups as $markup) {
+                    if($markup->mark_ano != date('Y')){
+                         Yii::$app->session->setFlash('danger', "As Configurações de Markup estão configuradas para o ano de <strong>" .$markup->mark_ano. "</strong>. Por gentileza, atualize as informações para o ano corrente(" .date('Y').") na tela de Configuração de Markup.<strong> clicando aqui</strong>!" );
+
+                         return $this->render('create', [
+                            'model' => $model,
+                            'precificacaoUnidades' => $precificacaoUnidades,
+                            'planos' => $planos,
+                            'unidades' => $unidades,
+                            'nivelDocente' => $nivelDocente,
+                        ]);
+                    }else{
+                        Yii::$app->session->removeFlash('danger',null);
+                    }
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+        //Realiza a Verificação se as configurações estão atualizadas do Markup
+        foreach ($markups as $markup) {
+                    if($markup->mark_ano != date('Y')){
+                         Yii::$app->session->setFlash('danger', "As Configurações de Markup estão configuradas para o ano de <strong>" .$markup->mark_ano. "</strong>. Por gentileza, atualize as informações para o ano corrente(" .date('Y').") na tela de Configuração de Markup.<strong> clicando aqui</strong>!" );
+                    }else{
+                        Yii::$app->session->removeFlash('danger',null);
+                    }
+        }
 
             if($model->save()){
 

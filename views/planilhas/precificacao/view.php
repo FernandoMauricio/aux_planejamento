@@ -26,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>
         </p>
 
-
 <?php
 
 //Pega as mensagens
