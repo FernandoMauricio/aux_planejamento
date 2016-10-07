@@ -24,7 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
 <?php
-
     $gridColumns = [
                     [
                         'class'=>'kartik\grid\ExpandRowColumn',
@@ -55,8 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
 
                     [
-                      'attribute'=>'planp_data',
-                      'format' => ['date', 'php:Y'],
+                      'attribute'=>'planp_ano',
                       'width'=>'5%',
                     ],
 
@@ -67,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                     [
-                      'attribute'=>'planp_planodeacao',
+                      'attribute'=>'labelCurso',
                       'value'=> 'planodeacao.plan_descricao',
                     ],
 
@@ -80,6 +78,18 @@ $this->params['breadcrumbs'][] = $this->title;
                       'attribute'=>'planp_qntaluno',
                       'width'=>'5%',
                     ],    
+
+                    [
+                      'attribute'=>'planp_precosugerido',
+                      'format' => 'currency',
+                      'width'=>'5%',
+                    ], 
+
+                    [
+                      'label' => 'Nº Min Aluno',
+                      'attribute'=>'planp_minimoaluno',
+                      'width'=>'5%',
+                    ], 
 
             ['class' => 'yii\grid\ActionColumn','template' => '{view}'],
         ];
@@ -103,7 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes da Precificação de Custo', 'options'=>['colspan'=>7, 'class'=>'text-center warning']],
+                ['content'=>'Detalhes da Precificação de Custo', 'options'=>['colspan'=>9, 'class'=>'text-center warning']],
                 ['content'=>'Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]

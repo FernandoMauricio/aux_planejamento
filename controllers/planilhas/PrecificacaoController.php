@@ -54,6 +54,11 @@ class PrecificacaoController extends Controller
         ]);
     }
 
+    public function actionDuvidas()
+    {
+        return $this->renderAjax('duvidas');
+    }
+
     public function actionImprimir($id) {
 
             $model = $this->findModel($id);
@@ -138,6 +143,7 @@ class PrecificacaoController extends Controller
         $unidades     = Unidade::find()->where(['uni_codsituacao' => 1, 'uni_coddisp' => 1])->orderBy('uni_nomeabreviado')->all();
         $nivelDocente = Despesasdocente::find()->where(['doce_status' => 1])->all();
 
+        $model->planp_ano            = date('Y');
         $model->planp_data           = date('Y-m-d');
         $model->planp_codcolaborador = $session['sess_codcolaborador'];
 

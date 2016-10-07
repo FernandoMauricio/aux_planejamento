@@ -20,7 +20,7 @@ class PrecificacaoSearch extends Precificacao
         return [
             [['planp_id', 'planp_codunidade', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_servpedagogico'], 'integer'],
             [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_custosmateriais', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'planp_custosindiretos', 'planp_ipca', 'planp_reservatecnica', 'planp_despesadm', 'planp_totalincidencias', 'planp_totalcustoindireto', 'planp_despesatotal', 'planp_markdivisor', 'planp_markmultiplicador', 'planp_vendaturma', 'planp_vendaaluno', 'planp_horaaulaaluno', 'planp_retorno', 'planp_porcentretorno', 'planp_precosugerido', 'planp_retornoprecosugerido', 'planp_minimoaluno'], 'number'],
-            [['planp_data','planp_planodeacao'], 'safe'],
+            [['planp_data','planp_planodeacao', 'planp_ano','labelCurso'], 'safe'],
         ];
     }
 
@@ -42,13 +42,18 @@ class PrecificacaoSearch extends Precificacao
      */
     public function search($params)
     {
-        $query = Precificacao::find();
+        $query = Precificacao::find()->orderBy(['planp_id' => SORT_DESC]);;
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['labelCurso'] = [
+        'asc' => ['planodeacao_plan.plan_descricao' => SORT_ASC],
+        'desc' => ['planodeacao_plan.plan_descricao' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -98,13 +103,15 @@ class PrecificacaoSearch extends Precificacao
             'planp_horaaulaaluno' => $this->planp_horaaulaaluno,
             'planp_retorno' => $this->planp_retorno,
             'planp_porcentretorno' => $this->planp_porcentretorno,
-            'planp_precosugerido' => $this->planp_precosugerido,
             'planp_retornoprecosugerido' => $this->planp_retornoprecosugerido,
             'planp_minimoaluno' => $this->planp_minimoaluno,
         ]);
 
-        $query->andFilterWhere(['like', 'planp_data', $this->planp_data])
-              ->andFilterWhere(['like', 'planp_planodeacao', $this->planp_planodeacao]);
+$query->joinWith('planodeacao');
+
+        $query->andFilterWhere(['like', 'planp_ano', $this->planp_data])
+              ->andFilterWhere(['like', 'planp_precosugerido', $this->planp_precosugerido])
+              ->andFilterWhere(['like', 'planodeacao_plan.plan_descricao', $this->labelCurso]);
 
         return $dataProvider;
     }

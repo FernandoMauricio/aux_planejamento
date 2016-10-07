@@ -2,6 +2,8 @@
 
 use kartik\detail\DetailView;
 use yii\helpers\Html;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\planilhas\Precificacao */
@@ -22,9 +24,24 @@ $this->params['breadcrumbs'][] = $this->title;
                       'data-toggle'=>'tooltip', 
                       'title'=>' Clique aqui para gerar um arquivo PDF'
                   ]);
-
             ?>
+
+            <?= Html::button('<i class="glyphicon glyphicon-info-sign"></i> Dúvidas?', ['value'=> Url::to('index.php?r=planilhas/precificacao/duvidas'), 'class' => 'btn btn-info', 'id'=>'modalButton']) ?>
+
         </p>
+
+    <?php
+        Modal::begin([
+            'header' => '<h4>Cálculos Realizados</h4>',
+            'id' => 'modal',
+            'size' => 'modal-lg',
+            ]);
+
+        echo "<div id='modalContent'></div>";
+
+        Modal::end();
+
+   ?>
 
 <?php
 

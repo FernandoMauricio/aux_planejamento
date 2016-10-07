@@ -62,6 +62,15 @@ $config = [
                      ],
 
     'components' => [
+        'formatter' => [
+                    'class' => 'yii\i18n\Formatter',
+                    'dateFormat' => 'php:d/m/Y',
+                    'datetimeFormat' => 'php:d/m/Y H:i:s',
+                    'timeFormat' => 'php:H:i:s',
+                    'decimalSeparator' => ',',
+                    'thousandSeparator' => '.',
+                    'currencyCode' => 'R$',
+                ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'x05jEuD9ypzJe9arXRBtPByltBfUbi96',
