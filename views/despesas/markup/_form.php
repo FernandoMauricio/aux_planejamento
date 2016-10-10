@@ -60,18 +60,19 @@ echo TabularForm::widget([
         'columnOptions'=>['width'=>'50px'],
         ],
 
-
         'mark_despesasede' => ['type' => TabularForm::INPUT_TEXT,
         'columnOptions'=>['width'=>'50px'],
         ],
 
         'mark_totalincidencias' => [
-            'type'=>TabularForm::INPUT_STATIC, 
+            'type'=>TabularForm::INPUT_STATIC,
+            'format'=>['decimal',2],
             'columnOptions'=>['hAlign'=>GridView::ALIGN_RIGHT, 'width'=>'90px'],
         ],
 
         'mark_divisor' => [
-            'type'=>TabularForm::INPUT_STATIC, 
+            'type'=>TabularForm::INPUT_STATIC,
+            'format'=>['decimal',2],
             'columnOptions'=>['hAlign'=>GridView::ALIGN_RIGHT, 'width'=>'90px']
         ],
 

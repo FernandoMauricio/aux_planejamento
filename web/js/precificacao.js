@@ -49,6 +49,14 @@ $(function() {
        updateTotal();
     });
 
+    $('#precificacao-planp_custosconsumo').keyup(function() {  
+       updateTotal();
+    });
+
+    $('#precificacao-planp_custosaluno').keyup(function() {  
+       updateTotal();
+    });
+
     $('#precificacao-totalhoraaulacustodireto').keyup(function() {  
        updateTotal();
     });
@@ -92,6 +100,8 @@ $(function() {
       var planp_pessoafisica         = parseFloat($('#precificacao-planp_pessoafisica').val());
       var planp_pessoajuridica       = parseFloat($('#precificacao-planp_pessoajuridica').val());
       var planp_custosmateriais      = parseFloat($('#precificacao-planp_custosmateriais').val());
+      var planp_custosconsumo        = parseFloat($('#precificacao-planp_custosconsumo').val());
+      var planp_custosaluno          = parseFloat($('#precificacao-planp_custosaluno').val());
       var totalhoraaulacustodireto   = parseFloat($('#precificacao-totalhoraaulacustodireto').val());
 
       //SEÇÃO 3
@@ -113,7 +123,8 @@ $(function() {
       var totalSalarios            = valorTotalMaoDeObra + valorDecimo + valorFerias + valorTercoFerias;
       var totalEncargos            = (totalSalarios * 32.7) / 100;
       var totalSalariosEncargos    = totalSalarios + totalEncargos;
-      var valorTotalDireto         = totalSalariosEncargos + planp_diarias + planp_passagens + planp_pessoafisica + planp_pessoajuridica + planp_custosmateriais;
+      var totalMaterial            = planp_custosmateriais * planp_qntaluno;
+      var valorTotalDireto         = totalSalariosEncargos + planp_diarias + planp_passagens + planp_pessoafisica + planp_pessoajuridica + totalMaterial + planp_custosconsumo + planp_custosaluno;
       var totalhoraaulacustodireto = valorTotalDireto / planp_cargahoraria / planp_qntaluno;
 
       //SEÇÃO 3
@@ -218,9 +229,6 @@ $(function() {
       $('#precificacao-planp_retornoprecosugerido').val(RetornoPrecoSugerido); // Preço Sugerido x Qnt de Alunos - Despesa Total;
 
       $('#precificacao-planp_minimoaluno').val(MinimoAlunos); // Despesa Total / Preço Sugerido;
-
-      
-
 
     };
  });

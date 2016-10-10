@@ -50,10 +50,10 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                                              var $divPanelBody = $(select).parent().parent().parent().parent().parent();
 
                                              var $zerahora = $divPanelBody.find("input:eq(2)");
-                                             var $inputCustoIndireto   = $divPanelBody.find("input:eq(22)");
-                                             var $inputIPCA            = $divPanelBody.find("input:eq(23)");
-                                             var $inputReservaTecnica  = $divPanelBody.find("input:eq(24)");
-                                             var $inputDespesaSede     = $divPanelBody.find("input:eq(25)");
+                                             var $inputCustoIndireto   = $divPanelBody.find("input:eq(24)");
+                                             var $inputIPCA            = $divPanelBody.find("input:eq(25)");
+                                             var $inputReservaTecnica  = $divPanelBody.find("input:eq(26)");
+                                             var $inputDespesaSede     = $divPanelBody.find("input:eq(27)");
 
                                              $zerahora.val(0);
                                              $inputCustoIndireto.val(data.mark_custoindireto);
@@ -80,13 +80,19 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
                                              var $divPanelBody = $(select).parent().parent().parent().parent().parent();
 
-                                             var $zerahoratotal = $divPanelBody.find("input:eq(0)");
-                                             var $zeraqntaluno = $divPanelBody.find("input:eq(1)");
-                                             var $inputCustoPlano = $divPanelBody.find("input:eq(19)");
+                                             var $zerahoratotal      = $divPanelBody.find("input:eq(0)");
+                                             var $zeraqntaluno       = $divPanelBody.find("input:eq(1)");
+                                             var $inputCustoMaterial = $divPanelBody.find("input:eq(19)");
+                                             var $inputCustoConsumo  = $divPanelBody.find("input:eq(20)");
+                                             var $inputCustoAluno    = $divPanelBody.find("input:eq(21)");
+
+                                             console.log(data);
 
                                              $zerahoratotal.val(data.plan_cargahoraria);
                                              $zeraqntaluno.val(0);
-                                             $inputCustoPlano.val(data.plan_custoTotal);
+                                             $inputCustoMaterial.val(data.plan_custoTotalMaterial);
+                                             $inputCustoConsumo.val(data.plan_custoTotalConsumo);
+                                             $inputCustoAluno.val(data.plan_custoTotalAluno);
 
                                           });
                                       '
@@ -166,7 +172,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             <div class="row">
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_valorhoraaula')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -178,7 +183,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_horaaulaplanejamento')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -195,7 +199,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-6">
-
                 <?= $form->field($model, 'planp_totalcustodocente')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -216,7 +219,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             <div class="row">
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_decimo')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -233,7 +235,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_ferias')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -250,7 +251,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_tercoferias')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -267,7 +267,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_totalsalario')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -289,7 +288,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             <div class="row">
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_encargos')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -304,7 +302,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_totalencargos')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -321,7 +318,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-6">
-
                 <?= $form->field($model, 'planp_totalsalarioencargo')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -342,23 +338,19 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             <div class="row">
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_diarias')->textInput(['value' => 0]) ?>
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_passagens')->textInput(['value' => 0]) ?>
                 </div>
 
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_pessoafisica')->textInput(['value' => 0]) ?>
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_pessoajuridica')->textInput(['value' => 0]) ?>
                 </div>
                   
@@ -366,15 +358,19 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
             <div class="row">
 
-                <div class="col-md-3">
-
+                <div class="col-md-2">
                 <?= $form->field($model, 'planp_custosmateriais')->textInput(['readonly' => true]); ?>
+                </div>
 
+                <div class="col-md-2">
+                <?= $form->field($model, 'planp_custosconsumo')->textInput(['readonly' => true]); ?>
+                </div>
 
+                <div class="col-md-2">
+                <?= $form->field($model, 'planp_custosaluno')->textInput(['readonly' => true]); ?>
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_totalcustodireto')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -391,7 +387,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_totalhoraaulacustodireto')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -422,7 +417,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             <div class="row">
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_custosindiretos')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -436,13 +430,11 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_ipca')->textInput() ?>
                 </div>
 
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_reservatecnica')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -456,7 +448,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_despesadm')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -474,7 +465,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             <div class="row">
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_totalincidencias')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -488,7 +478,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_totalcustoindireto')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -504,7 +493,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-6">
-
                 <?= $form->field($model, 'planp_despesatotal')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -524,7 +512,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             <div class="row">
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_markdivisor')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -538,7 +525,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_markmultiplicador')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -552,7 +538,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-6">
-
                 <?= $form->field($model, 'planp_vendaturma')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -572,7 +557,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             <div class="row">
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_vendaaluno')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -588,7 +572,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_retorno')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -604,7 +587,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_horaaulaaluno')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -620,7 +602,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_porcentretorno')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -638,7 +619,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             <div class="row">
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_precosugerido')->textInput() ?>
                 </div>
 
@@ -659,7 +639,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-
                 <?= $form->field($model, 'planp_minimoaluno')->textInput(['readonly' => true]) ?>
                 </div>
 

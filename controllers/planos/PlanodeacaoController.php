@@ -202,7 +202,9 @@ class PlanodeacaoController extends Controller
                                 $query = (new \yii\db\Query())->from('db_apl.plano_materialaluno')->where(['planodeacao_cod' => $id]);
                                 $totalValorAluno = $query->sum('planmatalu_valor*planmatalu_quantidade');
 
-                                $model->plan_custoTotal = $totalValorMaterial + $totalValorConsumo + $totalValorAluno; //save custo material aluno
+                                $model->plan_custoTotalMaterialMaterial = $totalValorMaterial; //save custo material didático
+                                $model->plan_custoTotalMaterialConsumo  = $totalValorConsumo; //save custo material aluno
+                                $model->plan_custoTotalMaterialAluno    = $totalValorAluno; //save custo material consumo
                                 $model->save();
 
                             }
@@ -414,7 +416,9 @@ class PlanodeacaoController extends Controller
                                     $query = (new \yii\db\Query())->from('db_apl.plano_materialaluno')->where(['planodeacao_cod' => $id]);
                                     $totalValorAluno = $query->sum('planmatalu_valor*planmatalu_quantidade');
 
-                                    $model->plan_custoTotal = $totalValorMaterial + $totalValorConsumo + $totalValorAluno; //save custo material aluno
+                                    $model->plan_custoTotalMaterialMaterial = $totalValorMaterial; //save custo material didático
+                                    $model->plan_custoTotalMaterialConsumo  = $totalValorConsumo; //save custo material aluno
+                                    $model->plan_custoTotalMaterialAluno    = $totalValorAluno; //save custo material consumo
                                     $model->save();
 
                                 }

@@ -27,7 +27,7 @@ use yii\helpers\Html;
 
 <p><b> Total de Salários + Encargos</b> =  Total de Salários<b class="calc"> + </b> Total de Encargos </p>
 
-<p><b> Total de Custo Direto</b> =  Total de Salários + Encargos<b class="calc"> + </b> Diarias <b class="calc"> + </b> Passagens <b class="calc"> + </b> Serv. Terceiros (PF) <b class="calc"> + </b> Serv. Terceiros (PJ) <b class="calc"> + </b> Material Didático/Aluno/Consumo (Extraído do Plano) </p>
+<p><b> Total de Custo Direto</b> =  Total de Salários e Encargos<b class="calc"> + </b> Diarias <b class="calc"> + </b> Passagens <b class="calc"> + </b> Serv. Terceiros (PF) <b class="calc"> + </b> Serv. Terceiros (PJ) <b class="calc"> + </b> (Material Didático <b class="calc">* </b>Quantidade de Alunos) <b class="calc"> + </b> Material de Consumo  <b class="calc"> + </b> Material do Aluno</p>
 
 <p><b> Valor Hora/Aula de Custo Direto</b> =  Total de Custo Direto <b class="calc"> / </b> Carga Horária <b class="calc"> / </b> Quantidade de Alunos </p>
 
@@ -41,7 +41,7 @@ use yii\helpers\Html;
 
 <p><b> Mark-Up Multiplicador</b> = ( 100 <b class="calc"> / </b> Mark-Up Divisor ) <b class="calc"> * </b> 100 </p>
 
-<p><b> Preço de Venda Total da Turma</b> =  ( Total de Custo Direto<b class="calc"> / </b> Mark-Up Divisor<b class="calc"> x </b> 100 </p>
+<p><b> Preço de Venda Total da Turma</b> =  ( Total de Custo Direto<b class="calc"> / </b> Mark-Up Divisor)<b class="calc"> x </b> 100 </p>
 
 <p><b> Preço de Venda Total por Aluno</b> =  Preço de Venda Total da Turma<b class="calc"> / </b>  Quantidade de Alunos</p>
 
