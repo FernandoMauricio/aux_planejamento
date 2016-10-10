@@ -40,9 +40,9 @@ class Custosunidade extends \yii\db\ActiveRecord
     {
         return [
             [['cust_codunidade', 'cust_indireto', 'cust_status', 'cust_ano'], 'required'],
-            ['cust_codunidade', 'unique', 'targetAttribute' => ['cust_ano'],'message' => '"{attribute} já utilizada para o ano selecionado"'],
-            [['cust_indireto', 'cust_MediaPorcentagem', 'cust_MediaCustoIndireto'], 'number'],
             [['cust_codunidade', 'cust_status', 'cust_ano'], 'integer'],
+            [['cust_indireto', 'cust_MediaPorcentagem', 'cust_MediaCustoIndireto'], 'number'],
+            [['cust_codunidade', 'cust_ano'], 'unique', 'targetAttribute' => 'cust_codunidade','message' => '"{attribute} já utilizada para o ano selecionado"'],
         ];
     }
 
@@ -69,7 +69,6 @@ class Custosunidade extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Salas::className(), ['custosunidade_id' => 'cust_codcusto']);
     }
-
 
     public function getUnidade()
     {

@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
+use yii\helpers\ArrayHelper;
+
+use app\models\cadastros\Ano;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\despesas\CustosunidadeSearch */
@@ -37,14 +40,20 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
 
                             [
+                            'attribute'=>'cust_ano', 
+                            'width'=>'30%',
+                            'filterType'=>GridView::FILTER_SELECT2,
+                            'filter'=>ArrayHelper::map(Ano::find()->orderBy(['an_codano' => SORT_DESC])->all(), 'an_ano', 'an_ano'), 
+                            'filterWidgetOptions'=>[
+                                'pluginOptions'=>['allowClear'=>true],
+                            ],
+                                 'filterInputOptions'=>['placeholder'=>'Selecione o Ano'],
+                                 'group'=>true,  // enable grouping
+                            ],
+                            
+                            [
                               'attribute'=>'cust_codcusto',
                               'width'=>'5%'
-                            ],
-
-                            [
-                              'attribute'=>'cust_ano',
-                              'value'=> 'ano.an_ano',
-                              'width'=>'10%'
                             ],
 
                             [

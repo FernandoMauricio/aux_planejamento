@@ -40,7 +40,7 @@ use app\models\cadastros\Ano;
     <div class="col-md-2">
     <?php
             $rows = Ano::find()->where(['an_status'=> 1])->orderBy('an_ano')->all();
-            $data_ano = ArrayHelper::map($rows, 'an_codano', 'an_ano');
+            $data_ano = ArrayHelper::map($rows, 'an_ano', 'an_ano');
             echo $form->field($model, 'cust_ano')->widget(Select2::classname(), [
                     'data' =>  $data_ano,
                     'options' => ['id' => 'ano-id', 'placeholder' => 'Selecione o ano...'],

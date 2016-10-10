@@ -57,7 +57,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                             [
                                 'attribute'=>'cust_ano', 
                                 'displayOnly'=>true,
-                                'value'=> $model->ano->an_ano,
                                 'valueColOptions'=>['style'=>'width:0%'],
                                 'labelColOptions'=>['style'=>'width:0%'],
                             ],

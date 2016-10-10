@@ -37,13 +37,19 @@ echo TabularForm::widget([
     'attributes' => [
 
         'mark_codunidade'=>[
-            'type'=>TabularForm::INPUT_DROPDOWN_LIST, 
-            'items'=>ArrayHelper::map(Unidade::find()->orderBy('uni_nomeabreviado')->asArray()->all(), 'uni_codunidade', 'uni_nomeabreviado'),
+            'type'=>TabularForm::INPUT_STATIC, 
+            'value' => function($model, $key, $index, $widget) {
+                return $model->unidade->uni_nomeabreviado;
+                },
             'columnOptions'=>['width'=>'185px']
         ],
 
         'mark_custoindireto' => ['type' => TabularForm::INPUT_TEXT,
-        'columnOptions'=>['width'=>'50px'],
+        'columnOptions'=>['hAlign'=>GridView::ALIGN_CENTER,'width'=>'50px'],
+        'format'=>['decimal',2],
+        'type' => function($model, $key, $index, $widget) {
+                return ($model->mark_ano != date('Y')) ? TabularForm::INPUT_HIDDEN : TabularForm::INPUT_STATIC; //Caso os custos da unidade unidade não estiverem atualizados para o ano corrent, não aparecerá o Custo Indireto
+                },
         ],
 
         'mark_ipca' => ['type' => TabularForm::INPUT_TEXT,
@@ -60,7 +66,6 @@ echo TabularForm::widget([
         ],
 
         'mark_totalincidencias' => [
-            //'label'=>'Total <br> Incidências (%)',
             'type'=>TabularForm::INPUT_STATIC, 
             'columnOptions'=>['hAlign'=>GridView::ALIGN_RIGHT, 'width'=>'90px'],
         ],
@@ -76,7 +81,7 @@ echo TabularForm::widget([
         'panel'=>[
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem das Unidades</h3>',
             'type' => GridView::TYPE_PRIMARY,
-            'after'=> Html::submitButton('<i class="glyphicon glyphicon-floppy-disk"></i> Salvar Dados', ['class'=>'btn btn-primary'])
+            'after'=> Html::submitButton('<i class="glyphicon glyphicon-floppy-disk"></i> Atualizar Dados', ['class'=>'btn btn-primary'])
         ]
     ]   
 ]);

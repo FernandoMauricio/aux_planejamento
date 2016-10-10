@@ -72,7 +72,7 @@ class CustosunidadeController extends Controller
 
         $modelsCustosIndireto = [new Custosindireto()];
 
-        $unidades = Unidade::find()->where(['uni_codsituacao'=> 1])->orderBy('uni_nomecompleto')->all();
+        $unidades = Unidade::find()->where(['uni_codsituacao' => 1, 'uni_coddisp' => 1])->orderBy('uni_nomeabreviado')->all();
         $salas    = Salas::find()->where(['sal_status' => 1])->orderBy('sal_descricao')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -183,7 +183,7 @@ class CustosunidadeController extends Controller
         $model = $this->findModel($id);
         $modelsCustosIndireto  = $model->custosindireto;
 
-        $unidades = Unidade::find()->where(['uni_codsituacao'=> 1])->orderBy('uni_nomecompleto')->all();
+        $unidades = Unidade::find()->where(['uni_codsituacao' => 1, 'uni_coddisp' => 1])->orderBy('uni_nomeabreviado')->all();
         $salas    = Salas::find()->where(['sal_status' => 1])->orderBy('sal_descricao')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

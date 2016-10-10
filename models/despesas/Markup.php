@@ -4,6 +4,8 @@ namespace app\models\despesas;
 
 use Yii;
 
+use app\models\base\Unidade;
+
 /**
  * This is the model class for table "markup_mark".
  *
@@ -61,5 +63,10 @@ class Markup extends \yii\db\ActiveRecord
             'mark_totalincidencias' => 'T. Incidências(%)',
             'mark_divisor' => 'Markup Divisor 100-X/100(%)',
         ];
+    }
+
+    public function getUnidade()
+    {
+        return $this->hasOne(Unidade::className(), ['uni_codunidade' => 'mark_codunidade']);
     }
 }
