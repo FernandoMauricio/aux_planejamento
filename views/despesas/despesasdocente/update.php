@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = 'Atualizar Despesa com Docente: ' . $model->doce_id;
 $this->params['breadcrumbs'][] = ['label' => 'Listagem de Despesas com Docentes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->doce_id, 'url' => ['view', 'id' => $model->doce_id]];
+$this->params['breadcrumbs'][] = ['label' => $model->doce_id];
 $this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="despesasdocente-update">

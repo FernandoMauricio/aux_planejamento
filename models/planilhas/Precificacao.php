@@ -60,6 +60,7 @@ use app\models\base\Unidade;
 class Precificacao extends \yii\db\ActiveRecord
 {
     public $hiddenPlanejamento;
+    public $hiddenMaterialDidatico;
     public $labelCurso;
 
     /**
@@ -88,7 +89,7 @@ class Precificacao extends \yii\db\ActiveRecord
         return [
             [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_precosugerido'], 'required'],
             [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_servpedagogico','planp_codcolaborador'], 'integer'],
-            [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_custosmateriais', 'planp_custosconsumo', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'planp_custosindiretos', 'planp_ipca', 'planp_reservatecnica', 'planp_despesadm', 'planp_totalincidencias', 'planp_totalcustoindireto', 'planp_despesatotal', 'planp_markdivisor', 'planp_markmultiplicador', 'planp_vendaturma', 'planp_vendaaluno', 'planp_horaaulaaluno', 'planp_retorno', 'planp_porcentretorno', 'planp_precosugerido', 'planp_retornoprecosugerido', 'planp_minimoaluno', 'hiddenPlanejamento', 'planp_custosaluno', 'planp_data','labelCurso'], 'safe'],
+            [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_custosmateriais', 'planp_custosconsumo', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'planp_custosindiretos', 'planp_ipca', 'planp_reservatecnica', 'planp_despesadm', 'planp_totalincidencias', 'planp_totalcustoindireto', 'planp_despesatotal', 'planp_markdivisor', 'planp_markmultiplicador', 'planp_vendaturma', 'planp_vendaaluno', 'planp_horaaulaaluno', 'planp_retorno', 'planp_porcentretorno', 'planp_precosugerido', 'planp_retornoprecosugerido', 'planp_minimoaluno', 'hiddenPlanejamento', 'hiddenMaterialDidatico', 'planp_data','labelCurso'], 'safe'],
             [['planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_ipca', 'planp_precosugerido'], 'number'],
             [['planp_docente'], 'exist', 'skipOnError' => true, 'targetClass' => Despesasdocente::className(), 'targetAttribute' => ['planp_docente' => 'doce_id']],
             [['planp_planodeacao'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planp_planodeacao' => 'plan_codplano']],
@@ -119,7 +120,7 @@ class Precificacao extends \yii\db\ActiveRecord
                 $this->planp_totalcustodireto         = str_replace(",", ".", $this->planp_totalcustodireto);
                 $this->planp_totalhoraaulacustodireto = str_replace(",", ".", $this->planp_totalhoraaulacustodireto);
                 $this->hiddenPlanejamento             = str_replace(",", ".", $this->hiddenPlanejamento);
-                $this->planp_custosaluno              = str_replace(",", ".", $this->planp_custosaluno);
+                $this->hiddenMaterialDidatico         = str_replace(",", ".", $this->hiddenMaterialDidatico);
                 $this->planp_custosindiretos          = str_replace(",", ".", $this->planp_custosindiretos);
                 $this->planp_ipca                     = str_replace(",", ".", $this->planp_ipca);
                 $this->planp_reservatecnica           = str_replace(",", ".", $this->planp_reservatecnica);
@@ -172,7 +173,6 @@ class Precificacao extends \yii\db\ActiveRecord
             'planp_totalsalarioencargo' => 'Total de Salários + Encargos',
             'planp_custosmateriais' => 'Material Didático',
             'planp_custosconsumo' => 'Material de Consumo',
-            'planp_custosaluno' => 'Material do Aluno',
             'planp_diarias' => 'Diarias',
             'planp_passagens' => 'Passagens',
             'planp_pessoafisica' => 'Serv. Terceiros (PF)',

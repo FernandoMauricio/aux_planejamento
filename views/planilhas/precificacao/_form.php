@@ -82,17 +82,13 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
                                              var $zerahoratotal      = $divPanelBody.find("input:eq(0)");
                                              var $zeraqntaluno       = $divPanelBody.find("input:eq(1)");
-                                             var $inputCustoMaterial = $divPanelBody.find("input:eq(19)");
-                                             var $inputCustoConsumo  = $divPanelBody.find("input:eq(20)");
-                                             var $inputCustoAluno    = $divPanelBody.find("input:eq(21)");
-
-                                             console.log(data);
+                                             var $inputCustoMaterial = $divPanelBody.find("input:eq(20)");
+                                             var $inputCustoConsumo  = $divPanelBody.find("input:eq(21)");
 
                                              $zerahoratotal.val(data.plan_cargahoraria);
                                              $zeraqntaluno.val(0);
                                              $inputCustoMaterial.val(data.plan_custoTotalMaterial);
                                              $inputCustoConsumo.val(data.plan_custoTotalConsumo);
-                                             $inputCustoAluno.val(data.plan_custoTotalAluno);
 
                                           });
                                       '
@@ -358,16 +354,14 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
             <div class="row">
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                 <?= $form->field($model, 'planp_custosmateriais')->textInput(['readonly' => true]); ?>
+
+                <?= $form->field($model, 'hiddenMaterialDidatico')->hiddenInput()->label(false); ?>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                 <?= $form->field($model, 'planp_custosconsumo')->textInput(['readonly' => true]); ?>
-                </div>
-
-                <div class="col-md-2">
-                <?= $form->field($model, 'planp_custosaluno')->textInput(['readonly' => true]); ?>
                 </div>
 
                 <div class="col-md-3">

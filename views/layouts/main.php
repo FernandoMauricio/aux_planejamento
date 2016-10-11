@@ -113,10 +113,10 @@ AppAsset::register($this);
                          ['label' => 'Precificação de Custos', 'url' => ['/planilhas/precificacao/index']],
                                      '<li class="divider"></li>',
                             ['label' => 'Parâmetros', 'items' => [
-                                ['label' => 'Despesas da Unidade', 'url' => ['/despesas/custosunidade/index']],
-                                ['label' => 'Valor Hora/Aula', 'url' => ['/despesas/despesasdocente/index']],
-                                ['label' => 'Markup', 'url' => ['/despesas/markup/batch-update']],
                                 ['label' => 'Salas', 'url' => ['/despesas/salas/index']],
+                                ['label' => 'Valor Hora/Aula', 'url' => ['/despesas/despesasdocente/index']],
+                                ['label' => 'Despesas da Unidade', 'url' => ['/despesas/custosunidade/index']],
+                                ['label' => 'Markup', 'url' => ['/despesas/markup/batch-update']],
 
                             ]],
 
