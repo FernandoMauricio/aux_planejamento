@@ -80,14 +80,16 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
                                              var $divPanelBody = $(select).parent().parent().parent().parent().parent();
 
-                                             var $zerahoratotal      = $divPanelBody.find("input:eq(0)");
-                                             var $zeraqntaluno       = $divPanelBody.find("input:eq(1)");
-                                             var $inputCustoMaterial = $divPanelBody.find("input:eq(20)");
-                                             var $inputCustoConsumo  = $divPanelBody.find("input:eq(21)");
+                                             var $zerahoratotal            = $divPanelBody.find("input:eq(0)");
+                                             var $zeraqntaluno             = $divPanelBody.find("input:eq(1)");
+                                             var $inputMaterialApostila    = $divPanelBody.find("input:eq(18)");
+                                             var $inputCustoMaterialLivro  = $divPanelBody.find("input:eq(20)");
+                                             var $inputCustoConsumo        = $divPanelBody.find("input:eq(21)");
 
                                              $zerahoratotal.val(data.plan_cargahoraria);
                                              $zeraqntaluno.val(0);
-                                             $inputCustoMaterial.val(data.plan_custoTotalMaterial);
+                                             $inputMaterialApostila.val(data.plan_custoMaterialApostila);
+                                             $inputCustoMaterialLivro.val(data.plan_custoMaterialLivro);
                                              $inputCustoConsumo.val(data.plan_custoTotalConsumo);
 
                                           });

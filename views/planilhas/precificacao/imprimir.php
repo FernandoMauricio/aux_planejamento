@@ -61,7 +61,7 @@ use yii\helpers\Html;
             <td style="font-size:11px;" colspan="3"><strong>Serv. Terceiros (PJ): </strong><br> <?php echo 'R$ ' . number_format( $model->planp_pessoajuridica, 2, ',', '.'); ?></td>
         </tr>
         <tr>
-            <td style="font-size:11px;" colspan="3"><strong>Material Didático: </strong><br> <?php echo 'R$ ' .  number_format($model->planp_custosmateriais, 2, ',', '.'); ?></td>
+            <td style="font-size:11px;" colspan="3"><strong>Mat. Didático (Livros/plano A): </strong><br> <?php echo 'R$ ' .  number_format($model->planp_custosmateriais, 2, ',', '.'); ?></td>
             <td style="font-size:11px;" colspan="3"><strong>Material Consumo: </strong><br> <?php echo 'R$ ' .  number_format($model->planp_custosconsumo, 2, ',', '.'); ?></td>
             <td style="font-size:11px;" colspan="3"><strong>Total de Custo Direto: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalcustodireto, 2, ',', '.'); ?></td>
             <td style="font-size:11px;" colspan="3"><strong>Valor Hora/Aula de Custo Direto: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalhoraaulacustodireto, 2, ',', '.'); ?></td>

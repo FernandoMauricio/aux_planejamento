@@ -87,7 +87,7 @@
 
           <div class="row">
 
-                  <div class="col-md-3"><strong>Material Didático:</strong><br> <?php echo 'R$ ' .  number_format($model->planp_custosmateriais, 2, ',', '.'); ?></div>
+                  <div class="col-md-3"><strong>Mat. Didático (Livros/plano A):</strong><br> <?php echo 'R$ ' .  number_format($model->planp_custosmateriais, 2, ',', '.'); ?></div>
 
                   <div class="col-md-3"><strong>Material Consumo:</strong><br> <?php echo 'R$ ' .  number_format($model->planp_custosconsumo, 2, ',', '.'); ?></div>
 
