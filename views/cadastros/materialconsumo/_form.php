@@ -17,7 +17,11 @@ use kartik\select2\Select2;
 
 <div class="row">
 
-    <div class="col-md-8">
+    <div class="col-md-2">
+    <?= $form->field($model, 'matcon_codMXM')->textInput(['maxlength' => true,'readonly' => !$model->isNewRecord]) ?>
+    </div>
+
+    <div class="col-md-6">
     <?= $form->field($model, 'matcon_descricao')->textInput(['maxlength' => true]) ?>
     </div>
 

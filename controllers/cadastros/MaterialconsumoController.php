@@ -112,6 +112,32 @@ class MaterialconsumoController extends Controller
 
     }
 
+
+    /**
+     * Creates a new Materialconsumo model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new Materialconsumo();
+
+        $tipounidade = TipoUnidade::find()->orderBy('tipuni_descricao')->all();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Material de Consumo Criado!</strong>');
+
+            return $this->redirect(['index']);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+                'tipounidade' => $tipounidade,
+            ]);
+        }
+    }
+
+
     /**
      * Updates an existing Materialconsumo model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -127,7 +153,7 @@ class MaterialconsumoController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
         //-------atualiza os planos já criados com os valores de materiais de consumo atuais
-        Yii::$app->db_apl->createCommand('UPDATE `plano_materialconsumo`, `materialconsumo_matcon` SET `planmatcon_valor` = '.$model->matcon_valor.' WHERE `planmatcon_codMXM` = '.$model->matcon_codMXM.'')
+        Yii::$app->db_apl->createCommand('UPDATE `plano_materialconsumo`, `materialconsumo_matcon` SET `planmatcon_valor` = '.$model->matcon_valor.' WHERE `materialconsumo_cod` = '.$model->matcon_id.'')
             ->execute();
 
             Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Material de Consumo Atualizado!</strong>');

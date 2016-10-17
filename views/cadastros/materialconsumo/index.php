@@ -24,10 +24,15 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+
     <p>
-        <?= Html::a('Importar Cadastros - MXM', ['/cadastros/materialconsumo/import-excel-material-consumo'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Novo Material de Consumo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
+<!--     <p>
+        <?= Html::a('Importar Cadastros - MXM', ['/cadastros/materialconsumo/import-excel-material-consumo'], ['class' => 'btn btn-primary']) ?>
+    </p>
+ -->
 
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
