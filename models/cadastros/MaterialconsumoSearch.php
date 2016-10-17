@@ -18,7 +18,7 @@ class MaterialconsumoSearch extends Materialconsumo
     public function rules()
     {
         return [
-            [['matcon_cod', 'matcon_status'], 'integer'],
+            [['matcon_codMXM', 'matcon_status'], 'integer'],
             [['matcon_descricao', 'matcon_tipo'], 'safe'],
             [['matcon_valor'], 'number'],
         ];
@@ -60,7 +60,7 @@ class MaterialconsumoSearch extends Materialconsumo
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'matcon_cod' => $this->matcon_cod,
+            'matcon_codMXM' => $this->matcon_codMXM,
             'matcon_valor' => $this->matcon_valor,
             'matcon_status' => $this->matcon_status,
         ]);

@@ -44,11 +44,11 @@ class PlanoConsumo extends \yii\db\ActiveRecord
     {
         return [
             [['materialconsumo_cod', 'planmatcon_quantidade', 'planmatcon_valor', 'planmatcon_tipo'], 'required'],
-            [['planodeacao_cod', 'materialconsumo_cod', 'planmatcon_quantidade'], 'integer'],
+            [['planodeacao_cod', 'materialconsumo_cod', 'planmatcon_codMXM', 'planmatcon_quantidade'], 'integer'],
             [['planmatcon_valor'], 'number'],
             [['planmatcon_tipo'], 'string', 'max' => 45],
             [['planmatcon_descricao'], 'string', 'max' => 100],
-            [['materialconsumo_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Materialconsumo::className(), 'targetAttribute' => ['materialconsumo_cod' => 'matcon_cod']],
+            [['materialconsumo_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Materialconsumo::className(), 'targetAttribute' => ['materialconsumo_cod' => 'matcon_codMXM']],
             [['planodeacao_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planodeacao_cod' => 'plan_codplano']],
         ];
     }
@@ -61,6 +61,7 @@ class PlanoConsumo extends \yii\db\ActiveRecord
         return [
             'id' => 'Código',
             'planodeacao_cod' => 'Cód. Plano',
+            'planmatcon_codMXM' => 'Cód. MXM',
             'materialconsumo_cod' => 'Descrição',
             'planmatcon_descricao' => 'Descrição',
             'planmatcon_quantidade' => 'Quantidade',
@@ -74,7 +75,7 @@ class PlanoConsumo extends \yii\db\ActiveRecord
      */
     public function getMaterialconsumoCod()
     {
-        return $this->hasOne(MaterialconsumoMatcon::className(), ['matcon_cod' => 'materialconsumo_cod']);
+        return $this->hasOne(MaterialconsumoMatcon::className(), ['matcon_codMXM' => 'materialconsumo_cod']);
     }
 
     /**

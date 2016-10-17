@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'matcon_cod') ?>
+    <?= $form->field($model, 'matcon_codMXM') ?>
 
     <?= $form->field($model, 'matcon_descricao') ?>
 

@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\cadastros\Materialconsumo */
 
-$this->title = 'Atualizar Material de Consumo: ' . $model->matcon_cod;
+$this->title = 'Atualizar Material de Consumo: ' . $model->matcon_codMXM;
 $this->params['breadcrumbs'][] = ['label' => 'Materiais de Consumo', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->matcon_cod];
+$this->params['breadcrumbs'][] = ['label' => $model->matcon_codMXM];
 $this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="materialconsumo-update">

@@ -7,7 +7,7 @@ use Yii;
 /**
  * This is the model class for table "materialconsumo_matcon".
  *
- * @property integer $matcon_cod
+ * @property integer $matcon_codMXM
  * @property string $matcon_descricao
  * @property string $matcon_tipo
  * @property double $matcon_valor
@@ -41,7 +41,7 @@ class Materialconsumo extends \yii\db\ActiveRecord
         return [
             [['matcon_descricao', 'matcon_tipo', 'matcon_valor', 'matcon_status'], 'required'],
             [['matcon_valor'], 'number'],
-            [['matcon_status'], 'integer'],
+            [['matcon_status', 'matcon_codMXM'], 'integer'],
             [['matcon_descricao'], 'string', 'max' => 100],
             [['matcon_tipo'], 'string', 'max' => 45],
         ];
@@ -53,7 +53,7 @@ class Materialconsumo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'matcon_cod' => 'Código MXM',
+            'matcon_codMXM' => 'Código MXM',
             'matcon_descricao' => 'Descrição',
             'matcon_tipo' => 'Tipo',
             'matcon_valor' => 'Valor',
@@ -66,6 +66,6 @@ class Materialconsumo extends \yii\db\ActiveRecord
      */
     public function getPlanoMaterialconsumos()
     {
-        return $this->hasMany(PlanoMaterialconsumo::className(), ['materialconsumo_cod' => 'matcon_cod']);
+        return $this->hasMany(PlanoMaterialconsumo::className(), ['materialconsumo_cod' => 'matcon_codMXM']);
     }
 }

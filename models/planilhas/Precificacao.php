@@ -171,7 +171,7 @@ class Precificacao extends \yii\db\ActiveRecord
             'planp_encargos' => '(%) Encargos s/13º, férias e salários',
             'planp_totalencargos' => 'Total de Encargos',
             'planp_totalsalarioencargo' => 'Total de Salários + Encargos',
-            'planp_custosmateriais' => 'Material Didático',
+            'planp_custosmateriais' => 'Mat. Didático (Livros/plano A):',
             'planp_custosconsumo' => 'Material de Consumo',
             'planp_diarias' => 'Diarias',
             'planp_passagens' => 'Passagens',

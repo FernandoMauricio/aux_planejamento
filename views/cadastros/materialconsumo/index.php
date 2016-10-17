@@ -34,7 +34,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
         'filterModel' => $searchModel,
         'columns' => [
 
-            'matcon_cod',
+            'matcon_codMXM',
             'matcon_descricao',
             'matcon_tipo',
             'matcon_valor',

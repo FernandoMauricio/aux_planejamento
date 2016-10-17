@@ -23,6 +23,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                             'formFields' => [
                                                 'id',
                                                 'planodeacao_cod',
+                                                'planmatcon_codMXM',
                                                 'materialconsumo_cod',
                                                 'planmatcon_descricao',
                                                 'planmatcon_quantidade',
@@ -54,9 +55,9 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     }
                                 ?>
 
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-7">
                                     <?php
-                                         $data_planoconsumo = ArrayHelper::map($materialconsumo, 'matcon_cod', 'matcon_descricao');
+                                         $data_planoconsumo = ArrayHelper::map($materialconsumo, 'matcon_id', 'matcon_descricao');
                                          echo $form->field($modelPlanoConsumo, "[{$i}]materialconsumo_cod")->widget(Select2::classname(), [
                                                  'data' =>  $data_planoconsumo,
                                                  'options' => ['placeholder' => 'Selecione o Material de Consumo...',
@@ -68,9 +69,11 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                                 var $divPanelBody =  $(select).parent().parent().parent();
 
                                                                 var $inputDescricao = $divPanelBody.find("input:eq(0)");
-                                                                var $inputTipo      = $divPanelBody.find("input:eq(1)");
-                                                                var $inputValor     = $divPanelBody.find("input:eq(2)");
+                                                                var $inputCodMXM    = $divPanelBody.find("input:eq(1)");
+                                                                var $inputTipo      = $divPanelBody.find("input:eq(2)");
+                                                                var $inputValor     = $divPanelBody.find("input:eq(3)");
 
+                                                                $inputCodMXM.val(data.matcon_codMXM);
                                                                 $inputDescricao.val(data.matcon_descricao);
                                                                 $inputValor.val(data.matcon_valor);
                                                                 $inputTipo.val(data.matcon_tipo);
@@ -82,11 +85,15 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                       <?= $form->field($modelPlanoConsumo, "[{$i}]planmatcon_descricao")->hiddenInput()->label(false) ?>
                                     </div>
 
+                                    <div class="col-sm-2">
+                                        <?= $form->field($modelPlanoConsumo, "[{$i}]planmatcon_codMXM")->textInput(['readonly'=> true]) ?>
+                                    </div>
+
                                     <div class="col-sm-1">
                                         <?= $form->field($modelPlanoConsumo, "[{$i}]planmatcon_tipo")->textInput(['readonly'=> true]) ?>
                                     </div>
 
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-1">
                                         <?= $form->field($modelPlanoConsumo, "[{$i}]planmatcon_valor")->textInput(['readonly'=> true]) ?>
                                     </div>
 
