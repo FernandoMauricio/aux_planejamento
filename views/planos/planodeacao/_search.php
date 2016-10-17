@@ -33,8 +33,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'plan_prerequisito') ?>
 
-    <?php // echo $form->field($model, 'plan_orgcurricular') ?>
-
     <?php // echo $form->field($model, 'plan_perfTecnico') ?>
 
     <?php // echo $form->field($model, 'plan_codcolaborador') ?>

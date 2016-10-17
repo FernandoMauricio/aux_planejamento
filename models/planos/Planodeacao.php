@@ -23,7 +23,6 @@ use app\models\base\Colaborador;
  * @property string $plan_cargahoraria
  * @property string $plan_sobre
  * @property string $plan_prerequisito
- * @property string $plan_orgcurricular
  * @property string $plan_perfTecnico
  * @property integer $plan_codcolaborador
  * @property string $plan_data
@@ -69,7 +68,7 @@ class Planodeacao extends \yii\db\ActiveRecord
         return [
             [['plan_descricao', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria', 'plan_codcolaborador', 'plan_data', 'plan_status', 'plan_modelonacional'], 'required'],
             [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria','plan_codcolaborador', 'plan_status','plan_modelonacional'], 'integer'],
-            [['plan_sobre', 'plan_prerequisito', 'plan_orgcurricular', 'plan_perfConclusao','plan_perfTecnico'], 'string'],
+            [['plan_sobre', 'plan_prerequisito', 'plan_perfConclusao','plan_perfTecnico'], 'string'],
             [['plan_data','nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoLabel', 'plan_custoMaterialLivro', 'plan_custoMaterialApostila', 'plan_custoTotalConsumo', 'plan_custoTotalAluno'], 'safe'],
             [['plan_descricao'], 'string', 'max' => 100],
             [['plan_codeixo'], 'exist', 'skipOnError' => true, 'targetClass' => Eixo::className(), 'targetAttribute' => ['plan_codeixo' => 'eix_codeixo']],
@@ -95,7 +94,6 @@ class Planodeacao extends \yii\db\ActiveRecord
             'plan_sobre' => 'Informações Comerciais',
             'plan_prerequisito' => 'Pré-Requisito',
             'plan_perfConclusao' => 'Perfil Profissional de Conclusão',
-            'plan_orgcurricular' => 'Organização Curricular',
             'plan_perfTecnico' => 'Perfil do Docente',
             'plan_codcolaborador' => 'Plan Codcolaborador',
             'plan_data' => 'Data',
@@ -132,6 +130,14 @@ class Planodeacao extends \yii\db\ActiveRecord
     public function getPlanilhadecursoPlacus()
     {
         return $this->hasMany(PlanilhadecursoPlacu::className(), ['placu_codplano' => 'plan_codplano']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUnidadescurriculares()
+    {
+        return $this->hasMany(Unidadescurriculares::className(), ['planodeacao_cod' => 'plan_codplano']);
     }
 
     /**

@@ -27,10 +27,11 @@ use app\models\cadastros\Segmento;
                                  <div id="rootwizard" class="tabbable tabs-left">
                                   <ul>
                                          <li><a href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Informações</a></li>
-                                         <li><a href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Material Didático</a></li>
-                                         <li><a href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-tags"></span> Material de Consumo</a></li>
-                                         <li><a href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-education"></span> Material do Aluno</a></li>
-                                         <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Equipamentos / Utensílios</a></li>
+                                         <li><a href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-folder-open"></span> Organização Curricular</a></li>
+                                         <li><a href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Material Didático</a></li>
+                                         <li><a href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-tags"></span> Material de Consumo</a></li>
+                                         <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-education"></span> Material do Aluno</a></li>
+                                         <li><a href="#tab6" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Equipamentos / Utensílios</a></li>
                                   </ul>
 
                                               <div class="tab-content"><br>
@@ -43,6 +44,13 @@ use app\models\cadastros\Segmento;
                                                     </div>
 
                                                     <div class="tab-pane" id="tab2">
+                                                        <?= $this->render('_form-unidadescurriculares', [
+                                                            'form' => $form,
+                                                            'modelsUnidadesCurriculares' => $modelsUnidadesCurriculares,
+                                                        ]) ?>
+                                                    </div>
+
+                                                    <div class="tab-pane" id="tab3">
                                                         <?= $this->render('_form-planomaterial', [
                                                             'form' => $form,
                                                             'repositorio' => $repositorio,
@@ -50,7 +58,7 @@ use app\models\cadastros\Segmento;
                                                         ]) ?>
                                                     </div>
 
-                                                    <div class="tab-pane" id="tab3">
+                                                    <div class="tab-pane" id="tab4">
                                                         <?= $this->render('_form-planoconsumo', [
                                                             'form' => $form,
                                                             'materialconsumo' => $materialconsumo,
@@ -58,7 +66,7 @@ use app\models\cadastros\Segmento;
                                                         ]) ?>
                                                     </div>
 
-                                                    <div class="tab-pane" id="tab4">
+                                                    <div class="tab-pane" id="tab5">
                                                         <?= $this->render('_form-planoaluno', [
                                                             'form' => $form,
                                                             'materialaluno' => $materialaluno,
@@ -66,12 +74,11 @@ use app\models\cadastros\Segmento;
                                                         ]) ?>
                                                     </div>
 
-                                                    <div class="tab-pane" id="tab5">
+                                                    <div class="tab-pane" id="tab6">
                                                        <?= $this->render('_form-planoestrutura', [
                                                            'form' => $form,
                                                            'estruturafisica' => $estruturafisica,
                                                            'modelsPlanoEstrutura' => $modelsPlanoEstrutura,
-                                                           //'dataProviderPlanoMaterial' => $dataProviderPlanoMaterial,
                                                        ]) ?>
 
                                                        <!-- SUBMIT CRIAÇÃO DO PLANO -->

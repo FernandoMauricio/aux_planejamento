@@ -2,6 +2,7 @@
 
 use kartik\detail\DetailView;
 use yii\helpers\Html;
+use app\models\planos\Unidadescurriculares;
 use app\models\planos\PlanoMaterial;
 use app\models\planos\PlanoConsumo;
 use app\models\planos\PlanoAluno;
@@ -50,21 +51,51 @@ $id = $model->plan_codplano;
     </tr> <br>
 
     <tr>
-        <td colspan="12"><strong>Organização Curricular: </strong><?php echo $model->plan_orgcurricular; ?></td>
-    </tr> <br>
-
-    <tr>
         <td colspan="12"><strong>Perfil Docente: </strong><?php echo $model->plan_perfTecnico; ?></td>
     </tr> 
 
     </tbody>
  </table>
-
-
-                              <!-- SEÇÃO 2 - MATERIAIS DIDÁTICOS -->
+                             <!-- SEÇÃO 2 - UNIDADES CURRICULARES -->
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 2: Materiais Didáticos</th></tr>
+    <tr class="info"><th colspan="12">SEÇÃO 2: Organização Curricular</th></tr>
+      <tr>
+        <th>Descrição</th>
+        <th>Carga Horária</th>
+      </tr>
+    </thead>
+    <tbody>
+        <?php
+             $valorTotal = 0;
+             $query_planoUnidadesCurriculares = "SELECT * FROM unidadescurriculares_uncu WHERE planodeacao_cod = '".$id."' ORDER BY id ASC";
+             $modelsUnidadesCurriculares = Unidadescurriculares::findBySql($query_planoUnidadesCurriculares)->all(); 
+             foreach ($modelsUnidadesCurriculares as $modelUnidadesCurriculares) {
+                
+                $uncu_descricao    = $modelUnidadesCurriculares["uncu_descricao"];
+                $uncu_cargahoraria = $modelUnidadesCurriculares["uncu_cargahoraria"];
+                $valorTotal       += $modelUnidadesCurriculares["uncu_cargahoraria"]; //somatório de todos os valores dos itens
+
+        ?>
+        <tr>
+        <td><?php echo $uncu_descricao ?></td>
+        <td><?php echo $uncu_cargahoraria . " horas" ?></td>
+      </tr>
+        <?php
+          }
+        ?>
+    </tbody>
+     <tfoot>
+            <tr class="warning kv-edit-hidden" style="border-top: #dedede">
+              <th>TOTAL </th>
+               <th colspan="12" style="color:red"><?php echo $valorTotal . " horas" ?></th>
+            </tr>
+         </tfoot>
+  </table>
+                              <!-- SEÇÃO 3 - MATERIAIS DIDÁTICOS -->
+  <table class="table table-condensed table-hover">
+    <thead>
+    <tr class="info"><th colspan="12">SEÇÃO 3: Materiais Didáticos</th></tr>
       <tr>
         <th>Descrição</th>
         <th>Valor Unitário</th>
@@ -110,10 +141,10 @@ $id = $model->plan_codplano;
             </tr>
          </tfoot>
   </table>
-                              <!-- SEÇÃO 3 - MATERIAIS DE CONSUMO -->
+                               <!-- SEÇÃO 4 - MATERIAIS DE CONSUMO -->
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 3: Materiais de Consumo</th></tr>
+    <tr class="info"><th colspan="12">SEÇÃO 4: Materiais de Consumo</th></tr>
       <tr>
         <th>Cód MXM</th>
         <th>Descrição</th>
@@ -156,17 +187,17 @@ $id = $model->plan_codplano;
                $sum = $query->sum('planmatcon_valor*planmatcon_quantidade');
                ?>
                <tr class="warning kv-edit-hidden" style="border-top: #dedede">
-               <th>TOTAL <i>(Valor Unitário * Quantidade)</i></th>
+               <th colspan="2">TOTAL <i>(Valor Unitário * Quantidade)</i></th>
                <th colspan="12" style="color:red"><?php echo 'R$ ' . number_format($sum, 2, ',', '.') ?></th>
             </tr>
          </tfoot>
   </table>
 
-                              <!-- SEÇÃO 4 - MATERIAIS DO ALUNO -->
+                              <!-- SEÇÃO 5 - MATERIAIS DO ALUNO -->
 
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 4: Materiais do Aluno</th></tr>
+    <tr class="info"><th colspan="12">SEÇÃO 5: Materiais do Aluno</th></tr>
       <tr>
         <th>Descrição</th>
         <th>Valor Unitário</th>
@@ -213,11 +244,11 @@ $id = $model->plan_codplano;
          </tfoot>
   </table>
 
-                              <!-- SEÇÃO 5 - Equipamentos / Utensílios DO PLANO -->
+                              <!-- SEÇÃO 6 - Equipamentos / Utensílios DO PLANO -->
 
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 5: Equipamentos / Utensílios do Plano</th></tr>
+    <tr class="info"><th colspan="12">SEÇÃO 6: Equipamentos / Utensílios do Plano</th></tr>
       <tr>
         <th>Descrição</th>
         <th>Quantidade</th>
@@ -246,7 +277,7 @@ $id = $model->plan_codplano;
 
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 6: Auditoria</th></tr>
+    <tr class="info"><th colspan="12">SEÇÃO 7: Auditoria</th></tr>
     <tr>
         <th>Atualizado por: <?php echo $model->colaborador->usuario->usu_nomeusuario ?></th>
         <th>Última Modifcação: <?php echo  date('d/m/Y', strtotime($model->plan_data)) ?></th>

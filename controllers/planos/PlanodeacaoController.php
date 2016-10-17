@@ -10,6 +10,7 @@ use app\models\cadastros\Materialaluno;
 use app\models\cadastros\Materialconsumo;
 use app\models\cadastros\Estruturafisica;
 use app\models\planos\PlanoMaterial;
+use app\models\planos\Unidadescurriculares;
 use app\models\planos\PlanoAluno;
 use app\models\planos\PlanoConsumo;
 use app\models\planos\PlanoMaterialSearch;
@@ -107,20 +108,25 @@ class PlanodeacaoController extends Controller
     {
         $session = Yii::$app->session;
         $model = new Planodeacao();
-        $modelsPlanoMaterial  = [new PlanoMaterial];
-        $modelsPlanoConsumo   = [new PlanoConsumo];
-        $modelsPlanoAluno     = [new PlanoAluno];
-        $modelsPlanoEstrutura = [new PlanoEstruturafisica];
+        $modelsUnidadesCurriculares = [new Unidadescurriculares];
+        $modelsPlanoMaterial        = [new PlanoMaterial];
+        $modelsPlanoConsumo         = [new PlanoConsumo];
+        $modelsPlanoAluno           = [new PlanoAluno];
+        $modelsPlanoEstrutura       = [new PlanoEstruturafisica];
 
-        $repositorio       = Repositorio::find()->where(['rep_status' => 1])->orderBy('rep_titulo')->all();
-        $materialconsumo   = Materialconsumo::find()->where(['matcon_status' => 1])->orderBy('matcon_descricao')->all();
-        $materialaluno     = Materialaluno::find()->where(['matalu_status' => 1])->orderBy('matalu_descricao')->all();
-        $estruturafisica   = EstruturaFisica::find()->where(['estr_status' => 1])->orderBy('estr_descricao')->all();
+        $repositorio     = Repositorio::find()->where(['rep_status' => 1])->orderBy('rep_titulo')->all();
+        $materialconsumo = Materialconsumo::find()->where(['matcon_status' => 1])->orderBy('matcon_descricao')->all();
+        $materialaluno   = Materialaluno::find()->where(['matalu_status' => 1])->orderBy('matalu_descricao')->all();
+        $estruturafisica = EstruturaFisica::find()->where(['estr_status' => 1])->orderBy('estr_descricao')->all();
 
         $model->plan_data           = date('Y-m-d');
         $model->plan_codcolaborador = $session['sess_codcolaborador'];
 
         if ($model->load(Yii::$app->request->post())) {
+
+            //Inserir várias Unidades Curriculares
+            $modelsUnidadesCurriculares = Model::createMultiple(Unidadescurriculares::classname());
+            Model::loadMultiple($modelsUnidadesCurriculares, Yii::$app->request->post());
 
             //Inserir vários Materiais Didáticos
             $modelsPlanoMaterial = Model::createMultiple(PlanoMaterial::classname());
@@ -141,6 +147,7 @@ class PlanodeacaoController extends Controller
 
             // validate all models
             $valid = $model->validate();
+            $valid = Model::validateMultiple($modelsUnidadesCurriculares) && $valid;
             $valid = Model::validateMultiple($modelsPlanoMaterial) && $valid;
             $valid = Model::validateMultiple($modelsPlanoConsumo) && $valid;
             $valid = Model::validateMultiple($modelsPlanoAluno) && $valid;
@@ -152,6 +159,14 @@ class PlanodeacaoController extends Controller
                 $transactionRep = \Yii::$app->db_rep->beginTransaction();
                 try {
                     if ($flag = $model->save(false)) {
+                        foreach ($modelsUnidadesCurriculares as $modelUnidadesCurriculares) {
+                            $modelUnidadesCurriculares->planodeacao_cod = $model->plan_codplano;
+                            if (! ($flag = $modelUnidadesCurriculares->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+
                         foreach ($modelsPlanoMaterial as $modelPlanoMaterial) {
                             $modelPlanoMaterial->plama_codplano = $model->plan_codplano;
                             if (! ($flag = $modelPlanoMaterial->save(false))) {
@@ -228,15 +243,16 @@ class PlanodeacaoController extends Controller
             return $this->redirect(['view', 'id' => $model->plan_codplano]);
         } else {
             return $this->render('create', [
-                'model'                 => $model,
-                'estruturafisica'       => $estruturafisica,
-                'repositorio'           => $repositorio,
-                'materialconsumo'       => $materialconsumo,
-                'materialaluno'         => $materialaluno,
-                'modelsPlanoMaterial'   => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
-                'modelsPlanoEstrutura'  => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,
-                'modelsPlanoConsumo'    => (empty($modelsPlanoConsumo)) ? [new PlanoConsumo] : $modelsPlanoConsumo,
-                'modelsPlanoAluno'      => (empty($modelsPlanoAluno)) ? [new PlanoAluno] : $modelsPlanoAluno,
+                'model'                      => $model,
+                'estruturafisica'            => $estruturafisica,
+                'repositorio'                => $repositorio,
+                'materialconsumo'            => $materialconsumo,
+                'materialaluno'              => $materialaluno,
+                'modelsUnidadesCurriculares' => (empty($modelsUnidadesCurriculares)) ? [new Unidadescurriculares] : $modelsUnidadesCurriculares,
+                'modelsPlanoMaterial'        => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
+                'modelsPlanoEstrutura'       => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,
+                'modelsPlanoConsumo'         => (empty($modelsPlanoConsumo)) ? [new PlanoConsumo] : $modelsPlanoConsumo,
+                'modelsPlanoAluno'           => (empty($modelsPlanoAluno)) ? [new PlanoAluno] : $modelsPlanoAluno,
             ]);
         }
     }
@@ -311,10 +327,11 @@ class PlanodeacaoController extends Controller
         $session = Yii::$app->session;
         
         $model = $this->findModel($id);
-        $modelsPlanoMaterial  = $model->planoMateriais;
-        $modelsPlanoConsumo   = $model->planoConsumo;
-        $modelsPlanoAluno     = $model->planoAluno;
-        $modelsPlanoEstrutura = $model->planoEstruturafisica;
+        $modelsUnidadesCurriculares = $model->unidadescurriculares;
+        $modelsPlanoMaterial        = $model->planoMateriais;
+        $modelsPlanoConsumo         = $model->planoConsumo;
+        $modelsPlanoAluno           = $model->planoAluno;
+        $modelsPlanoEstrutura       = $model->planoEstruturafisica;
         
         $repositorio       = Repositorio::find()->where(['rep_status' => 1])->orderBy('rep_titulo')->all();
         $materialconsumo   = Materialconsumo::find()->where(['matcon_status' => 1])->orderBy('matcon_descricao')->all();
@@ -325,6 +342,12 @@ class PlanodeacaoController extends Controller
 
         $model->plan_data           = date('Y-m-d');
         $model->plan_codcolaborador = $session['sess_codcolaborador'];
+
+        //--------Materiais Didáticos--------------
+        $oldIDsUnidadesCurriculares = ArrayHelper::map($modelsUnidadesCurriculares, 'id', 'id');
+        $modelsUnidadesCurriculares = Model::createMultiple(Unidadescurriculares::classname(), $modelsUnidadesCurriculares);
+        Model::loadMultiple($modelsUnidadesCurriculares, Yii::$app->request->post());
+        $deletedIDsUnidadesCurriculares = array_diff($oldIDsUnidadesCurriculares, array_filter(ArrayHelper::map($modelsUnidadesCurriculares, 'id', 'id')));
 
         //--------Materiais Didáticos--------------
         $oldIDsMateriais = ArrayHelper::map($modelsPlanoMaterial, 'id', 'id');
@@ -353,12 +376,23 @@ class PlanodeacaoController extends Controller
 
         // validate all models
         $valid = $model->validate();
-        $valid = (Model::validateMultiple($modelsPlanoMaterial) || Model::validateMultiple($modelsPlanoConsumo) || Model::validateMultiple($modelsPlanoAluno) || Model::validateMultiple($modelsPlanoEstrutura) ) && $valid;
+        $valid = (Model::validateMultiple($modelsUnidadesCurriculares) || Model::validateMultiple($modelsPlanoMaterial) || Model::validateMultiple($modelsPlanoConsumo) || Model::validateMultiple($modelsPlanoAluno) || Model::validateMultiple($modelsPlanoEstrutura) ) && $valid;
 
                         if ($valid) {
                             $transaction = \Yii::$app->db->beginTransaction();
                             try {
                                 if ($flag = $model->save(false)) {
+                                    if (! empty($deletedIDsUnidadesCurriculares)) {
+                                        Unidadescurriculares::deleteAll(['id' => $deletedIDsUnidadesCurriculares]);
+                                    }
+                                    foreach ($modelsUnidadesCurriculares as $modelUnidadesCurriculares) {
+                                        $modelUnidadesCurriculares->planodeacao_cod = $model->plan_codplano;
+                                        if (! ($flag = $modelUnidadesCurriculares->save(false))) {
+                                            $transaction->rollBack();
+                                            break;
+                                        }
+                                    }
+
                                     if (! empty($deletedIDsMateriais)) {
                                         PlanoMaterial::deleteAll(['id' => $deletedIDsMateriais]);
                                     }
@@ -446,15 +480,16 @@ class PlanodeacaoController extends Controller
             return $this->redirect(['view', 'id' => $model->plan_codplano]);
         } else {
             return $this->render('update', [
-                'model'                 => $model,
-                'estruturafisica'       => $estruturafisica,
-                'repositorio'           => $repositorio,
-                'materialconsumo'       => $materialconsumo,
-                'materialaluno'         => $materialaluno,
-                'modelsPlanoMaterial'   => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
-                'modelsPlanoEstrutura'  => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,
-                'modelsPlanoConsumo'    => (empty($modelsPlanoConsumo)) ? [new PlanoConsumo] : $modelsPlanoConsumo,
-                'modelsPlanoAluno'      => (empty($modelsPlanoAluno)) ? [new PlanoAluno] : $modelsPlanoAluno,
+                'model'                      => $model,
+                'estruturafisica'            => $estruturafisica,
+                'repositorio'                => $repositorio,
+                'materialconsumo'            => $materialconsumo,
+                'materialaluno'              => $materialaluno,
+                'modelsUnidadesCurriculares' => (empty($modelsUnidadesCurriculares)) ? [new Unidadescurriculares] : $modelsUnidadesCurriculares,
+                'modelsPlanoMaterial'        => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
+                'modelsPlanoEstrutura'       => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,
+                'modelsPlanoConsumo'         => (empty($modelsPlanoConsumo)) ? [new PlanoConsumo] : $modelsPlanoConsumo,
+                'modelsPlanoAluno'           => (empty($modelsPlanoAluno)) ? [new PlanoAluno] : $modelsPlanoAluno,
             ]);
         }
     }

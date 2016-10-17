@@ -15,15 +15,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<?php
 	    echo $this->render('_form', [
-	            'model' 			   => $model,
-	            'estruturafisica' 	   => $estruturafisica,
-	            'repositorio' 		   => $repositorio,
-	            'materialconsumo' 	   => $materialconsumo,
-	            'materialaluno' 	   => $materialaluno,
-	            'modelsPlanoMaterial'  => $modelsPlanoMaterial,
-	            'modelsPlanoEstrutura' => $modelsPlanoEstrutura,
-	            'modelsPlanoConsumo'   => $modelsPlanoConsumo,
-	            'modelsPlanoAluno' 	   => $modelsPlanoAluno,
+	            'model' 			  		 => $model,
+	            'estruturafisica' 	  		 => $estruturafisica,
+	            'repositorio' 		  		 => $repositorio,
+	            'materialconsumo' 	  		 => $materialconsumo,
+	            'materialaluno' 	  		 => $materialaluno,
+	            'modelsUnidadesCurriculares' => $modelsUnidadesCurriculares,
+	            'modelsPlanoMaterial' 		 => $modelsPlanoMaterial,
+	            'modelsPlanoEstrutura'		 => $modelsPlanoEstrutura,
+	            'modelsPlanoConsumo'  		 => $modelsPlanoConsumo,
+	            'modelsPlanoAluno' 	  		 => $modelsPlanoAluno,
 	    ])
 	?>
 

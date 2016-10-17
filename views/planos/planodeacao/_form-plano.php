@@ -113,8 +113,6 @@ use app\models\cadastros\Segmento;
 
                         <?= $form->field($model, 'plan_perfConclusao')->textarea(['rows' => 4]) ?>
 
-                        <?= $form->field($model, 'plan_orgcurricular')->textarea(['rows' => 4]) ?>
-
                         <?= $form->field($model, 'plan_perfTecnico')->textarea(['rows' => 4]) ?>
            </div>
 
