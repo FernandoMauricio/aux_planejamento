@@ -147,11 +147,11 @@ class PlanodeacaoController extends Controller
 
             // validate all models
             $valid = $model->validate();
-            $valid = Model::validateMultiple($modelsUnidadesCurriculares) && $valid;
-            $valid = Model::validateMultiple($modelsPlanoMaterial) && $valid;
-            $valid = Model::validateMultiple($modelsPlanoConsumo) && $valid;
-            $valid = Model::validateMultiple($modelsPlanoAluno) && $valid;
-            $valid = Model::validateMultiple($modelsPlanoEstrutura) && $valid;
+            // $valid = Model::validateMultiple($modelsUnidadesCurriculares) && $valid;
+            // $valid = Model::validateMultiple($modelsPlanoMaterial) && $valid;
+            // $valid = Model::validateMultiple($modelsPlanoConsumo) && $valid;
+            // $valid = Model::validateMultiple($modelsPlanoAluno) && $valid;
+            // $valid = Model::validateMultiple($modelsPlanoEstrutura) && $valid;
 
 
             if ($valid ) {
@@ -214,11 +214,11 @@ class PlanodeacaoController extends Controller
                                 $totalValorMaterialApostila = $query->sum('plama_valor');
 
                                 //realiza a soma dos custos de materiais de consumo (somatória de Quantidade * Valor de todas as linhas)
-                                $query = (new \yii\db\Query())->from('db_apl.plano_materialconsumo')->where(['planodeacao_cod' => $id]);
+                                $query = (new \yii\db\Query())->from('db_apl.plano_materialconsumo')->where(['planodeacao_cod' => $model->plan_codplano]);
                                 $totalValorConsumo = $query->sum('planmatcon_valor*planmatcon_quantidade');
 
                                 //realiza a soma dos custos de material de consumo
-                                $query = (new \yii\db\Query())->from('db_apl.plano_materialaluno')->where(['planodeacao_cod' => $id]);
+                                $query = (new \yii\db\Query())->from('db_apl.plano_materialaluno')->where(['planodeacao_cod' => $model->plan_codplano]);
                                 $totalValorAluno = $query->sum('planmatalu_valor*planmatalu_quantidade');
 
                                 $model->plan_custoMaterialLivro    = $totalValorMaterialLivro; //save custo material didático - LIVROS
@@ -228,6 +228,7 @@ class PlanodeacaoController extends Controller
                                 $model->save();
 
                             }
+
                             
                         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Plano Cadastrado!</strong>');
                         return $this->redirect(['view', 'id' => $model->plan_codplano]);
@@ -264,7 +265,7 @@ class PlanodeacaoController extends Controller
                     $parents = $_POST['depdrop_parents'];
                     if ($parents != null) {
                         $cat_id = $parents[0];
-                        $out = Segmento::getSegmentoSubCat($cat_id); 
+                        $out = Segmento::getSegmentoSubCat($cat_id);
                         echo Json::encode(['output'=>$out, 'selected'=>'']);
                         return;
                     }
@@ -325,14 +326,14 @@ class PlanodeacaoController extends Controller
     public function actionUpdate($id)
     {
         $session = Yii::$app->session;
-        
+
         $model = $this->findModel($id);
         $modelsUnidadesCurriculares = $model->unidadescurriculares;
         $modelsPlanoMaterial        = $model->planoMateriais;
         $modelsPlanoConsumo         = $model->planoConsumo;
         $modelsPlanoAluno           = $model->planoAluno;
         $modelsPlanoEstrutura       = $model->planoEstruturafisica;
-        
+
         $repositorio       = Repositorio::find()->where(['rep_status' => 1])->orderBy('rep_titulo')->all();
         $materialconsumo   = Materialconsumo::find()->where(['matcon_status' => 1])->orderBy('matcon_descricao')->all();
         $materialaluno     = Materialaluno::find()->where(['matalu_status' => 1])->orderBy('matalu_descricao')->all();
@@ -357,19 +358,19 @@ class PlanodeacaoController extends Controller
 
         //--------Materiais de Consumo--------------
         $oldIDsConsumo = ArrayHelper::map($modelsPlanoConsumo, 'id', 'id');
-        $modelsPlanoConsumo = Model::createMultiple(PlanoConsumo::classname(), $modelsPlanoConsumo,'id');            
+        $modelsPlanoConsumo = Model::createMultiple(PlanoConsumo::classname(), $modelsPlanoConsumo,'id');
         Model::loadMultiple($modelsPlanoConsumo, Yii::$app->request->post());
         $deletedIDsConsumo = array_diff($oldIDsConsumo, array_filter(ArrayHelper::map($modelsPlanoConsumo, 'id', 'id')));
 
         //--------Materiais do Aluno--------------
         $oldIDsAluno = ArrayHelper::map($modelsPlanoAluno, 'id', 'id');
-        $modelsPlanoAluno = Model::createMultiple(PlanoAluno::classname(), $modelsPlanoAluno,'id');            
+        $modelsPlanoAluno = Model::createMultiple(PlanoAluno::classname(), $modelsPlanoAluno,'id');
         Model::loadMultiple($modelsPlanoAluno, Yii::$app->request->post());
         $deletedIDsAluno = array_diff($oldIDsAluno, array_filter(ArrayHelper::map($modelsPlanoAluno, 'id', 'id')));
 
         //--------Equipamentos / Utensílios do Plano--------------
         $oldIDsEstrutura = ArrayHelper::map($modelsPlanoEstrutura, 'id', 'id');
-        $modelsPlanoEstrutura = Model::createMultiple(PlanoEstruturafisica::classname(), $modelsPlanoEstrutura,'id');            
+        $modelsPlanoEstrutura = Model::createMultiple(PlanoEstruturafisica::classname(), $modelsPlanoEstrutura,'id');
         Model::loadMultiple($modelsPlanoEstrutura, Yii::$app->request->post());
         $deletedIDsEstrutura = array_diff($oldIDsEstrutura, array_filter(ArrayHelper::map($modelsPlanoEstrutura, 'id', 'id')));
 
@@ -452,11 +453,11 @@ class PlanodeacaoController extends Controller
                                 $totalValorMaterialApostila = $query->sum('plama_valor');
 
                                 //realiza a soma dos custos de materiais de consumo (somatória de Quantidade * Valor de todas as linhas)
-                                $query = (new \yii\db\Query())->from('db_apl.plano_materialconsumo')->where(['planodeacao_cod' => $id]);
+                                $query = (new \yii\db\Query())->from('db_apl.plano_materialconsumo')->where(['planodeacao_cod' => $model->plan_codplano]);
                                 $totalValorConsumo = $query->sum('planmatcon_valor*planmatcon_quantidade');
 
                                 //realiza a soma dos custos de material de consumo
-                                $query = (new \yii\db\Query())->from('db_apl.plano_materialaluno')->where(['planodeacao_cod' => $id]);
+                                $query = (new \yii\db\Query())->from('db_apl.plano_materialaluno')->where(['planodeacao_cod' => $model->plan_codplano]);
                                 $totalValorAluno = $query->sum('planmatalu_valor*planmatalu_quantidade');
 
                                 $model->plan_custoMaterialLivro    = $totalValorMaterialLivro; //save custo material didático - LIVROS
