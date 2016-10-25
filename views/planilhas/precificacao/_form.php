@@ -50,10 +50,10 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                                              var $divPanelBody = $(select).parent().parent().parent().parent().parent();
 
                                              var $zerahora = $divPanelBody.find("input:eq(2)");
-                                             var $inputCustoIndireto   = $divPanelBody.find("input:eq(24)");
-                                             var $inputIPCA            = $divPanelBody.find("input:eq(25)");
-                                             var $inputReservaTecnica  = $divPanelBody.find("input:eq(26)");
-                                             var $inputDespesaSede     = $divPanelBody.find("input:eq(27)");
+                                             var $inputCustoIndireto   = $divPanelBody.find("input:eq(26)");
+                                             var $inputIPCA            = $divPanelBody.find("input:eq(27)");
+                                             var $inputReservaTecnica  = $divPanelBody.find("input:eq(28)");
+                                             var $inputDespesaSede     = $divPanelBody.find("input:eq(29)");
 
                                              $zerahora.val(0);
                                              $inputCustoIndireto.val(data.mark_custoindireto);
@@ -82,9 +82,9 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
                                              var $zerahoratotal            = $divPanelBody.find("input:eq(0)");
                                              var $zeraqntaluno             = $divPanelBody.find("input:eq(1)");
-                                             var $inputMaterialApostila    = $divPanelBody.find("input:eq(18)");
-                                             var $inputCustoMaterialLivro  = $divPanelBody.find("input:eq(20)");
-                                             var $inputCustoConsumo        = $divPanelBody.find("input:eq(21)");
+                                             var $inputMaterialApostila    = $divPanelBody.find("input:eq(20)");
+                                             var $inputCustoMaterialLivro  = $divPanelBody.find("input:eq(22)");
+                                             var $inputCustoConsumo        = $divPanelBody.find("input:eq(23)");
 
                                              $zerahoratotal.val(data.plan_cargahoraria);
                                              $zeraqntaluno.val(0);
@@ -187,7 +187,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                             'digits' => 2,
                             'prefix' => 'R$ ',
                             'groupSeparator' => '.',
-                            'radixPoint' => ',', 
+                            'radixPoint' => ',',
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
@@ -351,10 +351,16 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 <div class="col-md-3">
                 <?= $form->field($model, 'planp_pessoajuridica')->textInput(['value' => 0]) ?>
                 </div>
-                  
+
             </div>
 
             <div class="row">
+
+                <div class="col-md-3">
+                <?= $form->field($model, 'planp_PJApostila')->textInput(['readonly' => true]); ?>
+
+                <?= $form->field($model, 'hiddenPJApostila')->hiddenInput()->label(false); ?>
+                </div>
 
                 <div class="col-md-3">
                 <?= $form->field($model, 'planp_custosmateriais')->textInput(['readonly' => true]); ?>
@@ -382,6 +388,11 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
                 </div>
 
+            </div>
+
+
+            <div class="row">
+
                 <div class="col-md-3">
                 <?= $form->field($model, 'planp_totalhoraaulacustodireto')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
@@ -399,7 +410,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
             </div>
-            
+
         </div>
 
             <table class="table table-condensed table-hover">
@@ -455,7 +466,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                             'options' => ['readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
                 </div>
-                  
+
             </div>
 
             <div class="row">
@@ -502,7 +513,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                             'options' => ['readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
                 </div>
-                  
+
             </div>
 
             <div class="row">
@@ -643,7 +654,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
         </div>
 
 </div>
-    
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

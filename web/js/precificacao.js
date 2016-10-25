@@ -1,93 +1,97 @@
 $(function() {
 
-    //SEÇÃO 2 
-    $('#precificacao-planp_cargahoraria').keyup(function() {  
+    //SEÇÃO 2
+    $('#precificacao-planp_cargahoraria').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-planp_qntaluno').keyup(function() {  
+    $('#precificacao-planp_qntaluno').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-hiddenplanejamento').keyup(function() {  
+    $('#precificacao-hiddenplanejamento').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-planp_servpedagogico').keyup(function() {  
+    $('#precificacao-planp_servpedagogico').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-planp_horaaulaplanejamento').keyup(function() {  
+    $('#precificacao-planp_horaaulaplanejamento').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-planp_totalhorasdocente').keyup(function() {  
+    $('#precificacao-planp_totalhorasdocente').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-planp_valorhoraaula').keyup(function() {  
+    $('#precificacao-planp_valorhoraaula').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-planp_diarias').keyup(function() {  
+    $('#precificacao-planp_diarias').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-planp_passagens').keyup(function() {  
+    $('#precificacao-planp_passagens').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-planp_pessoafisica').keyup(function() {  
+    $('#precificacao-planp_pessoafisica').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-planp_pessoajuridica').keyup(function() {  
+    $('#precificacao-planp_pessoajuridica').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-planp_custosmateriais').keyup(function() {  
+    $('#precificacao-hiddenpjapostila').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-hiddenmaterialdidatico').keyup(function() {  
+    $('#precificacao-planp_custosmateriais').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-planp_custosconsumo').keyup(function() {  
+    $('#precificacao-hiddenmaterialdidatico').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-totalhoraaulacustodireto').keyup(function() {  
+    $('#precificacao-planp_custosconsumo').keyup(function() {
+       updateTotal();
+    });
+
+    $('#precificacao-totalhoraaulacustodireto').keyup(function() {
        updateTotal();
     });
 
     //SEÇÃO 3
-    $('#precificacao-planp_custosindiretos').keyup(function() {  
+    $('#precificacao-planp_custosindiretos').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-planp_ipca').keyup(function() {  
+    $('#precificacao-planp_ipca').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-planp_reservatecnica').keyup(function() {  
-       updateTotal();
-    });
-    
-    $('#precificacao-planp_despesadm').keyup(function() {  
+    $('#precificacao-planp_reservatecnica').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-planp_totalincidencias').keyup(function() {  
+    $('#precificacao-planp_despesadm').keyup(function() {
        updateTotal();
     });
 
-    $('#precificacao-planp_precosugerido').keyup(function() {  
+    $('#precificacao-planp_totalincidencias').keyup(function() {
+       updateTotal();
+    });
+
+    $('#precificacao-planp_precosugerido').keyup(function() {
        updateTotal();
     });
 
     var updateTotal = function () {
-      //SEÇÃO 2  
+      //SEÇÃO 2
       var planp_cargahoraria         = parseFloat($('#precificacao-planp_cargahoraria').val());
       var planp_qntaluno             = parseFloat($('#precificacao-planp_qntaluno').val());
       var planp_totalhorasdocente    = parseFloat($('#precificacao-planp_totalhorasdocente').val());
@@ -99,6 +103,7 @@ $(function() {
       var planp_passagens            = parseFloat($('#precificacao-planp_passagens').val());
       var planp_pessoafisica         = parseFloat($('#precificacao-planp_pessoafisica').val());
       var planp_pessoajuridica       = parseFloat($('#precificacao-planp_pessoajuridica').val());
+      var hiddenPJApostila           = parseFloat($('#precificacao-hiddenpjapostila').val());
       var planp_custosmateriais      = parseFloat($('#precificacao-planp_custosmateriais').val());
       var hiddenmaterialdidatico     = parseFloat($('#precificacao-hiddenmaterialdidatico').val());
       var planp_custosconsumo        = parseFloat($('#precificacao-planp_custosconsumo').val());
@@ -124,7 +129,8 @@ $(function() {
       var totalEncargos            = (totalSalarios * 32.7) / 100;
       var totalSalariosEncargos    = totalSalarios + totalEncargos;
       var totalMaterial            = hiddenmaterialdidatico * planp_qntaluno;
-      var valorTotalDireto         = totalSalariosEncargos + planp_diarias + planp_passagens + planp_pessoafisica + planp_pessoajuridica + totalMaterial + planp_custosconsumo;
+      var totalPJApostila          = hiddenPJApostila * planp_qntaluno;
+      var valorTotalDireto         = totalSalariosEncargos + planp_diarias + planp_passagens + planp_pessoafisica + totalPJApostila + totalMaterial + planp_custosconsumo;
       var totalhoraaulacustodireto = valorTotalDireto / planp_cargahoraria / planp_qntaluno;
 
       //SEÇÃO 3
@@ -160,7 +166,11 @@ $(function() {
         if (isNaN(totalMaterial) || totalMaterial < 0) {
             totalMaterial = '';
         }
-        
+
+        if (isNaN(totalPJApostila) || totalPJApostila < 0) {
+            totalPJApostila = '';
+        }
+
         if (isNaN(valorTotalDireto) || valorTotalDireto < 0) {
             valorTotalDireto = '';
         }
@@ -186,9 +196,9 @@ $(function() {
         if (isNaN(MinimoAlunos) || MinimoAlunos < 0) {
             MinimoAlunos = '';
         }
-        
+
       //RESULTADO DOS VALORES
-      //SEÇÃO 2 
+      //SEÇÃO 2
       $('#precificacao-planp_horaaulaplanejamento').val(valor_servpedagogico); // Valor hora/aula Planejamento
 
       $('#precificacao-planp_totalcustodocente').val(valorTotalMaoDeObra); // Custo de Mão de Obra Direta
@@ -203,9 +213,11 @@ $(function() {
 
       $('#precificacao-planp_totalencargos').val(totalEncargos); // Total de Salários x 32.7% (encargos)
 
-      $('#precificacao-planp_totalsalarioencargo').val(totalSalariosEncargos); // Total de Salários + Total de Encargos 
+      $('#precificacao-planp_totalsalarioencargo').val(totalSalariosEncargos); // Total de Salários + Total de Encargos
 
-      $('#precificacao-planp_custosmateriais').val(totalMaterial); // Total de Material x Quantidade de Alunos
+      $('#precificacao-planp_pjapostila').val(totalPJApostila); // Total de Material x Quantidade de Alunos
+
+      $('#precificacao-planp_custosmateriais').val(totalMaterial); // Total de Apostilas x Quantidade de Alunos
 
       $('#precificacao-planp_totalcustodireto').val(valorTotalDireto); // Valor Total Custo Direto (Total Salários e encargos + custos materiais + diárias + passagens + pf + pj)
 
@@ -214,13 +226,13 @@ $(function() {
       //SEÇÃO 3
       $('#precificacao-planp_totalincidencias').val(totalIncidencia); // Valor Custos indireto + IPCA/MES + reserva técnica + despesa adm
 
-      $('#precificacao-planp_totalcustoindireto').val(totalCustoIndireto); // Valor Custo Direto x Total Incidencias 
+      $('#precificacao-planp_totalcustoindireto').val(totalCustoIndireto); // Valor Custo Direto x Total Incidencias
 
-      $('#precificacao-planp_despesatotal').val(despesaTotal); // Valor Custo Indireto + Custo Direto 
+      $('#precificacao-planp_despesatotal').val(despesaTotal); // Valor Custo Indireto + Custo Direto
 
-      $('#precificacao-planp_markdivisor').val(MarkupDivisor); // Markup Divisor 100 - x / 100 
+      $('#precificacao-planp_markdivisor').val(MarkupDivisor); // Markup Divisor 100 - x / 100
 
-      $('#precificacao-planp_markmultiplicador').val(MarkupMultiplicador); // Markup Multiplicador  ((100 / x ) -1) * 100 
+      $('#precificacao-planp_markmultiplicador').val(MarkupMultiplicador); // Markup Multiplicador  ((100 / x ) -1) * 100
 
       $('#precificacao-planp_vendaturma').val(PrecoVendaTurma); // Valor Total Direto / MarkupDivisor
 

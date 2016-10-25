@@ -17,7 +17,6 @@
           <br>
 
           <div class="row">
-
                   <div class="col-md-3"><strong>Carga Horária:</strong> <?php echo $model->planp_cargahoraria; ?></div>
 
                   <div class="col-md-3"><strong>Qnt Alunos:</strong> <?php echo $model->planp_qntaluno; ?></div>
@@ -38,7 +37,6 @@
         <br>
 
           <div class="row">
-
                   <div class="col-md-3"><strong>Valor Hora/Aula:</strong><br> <?php echo 'R$ ' . number_format($model->planp_valorhoraaula, 2, ',', '.'); ?></div>
 
                   <div class="col-md-3"><strong>Valor Hora/Aula Planejamento:</strong><br> <?php  echo 'R$ ' . number_format($model->planp_horaaulaplanejamento, 2, ',', '.'); ?></div>
@@ -49,7 +47,6 @@
         <br>
 
           <div class="row">
-
                   <div class="col-md-3"><strong>1/12 de 13º:</strong><br> <?php echo 'R$ ' . number_format($model->planp_decimo, 2, ',', '.'); ?></div>
 
                   <div class="col-md-3"><strong>1/12 de Férias:</strong><br> <?php  echo 'R$ ' . number_format($model->planp_ferias, 2, ',', '.'); ?></div>
@@ -62,7 +59,6 @@
         <br>
 
           <div class="row">
-
                   <div class="col-md-3"><strong>(%) Encargos s/13º, férias e salários:</strong><br> <?php echo number_format($model->planp_encargos, 2, ',', '.') . '%'; ?></div>
 
                   <div class="col-md-3"><strong>Total de Encargos:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalencargos, 2, ',', '.'); ?></div>
@@ -73,7 +69,6 @@
           <br>
 
           <div class="row">
-
                   <div class="col-md-3"><strong>Diárias:</strong><br> <?php echo 'R$ ' . number_format($model->planp_diarias, 2, ',', '.'); ?></div>
 
                   <div class="col-md-3"><strong>Passagens:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_passagens, 2, ',', '.'); ?></div>
@@ -86,6 +81,7 @@
          <br>
 
           <div class="row">
+                  <div class="col-md-3"><strong>Mat. Didático (Apostila/plano A):</strong><br> <?php echo 'R$ ' .  number_format($model->planp_PJApostila, 2, ',', '.'); ?></div>
 
                   <div class="col-md-3"><strong>Mat. Didático (Livros/plano A):</strong><br> <?php echo 'R$ ' .  number_format($model->planp_custosmateriais, 2, ',', '.'); ?></div>
 
@@ -93,9 +89,14 @@
 
                   <div class="col-md-3"><strong>Total de Custo Direto:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalcustodireto, 2, ',', '.'); ?></div>
 
+          </div>
+
+        <br>
+
+          <div class="row">
                   <div class="col-md-3"><strong>Valor Hora/Aula de Custo Direto:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalhoraaulacustodireto, 2, ',', '.'); ?></div>
           </div>
-           
+
         <br>
 
           <div class="row">
@@ -113,7 +114,6 @@
         <br>
 
           <div class="row">
-
                   <div class="col-md-3"><strong>Total Incidências(%):</strong><br> <?php echo number_format($model->planp_totalincidencias, 2, ',', '.') . '%'; ?></div>
 
                   <div class="col-md-3"><strong>Total Custo Indireto:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalcustoindireto, 2, ',', '.'); ?></div>
@@ -124,7 +124,6 @@
         <br>
 
           <div class="row">
-
                   <div class="col-md-3"><strong>Mark-Up Divisor 100-X/100:</strong><br> <?php echo number_format($model->planp_markdivisor, 2, ',', '.') . '%'; ?></div>
 
                   <div class="col-md-3"><strong>Mark-Up Multiplicador 100/Markup:</strong><br> <?php echo number_format($model->planp_markmultiplicador, 2, ',', '.') . '%'; ?></div>
@@ -135,7 +134,6 @@
         <br>
 
           <div class="row">
-
                   <div class="col-md-3"><strong>Preço de Venda Total por Aluno:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaaluno, 2, ',', '.'); ?></div>
 
                   <div class="col-md-3"><strong>Retorno com Preço de Venda:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_retorno, 2, ',', '.'); ?></div>
@@ -144,11 +142,10 @@
 
                   <div class="col-md-3"><strong>% de Retorno:</strong><br>  <?php echo number_format($model->planp_porcentretorno, 2, ',', '.') . '%'; ?></div>
           </div>
-           
+
         <br>
 
           <div class="row">
-
                   <div class="col-md-3"><strong>Preço Sugerido:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_precosugerido, 2, ',', '.'); ?></div>
 
                   <div class="col-md-3"><strong>Retorno com preço sugerido:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_retornoprecosugerido, 2, ',', '.'); ?></div>

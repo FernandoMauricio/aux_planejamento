@@ -177,11 +177,11 @@ class PrecificacaoController extends Controller
 
             if($model->save()){
 
-                $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_custosmateriais + $model->planp_custosconsumo; 
+                $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_custosmateriais + $model->planp_custosconsumo;
 
                 //Localiza as unidades configuradas pelo MARKUP
                 $listagemUnidades = "SELECT * FROM markup_mark";
-                $unidadesMarkup = Markup::findBySql($listagemUnidades)->all(); 
+                $unidadesMarkup = Markup::findBySql($listagemUnidades)->all();
 
                 foreach ($unidadesMarkup as $unidadeMarkup) {
 
@@ -195,7 +195,7 @@ class PrecificacaoController extends Controller
                     $command = Yii::$app->db_apl->createCommand();
                     $command->insert('db_apl.precificacao_unidades', array('uprec_codunidade'=>$mark_codunidade, 'precificacao_id' => $model->planp_id, 'uprec_cargahoraria' => $model->planp_cargahoraria, 'uprec_qntaluno' => $model->planp_qntaluno, 'uprec_totalcustodireto' => $model->planp_totalcustodireto, 'uprec_vendaturma' => $PrecoVendaTurma, 'uprec_vendaaluno' => $PrecoVendaAluno, 'uprec_horaaula' => $ValorHoraAulaAluno));
                     $command->execute();
-                    
+
                     }
 
                     $precificacaoUnidades->save();
@@ -224,7 +224,7 @@ class PrecificacaoController extends Controller
     public function actionUpdate($id)
     {
         $session = Yii::$app->session;
-        
+
         $model = $this->findModel($id);
 
         $planos       = Planodeacao::find()->where(['plan_status' => 1])->orderBy('plan_descricao')->all();
