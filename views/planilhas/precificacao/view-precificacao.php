@@ -87,7 +87,7 @@
 
                   <div class="col-md-3"><strong>Material Consumo:</strong><br> <?php echo 'R$ ' .  number_format($model->planp_custosconsumo, 2, ',', '.'); ?></div>
 
-                  <div class="col-md-3"><strong>Total de Custo Direto:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalcustodireto, 2, ',', '.'); ?></div>
+                  <div class="col-md-3" style="color: #F7941D;"><strong>Total de Custo Direto:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalcustodireto, 2, ',', '.'); ?></div>
 
           </div>
 
@@ -116,9 +116,9 @@
           <div class="row">
                   <div class="col-md-3"><strong>Total Incidências(%):</strong><br> <?php echo number_format($model->planp_totalincidencias, 2, ',', '.') . '%'; ?></div>
 
-                  <div class="col-md-3"><strong>Total Custo Indireto:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalcustoindireto, 2, ',', '.'); ?></div>
+                  <div class="col-md-3" style="color: #F7941D;"><strong>Total Custo Indireto:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalcustoindireto, 2, ',', '.'); ?></div>
 
-                  <div class="col-md-4"><strong>Despesa Total:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_despesatotal, 2, ',', '.'); ?></div>
+                  <div class="col-md-4" style="color: red;"><strong>Despesa Total:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_despesatotal, 2, ',', '.'); ?></div>
           </div>
 
         <br>
@@ -146,7 +146,7 @@
         <br>
 
           <div class="row">
-                  <div class="col-md-3"><strong>Preço Sugerido:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_precosugerido, 2, ',', '.'); ?></div>
+                  <div class="col-md-3" style="color: green;"><strong>Preço Sugerido:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_precosugerido, 2, ',', '.'); ?></div>
 
                   <div class="col-md-3"><strong>Retorno com preço sugerido:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_retornoprecosugerido, 2, ',', '.'); ?></div>
 
