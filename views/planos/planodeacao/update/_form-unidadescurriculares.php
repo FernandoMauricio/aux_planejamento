@@ -50,10 +50,22 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     }
                                 ?>
 
-                                    <div class="col-sm-10">
-                                      <?= $form->field($modelUnidadeCurricular, "[{$i}]uncu_descricao")->textInput() ?>
+                                    <div class="col-sm-2">
+                                    <?php
+                                        $nivelListUC=ArrayHelper::map(app\models\planos\NivelUnidadesCurriculares::find()->all(), 'nivuc_id', 'nivuc_descricao' ); 
+                                                    echo $form->field($modelUnidadeCurricular, "[{$i}]nivel_uc")->widget(Select2::classname(), [
+                                                            'data' =>  $nivelListUC,
+                                                            'options' => ['placeholder' => 'Selecione o Nivel da UC...'],
+                                                            'pluginOptions' => [
+                                                                    'allowClear' => true
+                                                                ],
+                                                            ]);
+                                    ?>
                                     </div>
 
+                                    <div class="col-sm-8">
+                                      <?= $form->field($modelUnidadeCurricular, "[{$i}]uncu_descricao")->textInput() ?>
+                                    </div>
 
                                     <div class="col-sm-2">
                                         <?= $form->field($modelUnidadeCurricular, "[{$i}]uncu_cargahoraria")->textInput() ?>

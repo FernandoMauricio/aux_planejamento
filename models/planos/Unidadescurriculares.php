@@ -38,8 +38,8 @@ class Unidadescurriculares extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['uncu_descricao', 'uncu_cargahoraria'], 'required'],
-            [['uncu_cargahoraria', 'planodeacao_cod'], 'integer'],
+            [['uncu_descricao', 'uncu_cargahoraria', 'nivel_uc'], 'required'],
+            [['uncu_cargahoraria', 'planodeacao_cod', 'nivel_uc'], 'integer'],
             [['uncu_descricao'], 'string', 'max' => 255],
             [['planodeacao_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planodeacao_cod' => 'plan_codplano']],
         ];
@@ -52,6 +52,7 @@ class Unidadescurriculares extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'nivel_uc' => 'Nível UC',
             'uncu_descricao' => 'Descrição',
             'uncu_cargahoraria' => 'Carga Horária',
             'planodeacao_cod' => 'Planodeacao Cod',

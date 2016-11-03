@@ -2,6 +2,7 @@
 
 use kartik\detail\DetailView;
 use yii\helpers\Html;
+use app\models\planos\NivelUnidadesCurriculares;
 use app\models\planos\Unidadescurriculares;
 use app\models\planos\PlanoMaterial;
 use app\models\planos\PlanoConsumo;
@@ -174,6 +175,7 @@ echo DetailView::widget([
     <thead>
     <tr class="info"><th colspan="12">SEÇÃO 2: Organização Curricular</th></tr>
       <tr>
+        <th>Nível UC</th>
         <th>Descrição</th>
         <th>Carga Horária</th>
       </tr>
@@ -185,12 +187,22 @@ echo DetailView::widget([
              $modelsUnidadesCurriculares = Unidadescurriculares::findBySql($query_planoUnidadesCurriculares)->all(); 
              foreach ($modelsUnidadesCurriculares as $modelUnidadesCurriculares) {
                 
+                $nivel_uc          = $modelUnidadesCurriculares["nivel_uc"];
                 $uncu_descricao    = $modelUnidadesCurriculares["uncu_descricao"];
                 $uncu_cargahoraria = $modelUnidadesCurriculares["uncu_cargahoraria"];
                 $valorTotal       += $modelUnidadesCurriculares["uncu_cargahoraria"]; //somatório de todos os valores dos itens
 
+                //busca pelos níveis das unidades curriculares
+                $query_nivelUC = "SELECT nivuc_descricao FROM `nivelunidcurriculares_nivuc`, `unidadescurriculares_uncu` WHERE `nivuc_id` = '".$nivel_uc."' ";
+                $modelsNivelUC = NivelUnidadesCurriculares::findBySql($query_nivelUC)->all(); 
+
+                foreach ($modelsNivelUC as $modelNivelUC) {
+
+                 $nivuc_descricao   = $modelNivelUC["nivuc_descricao"];
+              }
         ?>
         <tr>
+        <td><?php echo $nivuc_descricao ?></td>
         <td><?php echo $uncu_descricao ?></td>
         <td><?php echo $uncu_cargahoraria . " horas" ?></td>
       </tr>
@@ -201,6 +213,7 @@ echo DetailView::widget([
      <tfoot>
             <tr class="warning kv-edit-hidden" style="border-top: #dedede">
               <th>TOTAL </th>
+              <th></th>
                <th colspan="12" style="color:red"><?php echo $valorTotal . " horas" ?></th>
             </tr>
          </tfoot>
@@ -212,6 +225,7 @@ echo DetailView::widget([
     <tr class="info"><th colspan="12">SEÇÃO 3: Materiais Didáticos</th></tr>
       <tr>
         <th>Descrição</th>
+        <th>Nivel UC</th>
         <th>Valor Unitário</th>
         <th>Tipo Material</th>
         <th>Editora</th>
@@ -226,7 +240,8 @@ echo DetailView::widget([
              $query_planoMaterial = "SELECT * FROM planomaterial_plama WHERE plama_codplano = '".$id."' ORDER BY plama_tipoplano ASC";
              $modelsPlanoMaterial = PlanoMaterial::findBySql($query_planoMaterial)->all(); 
              foreach ($modelsPlanoMaterial as $modelPlanoMaterial) {
-                
+
+                $nivel_uc           = $modelPlanoMaterial["nivel_uc"];
                 $plama_titulo       = $modelPlanoMaterial["plama_titulo"];
                 $plama_valor        = $modelPlanoMaterial["plama_valor"];
                 $plama_tipomaterial = $modelPlanoMaterial["plama_tipomaterial"];
@@ -236,9 +251,19 @@ echo DetailView::widget([
                 $plama_arquivo      = $modelPlanoMaterial["plama_arquivo"];
                 $valorTotal        += $modelPlanoMaterial["plama_valor"]; //somatório de todos os valores dos itens
 
+                //busca pelos níveis das unidades curriculares
+                $query_nivelUC = "SELECT nivuc_descricao FROM `nivelunidcurriculares_nivuc`, `unidadescurriculares_uncu` WHERE `nivuc_id` = '".$nivel_uc."' ";
+                $modelsNivelUC = NivelUnidadesCurriculares::findBySql($query_nivelUC)->all(); 
+
+                foreach ($modelsNivelUC as $modelNivelUC) {
+
+                 $nivuc_descricao   = $modelNivelUC["nivuc_descricao"];
+              }
+
         ?>
         <tr>
         <td><?php echo $plama_titulo ?></td>
+        <td><?php echo $nivuc_descricao ?></td>
         <td><?php echo 'R$ ' . number_format($plama_valor, 2, ',', '.') ?></td>
         <td><?php echo $plama_tipomaterial ?></td>
         <td><?php echo $plama_editora ?></td>
@@ -253,6 +278,7 @@ echo DetailView::widget([
      <tfoot>
             <tr class="warning kv-edit-hidden" style="border-top: #dedede">
               <th>TOTAL <i>(Valor Unitário)</i> </th>
+              <th></th>
                <th colspan="12" style="color:red"><?php echo 'R$ ' . number_format($valorTotal, 2, ',', '.') ?></th>
             </tr>
          </tfoot>

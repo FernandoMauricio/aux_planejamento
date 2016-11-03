@@ -22,6 +22,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                             'formId' => 'dynamic-form',
                                             'formFields' => [
                                                 'id',
+                                                'nivel_uc',
                                                 'plama_codrepositorio',
                                                 'plama_valor',
                                                 'plama_tipomaterial',
@@ -54,7 +55,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     }
                                 ?>
 
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-10">
                                     <?php
                                          $data_repositorio = ArrayHelper::map($repositorio, 'rep_codrepositorio', 'rep_titulo');
                                          echo $form->field($modelPlanoMaterial, "[{$i}]plama_codrepositorio")->widget(Select2::classname(), [
@@ -89,8 +90,20 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                       <?= $form->field($modelPlanoMaterial, "[{$i}]plama_titulo")->hiddenInput()->label(false) ?>
                                     </div>
 
+                                    <div class="col-sm-2">
+                                    <?php
+                                        $nivelListUC=ArrayHelper::map(app\models\planos\NivelUnidadesCurriculares::find()->all(), 'nivuc_id', 'nivuc_descricao' ); 
+                                                    echo $form->field($modelPlanoMaterial, "[{$i}]nivel_uc")->widget(Select2::classname(), [
+                                                            'data' =>  $nivelListUC,
+                                                            'options' => ['placeholder' => 'Selecione o Nivel da UC...'],
+                                                            'pluginOptions' => [
+                                                                    'allowClear' => true
+                                                                ],
+                                                            ]);
+                                    ?>
+                                    </div>
 
-                                    <div class="col-sm-1">
+                                    <div class="col-sm-2">
                                         <?= $form->field($modelPlanoMaterial, "[{$i}]plama_valor")->textInput(['readonly'=> true]) ?>
                                     </div>
 
@@ -114,7 +127,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                             ?>
                                     </div>
                                     
-                                    <div class="col-sm-11">
+                                    <div class="col-sm-4">
                                         <?= $form->field($modelPlanoMaterial, "[{$i}]plama_observacao")->textInput() ?>
                                     </div>
 
