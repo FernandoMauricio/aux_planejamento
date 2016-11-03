@@ -90,6 +90,10 @@ $(function() {
        updateTotal();
     });
 
+    $('#precificacao-planp_parcelas').keyup(function() {
+       updateTotal();
+    });
+
     var updateTotal = function () {
       //SEÇÃO 2
       var planp_cargahoraria         = parseFloat($('#precificacao-planp_cargahoraria').val());
@@ -116,6 +120,7 @@ $(function() {
       var planp_despesadm        = parseFloat($('#precificacao-planp_despesadm').val());
       var planp_totalincidencias = parseFloat($('#precificacao-planp_totalincidencias').val());
       var planp_precosugerido    = parseFloat($('#precificacao-planp_precosugerido').val());
+      var planp_parcelas         = parseFloat($('#precificacao-planp_parcelas').val());
 
 
       //CÁLCULOS REALIZADOS
@@ -148,6 +153,8 @@ $(function() {
       var RetornoPrecoSugerido = (planp_precosugerido * planp_qntaluno) - despesaTotal; // Preço Sugerido x Qnt de Alunos - Despesa Total;
 
       var MinimoAlunos = Math.ceil(despesaTotal / planp_precosugerido); // Despesa Total / Preço Sugerido;
+
+      var ValorParcelas =  planp_precosugerido / planp_parcelas;
 
         //OCULTAR O NAN
         //SEÇÃO 2
@@ -197,6 +204,10 @@ $(function() {
             MinimoAlunos = '';
         }
 
+        if (isNaN(ValorParcelas) || ValorParcelas < 0) {
+            ValorParcelas = '';
+        }
+        
       //RESULTADO DOS VALORES
       //SEÇÃO 2
       $('#precificacao-planp_horaaulaplanejamento').val(valor_servpedagogico); // Valor hora/aula Planejamento
@@ -247,6 +258,8 @@ $(function() {
       $('#precificacao-planp_retornoprecosugerido').val(RetornoPrecoSugerido); // Preço Sugerido x Qnt de Alunos - Despesa Total;
 
       $('#precificacao-planp_minimoaluno').val(MinimoAlunos); // Despesa Total / Preço Sugerido;
+
+      $('#precificacao-planp_valorparcelas').val(ValorParcelas); // Preço Sugerido / Quantidade de Parcelas;
 
     };
  });

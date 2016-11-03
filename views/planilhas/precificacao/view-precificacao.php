@@ -154,6 +154,16 @@
 
           </div>
 
+          <br>
+          
+          <div class="row">
+
+                  <div class="col-md-3"><strong>Quantidade de Parcelas:</strong><br> <?php echo $model->planp_parcelas; ?></div>
+
+                  <div class="col-md-3"><strong>Valor das Parcelas:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_valorparcelas, 2, ',', '.'); ?></div>
+
+          </div>
+
         <br>
 
           <div class="row">

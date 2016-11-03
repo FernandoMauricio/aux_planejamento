@@ -106,6 +106,11 @@ use yii\helpers\Html;
             <td style="font-size:11px;" colspan="4"><strong>Retorno com preço sugerido: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_retornoprecosugerido, 2, ',', '.'); ?></td>
             <td style="font-size:11px;" colspan="4"><strong>Numero minimo de alunos por turma: </strong><br> <?php echo $model->planp_minimoaluno; ?></td>
         </tr>
+        <tr>
+            <td style="font-size:11px;" colspan="4"><strong>Quantidade de Parcelas: </strong><br> <?php echo $model->planp_parcelas; ?></td>
+            <td style="font-size:11px;" colspan="4"><strong>Valor das Parcelas: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_valorparcelas, 2, ',', '.'); ?></td>
+            <td style="font-size:11px;" colspan="4"></td>
+        </tr>
     </tbody>
    </table>
 
