@@ -26,6 +26,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                 'salas_id',
                                                 'custin_capmaximo',
                                                 'custin_metragem',
+                                                'custin_ambienteDN',
                                             ],
                                         ]); ?>
 
@@ -52,7 +53,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     }
                                 ?>
 
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-6">
                                     <?php
                                          $data_salas = ArrayHelper::map($salas, 'sal_codsala', 'sal_descricao');
                                          echo $form->field($modelCustosIndireto, "[{$i}]salas_id")->widget(Select2::classname(), [
@@ -60,6 +61,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                  'options' => ['placeholder' => 'Selecione a Sala...']
                                                  ]);
                                       ?>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <?= $form->field($modelCustosIndireto, "[{$i}]custin_ambienteDN")->textInput() ?>
                                     </div>
 
                                     <div class="col-sm-2">

@@ -109,6 +109,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
         <th colspan="1" style="text-align: center;">Custo Indireto</th>
       </tr>
         <tr>
+          <th>Código DN</th>
           <th>Salas</th>
           <th>Cap. Máx. de Alunos</th>
           <th>Metragem</th>
@@ -135,6 +136,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 foreach ($modelsCustosIndireto as $modelCustosIndireto) {
 
                   $salas_id               = $modelCustosIndireto["salas_id"];
+                  $custin_ambienteDN      = $modelCustosIndireto["custin_ambienteDN"];
                   $custin_capmaximo       = $modelCustosIndireto["custin_capmaximo"];
                   $custin_metragem        = $modelCustosIndireto["custin_metragem"];
                   $custin_porcentagem     = $modelCustosIndireto["custin_porcentagem"];
@@ -156,6 +158,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
               }
           ?>
           <tr>
+          <td><?php echo $custin_ambienteDN ?></td>
           <td><?php echo $sal_descricao ?></td>
           <td><?php echo $custin_capmaximo ?></td>
           <td><?php echo $custin_metragem ?></td>
@@ -169,6 +172,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
        <tfoot>
               <tr class="warning kv-edit-hidden" style="border-top: #dedede">
                 <th>TOTAL </th>
+                  <th></th>
                  <th><?php echo $valorTotal ?></th>
                  <th><?php echo $valorTotalMetragem ?></th>
                  <th><?php echo ($valorTotalPorcentagem * 100) . "%" ?></th>
