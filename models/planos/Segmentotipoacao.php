@@ -61,7 +61,7 @@ class Segmentotipoacao extends \yii\db\ActiveRecord
         ];
     }
 
-    //localiza 
+    //localiza os tipos de ação vinculados ao eixo e segmento
     public static function getTiposSubCat($subcat_id) {
 
         $sql = 'SELECT tip_codtipoa AS id, tip_descricao AS name 

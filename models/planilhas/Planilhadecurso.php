@@ -154,6 +154,18 @@ class Planilhadecurso extends \yii\db\ActiveRecord
         ];
     }
 
+    //Busca dados dos Planos que estão vinculados ao eixo e segmento escolhido pelo usuário
+    public static function getPlanosSubCat($cat_id, $subcat_id) {
+        $data=\app\models\planos\Planodeacao::find()
+       ->where(['plan_codeixo' => $cat_id, 'plan_codsegmento' => $subcat_id])
+       ->select(['plan_codplano AS id','plan_descricao AS name'])
+       ->orderBy('name')
+       ->asArray()->all();
+
+            return $data;
+        }
+
+
     /**
      * @return \yii\db\ActiveQuery
      */

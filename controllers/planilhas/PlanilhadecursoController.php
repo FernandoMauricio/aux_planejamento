@@ -8,6 +8,7 @@ use app\models\planilhas\PlanilhadecursoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * PlanilhadecursoController implements the CRUD actions for Planilhadecurso model.
@@ -28,6 +29,24 @@ class PlanilhadecursoController extends Controller
             ],
         ];
     }
+
+    //Localiza os Planos qu estão vinculados ao eixo e segmento selecionado pelo usuário
+    public function actionPlanos() {
+            $out = [];
+            if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+
+            if ($parents != null) {
+                    $cat_id = $parents[0];
+                    $subcat_id = $parents[1];
+                    $out = Planilhadecurso::getPlanosSubCat($cat_id, $subcat_id);
+                    echo Json::encode(['output'=>$out, 'selected'=>'']);
+                    return;
+                    }
+                 }
+            echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+
 
     /**
      * Lists all Planilhadecurso models.

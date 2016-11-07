@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
+use kartik\depdrop\DepDrop;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\planilhas\Planilhadecurso */
@@ -12,11 +16,44 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'placu_codeixo')->textInput(['maxlength' => true]) ?>
+                            <?php
+                                $EixoList=ArrayHelper::map(app\models\cadastros\Eixo::find()->all(), 'eix_codeixo', 'eix_descricao' ); 
+                                            echo $form->field($model, 'placu_codeixo')->widget(Select2::classname(), [
+                                                    'data' =>  $EixoList,
+                                                    'options' => ['id' => 'cat-id','placeholder' => 'Selecione o Eixo...'],
+                                                    'pluginOptions' => [
+                                                            'allowClear' => true
+                                                        ],
+                                                    ]);
+                            ?>
 
-    <?= $form->field($model, 'placu_codsegmento')->textInput(['maxlength' => true]) ?>
+                            <?php
+                                // Child # 1
+                                echo $form->field($model, 'placu_codsegmento')->widget(DepDrop::classname(), [
+                                    'type'=>DepDrop::TYPE_SELECT2,
+                                    'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                                    'options'=>['id'=>'subcat-id'],
+                                    'pluginOptions'=>[
+                                        'depends'=>['cat-id'],
+                                        'placeholder'=>'Selecione o Segmento...',
+                                        'initialize' => true,
+                                        'url'=>Url::to(['/planos/planodeacao/segmento'])
+                                    ]
+                                ]);
+                            ?>
 
-    <?= $form->field($model, 'placu_codplano')->textInput(['maxlength' => true]) ?>
+                            <?php 
+                                // Child # 2
+                                echo $form->field($model, 'placu_codplano')->widget(DepDrop::classname(), [
+                                    'type'=>DepDrop::TYPE_SELECT2,
+                                    'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                                    'pluginOptions'=>[
+                                        'depends'=>['cat-id', 'subcat-id'],
+                                        'placeholder'=>'Selecione o Plano...',
+                                        'url'=>Url::to(['/planilhas/planilhadecurso/planos'])
+                                    ]
+                                ]);
+                            ?>
 
     <?= $form->field($model, 'placu_codtipoa')->textInput(['maxlength' => true]) ?>
 
