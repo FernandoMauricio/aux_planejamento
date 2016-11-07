@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\planilhas\Planilhadecurso */
 
 $this->title = $model->placu_codplanilha;
-$this->params['breadcrumbs'][] = ['label' => 'Planilhadecursos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Listagem de Planilhas de Curso', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="planilhadecurso-view">
@@ -34,12 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'placu_codplano',
             'placu_codtipoa',
             'placu_codnivel',
-            'placu_codsegtip',
             'placu_cargahorariaplano',
             'placu_cargahorariarealizada',
             'placu_cargahorariaarealizar',
             'placu_codano',
-            'placu_codfinalidade',
             'placu_codcategoria',
             'placu_codtipla',
             'placu_quantidadeturmas',
@@ -49,11 +47,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'placu_codsituacao',
             'placu_codcolaborador',
             'placu_codunidade',
-            'plcau_nomeunidade',
+            'placu_nomeunidade',
             'placu_quantidadealunospsg',
             'placu_tipocalculo',
-            'placu_arquivolistamaterial',
-            'placu_listamaterialdoaluno',
             'placu_observacao:ntext',
             'placu_taxaretorno',
             'placu_cargahorariavivencia',

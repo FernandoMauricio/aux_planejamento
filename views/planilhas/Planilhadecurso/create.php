@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\planilhas\Planilhadecurso */
 
-$this->title = 'Create Planilhadecurso';
+$this->title = 'Nova Planilha de Curso';
 $this->params['breadcrumbs'][] = ['label' => 'Planilhadecursos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -18,9 +18,9 @@ class PlanilhadecursoSearch extends Planilhadecurso
     public function rules()
     {
         return [
-            [['placu_codplanilha', 'placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codsegtip', 'placu_codano', 'placu_codfinalidade', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_quantidadeparcelas', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_tipocalculo', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao'], 'integer'],
+            [['placu_codplanilha', 'placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_quantidadeparcelas', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_tipocalculo', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao'], 'integer'],
             [['placu_cargahorariaplano', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar', 'placu_valormensalidade', 'placu_taxaretorno'], 'number'],
-            [['plcau_nomeunidade', 'placu_arquivolistamaterial', 'placu_listamaterialdoaluno', 'placu_observacao', 'planilhadecurso_placucol'], 'safe'],
+            [['placu_nomeunidade', 'placu_observacao', 'planilhadecurso_placucol'], 'safe'],
         ];
     }
 
@@ -66,12 +66,10 @@ class PlanilhadecursoSearch extends Planilhadecurso
             'placu_codplano' => $this->placu_codplano,
             'placu_codtipoa' => $this->placu_codtipoa,
             'placu_codnivel' => $this->placu_codnivel,
-            'placu_codsegtip' => $this->placu_codsegtip,
             'placu_cargahorariaplano' => $this->placu_cargahorariaplano,
             'placu_cargahorariarealizada' => $this->placu_cargahorariarealizada,
             'placu_cargahorariaarealizar' => $this->placu_cargahorariaarealizar,
             'placu_codano' => $this->placu_codano,
-            'placu_codfinalidade' => $this->placu_codfinalidade,
             'placu_codcategoria' => $this->placu_codcategoria,
             'placu_codtipla' => $this->placu_codtipla,
             'placu_quantidadeturmas' => $this->placu_quantidadeturmas,
@@ -89,9 +87,7 @@ class PlanilhadecursoSearch extends Planilhadecurso
             'placu_codprogramacao' => $this->placu_codprogramacao,
         ]);
 
-        $query->andFilterWhere(['like', 'plcau_nomeunidade', $this->plcau_nomeunidade])
-            ->andFilterWhere(['like', 'placu_arquivolistamaterial', $this->placu_arquivolistamaterial])
-            ->andFilterWhere(['like', 'placu_listamaterialdoaluno', $this->placu_listamaterialdoaluno])
+        $query->andFilterWhere(['like', 'placu_nomeunidade', $this->placu_nomeunidade])
             ->andFilterWhere(['like', 'placu_observacao', $this->placu_observacao])
             ->andFilterWhere(['like', 'planilhadecurso_placucol', $this->planilhadecurso_placucol]);
 

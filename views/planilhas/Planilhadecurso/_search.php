@@ -27,8 +27,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'placu_codnivel') ?>
 
-    <?php // echo $form->field($model, 'placu_codsegtip') ?>
-
     <?php // echo $form->field($model, 'placu_cargahorariaplano') ?>
 
     <?php // echo $form->field($model, 'placu_cargahorariarealizada') ?>
@@ -57,7 +55,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'placu_codunidade') ?>
 
-    <?php // echo $form->field($model, 'plcau_nomeunidade') ?>
+    <?php // echo $form->field($model, 'placu_nomeunidade') ?>
 
     <?php // echo $form->field($model, 'placu_quantidadealunospsg') ?>
 

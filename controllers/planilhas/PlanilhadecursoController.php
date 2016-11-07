@@ -3,6 +3,7 @@
 namespace app\controllers\planilhas;
 
 use Yii;
+use app\models\planos\Planodeacao;
 use app\models\planilhas\Planilhadecurso;
 use app\models\planilhas\PlanilhadecursoSearch;
 use yii\web\Controller;
@@ -47,6 +48,13 @@ class PlanilhadecursoController extends Controller
             echo Json::encode(['output'=>'', 'selected'=>'']);
     }
 
+    //Localiza os dados dos Planos
+    public function actionGetPlanoDetalhes($planoId){
+
+        $getPlanoDetalhes = Planodeacao::findOne($planoId);
+        echo Json::encode($getPlanoDetalhes);
+    }
+
 
     /**
      * Lists all Planilhadecurso models.
@@ -82,7 +90,16 @@ class PlanilhadecursoController extends Controller
      */
     public function actionCreate()
     {
+        $session = Yii::$app->session;
         $model = new Planilhadecurso();
+
+        $model->placu_codcolaborador = $session['sess_codcolaborador'];
+        $model->placu_codunidade     = $session['sess_codunidade'];
+        $model->placu_nomeunidade    = $session['sess_unidade'];
+
+        $model->placu_codcategoria = 1; //PSG / Não PSG
+        $model->placu_codsituacao  = 1; //Situação Padrão: Em elaboração
+        $model->placu_tipocalculo  = 1; //Tipo de Cálculo: Taxa de Retorno ou Valor Curso Por Aluno
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->placu_codplanilha]);

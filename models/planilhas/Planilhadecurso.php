@@ -9,12 +9,10 @@ use app\models\cadastros\Nivel;
 use app\models\cadastros\Segmento;
 use app\models\cadastros\Tipo;
 use app\models\cadastros\Categoriaplanilha;
-use app\models\cadastros\Finalidade;
 use app\models\cadastros\Tipoprogramacao;
 use app\models\cadastros\Tipoplanilha;
 use app\models\cadastros\Situacaoplanilha;
 use app\models\planos\Planodeacao;
-use app\models\planos\Segmentotipoacao;
 /**
  * This is the model class for table "planilhadecurso_placu".
  *
@@ -24,12 +22,10 @@ use app\models\planos\Segmentotipoacao;
  * @property string $placu_codplano
  * @property string $placu_codtipoa
  * @property string $placu_codnivel
- * @property string $placu_codsegtip
  * @property double $placu_cargahorariaplano
  * @property double $placu_cargahorariarealizada
  * @property double $placu_cargahorariaarealizar
  * @property string $placu_codano
- * @property string $placu_codfinalidade
  * @property string $placu_codcategoria
  * @property string $placu_codtipla
  * @property integer $placu_quantidadeturmas
@@ -39,7 +35,7 @@ use app\models\planos\Segmentotipoacao;
  * @property string $placu_codsituacao
  * @property integer $placu_codcolaborador
  * @property integer $placu_codunidade
- * @property string $plcau_nomeunidade
+ * @property string $placu_nomeunidade
  * @property integer $placu_quantidadealunospsg
  * @property integer $placu_tipocalculo
  * @property string $placu_arquivolistamaterial
@@ -56,7 +52,6 @@ use app\models\planos\Segmentotipoacao;
  * @property AnoAn $placuCodano
  * @property CategoriaplanilhaCat $placuCodcategoria
  * @property EixoEix $placuCodeixo
- * @property FinalidadeFin $placuCodfinalidade
  * @property NivelNiv $placuCodnivel
  * @property PlanodeacaoPlan $placuCodplano
  * @property TipoprogramacaoTipro $placuCodprogramacao
@@ -91,22 +86,19 @@ class Planilhadecurso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codsegtip', 'placu_codano', 'placu_codfinalidade', 'placu_codcategoria', 'placu_codtipla', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'plcau_nomeunidade', 'placu_tipocalculo', 'placu_quantidadealunosisentos'], 'required'],
-            [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codsegtip', 'placu_codano', 'placu_codfinalidade', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_quantidadeparcelas', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_tipocalculo', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao'], 'integer'],
-            [['placu_cargahorariaplano', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar', 'placu_valormensalidade', 'placu_taxaretorno'], 'number'],
+            [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_nomeunidade', 'placu_tipocalculo', 'placu_quantidadealunosisentos'], 'required'],
+            [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_quantidadeparcelas', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_tipocalculo', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao'], 'integer'],
+            [['placu_cargahorariaplano', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar', 'placu_valormensalidade', 'placu_taxaretorno', 'placu_diarias', 'placu_equipamentos', 'placu_pessoajuridica', 'placu_transporte' ], 'number'],
             [['placu_observacao'], 'string'],
-            [['plcau_nomeunidade'], 'string', 'max' => 150],
-            [['placu_arquivolistamaterial', 'placu_listamaterialdoaluno'], 'string', 'max' => 60],
+            [['placu_nomeunidade'], 'string', 'max' => 150],
             [['planilhadecurso_placucol'], 'string', 'max' => 45],
             [['placu_codano'], 'exist', 'skipOnError' => true, 'targetClass' => Ano::className(), 'targetAttribute' => ['placu_codano' => 'an_codano']],
             [['placu_codcategoria'], 'exist', 'skipOnError' => true, 'targetClass' => Categoriaplanilha::className(), 'targetAttribute' => ['placu_codcategoria' => 'cat_codcategoria']],
             [['placu_codeixo'], 'exist', 'skipOnError' => true, 'targetClass' => Eixo::className(), 'targetAttribute' => ['placu_codeixo' => 'eix_codeixo']],
-            [['placu_codfinalidade'], 'exist', 'skipOnError' => true, 'targetClass' => Finalidade::className(), 'targetAttribute' => ['placu_codfinalidade' => 'fin_codfinalidade']],
             [['placu_codnivel'], 'exist', 'skipOnError' => true, 'targetClass' => Nivel::className(), 'targetAttribute' => ['placu_codnivel' => 'niv_codnivel']],
             [['placu_codplano'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['placu_codplano' => 'plan_codplano']],
             [['placu_codprogramacao'], 'exist', 'skipOnError' => true, 'targetClass' => Tipoprogramacao::className(), 'targetAttribute' => ['placu_codprogramacao' => 'tipro_codprogramacao']],
             [['placu_codsegmento'], 'exist', 'skipOnError' => true, 'targetClass' => Segmento::className(), 'targetAttribute' => ['placu_codsegmento' => 'seg_codsegmento']],
-            [['placu_codsegtip'], 'exist', 'skipOnError' => true, 'targetClass' => Segmentotipoacao::className(), 'targetAttribute' => ['placu_codsegtip' => 'segtip_codsegtip']],
             [['placu_codsituacao'], 'exist', 'skipOnError' => true, 'targetClass' => Situacaoplanilha::className(), 'targetAttribute' => ['placu_codsituacao' => 'sipla_codsituacao']],
             [['placu_codtipla'], 'exist', 'skipOnError' => true, 'targetClass' => Tipoplanilha::className(), 'targetAttribute' => ['placu_codtipla' => 'tipla_codtipla']],
             [['placu_codtipoa'], 'exist', 'skipOnError' => true, 'targetClass' => Tipo::className(), 'targetAttribute' => ['placu_codtipoa' => 'tip_codtipoa']],
@@ -119,38 +111,39 @@ class Planilhadecurso extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'placu_codplanilha' => 'Placu Codplanilha',
-            'placu_codeixo' => 'Placu Codeixo',
-            'placu_codsegmento' => 'Placu Codsegmento',
-            'placu_codplano' => 'Placu Codplano',
-            'placu_codtipoa' => 'Placu Codtipoa',
-            'placu_codnivel' => 'Placu Codnivel',
-            'placu_codsegtip' => 'Placu Codsegtip',
-            'placu_cargahorariaplano' => 'Placu Cargahorariaplano',
-            'placu_cargahorariarealizada' => 'Placu Cargahorariarealizada',
-            'placu_cargahorariaarealizar' => 'Placu Cargahorariaarealizar',
-            'placu_codano' => 'Placu Codano',
-            'placu_codfinalidade' => 'Placu Codfinalidade',
-            'placu_codcategoria' => 'Placu Codcategoria',
-            'placu_codtipla' => 'Placu Codtipla',
-            'placu_quantidadeturmas' => 'Placu Quantidadeturmas',
-            'placu_quantidadealunos' => 'Placu Quantidadealunos',
-            'placu_quantidadeparcelas' => 'Placu Quantidadeparcelas',
-            'placu_valormensalidade' => 'Placu Valormensalidade',
-            'placu_codsituacao' => 'Placu Codsituacao',
-            'placu_codcolaborador' => 'Placu Codcolaborador',
-            'placu_codunidade' => 'Placu Codunidade',
-            'plcau_nomeunidade' => 'Plcau Nomeunidade',
-            'placu_quantidadealunospsg' => 'Placu Quantidadealunospsg',
-            'placu_tipocalculo' => 'Placu Tipocalculo',
-            'placu_arquivolistamaterial' => 'Placu Arquivolistamaterial',
-            'placu_listamaterialdoaluno' => 'Placu Listamaterialdoaluno',
-            'placu_observacao' => 'Placu Observacao',
-            'placu_taxaretorno' => 'Placu Taxaretorno',
-            'placu_cargahorariavivencia' => 'Placu Cargahorariavivencia',
-            'placu_quantidadealunosisentos' => 'Placu Quantidadealunosisentos',
+            'placu_codplanilha' => 'Código',
+            'placu_codeixo' => 'Eixo',
+            'placu_codsegmento' => 'Segmento',
+            'placu_codplano' => 'Plano de Ação',
+            'placu_codtipoa' => 'Tipo de Ação',
+            'placu_codnivel' => 'Nível',
+            'placu_cargahorariaplano' => 'Carga Horária do Plano',
+            'placu_cargahorariarealizada' => 'Carga Horária Realizada',
+            'placu_cargahorariaarealizar' => 'Carga Horária a Realizar no SENAC',
+            'placu_cargahorariavivencia' => 'Carga Horária na Vivência(Aprend)',
+            'placu_codano' => 'Ano',
+            'placu_codcategoria' => 'Categoria',
+            'placu_codtipla' => 'Tipo de Planilha',
+            'placu_quantidadeturmas' => 'Quantidade Turmas',
+            'placu_quantidadealunos' => 'Quantidade Alunos Pagantes por Turma',
+            'placu_quantidadealunospsg' => 'Quantidade Alunos PSG por Turma',
+            'placu_quantidadealunosisentos' => 'Quantidade Alunos Isentos por Turma',
+            'placu_quantidadeparcelas' => 'Quantidadeparcelas',
+            'placu_valormensalidade' => 'Valormensalidade',
+            'placu_codsituacao' => 'Situação',
+            'placu_codcolaborador' => 'Colaborador',
+            'placu_codunidade' => 'Cód. Unidade',
+            'placu_nomeunidade' => 'Unidade',
+            'placu_tipocalculo' => 'Tipocalculo',
+            'placu_observacao' => 'Observacao',
+            'placu_taxaretorno' => 'Taxaretorno',
             'planilhadecurso_placucol' => 'Planilhadecurso Placucol',
-            'placu_codprogramacao' => 'Placu Codprogramacao',
+            'placu_codprogramacao' => 'Tipo de Programação',
+
+            'placu_diarias' => 'Diárias',
+            'placu_equipamentos' => 'Equipamentos',
+            'placu_pessoajuridica' => 'Pessoa Jurídica',
+            'placu_transporte' => 'Transporte',
         ];
     }
 
@@ -209,14 +202,6 @@ class Planilhadecurso extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlacuCodfinalidade()
-    {
-        return $this->hasOne(FinalidadeFin::className(), ['fin_codfinalidade' => 'placu_codfinalidade']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getPlacuCodnivel()
     {
         return $this->hasOne(NivelNiv::className(), ['niv_codnivel' => 'placu_codnivel']);
@@ -244,14 +229,6 @@ class Planilhadecurso extends \yii\db\ActiveRecord
     public function getPlacuCodsegmento()
     {
         return $this->hasOne(SegmentoSeg::className(), ['seg_codsegmento' => 'placu_codsegmento']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPlacuCodsegtip()
-    {
-        return $this->hasOne(SegmentotipoacaoSegtip::className(), ['segtip_codsegtip' => 'placu_codsegtip']);
     }
 
     /**

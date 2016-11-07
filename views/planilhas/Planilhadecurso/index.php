@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'placu_codsituacao',
             // 'placu_codcolaborador',
             // 'placu_codunidade',
-            // 'plcau_nomeunidade',
+            // 'placu_nomeunidade',
             // 'placu_quantidadealunospsg',
             // 'placu_tipocalculo',
             // 'placu_arquivolistamaterial',

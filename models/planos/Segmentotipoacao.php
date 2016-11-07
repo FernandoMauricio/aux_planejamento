@@ -75,15 +75,6 @@ class Segmentotipoacao extends \yii\db\ActiveRecord
    }
 
 
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPlanilhadecursoPlacus()
-    {
-        return $this->hasMany(PlanilhadecursoPlacu::className(), ['placu_codsegtip' => 'segtip_codsegtip']);
-    }
-
     /**
      * @return \yii\db\ActiveQuery
      */
