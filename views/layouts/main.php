@@ -107,10 +107,10 @@ AppAsset::register($this);
             [
             'label' => 'Planilhas',
             'items' => [
-                         ['label' => 'Cadastro de Planilhas', 'url' => ['#']],
+                         ['label' => 'Planilhas de Curso', 'url' => ['/planilhas/planilhadecurso/index']],
                                      '<li class="divider"></li>',
 
-                         ['label' => 'Precificação de Custos', 'url' => ['/planilhas/precificacao/index']],
+                         ['label' => 'Planilhas de Precificação', 'url' => ['/planilhas/precificacao/index']],
                                      '<li class="divider"></li>',
                             ['label' => 'Parâmetros', 'items' => [
                                 ['label' => 'Salas', 'url' => ['/despesas/salas/index']],
