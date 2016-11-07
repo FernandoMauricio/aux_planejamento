@@ -64,6 +64,15 @@ use app\models\planos\Planodeacao;
  */
 class Planilhadecurso extends \yii\db\ActiveRecord
 {
+    public $nivelLabel;
+    public $segmentoLabel;
+    public $eixoLabel;
+    public $tipoAcaoLabel;
+    public $PlanoLabel;
+    public $anoLabel;
+    public $tipoPlanilhaLabel;
+    public $tipoProgramacaoLabel;
+
     /**
      * @inheritdoc
      */
@@ -89,6 +98,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_nomeunidade', 'placu_tipocalculo', 'placu_quantidadealunosisentos'], 'required'],
             [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_quantidadeparcelas', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_tipocalculo', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao'], 'integer'],
             [['placu_cargahorariaplano', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar', 'placu_valormensalidade', 'placu_taxaretorno', 'placu_diarias', 'placu_equipamentos', 'placu_pessoajuridica', 'placu_transporte' ], 'number'],
+            [['nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoAcaoLabel', 'PlanoLabel', 'tipoProgramacaoLabel'], 'safe'],
             [['placu_observacao'], 'string'],
             [['placu_nomeunidade'], 'string', 'max' => 150],
             [['planilhadecurso_placucol'], 'string', 'max' => 45],
@@ -144,6 +154,16 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             'placu_equipamentos' => 'Equipamentos',
             'placu_pessoajuridica' => 'Pessoa Jurídica',
             'placu_transporte' => 'Transporte',
+
+            'nivelLabel' => 'Nível',
+            'segmentoLabel' => 'Segmento',
+            'eixoLabel' => 'Eixo',
+            'tipoAcaoLabel' => 'Tipo de Ação',
+            'PlanoLabel' => 'Plano de Ação',
+            'anoLabel' => 'Ano da Planilha',
+            'tipoPlanilhaLabel' => 'Tipo de Planilha',
+            'tipoProgramacaoLabel' => 'Tipo de Programação',
+
         ];
     }
 
@@ -194,41 +214,41 @@ class Planilhadecurso extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlacuCodeixo()
+    public function getEixo()
     {
-        return $this->hasOne(EixoEix::className(), ['eix_codeixo' => 'placu_codeixo']);
+        return $this->hasOne(Eixo::className(), ['eix_codeixo' => 'placu_codeixo']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlacuCodnivel()
+    public function getNivel()
     {
-        return $this->hasOne(NivelNiv::className(), ['niv_codnivel' => 'placu_codnivel']);
+        return $this->hasOne(Nivel::className(), ['niv_codnivel' => 'placu_codnivel']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlacuCodplano()
+    public function getPlano()
     {
-        return $this->hasOne(PlanodeacaoPlan::className(), ['plan_codplano' => 'placu_codplano']);
+        return $this->hasOne(Planodeacao::className(), ['plan_codplano' => 'placu_codplano']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlacuCodprogramacao()
+    public function getTipoprogramacao()
     {
-        return $this->hasOne(TipoprogramacaoTipro::className(), ['tipro_codprogramacao' => 'placu_codprogramacao']);
+        return $this->hasOne(Tipoprogramacao::className(), ['tipro_codprogramacao' => 'placu_codprogramacao']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlacuCodsegmento()
+    public function getSegmento()
     {
-        return $this->hasOne(SegmentoSeg::className(), ['seg_codsegmento' => 'placu_codsegmento']);
+        return $this->hasOne(Segmento::className(), ['seg_codsegmento' => 'placu_codsegmento']);
     }
 
     /**
@@ -242,17 +262,17 @@ class Planilhadecurso extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlacuCodtipla()
+    public function getTipoplanilha()
     {
-        return $this->hasOne(TipoplanilhaTipla::className(), ['tipla_codtipla' => 'placu_codtipla']);
+        return $this->hasOne(Tipoplanilha::className(), ['tipla_codtipla' => 'placu_codtipla']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlacuCodtipoa()
+    public function getTipo()
     {
-        return $this->hasOne(TipodeacaoTip::className(), ['tip_codtipoa' => 'placu_codtipoa']);
+        return $this->hasOne(Tipo::className(), ['tip_codtipoa' => 'placu_codtipoa']);
     }
 
     /**

@@ -22,7 +22,6 @@ use app\models\cadastros\Segmento;
                       <div class="panel-heading">
                         <h3 class="panel-title"><span class="glyphicon glyphicon-book"></span>  Cadastros de Planos de Ação</h3>
                       </div>
-                            <div class="panel-body">
                                         <?php echo $form->errorSummary($model); ?>
                                  <div id="rootwizard" class="tabbable tabs-left">
                                   <ul>
@@ -83,12 +82,11 @@ use app\models\cadastros\Segmento;
 
                                                        <!-- SUBMIT CRIAÇÃO DO PLANO -->
                                                         <div class="form-group">
-                                                        <?= Html::submitButton($model->isNewRecord ? 'Criar Plano' : 'Atualizar Plano', ['class' => $model->isNewRecord ?'btn btn-success btn-lg btn-block' : 'btn btn-primary btn-lg btn-block']) ?>
+                                                        <?= Html::submitButton($model->isNewRecord ? 'Criar Planilha' : 'Atualizar Planilha', ['class' => $model->isNewRecord ?'btn btn-success btn-lg btn-block' : 'btn btn-primary btn-lg btn-block']) ?>
                                                         </div>
                                                     </div>
                                            </div> 
                                    </div> 
-                            </div>
                   </div>
                         <?php ActiveForm::end(); ?>
            </div>

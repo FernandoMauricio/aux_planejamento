@@ -102,7 +102,7 @@ class PlanilhadecursoController extends Controller
         $model->placu_tipocalculo  = 1; //Tipo de Cálculo: Taxa de Retorno ou Valor Curso Por Aluno
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->placu_codplanilha]);
+            return $this->redirect(['update', 'id' => $model->placu_codplanilha]);
         } else {
             return $this->render('create', [
                 'model' => $model,

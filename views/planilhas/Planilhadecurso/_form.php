@@ -152,11 +152,12 @@ use app\models\cadastros\Tipoprogramacao;
 
             </div>
 
-    <?php //echo $form->field($model, 'placu_codtipoa')->textInput(['maxlength' => true]) ?>
 
-    <?php //echo $form->field($model, 'placu_codnivel')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'placu_codtipoa')->hiddenInput()->label(false); ?>
 
-    <?php //echo $form->field($model, 'placu_cargahorariaplano')->textInput() ?>
+        <?= $form->field($model, 'placu_codnivel')->hiddenInput()->label(false); ?>
+
+        <?= $form->field($model, 'placu_cargahorariaplano')->hiddenInput()->label(false); ?>
 
 
             <div class="row">
