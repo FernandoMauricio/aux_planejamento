@@ -11,7 +11,7 @@ use yii\helpers\Json;
 use app\models\cadastros\Ano;
 use app\models\cadastros\Tipoplanilha;
 use app\models\cadastros\Tipoprogramacao;
-use app\models\planilhas\Planilhamaterial;
+use app\models\planilhas\PlanilhaMaterial;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\planilhas\Planilhadecurso */
@@ -65,7 +65,7 @@ use app\models\planilhas\Planilhamaterial;
                                                         <?= $this->render('_form-materiaisdidaticos', [
                                                             'form' => $form,
                                                             'model' => $model,
-                                                            'modelsPlaniMaterial'  => $modelsPlaniMaterial,
+                                                            'modelsPlaniMaterial' => $modelsPlaniMaterial,
                                                         ]) ?>
                                                     </div>
 
@@ -73,6 +73,7 @@ use app\models\planilhas\Planilhamaterial;
                                                         <?= $this->render('_form-materiaisconsumo', [
                                                             'form' => $form,
                                                             'model' => $model,
+                                                            'modelsPlaniConsumo'  => $modelsPlaniConsumo,
                                                         ]) ?>
                                                     </div>
 
@@ -80,6 +81,7 @@ use app\models\planilhas\Planilhamaterial;
                                                         <?= $this->render('_form-equipamentos', [
                                                             'form' => $form,
                                                             'model' => $model,
+                                                            'modelsPlaniEquipamento' => $modelsPlaniEquipamento,
                                                         ]) ?>
                                                     </div>
 

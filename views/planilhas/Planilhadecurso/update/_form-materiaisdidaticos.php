@@ -32,8 +32,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                             ],
                                         ]); ?>
 
-
-        <div class="panel panel-default">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class="glyphicon glyphicon-list-alt"></i> Listagem de Materias Didáticos
                     <div class="clearfix"></div>

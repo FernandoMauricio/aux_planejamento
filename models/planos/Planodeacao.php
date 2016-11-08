@@ -30,7 +30,7 @@ use app\models\base\Colaborador;
  *
  * @property AtualizarplanilhaAtupla[] $atualizarplanilhaAtuplas
  * @property PlanilhadecursoPlacu[] $planilhadecursoPlacus
- * @property PlanilhamaterialPlanima[] $planilhamaterialPlanimas
+ * @property PlanilhaMaterialPlanima[] $PlanilhaMaterialPlanimas
  * @property PlanodeacaoEstruturafisica[] $planodeacaoEstruturafisicas
  * @property EixoEix $planCodeixo
  * @property NivelNiv $planCodnivel
@@ -143,9 +143,9 @@ class Planodeacao extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlanilhamaterialPlanimas()
+    public function getPlanilhaMaterialPlanimas()
     {
-        return $this->hasMany(PlanilhamaterialPlanima::className(), ['planima_codplano' => 'plan_codplano']);
+        return $this->hasMany(PlanilhaMaterialPlanima::className(), ['planima_codplano' => 'plan_codplano']);
     }
 
     /**

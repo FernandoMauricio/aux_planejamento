@@ -288,7 +288,23 @@ class Planilhadecurso extends \yii\db\ActiveRecord
      */
     public function getPlaniMateriais()
     {
-        return $this->hasMany(Planilhamaterial::className(), ['planilhadecurso_cod' => 'placu_codplanilha']);
+        return $this->hasMany(PlanilhaMaterial::className(), ['planilhadecurso_cod' => 'placu_codplanilha']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPlaniConsumo()
+    {
+        return $this->hasMany(PlanilhaConsumo::className(), ['planilhadecurso_cod' => 'placu_codplanilha']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPlaniEquipamento()
+    {
+        return $this->hasMany(PlanilhaEquipamento::className(), ['planilhadecurso_cod' => 'placu_codplanilha']);
     }
 
 }
