@@ -282,13 +282,4 @@ class Planilhadecurso extends \yii\db\ActiveRecord
     {
         return $this->hasMany(PlanilhadespesaPlades::className(), ['plades_codplanilha' => 'placu_codplanilha']);
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPlaniMateriais()
-    {
-        return $this->hasMany(Planilhamaterial::className(), ['planilhadecurso_cod' => 'placu_codplanilha']);
-    }
-
 }

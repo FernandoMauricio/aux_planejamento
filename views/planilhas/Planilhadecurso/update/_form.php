@@ -11,7 +11,6 @@ use yii\helpers\Json;
 use app\models\cadastros\Ano;
 use app\models\cadastros\Tipoplanilha;
 use app\models\cadastros\Tipoprogramacao;
-use app\models\planilhas\Planilhamaterial;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\planilhas\Planilhadecurso */
@@ -58,7 +57,6 @@ use app\models\planilhas\Planilhamaterial;
                                                         <?= $this->render('_form-orgcurricular', [
                                                             'form' => $form,
                                                             'model' => $model,
-                                                            'modelsPlaniMaterial'  => $modelsPlaniMaterial,
                                                         ]) ?>
                                                     </div>
 

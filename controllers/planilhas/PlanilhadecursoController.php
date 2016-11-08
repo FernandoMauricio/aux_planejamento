@@ -3,16 +3,13 @@
 namespace app\controllers\planilhas;
 
 use Yii;
-use app\models\MultipleModel as Model;
 use app\models\planos\Planodeacao;
-use app\models\planilhas\Planilhamaterial;
 use app\models\planilhas\Planilhadecurso;
 use app\models\planilhas\PlanilhadecursoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
-use yii\helpers\ArrayHelper;
 
 /**
  * PlanilhadecursoController implements the CRUD actions for Planilhadecurso model.
@@ -95,8 +92,7 @@ class PlanilhadecursoController extends Controller
     {
         $session = Yii::$app->session;
         $model = new Planilhadecurso();
-        
-        
+
         $model->placu_codcolaborador = $session['sess_codcolaborador'];
         $model->placu_codunidade     = $session['sess_codunidade'];
         $model->placu_nomeunidade    = $session['sess_unidade'];
@@ -106,7 +102,6 @@ class PlanilhadecursoController extends Controller
         $model->placu_tipocalculo  = 1; //Tipo de Cálculo: Taxa de Retorno ou Valor Curso Por Aluno
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
             return $this->redirect(['update', 'id' => $model->placu_codplanilha]);
         } else {
             return $this->render('create', [
@@ -124,52 +119,12 @@ class PlanilhadecursoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelsPlaniMaterial        = $model->planiMateriais;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-        //--------Materiais Didáticos--------------
-        $oldIDsMateriais = ArrayHelper::map($modelsPlaniMaterial, 'id', 'id');
-        $modelsPlaniMaterial = Model::createMultiple(Planilhamaterial::classname(), $modelsPlaniMaterial);
-        Model::loadMultiple($modelsPlaniMaterial, Yii::$app->request->post());
-        $deletedIDsMateriais = array_diff($oldIDsMateriais, array_filter(ArrayHelper::map($modelsPlaniMaterial, 'id', 'id')));
-
-        // validate all models
-        $valid = $model->validate();
-
-                        if ($valid) {
-                            $transaction = \Yii::$app->db_apl->beginTransaction();
-                            try {
-                                if ($flag = $model->save(false)) {
-                                    if (! empty($deletedIDsMateriais)) {
-                                        Planilhamaterial::deleteAll(['id' => $deletedIDsMateriais]);
-                                    }
-                                    foreach ($modelsPlaniMaterial as $modelPlaniMaterial) {
-                                        $modelPlaniMaterial->planilhadecurso_cod = $model->placu_codplanilha;
-                                        if (! ($flag = $modelPlaniMaterial->save(false))) {
-                                            $transaction->rollBack();
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                if ($flag) {
-                                    $transaction->commit();
-                                    Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Planilha '.$id.' Atualizada !</strong>');
-                                    return $this->redirect(['view', 'id' => $model->placu_codplanilha]);
-                                }
-                            } catch (Exception $e) {
-                                $transaction->rollBack();
-                            }
-                        }
-
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Planilha '.$id.' Atualizada !</strong>');
-
             return $this->redirect(['view', 'id' => $model->placu_codplanilha]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'modelsPlaniMaterial'  => (empty($modelsPlaniMaterial)) ? [new Planilhamaterial] : $modelsPlaniMaterial,
             ]);
         }
     }
