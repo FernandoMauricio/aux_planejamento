@@ -11,6 +11,6 @@ use yii\helpers\ArrayHelper;
 
 <div class="planilhadecurso-form">
 
-    teste ORGANIZAÇÃO CURRICULAR
+    teste MATERIAIS DIDÁTICOS
 
 </div>

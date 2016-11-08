@@ -11,6 +11,7 @@ use yii\helpers\Json;
 use app\models\cadastros\Ano;
 use app\models\cadastros\Tipoplanilha;
 use app\models\cadastros\Tipoprogramacao;
+use app\models\planilhas\Planilhamaterial;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\planilhas\Planilhadecurso */
@@ -59,11 +60,12 @@ use app\models\cadastros\Tipoprogramacao;
                                                             'model' => $model,
                                                         ]) ?>
                                                     </div>
-
+                                                    
                                                     <div class="tab-pane" id="tab4">
                                                         <?= $this->render('_form-materiaisdidaticos', [
                                                             'form' => $form,
                                                             'model' => $model,
+                                                            'modelsPlaniMaterial'  => $modelsPlaniMaterial,
                                                         ]) ?>
                                                     </div>
 
