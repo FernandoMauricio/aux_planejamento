@@ -9,6 +9,8 @@ use app\models\planos\Unidadescurriculares;
 use app\models\planos\PlanoMaterial;
 use app\models\planos\PlanoConsumo;
 use app\models\planos\PlanoEstruturafisica;
+use app\models\planilhas\PlanilhaDespesaDocente;
+use app\models\planilhas\PlanilhaDespesaDocenteSearch;
 use app\models\planilhas\PlanilhaUnidadesCurriculares;
 use app\models\planilhas\PlanilhaMaterial;
 use app\models\planilhas\PlanilhaConsumo;

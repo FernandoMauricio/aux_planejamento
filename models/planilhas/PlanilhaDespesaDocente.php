@@ -5,25 +5,27 @@ namespace app\models\planilhas;
 use Yii;
 
 /**
- * This is the model class for table "planilhaunidadescurriculares_planiuc".
+ * This is the model class for table "planilhadespesadoce_planides".
  *
  * @property integer $id
  * @property string $planilhadecurso_cod
- * @property integer $planodeacao_cod
- * @property string $planiuc_descricao
- * @property integer $planiuc_cargahoraria
- * @property integer $planiuc_nivelUC
+ * @property string $planides_descricao
+ * @property double $planides_valor
+ * @property double $planides_dsr
+ * @property double $planides_planejamento
+ * @property double $planides_produtividade
+ * @property double $planides_valorhoraaula
  *
  * @property PlanilhadecursoPlacu $planilhadecursoCod
  */
-class PlanilhaUnidadesCurriculares extends \yii\db\ActiveRecord
+class PlanilhaDespesaDocente extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'planilhaunidadescurriculares_planiuc';
+        return 'planilhadespesadoce_planides';
     }
 
     /**
@@ -40,9 +42,10 @@ class PlanilhaUnidadesCurriculares extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['planilhadecurso_cod', 'planodeacao_cod', 'planiuc_descricao', 'planiuc_cargahoraria', 'planiuc_nivelUC'], 'required'],
-            [['planilhadecurso_cod', 'planodeacao_cod', 'planiuc_cargahoraria', 'planiuc_nivelUC'], 'integer'],
-            [['planiuc_descricao'], 'string', 'max' => 255],
+            [['planilhadecurso_cod'], 'required'],
+            [['planilhadecurso_cod'], 'integer'],
+            [['planides_valor', 'planides_dsr', 'planides_planejamento', 'planides_produtividade', 'planides_valorhoraaula'], 'number'],
+            [['planides_descricao'], 'string', 'max' => 45],
             [['planilhadecurso_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Planilhadecurso::className(), 'targetAttribute' => ['planilhadecurso_cod' => 'placu_codplanilha']],
         ];
     }
@@ -55,10 +58,12 @@ class PlanilhaUnidadesCurriculares extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'planilhadecurso_cod' => 'Planilhadecurso Cod',
-            'planodeacao_cod' => 'Planodeacao Cod',
-            'planiuc_descricao' => 'Planiuc Descricao',
-            'planiuc_cargahoraria' => 'Planiuc Cargahoraria',
-            'planiuc_nivelUC' => 'Planiuc Nivel Uc',
+            'planides_descricao' => 'Planides Descricao',
+            'planides_valor' => 'Planides Valor',
+            'planides_dsr' => 'Planides Dsr',
+            'planides_planejamento' => 'Planides Planejamento',
+            'planides_produtividade' => 'Planides Produtividade',
+            'planides_valorhoraaula' => 'Planides Valorhoraaula',
         ];
     }
 

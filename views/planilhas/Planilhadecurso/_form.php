@@ -215,7 +215,7 @@ use app\models\cadastros\Tipoprogramacao;
 
 
 
-
+<!-- 
     <?= $form->field($model, 'placu_quantidadeparcelas')->textInput() ?>
 
     <?= $form->field($model, 'placu_valormensalidade')->textInput() ?>
@@ -238,7 +238,7 @@ use app\models\cadastros\Tipoprogramacao;
     <?= $form->field($model, 'placu_nomeunidade')->textInput(['maxlength' => true]) ?>
 
 
-    <?= $form->field($model, 'planilhadecurso_placucol')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'planilhadecurso_placucol')->textInput(['maxlength' => true]) ?> -->
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -30,7 +30,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 	        <div class="panel panel-default">
 	                <div class="panel-heading">
-	                    <i class="glyphicon glyphicon-list-alt"></i> Listagem de Equipamentos / Utensílios
+	                    <i class="glyphicon glyphicon-list-alt"></i> Listagem de Unidades Curriculares
 	                    <div class="clearfix"></div>
 	                </div>
 	                <div class="panel-body container-items-planiuc"><!-- widgetContainer -->
@@ -48,6 +48,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
 	                                        echo Html::activeHiddenInput($modelPlaniUC, "[{$i}]id");
 	                                    }
 	                                ?>
+	                                    <div class="col-sm-2">
+	                                        <?= $form->field($modelPlaniUC, "[{$i}]planiuc_nivelUC")->textInput(['readonly'=> true]) ?>
+	                                    </div>
+
 	                                    <div class="col-sm-8">
 	                                    	<?= $form->field($modelPlaniUC, "[{$i}]planiuc_descricao")->textInput(['readonly'=> true]) ?>
 	                                    </div>
@@ -55,12 +59,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
 	                                    <div class="col-sm-2">
 	                                  		<?= $form->field($modelPlaniUC, "[{$i}]planiuc_cargahoraria")->textInput(['readonly'=> true]) ?>
 	                                    </div>
-
-	                                    <div class="col-sm-2">
-	                                        <?= $form->field($modelPlaniUC, "[{$i}]planiuc_nivelUC")->textInput(['readonly'=> true]) ?>
-	                                    </div>
-
-
 	                            </div>
 	                        </div>
 	                    <?php endforeach; ?>

@@ -120,7 +120,8 @@ use app\models\cadastros\Tipoprogramacao;
               </thead>
             </table>
 
-        <div class="panel-body">
+
+<!--         <div class="panel-body">
             <div class="row">
                 <div class="col-md-3">
                     <?= $form->field($model, 'placu_diarias')->textInput() ?>
@@ -136,9 +137,9 @@ use app\models\cadastros\Tipoprogramacao;
                 </div>
             </div>
         </div>
+ -->
 
-
-    <?= $form->field($model, 'placu_quantidadeparcelas')->textInput() ?>
+<!--     <?= $form->field($model, 'placu_quantidadeparcelas')->textInput() ?>
 
     <?= $form->field($model, 'placu_valormensalidade')->textInput() ?>
 
@@ -161,5 +162,13 @@ use app\models\cadastros\Tipoprogramacao;
 
 
     <?= $form->field($model, 'planilhadecurso_placucol')->textInput(['maxlength' => true]) ?>
+ -->
+
+            <table class="table table-condensed table-hover">
+              <thead>
+                <tr class="info"><th colspan="12">SEÇÃO 4: Cálculos de Custos Indiretos</th></tr>
+              </thead>
+            </table>
+
 
 </div>
