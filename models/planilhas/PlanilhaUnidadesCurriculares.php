@@ -5,25 +5,25 @@ namespace app\models\planilhas;
 use Yii;
 
 /**
- * This is the model class for table "planilhaequip_planieq".
+ * This is the model class for table "planilhaunidadescurriculares_planiuc".
  *
  * @property integer $id
  * @property string $planilhadecurso_cod
  * @property integer $planodeacao_cod
- * @property string $planieq_descricao
- * @property integer $planieq_quantidade
- * @property string $planieq_tipo
+ * @property string $planiuc_descricao
+ * @property integer $planiuc_cargahoraria
+ * @property integer $planiuc_nivelUC
  *
  * @property PlanilhadecursoPlacu $planilhadecursoCod
  */
-class PlanilhaEquipamento extends \yii\db\ActiveRecord
+class PlanilhaUnidadesCurriculares extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'planilhaequip_planieq';
+        return 'planilhaunidadescurriculares_planiuc';
     }
 
     /**
@@ -40,10 +40,9 @@ class PlanilhaEquipamento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['planieq_descricao', 'planieq_quantidade', 'planieq_tipo'], 'required'],
-            [['planilhadecurso_cod', 'planodeacao_cod', 'planieq_quantidade'], 'integer'],
-            [['planieq_descricao'], 'string', 'max' => 100],
-            [['planieq_tipo'], 'string', 'max' => 45],
+            [['planiuc_descricao', 'planiuc_cargahoraria', 'planiuc_nivelUC'], 'required'],
+            [['planilhadecurso_cod', 'planodeacao_cod', 'planiuc_cargahoraria', 'planiuc_nivelUC'], 'integer'],
+            [['planiuc_descricao'], 'string', 'max' => 255],
             [['planilhadecurso_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Planilhadecurso::className(), 'targetAttribute' => ['planilhadecurso_cod' => 'placu_codplanilha']],
         ];
     }
@@ -55,11 +54,11 @@ class PlanilhaEquipamento extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'planilhadecurso_cod' => 'Cod. Planilha',
+            'planilhadecurso_cod' => 'Cód. Planilha',
             'planodeacao_cod' => 'Cód. Plano',
-            'planieq_descricao' => 'Descrição',
-            'planieq_quantidade' => 'Qnt',
-            'planieq_tipo' => 'Tipo',
+            'planiuc_descricao' => 'Descrição',
+            'planiuc_cargahoraria' => 'Carga Horária',
+            'planiuc_nivelUC' => 'Nivel UC',
         ];
     }
 

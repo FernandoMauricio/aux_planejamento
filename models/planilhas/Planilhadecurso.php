@@ -307,4 +307,12 @@ class Planilhadecurso extends \yii\db\ActiveRecord
         return $this->hasMany(PlanilhaEquipamento::className(), ['planilhadecurso_cod' => 'placu_codplanilha']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPlaniUC()
+    {
+        return $this->hasMany(PlanilhaUnidadesCurriculares::className(), ['planilhadecurso_cod' => 'placu_codplanilha']);
+    }
+
 }

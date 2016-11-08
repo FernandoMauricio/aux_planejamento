@@ -31,10 +31,10 @@ use app\models\planilhas\PlanilhaMaterial;
                                 <div id="rootwizard" class="tabbable tabs-left">
                                   <ul>
                                          <li><a href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Planilha de Curso</a></li>
-                                         <li><a href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-folder-open"></span> Despesas Diretas</a></li>
+                                         <li><a href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-usd"></span> Despesas Diretas</a></li>
                                          <li><a href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Organização Curricular</a></li>
-                                         <li><a href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-tags"></span> Materiais Didáticos </a></li>
-                                         <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-education"></span> Material de Consumo </a></li>
+                                         <li><a href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-education"></span> Materiais Didáticos </a></li>
+                                         <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-tags"></span> Material de Consumo </a></li>
                                          <li><a href="#tab6" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Equipamentos / Utensílios</a></li>
                                   </ul>
 
@@ -58,6 +58,7 @@ use app\models\planilhas\PlanilhaMaterial;
                                                         <?= $this->render('_form-orgcurricular', [
                                                             'form' => $form,
                                                             'model' => $model,
+                                                            'modelsPlaniUC' => $modelsPlaniUC,
                                                         ]) ?>
                                                     </div>
                                                     

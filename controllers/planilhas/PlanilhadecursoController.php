@@ -5,10 +5,13 @@ namespace app\controllers\planilhas;
 use Yii;
 use app\models\MultipleModel as Model;
 use app\models\planos\Planodeacao;
+use app\models\planos\Unidadescurriculares;
 use app\models\planos\PlanoMaterial;
 use app\models\planos\PlanoConsumo;
 use app\models\planos\PlanoEstruturafisica;
+use app\models\planilhas\PlanilhaUnidadesCurriculares;
 use app\models\planilhas\PlanilhaMaterial;
+use app\models\planilhas\PlanilhaConsumo;
 use app\models\planilhas\PlanilhaEquipamento;
 use app\models\planilhas\Planilhadecurso;
 use app\models\planilhas\PlanilhadecursoSearch;
@@ -109,6 +112,31 @@ class PlanilhadecursoController extends Controller
         $model->placu_tipocalculo  = 1; //Tipo de Cálculo: Taxa de Retorno ou Valor Curso Por Aluno
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+
+            //Localiza os Materiais Didáticos do Plano
+            $ListagemUC = "SELECT * FROM `unidadescurriculares_uncu` WHERE `planodeacao_cod` = '".$model->placu_codplano."' ORDER BY `nivel_uc` DESC";
+
+                $materiais = Unidadescurriculares::findBySql($ListagemUC)->all(); 
+
+                foreach ($materiais as $material) {
+
+                    $planodeacao_cod      = $material['planodeacao_cod'];
+                    $uncu_descricao       = $material['uncu_descricao'];
+                    $uncu_cargahoraria    = $material['uncu_cargahoraria'];
+                    $nivel_uc             = $material['nivel_uc'];
+
+                //Inclui os Materiais Didáticos do Plano na Planilha que está sendo criada
+                Yii::$app->db_apl->createCommand()
+                    ->insert('planilhaunidadescurriculares_planiuc', [
+                             'planilhadecurso_cod'  => $model->placu_codplanilha,
+                             'planodeacao_cod'      => $planodeacao_cod,
+                             'planiuc_descricao'    => $uncu_descricao,
+                             'planiuc_cargahoraria' => $uncu_cargahoraria,
+                             'planiuc_nivelUC'      => $nivel_uc,
+                             ])
+                    ->execute();
+                }
 
             //Localiza os Materiais Didáticos do Plano
             $ListagemMaterial = "SELECT * FROM `planomaterial_plama` WHERE `plama_codplano` = '".$model->placu_codplano."' ORDER BY `nivel_uc` DESC";
@@ -218,11 +246,18 @@ class PlanilhadecursoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelsPlaniMaterial        = $model->planiMateriais;
-        $modelsPlaniConsumo         = $model->planiConsumo;
-        $modelsPlaniEquipamento     = $model->planiEquipamento;
+        $modelsPlaniUC          = $model->planiUC;
+        $modelsPlaniMaterial    = $model->planiMateriais;
+        $modelsPlaniConsumo     = $model->planiConsumo;
+        $modelsPlaniEquipamento = $model->planiEquipamento;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+        //--------Unidades Curriculares--------------
+        $oldIDsUnidadesCurriculares = ArrayHelper::map($modelsPlaniUC, 'id', 'id');
+        $modelsPlaniUC = Model::createMultiple(PlanilhaUnidadesCurriculares::classname(), $modelsPlaniUC);
+        Model::loadMultiple($modelsPlaniUC, Yii::$app->request->post());
+        $deletedIDsUnidadesCurriculares = array_diff($oldIDsUnidadesCurriculares, array_filter(ArrayHelper::map($modelsPlaniUC, 'id', 'id')));
 
         //--------Materiais Didáticos--------------
         $oldIDsMateriais = ArrayHelper::map($modelsPlaniMaterial, 'id', 'id');
@@ -244,12 +279,24 @@ class PlanilhadecursoController extends Controller
 
         // validate all models
         $valid = $model->validate();
-        $valid = (Model::validateMultiple($modelsPlaniMaterial) || Model::validateMultiple($modelsPlaniConsumo) ) && $valid;
+        $valid = (Model::validateMultiple($modelsPlaniUC) || Model::validateMultiple($modelsPlaniMaterial) || Model::validateMultiple($modelsPlaniConsumo) || Model::validateMultiple($modelsPlaniEquipamento) ) && $valid;
 
                         if ($valid) {
                             $transaction = \Yii::$app->db_apl->beginTransaction();
                             try {
                                 if ($flag = $model->save(false)) {
+
+                                    if (! empty($deletedIDsUnidadesCurriculares)) {
+                                        PlanilhaUnidadesCurriculares::deleteAll(['id' => $deletedIDsUnidadesCurriculares]);
+                                    }
+                                    foreach ($modelsPlaniUC as $modelPlaniUC) {
+                                        $modelPlaniUC->planilhadecurso_cod = $model->placu_codplanilha;
+                                        if (! ($flag = $modelPlaniUC->save(false))) {
+                                            $transaction->rollBack();
+                                            break;
+                                        }
+                                    }
+
                                     if (! empty($deletedIDsMateriais)) {
                                         PlanilhaMaterial::deleteAll(['id' => $deletedIDsMateriais]);
                                     }
@@ -273,7 +320,7 @@ class PlanilhadecursoController extends Controller
                                     }
 
                                     if (! empty($deletedIDsEquipamento)) {
-                                        PlanilhaConsumo::deleteAll(['id' => $deletedIDsEquipamento]);
+                                        PlanilhaEquipamento::deleteAll(['id' => $deletedIDsEquipamento]);
                                     }
                                     foreach ($modelsPlaniEquipamento as $modelPlaniEquipamento) {
                                         $modelPlaniEquipamento->planilhadecurso_cod = $model->placu_codplanilha;
@@ -282,7 +329,6 @@ class PlanilhadecursoController extends Controller
                                             break;
                                         }
                                     }
-
                                 }
 
                                 if ($flag) {
@@ -301,6 +347,7 @@ class PlanilhadecursoController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'modelsPlaniUC'          => (empty($modelsPlaniUC)) ? [new PlanilhaUnidadesCurriculares] : $modelsPlaniUC,
                 'modelsPlaniMaterial'    => (empty($modelsPlaniMaterial)) ? [new PlanilhaMaterial] : $modelsPlaniMaterial,
                 'modelsPlaniConsumo'     => (empty($modelsPlaniConsumo)) ? [new PlanilhaConsumo] : $modelsPlaniConsumo,
                 'modelsPlaniEquipamento' => (empty($modelsPlaniEquipamento)) ? [new PlanilhaEquipamento] : $modelsPlaniEquipamento,
