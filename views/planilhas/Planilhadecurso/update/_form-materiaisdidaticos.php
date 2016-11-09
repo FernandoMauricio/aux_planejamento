@@ -57,12 +57,16 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         <?= $form->field($modelPlaniMaterial, "[{$i}]planima_nivelUC")->textInput(['readonly'=> true]) ?>
                                     </div>
 
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-6">
                                     	<?= $form->field($modelPlaniMaterial, "[{$i}]planima_titulo")->textInput(['readonly'=> true]) ?>
                                     </div>
 
                                     <div class="col-sm-2">
                                   		<?= $form->field($modelPlaniMaterial, "[{$i}]planima_valor")->textInput(['readonly'=> true]) ?>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <?= $form->field($modelPlaniMaterial, "[{$i}]planima_tipoplano")->textInput(['readonly'=> true]) ?>
                                     </div>
 
                                     <div class="col-sm-2">

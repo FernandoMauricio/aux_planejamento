@@ -54,11 +54,11 @@ class PlanilhaUnidadesCurriculares extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'planilhadecurso_cod' => 'Planilhadecurso Cod',
-            'planodeacao_cod' => 'Planodeacao Cod',
-            'planiuc_descricao' => 'Planiuc Descricao',
-            'planiuc_cargahoraria' => 'Planiuc Cargahoraria',
-            'planiuc_nivelUC' => 'Planiuc Nivel Uc',
+            'planilhadecurso_cod' => 'Cód. Planilha',
+            'planodeacao_cod' => 'Cód. Plano',
+            'planiuc_descricao' => 'Descrição',
+            'planiuc_cargahoraria' => 'Carga Horária',
+            'planiuc_nivelUC' => 'Nivel UC',
         ];
     }
 
