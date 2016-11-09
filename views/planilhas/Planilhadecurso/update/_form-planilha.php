@@ -296,6 +296,8 @@ use app\models\cadastros\Tipoprogramacao;
                             ],
                             'options' => ['readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
+
+                <?= $form->field($model, 'placu_hiddenpjapostila')->hiddenInput()->label(false); ?>
                 </div>
 
                 <div class="col-md-3">
@@ -311,6 +313,8 @@ use app\models\cadastros\Tipoprogramacao;
                             ],
                             'options' => ['readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
+
+                <?= $form->field($model, 'placu_hiddenmaterialdidatico')->hiddenInput()->label(false); ?>
                 </div>
 
                 <div class="col-md-3">
