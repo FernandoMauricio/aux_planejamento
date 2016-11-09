@@ -120,6 +120,220 @@ use app\models\cadastros\Tipoprogramacao;
               </thead>
             </table>
 
+                    <!-- Renderiza Despesas com Docente -->
+                    <?= $this->render('_form-despesadocente', [
+                        'form' => $form,
+                        'modelsPlaniDespDocente' => $modelsPlaniDespDocente,
+                    ]) ?>
+
+
+        <div class="panel-body">
+
+            <div class="row">
+
+                <div class="col-md-3">
+                <?= $form->field($model, 'placu_totalcustodocente')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control']
+                    ]); ?>
+                </div>
+
+                <div class="col-md-2">
+                <?= $form->field($model, 'placu_decimo')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control']
+                    ]); ?>
+                </div>
+
+                <div class="col-md-2">
+                <?= $form->field($model, 'placu_ferias')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control']
+                    ]); ?>
+                </div>
+
+                <div class="col-md-2">
+                <?= $form->field($model, 'placu_tercoferias')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control']
+                    ]); ?>
+                </div>
+
+                <div class="col-md-3">
+                <?= $form->field($model, 'placu_totalsalario')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control']
+                    ]); ?>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-md-3">
+                <?= $form->field($model, 'placu_encargos')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['value'=> 32.7, 'readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+                <div class="col-md-3">
+                <?= $form->field($model, 'placu_totalencargos')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control']
+                    ]); ?>
+                </div>
+
+                <div class="col-md-6">
+                <?= $form->field($model, 'placu_totalsalarioencargo')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-3">
+                <?= $form->field($model, 'placu_diarias')->textInput(['value' => 0]) ?>
+                </div>
+
+                <div class="col-md-3">
+                <?= $form->field($model, 'placu_passagens')->textInput(['value' => 0]) ?>
+                </div>
+
+
+                <div class="col-md-3">
+                <?= $form->field($model, 'placu_pessoafisica')->textInput(['value' => 0]) ?>
+                </div>
+
+                <div class="col-md-3">
+                <?= $form->field($model, 'placu_pessoajuridica')->textInput(['value' => 0]) ?>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-3">
+                <?= $form->field($model, 'placu_PJApostila')->textInput(['readonly' => true]); ?>
+
+                </div>
+
+                <div class="col-md-3">
+                <?= $form->field($model, 'placu_custosmateriais')->textInput(['readonly' => true]); ?>
+
+                </div>
+
+                <div class="col-md-3">
+                <?= $form->field($model, 'placu_custosconsumo')->textInput(['readonly' => true]); ?>
+                </div>
+
+                <div class="col-md-3">
+                <?= $form->field($model, 'placu_totalcustodireto')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-md-3">
+                <?= $form->field($model, 'placu_totalhoraaulacustodireto')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 3,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+
+                </div>
+
+            </div>
+
+        </div>
+
 
 <!--         <div class="panel-body">
             <div class="row">
@@ -133,7 +347,7 @@ use app\models\cadastros\Tipoprogramacao;
                     <?= $form->field($model, 'placu_pessoajuridica')->textInput() ?>
                 </div>
                 <div class="col-md-3">
-                    <?= $form->field($model, 'placu_transporte')->textInput() ?>
+                    <?= $form->field($model, 'placu_passagens')->textInput() ?>
                 </div>
             </div>
         </div>
@@ -161,7 +375,6 @@ use app\models\cadastros\Tipoprogramacao;
     <?= $form->field($model, 'placu_nomeunidade')->textInput(['maxlength' => true]) ?>
 
 
-    <?= $form->field($model, 'planilhadecurso_placucol')->textInput(['maxlength' => true]) ?>
  -->
 
             <table class="table table-condensed table-hover">
@@ -170,5 +383,6 @@ use app\models\cadastros\Tipoprogramacao;
               </thead>
             </table>
 
-
 </div>
+
+<?php $this->registerJsFile(Yii::$app->request->baseUrl.'/js/planilhadecurso.js', ['position'=>$this::POS_READY]); ?>

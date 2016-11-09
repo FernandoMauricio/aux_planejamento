@@ -24,6 +24,7 @@ class AppAsset extends AssetBundle
         'js/bootbox.min.js', 
         'js/main.js',
         'js/precificacao.js',
+        'js/planilhadecurso.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

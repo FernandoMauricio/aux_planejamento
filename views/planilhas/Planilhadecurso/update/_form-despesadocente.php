@@ -1,92 +1,68 @@
 <?php
-
 use yii\helpers\Html;
-use kartik\builder\Form;
-use kartik\builder\FormGrid;
-use kartik\builder\TabularForm;
-use kartik\grid\GridView;
-use kartik\widgets\ActiveForm;
+use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-
-
-/* @var $this yii\web\View */
-/* @var $model app\models\despesas\Markup */
-/* @var $form yii\widgets\ActiveForm */
-?>
-
-<div class="planilhadecurso-form">
-
-<?php
-
-//Pega as mensagens
-foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
-echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
-}
+use kartik\select2\Select2;
+use yii\helpers\Json;
+use yii\helpers\Url;
 
 ?>
-    <?php $form = ActiveForm::begin(); ?>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h5 class="panel-title"> Despesas com Docente</h5>
+  </div>
+    <div class="panel-body">
 
-<?php
+                <table class="table"> 
+                    <thead> 
+                        <tr>    
+                            <th>Descrição</th>
+                            <th>Valor</th>
+                            <th>DSR</th>
+                            <th>Planejamento</th>
+                            <th>Produtividade</th>
+                            <th>Valor Hora/Aula</th>
+                            <th>Carga Horária</th>
+                        </tr> 
+                    </thead> 
+                        <?php foreach ($modelsPlaniDespDocente as $i => $modelPlaniDespDocente): ?>
+                    <tbody> 
+                        <tr class="warning"> 
 
-echo TabularForm::widget([
-    'form' => $form,
-    'dataProvider' => $dataProvider,
-    'checkboxColumn' =>false,
-    'actionColumn' =>false,
-    'attributes' => [
+                                            <td style="width: 300px;"><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_descricao")->textInput(['readonly'=> true]) ?></td>
+                                            
+                                            <td><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_valor")->textInput(['readonly'=> true]) ?></td>
+                                            
+                                            <td><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_dsr")->textInput(['readonly'=> true]) ?></td>
 
-        'planides_descricao'=>[
-            'type'=>TabularForm::INPUT_STATIC, 
-            'columnOptions'=>['width'=>'185px']
-        ],
+                                            <td><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_planejamento")->widget(\yii\widgets\MaskedInput::className(), [
+                                                                                        'clientOptions' => [
+                                                                                        'alias' => 'decimal',
+                                                                                        'digits' => 2,
+                                                                                        ],
+                                                                                        'options' => ['readonly' => true, 'class' => 'form-control']
+                                                                                ]); ?></td>
+                                            
+                                            <td><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_produtividade")->widget(\yii\widgets\MaskedInput::className(), [
+                                                                                        'clientOptions' => [
+                                                                                        'alias' => 'decimal',
+                                                                                        'digits' => 2,
+                                                                                        ],
+                                                                                        'options' => ['readonly' => true, 'class' => 'form-control']
+                                                                                ]); ?></td>
 
-        'planides_descricao' => [
-            'type'=>TabularForm::INPUT_STATIC,
-            'format'=>['decimal',2],
-            'columnOptions'=>['hAlign'=>GridView::ALIGN_RIGHT, 'width'=>'90px'],
-        ],
+                                            <th style="color: green;"><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_valorhoraaula")->widget(\yii\widgets\MaskedInput::className(), [
+                                                                                        'clientOptions' => [
+                                                                                        'alias' => 'decimal',
+                                                                                        'digits' => 2,
+                                                                                        ],
+                                                                                        'options' => ['readonly' => true, 'class' => 'form-control','style'=>'color:green']
+                                                                                ]); ?></th>
 
-        'planides_valor' => [
-            'type'=>TabularForm::INPUT_STATIC,
-            'format'=>['decimal',2],
-            'columnOptions'=>['hAlign'=>GridView::ALIGN_RIGHT, 'width'=>'90px'],
-        ],
-
-        'planides_dsr' => [
-            'type'=>TabularForm::INPUT_STATIC,
-            'format'=>['decimal',2],
-            'columnOptions'=>['hAlign'=>GridView::ALIGN_RIGHT, 'width'=>'90px']
-        ],
-
-        'planides_planejamento' => [
-            'type'=>TabularForm::INPUT_STATIC,
-            'format'=>['decimal',2],
-            'columnOptions'=>['hAlign'=>GridView::ALIGN_RIGHT, 'width'=>'90px'],
-        ],
-
-        'planides_produtividade' => [
-            'type'=>TabularForm::INPUT_STATIC,
-            'format'=>['decimal',2],
-            'columnOptions'=>['hAlign'=>GridView::ALIGN_RIGHT, 'width'=>'90px']
-        ],
-
-        'planides_valorhoraaula' => [
-            'type'=>TabularForm::INPUT_STATIC,
-            'format'=>['decimal',2],
-            'columnOptions'=>['hAlign'=>GridView::ALIGN_RIGHT, 'width'=>'90px']
-        ],
-
-    ],
-'gridSettings'=>[
-        'floatHeader'=>true,
-        'panel'=>[
-            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem de Docentes</h3>',
-            'type' => GridView::TYPE_PRIMARY,
-            'after'=> Html::submitButton('<i class="glyphicon glyphicon-floppy-disk"></i> Atualizar Dados', ['class'=>'btn btn-primary'])
-        ]
-    ]   
-]);
-ActiveForm::end();
-
-?>
+                                           <td><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_cargahoraria")->textInput() ?></td>
+                                            </tr> 
+                        <?php endforeach; ?>
+            </tbody> 
+        </table>
+    </div>
 </div>

@@ -252,8 +252,16 @@ class PlanilhadecursoController extends Controller
         $modelsPlaniMaterial    = $model->planiMateriais;
         $modelsPlaniConsumo     = $model->planiConsumo;
         $modelsPlaniEquipamento = $model->planiEquipamento;
+        $modelsPlaniDespDocente = $model->planiDespDocente;
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+        //--------Despesas com Docentes--------------
+        $oldIDsDespesaDocente = ArrayHelper::map($modelsPlaniDespDocente, 'id', 'id');
+        $modelsPlaniDespDocente = Model::createMultiple(PlanilhaDespesaDocente::classname(), $modelsPlaniDespDocente);
+        Model::loadMultiple($modelsPlaniDespDocente, Yii::$app->request->post());
+        $deletedIDsDespesaDocente = array_diff($oldIDsDespesaDocente, array_filter(ArrayHelper::map($modelsPlaniDespDocente, 'id', 'id')));
 
         //--------Unidades Curriculares--------------
         $oldIDsUnidadesCurriculares = ArrayHelper::map($modelsPlaniUC, 'id', 'id');
@@ -281,12 +289,23 @@ class PlanilhadecursoController extends Controller
 
         // validate all models
         $valid = $model->validate();
-        $valid = (Model::validateMultiple($modelsPlaniUC) || Model::validateMultiple($modelsPlaniMaterial) || Model::validateMultiple($modelsPlaniConsumo) || Model::validateMultiple($modelsPlaniEquipamento) ) && $valid;
+        $valid = (Model::validateMultiple($modelsPlaniDespDocente) || Model::validateMultiple($modelsPlaniUC) || Model::validateMultiple($modelsPlaniMaterial) || Model::validateMultiple($modelsPlaniConsumo) || Model::validateMultiple($modelsPlaniEquipamento) ) && $valid;
 
                         if ($valid) {
                             $transaction = \Yii::$app->db_apl->beginTransaction();
                             try {
                                 if ($flag = $model->save(false)) {
+
+                                    if (! empty($deletedIDsDespesaDocente)) {
+                                        PlanilhaDespesaDocente::deleteAll(['id' => $deletedIDsDespesaDocente]);
+                                    }
+                                    foreach ($modelsPlaniDespDocente as $modelPlaniDespDocente) {
+                                        $modelPlaniDespDocente->planilhadecurso_cod = $model->placu_codplanilha;
+                                        if (! ($flag = $modelPlaniDespDocente->save(false))) {
+                                            $transaction->rollBack();
+                                            break;
+                                        }
+                                    }
 
                                     if (! empty($deletedIDsUnidadesCurriculares)) {
                                         PlanilhaUnidadesCurriculares::deleteAll(['id' => $deletedIDsUnidadesCurriculares]);
@@ -349,6 +368,7 @@ class PlanilhadecursoController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'modelsPlaniDespDocente' => (empty($modelsPlaniDespDocente)) ? [new PlanilhaDespesaDocente] : $modelsPlaniDespDocente,
                 'modelsPlaniUC'          => (empty($modelsPlaniUC)) ? [new PlanilhaUnidadesCurriculares] : $modelsPlaniUC,
                 'modelsPlaniMaterial'    => (empty($modelsPlaniMaterial)) ? [new PlanilhaMaterial] : $modelsPlaniMaterial,
                 'modelsPlaniConsumo'     => (empty($modelsPlaniConsumo)) ? [new PlanilhaConsumo] : $modelsPlaniConsumo,

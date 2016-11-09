@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = 'Atualizar';
 
     <?= $this->render('update/_form', [
         'model' => $model,
+        'modelsPlaniDespDocente' => $modelsPlaniDespDocente,
         'modelsPlaniUC'		 	 => $modelsPlaniUC,
         'modelsPlaniMaterial' 	 => $modelsPlaniMaterial,
         'modelsPlaniConsumo'  	 => $modelsPlaniConsumo,

@@ -43,7 +43,7 @@ class PlanilhaDespesaDocente extends \yii\db\ActiveRecord
     {
         return [
             [['planilhadecurso_cod'], 'required'],
-            [['planilhadecurso_cod'], 'integer'],
+            [['planilhadecurso_cod', 'planides_cargahoraria'], 'integer'],
             [['planides_valor', 'planides_dsr', 'planides_planejamento', 'planides_produtividade', 'planides_valorhoraaula'], 'number'],
             [['planides_descricao'], 'string', 'max' => 45],
             [['planilhadecurso_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Planilhadecurso::className(), 'targetAttribute' => ['planilhadecurso_cod' => 'placu_codplanilha']],
@@ -57,13 +57,14 @@ class PlanilhaDespesaDocente extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'planilhadecurso_cod' => 'Planilhadecurso Cod',
-            'planides_descricao' => 'Planides Descricao',
-            'planides_valor' => 'Planides Valor',
-            'planides_dsr' => 'Planides Dsr',
-            'planides_planejamento' => 'Planides Planejamento',
-            'planides_produtividade' => 'Planides Produtividade',
-            'planides_valorhoraaula' => 'Planides Valorhoraaula',
+            'planilhadecurso_cod' => 'Cód. Planilha',
+            'planides_descricao' => '',
+            'planides_valor' => '',
+            'planides_dsr' => '',
+            'planides_planejamento' => '',
+            'planides_produtividade' => '',
+            'planides_valorhoraaula' => '',
+            'planides_cargahoraria' => '',
         ];
     }
 

@@ -54,7 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'placu_taxaretorno',
             'placu_cargahorariavivencia',
             'placu_quantidadealunosisentos',
-            'planilhadecurso_placucol',
             'placu_codprogramacao',
         ],
     ]) ?>

@@ -44,7 +44,6 @@ use app\models\planos\Planodeacao;
  * @property double $placu_taxaretorno
  * @property integer $placu_cargahorariavivencia
  * @property integer $placu_quantidadealunosisentos
- * @property string $planilhadecurso_placucol
  * @property string $placu_codprogramacao
  *
  * @property HistoricoplanilhaHis[] $historicoplanilhaHis
@@ -97,11 +96,10 @@ class Planilhadecurso extends \yii\db\ActiveRecord
         return [
             [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_nomeunidade', 'placu_tipocalculo', 'placu_quantidadealunosisentos'], 'required'],
             [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_quantidadeparcelas', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_tipocalculo', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao'], 'integer'],
-            [['placu_cargahorariaplano', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar', 'placu_valormensalidade', 'placu_taxaretorno', 'placu_diarias', 'placu_equipamentos', 'placu_pessoajuridica', 'placu_transporte' ], 'number'],
-            [['nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoAcaoLabel', 'PlanoLabel', 'tipoProgramacaoLabel'], 'safe'],
+            [['placu_cargahorariaplano', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar', 'placu_valormensalidade', 'placu_taxaretorno'], 'number'],
+            [['nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoAcaoLabel', 'PlanoLabel', 'tipoProgramacaoLabel', 'placu_diarias', 'placu_equipamentos', 'placu_pessoafisica', 'placu_pessoajuridica', 'placu_totalcustodocente', 'placu_decimo', 'placu_ferias', 'placu_tercoferias', 'placu_totalsalario', 'placu_encargos', 'placu_totalencargos', 'placu_totalsalarioencargo', 'placu_custosmateriais', 'placu_custosconsumo', 'placu_PJApostila', 'placu_totalcustodireto', 'placu_totalhoraaulacustodireto'], 'safe'],
             [['placu_observacao'], 'string'],
             [['placu_nomeunidade'], 'string', 'max' => 150],
-            [['planilhadecurso_placucol'], 'string', 'max' => 45],
             [['placu_codano'], 'exist', 'skipOnError' => true, 'targetClass' => Ano::className(), 'targetAttribute' => ['placu_codano' => 'an_codano']],
             [['placu_codcategoria'], 'exist', 'skipOnError' => true, 'targetClass' => Categoriaplanilha::className(), 'targetAttribute' => ['placu_codcategoria' => 'cat_codcategoria']],
             [['placu_codeixo'], 'exist', 'skipOnError' => true, 'targetClass' => Eixo::className(), 'targetAttribute' => ['placu_codeixo' => 'eix_codeixo']],
@@ -114,6 +112,33 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             [['placu_codtipoa'], 'exist', 'skipOnError' => true, 'targetClass' => Tipo::className(), 'targetAttribute' => ['placu_codtipoa' => 'tip_codtipoa']],
         ];
     }
+
+
+    //Replace de ',' por '.' nos valores da precificação
+    public function beforeSave($insert) {
+            if (parent::beforeSave($insert)) {
+                $this->placu_totalcustodocente        = str_replace(",", ".", $this->placu_totalcustodocente);
+                $this->placu_decimo                   = str_replace(",", ".", $this->placu_decimo);
+                $this->placu_ferias                   = str_replace(",", ".", $this->placu_ferias);
+                $this->placu_tercoferias              = str_replace(",", ".", $this->placu_tercoferias);
+                $this->placu_totalsalario             = str_replace(",", ".", $this->placu_totalsalario);
+                $this->placu_encargos                 = str_replace(",", ".", $this->placu_encargos);
+                $this->placu_totalencargos            = str_replace(",", ".", $this->placu_totalencargos);
+                $this->placu_totalsalarioencargo      = str_replace(",", ".", $this->placu_totalsalarioencargo);
+                $this->placu_custosmateriais          = str_replace(",", ".", $this->placu_custosmateriais);
+                $this->placu_custosconsumo            = str_replace(",", ".", $this->placu_custosconsumo);
+                $this->placu_diarias                  = str_replace(",", ".", $this->placu_diarias);
+                $this->placu_passagens                = str_replace(",", ".", $this->placu_passagens);
+                $this->placu_pessoafisica             = str_replace(",", ".", $this->placu_pessoafisica);
+                $this->placu_pessoajuridica           = str_replace(",", ".", $this->placu_pessoajuridica);
+                $this->placu_totalcustodireto         = str_replace(",", ".", $this->placu_totalcustodireto);
+                $this->placu_totalhoraaulacustodireto = str_replace(",", ".", $this->placu_totalhoraaulacustodireto);
+
+                return true;
+            } else {
+                return false;
+            }
+        }
 
     /**
      * @inheritdoc
@@ -147,13 +172,26 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             'placu_tipocalculo' => 'Tipocalculo',
             'placu_observacao' => 'Observacao',
             'placu_taxaretorno' => 'Taxaretorno',
-            'planilhadecurso_placucol' => 'Planilhadecurso Placucol',
             'placu_codprogramacao' => 'Tipo de Programação',
 
+            'placu_totalcustodocente' => 'Custo de Mão de Obra Direta',
+            'placu_decimo' => '1/12 de 13º',
+            'placu_ferias' => '1/12 de Férias',
+            'placu_tercoferias' => '1/12 de 1/3 de férias',
+            'placu_totalsalario' => 'Total de Salários',
+            'placu_encargos' => '(%) Encargos s/13º, férias e salários',
+            'placu_totalencargos' => 'Total de Encargos',
+            'placu_totalsalarioencargo' => 'Total de Salários + Encargos',
+            'placu_custosmateriais' => 'Mat. Didático (Livros/plano A):',
+            'placu_custosconsumo' => 'Mat. de Consumo',
             'placu_diarias' => 'Diárias',
+            'placu_passagens' => 'Passagens',
+            'placu_pessoafisica' => 'Serv. Terceiros (PF)',
+            'placu_pessoajuridica' => 'Serv. Terceiros (PJ)',
             'placu_equipamentos' => 'Equipamentos',
-            'placu_pessoajuridica' => 'Pessoa Jurídica',
-            'placu_transporte' => 'Transporte',
+            'placu_PJApostila' => 'Mat. Didático (Apost./plano A):',
+            'placu_totalcustodireto' => 'Total de Custo Direto',
+            'placu_totalhoraaulacustodireto' => 'V. Hora/Aula de Custo Direto',
 
             'nivelLabel' => 'Nível',
             'segmentoLabel' => 'Segmento',
@@ -313,6 +351,14 @@ class Planilhadecurso extends \yii\db\ActiveRecord
     public function getPlaniUC()
     {
         return $this->hasMany(PlanilhaUnidadesCurriculares::className(), ['planilhadecurso_cod' => 'placu_codplanilha']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPlaniDespDocente()
+    {
+        return $this->hasMany(PlanilhaDespesaDocente::className(), ['planilhadecurso_cod' => 'placu_codplanilha']);
     }
 
 }

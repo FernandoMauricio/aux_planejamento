@@ -42,6 +42,7 @@ use app\models\planilhas\PlanilhaMaterial;
                                                         <?= $this->render('_form-planilha', [
                                                             'form' => $form,
                                                             'model' => $model,
+                                                            'modelsPlaniDespDocente' => $modelsPlaniDespDocente,
                                                         ]) ?>
                                                     </div>
 
