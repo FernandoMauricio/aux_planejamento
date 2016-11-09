@@ -115,7 +115,6 @@ class PlanilhadecursoController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-
             //Localiza os Materiais Didáticos do Plano
             $ListagemUC = "SELECT * FROM `unidadescurriculares_uncu` WHERE `planodeacao_cod` = '".$model->placu_codplano."' ORDER BY `nivel_uc` DESC";
 
@@ -230,6 +229,31 @@ class PlanilhadecursoController extends Controller
                              ])
                     ->execute();
                 }
+
+                if($model->save()){
+
+                    //realiza a soma dos custos de material didático(LIVROS) SOMENTE DO PLANO A
+                    $query = (new \yii\db\Query())->from('db_apl.planomaterial_plama')->where(['plama_codplano' => $model->placu_codplano, 'plama_tipoplano' => 'Plano A', 'plama_tipomaterial' => 'LIVRO']);
+                    $totalValorMaterialLivro = $query->sum('plama_valor');
+
+                    //realiza a soma dos custos de material didático(APOSTILAS) SOMENTE DO PLANO A
+                    $query = (new \yii\db\Query())->from('db_apl.planomaterial_plama')->where(['plama_codplano' => $model->placu_codplano, 'plama_tipoplano' => 'Plano A', 'plama_tipomaterial' => 'APOSTILAS']);
+                    $totalValorMaterialApostila = $query->sum('plama_valor');
+
+                    //realiza a soma dos custos de materiais de consumo (somatória de Quantidade * Valor de todas as linhas)
+                    $query = (new \yii\db\Query())->from('db_apl.plano_materialconsumo')->where(['planodeacao_cod' => $model->placu_codplano]);
+                    $totalValorConsumo = $query->sum('planmatcon_valor*planmatcon_quantidade');
+
+                    //realiza a soma dos custos de material de consumo
+                    $query = (new \yii\db\Query())->from('db_apl.plano_materialaluno')->where(['planodeacao_cod' => $model->placu_codplano]);
+                    $totalValorAluno = $query->sum('planmatalu_valor*planmatalu_quantidade');
+
+                    $model->placu_custosmateriais = $totalValorMaterialLivro; //save custo material didático - LIVROS
+                    $model->placu_PJApostila      = $totalValorMaterialApostila; //save custo material didático - APOSTILAS
+                    $model->placu_custosconsumo   = $totalValorConsumo; //save custo material consumo
+                    $model->save();
+                }
+
 
             return $this->redirect(['update', 'id' => $model->placu_codplanilha]);
         } else {

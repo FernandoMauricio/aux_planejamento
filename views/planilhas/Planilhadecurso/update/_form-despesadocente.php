@@ -51,12 +51,12 @@ use yii\helpers\Url;
                                                                                         'options' => ['readonly' => true, 'class' => 'form-control']
                                                                                 ]); ?></td>
 
-                                            <th style="color: green;"><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_valorhoraaula")->widget(\yii\widgets\MaskedInput::className(), [
+                                            <th><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_valorhoraaula")->widget(\yii\widgets\MaskedInput::className(), [
                                                                                         'clientOptions' => [
                                                                                         'alias' => 'decimal',
                                                                                         'digits' => 2,
                                                                                         ],
-                                                                                        'options' => ['readonly' => true, 'class' => 'form-control','style'=>'color:green']
+                                                                                        'options' => ['readonly' => true, 'class' => 'form-control','style'=>'color:red']
                                                                                 ]); ?></th>
 
                                            <td><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_cargahoraria")->textInput() ?></td>

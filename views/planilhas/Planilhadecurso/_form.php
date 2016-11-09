@@ -152,7 +152,6 @@ use app\models\cadastros\Tipoprogramacao;
 
             </div>
 
-
         <?= $form->field($model, 'placu_codtipoa')->hiddenInput()->label(false); ?>
 
         <?= $form->field($model, 'placu_codnivel')->hiddenInput()->label(false); ?>
@@ -186,59 +185,11 @@ use app\models\cadastros\Tipoprogramacao;
                 <div class="col-md-4">
                     <?= $form->field($model, 'placu_quantidadealunospsg')->textInput() ?>
                 </div>
-        </div>
+            </div>
 
         </div>
+    </div>
 
-            <table class="table table-condensed table-hover">
-              <thead>
-                <tr class="info"><th colspan="12">SEÇÃO 3: Cálculos de Custos Diretos</th></tr>
-              </thead>
-            </table>
-
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-3">
-                    <?= $form->field($model, 'placu_diarias')->textInput() ?>
-                </div>
-                <div class="col-md-3">
-                    <?= $form->field($model, 'placu_equipamentos')->textInput() ?>
-                </div>
-                <div class="col-md-3">
-                    <?= $form->field($model, 'placu_pessoajuridica')->textInput() ?>
-                </div>
-                <div class="col-md-3">
-                    <?= $form->field($model, 'placu_transporte')->textInput() ?>
-                </div>
-        </div>
-
-
-
-
-<!-- 
-    <?= $form->field($model, 'placu_quantidadeparcelas')->textInput() ?>
-
-    <?= $form->field($model, 'placu_valormensalidade')->textInput() ?>
-
-    <?= $form->field($model, 'placu_tipocalculo')->textInput() ?>
-
-    <?= $form->field($model, 'placu_observacao')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'placu_taxaretorno')->textInput() ?>
-
-
-    <?= $form->field($model, 'placu_codcategoria')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'placu_codsituacao')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'placu_codcolaborador')->textInput() ?>
-
-    <?= $form->field($model, 'placu_codunidade')->textInput() ?>
-
-    <?= $form->field($model, 'placu_nomeunidade')->textInput(['maxlength' => true]) ?>
-
-
-    <?= $form->field($model, 'planilhadecurso_placucol')->textInput(['maxlength' => true]) ?> -->
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

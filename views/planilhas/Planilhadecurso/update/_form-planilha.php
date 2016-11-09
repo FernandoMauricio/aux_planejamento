@@ -44,8 +44,12 @@ use app\models\cadastros\Tipoprogramacao;
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-9">
                             <?= $form->field($model, 'PlanoLabel')->textInput(['value'=> $model->plano->plan_descricao,'readonly'=>true]) ?>
+                        </div>
+
+                        <div class="col-md-3">
+                            <?= $form->field($model, 'placu_cargahorariaplano')->textInput(['readonly'=>true]) ?>
                         </div>
                     </div>
         </div>
@@ -280,17 +284,48 @@ use app\models\cadastros\Tipoprogramacao;
             <div class="row">
 
                 <div class="col-md-3">
-                <?= $form->field($model, 'placu_PJApostila')->textInput(['readonly' => true]); ?>
-
+                <?= $form->field($model, 'placu_PJApostila')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
                 </div>
 
                 <div class="col-md-3">
-                <?= $form->field($model, 'placu_custosmateriais')->textInput(['readonly' => true]); ?>
-
+                <?= $form->field($model, 'placu_custosmateriais')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
                 </div>
 
                 <div class="col-md-3">
-                <?= $form->field($model, 'placu_custosconsumo')->textInput(['readonly' => true]); ?>
+                <?= $form->field($model, 'placu_custosconsumo')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
                 </div>
 
                 <div class="col-md-3">

@@ -125,6 +125,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
                 $this->placu_encargos                 = str_replace(",", ".", $this->placu_encargos);
                 $this->placu_totalencargos            = str_replace(",", ".", $this->placu_totalencargos);
                 $this->placu_totalsalarioencargo      = str_replace(",", ".", $this->placu_totalsalarioencargo);
+                $this->placu_PJApostila               = str_replace(",", ".", $this->placu_PJApostila);
                 $this->placu_custosmateriais          = str_replace(",", ".", $this->placu_custosmateriais);
                 $this->placu_custosconsumo            = str_replace(",", ".", $this->placu_custosconsumo);
                 $this->placu_diarias                  = str_replace(",", ".", $this->placu_diarias);
