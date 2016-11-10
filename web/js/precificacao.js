@@ -134,8 +134,8 @@ $(function() {
       var totalEncargos            = (totalSalarios * 32.7) / 100;
       var totalSalariosEncargos    = totalSalarios + totalEncargos;
       var totalMaterial            = hiddenmaterialdidatico * planp_qntaluno;
-      var totalPJApostila          = (hiddenPJApostila * planp_qntaluno) + planp_pessoajuridica;;
-      var valorTotalDireto         = totalSalariosEncargos + planp_diarias + planp_passagens + planp_pessoafisica + totalPJApostila + totalMaterial + planp_custosconsumo;
+      var totalPJApostila          = hiddenPJApostila * planp_qntaluno;
+      var valorTotalDireto         = totalSalariosEncargos + planp_diarias + planp_passagens + planp_pessoafisica + planp_pessoajuridica + totalPJApostila + totalMaterial + planp_custosconsumo;
       var totalhoraaulacustodireto = valorTotalDireto / planp_cargahoraria / planp_qntaluno;
 
       //SEÇÃO 3
@@ -211,55 +211,31 @@ $(function() {
       //RESULTADO DOS VALORES
       //SEÇÃO 2
       $('#precificacao-planp_horaaulaplanejamento').val(valor_servpedagogico); // Valor hora/aula Planejamento
-
       $('#precificacao-planp_totalcustodocente').val(valorTotalMaoDeObra); // Custo de Mão de Obra Direta
-
       $('#precificacao-planp_decimo').val(valorDecimo); // 1/12 de 13º
-
       $('#precificacao-planp_ferias').val(valorFerias); // 1/12 de Férias
-
       $('#precificacao-planp_tercoferias').val(valorTercoFerias); // 1/12 de 1/3 de férias
-
       $('#precificacao-planp_totalsalario').val(totalSalarios); // Total de Salários
-
       $('#precificacao-planp_totalencargos').val(totalEncargos); // Total de Salários x 32.7% (encargos)
-
       $('#precificacao-planp_totalsalarioencargo').val(totalSalariosEncargos); // Total de Salários + Total de Encargos
-
       $('#precificacao-planp_pjapostila').val(totalPJApostila); // Total de Material x Quantidade de Alunos
-
       $('#precificacao-planp_custosmateriais').val(totalMaterial); // Total de Apostilas x Quantidade de Alunos
-
       $('#precificacao-planp_totalcustodireto').val(valorTotalDireto); // Valor Total Custo Direto (Total Salários e encargos + custos materiais + diárias + passagens + pf + pj)
-
       $('#precificacao-planp_totalhoraaulacustodireto').val(totalhoraaulacustodireto); // Valor hora/aula de custo direto (Total de custo direto / CH Total / Qnt Aluno)
 
       //SEÇÃO 3
       $('#precificacao-planp_totalincidencias').val(totalIncidencia); // Valor Custos indireto + IPCA/MES + reserva técnica + despesa adm
-
       $('#precificacao-planp_totalcustoindireto').val(totalCustoIndireto); // Valor Custo Direto x Total Incidencias
-
       $('#precificacao-planp_despesatotal').val(despesaTotal); // Valor Custo Indireto + Custo Direto
-
       $('#precificacao-planp_markdivisor').val(MarkupDivisor); // Markup Divisor 100 - x / 100
-
       $('#precificacao-planp_markmultiplicador').val(MarkupMultiplicador); // Markup Multiplicador  ((100 / x ) -1) * 100
-
       $('#precificacao-planp_vendaturma').val(PrecoVendaTurma); // Valor Total Direto / MarkupDivisor
-
       $('#precificacao-planp_vendaaluno').val(PrecoVendaAluno); // Preço de Venda por Turma /  Qnt de Alunos
-
       $('#precificacao-planp_horaaulaaluno').val(ValorhoraAulaAluno); // Preço de Venda da Turma / CH TOTAL / QNT Alunos
-
       $('#precificacao-planp_retorno').val(RetornoPrecoVenda); // Preço de venda da turma - Despesa Total
-
       $('#precificacao-planp_porcentretorno').val(PorcentagemRetorno); // % de Retorno / Preço de venda da Turma
-
       $('#precificacao-planp_retornoprecosugerido').val(RetornoPrecoSugerido); // Preço Sugerido x Qnt de Alunos - Despesa Total;
-
       $('#precificacao-planp_minimoaluno').val(MinimoAlunos); // Despesa Total / Preço Sugerido;
-
       $('#precificacao-planp_valorparcelas').val(ValorParcelas); // Preço Sugerido / Quantidade de Parcelas;
-
     };
  });

@@ -75,7 +75,7 @@ $(function() {
        updateTotal();
     });
 
-    $('#precificacao-placu_hiddenmaterialdidatico').keyup(function() {
+    $('#planilhadecurso-placu_hiddenmaterialdidatico').keyup(function() {
        updateTotal();
     });
 
@@ -83,7 +83,7 @@ $(function() {
        updateTotal();
     });
 
-    $('#precificacao-placu_hiddenpjapostila').keyup(function() {
+    $('#planilhadecurso-placu_hiddenpjapostila').keyup(function() {
        updateTotal();
     });
 
@@ -92,6 +92,10 @@ $(function() {
     });
 
     $('#planilhadecurso-placu_passagens').keyup(function() {
+       updateTotal();
+    });
+
+    $('#planilhadecurso-placu_equipamentos').keyup(function() {
        updateTotal();
     });
 
@@ -104,6 +108,35 @@ $(function() {
     });
 
     $('#planilhadecurso-placu_custosconsumo').keyup(function() {
+       updateTotal();
+    });
+
+    //Despesas Indiretas
+    $('#planilhadecurso-placu_custosindiretos').keyup(function() {
+       updateTotal();
+    });
+
+    $('#planilhadecurso-placu_ipca').keyup(function() {
+       updateTotal();
+    });
+
+    $('#planilhadecurso-placu_reservatecnica').keyup(function() {
+       updateTotal();
+    });
+
+    $('#planilhadecurso-placu_despesadm').keyup(function() {
+       updateTotal();
+    });
+
+    $('#planilhadecurso-placu_totalincidencias').keyup(function() {
+       updateTotal();
+    });
+
+    $('#planilhadecurso-placu_precosugerido').keyup(function() {
+       updateTotal();
+    });
+
+    $('#planilhadecurso-placu_parcelas').keyup(function() {
        updateTotal();
     });
 
@@ -141,12 +174,21 @@ $(function() {
       //Despesas Diretas
       var placu_diarias        = parseFloat($('#planilhadecurso-placu_diarias').val());
       var placu_passagens      = parseFloat($('#planilhadecurso-placu_passagens').val());
+      var placu_equipamentos   = parseFloat($('#planilhadecurso-placu_equipamentos').val());
       var placu_pessoafisica   = parseFloat($('#planilhadecurso-placu_pessoafisica').val());
       var placu_pessoajuridica = parseFloat($('#planilhadecurso-placu_pessoajuridica').val());
       var placu_custosconsumo  = parseFloat($('#planilhadecurso-placu_custosconsumo').val());
-      
-    //CÁLCULOS REALIZADOS
 
+      //Despesas Indiretas
+      var placu_custosindiretos  = parseFloat($('#planilhadecurso-placu_custosindiretos').val());
+      var placu_ipca             = parseFloat($('#planilhadecurso-placu_ipca').val());
+      var placu_reservatecnica   = parseFloat($('#planilhadecurso-placu_reservatecnica').val());
+      var placu_despesadm        = parseFloat($('#planilhadecurso-placu_despesadm').val());
+      var placu_totalincidencias = parseFloat($('#planilhadecurso-placu_totalincidencias').val());
+      var placu_precosugerido    = parseFloat($('#planilhadecurso-placu_precosugerido').val());
+      var placu_parcelas         = parseFloat($('#planilhadecurso-placu_parcelas').val());
+
+    //CÁLCULOS REALIZADOS
       //Total Quantidade de Alunos
       var valorTotalQntAlunos = placu_quantidadealunos + placu_quantidadealunosisentos + placu_quantidadealunospsg;
 
@@ -168,12 +210,35 @@ $(function() {
       var totalEncargos            = (totalSalarios * 32.7) / 100;
       var totalSalariosEncargos    = totalSalarios + totalEncargos;
       var totalMaterial            = placu_hiddenmaterialdidatico * valorTotalQntAlunos;
-      var totalPJApostila          = (placu_hiddenpjapostila * valorTotalQntAlunos) + placu_pessoajuridica;
-      var valorTotalDireto         = totalSalariosEncargos + placu_diarias + placu_passagens + placu_pessoafisica + totalPJApostila + totalMaterial + placu_custosconsumo;
+      var totalPJApostila          = placu_hiddenpjapostila * valorTotalQntAlunos;
+      var valorTotalDireto         = totalSalariosEncargos + placu_diarias + placu_passagens + placu_equipamentos + placu_pessoafisica + placu_pessoajuridica + totalPJApostila + totalMaterial + placu_custosconsumo;
       var totalhoraaulacustodireto = valorTotalDireto / placu_cargahorariaplano / valorTotalQntAlunos;
 
+      //Despesas Indiretas
+      var totalIncidencia       = placu_custosindiretos + placu_ipca + placu_reservatecnica + placu_despesadm;
+      var totalCustoIndireto    = (valorTotalDireto * placu_totalincidencias) / 100;
+      var despesaTotal          = totalCustoIndireto + valorTotalDireto;
+
+      var MarkupDivisor        = (100 - totalIncidencia);
+      var MarkupMultiplicador  = ((100 / MarkupDivisor) - 1) * 100; // Valores em %
+      var PrecoVendaTurma      = (valorTotalDireto / MarkupDivisor) * 100; // Valores em %
+      var PrecoVendaAluno      = (PrecoVendaTurma / valorTotalQntAlunos);
+      var ValorhoraAulaAluno   = PrecoVendaTurma / placu_cargahorariaplano / valorTotalQntAlunos; //Preço de Venda da Turma / CH TOTAL / QNT Alunos
+      var RetornoPrecoVenda    = PrecoVendaTurma - despesaTotal; // Preço de venda da turma - Despesa Total;
+      var PorcentagemRetorno   = (RetornoPrecoVenda / PrecoVendaTurma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
+      var RetornoPrecoSugerido = (placu_precosugerido * valorTotalQntAlunos) - despesaTotal; // Preço Sugerido x Qnt de Alunos - Despesa Total;
+
+      var MinimoAlunos = Math.ceil(despesaTotal / placu_precosugerido); // Despesa Total / Preço Sugerido;
+
+      var ValorParcelas =  placu_precosugerido / placu_parcelas;
+
+        //Ocultar NaN
+        if (isNaN(MinimoAlunos) || MinimoAlunos < 0) {
+            MinimoAlunos = '';
+        }
+
       //RESULTADO DOS VALORES
-      //Despesa Docente
+      //Despesas Diretas
       $('#planilhadecurso-placu_totalcustodocente').val(valorTotalMaoDeObra); // Custo de Mão de Obra Direta = Valor Hora/Aula * Carga Horária
       $('#planilhadecurso-placu_decimo').val(valorDecimo); // 1/12 de 13º
       $('#planilhadecurso-placu_ferias').val(valorFerias); // 1/12 de Férias
@@ -185,6 +250,22 @@ $(function() {
       $('#planilhadecurso-placu_custosmateriais').val(totalMaterial); // Total Mat. Didático (Livros/plano A)
       $('#planilhadecurso-placu_totalcustodireto').val(valorTotalDireto); // Total de Custo Direto
       $('#planilhadecurso-placu_totalhoraaulacustodireto').val(totalhoraaulacustodireto); // V. Hora/Aula de Custo Direto
+
+      //Despesas Indiretas
+      //SEÇÃO 3
+      $('#planilhadecurso-placu_totalincidencias').val(totalIncidencia); // Valor Custos indireto + IPCA/MES + reserva técnica + despesa adm
+      $('#planilhadecurso-placu_totalcustoindireto').val(totalCustoIndireto); // Valor Custo Direto x Total Incidencias
+      $('#planilhadecurso-placu_despesatotal').val(despesaTotal); // Valor Custo Indireto + Custo Direto
+      $('#planilhadecurso-placu_markdivisor').val(MarkupDivisor); // Markup Divisor 100 - x / 100
+      $('#planilhadecurso-placu_markmultiplicador').val(MarkupMultiplicador); // Markup Multiplicador  ((100 / x ) -1) * 100
+      $('#planilhadecurso-placu_vendaturma').val(PrecoVendaTurma); // Valor Total Direto / MarkupDivisor
+      $('#planilhadecurso-placu_vendaaluno').val(PrecoVendaAluno); // Preço de Venda por Turma /  Qnt de Alunos
+      $('#planilhadecurso-placu_horaaulaaluno').val(ValorhoraAulaAluno); // Preço de Venda da Turma / CH TOTAL / QNT Alunos
+      $('#planilhadecurso-placu_retorno').val(RetornoPrecoVenda); // Preço de venda da turma - Despesa Total
+      $('#planilhadecurso-placu_porcentretorno').val(PorcentagemRetorno); // % de Retorno / Preço de venda da Turma
+      $('#planilhadecurso-placu_retornoprecosugerido').val(RetornoPrecoSugerido); // Preço Sugerido x Qnt de Alunos - Despesa Total;
+      $('#planilhadecurso-placu_minimoaluno').val(MinimoAlunos); // Despesa Total / Preço Sugerido;
+      $('#planilhadecurso-placu_valorparcelas').val(ValorParcelas); // Preço Sugerido / Quantidade de Parcelas;
       
     };
  });

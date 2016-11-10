@@ -94,10 +94,10 @@ class Planilhadecurso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_nomeunidade', 'placu_tipocalculo', 'placu_quantidadealunos', 'placu_quantidadealunospsg', 'placu_quantidadealunosisentos'], 'required'],
+            [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_nomeunidade', 'placu_tipocalculo', 'placu_quantidadealunos', 'placu_quantidadealunospsg', 'placu_quantidadealunosisentos', 'placu_precosugerido', 'placu_parcelas'], 'required'],
             [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_quantidadeparcelas', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_tipocalculo', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao'], 'integer'],
             [['placu_cargahorariaplano', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar', 'placu_valormensalidade', 'placu_taxaretorno'], 'number'],
-            [['nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoAcaoLabel', 'PlanoLabel', 'tipoProgramacaoLabel', 'placu_diarias', 'placu_equipamentos', 'placu_pessoafisica', 'placu_pessoajuridica', 'placu_totalcustodocente', 'placu_decimo', 'placu_ferias', 'placu_tercoferias', 'placu_totalsalario', 'placu_encargos', 'placu_totalencargos', 'placu_totalsalarioencargo', 'placu_custosmateriais', 'placu_custosconsumo', 'placu_PJApostila', 'placu_totalcustodireto', 'placu_totalhoraaulacustodireto', 'placu_hiddenmaterialdidatico', 'placu_hiddenpjapostila'], 'safe'],
+            [['nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoAcaoLabel', 'PlanoLabel', 'tipoProgramacaoLabel', 'placu_diarias', 'placu_equipamentos', 'placu_pessoafisica', 'placu_pessoajuridica', 'placu_totalcustodocente', 'placu_decimo', 'placu_ferias', 'placu_tercoferias', 'placu_totalsalario', 'placu_encargos', 'placu_totalencargos', 'placu_totalsalarioencargo', 'placu_custosmateriais', 'placu_custosconsumo', 'placu_PJApostila', 'placu_totalcustodireto', 'placu_totalhoraaulacustodireto', 'placu_hiddenmaterialdidatico', 'placu_hiddenpjapostila', 'placu_custosindiretos', 'placu_ipca', 'placu_reservatecnica', 'placu_despesadm', 'placu_totalincidencias', 'placu_totalcustoindireto', 'placu_despesatotal', 'placu_markdivisor', 'placu_markmultiplicador', 'placu_vendaturma', 'placu_vendaaluno', 'placu_horaaulaaluno', 'placu_retorno', 'placu_porcentretorno', 'placu_precosugerido', 'placu_retornoprecosugerido', 'placu_minimoaluno', 'placu_parcelas', 'placu_valorparcelas'], 'safe'],
             [['placu_observacao'], 'string'],
             [['placu_nomeunidade'], 'string', 'max' => 150],
             [['placu_codano'], 'exist', 'skipOnError' => true, 'targetClass' => Ano::className(), 'targetAttribute' => ['placu_codano' => 'an_codano']],
@@ -134,6 +134,25 @@ class Planilhadecurso extends \yii\db\ActiveRecord
                 $this->placu_pessoajuridica           = str_replace(",", ".", $this->placu_pessoajuridica);
                 $this->placu_totalcustodireto         = str_replace(",", ".", $this->placu_totalcustodireto);
                 $this->placu_totalhoraaulacustodireto = str_replace(",", ".", $this->placu_totalhoraaulacustodireto);
+                $this->placu_custosindiretos          = str_replace(",", ".", $this->placu_custosindiretos);
+                $this->placu_ipca                     = str_replace(",", ".", $this->placu_ipca);
+                $this->placu_reservatecnica           = str_replace(",", ".", $this->placu_reservatecnica);
+                $this->placu_despesadm                = str_replace(",", ".", $this->placu_despesadm);
+                $this->placu_totalincidencias         = str_replace(",", ".", $this->placu_totalincidencias);
+                $this->placu_totalcustoindireto       = str_replace(",", ".", $this->placu_totalcustoindireto);
+                $this->placu_despesatotal             = str_replace(",", ".", $this->placu_despesatotal);
+                $this->placu_markdivisor              = str_replace(",", ".", $this->placu_markdivisor);
+                $this->placu_markmultiplicador        = str_replace(",", ".", $this->placu_markmultiplicador);
+                $this->placu_vendaturma               = str_replace(",", ".", $this->placu_vendaturma);
+                $this->placu_vendaaluno               = str_replace(",", ".", $this->placu_vendaaluno);
+                $this->placu_horaaulaaluno            = str_replace(",", ".", $this->placu_horaaulaaluno);
+                $this->placu_retorno                  = str_replace(",", ".", $this->placu_retorno);
+                $this->placu_porcentretorno           = str_replace(",", ".", $this->placu_porcentretorno);
+                $this->placu_precosugerido            = str_replace(",", ".", $this->placu_precosugerido);
+                $this->placu_retornoprecosugerido     = str_replace(",", ".", $this->placu_retornoprecosugerido);
+                $this->placu_minimoaluno              = str_replace(",", ".", $this->placu_minimoaluno);
+                $this->placu_parcelas                 = str_replace(",", ".", $this->placu_parcelas);
+                $this->placu_valorparcelas            = str_replace(",", ".", $this->placu_valorparcelas);
 
                 return true;
             } else {
@@ -193,6 +212,27 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             'placu_PJApostila' => 'Mat. Didático (Apost./plano A):',
             'placu_totalcustodireto' => 'Total de Custo Direto',
             'placu_totalhoraaulacustodireto' => 'V. Hora/Aula de Custo Direto',
+
+            'placu_custosindiretos' => 'Custos Indiretos(%)',
+            'placu_ipca' => 'IPCA/Mês(%)',
+            'placu_reservatecnica' => 'Rerserva Técnica(%)',
+            'placu_despesadm' => 'Despesa Sede ADM ' .  date('Y') . '(%)',
+            'placu_totalincidencias' => 'Total Incidências(%)',
+            'placu_totalcustoindireto' => 'Total Custo Indireto',
+            'placu_despesatotal' => 'Despesa Total',
+            'placu_markdivisor' => 'Mark-Up Divisor 100-X/100',
+            'placu_markmultiplicador' => 'Mark-Up Multiplicador 100/Markup',
+            'placu_vendaturma' => 'Preço de venda total da turma',
+            'placu_vendaaluno' => 'Preço de venda total por aluno',
+            'placu_horaaulaaluno' => 'Valor Hora/Aula por aluno',
+            'placu_retorno' => 'Retorno com preço de venda',
+            'placu_porcentretorno' => '% de Retorno',
+            'placu_precosugerido' => 'Preço Sugerido',
+            'placu_retornoprecosugerido' => 'Retorno com preço sugerido',
+            'placu_minimoaluno' => 'Numero minimo de alunos por turma',
+            'placu_parcelas' => 'Quantidade de Parcelas',
+            'placu_valorparcelas' => 'Valor das Parcelas',
+            'placu_data' => 'Data de Cadastro',
 
             'nivelLabel' => 'Nível',
             'segmentoLabel' => 'Segmento',
