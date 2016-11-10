@@ -36,7 +36,7 @@ use app\models\planilhas\PlanilhaMaterial;
                                          <li><a href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-tags"></span> Material de Consumo </a></li>
                                          <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Equipamentos / Utensílios</a></li>
                                   </ul>
-                                            <div class="tab-content"><br>
+                                            <div class="tab-content" style="margin-left: -15px; margin-right: -15px;"><br>
 
                                                     <div class="tab-pane" id="tab1">
                                                         <?= $this->render('_form-planilha', [

@@ -134,7 +134,7 @@ $(function() {
       var totalEncargos            = (totalSalarios * 32.7) / 100;
       var totalSalariosEncargos    = totalSalarios + totalEncargos;
       var totalMaterial            = hiddenmaterialdidatico * planp_qntaluno;
-      var totalPJApostila          = hiddenPJApostila * planp_qntaluno;
+      var totalPJApostila          = (hiddenPJApostila * planp_qntaluno) + planp_pessoajuridica;;
       var valorTotalDireto         = totalSalariosEncargos + planp_diarias + planp_passagens + planp_pessoafisica + totalPJApostila + totalMaterial + planp_custosconsumo;
       var totalhoraaulacustodireto = valorTotalDireto / planp_cargahoraria / planp_qntaluno;
 

@@ -131,8 +131,9 @@ use app\models\cadastros\Tipoprogramacao;
                     ]) ?>
 
 
+    <div class="panel panel-default">
+            <div class="panel-heading"> Resumo de Custos Diretos</div><br>
         <div class="panel-body">
-
             <div class="row">
 
                 <div class="col-md-3">
@@ -322,9 +323,6 @@ use app\models\cadastros\Tipoprogramacao;
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,
-                            'prefix' => 'R$ ',
-                            'groupSeparator' => '.',
-                            'radixPoint' => ',',
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
@@ -368,10 +366,9 @@ use app\models\cadastros\Tipoprogramacao;
                     ]); ?>
 
                 </div>
-
             </div>
-
         </div>
+    </div>
 
 
 <!--         <div class="panel-body">
