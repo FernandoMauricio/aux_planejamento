@@ -9,6 +9,9 @@ use yii\helpers\ArrayHelper;
 use app\models\cadastros\Eixo;
 use app\models\cadastros\Segmento;
 use app\models\cadastros\Tipo;
+use app\models\cadastros\Tipoplanilha;
+use app\models\cadastros\Tipoprogramacao;
+use app\models\cadastros\Situacaoplanilha;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\planos\PlanodeacaoSearch */
@@ -85,9 +88,47 @@ $this->params['breadcrumbs'][] = $this->title;
               'value'=> 'plano.plan_descricao',
             ],
 
-        'placu_codtipla',
-        'placu_codprogramacao',
-        'placu_codsituacao',
+            [
+                'attribute'=>'placu_codtipla', 
+                'width'=>'250px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->tipoplanilha->tipla_descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(Tipoplanilha::find()->orderBy('tipla_descricao')->asArray()->all(), 'tipla_codtipla', 'tipla_descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'Tipo de Planilha'],
+            ],
+
+            [
+                'attribute'=>'placu_codprogramacao', 
+                'width'=>'250px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->tipoprogramacao->tipro_descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(Tipoprogramacao::find()->orderBy('tipro_descricao')->asArray()->all(), 'tipro_codprogramacao', 'tipro_descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'Programação'],
+            ],
+
+            [
+                'attribute'=>'placu_codsituacao', 
+                'width'=>'250px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->situacaoPlani->sipla_descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(Situacaoplanilha::find()->orderBy('sipla_descricao')->asArray()->all(), 'sipla_codsituacao', 'sipla_descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'Situação'],
+            ],
         
             ['class' => 'yii\grid\ActionColumn','template' => '{view} {update}'],
         ],

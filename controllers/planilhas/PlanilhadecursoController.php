@@ -122,14 +122,15 @@ class PlanilhadecursoController extends Controller
         $model->placu_codcolaborador = $session['sess_codcolaborador'];
         $model->placu_codunidade     = $session['sess_codunidade'];
         $model->placu_nomeunidade    = $session['sess_unidade'];
-        $model->placu_codcategoria = 1; //PSG / Não PSG
-        $model->placu_codsituacao  = 1; //Situação Padrão: Em elaboração
-        $model->placu_tipocalculo  = 1; //Tipo de Cálculo: Taxa de Retorno ou Valor Curso Por Aluno
+        $model->placu_codcategoria   = 1; //PSG / Não PSG
+        $model->placu_codsituacao    = 1; //Situação Padrão: Em elaboração
+        $model->placu_tipocalculo    = 1; //Tipo de Cálculo: Taxa de Retorno ou Valor Curso Por Aluno
         $model->placu_diarias        = 0;
         $model->placu_passagens      = 0;
         $model->placu_equipamentos   = 0;
         $model->placu_pessoafisica   = 0;
         $model->placu_pessoajuridica = 0;
+        $model->placu_data           = date('Y-m-d');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -454,10 +455,6 @@ class PlanilhadecursoController extends Controller
                                     $query = (new \yii\db\Query())->from('db_apl.planilhaconsumo_planico')->where(['planilhadecurso_cod' => $model->placu_codplanilha]);
                                     $totalValorConsumo = $query->sum('planico_valor*planico_quantidade');
 
-                                    //realiza a soma dos custos de material de consumo
-                                    // $query = (new \yii\db\Query())->from('db_apl.plano_materialaluno')->where(['planodeacao_cod' => $model->placu_codplano]);
-                                    // $totalValorAluno = $query->sum('planmatalu_valor*planmatalu_quantidade');
-
                                     //Somatória Quantidade de Alunos Pagantes, Isentos e PSG 
                                     $valorTotalQntAlunos = $model->placu_quantidadealunos + $model->placu_quantidadealunosisentos + $model->placu_quantidadealunospsg;
                                     
@@ -467,7 +464,7 @@ class PlanilhadecursoController extends Controller
 
                                     $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro; //save hidden custo para multiplicação javascript
                                     $model->placu_hiddenpjapostila       = $totalValorMaterialApostila; //save hidden custo para multiplicação javascript
-                                    
+                                    $model->placu_data                   = date('Y-m-d');
                                     $model->save();
                                 }
                 

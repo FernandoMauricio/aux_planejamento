@@ -6,6 +6,7 @@ use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
+use kartik\datecontrol\DateControl;
 
 use app\models\cadastros\Ano;
 use app\models\cadastros\Tipoplanilha;
@@ -120,7 +121,7 @@ use app\models\cadastros\Tipoprogramacao;
 
             <table class="table table-condensed table-hover">
               <thead>
-                <tr class="info"><th colspan="12">SEÇÃO 3: Cálculos de Custos Diretos</th></tr>
+                <tr class="info"><th colspan="12">SEÇÃO 4: Cálculos de Custos Indiretos</th></tr>
               </thead>
             </table>
 

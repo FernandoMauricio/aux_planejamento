@@ -280,7 +280,7 @@ use yii\helpers\Html;
     </div>
 
         <div class="row">
-            <p class="bg-info" style="padding: 7px; margin-right: 15px; margin-left: 15px;"><strong> SEÇÃO 3: Cálculos de Custos Diretos</strong></p>
+            <p class="bg-info" style="padding: 7px; margin-right: 15px; margin-left: 15px;"><strong> SEÇÃO 4: Cálculos de Custos Indiretos</strong></p>
         </div>
 
     <div class="panel panel-default">
@@ -339,16 +339,24 @@ use yii\helpers\Html;
 
           </div>
 
-          <br>
+        <br>
           
           <div class="row">
-
                   <div class="col-md-3"><strong>Quantidade de Parcelas:</strong><br> <?php echo $model->placu_parcelas; ?></div>
 
                   <div class="col-md-3"><strong>Valor das Parcelas:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_valorparcelas, 2, ',', '.'); ?></div>
-
           </div><br>
-        </div>
-    </div>
+      </div>
+  </div>
 
+        <div class="row">
+            <p class="bg-info" style="padding: 7px; margin-right: 15px; margin-left: 15px;"><strong> SEÇÃO 5: Auditoria</strong></p>
+        </div>
+        <div class="container">
+          <div class="row">
+                  <div class="col-md-5"><strong>Última modificação:</strong> <?php echo $model->colaborador->usuario->usu_nomeusuario ?></div>
+
+                  <div class="col-md-5"><strong>Data da modificação:</strong> <?php echo  date('d/m/Y', strtotime($model->placu_data)) ?></div>
+          </div>
+        </div>
 </div>

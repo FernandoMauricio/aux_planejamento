@@ -3,6 +3,7 @@
 namespace app\models\planilhas;
 
 use Yii;
+use app\models\base\Colaborador;
 use app\models\cadastros\Ano;
 use app\models\cadastros\Eixo;
 use app\models\cadastros\Nivel;
@@ -71,6 +72,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
     public $anoLabel;
     public $tipoPlanilhaLabel;
     public $tipoProgramacaoLabel;
+    public $nomeUsuario;
 
     /**
      * @inheritdoc
@@ -97,7 +99,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_nomeunidade', 'placu_tipocalculo', 'placu_quantidadealunos', 'placu_quantidadealunospsg', 'placu_quantidadealunosisentos', 'placu_precosugerido', 'placu_parcelas'], 'required'],
             [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_quantidadeparcelas', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_tipocalculo', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao'], 'integer'],
             [['placu_cargahorariaplano', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar', 'placu_valormensalidade', 'placu_taxaretorno'], 'number'],
-            [['nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoAcaoLabel', 'PlanoLabel', 'tipoProgramacaoLabel', 'placu_diarias', 'placu_equipamentos', 'placu_pessoafisica', 'placu_pessoajuridica', 'placu_totalcustodocente', 'placu_decimo', 'placu_ferias', 'placu_tercoferias', 'placu_totalsalario', 'placu_encargos', 'placu_totalencargos', 'placu_totalsalarioencargo', 'placu_custosmateriais', 'placu_custosconsumo', 'placu_PJApostila', 'placu_totalcustodireto', 'placu_totalhoraaulacustodireto', 'placu_hiddenmaterialdidatico', 'placu_hiddenpjapostila', 'placu_custosindiretos', 'placu_ipca', 'placu_reservatecnica', 'placu_despesadm', 'placu_totalincidencias', 'placu_totalcustoindireto', 'placu_despesatotal', 'placu_markdivisor', 'placu_markmultiplicador', 'placu_vendaturma', 'placu_vendaaluno', 'placu_horaaulaaluno', 'placu_retorno', 'placu_porcentretorno', 'placu_precosugerido', 'placu_retornoprecosugerido', 'placu_minimoaluno', 'placu_parcelas', 'placu_valorparcelas'], 'safe'],
+            [['nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoAcaoLabel', 'PlanoLabel', 'tipoProgramacaoLabel', 'placu_diarias', 'placu_equipamentos', 'placu_pessoafisica', 'placu_pessoajuridica', 'placu_totalcustodocente', 'placu_decimo', 'placu_ferias', 'placu_tercoferias', 'placu_totalsalario', 'placu_encargos', 'placu_totalencargos', 'placu_totalsalarioencargo', 'placu_custosmateriais', 'placu_custosconsumo', 'placu_PJApostila', 'placu_totalcustodireto', 'placu_totalhoraaulacustodireto', 'placu_hiddenmaterialdidatico', 'placu_hiddenpjapostila', 'placu_custosindiretos', 'placu_ipca', 'placu_reservatecnica', 'placu_despesadm', 'placu_totalincidencias', 'placu_totalcustoindireto', 'placu_despesatotal', 'placu_markdivisor', 'placu_markmultiplicador', 'placu_vendaturma', 'placu_vendaaluno', 'placu_horaaulaaluno', 'placu_retorno', 'placu_porcentretorno', 'placu_precosugerido', 'placu_retornoprecosugerido', 'placu_minimoaluno', 'placu_parcelas', 'placu_valorparcelas', 'nomeUsuario', 'placu_data'], 'safe'],
             [['placu_observacao'], 'string'],
             [['placu_nomeunidade'], 'string', 'max' => 150],
             [['placu_codano'], 'exist', 'skipOnError' => true, 'targetClass' => Ano::className(), 'targetAttribute' => ['placu_codano' => 'an_codano']],
@@ -232,7 +234,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             'placu_minimoaluno' => 'Numero minimo de alunos por turma',
             'placu_parcelas' => 'Quantidade de Parcelas',
             'placu_valorparcelas' => 'Valor das Parcelas',
-            'placu_data' => 'Data de Cadastro',
+            'placu_data' => 'Data da modificação',
 
             'nivelLabel' => 'Nível',
             'segmentoLabel' => 'Segmento',
@@ -242,6 +244,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             'anoLabel' => 'Ano da Planilha',
             'tipoPlanilhaLabel' => 'Tipo de Planilha',
             'tipoProgramacaoLabel' => 'Tipo de Programação',
+            'nomeUsuario' => 'Última modificação',
 
         ];
     }
@@ -333,9 +336,9 @@ class Planilhadecurso extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlacuCodsituacao()
+    public function getSituacaoPlani()
     {
-        return $this->hasOne(SituacaoplanilhaSipla::className(), ['sipla_codsituacao' => 'placu_codsituacao']);
+        return $this->hasOne(Situacaoplanilha::className(), ['sipla_codsituacao' => 'placu_codsituacao']);
     }
 
     /**
@@ -400,6 +403,11 @@ class Planilhadecurso extends \yii\db\ActiveRecord
     public function getPlaniDespDocente()
     {
         return $this->hasMany(PlanilhaDespesaDocente::className(), ['planilhadecurso_cod' => 'placu_codplanilha']);
+    }
+
+    public function getColaborador()
+    {
+        return $this->hasOne(Colaborador::className(), ['col_codcolaborador' => 'placu_codcolaborador']);
     }
 
 }

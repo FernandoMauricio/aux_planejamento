@@ -150,27 +150,22 @@
                   <div class="col-md-3"><strong>Retorno com preço sugerido:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_retornoprecosugerido, 2, ',', '.'); ?></div>
 
                   <div class="col-md-3"><strong>Numero minimo de alunos por turma:</strong><br> <?php echo $model->planp_minimoaluno; ?></div>
-
           </div>
 
           <br>
           
           <div class="row">
-
                   <div class="col-md-3"><strong>Quantidade de Parcelas:</strong><br> <?php echo $model->planp_parcelas; ?></div>
 
                   <div class="col-md-3"><strong>Valor das Parcelas:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_valorparcelas, 2, ',', '.'); ?></div>
-
           </div>
 
         <br>
 
           <div class="row">
               <p class="bg-info" style="padding: 10px"><strong> SEÇÃO 4: Auditoria</strong></p>
-
                   <div class="col-md-5"><strong>Cadastrado por:</strong> <?php echo $model->colaborador->usuario->usu_nomeusuario ?></div>
 
                   <div class="col-md-5"><strong>Data de Cadastro:</strong> <?php echo  date('d/m/Y', strtotime($model->planp_data)) ?></div>
-
           </div>
   </div>
