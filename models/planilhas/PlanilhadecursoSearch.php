@@ -20,7 +20,7 @@ class PlanilhadecursoSearch extends Planilhadecurso
         return [
             [['placu_codplanilha', 'placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_quantidadeparcelas', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_tipocalculo', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao'], 'integer'],
             [['placu_cargahorariaplano', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar', 'placu_valormensalidade', 'placu_taxaretorno'], 'number'],
-            [['placu_nomeunidade', 'placu_observacao'], 'safe'],
+            [['placu_nomeunidade', 'placu_observacao','PlanoLabel'], 'safe'],
         ];
     }
 
@@ -49,6 +49,11 @@ class PlanilhadecursoSearch extends Planilhadecurso
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['PlanoLabel'] = [
+        'asc' => ['planodeacao_plan.plan_descricao' => SORT_ASC],
+        'desc' => ['planodeacao_plan.plan_descricao' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -87,8 +92,11 @@ class PlanilhadecursoSearch extends Planilhadecurso
             'placu_codprogramacao' => $this->placu_codprogramacao,
         ]);
 
+$query->joinWith('plano');
+
         $query->andFilterWhere(['like', 'placu_nomeunidade', $this->placu_nomeunidade])
-            ->andFilterWhere(['like', 'placu_observacao', $this->placu_observacao]);
+            ->andFilterWhere(['like', 'placu_observacao', $this->placu_observacao])
+            ->andFilterWhere(['like', 'planodeacao_plan.plan_descricao', $this->PlanoLabel]);
 
         return $dataProvider;
     }

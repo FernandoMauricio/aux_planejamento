@@ -1,63 +1,95 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use kartik\editable\Editable;
+use yii\widgets\Pjax;
+use yii\helpers\ArrayHelper;
+
+use app\models\cadastros\Eixo;
+use app\models\cadastros\Segmento;
+use app\models\cadastros\Tipo;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\planilhas\PlanilhadecursoSearch */
+/* @var $searchModel app\models\planos\PlanodeacaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Planilhadecursos';
+$this->title = 'Planilhas de Curso';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="planilhadecurso-index">
+<div class="planodeacao-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Planilhadecurso', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Nova Planilha de Curso', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
+
+<?php Pjax::begin(); ?>    
+
+<?php echo  GridView::widget([
+            'dataProvider'=>$dataProvider,
+            'filterModel'=>$searchModel,
+            'pjax'=>true,
+            'striped'=>true,
+            'hover'=>true,
+            'panel'=>['type'=>'primary', 'heading'=>'Listagem de Planilhas de Curso'],
+            'columns'=>[
             ['class' => 'yii\grid\SerialColumn'],
 
-            'placu_codplanilha',
-            'placu_codeixo',
-            'placu_codsegmento',
-            'placu_codplano',
-            'placu_codtipoa',
-            // 'placu_codnivel',
-            // 'placu_codsegtip',
-            // 'placu_cargahorariaplano',
-            // 'placu_cargahorariarealizada',
-            // 'placu_cargahorariaarealizar',
-            // 'placu_codano',
-            // 'placu_codfinalidade',
-            // 'placu_codcategoria',
-            // 'placu_codtipla',
-            // 'placu_quantidadeturmas',
-            // 'placu_quantidadealunos',
-            // 'placu_quantidadeparcelas',
-            // 'placu_valormensalidade',
-            // 'placu_codsituacao',
-            // 'placu_codcolaborador',
-            // 'placu_codunidade',
-            // 'placu_nomeunidade',
-            // 'placu_quantidadealunospsg',
-            // 'placu_tipocalculo',
-            // 'placu_arquivolistamaterial',
-            // 'placu_listamaterialdoaluno',
-            // 'placu_observacao:ntext',
-            // 'placu_taxaretorno',
-            // 'placu_cargahorariavivencia',
-            // 'placu_quantidadealunosisentos',
-            // 'planilhadecurso_placucol',
-            // 'placu_codprogramacao',
+            [
+                'attribute'=>'placu_codsegmento', 
+                'width'=>'310px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->segmento->seg_descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(Segmento::find()->orderBy('seg_descricao')->asArray()->all(), 'seg_codsegmento', 'seg_descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'Selecione o Segmento'],
+                'group'=>true,  // enable grouping
+                'groupHeader'=>function ($model, $key, $index, $widget) { // Closure method
+                    return [
+                        'mergeColumns'=>[[1, 3]], // columns to merge in summary
+                        'content'=>[             // content to show in each summary cell
+                            1=> $model->eixo->eix_descricao,
+                        ],
+                        // html attributes for group summary row
+                        'options'=>['class'=>'info','style'=>'font-weight:bold;']
+                    ];
+                }
+            ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'attribute'=>'placu_codtipoa', 
+                'width'=>'250px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->tipo->tip_descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(Tipo::find()->orderBy('tip_descricao')->asArray()->all(), 'tip_codtipoa', 'tip_descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'Selecione o Tipo de Ação'],
+                'group'=>true,  // enable grouping
+                'subGroupOf'=>1, // supplier column index is the parent group,
+            ],
+
+        'placu_codplanilha',
+
+            [
+              'attribute'=>'PlanoLabel',
+              'value'=> 'plano.plan_descricao',
+            ],
+
+        'placu_codtipla',
+        'placu_codprogramacao',
+        'placu_codsituacao',
+        
+            ['class' => 'yii\grid\ActionColumn','template' => '{view} {update}'],
         ],
     ]); ?>
-</div>
+<?php Pjax::end(); ?></div>

@@ -166,7 +166,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'placu_codplanilha' => 'Código',
+            'placu_codplanilha' => 'Cód. Planilha',
             'placu_codeixo' => 'Eixo',
             'placu_codsegmento' => 'Segmento',
             'placu_codplano' => 'Plano de Ação',

@@ -135,17 +135,20 @@ use yii\helpers\Html;
                                 'columns' => [
                                     [
                                         'attribute'=>'placu_cargahorariarealizada', 
-                                        'labelColOptions'=>['style'=>'width:0%'], 
+                                        'labelColOptions'=>['style'=>'width:0%'],
+                                        'valueColOptions'=>['style'=>'width:0%'],
                                         'displayOnly'=>true
                                     ],
                                     [
                                         'attribute'=>'placu_cargahorariaarealizar', 
-                                        'labelColOptions'=>['style'=>'width:0%'], 
+                                        'labelColOptions'=>['style'=>'width:0%'],
+                                        'valueColOptions'=>['style'=>'width:0%'],
                                         'displayOnly'=>true
                                     ],
                                     [
                                         'attribute'=>'placu_cargahorariavivencia', 
-                                        'labelColOptions'=>['style'=>'width:0%'], 
+                                        'labelColOptions'=>['style'=>'width:0%'],
+                                        'valueColOptions'=>['style'=>'width:0%'],
                                         'displayOnly'=>true
                                     ],
                                 ],
@@ -155,17 +158,20 @@ use yii\helpers\Html;
                                 'columns' => [
                                     [
                                         'attribute'=>'placu_quantidadealunos', 
-                                        'labelColOptions'=>['style'=>'width:0%'], 
+                                        'labelColOptions'=>['style'=>'width:0%'],
+                                        'valueColOptions'=>['style'=>'width:0%'],
                                         'displayOnly'=>true
                                     ],
                                     [
                                         'attribute'=>'placu_quantidadealunospsg', 
-                                        'labelColOptions'=>['style'=>'width:0%'], 
+                                        'labelColOptions'=>['style'=>'width:0%'],
+                                        'valueColOptions'=>['style'=>'width:0%'],
                                         'displayOnly'=>true
                                     ],
                                     [
                                         'attribute'=>'placu_quantidadealunosisentos', 
-                                        'labelColOptions'=>['style'=>'width:0%'], 
+                                        'labelColOptions'=>['style'=>'width:0%'],
+                                        'valueColOptions'=>['style'=>'width:0%'],
                                         'displayOnly'=>true
                                     ],
                                 ],
@@ -288,7 +294,7 @@ use yii\helpers\Html;
                   <div class="col-md-3"><strong>Rerserva Técnica(%):</strong><br> <?php echo number_format($model->placu_reservatecnica, 2, ',', '.') . '%'; ?></div>
 
                   <div class="col-md-3"><strong>Despesa Sede ADM 2016(%):</strong><br> <?php echo number_format($model->placu_despesadm, 2, ',', '.') . '%'; ?></div>
-          </div><br>
+          </div>
 
         <br>
 
