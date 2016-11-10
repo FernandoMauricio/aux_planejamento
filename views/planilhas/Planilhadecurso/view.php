@@ -55,6 +55,30 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]) ?>
                 </div>
 
+                <div class="tab-pane" id="tab2">
+                    <?= $this->render('view-orgcurricular', [
+                        'modelsPlaniUC' => $modelsPlaniUC,
+                    ]) ?>
+                </div>
+
+                <div class="tab-pane" id="tab3">
+                    <?= $this->render('view-materiaisdidaticos', [
+                        'modelsPlaniMaterial' => $modelsPlaniMaterial,
+                    ]) ?>
+                </div>
+            
+                <div class="tab-pane" id="tab4">
+                    <?= $this->render('view-materiaisconsumo', [
+                        'modelsPlaniConsumo' => $modelsPlaniConsumo,
+                    ]) ?>
+                </div>
+
+                <div class="tab-pane" id="tab5">
+                    <?= $this->render('view-equipamentos', [
+                        'modelsPlaniEquipamento' => $modelsPlaniEquipamento,
+                    ]) ?>
+                </div>
+
             </div>
 
           </div>

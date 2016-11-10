@@ -93,10 +93,18 @@ class PlanilhadecursoController extends Controller
     {
         $model = $this->findModel($id);
         $modelsPlaniDespDocente = $model->planiDespDocente;
+        $modelsPlaniUC          = $model->planiUC;
+        $modelsPlaniMaterial    = $model->planiMateriais;
+        $modelsPlaniConsumo     = $model->planiConsumo;
+        $modelsPlaniEquipamento = $model->planiEquipamento;
 
         return $this->render('view', [
             'model' => $this->findModel($id),
             'modelsPlaniDespDocente' => $modelsPlaniDespDocente,
+            'modelsPlaniUC'          => $modelsPlaniUC,
+            'modelsPlaniMaterial'    => $modelsPlaniMaterial,
+            'modelsPlaniConsumo'     => $modelsPlaniConsumo,
+            'modelsPlaniEquipamento' => $modelsPlaniEquipamento,
         ]);
     }
 
