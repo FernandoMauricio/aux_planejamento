@@ -237,9 +237,9 @@ class Planilhadecurso extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlacuCodano()
+    public function getPlanilhaAno()
     {
-        return $this->hasOne(AnoAn::className(), ['an_codano' => 'placu_codano']);
+        return $this->hasOne(Ano::className(), ['an_codano' => 'placu_codano']);
     }
 
     /**

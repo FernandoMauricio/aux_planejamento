@@ -64,7 +64,7 @@ use app\models\cadastros\Tipoprogramacao;
 
             <div class="row">
                 <div class="col-md-3">
-                    <?= $form->field($model, 'anoLabel')->textInput(['value'=> $model->tipoprogramacao->tipro_descricao,'readonly'=>true]) ?>
+                    <?= $form->field($model, 'anoLabel')->textInput(['value'=> $model->planilhaAno->an_ano,'readonly'=>true]) ?>
                 </div>
 
                 <div class="col-md-3">

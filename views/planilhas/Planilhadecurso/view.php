@@ -1,7 +1,13 @@
 <?php
 
+use kartik\detail\DetailView;
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use app\models\planos\NivelUnidadesCurriculares;
+use app\models\planos\Unidadescurriculares;
+use app\models\planos\PlanoMaterial;
+use app\models\planos\PlanoConsumo;
+use app\models\planos\PlanoAluno;
+use app\models\planos\PlanoEstruturafisica;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\planilhas\Planilhadecurso */
@@ -12,50 +18,59 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="planilhadecurso-view">
 
+<?php
+    //Pega as mensagens
+    foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+    echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+    }
+?>
+
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->placu_codplanilha], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->placu_codplanilha], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?= Html::a('Atualizar', ['update', 'id' => $model->placu_codplanilha], ['class' => 'btn btn-primary']) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'placu_codplanilha',
-            'placu_codeixo',
-            'placu_codsegmento',
-            'placu_codplano',
-            'placu_codtipoa',
-            'placu_codnivel',
-            'placu_cargahorariaplano',
-            'placu_cargahorariarealizada',
-            'placu_cargahorariaarealizar',
-            'placu_codano',
-            'placu_codcategoria',
-            'placu_codtipla',
-            'placu_quantidadeturmas',
-            'placu_quantidadealunos',
-            'placu_quantidadeparcelas',
-            'placu_valormensalidade',
-            'placu_codsituacao',
-            'placu_codcolaborador',
-            'placu_codunidade',
-            'placu_nomeunidade',
-            'placu_quantidadealunospsg',
-            'placu_tipocalculo',
-            'placu_observacao:ntext',
-            'placu_taxaretorno',
-            'placu_cargahorariavivencia',
-            'placu_quantidadealunosisentos',
-            'placu_codprogramacao',
-        ],
-    ]) ?>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> DETALHES DA PLANILHA DE CUSTO</h3>
+    </div>
+      <div class="panel-body">
 
+          <div id="rootwizard" class="tabbable tabs-left">
+           <ul>
+                <li><a href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Planilha de Curso</a></li>
+                <li><a href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Organização Curricular</a></li>
+                <li><a href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-education"></span> Materiais Didáticos </a></li>
+                <li><a href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-tags"></span> Material de Consumo </a></li>
+                <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Equipamentos / Utensílios</a></li>
+           </ul>
+
+            <div class="tab-content" style="margin-right: -15px; margin-left: -15px;"><br>
+
+                <div class="tab-pane" id="tab1">
+                    <?= $this->render('view-planilha', [
+                        'model' => $model,
+                        'modelsPlaniDespDocente' => $modelsPlaniDespDocente,
+                    ]) ?>
+                </div>
+
+            </div>
+
+          </div>
+      </div>
+  </div>
 </div>
+
+            <!--          JS etapas dos formularios            -->
+<?php
+$script = <<< JS
+$(document).ready(function() {
+    $('#rootwizard').bootstrapWizard({'tabClass': 'nav nav-tabs'});
+});
+
+JS;
+$this->registerJs($script);
+?>
+
+<?php  $this->registerJsFile(Yii::$app->request->baseUrl.'/js/jquery.bootstrap.wizard.js', ['depends' => [\yii\web\JqueryAsset::className()]]); ?>
