@@ -20,7 +20,7 @@ use app\models\cadastros\Situacaoplanilha;
 $this->title = 'Planilhas de Curso';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="planodeacao-index">
+<div class="planilhadecurso-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

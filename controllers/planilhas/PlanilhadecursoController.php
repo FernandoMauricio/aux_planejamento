@@ -76,6 +76,7 @@ class PlanilhadecursoController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'main-planilhadecurso';
         $searchModel = new PlanilhadecursoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -132,18 +133,25 @@ class PlanilhadecursoController extends Controller
         $model->placu_pessoajuridica = 0;
         $model->placu_data           = date('Y-m-d');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
             //Localiza as Despesas Indiretas da Unidade
             $ListagemMarkups = "SELECT * FROM  `markup_mark` WHERE `mark_codunidade` = '".$model->placu_codunidade."'";
 
                 $markup = Markup::findBySql($ListagemMarkups)->one();
 
+                if(isset($markup->mark_codunidade)){ // Irá Verificar se existe configuração de Markup para a Unidade
                     //Inclui Despesas Indiretas da Unidade na Planilha que está sendo criada
                     $model->placu_custosindiretos = $markup->mark_custoindireto;
                     $model->placu_ipca            = $markup->mark_ipca;
                     $model->placu_reservatecnica  = $markup->mark_reservatecnica;
                     $model->placu_despesadm       = $markup->mark_despesasede;
+                }else{
+                    Yii::$app->session->setFlash('danger', '<strong>ERRO! </strong> Unidade de ensino sem Markup configurado. Você não conseguirá criar Planilhas. Por favor, informe ao GPO!</strong>');
+                    return $this->render('create', [
+                    'model' => $model,
+                    ]);
+                }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             //Localiza as Despesas com Docentes
             $ListagemDespDocente = "SELECT * FROM `despesas_docente` WHERE doce_status = 1";
@@ -318,6 +326,8 @@ class PlanilhadecursoController extends Controller
                 }
 
             return $this->redirect(['update', 'id' => $model->placu_codplanilha]);
+
+
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -334,6 +344,7 @@ class PlanilhadecursoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->scenario = 'update'; //Validações obrigatórias na atualização
         $modelsPlaniUC          = $model->planiUC;
         $modelsPlaniMaterial    = $model->planiMateriais;
         $modelsPlaniConsumo     = $model->planiConsumo;

@@ -263,7 +263,6 @@ class MaterialCopiasController extends Controller
 
             return $this->redirect(['view', 'id' => $model->matc_id]);
         } else {
-            print_r($model->getErrors());
 
             return $this->render('create', [
                 'model'       => $model,

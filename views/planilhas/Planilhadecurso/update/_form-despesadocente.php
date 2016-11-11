@@ -11,8 +11,6 @@ use yii\helpers\Url;
   <div class="panel-heading">
     <h5 class="panel-title"> Despesas com Docente</h5>
   </div>
-    <div class="panel-body">
-
                 <table class="table"> 
                     <thead> 
                         <tr>    
@@ -27,7 +25,7 @@ use yii\helpers\Url;
                     </thead> 
                         <?php foreach ($modelsPlaniDespDocente as $i => $modelPlaniDespDocente): ?>
                     <tbody> 
-                        <tr class="warning"> 
+                        <tr class="default"> 
 
                                             <td style="width: 300px;"><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_descricao")->textInput(['readonly'=> true]) ?></td>
                                             
@@ -64,5 +62,4 @@ use yii\helpers\Url;
                         <?php endforeach; ?>
             </tbody> 
         </table>
-    </div>
 </div>

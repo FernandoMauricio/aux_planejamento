@@ -140,7 +140,6 @@ class MarkupController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->mark_id]);
         } else {
-            //var_dump($model->getErrors());
             return $this->render('update', [
                 'model' => $model,
             ]);

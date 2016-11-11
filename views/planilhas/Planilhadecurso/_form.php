@@ -78,7 +78,6 @@ use app\models\cadastros\Tipoprogramacao;
 
                                                    var $divPanelBody =  $(select).parent().parent().parent().parent().parent();
 
-                                                   console.log(data);
                                                    var $inputTipoacao = $divPanelBody.find("input:eq(1)");
                                                    var $inputNivel = $divPanelBody.find("input:eq(2)");
                                                    var $inputCargaHoraria = $divPanelBody.find("input:eq(3)");
