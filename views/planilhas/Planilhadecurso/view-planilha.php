@@ -61,6 +61,14 @@ use yii\helpers\Html;
                                         'displayOnly'=>true
                                     ],
 
+                                    [
+                                        'attribute'=>'placu_codsituacao', 
+                                        'format'=>'raw', 
+                                        'value'=>$model->situacaoPlani->sipla_descricao,
+                                        'valueColOptions'=>['style'=>'width:0%'], 
+                                        'displayOnly'=>true
+                                    ],
+
                                 ],
                             ],
 

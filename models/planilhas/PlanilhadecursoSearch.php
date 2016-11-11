@@ -63,6 +63,8 @@ class PlanilhadecursoSearch extends Planilhadecurso
             return $dataProvider;
         }
 
+        $session = Yii::$app->session;
+
         // grid filtering conditions
         $query->andFilterWhere([
             'placu_codplanilha' => $this->placu_codplanilha,
@@ -83,16 +85,17 @@ class PlanilhadecursoSearch extends Planilhadecurso
             'placu_valormensalidade' => $this->placu_valormensalidade,
             'placu_codsituacao' => $this->placu_codsituacao,
             'placu_codcolaborador' => $this->placu_codcolaborador,
-            'placu_codunidade' => $this->placu_codunidade,
             'placu_quantidadealunospsg' => $this->placu_quantidadealunospsg,
             'placu_tipocalculo' => $this->placu_tipocalculo,
             'placu_taxaretorno' => $this->placu_taxaretorno,
             'placu_cargahorariavivencia' => $this->placu_cargahorariavivencia,
             'placu_quantidadealunosisentos' => $this->placu_quantidadealunosisentos,
             'placu_codprogramacao' => $this->placu_codprogramacao,
+            'placu_codunidade' => $session['sess_codunidade'],
         ]);
 
 $query->joinWith('plano');
+
 
         $query->andFilterWhere(['like', 'placu_nomeunidade', $this->placu_nomeunidade])
             ->andFilterWhere(['like', 'placu_observacao', $this->placu_observacao])

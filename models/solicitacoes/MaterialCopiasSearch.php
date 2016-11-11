@@ -57,6 +57,9 @@ class MaterialCopiasSearch extends MaterialCopias
             return $dataProvider;
         }
 
+        $session = Yii::$app->session;
+
+
         // grid filtering conditions
         $query->andFilterWhere([
             'matc_id' => $this->matc_id,
@@ -64,12 +67,11 @@ class MaterialCopiasSearch extends MaterialCopias
             'situacao_id' => $this->situacao_id,
             'matc_totalValorMono' => $this->matc_totalValorMono,
             'matc_totalValorColor' => $this->matc_totalValorColor,
+            'matc_unidade' => $session['sess_codunidade'],
         ]);
 
-        $session = Yii::$app->session;
 
-        $query->andFilterWhere(['matc_unidade' => $session['sess_codunidade']])
-            ->andFilterWhere(['like', 'matc_curso', $this->matc_curso])
+        $query->andFilterWhere(['like', 'matc_curso', $this->matc_curso])
             ->andFilterWhere(['like', 'matc_centrocusto', $this->matc_centrocusto])
             ->andFilterWhere(['like', 'matc_solicitante', $this->matc_solicitante]);
 

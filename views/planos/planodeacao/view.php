@@ -36,7 +36,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
            <?= Html::a('Atualizar', ['update', 'id' => $id], ['class' => 'btn btn-primary']) ?>
 
             <?php
-
                   echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir','id' => $id], [
                       'class'=>'btn btn-warning', 
                       'target'=>'_blank', 

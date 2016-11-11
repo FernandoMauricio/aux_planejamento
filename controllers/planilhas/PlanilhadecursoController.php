@@ -46,7 +46,8 @@ class PlanilhadecursoController extends Controller
     }
 
     //Localiza os Planos qu estão vinculados ao eixo e segmento selecionado pelo usuário
-    public function actionPlanos() {
+    public function actionPlanos() 
+    {
             $out = [];
             if (isset($_POST['depdrop_parents'])) {
             $parents = $_POST['depdrop_parents'];
@@ -63,12 +64,29 @@ class PlanilhadecursoController extends Controller
     }
 
     //Localiza os dados dos Planos
-    public function actionGetPlanoDetalhes($planoId){
+    public function actionGetPlanoDetalhes($planoId)
+    {
 
         $getPlanoDetalhes = Planodeacao::findOne($planoId);
         echo Json::encode($getPlanoDetalhes);
     }
 
+    //Envia todo o Planejamento para o GPO
+    public function actionEnviarPlanejamento() 
+    {
+        $session = Yii::$app->session;
+
+        //Realiza a Contagem das Planilhas da unidade
+        $countPlanilhas = 0;
+        $countPlanilhas = Planilhadecurso::find()->where(['placu_codtipla' => 1, 'placu_codsituacao' => 1, 'placu_codunidade' => $session['sess_codunidade']])->count();  
+
+        //Enviar Planilhas para o GPO
+        Yii::$app->db_apl->createCommand('UPDATE `planilhadecurso_placu` SET `placu_codsituacao` = 3 WHERE `placu_codtipla` = 1 AND `placu_codsituacao` = 1 AND `placu_codunidade` = "'.$session['sess_codunidade'].'" ')->execute();
+
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Total de '.$countPlanilhas.' planilhas de "'.$session['sess_unidade'].'" enviadas para análise do GPO!</strong>');
+
+        return $this->redirect(['index']);
+    }
 
     /**
      * Lists all Planilhadecurso models.
@@ -327,7 +345,6 @@ class PlanilhadecursoController extends Controller
 
             return $this->redirect(['update', 'id' => $model->placu_codplanilha]);
 
-
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -487,7 +504,7 @@ class PlanilhadecursoController extends Controller
                             }
                         }
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Planilha '.$id.' Atualizada !</strong>');
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Planilha '.$id.' Atualizada e aguardando envio do Planejamento!</strong>');
 
             return $this->redirect(['view', 'id' => $model->placu_codplanilha]);
         } else {
@@ -510,7 +527,16 @@ class PlanilhadecursoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        //Exclusão de todas as tabelas relacionadas com a planilha
+        PlanilhaDespesaDocente::deleteAll('planilhadecurso_cod = "'.$id.'"');
+        PlanilhaUnidadesCurriculares::deleteAll('planilhadecurso_cod = "'.$id.'"');
+        PlanilhaMaterial::deleteAll('planilhadecurso_cod = "'.$id.'"');
+        PlanilhaConsumo::deleteAll('planilhadecurso_cod = "'.$id.'"');
+        PlanilhaEquipamento::deleteAll('planilhadecurso_cod = "'.$id.'"');
+        $model->delete(); //Exclui a planilha
+
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Planilha de Curso de código: ' . '<strong>' .$id. '</strong>' . ' excluída!');
 
         return $this->redirect(['index']);
     }

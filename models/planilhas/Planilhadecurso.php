@@ -195,7 +195,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             'placu_quantidadealunosisentos' => 'Quantidade Alunos Isentos por Turma',
             'placu_quantidadeparcelas' => 'Quantidadeparcelas',
             'placu_valormensalidade' => 'Valormensalidade',
-            'placu_codsituacao' => 'Situação',
+            'placu_codsituacao' => 'Situação da Planilha',
             'placu_codcolaborador' => 'Colaborador',
             'placu_codunidade' => 'Cód. Unidade',
             'placu_nomeunidade' => 'Unidade',
@@ -253,7 +253,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             'tipoPlanilhaLabel' => 'Tipo de Planilha',
             'tipoProgramacaoLabel' => 'Tipo de Programação',
             'nomeUsuario' => 'Última modificação',
-            'situacaoLabel' => 'Situação',
+            'situacaoLabel' => 'Situação da Planilha',
 
         ];
     }
@@ -364,14 +364,6 @@ class Planilhadecurso extends \yii\db\ActiveRecord
     public function getTipo()
     {
         return $this->hasOne(Tipo::className(), ['tip_codtipoa' => 'placu_codtipoa']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPlanilhadespesaPlades()
-    {
-        return $this->hasMany(PlanilhadespesaPlades::className(), ['plades_codplanilha' => 'placu_codplanilha']);
     }
 
     /**

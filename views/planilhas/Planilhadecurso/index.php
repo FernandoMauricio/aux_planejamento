@@ -22,10 +22,21 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="planilhadecurso-index">
 
+<?php
+    //Pega as mensagens
+    foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+    echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+    }
+?>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Nova Planilha de Curso', ['create'], ['class' => 'btn btn-success']) ?>
+
+        <?= Html::a('Enviar Planejamento', ['enviar-planejamento'], ['class' => 'btn btn-warning pull-right', 
+                'data' => [
+                'confirm' => 'Você tem certeza que deseja enviar o Planejamento?',
+                'method' => 'post']]) ?>
     </p>
 
 <?php Pjax::begin(); ?>    
@@ -130,7 +141,29 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'Situação'],
             ],
         
-            ['class' => 'yii\grid\ActionColumn','template' => '{view} {update}'],
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update} {delete}',
+                'options' => ['width' => '5%'],
+                'buttons' => [
+
+                'update' => function ($url, $model) {
+                    return $model->placu_codsituacao == 1 ?  Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                'title' => Yii::t('app', 'Editar Planilha'),
+                    ]): '';
+                },
+
+                'delete' => function ($url, $model) {
+                    return $model->placu_codsituacao == 1 ?  Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                'title' => Yii::t('app', 'Deletar Planilha'),
+                                'data' => [
+                                                'confirm' => 'Você tem CERTEZA que deseja EXCLUIR essa Planilha?',
+                                                'method' => 'post',
+                                        ],
+                    ]): '';
+                },
+                ],
+            ],
+
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

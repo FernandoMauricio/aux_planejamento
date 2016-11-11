@@ -24,7 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
     echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     }
 ?>
-
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>

@@ -71,8 +71,8 @@ class PlanilhaDespesaDocente extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlanilhadecursoCod()
+    public function getPlanilhadecurso()
     {
-        return $this->hasOne(PlanilhadecursoPlacu::className(), ['placu_codplanilha' => 'planilhadecurso_cod']);
+        return $this->hasOne(Planilhadecurso::className(), ['placu_codplanilha' => 'planilhadecurso_cod']);
     }
 }

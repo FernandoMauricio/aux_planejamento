@@ -45,12 +45,16 @@ use app\models\cadastros\Tipoprogramacao;
                     </div>
 
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <?= $form->field($model, 'PlanoLabel')->textInput(['value'=> $model->plano->plan_descricao,'readonly'=>true]) ?>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <?= $form->field($model, 'placu_cargahorariaplano')->textInput(['readonly'=>true]) ?>
+                        </div>
+
+                        <div class="col-md-2">
+                            <?= $form->field($model, 'situacaoLabel')->textInput(['value'=> $model->situacaoPlani->sipla_descricao,'readonly'=>true]) ?>
                         </div>
                     </div>
         </div>
@@ -64,7 +68,7 @@ use app\models\cadastros\Tipoprogramacao;
         <div class="panel-body">
 
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <?= $form->field($model, 'anoLabel')->textInput(['value'=> $model->planilhaAno->an_ano,'readonly'=>true]) ?>
                 </div>
 
@@ -76,11 +80,7 @@ use app\models\cadastros\Tipoprogramacao;
                     <?= $form->field($model, 'tipoProgramacaoLabel')->textInput(['value'=> $model->tipoprogramacao->tipro_descricao,'readonly'=>true]) ?>
                 </div>
 
-                <div class="col-md-2">
-                    <?= $form->field($model, 'situacaoLabel')->textInput(['value'=> $model->situacaoPlani->sipla_descricao,'readonly'=>true]) ?>
-                </div>
-
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <?= $form->field($model, 'placu_quantidadeturmas')->textInput() ?>
                 </div>
 
