@@ -182,7 +182,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             'placu_codplano' => 'Plano de Ação',
             'placu_codtipoa' => 'Tipo de Ação',
             'placu_codnivel' => 'Nível',
-            'placu_cargahorariaplano' => 'Carga Horária do Plano',
+            'placu_cargahorariaplano' => 'CH do Plano',
             'placu_cargahorariarealizada' => 'Carga Horária Realizada',
             'placu_cargahorariaarealizar' => 'Carga Horária a Realizar no SENAC',
             'placu_cargahorariavivencia' => 'Carga Horária na Vivência(Aprend)',

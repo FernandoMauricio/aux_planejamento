@@ -60,7 +60,7 @@ use app\models\cadastros\Tipoprogramacao;
                         ]);
                     ?>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <?php 
                         // Child # 2
                         echo $form->field($model, 'placu_codplano')->widget(DepDrop::classname(), [
@@ -78,9 +78,9 @@ use app\models\cadastros\Tipoprogramacao;
 
                                                    var $divPanelBody =  $(select).parent().parent().parent().parent().parent();
 
-                                                   var $inputTipoacao = $divPanelBody.find("input:eq(1)");
-                                                   var $inputNivel = $divPanelBody.find("input:eq(2)");
-                                                   var $inputCargaHoraria = $divPanelBody.find("input:eq(3)");
+                                                   var $inputCargaHoraria = $divPanelBody.find("input:eq(0)");
+                                                   var $inputTipoacao = $divPanelBody.find("input:eq(2)");
+                                                   var $inputNivel = $divPanelBody.find("input:eq(3)");
 
                                                    $inputTipoacao.val(data.plan_codtipoa);
                                                    $inputNivel.val(data.plan_codnivel);
@@ -91,6 +91,11 @@ use app\models\cadastros\Tipoprogramacao;
                                     ]]);
                     ?>
                 </div>
+
+                <div class="col-md-2">
+                    <?= $form->field($model, 'placu_cargahorariaplano')->textInput(['readonly' => true]) ?>
+                </div>
+
             </div>
         </div>
 
@@ -151,12 +156,9 @@ use app\models\cadastros\Tipoprogramacao;
 
             </div>
 
-        <?= $form->field($model, 'placu_codtipoa')->hiddenInput()->label(false); ?>
+        <?= $form->field($model, 'placu_codtipoa')->label(false); ?>
 
-        <?= $form->field($model, 'placu_codnivel')->hiddenInput()->label(false); ?>
-
-        <?= $form->field($model, 'placu_cargahorariaplano')->hiddenInput()->label(false); ?>
-
+        <?= $form->field($model, 'placu_codnivel')->label(false); ?>
 
             <div class="row">
                 <div class="col-md-4">
