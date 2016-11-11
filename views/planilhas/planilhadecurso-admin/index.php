@@ -17,13 +17,10 @@ use app\models\cadastros\Situacaoplanilha;
 /* @var $searchModel app\models\planos\PlanodeacaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$session = Yii::$app->session;
-$unidade = $session['sess_unidade'];
-
 $this->title = 'Planilhas de Curso ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="planilhadecurso-index">
+<div class="planilhadecurso-admin-index">
 
 <?php
     //Pega as mensagens
@@ -31,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     }
 ?>
-    <h1><?= Html::encode($this->title) . '<small>' .$unidade. '</small>' ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Nova Planilha de Curso', ['create'], ['class' => 'btn btn-success']) ?>
@@ -95,7 +92,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'subGroupOf'=>1, // supplier column index is the parent group,
             ],
 
-        'placu_codplanilha',
+            [
+              'attribute'=>'placu_nomeunidade',
+              'width'=>'10%',
+            ],
+
+            'placu_codplanilha',
 
             [
               'attribute'=>'PlanoLabel',
@@ -144,47 +146,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'Situação'],
             ],
         
-            ['class' => 'yii\grid\ActionColumn',
-                'template' => '{view} {update} {delete}',
-                'options' => ['width' => '5%'],
-                'buttons' => [
-
-                //Situação 1 = Em Elaboração
-                'update' => function ($url, $model) {
-                    return $model->placu_codsituacao == 1 ?  Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
-                                'title' => Yii::t('app', 'Editar Planilha'),
-                    ]): '';
-                },
-
-                'delete' => function ($url, $model) {
-                    return $model->placu_codsituacao == 1 ?  Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                                'title' => Yii::t('app', 'Deletar Planilha'),
-                                'data' => [
-                                                'confirm' => 'Você tem CERTEZA que deseja EXCLUIR essa Planilha?',
-                                                'method' => 'post',
-                                        ],
-                    ]): '';
-                },
-
-                //Situação 7 = Aguardando Envio Planejamento
-                'update' => function ($url, $model) {
-                    return $model->placu_codsituacao == 7 ?  Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
-                                'title' => Yii::t('app', 'Editar Planilha'),
-                    ]): '';
-                },
-
-                'delete' => function ($url, $model) {
-                    return $model->placu_codsituacao == 7 ?  Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                                'title' => Yii::t('app', 'Deletar Planilha'),
-                                'data' => [
-                                                'confirm' => 'Você tem CERTEZA que deseja EXCLUIR essa Planilha?',
-                                                'method' => 'post',
-                                        ],
-                    ]): '';
-                },
-
-                ],
-            ],
+            ['class' => 'yii\grid\ActionColumn','template' => '{view}'],
 
         ],
     ]); ?>

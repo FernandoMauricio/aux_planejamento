@@ -76,14 +76,18 @@ class PlanilhadecursoController extends Controller
     {
         $session = Yii::$app->session;
 
-        //Realiza a Contagem das Planilhas da unidade
+        //Realiza a Contagem das Planilhas da unidade que estão definidas como PRODUÇÃO e AGUARDANDO ENVIO
         $countPlanilhas = 0;
-        $countPlanilhas = Planilhadecurso::find()->where(['placu_codtipla' => 1, 'placu_codsituacao' => 1, 'placu_codunidade' => $session['sess_codunidade']])->count();  
+        $countPlanilhas = Planilhadecurso::find()->where(['placu_codtipla' => 1, 'placu_codsituacao' => 7, 'placu_codunidade' => $session['sess_codunidade']])->count();  
 
-        //Enviar Planilhas para o GPO
-        Yii::$app->db_apl->createCommand('UPDATE `planilhadecurso_placu` SET `placu_codsituacao` = 3 WHERE `placu_codtipla` = 1 AND `placu_codsituacao` = 1 AND `placu_codunidade` = "'.$session['sess_codunidade'].'" ')->execute();
+        if($countPlanilhas != 0){
+        //Envia as Planilhas para o GPO da unidade que estão definidas como PRODUÇÃO e AGUARDANDO ENVIO
+        Yii::$app->db_apl->createCommand('UPDATE `planilhadecurso_placu` SET `placu_codsituacao` = 3 WHERE `placu_codtipla` = 1 AND `placu_codsituacao` = 7 AND `placu_codunidade` = "'.$session['sess_codunidade'].'" ')->execute();
 
         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Total de '.$countPlanilhas.' planilhas de "'.$session['sess_unidade'].'" enviadas para análise do GPO!</strong>');
+        }else{
+        Yii::$app->session->setFlash('warning', '<strong>AVISO! </strong> Não existem planilhas com a situação: "Aguardando Envio Planejamento" para serem enviadas à GPO!</strong>');
+        }
 
         return $this->redirect(['index']);
     }
@@ -329,16 +333,15 @@ class PlanilhadecursoController extends Controller
                     $query = (new \yii\db\Query())->from('db_apl.planilhaconsumo_planico')->where(['planilhadecurso_cod' => $model->placu_codplanilha]);
                     $totalValorConsumo = $query->sum('planico_valor*planico_quantidade');
 
-
                     //Somatória Quantidade de Alunos Pagantes, Isentos e PSG 
                     $valorTotalQntAlunos = $model->placu_quantidadealunos + $model->placu_quantidadealunosisentos + $model->placu_quantidadealunospsg;
-                    
-                    $model->placu_custosmateriais  = $totalValorMaterialLivro * $valorTotalQntAlunos; //save custo material didático - LIVROS
-                    $model->placu_PJApostila       = $totalValorMaterialApostila * $valorTotalQntAlunos; //save custo material didático - APOSTILAS
-                    $model->placu_custosconsumo    = $totalValorConsumo; //save custo material consumo
+                    // + 0 -> Caso não tenha nenhum item relacionado será adicionado por default o 0
+                    $model->placu_custosmateriais  = ($totalValorMaterialLivro * $valorTotalQntAlunos) + 0; //save custo material didático - LIVROS
+                    $model->placu_PJApostila       = ($totalValorMaterialApostila * $valorTotalQntAlunos) + 0; //save custo material didático - APOSTILAS
+                    $model->placu_custosconsumo    = $totalValorConsumo + 0; //save custo material consumo
 
-                    $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro; //save hidden custo para multiplicação javascript
-                    $model->placu_hiddenpjapostila       = $totalValorMaterialApostila; //save hidden custo para multiplicação javascript
+                    $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro + 0; //save hidden custo para multiplicação javascript
+                    $model->placu_hiddenpjapostila       = $totalValorMaterialApostila + 0; //save hidden custo para multiplicação javascript
                     
                     $model->save();
                 }
@@ -493,10 +496,11 @@ class PlanilhadecursoController extends Controller
                                     $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro; //save hidden custo para multiplicação javascript
                                     $model->placu_hiddenpjapostila       = $totalValorMaterialApostila; //save hidden custo para multiplicação javascript
                                     $model->placu_data                   = date('Y-m-d');
+                                    $model->placu_codsituacao            = 7; //Situação Padrão: Aguardando Envio Planejamento
                                     $model->save();
                                 }
                 
-                                    Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Planilha '.$id.' Atualizada !</strong>');
+                                    Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Planilha '.$id.' Atualizada e Aguardando o Envio do Planejamento!</strong>');
                                     return $this->redirect(['view', 'id' => $model->placu_codplanilha]);
                                 }
                             } catch (Exception $e) {
@@ -504,7 +508,7 @@ class PlanilhadecursoController extends Controller
                             }
                         }
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Planilha '.$id.' Atualizada e aguardando envio do Planejamento!</strong>');
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Planilha '.$id.' Atualizada e Aguardando o Envio do Planejamento!</strong>');
 
             return $this->redirect(['view', 'id' => $model->placu_codplanilha]);
         } else {

@@ -99,8 +99,11 @@ use kartik\nav\NavX;
                                 ['label' => 'Markup', 'url' => ['/despesas/markup/batch-update']],
 
                             ]],
+                                     '<li class="divider"></li>',
+                            ['label' => 'Administração', 'items' => [
+                                ['label' => 'Planilhas de Curso', 'url' => ['/planilhas/planilhadecurso-admin/index']],
 
-
+                            ]],
                      ],
             ],
 

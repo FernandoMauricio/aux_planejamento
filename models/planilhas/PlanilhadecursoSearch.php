@@ -50,6 +50,8 @@ class PlanilhadecursoSearch extends Planilhadecurso
             'query' => $query,
         ]);
 
+        $query->joinWith('plano');
+
         $dataProvider->sort->attributes['PlanoLabel'] = [
         'asc' => ['planodeacao_plan.plan_descricao' => SORT_ASC],
         'desc' => ['planodeacao_plan.plan_descricao' => SORT_DESC],
@@ -93,9 +95,6 @@ class PlanilhadecursoSearch extends Planilhadecurso
             'placu_codprogramacao' => $this->placu_codprogramacao,
             'placu_codunidade' => $session['sess_codunidade'],
         ]);
-
-$query->joinWith('plano');
-
 
         $query->andFilterWhere(['like', 'placu_nomeunidade', $this->placu_nomeunidade])
             ->andFilterWhere(['like', 'placu_observacao', $this->placu_observacao])
