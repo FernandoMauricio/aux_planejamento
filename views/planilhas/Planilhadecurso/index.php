@@ -5,6 +5,9 @@ use kartik\grid\GridView;
 use kartik\editable\Editable;
 use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
+
 
 use app\models\cadastros\Eixo;
 use app\models\cadastros\Segmento;
@@ -36,11 +39,20 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Nova Planilha de Curso', ['create'], ['class' => 'btn btn-success']) ?>
 
-        <?= Html::a('Enviar Planejamento', ['enviar-planejamento'], ['class' => 'btn btn-warning pull-right', 
-                'data' => [
-                'confirm' => 'Você tem certeza que deseja enviar o Planejamento?',
-                'method' => 'post']]) ?>
+        <?= Html::button('Enviar Planejamento', ['value'=> Url::to('index.php?r=planilhas/planilhadecurso/enviar-planejamento'), 'class' => 'btn btn-warning pull-right', 'id'=>'modalButton']) ?>
     </p>
+
+    <?php
+        Modal::begin([
+            'header' => '<h4>Defina o tipo a ser enviado:</h4>',
+            'id' => 'modal',
+            'size' => 'modal-lg',
+            ]);
+
+        echo "<div id='modalContent'></div>";
+
+        Modal::end();
+   ?>
 
 <?php Pjax::begin(); ?>    
 

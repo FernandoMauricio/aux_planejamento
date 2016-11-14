@@ -4,6 +4,7 @@ namespace app\controllers\planilhas;
 
 use Yii;
 use app\models\MultipleModel as Model;
+use app\models\base\Unidade;
 use app\models\despesas\Markup;
 use app\models\despesas\Despesasdocente;
 use app\models\planos\Planodeacao;
@@ -74,6 +75,12 @@ class PlanilhadecursoController extends Controller
     //Envia todo o Planejamento para o GPO
     public function actionEnviarPlanejamento() 
     {
+        return $this->renderAjax('enviar-planejamento', [
+        ]);
+    }
+
+    public function actionEnviarProgramacaoAnual()
+    {
         $session = Yii::$app->session;
 
         //Realiza a Contagem das Planilhas da unidade que estão definidas como PRODUÇÃO e AGUARDANDO ENVIO
@@ -81,8 +88,8 @@ class PlanilhadecursoController extends Controller
         $countPlanilhas = Planilhadecurso::find()->where(['placu_codtipla' => 1, 'placu_codsituacao' => 7, 'placu_codunidade' => $session['sess_codunidade']])->count();  
 
         if($countPlanilhas != 0){
-        //Envia as Planilhas para o GPO da unidade que estão definidas como PRODUÇÃO e AGUARDANDO ENVIO
-        Yii::$app->db_apl->createCommand('UPDATE `planilhadecurso_placu` SET `placu_codsituacao` = 3 WHERE `placu_codtipla` = 1 AND `placu_codsituacao` = 7 AND `placu_codunidade` = "'.$session['sess_codunidade'].'" ')->execute();
+        //Envia as Planilhas para o GPO da unidade que estão definidas como PRODUÇÃO, PROGRAMAÇÃO ANUAL e AGUARDANDO ENVIO
+        Yii::$app->db_apl->createCommand('UPDATE `planilhadecurso_placu` SET `placu_codsituacao` = 3 WHERE `placu_codtipla` = 1 AND `placu_codprogramacao` = 1 AND `placu_codsituacao` = 7 AND `placu_codunidade` = "'.$session['sess_codunidade'].'" ')->execute();
 
         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Total de '.$countPlanilhas.' planilhas de "'.$session['sess_unidade'].'" enviadas para análise do GPO!</strong>');
         }else{
@@ -90,8 +97,29 @@ class PlanilhadecursoController extends Controller
         }
 
         return $this->redirect(['index']);
+
     }
 
+    public function actionEnviarProgramacaoRetificativo()
+    {
+        $session = Yii::$app->session;
+
+        //Realiza a Contagem das Planilhas da unidade que estão definidas como PRODUÇÃO e AGUARDANDO ENVIO
+        $countPlanilhas = 0;
+        $countPlanilhas = Planilhadecurso::find()->where(['placu_codtipla' => 1, 'placu_codsituacao' => 7, 'placu_codunidade' => $session['sess_codunidade']])->count();  
+
+        if($countPlanilhas != 0){
+        //Envia as Planilhas para o GPO da unidade que estão definidas como PRODUÇÃO, RETIFICATIVO e AGUARDANDO ENVIO
+        Yii::$app->db_apl->createCommand('UPDATE `planilhadecurso_placu` SET `placu_codsituacao` = 3 WHERE `placu_codtipla` = 1 AND `placu_codprogramacao` = 2 AND `placu_codsituacao` = 7 AND `placu_codunidade` = "'.$session['sess_codunidade'].'" ')->execute();
+
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Total de '.$countPlanilhas.' planilhas de "'.$session['sess_unidade'].'" enviadas para análise do GPO!</strong>');
+        }else{
+        Yii::$app->session->setFlash('warning', '<strong>AVISO! </strong> Não existem planilhas com a situação: "Aguardando Envio Planejamento" para serem enviadas à GPO!</strong>');
+        }
+
+        return $this->redirect(['index']);
+        
+    }
     /**
      * Lists all Planilhadecurso models.
      * @return mixed

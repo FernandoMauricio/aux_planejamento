@@ -8,6 +8,7 @@ use yii\helpers\ArrayHelper;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
 
+use app\models\base\Unidade;
 use app\models\cadastros\Eixo;
 use app\models\cadastros\Segmento;
 use app\models\cadastros\Tipo;
@@ -32,14 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Nova Planilha de Curso', ['create'], ['class' => 'btn btn-success']) ?>
-
-        <?= Html::a('Enviar Planejamento', ['enviar-planejamento'], ['class' => 'btn btn-warning pull-right', 
-                'data' => [
-                'confirm' => 'Você tem certeza que deseja enviar o Planejamento?',
-                'method' => 'post']]) ?>
-    </p>
 
 <?php Pjax::begin(); ?>    
 
@@ -95,8 +88,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             [
-              'attribute'=>'placu_nomeunidade',
-              'width'=>'10%',
+                'attribute'=>'placu_nomeunidade', 
+                'width'=>'350px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->unidade->uni_nomeabreviado;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(Unidade::find()->orderBy('uni_nomeabreviado')->asArray()->all(), 'uni_nomeabreviado', 'uni_nomeabreviado'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'Selecione a Unidade'],
             ],
 
             'placu_codplanilha',
