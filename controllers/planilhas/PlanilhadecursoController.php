@@ -497,6 +497,24 @@ class PlanilhadecursoController extends Controller
                                     $model->placu_hiddenpjapostila       = $totalValorMaterialApostila; //save hidden custo para multiplicação javascript
                                     $model->placu_data                   = date('Y-m-d');
                                     $model->placu_codsituacao            = 7; //Situação Padrão: Aguardando Envio Planejamento
+
+                                    //Totalização das Despesas Diretas (Total de Custo Direto)
+                                    $model->placu_totalcustodireto = $model->placu_totalsalarioencargo + $model->placu_diarias + $model->placu_passagens + $model->placu_pessoafisica + $model->placu_pessoajuridica + $model->placu_PJApostila + $model->placu_custosmateriais + $model->placu_custosconsumo;
+
+                                    //Despesas Indiretas
+                                    $model->placu_totalincidencias     = $model->placu_custosindiretos + $model->placu_ipca + $model->placu_reservatecnica + $model->placu_despesadm;
+                                    $model->placu_totalcustoindireto   = ($model->placu_totalcustodireto * $model->placu_totalincidencias) / 100;
+                                    $model->placu_despesatotal         = $model->placu_totalcustoindireto + $model->placu_totalcustodireto;
+                                    $model->placu_markdivisor          = (100 -  $model->placu_totalincidencias );
+                                    $model->placu_markmultiplicador    = ((100 / $model->placu_markdivisor) - 1) * 100; // Valores em %
+                                    $model->placu_vendaturma           = ($model->placu_totalcustodireto / $model->placu_markdivisor) * 100; // Valores em %
+                                    $model->placu_vendaaluno           = ($model->placu_vendaturma / $valorTotalQntAlunos);
+                                    $model->placu_horaaulaaluno        = $model->placu_vendaturma / $model->placu_cargahorariaplano / $valorTotalQntAlunos; //Venda da Turma / CH TOTAL / QNT Alunos
+                                    $model->placu_retorno              = $model->placu_vendaturma - $model->placu_despesatotal; // Preço de venda da turma - Despesa Total;
+                                    $model->placu_porcentretorno       = ($model->placu_retorno / $model->placu_vendaturma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
+                                    $model->placu_retornoprecosugerido = ($model->placu_precosugerido * $valorTotalQntAlunos) - $model->placu_despesatotal; // Preço Sugerido x Qnt de Alunos - Despesa  Total;
+                                    $model->placu_minimoaluno = ceil($model->placu_despesatotal / $model->placu_precosugerido); // Despesa Total / Preço Sugerido;
+                                    $model->placu_valorparcelas =  $model->placu_precosugerido / $model->placu_parcelas;
                                     $model->save();
                                 }
                 

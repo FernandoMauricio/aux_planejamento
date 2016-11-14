@@ -64,7 +64,7 @@ use yii\helpers\Html;
                                     [
                                         'attribute'=>'placu_codsituacao', 
                                         'format'=>'raw', 
-                                        'value'=>$model->situacaoPlani->sipla_descricao,
+                                        'value'=>'<span class="label label-success"> '.$model->situacaoPlani->sipla_descricao .'</span>',
                                         'valueColOptions'=>['style'=>'width:0%'], 
                                         'displayOnly'=>true
                                     ],
@@ -143,20 +143,14 @@ use yii\helpers\Html;
                                 'columns' => [
                                     [
                                         'attribute'=>'placu_cargahorariarealizada', 
-                                        'labelColOptions'=>['style'=>'width:0%'],
-                                        'valueColOptions'=>['style'=>'width:0%'],
+                                        'labelColOptions'=>['style'=>'width:4.7%'],
+                                        'valueColOptions'=>['style'=>'width:5%'],
                                         'displayOnly'=>true
                                     ],
                                     [
-                                        'attribute'=>'placu_cargahorariaarealizar', 
-                                        'labelColOptions'=>['style'=>'width:0%'],
-                                        'valueColOptions'=>['style'=>'width:0%'],
-                                        'displayOnly'=>true
-                                    ],
-                                    [
-                                        'attribute'=>'placu_cargahorariavivencia', 
-                                        'labelColOptions'=>['style'=>'width:0%'],
-                                        'valueColOptions'=>['style'=>'width:0%'],
+                                        'attribute'=>'placu_quantidadealunos', 
+                                        'labelColOptions'=>['style'=>'width:5%'],
+                                        'valueColOptions'=>['style'=>'width:5%'],
                                         'displayOnly'=>true
                                     ],
                                 ],
@@ -165,21 +159,32 @@ use yii\helpers\Html;
                             [
                                 'columns' => [
                                     [
-                                        'attribute'=>'placu_quantidadealunos', 
-                                        'labelColOptions'=>['style'=>'width:0%'],
-                                        'valueColOptions'=>['style'=>'width:0%'],
-                                        'displayOnly'=>true
-                                    ],
-                                    [
-                                        'attribute'=>'placu_quantidadealunospsg', 
-                                        'labelColOptions'=>['style'=>'width:0%'],
-                                        'valueColOptions'=>['style'=>'width:0%'],
+                                        'attribute'=>'placu_cargahorariaarealizar', 
+                                        'labelColOptions'=>['style'=>'width:5%'],
+                                        'valueColOptions'=>['style'=>'width:5%'],
                                         'displayOnly'=>true
                                     ],
                                     [
                                         'attribute'=>'placu_quantidadealunosisentos', 
-                                        'labelColOptions'=>['style'=>'width:0%'],
-                                        'valueColOptions'=>['style'=>'width:0%'],
+                                        'labelColOptions'=>['style'=>'width:5%'],
+                                        'valueColOptions'=>['style'=>'width:5%'],
+                                        'displayOnly'=>true
+                                    ],
+                                ],
+                            ],
+
+                            [
+                                'columns' => [
+                                    [
+                                        'attribute'=>'placu_cargahorariavivencia', 
+                                        'labelColOptions'=>['style'=>'width:3.55%'],
+                                        'valueColOptions'=>['style'=>'width:5%'],
+                                        'displayOnly'=>true
+                                    ],
+                                    [
+                                        'attribute'=>'placu_quantidadealunospsg', 
+                                        'labelColOptions'=>['style'=>'width:5%'],
+                                        'valueColOptions'=>['style'=>'width:5%'],
                                         'displayOnly'=>true
                                     ],
                                 ],

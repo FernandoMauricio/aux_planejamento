@@ -73,7 +73,17 @@ use app\models\cadastros\Tipoprogramacao;
                 </div>
 
                 <div class="col-md-3">
-                    <?= $form->field($model, 'tipoPlanilhaLabel')->textInput(['value'=> $model->tipoplanilha->tipla_descricao,'readonly'=>true]) ?>
+                    <?php
+                            $rows = Tipoplanilha::find()->all();
+                            $data_tipoplanilha = ArrayHelper::map($rows, 'tipla_codtipla', 'tipla_descricao');
+                            echo $form->field($model, 'placu_codtipla')->widget(Select2::classname(), [
+                                    'data' =>  $data_tipoplanilha,
+                                    'options' => ['placeholder' => 'Tipo de Planilha...'],
+                                    'pluginOptions' => [
+                                            'allowClear' => true
+                                        ],
+                                    ]);
+                    ?>
                 </div>
 
                 <div class="col-md-3">
@@ -146,13 +156,10 @@ use app\models\cadastros\Tipoprogramacao;
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,
-                            'prefix' => 'R$ ',
-                            'groupSeparator' => '.',
-                            'radixPoint' => ',',
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
-                            'options' => ['readonly' => true, 'class' => 'form-control']
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
                 </div>
 

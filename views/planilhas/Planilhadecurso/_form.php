@@ -156,9 +156,9 @@ use app\models\cadastros\Tipoprogramacao;
 
             </div>
 
-        <?= $form->field($model, 'placu_codtipoa')->label(false); ?>
+        <?= $form->field($model, 'placu_codtipoa')->hiddenInput()->label(false); ?>
 
-        <?= $form->field($model, 'placu_codnivel')->label(false); ?>
+        <?= $form->field($model, 'placu_codnivel')->hiddenInput()->label(false); ?>
 
             <div class="row">
                 <div class="col-md-4">

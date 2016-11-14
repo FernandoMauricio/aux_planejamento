@@ -60,7 +60,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     </div>
 
                                     <div class="col-sm-1">
-                                  		<?= $form->field($modelPlaniConsumo, "[{$i}]planico_quantidade")->textInput(['readonly'=> true]) ?>
+                                  		<?= $form->field($modelPlaniConsumo, "[{$i}]planico_quantidade")->textInput() ?>
                                     </div>
 
                                     <div class="col-sm-1">
