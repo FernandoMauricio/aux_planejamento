@@ -108,6 +108,18 @@ class PlanilhadecursoController extends Controller
         ]);
     }
 
+    public function actionObservacoes($id)
+    {
+        $model = Planilhadecurso::findOne($id);
+        $session = Yii::$app->session;
+        $session->set('sess_planilhadecurso', $model->placu_codplanilha);
+
+        return $this->redirect(['/planilhas/planilha-justificativas/observacoes'], [
+             'model' => $model,
+         ]);
+    }
+
+
     /**
      * Displays a single Planilhadecurso model.
      * @param string $id

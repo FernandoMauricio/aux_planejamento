@@ -5,6 +5,8 @@ use kartik\grid\GridView;
 use kartik\editable\Editable;
 use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
 
 use app\models\cadastros\Eixo;
 use app\models\cadastros\Segmento;
@@ -17,7 +19,7 @@ use app\models\cadastros\Situacaoplanilha;
 /* @var $searchModel app\models\planos\PlanodeacaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Planilhas de Curso ';
+$this->title = 'Listagem de Planilhas - Administrador';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="planilhadecurso-admin-index">
@@ -146,7 +148,29 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'Situação'],
             ],
         
-            ['class' => 'yii\grid\ActionColumn','template' => '{view}'],
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {correcao}',
+                'contentOptions' => ['style' => 'width: 450px;'],
+                'buttons' => [
+
+                //VISUALIZAR
+                'view' => function ($url, $model) {
+                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', $url, [
+                                'class'=>'btn btn-primary btn-xs',
+               
+                    ]);
+                },
+
+                //ENVIAR PARA CORREÇÃO E INSERIR JUSTIIFCATIVA
+                'correcao' => function ($url, $model) {
+                    return Html::a('<span class="glyphicon glyphicon-repeat"></span> Para Correção', $url, [
+                                 'class'=>'btn btn-warning btn-xs',
+                                 'id'=>'modalButton',
+                           ]);
+                        },
+
+                ],
+            ],
 
         ],
     ]); ?>

@@ -145,9 +145,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         
             ['class' => 'yii\grid\ActionColumn',
-                'template' => '{view} {update} {delete}',
+                'template' => '{observacoes} {view} {update} {delete}',
                 'options' => ['width' => '5%'],
                 'buttons' => [
+
+                //PLANILHA COM ALGUMA JUSTIFICATIVA
+                'observacoes' => function ($url, $model) {
+                    return $model->placu_codsituacao == 2 ?  Html::a('<span class="glyphicon glyphicon-info-sign"></span>', $url, [
+                        'title' => Yii::t('app', 'Observações'),
+                           ]): '';
+                        },
 
                 //Situação 1 = Em Elaboração
                 'update' => function ($url, $model) {
@@ -165,6 +172,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ],
                     ]): '';
                 },
+
 
                 //Situação 7 = Aguardando Envio Planejamento
                 'update' => function ($url, $model) {

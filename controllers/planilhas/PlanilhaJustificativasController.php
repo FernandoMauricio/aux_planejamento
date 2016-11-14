@@ -5,16 +5,15 @@ namespace app\controllers\planilhas;
 use Yii;
 use app\models\planilhas\Planilhadecurso;
 use app\models\planilhas\PlanilhaJustificativas;
-use app\models\planilhas\PlanilhadecursoAdmin;
-use app\models\planilhas\PlanilhadecursoAdminSearch;
+use app\models\planilhas\PlanilhaJustificativasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PlanilhadecursoAdminController implements the CRUD actions for PlanilhadecursoAdmin model.
+ * PlanilhaJustificativasController implements the CRUD actions for PlanilhaJustificativas model.
  */
-class PlanilhadecursoAdminController extends Controller
+class PlanilhaJustificativasController extends Controller
 {
     /**
      * @inheritdoc
@@ -32,13 +31,12 @@ class PlanilhadecursoAdminController extends Controller
     }
 
     /**
-     * Lists all PlanilhadecursoAdmin models.
+     * Lists all PlanilhaJustificativas models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $this->layout = 'main-planilhadecurso';
-        $searchModel = new PlanilhadecursoAdminSearch();
+        $searchModel = new PlanilhaJustificativasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,63 +45,62 @@ class PlanilhadecursoAdminController extends Controller
         ]);
     }
 
+    public function actionObservacoes()
+    {
+        $searchModel = new PlanilhaJustificativasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('observacoes', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
-     * Displays a single PlanilhadecursoAdmin model.
-     * @param string $id
+     * Displays a single PlanilhaJustificativas model.
+     * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
-        $modelsPlaniDespDocente = $model->planiDespDocente;
-        $modelsPlaniUC          = $model->planiUC;
-        $modelsPlaniMaterial    = $model->planiMateriais;
-        $modelsPlaniConsumo     = $model->planiConsumo;
-        $modelsPlaniEquipamento = $model->planiEquipamento;
-
-        return $this->render('/planilhas/planilhadecurso/view-admin', [
+        return $this->render('view', [
             'model' => $this->findModel($id),
-            'modelsPlaniDespDocente' => $modelsPlaniDespDocente,
-            'modelsPlaniUC'          => $modelsPlaniUC,
-            'modelsPlaniMaterial'    => $modelsPlaniMaterial,
-            'modelsPlaniConsumo'     => $modelsPlaniConsumo,
-            'modelsPlaniEquipamento' => $modelsPlaniEquipamento,
         ]);
     }
 
     /**
-     * Creates a new PlanilhadecursoAdmin model.
+     * Creates a new PlanilhaJustificativas model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new PlanilhadecursoAdmin();
+        $session = Yii::$app->session;
+
+        $model = new PlanilhaJustificativas();
+
+        $model->planilhadecurso_id = $session['sess_planilhadecurso'];
+        $model->planijust_usuario = $session['sess_nomeusuario'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->placu_codplanilha]);
+
+            $connection = Yii::$app->db;
+            $command = $connection->createCommand(
+            "UPDATE `db_apl`.`planilhadecurso_placu` SET `placu_codsituacao` = 2 WHERE `placu_codplanilha` = '".$model->planilhadecurso_id."'");
+            $command->execute();
+
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Justificativa para Correção da Planilha '.$model->planilhadecurso_id.' enviada!</strong>');
+
+            return $this->redirect(['/planilhas/planilhadecurso-admin/index']);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
     }
-
-    public function actionCorrecao($id) 
-    {
-        $model = Planilhadecurso::findOne($id);
-        $session = Yii::$app->session;
-        $session->set('sess_planilhadecurso', $model->placu_codplanilha);
-
-        return $this->redirect(['planilhas/planilha-justificativas/index'], [
-             'model' => $model,
-         ]);
-    }
-
     /**
-     * Updates an existing PlanilhadecursoAdmin model.
+     * Updates an existing PlanilhaJustificativas model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
@@ -111,7 +108,7 @@ class PlanilhadecursoAdminController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->placu_codplanilha]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -120,9 +117,9 @@ class PlanilhadecursoAdminController extends Controller
     }
 
     /**
-     * Deletes an existing PlanilhadecursoAdmin model.
+     * Deletes an existing PlanilhaJustificativas model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      */
     public function actionDelete($id)
@@ -133,15 +130,15 @@ class PlanilhadecursoAdminController extends Controller
     }
 
     /**
-     * Finds the PlanilhadecursoAdmin model based on its primary key value.
+     * Finds the PlanilhaJustificativas model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return PlanilhadecursoAdmin the loaded model
+     * @param integer $id
+     * @return PlanilhaJustificativas the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = PlanilhadecursoAdmin::findOne($id)) !== null) {
+        if (($model = PlanilhaJustificativas::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
