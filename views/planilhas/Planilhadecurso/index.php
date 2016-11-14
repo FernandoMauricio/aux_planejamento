@@ -168,39 +168,30 @@ $this->params['breadcrumbs'][] = $this->title;
                            ]): '';
                         },
 
-                //Situação 1 = Em Elaboração
+                //Situação 1 = Em Elaboração / 2 = Para Correção / 7 = Aguardando Envio Planejamento
                 'update' => function ($url, $model) {
-                    return $model->placu_codsituacao == 1 ?  Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                    if($model->placu_codsituacao == 1 || $model->placu_codsituacao == 2 || $model->placu_codsituacao == 7){
+                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
                                 'title' => Yii::t('app', 'Editar Planilha'),
-                    ]): '';
+                    ]);
+                    }else{
+                        '';
+                    }
                 },
 
+                //Situação 1 = Em Elaboração / 2 = Para Correção / 7 = Aguardando Envio Planejamento
                 'delete' => function ($url, $model) {
-                    return $model->placu_codsituacao == 1 ?  Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                                'title' => Yii::t('app', 'Deletar Planilha'),
-                                'data' => [
+                    if($model->placu_codsituacao == 1 || $model->placu_codsituacao == 2 || $model->placu_codsituacao == 7){
+                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                               'title' => Yii::t('app', 'Deletar Planilha'),
+                               'data' => [
                                                 'confirm' => 'Você tem CERTEZA que deseja EXCLUIR essa Planilha?',
                                                 'method' => 'post',
                                         ],
-                    ]): '';
-                },
-
-
-                //Situação 7 = Aguardando Envio Planejamento
-                'update' => function ($url, $model) {
-                    return $model->placu_codsituacao == 7 ?  Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
-                                'title' => Yii::t('app', 'Editar Planilha'),
-                    ]): '';
-                },
-
-                'delete' => function ($url, $model) {
-                    return $model->placu_codsituacao == 7 ?  Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                                'title' => Yii::t('app', 'Deletar Planilha'),
-                                'data' => [
-                                                'confirm' => 'Você tem CERTEZA que deseja EXCLUIR essa Planilha?',
-                                                'method' => 'post',
-                                        ],
-                    ]): '';
+                    ]);
+                    }else{
+                        '';
+                    }
                 },
 
                 ],
