@@ -157,12 +157,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         
             ['class' => 'yii\grid\ActionColumn',
-                'template' => '{observacoes} {view} {update} {delete}',
+                'template' => '{observacoes-gerentes} {view} {update} {delete}',
                 'options' => ['width' => '5%'],
                 'buttons' => [
 
                 //PLANILHA COM ALGUMA JUSTIFICATIVA
-                'observacoes' => function ($url, $model) {
+                'observacoes-gerentes' => function ($url, $model) {
                     return $model->placu_codsituacao == 2 ?  Html::a('<span class="glyphicon glyphicon-info-sign"></span>', $url, [
                         'title' => Yii::t('app', 'Observações'),
                            ]): '';

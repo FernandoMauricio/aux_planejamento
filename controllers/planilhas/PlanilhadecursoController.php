@@ -83,9 +83,9 @@ class PlanilhadecursoController extends Controller
     {
         $session = Yii::$app->session;
 
-        //Realiza a Contagem das Planilhas da unidade que estão definidas como PRODUÇÃO e AGUARDANDO ENVIO
+        //Realiza a Contagem das Planilhas da unidade que estão definidas como PRODUÇÃO, PROGRAMAÇÃO ANUAL e AGUARDANDO ENVIO
         $countPlanilhas = 0;
-        $countPlanilhas = Planilhadecurso::find()->where(['placu_codtipla' => 1, 'placu_codsituacao' => 7, 'placu_codunidade' => $session['sess_codunidade']])->count();  
+        $countPlanilhas = Planilhadecurso::find()->where(['placu_codtipla' => 1, 'placu_codsituacao' => 7, 'placu_codprogramacao' => 1, 'placu_codunidade' => $session['sess_codunidade']])->count();  
 
         if($countPlanilhas != 0){
         //Envia as Planilhas para o GPO da unidade que estão definidas como PRODUÇÃO, PROGRAMAÇÃO ANUAL e AGUARDANDO ENVIO
@@ -104,9 +104,9 @@ class PlanilhadecursoController extends Controller
     {
         $session = Yii::$app->session;
 
-        //Realiza a Contagem das Planilhas da unidade que estão definidas como PRODUÇÃO e AGUARDANDO ENVIO
+        //Realiza a Contagem das Planilhas da unidade que estão definidas como PRODUÇÃO, PROGRAMAÇÃO ANUAL e AGUARDANDO ENVIO
         $countPlanilhas = 0;
-        $countPlanilhas = Planilhadecurso::find()->where(['placu_codtipla' => 1, 'placu_codsituacao' => 7, 'placu_codunidade' => $session['sess_codunidade']])->count();  
+        $countPlanilhas = Planilhadecurso::find()->where(['placu_codtipla' => 1, 'placu_codsituacao' => 7,  'placu_codprogramacao' => 2,  'placu_codunidade' => $session['sess_codunidade']])->count();  
 
         if($countPlanilhas != 0){
         //Envia as Planilhas para o GPO da unidade que estão definidas como PRODUÇÃO, RETIFICATIVO e AGUARDANDO ENVIO
@@ -143,6 +143,17 @@ class PlanilhadecursoController extends Controller
         $session->set('sess_planilhadecurso', $model->placu_codplanilha);
 
         return $this->redirect(['/planilhas/planilha-justificativas/observacoes'], [
+             'model' => $model,
+         ]);
+    }
+
+    public function actionObservacoesGerentes($id)
+    {
+        $model = Planilhadecurso::findOne($id);
+        $session = Yii::$app->session;
+        $session->set('sess_planilhadecurso', $model->placu_codplanilha);
+
+        return $this->redirect(['/planilhas/planilha-justificativas/observacoes-gerentes'], [
              'model' => $model,
          ]);
     }

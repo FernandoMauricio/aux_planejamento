@@ -55,6 +55,19 @@ class PlanilhaJustificativasController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    public function actionObservacoesGerentes()
+    {
+        $searchModel = new PlanilhaJustificativasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('observacoes-gerentes', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+
     /**
      * Displays a single PlanilhaJustificativas model.
      * @param integer $id

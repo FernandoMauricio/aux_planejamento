@@ -29,7 +29,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                 'planico_tipo',
                                             ],
                                         ]); ?>
-
+            <p style="color:#a94442; margin-left:20px">* Ao excluir/editar qualquer material de consumo, os valores serão atualizados após atualizar a Planilha.</p>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class="glyphicon glyphicon-list-alt"></i> Listagem de Materias de Consumo
