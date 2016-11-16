@@ -12,6 +12,13 @@ $this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="planilhadecurso-update">
 
+<?php
+    //Pega as mensagens
+    foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+    echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+    }
+?>
+
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('update/_form', [

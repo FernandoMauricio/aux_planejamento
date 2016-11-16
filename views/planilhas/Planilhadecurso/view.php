@@ -34,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
             echo Html::a('Atualizar Planilha', ['update', 'id' => $model->placu_codplanilha], ['class' => 'btn btn-primary', 'style' => 'margin-left: 20px']);
             }else{
             echo Html::a('Listagem de Planilhas', ['index'], ['class' => 'btn btn-warning']);
-            echo Html::a('Atualizar Planilha', ['update', 'id' => $model->placu_codplanilha], ['class' => 'btn btn-primary', 'style' => 'margin-left: 20px']);
             }
         ?>
     </p>

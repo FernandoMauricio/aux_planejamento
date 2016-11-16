@@ -88,8 +88,17 @@ use app\models\planilhas\PlanilhaMaterial;
          </div>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
+        <?= Html::submitButton('Atualizar', ['class' =>'btn btn-info']); ?>
+
+        <?= Html::a('Finalizar Planilha', ['finalizar', 'id' => $model->placu_codplanilha], [
+            'class' => 'btn btn-success',
+            'data' => [
+                'confirm' => 'Você tem certeza que deseja finalizar a planilha?',
+                'method' => 'post'
+            ],
+        ]) ?>
+
+    </div>   
 
     <?php ActiveForm::end(); ?>
 

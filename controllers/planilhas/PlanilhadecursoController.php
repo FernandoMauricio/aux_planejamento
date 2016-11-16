@@ -547,7 +547,7 @@ class PlanilhadecursoController extends Controller
                                     $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro; //save hidden custo para multiplicação javascript
                                     $model->placu_hiddenpjapostila       = $totalValorMaterialApostila; //save hidden custo para multiplicação javascript
                                     $model->placu_data                   = date('Y-m-d');
-                                    $model->placu_codsituacao            = 7; //Situação Padrão: Aguardando Envio Planejamento
+                                    $model->placu_codsituacao            = 1; //Situação Padrão: Em elaboração
 
                                     //Totalização das Despesas Diretas (Total de Custo Direto)
                                     $model->placu_totalcustodireto = $model->placu_totalsalarioencargo + $model->placu_diarias + $model->placu_passagens + $model->placu_pessoafisica + $model->placu_pessoajuridica + $model->placu_PJApostila + $model->placu_custosmateriais + $model->placu_custosconsumo;
@@ -569,17 +569,17 @@ class PlanilhadecursoController extends Controller
                                     $model->save();
                                 }
                 
-                                    Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Planilha '.$id.' Atualizada e Aguardando o Envio do Planejamento!</strong>');
-                                    return $this->redirect(['view', 'id' => $model->placu_codplanilha]);
+                                    Yii::$app->session->setFlash('info', '<strong>SUCESSO! </strong> Planilha '.$id.' Atualizada!</strong>');
+                                    return $this->redirect(['update', 'id' => $model->placu_codplanilha]);
                                 }
                             } catch (Exception $e) {
                                 $transaction->rollBack();
                             }
                         }
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Planilha '.$id.' Atualizada e Aguardando o Envio do Planejamento!</strong>');
+            Yii::$app->session->setFlash('info', '<strong>SUCESSO! </strong> Planilha '.$id.' Atualizada!</strong>');
 
-            return $this->redirect(['view', 'id' => $model->placu_codplanilha]);
+            return $this->redirect(['update', 'id' => $model->placu_codplanilha]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -591,6 +591,36 @@ class PlanilhadecursoController extends Controller
             ]);
         }
     }
+
+    public function actionFinalizar($id)
+    {
+        $model = $this->findModel($id);
+        $model->scenario = 'update'; //Validações obrigatórias na atualização
+        $modelsPlaniUC          = $model->planiUC;
+        $modelsPlaniMaterial    = $model->planiMateriais;
+        $modelsPlaniConsumo     = $model->planiConsumo;
+        $modelsPlaniEquipamento = $model->planiEquipamento;
+        $modelsPlaniDespDocente = $model->planiDespDocente;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $model->placu_codsituacao  = 7; //Atualiza a Planilha para Aguardando Envio Planejamento
+            $model->save();
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Planilha '.$id.' Atualizada e Aguardando o Envio do Planejamento!</strong>');
+
+            return $this->redirect(['index']);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+                'modelsPlaniDespDocente' => (empty($modelsPlaniDespDocente)) ? [new PlanilhaDespesaDocente] : $modelsPlaniDespDocente,
+                'modelsPlaniUC'          => (empty($modelsPlaniUC)) ? [new PlanilhaUnidadesCurriculares] : $modelsPlaniUC,
+                'modelsPlaniMaterial'    => (empty($modelsPlaniMaterial)) ? [new PlanilhaMaterial] : $modelsPlaniMaterial,
+                'modelsPlaniConsumo'     => (empty($modelsPlaniConsumo)) ? [new PlanilhaConsumo] : $modelsPlaniConsumo,
+                'modelsPlaniEquipamento' => (empty($modelsPlaniEquipamento)) ? [new PlanilhaEquipamento] : $modelsPlaniEquipamento,
+            ]);
+        }
+    }
+
 
     /**
      * Deletes an existing Planilhadecurso model.
