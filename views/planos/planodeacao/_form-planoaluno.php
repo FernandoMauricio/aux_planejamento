@@ -97,7 +97,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     <div class="col-sm-2">
                                          <?php
                                                         echo $form->field($modelPlanoAluno, "[{$i}]planmatalu_tipo")->widget(Select2::classname(), [
-                                                                'data' =>  ['PRONATEC'=>'PRONATEC', 'PSG'=>'PSG', 'PRONATEC/PSG'=>'PRONATEC/PSG','BALCÃO'=>'BALCÃO', 'BALCÃO/PSG' => 'BALCÃO/PSG', 'IN COMPANY'=>'IN COMPANY', 'CONVÊNIO' => 'CONVÊNIO', 'TERMO DE PARCERIA'=>'TERMO DE PARCERIA'],
+                                                                'data' =>  ['COMERCIAL'=>'COMERCIAL', 'COMERCIAL/PSG' => 'COMERCIAL/PSG', 'PRONATEC'=>'PRONATEC', 'PRONATEC/PSG'=>'PRONATEC/PSG','PSG'=>'PSG'],
+                                                                //, 'IN COMPANY'=>'IN COMPANY', 'CONVÊNIO' => 'CONVÊNIO', 'TERMO DE PARCERIA'=>'TERMO DE PARCERIA'
                                                                 'options' => ['placeholder' => 'Selecione o tipo do Material...'],
                                                                 'pluginOptions' => [
                                                                         'allowClear' => true

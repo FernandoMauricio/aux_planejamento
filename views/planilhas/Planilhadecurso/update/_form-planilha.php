@@ -68,11 +68,15 @@ use app\models\cadastros\Tipoprogramacao;
         <div class="panel-body">
 
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <?= $form->field($model, 'anoLabel')->textInput(['value'=> $model->planilhaAno->an_ano,'readonly'=>true]) ?>
                 </div>
 
                 <div class="col-md-3">
+                    <?= $form->field($model, 'categoriaLabel')->textInput(['value'=> $model->categoriaPlanilha->cat_descricao,'readonly'=>true]) ?>
+                </div>
+
+                <div class="col-md-2">
                     <?php
                             $rows = Tipoplanilha::find()->all();
                             $data_tipoplanilha = ArrayHelper::map($rows, 'tipla_codtipla', 'tipla_descricao');
@@ -90,7 +94,7 @@ use app\models\cadastros\Tipoprogramacao;
                     <?= $form->field($model, 'tipoProgramacaoLabel')->textInput(['value'=> $model->tipoprogramacao->tipro_descricao,'readonly'=>true]) ?>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <?= $form->field($model, 'placu_quantidadeturmas')->textInput() ?>
                 </div>
 

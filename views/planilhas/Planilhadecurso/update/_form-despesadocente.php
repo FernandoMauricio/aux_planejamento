@@ -29,9 +29,21 @@ use yii\helpers\Url;
 
                                             <td style="width: 300px;"><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_descricao")->textInput(['readonly'=> true]) ?></td>
                                             
-                                            <td><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_valor")->textInput(['readonly'=> true]) ?></td>
+                                            <td><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_valor")->widget(\yii\widgets\MaskedInput::className(), [
+                                                                                        'clientOptions' => [
+                                                                                        'alias' => 'decimal',
+                                                                                        'digits' => 2,
+                                                                                        ],
+                                                                                        'options' => ['readonly' => true, 'class' => 'form-control']
+                                                                                ]); ?></td>
                                             
-                                            <td><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_dsr")->textInput(['readonly'=> true]) ?></td>
+                                            <td><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_dsr")->widget(\yii\widgets\MaskedInput::className(), [
+                                                                                        'clientOptions' => [
+                                                                                        'alias' => 'decimal',
+                                                                                        'digits' => 2,
+                                                                                        ],
+                                                                                        'options' => ['readonly' => true, 'class' => 'form-control']
+                                                                                ]); ?></td>
 
                                             <td><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_planejamento")->widget(\yii\widgets\MaskedInput::className(), [
                                                                                         'clientOptions' => [

@@ -163,7 +163,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 //PLANILHA COM ALGUMA JUSTIFICATIVA
                 'observacoes-gerentes' => function ($url, $model) {
-                    return $model->placu_codsituacao == 2 ?  Html::a('<span class="glyphicon glyphicon-info-sign"></span>', $url, [
+                    return $model->placu_codsituacao == 2 ?  Html::a('<span class="glyphicon glyphicon-info-sign" style="color:red"></span>', $url, [
                         'title' => Yii::t('app', 'Observações'),
                            ]): '';
                         },

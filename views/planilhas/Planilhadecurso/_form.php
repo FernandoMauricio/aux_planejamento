@@ -8,6 +8,7 @@ use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 
 use app\models\cadastros\Ano;
+use app\models\cadastros\Categoriaplanilha;
 use app\models\cadastros\Tipoplanilha;
 use app\models\cadastros\Tipoprogramacao;
 
@@ -107,7 +108,7 @@ use app\models\cadastros\Tipoprogramacao;
 
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-2">
                 <?php
                         $rows = Ano::find()->where(['an_status'=> 1])->orderBy('an_ano')->all();
                         $data_ano = ArrayHelper::map($rows, 'an_codano', 'an_ano');
@@ -122,6 +123,20 @@ use app\models\cadastros\Tipoprogramacao;
                 </div>
 
                 <div class="col-md-3">
+                <?php
+                        $rows = Categoriaplanilha::find()->orderBy('cat_descricao')->all();
+                        $data_ano = ArrayHelper::map($rows, 'cat_codcategoria', 'cat_descricao');
+                        echo $form->field($model, 'placu_codcategoria')->widget(Select2::classname(), [
+                                'data' =>  $data_ano,
+                                'options' => ['placeholder' => 'Selecione a Catgoria...'],
+                                'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ]);
+                ?>
+                </div>
+
+                <div class="col-md-2">
                 <?php
                         $rows = Tipoplanilha::find()->all();
                         $data_tipoplanilha = ArrayHelper::map($rows, 'tipla_codtipla', 'tipla_descricao');
@@ -149,8 +164,7 @@ use app\models\cadastros\Tipoprogramacao;
                 ?>
                 </div>                
 
-
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <?= $form->field($model, 'placu_quantidadeturmas')->textInput() ?>
                 </div>
 

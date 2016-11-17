@@ -200,7 +200,7 @@ class PlanilhadecursoController extends Controller
         $model->placu_codcolaborador = $session['sess_codcolaborador'];
         $model->placu_codunidade     = $session['sess_codunidade'];
         $model->placu_nomeunidade    = $session['sess_unidade'];
-        $model->placu_codcategoria   = 1; //PSG / Não PSG
+        //$model->placu_codcategoria   = 1; //PSG / Não PSG
         $model->placu_codsituacao    = 1; //Situação Padrão: Em elaboração
         $model->placu_tipocalculo    = 1; //Tipo de Cálculo: Taxa de Retorno ou Valor Curso Por Aluno
         $model->placu_diarias        = 0;
@@ -349,8 +349,22 @@ class PlanilhadecursoController extends Controller
                     ->execute();
                 }
 
-            //Localiza os Materiais do Aluno do Plano
-            $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."'";
+            //Localiza os Materiais do Aluno do Plano 
+            if($model->placu_codcategoria == 1){//COMERCIAL
+            $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'COMERCIAL'";
+            }
+            if($model->placu_codcategoria == 2){//PSG
+               $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'PSG'"; 
+            } 
+            if($model->placu_codcategoria == 3){//COMERCIAL/PSG
+               $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'COMERCIAL/PSG'"; 
+            }
+            if($model->placu_codcategoria == 4){//PRONATEC
+                $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'PRONATEC'"; 
+            }
+            if($model->placu_codcategoria == 5){//PRONATEC/PSG
+                $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'PRONATEC/PSG'"; 
+            }
 
                 $materiaisAluno = PlanoAluno::findBySql($ListagemMaterialAluno)->all(); 
 
