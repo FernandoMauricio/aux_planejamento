@@ -272,7 +272,6 @@ use yii\helpers\Html;
              <br>
 
               <div class="row">
-
                       <div class="col-md-3"><strong>Serv. Terceiros (PJ):</strong><br> <?php echo 'R$ ' . number_format( $model->placu_pessoajuridica, 2, ',', '.'); ?></div>
 
                       <div class="col-md-3"><strong>Mat. Didático (Apostila/plano A):</strong><br> <?php echo 'R$ ' .  number_format($model->placu_PJApostila, 2, ',', '.'); ?></div>
@@ -285,6 +284,8 @@ use yii\helpers\Html;
              <br>
 
               <div class="row">
+                      <div class="col-md-3"><strong>Material do Aluno:</strong><br> <?php echo 'R$ ' .  number_format($model->placu_custosaluno, 2, ',', '.'); ?></div>
+                      
                       <div class="col-md-3" style="color: #F7941D;"><strong>Total de Custo Direto:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalcustodireto, 2, ',', '.'); ?></div>
 
                       <div class="col-md-3"><strong>Valor Hora/Aula de Custo Direto:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalhoraaulacustodireto, 2, ',', '.'); ?></div>

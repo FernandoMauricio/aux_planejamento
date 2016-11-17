@@ -346,6 +346,21 @@ use app\models\cadastros\Tipoprogramacao;
                 </div>
 
                 <div class="col-md-3">
+                    <?= $form->field($model, 'placu_custosaluno')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-3">
                     <?= $form->field($model, 'placu_totalcustodireto')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -358,12 +373,8 @@ use app\models\cadastros\Tipoprogramacao;
                             ],
                             'options' => ['readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
-
                 </div>
-
-            </div>
-
-            <div class="row">
+                
                 <div class="col-md-3">
                     <?= $form->field($model, 'placu_totalhoraaulacustodireto')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [

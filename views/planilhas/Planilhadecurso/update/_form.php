@@ -30,11 +30,12 @@ use app\models\planilhas\PlanilhaMaterial;
                                         <?php echo $form->errorSummary($model); ?>
                                 <div id="rootwizard" class="tabbable tabs-left">
                                   <ul>
-                                         <li><a href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Planilha de Curso</a></li>
-                                         <li><a href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Organização Curricular</a></li>
-                                         <li><a href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-education"></span> Materiais Didáticos </a></li>
-                                         <li><a href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-tags"></span> Material de Consumo </a></li>
-                                         <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Equipamentos / Utensílios</a></li>
+                                        <li><a href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Informações</a></li>
+                                        <li><a href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-folder-open"></span> Organização Curricular</a></li>
+                                        <li><a href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Material Didático</a></li>
+                                        <li><a href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-tags"></span> Material de Consumo</a></li>
+                                        <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-education"></span> Material do Aluno</a></li>
+                                        <li><a href="#tab6" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Equipamentos / Utensílios</a></li>
                                   </ul>
                                             <div class="tab-content" style="margin-left: -15px; margin-right: -15px;"><br>
 
@@ -71,6 +72,14 @@ use app\models\planilhas\PlanilhaMaterial;
                                                     </div>
 
                                                     <div class="tab-pane" id="tab5">
+                                                        <?= $this->render('_form-materiaisaluno', [
+                                                            'form' => $form,
+                                                            'model' => $model,
+                                                            'modelsPlaniMateriaisAluno'  => $modelsPlaniMateriaisAluno,
+                                                        ]) ?>
+                                                    </div>
+
+                                                    <div class="tab-pane" id="tab6">
                                                         <?= $this->render('_form-equipamentos', [
                                                             'form' => $form,
                                                             'model' => $model,

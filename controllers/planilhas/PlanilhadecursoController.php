@@ -11,12 +11,14 @@ use app\models\planos\Planodeacao;
 use app\models\planos\Unidadescurriculares;
 use app\models\planos\PlanoMaterial;
 use app\models\planos\PlanoConsumo;
+use app\models\planos\PlanoAluno;
 use app\models\planos\PlanoEstruturafisica;
 use app\models\planilhas\PlanilhaDespesaDocente;
 use app\models\planilhas\PlanilhaDespesaDocenteSearch;
 use app\models\planilhas\PlanilhaUnidadesCurriculares;
 use app\models\planilhas\PlanilhaMaterial;
 use app\models\planilhas\PlanilhaConsumo;
+use app\models\planilhas\PlanilhaMaterialAluno;
 use app\models\planilhas\PlanilhaEquipamento;
 use app\models\planilhas\Planilhadecurso;
 use app\models\planilhas\PlanilhadecursoSearch;
@@ -167,19 +169,21 @@ class PlanilhadecursoController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $modelsPlaniDespDocente = $model->planiDespDocente;
-        $modelsPlaniUC          = $model->planiUC;
-        $modelsPlaniMaterial    = $model->planiMateriais;
-        $modelsPlaniConsumo     = $model->planiConsumo;
-        $modelsPlaniEquipamento = $model->planiEquipamento;
+        $modelsPlaniDespDocente    = $model->planiDespDocente;
+        $modelsPlaniUC             = $model->planiUC;
+        $modelsPlaniMaterial       = $model->planiMateriais;
+        $modelsPlaniConsumo        = $model->planiConsumo;
+        $modelsPlaniMateriaisAluno = $model->planiMateriaisAluno;
+        $modelsPlaniEquipamento    = $model->planiEquipamento;
 
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'modelsPlaniDespDocente' => $modelsPlaniDespDocente,
-            'modelsPlaniUC'          => $modelsPlaniUC,
-            'modelsPlaniMaterial'    => $modelsPlaniMaterial,
-            'modelsPlaniConsumo'     => $modelsPlaniConsumo,
-            'modelsPlaniEquipamento' => $modelsPlaniEquipamento,
+            'modelsPlaniDespDocente'    => $modelsPlaniDespDocente,
+            'modelsPlaniUC'             => $modelsPlaniUC,
+            'modelsPlaniMaterial'       => $modelsPlaniMaterial,
+            'modelsPlaniConsumo'        => $modelsPlaniConsumo,
+            'modelsPlaniMateriaisAluno' => $modelsPlaniMateriaisAluno,
+            'modelsPlaniEquipamento'    => $modelsPlaniEquipamento,
         ]);
     }
 
@@ -345,6 +349,34 @@ class PlanilhadecursoController extends Controller
                     ->execute();
                 }
 
+            //Localiza os Materiais do Aluno do Plano
+            $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."'";
+
+                $materiaisAluno = PlanoAluno::findBySql($ListagemMaterialAluno)->all(); 
+
+                foreach ($materiaisAluno as $materialAluno) {
+
+                    $planodeacao_cod       = $materialAluno['planodeacao_cod'];
+                    $planmatalu_descricao  = $materialAluno['planmatalu_descricao'];
+                    $planmatalu_unidade    = $materialAluno['planmatalu_unidade'];
+                    $planmatalu_tipo       = $materialAluno['planmatalu_tipo'];
+                    $planmatalu_valor      = $materialAluno['planmatalu_valor'];
+                    $planmatalu_quantidade = $materialAluno['planmatalu_quantidade'];
+
+                //Inclui os Materiais do Aluno do Plano na Planilha que está sendo criada
+                Yii::$app->db_apl->createCommand()
+                    ->insert('planilhamaterialaluno_planimatalun', [
+                             'planilhadecurso_cod'     => $model->placu_codplanilha,
+                             'planodeacao_cod'         => $planodeacao_cod,
+                             'planimatalun_descricao'  => $planmatalu_descricao,
+                             'planimatalun_unidade'    => $planmatalu_unidade,
+                             'planimatalun_tipo'       => $planmatalu_tipo,
+                             'planimatalun_valor'      => $planmatalu_valor,
+                             'planimatalun_quantidade' => $planmatalu_quantidade,
+                             ])
+                    ->execute();
+                }
+
             //Localiza os Equipamentos/Utensílios do Plano
             $ListagemEquipamentos = "SELECT * FROM `plano_estruturafisica` WHERE `planodeacao_cod` = '".$model->placu_codplano."'";
 
@@ -384,12 +416,18 @@ class PlanilhadecursoController extends Controller
                     $query = (new \yii\db\Query())->from('db_apl.planilhaconsumo_planico')->where(['planilhadecurso_cod' => $model->placu_codplanilha]);
                     $totalValorConsumo = $query->sum('planico_valor*planico_quantidade');
 
+                    //realiza a soma dos custos de material do aluno
+                    $query = (new \yii\db\Query())->from('db_apl.planilhamaterialaluno_planimatalun')->where(['planilhadecurso_cod' => $model->placu_codplanilha]);
+                    $totalValorAluno = $query->sum('planimatalun_valor*planimatalun_quantidade');
+
+
                     //Somatória Quantidade de Alunos Pagantes, Isentos e PSG 
                     $valorTotalQntAlunos = $model->placu_quantidadealunos + $model->placu_quantidadealunosisentos + $model->placu_quantidadealunospsg;
                     // + 0 -> Caso não tenha nenhum item relacionado será adicionado por default o 0
                     $model->placu_custosmateriais  = ($totalValorMaterialLivro * $valorTotalQntAlunos) + 0; //save custo material didático - LIVROS
                     $model->placu_PJApostila       = ($totalValorMaterialApostila * $valorTotalQntAlunos) + 0; //save custo material didático - APOSTILAS
                     $model->placu_custosconsumo    = $totalValorConsumo + 0; //save custo material consumo
+                    $model->placu_custosaluno      = $totalValorAluno; //save custo material consumo
 
                     $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro + 0; //save hidden custo para multiplicação javascript
                     $model->placu_hiddenpjapostila       = $totalValorMaterialApostila + 0; //save hidden custo para multiplicação javascript
@@ -416,11 +454,12 @@ class PlanilhadecursoController extends Controller
     {
         $model = $this->findModel($id);
         $model->scenario = 'update'; //Validações obrigatórias na atualização
-        $modelsPlaniUC          = $model->planiUC;
-        $modelsPlaniMaterial    = $model->planiMateriais;
-        $modelsPlaniConsumo     = $model->planiConsumo;
-        $modelsPlaniEquipamento = $model->planiEquipamento;
-        $modelsPlaniDespDocente = $model->planiDespDocente;
+        $modelsPlaniUC             = $model->planiUC;
+        $modelsPlaniMaterial       = $model->planiMateriais;
+        $modelsPlaniConsumo        = $model->planiConsumo;
+        $modelsPlaniMateriaisAluno = $model->planiMateriaisAluno;
+        $modelsPlaniEquipamento    = $model->planiEquipamento;
+        $modelsPlaniDespDocente    = $model->planiDespDocente;
 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -448,6 +487,12 @@ class PlanilhadecursoController extends Controller
         $modelsPlaniConsumo = Model::createMultiple(PlanilhaConsumo::classname(), $modelsPlaniConsumo);
         Model::loadMultiple($modelsPlaniConsumo, Yii::$app->request->post());
         $deletedIDsConsumo = array_diff($oldIDsConsumo, array_filter(ArrayHelper::map($modelsPlaniConsumo, 'id', 'id')));
+
+        //--------Materiais do Aluno--------------
+        $oldIDsMaterialAluno = ArrayHelper::map($modelsPlaniMateriaisAluno, 'id', 'id');
+        $modelsPlaniMateriaisAluno = Model::createMultiple(PlanilhaMaterialAluno::classname(), $modelsPlaniMateriaisAluno);
+        Model::loadMultiple($modelsPlaniMateriaisAluno, Yii::$app->request->post());
+        $deletedIDsMaterialAluno = array_diff($oldIDsMaterialAluno, array_filter(ArrayHelper::map($modelsPlaniMateriaisAluno, 'id', 'id')));
 
         //--------Equipamentos / Utensílios--------------
         $oldIDsEquipamento = ArrayHelper::map($modelsPlaniEquipamento, 'id', 'id');
@@ -508,6 +553,17 @@ class PlanilhadecursoController extends Controller
                                         }
                                     }
 
+                                    if (! empty($deletedIDsMaterialAluno)) {
+                                        PlanilhaMaterialAluno::deleteAll(['id' => $deletedIDsMaterialAluno]);
+                                    }
+                                    foreach ($modelsPlaniMateriaisAluno as $modelPlaniMateriaisAluno) {
+                                        $modelPlaniMateriaisAluno->planilhadecurso_cod = $model->placu_codplanilha;
+                                        if (! ($flag = $modelPlaniMateriaisAluno->save(false))) {
+                                            $transaction->rollBack();
+                                            break;
+                                        }
+                                    }
+
                                     if (! empty($deletedIDsEquipamento)) {
                                         PlanilhaEquipamento::deleteAll(['id' => $deletedIDsEquipamento]);
                                     }
@@ -537,12 +593,17 @@ class PlanilhadecursoController extends Controller
                                     $query = (new \yii\db\Query())->from('db_apl.planilhaconsumo_planico')->where(['planilhadecurso_cod' => $model->placu_codplanilha]);
                                     $totalValorConsumo = $query->sum('planico_valor*planico_quantidade');
 
+                                    //realiza a soma dos custos de material do aluno
+                                    $query = (new \yii\db\Query())->from('db_apl.planilhamaterialaluno_planimatalun')->where(['planilhadecurso_cod' => $model->placu_codplanilha]);
+                                    $totalValorAluno = $query->sum('planimatalun_valor*planimatalun_quantidade');
+
                                     //Somatória Quantidade de Alunos Pagantes, Isentos e PSG 
                                     $valorTotalQntAlunos = $model->placu_quantidadealunos + $model->placu_quantidadealunosisentos + $model->placu_quantidadealunospsg;
                                     
                                     $model->placu_custosmateriais  = $totalValorMaterialLivro * $valorTotalQntAlunos; //save custo material didático - LIVROS
                                     $model->placu_PJApostila       = $totalValorMaterialApostila * $valorTotalQntAlunos; //save custo material didático - APOSTILAS
                                     $model->placu_custosconsumo    = $totalValorConsumo; //save custo material consumo
+                                    $model->placu_custosaluno      = $totalValorAluno; //save custo material consumo
 
                                     $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro; //save hidden custo para multiplicação javascript
                                     $model->placu_hiddenpjapostila       = $totalValorMaterialApostila; //save hidden custo para multiplicação javascript
@@ -550,7 +611,7 @@ class PlanilhadecursoController extends Controller
                                     $model->placu_codsituacao            = 1; //Situação Padrão: Em elaboração
 
                                     //Totalização das Despesas Diretas (Total de Custo Direto)
-                                    $model->placu_totalcustodireto = $model->placu_totalsalarioencargo + $model->placu_diarias + $model->placu_passagens + $model->placu_pessoafisica + $model->placu_pessoajuridica + $model->placu_PJApostila + $model->placu_custosmateriais + $model->placu_custosconsumo;
+                                    $model->placu_totalcustodireto = $model->placu_totalsalarioencargo + $model->placu_diarias + $model->placu_passagens + $model->placu_pessoafisica + $model->placu_pessoajuridica + $model->placu_PJApostila + $model->placu_custosmateriais + $model->placu_custosconsumo + $model->placu_custosaluno;
 
                                     //Despesas Indiretas
                                     $model->placu_totalincidencias     = $model->placu_custosindiretos + $model->placu_ipca + $model->placu_reservatecnica + $model->placu_despesadm;
@@ -583,11 +644,12 @@ class PlanilhadecursoController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'modelsPlaniDespDocente' => (empty($modelsPlaniDespDocente)) ? [new PlanilhaDespesaDocente] : $modelsPlaniDespDocente,
-                'modelsPlaniUC'          => (empty($modelsPlaniUC)) ? [new PlanilhaUnidadesCurriculares] : $modelsPlaniUC,
-                'modelsPlaniMaterial'    => (empty($modelsPlaniMaterial)) ? [new PlanilhaMaterial] : $modelsPlaniMaterial,
-                'modelsPlaniConsumo'     => (empty($modelsPlaniConsumo)) ? [new PlanilhaConsumo] : $modelsPlaniConsumo,
-                'modelsPlaniEquipamento' => (empty($modelsPlaniEquipamento)) ? [new PlanilhaEquipamento] : $modelsPlaniEquipamento,
+                'modelsPlaniDespDocente'    => (empty($modelsPlaniDespDocente)) ? [new PlanilhaDespesaDocente] : $modelsPlaniDespDocente,
+                'modelsPlaniUC'             => (empty($modelsPlaniUC)) ? [new PlanilhaUnidadesCurriculares] : $modelsPlaniUC,
+                'modelsPlaniMaterial'       => (empty($modelsPlaniMaterial)) ? [new PlanilhaMaterial] : $modelsPlaniMaterial,
+                'modelsPlaniConsumo'        => (empty($modelsPlaniConsumo)) ? [new PlanilhaConsumo] : $modelsPlaniConsumo,
+                'modelsPlaniMateriaisAluno' => (empty($modelsPlaniMateriaisAluno)) ? [new PlanilhaMaterialAluno] : $modelsPlaniMateriaisAluno,
+                'modelsPlaniEquipamento'    => (empty($modelsPlaniEquipamento)) ? [new PlanilhaEquipamento] : $modelsPlaniEquipamento,
             ]);
         }
     }
@@ -596,11 +658,12 @@ class PlanilhadecursoController extends Controller
     {
         $model = $this->findModel($id);
         $model->scenario = 'update'; //Validações obrigatórias na atualização
-        $modelsPlaniUC          = $model->planiUC;
-        $modelsPlaniMaterial    = $model->planiMateriais;
-        $modelsPlaniConsumo     = $model->planiConsumo;
-        $modelsPlaniEquipamento = $model->planiEquipamento;
-        $modelsPlaniDespDocente = $model->planiDespDocente;
+        $modelsPlaniUC             = $model->planiUC;
+        $modelsPlaniMaterial       = $model->planiMateriais;
+        $modelsPlaniConsumo        = $model->planiConsumo;
+        $modelsPlaniMateriaisAluno = $model->planiMateriaisAluno;
+        $modelsPlaniEquipamento    = $model->planiEquipamento;
+        $modelsPlaniDespDocente    = $model->planiDespDocente;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -612,11 +675,12 @@ class PlanilhadecursoController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'modelsPlaniDespDocente' => (empty($modelsPlaniDespDocente)) ? [new PlanilhaDespesaDocente] : $modelsPlaniDespDocente,
-                'modelsPlaniUC'          => (empty($modelsPlaniUC)) ? [new PlanilhaUnidadesCurriculares] : $modelsPlaniUC,
-                'modelsPlaniMaterial'    => (empty($modelsPlaniMaterial)) ? [new PlanilhaMaterial] : $modelsPlaniMaterial,
-                'modelsPlaniConsumo'     => (empty($modelsPlaniConsumo)) ? [new PlanilhaConsumo] : $modelsPlaniConsumo,
-                'modelsPlaniEquipamento' => (empty($modelsPlaniEquipamento)) ? [new PlanilhaEquipamento] : $modelsPlaniEquipamento,
+                'modelsPlaniDespDocente'    => (empty($modelsPlaniDespDocente)) ? [new PlanilhaDespesaDocente] : $modelsPlaniDespDocente,
+                'modelsPlaniUC'             => (empty($modelsPlaniUC)) ? [new PlanilhaUnidadesCurriculares] : $modelsPlaniUC,
+                'modelsPlaniMaterial'       => (empty($modelsPlaniMaterial)) ? [new PlanilhaMaterial] : $modelsPlaniMaterial,
+                'modelsPlaniConsumo'        => (empty($modelsPlaniConsumo)) ? [new PlanilhaConsumo] : $modelsPlaniConsumo,
+                'modelsPlaniMateriaisAluno' => (empty($modelsPlaniMateriaisAluno)) ? [new PlanilhaMaterialAluno] : $modelsPlaniMateriaisAluno,
+                'modelsPlaniEquipamento'    => (empty($modelsPlaniEquipamento)) ? [new PlanilhaEquipamento] : $modelsPlaniEquipamento,
             ]);
         }
     }
@@ -636,6 +700,7 @@ class PlanilhadecursoController extends Controller
         PlanilhaUnidadesCurriculares::deleteAll('planilhadecurso_cod = "'.$id.'"');
         PlanilhaMaterial::deleteAll('planilhadecurso_cod = "'.$id.'"');
         PlanilhaConsumo::deleteAll('planilhadecurso_cod = "'.$id.'"');
+        PlanilhaMaterialAluno::deleteAll('planilhadecurso_cod = "'.$id.'"');
         PlanilhaEquipamento::deleteAll('planilhadecurso_cod = "'.$id.'"');
         $model->delete(); //Exclui a planilha
 

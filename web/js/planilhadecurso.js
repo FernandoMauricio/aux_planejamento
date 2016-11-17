@@ -111,6 +111,10 @@ $(function() {
        updateTotal();
     });
 
+    $('#planilhadecurso-placu_custosaluno').keyup(function() {
+       updateTotal();
+    });
+
     //Despesas Indiretas
     $('#planilhadecurso-placu_custosindiretos').keyup(function() {
        updateTotal();
@@ -178,6 +182,7 @@ $(function() {
       var placu_pessoafisica   = parseFloat($('#planilhadecurso-placu_pessoafisica').val());
       var placu_pessoajuridica = parseFloat($('#planilhadecurso-placu_pessoajuridica').val());
       var placu_custosconsumo  = parseFloat($('#planilhadecurso-placu_custosconsumo').val());
+      var placu_custosaluno    = parseFloat($('#planilhadecurso-placu_custosaluno').val());
 
       //Despesas Indiretas
       var placu_custosindiretos  = parseFloat($('#planilhadecurso-placu_custosindiretos').val());
@@ -211,7 +216,7 @@ $(function() {
       var totalSalariosEncargos    = totalSalarios + totalEncargos;
       var totalMaterial            = placu_hiddenmaterialdidatico * valorTotalQntAlunos;
       var totalPJApostila          = placu_hiddenpjapostila * valorTotalQntAlunos;
-      var valorTotalDireto         = totalSalariosEncargos + placu_diarias + placu_passagens + placu_equipamentos + placu_pessoafisica + placu_pessoajuridica + totalPJApostila + totalMaterial + placu_custosconsumo;
+      var valorTotalDireto         = totalSalariosEncargos + placu_diarias + placu_passagens + placu_equipamentos + placu_pessoafisica + placu_pessoajuridica + totalPJApostila + totalMaterial + placu_custosconsumo + placu_custosaluno;
       var totalhoraaulacustodireto = valorTotalDireto / placu_cargahorariaplano / valorTotalQntAlunos;
 
       //Despesas Indiretas

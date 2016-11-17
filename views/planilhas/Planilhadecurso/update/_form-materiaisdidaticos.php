@@ -31,7 +31,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                 'planima_nivelUC',
                                             ],
                                         ]); ?>
-            <p style="color:#a94442; margin-left:20px">* Ao excluir/editar qualquer material didático, os valores serão atualizados após atualizar a Planilha.</p>
+            <p style="color:#a94442; margin-left:20px">* Ao excluir qualquer material didático, os valores serão atualizados após atualizar a Planilha.</p>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class="glyphicon glyphicon-list-alt"></i> Listagem de Materias Didáticos

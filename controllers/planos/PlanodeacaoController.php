@@ -217,7 +217,7 @@ class PlanodeacaoController extends Controller
                                 $query = (new \yii\db\Query())->from('db_apl.plano_materialconsumo')->where(['planodeacao_cod' => $model->plan_codplano]);
                                 $totalValorConsumo = $query->sum('planmatcon_valor*planmatcon_quantidade');
 
-                                //realiza a soma dos custos de material de consumo
+                                //realiza a soma dos custos de material do aluno
                                 $query = (new \yii\db\Query())->from('db_apl.plano_materialaluno')->where(['planodeacao_cod' => $model->plan_codplano]);
                                 $totalValorAluno = $query->sum('planmatalu_valor*planmatalu_quantidade');
 

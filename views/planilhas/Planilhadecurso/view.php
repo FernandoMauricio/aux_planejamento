@@ -46,11 +46,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
           <div id="rootwizard" class="tabbable tabs-left">
            <ul>
-                <li><a href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Planilha de Curso</a></li>
-                <li><a href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Organização Curricular</a></li>
-                <li><a href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-education"></span> Materiais Didáticos </a></li>
-                <li><a href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-tags"></span> Material de Consumo </a></li>
-                <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Equipamentos / Utensílios</a></li>
+                <li><a href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Informações</a></li>
+                <li><a href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-folder-open"></span> Organização Curricular</a></li>
+                <li><a href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Material Didático</a></li>
+                <li><a href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-tags"></span> Material de Consumo</a></li>
+                <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-education"></span> Material do Aluno</a></li>
+                <li><a href="#tab6" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Equipamentos / Utensílios</a></li>
            </ul>
 
             <div class="tab-content" style="margin-right: -15px; margin-left: -15px;"><br>
@@ -81,6 +82,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
 
                 <div class="tab-pane" id="tab5">
+                    <?= $this->render('view-materiaisaluno', [
+                        'modelsPlaniMateriaisAluno' => $modelsPlaniMateriaisAluno,
+                    ]) ?>
+                </div>
+
+                <div class="tab-pane" id="tab6">
                     <?= $this->render('view-equipamentos', [
                         'modelsPlaniEquipamento' => $modelsPlaniEquipamento,
                     ]) ?>
