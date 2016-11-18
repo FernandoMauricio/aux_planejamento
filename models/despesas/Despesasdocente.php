@@ -42,7 +42,7 @@ class Despesasdocente extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['doce_descricao', 'doce_valor', 'doce_dsr', 'doce_status', 'calculos'], 'required'],
+            [['doce_descricao', 'doce_encargos', 'doce_valor', 'doce_status', 'calculos'], 'required'],
             [['doce_valor', 'doce_dsr', 'doce_planejamento', 'doce_produtividade', 'doce_valorhoraaula'], 'number'],
             [['doce_status'], 'integer'],
             [['calculos'], 'safe'],
@@ -58,6 +58,7 @@ class Despesasdocente extends \yii\db\ActiveRecord
         return [
             'doce_id' => 'Cód.',
             'doce_descricao' => 'Nível Docente',
+            'doce_encargos' => 'Encargos',
             'doce_valor' => 'Valor',
             'doce_dsr' => 'DSR',
             'doce_planejamento' => 'Planejamento',

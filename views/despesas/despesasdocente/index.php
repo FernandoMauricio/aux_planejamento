@@ -39,6 +39,12 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                              'doce_descricao',
 
                              [
+                                 'attribute' =>'doce_encargos',
+                                 'contentOptions' => ['class' => 'col-lg-1'],
+                                 'format'=>['decimal',2],
+                             ],
+
+                             [
                                  'attribute' =>'doce_valor',
                                  'contentOptions' => ['class' => 'col-lg-1'],
                                  'format'=>['decimal',2],
@@ -97,7 +103,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes de Despesas com Docentes', 'options'=>['colspan'=>3, 'class'=>'text-center warning']],
+                ['content'=>'Detalhes de Despesas com Docentes', 'options'=>['colspan'=>4, 'class'=>'text-center warning']],
                 ['content'=>'Cálculos Realizados', 'options'=>['colspan'=>4, 'class'=>'text-center warning']], 
                 ['content'=>'Ações', 'options'=>['colspan'=>2, 'class'=>'text-center warning']], 
             ],

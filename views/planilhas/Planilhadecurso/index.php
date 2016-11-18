@@ -107,7 +107,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'subGroupOf'=>1, // supplier column index is the parent group,
             ],
 
-        'placu_codplanilha',
+            [
+              'attribute'=>'anoLabel',
+              'value'=> 'planilhaAno.an_ano',
+            ],
+
+            'placu_codplanilha',
 
             [
               'attribute'=>'PlanoLabel',

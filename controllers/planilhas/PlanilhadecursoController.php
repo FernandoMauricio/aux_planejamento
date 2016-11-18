@@ -200,7 +200,6 @@ class PlanilhadecursoController extends Controller
         $model->placu_codcolaborador = $session['sess_codcolaborador'];
         $model->placu_codunidade     = $session['sess_codunidade'];
         $model->placu_nomeunidade    = $session['sess_unidade'];
-        //$model->placu_codcategoria   = 1; //PSG / Não PSG
         $model->placu_codsituacao    = 1; //Situação Padrão: Em elaboração
         $model->placu_tipocalculo    = 1; //Tipo de Cálculo: Taxa de Retorno ou Valor Curso Por Aluno
         $model->placu_diarias        = 0;
@@ -209,6 +208,8 @@ class PlanilhadecursoController extends Controller
         $model->placu_pessoafisica   = 0;
         $model->placu_pessoajuridica = 0;
         $model->placu_data           = date('Y-m-d');
+        $model->placu_anoexercicio   = date('Y');
+
 
             //Localiza as Despesas Indiretas da Unidade
             $ListagemMarkups = "SELECT * FROM  `markup_mark` WHERE `mark_codunidade` = '".$model->placu_codunidade."'";
@@ -238,6 +239,7 @@ class PlanilhadecursoController extends Controller
                 foreach ($despDocentes as $despDocente) {
 
                     $doce_descricao     = $despDocente['doce_descricao'];
+                    $doce_encargos      = $despDocente['doce_encargos'];
                     $doce_valor         = $despDocente['doce_valor'];
                     $doce_dsr           = $despDocente['doce_dsr'];
                     $doce_planejamento  = $despDocente['doce_planejamento'];
@@ -249,6 +251,7 @@ class PlanilhadecursoController extends Controller
                     ->insert('planilhadespesadoce_planides', [
                              'planilhadecurso_cod'    => $model->placu_codplanilha,
                              'planides_descricao'     => $doce_descricao,
+                             'planides_encargos'      => $doce_encargos,
                              'planides_valor'         => $doce_valor,
                              'planides_dsr'           => $doce_dsr,
                              'planides_planejamento'  => $doce_planejamento,
@@ -475,6 +478,11 @@ class PlanilhadecursoController extends Controller
         $modelsPlaniEquipamento    = $model->planiEquipamento;
         $modelsPlaniDespDocente    = $model->planiDespDocente;
 
+
+        //Caso o exercicio da Planilha seja diferente com o ano da Planilha, será avisado ao usuário para excluir alguns itens
+        if($model->placu_anoexercicio != $model->planilhaAno->an_ano){
+             Yii::$app->session->setFlash('warning', '<strong>AVISO! </strong> Planilha '.$id.' com ano retroativo. Por favor, <strong>exclua</strong> os itens de Organização Curricular, Material Didático, Consumo e Aluno que não irá utilizar!</strong>');
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 

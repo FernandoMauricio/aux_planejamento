@@ -14,8 +14,12 @@ use kartik\money\MaskMoney;
     <?php $form = ActiveForm::begin(); ?>
 
 <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-5">
     <?= $form->field($model, 'doce_descricao')->textInput(['maxlength' => true]) ?>
+    </div>
+
+    <div class="col-md-2">
+    <?= $form->field($model, 'doce_encargos')->textInput(['maxlength' => true]) ?>
     </div>
 
     <div class="col-md-2">

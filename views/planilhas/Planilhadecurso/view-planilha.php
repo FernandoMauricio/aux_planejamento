@@ -222,6 +222,7 @@ use yii\helpers\Html;
             <tr>
                 <td><?= $modelPlaniDespDocente->planides_descricao ?></td>
                 <td><?= $modelPlaniDespDocente->planides_valor ?></td>
+                <td><?= $modelPlaniDespDocente->planides_encargos ?></td>
                 <td><?= $modelPlaniDespDocente->planides_dsr ?></td>
                 <td><?= $modelPlaniDespDocente->planides_planejamento ?></td>
                 <td><?= $modelPlaniDespDocente->planides_produtividade ?></td>
@@ -250,7 +251,7 @@ use yii\helpers\Html;
               <div class="row">
                       <div class="col-md-3"><strong>Total de Salários:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalsalario, 2, ',', '.'); ?></div>
 
-                      <div class="col-md-3"><strong>(%) Encargos s/13º, férias e salários:</strong><br> <?php echo number_format($model->placu_encargos, 2, ',', '.') . '%'; ?></div>
+                      <div class="col-md-3"><strong>(%) Encargos s/13º, férias e salários:</strong><br> <?php echo number_format($model->placu_totalencargosPrestador, 2, ',', '.') . '%'; ?></div>
 
                       <div class="col-md-3"><strong>Total de Encargos:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalencargos, 2, ',', '.'); ?></div>
 

@@ -20,7 +20,7 @@ class DespesasdocenteSearch extends Despesasdocente
         return [
             [['doce_id', 'doce_status'], 'integer'],
             [['doce_descricao'], 'safe'],
-            [['doce_valor', 'doce_dsr', 'doce_planejamento', 'doce_produtividade', 'doce_valorhoraaula'], 'number'],
+            [['doce_valor', 'doce_encargos', 'doce_dsr', 'doce_planejamento', 'doce_produtividade', 'doce_valorhoraaula'], 'number'],
         ];
     }
 
@@ -65,6 +65,7 @@ class DespesasdocenteSearch extends Despesasdocente
         ]);
 
         $query->andFilterWhere(['like', 'doce_descricao', $this->doce_descricao])
+              ->andFilterWhere(['like', 'doce_encargos', $this->doce_encargos])
               ->andFilterWhere(['like', 'doce_valor', $this->doce_valor])
               ->andFilterWhere(['like', 'doce_dsr', $this->doce_dsr])
               ->andFilterWhere(['like', 'doce_planejamento', $this->doce_planejamento])
