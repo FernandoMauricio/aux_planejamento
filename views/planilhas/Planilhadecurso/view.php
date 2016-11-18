@@ -13,7 +13,7 @@ use app\models\planos\PlanoEstruturafisica;
 /* @var $model app\models\planilhas\Planilhadecurso */
 
 $this->title = $model->placu_codplanilha;
-$this->params['breadcrumbs'][] = ['label' => 'Listagem de Planilhas de Curso', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Listagem Planilhas de Curso', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="planilhadecurso-view">

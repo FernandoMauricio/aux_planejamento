@@ -23,7 +23,7 @@ use app\models\cadastros\Situacaoplanilha;
 $session = Yii::$app->session;
 $unidade = $session['sess_unidade'];
 
-$this->title = 'Planilhas de Curso ';
+$this->title = 'Listagem Planilhas de Curso ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="planilhadecurso-index">

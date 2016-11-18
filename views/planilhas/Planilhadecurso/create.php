@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\planilhas\Planilhadecurso */
 
 $this->title = 'Nova Planilha de Curso';
-$this->params['breadcrumbs'][] = ['label' => 'Planilhadecursos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Listagem Planilhas de Curso', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="planilhadecurso-create">
