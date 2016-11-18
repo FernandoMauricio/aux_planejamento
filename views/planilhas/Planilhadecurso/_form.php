@@ -110,7 +110,7 @@ use app\models\cadastros\Tipoprogramacao;
             <div class="row">
                 <div class="col-md-2">
                 <?php
-                        $rows = Ano::find()->where(['an_status'=> 1])->orderBy('an_ano')->all();
+                        $rows = Ano::find()->where(['an_status'=> 1])->orderBy(['an_codano'=>SORT_DESC])->all();
                         $data_ano = ArrayHelper::map($rows, 'an_codano', 'an_ano');
                         echo $form->field($model, 'placu_codano')->widget(Select2::classname(), [
                                 'data' =>  $data_ano,

@@ -208,6 +208,7 @@ use yii\helpers\Html;
           <thead>
             <tr>
               <th>Descrição</th>
+              <th>Encargos</th>
               <th>Valor</th>
               <th>DSR</th>
               <th>Planejamento</th>
@@ -221,12 +222,12 @@ use yii\helpers\Html;
                <?php foreach ($modelsPlaniDespDocente as $i => $modelPlaniDespDocente): ?>
             <tr>
                 <td><?= $modelPlaniDespDocente->planides_descricao ?></td>
-                <td><?= $modelPlaniDespDocente->planides_valor ?></td>
-                <td><?= $modelPlaniDespDocente->planides_encargos ?></td>
-                <td><?= $modelPlaniDespDocente->planides_dsr ?></td>
-                <td><?= $modelPlaniDespDocente->planides_planejamento ?></td>
-                <td><?= $modelPlaniDespDocente->planides_produtividade ?></td>
-                <td><?= $modelPlaniDespDocente->planides_valorhoraaula ?></td>
+                <td><?= $modelPlaniDespDocente->planides_encargos . '%' ?></td>
+                <td><?= 'R$ ' . $modelPlaniDespDocente->planides_valor ?></td>
+                <td><?= 'R$ ' . $modelPlaniDespDocente->planides_dsr ?></td>
+                <td><?= 'R$ ' . $modelPlaniDespDocente->planides_planejamento ?></td>
+                <td><?= 'R$ ' . $modelPlaniDespDocente->planides_produtividade ?></td>
+                <td><?= 'R$ ' . $modelPlaniDespDocente->planides_valorhoraaula ?></td>
                 <td><?= $modelPlaniDespDocente->planides_cargahoraria ?></td>
             </tr>
                <?php endforeach; ?>
@@ -238,22 +239,24 @@ use yii\helpers\Html;
               <div class="row">
                       <div class="col-md-3"><strong>Custo de Mão de Obra Direta:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalcustodocente, 2, ',', '.'); ?></div>
 
-                      <div class="col-md-3"><strong>1/12 de 13º:</strong><br> <?php echo 'R$ ' . number_format($model->placu_decimo, 2, ',', '.'); ?></div>
+                      <div class="col-md-2"><strong>1/12 de 13º:</strong><br> <?php echo 'R$ ' . number_format($model->placu_decimo, 2, ',', '.'); ?></div>
 
-                      <div class="col-md-3"><strong>1/12 de Férias:</strong><br> <?php  echo 'R$ ' . number_format($model->placu_ferias, 2, ',', '.'); ?></div>
+                      <div class="col-md-2"><strong>1/12 de Férias:</strong><br> <?php  echo 'R$ ' . number_format($model->placu_ferias, 2, ',', '.'); ?></div>
 
-                      <div class="col-md-3"><strong>1/12 de 1/3 de férias:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_tercoferias, 2, ',', '.'); ?></div>
+                      <div class="col-md-2"><strong>1/12 de 1/3 de férias:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_tercoferias, 2, ',', '.'); ?></div>
 
+                      <div class="col-md-3"><strong>Total de Salários:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalsalario, 2, ',', '.'); ?></div>
               </div>
 
             <br>
 
               <div class="row">
-                      <div class="col-md-3"><strong>Total de Salários:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalsalario, 2, ',', '.'); ?></div>
 
-                      <div class="col-md-3"><strong>(%) Encargos s/13º, férias e salários:</strong><br> <?php echo number_format($model->placu_totalencargosPrestador, 2, ',', '.') . '%'; ?></div>
+                      <div class="col-md-3"><strong>SubTotal de Encargos:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalencargos, 2, ',', '.'); ?></div>
 
-                      <div class="col-md-3"><strong>Total de Encargos:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalencargos, 2, ',', '.'); ?></div>
+                      <div class="col-md-3"><strong>SubTotal de Salários(Prestador):</strong><br> <?php echo 'R$ ' . number_format($model->placu_totalsalarioPrestador, 2, ',', '.'); ?></div>
+
+                      <div class="col-md-3"><strong>SubTotal de Encargos(Prestador):</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalencargosPrestador, 2, ',', '.'); ?></div>
 
                       <div class="col-md-3"><strong>Total de Salários + Encargos:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalsalarioencargo, 2, ',', '.'); ?></div>
               </div>

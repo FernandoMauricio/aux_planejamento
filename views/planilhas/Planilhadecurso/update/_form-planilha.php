@@ -160,6 +160,9 @@ use app\models\cadastros\Tipoprogramacao;
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
@@ -279,9 +282,6 @@ use app\models\cadastros\Tipoprogramacao;
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,
-                            'prefix' => 'R$ ',
-                            'groupSeparator' => '.',
-                            'radixPoint' => ',',
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
