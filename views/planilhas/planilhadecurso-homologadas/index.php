@@ -17,41 +17,20 @@ use app\models\cadastros\Tipoprogramacao;
 use app\models\cadastros\Situacaoplanilha;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\planos\PlanodeacaoSearch */
+/* @var $searchModel app\models\planilhas\PlanilhadecursoHomologadasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Listagem de Planilhas - Pendentes';
+$this->title = 'Listagem de Planilhas - Homologadas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="planilhadecurso-admin-index">
+<div class="planilhadecurso-homologadas-index">
 
-<?php
-    //Pega as mensagens
-    foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
-    echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
-    }
-?>
     <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::button('Homologar Planejamento', ['value'=> Url::to('index.php?r=planilhas/planilhadecurso-admin/homologar-planejamento'), 'class' => 'btn btn-success', 'id'=>'modalButton']) ?>
-    </p>
+<?php Pjax::begin(); ?>  
 
-    <?php
-        Modal::begin([
-            'header' => '<h4>Defina a unidade a ser Homologada:</h4>',
-            'id' => 'modal',
-            'size' => 'modal-lg',
-            ]);
-
-        echo "<div id='modalContent'></div>";
-
-        Modal::end();
-   ?>
-
-<?php Pjax::begin(); ?>    
-
-<?php echo  GridView::widget([
+    <?php echo  GridView::widget([
             'dataProvider'=>$dataProvider,
             'filterModel'=>$searchModel,
             'pjax'=>true,
@@ -153,11 +132,19 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             [
-                'attribute'=>'placu_codsituacao',
-                'value' =>'situacaoPlani.sipla_descricao',
-                'filter'=>false,
+                'attribute'=>'placu_codsituacao', 
+                'width'=>'250px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->situacaoPlani->sipla_descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(Situacaoplanilha::find()->orderBy('sipla_descricao')->asArray()->all(), 'sipla_codsituacao', 'sipla_descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'Situação'],
             ],
-        
+       
             ['class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {correcao}',
                 'contentOptions' => ['style' => 'width: 350px;'],
