@@ -95,7 +95,7 @@ class PlanilhadecursoController extends Controller
 
         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Total de '.$countPlanilhas.' planilhas de "'.$session['sess_unidade'].'" enviadas para análise do GPO!</strong>');
         }else{
-        Yii::$app->session->setFlash('warning', '<strong>AVISO! </strong> Não existem planilhas com a situação: "Aguardando Envio Planejamento" para serem enviadas à GPO!</strong>');
+        Yii::$app->session->setFlash('warning', '<strong>AVISO! </strong> Não existem planilhas com a situação: <strong>"Aguardando Envio Planejamento"</strong> para serem enviadas à GPO!</strong>');
         }
 
         return $this->redirect(['index']);

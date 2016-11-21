@@ -3,6 +3,8 @@
 namespace app\controllers\planilhas;
 
 use Yii;
+use app\models\base\Unidade;
+use app\models\cadastros\Tipoprogramacao;
 use app\models\planilhas\Planilhadecurso;
 use app\models\planilhas\PlanilhaJustificativas;
 use app\models\planilhas\PlanilhadecursoAdmin;
@@ -69,6 +71,49 @@ class PlanilhadecursoAdminController extends Controller
             'modelsPlaniConsumo'     => $modelsPlaniConsumo,
             'modelsPlaniEquipamento' => $modelsPlaniEquipamento,
         ]);
+    }
+
+    //Homologa todo o Planejamento da unidade selecionada para o MODELO A
+    public function actionHomologarPlanejamento() 
+    {
+        $model = new PlanilhadecursoAdmin();
+
+        $unidades = Unidade::find()->where(['uni_codsituacao' => 1])->orderBy('uni_nomeabreviado')->all();
+        $tipoProgramacao = Tipoprogramacao::find()->all();
+
+     if ($model->load(Yii::$app->request->post())) {
+
+        //Realiza a Contagem das Planilhas da unidade que estão definidas como como PRODUÇÃO(1), PROGRAMAÇÃO ANUAL(1) e EM ANÁLISE PELO GPO - SITUAÇÃO COD 3
+        $countPlanilhas = 0;
+        $countPlanilhas = Planilhadecurso::find()->where(['placu_codtipla' => 1, 'placu_codsituacao' => 3,  'placu_codprogramacao' => $model->placu_codprogramacao,  'placu_codunidade' =>  $model->placu_codunidade])->count();
+
+            //Altera a situação de todas as planilhas da unidade selecionada
+        if($countPlanilhas != 0){
+                Yii::$app->db_apl->createCommand()
+                    ->update('planilhadecurso_placu', [
+                             'placu_codsituacao' => 4, //Homologado pelo GPO
+                             ], [//------WHERE
+                             'placu_codtipla' => 1,  //PRODUÇÃO(1)
+                             'placu_codsituacao' => 3, //EM ANÁLISE PELO GPO
+                             'placu_codprogramacao' => $model->placu_codprogramacao, // PROGRAMAÇÃO ANUAL
+                             'placu_codunidade' => $model->placu_codunidade, // Unidade selecionada
+                             ]) 
+                    ->execute();
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Total de '.$countPlanilhas.' planilhas do tipo <strong>'.$model->tipoprogramacao->tipro_descricao.'</strong> da unidade <strong>'.$model->unidade->uni_nomeabreviado.'</strong> Homologadas pelo GPO!</strong>');
+        }else{
+            Yii::$app->session->setFlash('warning', '<strong>AVISO! </strong> Não existem planilhas da unidade <strong>'.$model->unidade->uni_nomeabreviado.'</strong> do tipo <strong>'.$model->tipoprogramacao->tipro_descricao.'</strong> com a situação: <strong>"Em análise pela GPO"</strong> para serem Homologadas!</strong>');
+        }
+
+        return $this->redirect(['/planilhas/planilhadecurso-admin/index']);
+
+        }else{
+            return $this->renderAjax('homologar-planejamento', [
+                'model' => $model,
+                'unidades'=> $unidades,
+                'tipoProgramacao' => $tipoProgramacao,
+            ]);
+        }
+
     }
 
     /**

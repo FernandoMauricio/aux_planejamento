@@ -33,6 +33,21 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <p>
+        <?= Html::button('Homologar Planejamento', ['value'=> Url::to('index.php?r=planilhas/planilhadecurso-admin/homologar-planejamento'), 'class' => 'btn btn-success', 'id'=>'modalButton']) ?>
+    </p>
+
+    <?php
+        Modal::begin([
+            'header' => '<h4>Defina a unidade a ser Homologada:</h4>',
+            'id' => 'modal',
+            'size' => 'modal-lg',
+            ]);
+
+        echo "<div id='modalContent'></div>";
+
+        Modal::end();
+   ?>
 
 <?php Pjax::begin(); ?>    
 
