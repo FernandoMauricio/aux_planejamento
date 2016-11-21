@@ -105,6 +105,11 @@ use kartik\nav\NavX;
                                 ['label' => 'Planilhas Homologadas', 'url' => ['/planilhas/planilhadecurso-homologadas/index']],
 
                             ]],
+                                     '<li class="divider"></li>',
+                            ['label' => 'Modelo A', 'items' => [
+                                ['label' => 'Listagem do Modelo A', 'url' => ['/modeloa/modelo-a/index']],
+
+                            ]],
                      ],
             ],
 
