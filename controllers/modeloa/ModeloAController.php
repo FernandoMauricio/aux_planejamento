@@ -7,6 +7,7 @@ use app\models\MultipleModel as Model;
 use app\models\modeloa\DetalhesModeloA;
 use app\models\modeloa\ModeloA;
 use app\models\modeloa\ModeloASearch;
+use app\models\modeloa\SituacaoModeloA;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -88,6 +89,9 @@ class ModeloAController extends Controller
         $model = $this->findModel($id);
         $modelsDetalhesModeloA  = $model->detalhesModeloA;
 
+        $situacaoModeloA = SituacaoModeloA::find()->all();
+
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
         //-------Detalhes Modelo A--------------
@@ -139,6 +143,7 @@ class ModeloAController extends Controller
             return $this->render('update', [
                 'model' => $model,
                 'modelsDetalhesModeloA' => (empty($modelsDetalhesModeloA)) ? [new DetalhesModeloA] : $modelsDetalhesModeloA,
+                'situacaoModeloA' => $situacaoModeloA,
             ]);
         }
     }

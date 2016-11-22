@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\modeloa\ModeloA */
@@ -48,7 +51,16 @@ use yii\widgets\ActiveForm;
                 </div>
 
                 <div class="col-md-2">
-                    <?= $form->field($model, 'situacaoLabel')->textInput(['value' => $model->situacaoModeloA->simoa_situacao,'maxlength' => true]) ?>
+                <?php
+                        $data_situacaomodeloa = ArrayHelper::map($situacaoModeloA, 'simoa_codsituacao', 'simoa_situacao');
+                        echo $form->field($model, 'moda_codsituacao')->widget(Select2::classname(), [
+                                'data' =>  $data_situacaomodeloa,
+                                'options' => ['placeholder' => 'Situação...'],
+                                'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ]);
+                ?>
                 </div>
             </div>
 
