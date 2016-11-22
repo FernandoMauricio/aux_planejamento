@@ -20,8 +20,31 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="modelo-a-index">
 
+<?php
+    //Pega as mensagens
+    foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+    echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+    }
+?>
+
     <h1><?= Html::encode($this->title) . '<small>' .$unidade. '</small>' ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <p>
+        <?= Html::button('Gerar Modelo A', ['value'=> Url::to('index.php?r=modeloa/modelo-a/gerar-modelo-a'), 'class' => 'btn btn-primary', 'id'=>'modalButton']) ?>
+    </p>
+
+    <?php
+        Modal::begin([
+            'header' => '<h4>Geração de Centro de Custo para compor Modelo A</h4>',
+            'id' => 'modal',
+            'size' => 'modal-lg',
+            ]);
+
+        echo "<div id='modalContent'></div>";
+
+        Modal::end();
+    ?>
 
 <?php echo  GridView::widget([
             'dataProvider'=>$dataProvider,

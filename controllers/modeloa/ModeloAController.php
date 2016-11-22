@@ -4,10 +4,15 @@ namespace app\controllers\modeloa;
 
 use Yii;
 use app\models\MultipleModel as Model;
+use app\models\cadastros\Centrocusto;
+use app\models\cadastros\Ano;
+use app\models\cadastros\Tipoprogramacao;
 use app\models\modeloa\DetalhesModeloA;
 use app\models\modeloa\ModeloA;
 use app\models\modeloa\ModeloASearch;
 use app\models\modeloa\SituacaoModeloA;
+use app\models\modeloa\OrcamentoPrograma;
+use app\models\planilhas\Planilhadecurso;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -60,6 +65,115 @@ class ModeloAController extends Controller
         ]);
     }
 
+
+    public function actionGerarModeloA()
+    {
+        $session = Yii::$app->session;
+
+        //$session['sess_codunidade']
+        //$session['sess_unidade']
+        //$session['sess_codcolaborador']
+        //$session['sess_nomeusuario']
+
+        $model = new ModeloA();
+
+        //$unidades = Unidade::find()->where(['uni_codsituacao' => 1])->orderBy('uni_nomeabreviado')->all();
+        $ano = Ano::find()->where(['an_status'=> 1])->orderBy(['an_codano'=>SORT_DESC])->all();
+        $tipoProgramacao = Tipoprogramacao::find()->all();
+
+        if ($model->load(Yii::$app->request->post())) {
+
+        $centrocustos = Centrocusto::find()->where(['cen_codano' => $model->anoModeloA->an_ano, 'cen_codunidade' =>$session['sess_codunidade']])->all();
+
+        foreach ($centrocustos as $centrocusto) {
+
+           $cen_codcentrocusto      = $centrocusto['cen_codcentrocusto'];
+           $cen_centrocusto         = $centrocusto['cen_centrocusto'];
+           $cen_nomecentrocusto     = $centrocusto['cen_nomecentrocusto'];
+           $cen_centrocustoreduzido = $centrocusto['cen_centrocustoreduzido'];
+           $cen_codsegmento         = $centrocusto['cen_codsegmento'];
+           $cen_codtipoacao         = $centrocusto['cen_codtipoacao'];
+          
+           //CRIANDO O MODELO A....
+           $identificador_modeloa = $session['sess_codusuario']."-".$cen_codcentrocusto;
+
+                //Inclui as informações do Centro de Custos para o Modelo A
+                Yii::$app->db_apl->createCommand()
+                    ->insert('modeloa_moda', [
+                             'moda_codano'              => $model->anoModeloA->an_codano
+                             'moda_centrocusto'         => $cen_centrocusto,
+                             'moda_centrocustoreduzido' => $cen_centrocustoreduzido,
+                             'moda_nomecentrocusto'     => $cen_nomecentrocusto,
+                             'moda_codunidade'          => $sess_codunidade,
+                             'moda_nomeunidade'         => $sess_unidade,
+                             'moda_codcolaborador'      => $sess_codcolaborador,
+                             'moda_codusuario'          => $sess_codusuario,
+                             'moda_nomeusuario'         => $sess_nomeusuario,
+                             'moda_codsituacao'         => 1,
+                             'moda_codentrada'          => 1,
+                             'moda_codsegmento'         => $cen_codsegmento,
+                             'moda_codtipoacao'         => $cen_codtipoacao,
+                             'moda_identificacao'       => $identificador_modeloa,
+                             ])
+                    ->execute();
+                }
+
+        //EXTRAINDO TODOS OS ORCAMENTOS PROGRAMAS EXISTENTES...
+        $orcamentoProgramas = OrcamentoPrograma::find()->all();
+
+        foreach ($orcamentoProgramas as $orcamentoPrograma) {
+
+            $orcpro_codigo        = $orcamentoPrograma['orcpro_codigo'];
+            $orcpro_titulo        = $orcamentoPrograma['orcpro_titulo'];
+            $orcpro_identificacao = $orcamentoPrograma['orcpro_identificacao'];
+            $orcpro_codtipo       = $orcamentoPrograma['orcpro_codtipo'];
+
+            $valor_programado = 0;
+
+              //IDENTIFICANDO O TIPO DE TITULO PARA BUSCAR VALORES NAS PLANILHAS...
+              if($orcpro_identificacao == 111 || $orcpro_identificacao == 113 || $orcpro_identificacao == 116 || $orcpro_identificacao == 414 || $orcpro_identificacao == 430 || $orcpro_identificacao == 433 || $orcpro_identificacao == 439){
+
+                //Localiza as Planilhas de Cursos onde contêm os centros de Custos cadastrados // Parâmetros -> situação 4 - (Homologada) e Tipo de Planilha (Produção)
+                $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_codano' => $model->anoModeloA->an_codano, 'placu_codsegmento' => $cen_codsegmento, 'placu_codtipoa' => $cen_codtipoacao, 'placu_codsituacao' = 4, 'placu_codtipla' => 1])->all();
+
+                foreach ($planilhaDeCursos as $planilhaDeCurso) {
+
+                    $placu_codplanilha           = $planilhaDeCurso['placu_codplanilha'];
+                    $placu_quantidadeturmas      = $planilhaDeCurso['placu_quantidadeturmas'];
+                    $placu_quantidadealunos      = $planilhaDeCurso['placu_quantidadealunos'];
+                    $placu_quantidadealunospsg   = $planilhaDeCurso['placu_quantidadealunospsg'];
+                    $placu_cargahorariaarealizar = $planilhaDeCurso['placu_cargahorariaarealizar'];
+                    $placu_diarias               += $planilhaDeCurso['placu_diarias'];
+
+                    if($orcpro_identificacao == 414) { //DIARIAS
+
+                       $valor_programado = $placu_diarias * $placu_quantidadeturmas; //Valor das diárias das planilhas * Quantidade de Turmas
+
+                    }
+                    else if($orcpro_identificacao == 430) { //MATERIAL DE CONSUMO, MATERIAL DIDÁTICO E MATERIAL DO ALUNO - TOTAL
+
+                        //PAREI AQUI.
+
+                    }
+                         
+                }
+              }
+            }
+
+        }
+
+        Yii::$app->session->setFlash('success','<strong>Sucesso!</strong> Modelo A gerado!');
+
+        return $this->redirect(['index']);
+
+        }else{
+            return $this->renderAjax('gerar-modelo-a', [
+                'model' => $model,
+                'ano' => $ano,
+                'tipoProgramacao' => $tipoProgramacao,
+            ]);
+        }
+    }
     /**
      * Creates a new ModeloA model.
      * If creation is successful, the browser will be redirected to the 'view' page.
