@@ -30,6 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'striped'=>true,
             'hover'=>true,
             'panel'=>['type'=>'primary', 'heading'=>'Listagem Modelo A'],
+            'rowOptions' =>function($model){
+                if($model->moda_codsituacao == 1 ){
+                        return['class'=>'success'];                        
+                }else{
+                        return['class'=>'danger'];
+                }
+            },
             'columns'=>[
             ['class' => 'yii\grid\SerialColumn'],
 

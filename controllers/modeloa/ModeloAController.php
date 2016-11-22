@@ -96,10 +96,9 @@ class ModeloAController extends Controller
         Model::loadMultiple($modelsDetalhesModeloA, Yii::$app->request->post());
         $deletedIDsDetalhesModeloA = array_diff($oldIDsDetalhesModeloA, array_filter(ArrayHelper::map($modelsDetalhesModeloA, 'id', 'id')));
 
-
- // validate all models
+        // validate all models
         $valid = $model->validate();
-        $valid = (Model::validateMultiple($modelsDetalhesModeloA)) && $valid;
+        //$valid = ( Model::validateMultiple($modelsDetalhesModeloA) ) && $valid;
 
                         if ($valid) {
                             $transaction = \Yii::$app->db_apl->beginTransaction();
@@ -109,19 +108,19 @@ class ModeloAController extends Controller
                                     if (! empty($deletedIDsDetalhesModeloA)) {
                                         DetalhesModeloA::deleteAll(['id' => $deletedIDsDetalhesModeloA]);
                                     }
-                                    foreach ($modelsDetalhesModeloA as $modelsDetalhesModeloA) {
-                                        $modelsDetalhesModeloA->deta_codmodelo = $model->moda_codmodelo;
-                                        if (! ($flag = $modelsDetalhesModeloA->save(false))) {
+                                    foreach ($modelsDetalhesModeloA as $modelDetalhesModeloA) {
+                                        $modelDetalhesModeloA->deta_codmodelo   = $model->moda_codmodelo;//--Cod. modelo
+                                        $modelDetalhesModeloA->deta_codsegmento = $model->moda_codsegmento;//--Cod. Segmento
+                                        $modelDetalhesModeloA->deta_codtipoa    = $model->moda_codtipoacao;//--Cod.Tipo de ação
+                                        if (! ($flag = $modelDetalhesModeloA->save(false))) {
                                             $transaction->rollBack();
                                             break;
                                         }
                                     }
-
                                 }
 
                                 if ($flag) {
                                     $transaction->commit();
-
 
                                     Yii::$app->session->setFlash('info', '<strong>SUCESSO! </strong> Modelo A '.$id.' Atualizado!</strong>');
 
@@ -131,6 +130,7 @@ class ModeloAController extends Controller
                                 $transaction->rollBack();
                             }
                         }
+                        $model->save();
 
             Yii::$app->session->setFlash('info', '<strong>SUCESSO! </strong> Modelo A '.$id.' Atualizado!</strong>');
 

@@ -639,7 +639,7 @@ class PlanilhadecursoController extends Controller
                                     $model->placu_totalincidencias     = $model->placu_custosindiretos + $model->placu_ipca + $model->placu_reservatecnica + $model->placu_despesadm;
                                     $model->placu_totalcustoindireto   = ($model->placu_totalcustodireto * $model->placu_totalincidencias) / 100;
                                     $model->placu_despesatotal         = $model->placu_totalcustoindireto + $model->placu_totalcustodireto;
-                                    $model->placu_markdivisor          = (100 -  $model->placu_totalincidencias );
+                                    $model->placu_markdivisor          = (100 - $model->placu_totalincidencias);
                                     $model->placu_markmultiplicador    = ((100 / $model->placu_markdivisor) - 1) * 100; // Valores em %
                                     $model->placu_vendaturma           = ($model->placu_totalcustodireto / $model->placu_markdivisor) * 100; // Valores em %
                                     $model->placu_vendaaluno           = ($model->placu_vendaturma / $valorTotalQntAlunos);

@@ -23,34 +23,36 @@ use yii\helpers\Url;
                         <?php foreach ($modelsDetalhesModeloA as $i => $modelDetalhesModeloA): ?>
                     <tbody> 
                         <tr class="default"> 
-                                            <td><?= $modelDetalhesModeloA->deta_codtitulo ?></td>
 
+                                            <td style="width: 120px;"><?= $form->field($modelDetalhesModeloA, "[{$i}]deta_codtitulo")->textInput(['readonly'=> true])->label(false); ?></td>
 
-                                            <td><?= $modelDetalhesModeloA->deta_titulo ?></td>
+                                            <td><?= $form->field($modelDetalhesModeloA, "[{$i}]deta_titulo")->textInput(['readonly'=> true])->label(false); ?></td>
 
-                                            <td><?= $modelDetalhesModeloA->deta_identificacao ?></td>
+                                            <td style="width: 20px;"><?= $form->field($modelDetalhesModeloA, "[{$i}]deta_identificacao")->textInput(['readonly'=> true])->label(false); ?></td>
 
-                                            <td><?= $form->field($modelDetalhesModeloA, "[{$i}]deta_programado")->widget(\yii\widgets\MaskedInput::className(), [
+                                            <td style="width: 150px;"><?= $form->field($modelDetalhesModeloA, "[{$i}]deta_programado")->widget(\yii\widgets\MaskedInput::className(), [
                                                                                         'clientOptions' => [
                                                                                         'alias' => 'decimal',
                                                                                         ],
                                                                                         'options' => ['readonly' => $model->moda_codentrada != 1 ?  true : false, 'class' => 'form-control']
                                                                                 ])->label(false); ?></td>
-                                            <td><?= $form->field($modelDetalhesModeloA, "[{$i}]deta_reforcoreducao")->widget(\yii\widgets\MaskedInput::className(), [
+                                            <td style="width: 150px;"><?= $form->field($modelDetalhesModeloA, "[{$i}]deta_reforcoreducao")->widget(\yii\widgets\MaskedInput::className(), [
                                                                                         'clientOptions' => [
                                                                                         'alias' => 'decimal',
                                                                                         ],
                                                                                         'options' => ['readonly' => $model->moda_codentrada != 2 ?  true : false, 'class' => 'form-control']
                                                                                 ])->label(false); ?></td>
 
-                                            <th><?= $form->field($modelDetalhesModeloA, "[{$i}]deta_dotacaofinal")->widget(\yii\widgets\MaskedInput::className(), [
+                                            <th style="width: 150px;"><?= $form->field($modelDetalhesModeloA, "[{$i}]deta_dotacaofinal")->widget(\yii\widgets\MaskedInput::className(), [
                                                                                         'clientOptions' => [
                                                                                         'alias' => 'decimal',
                                                                                         ],
-                                                                                        'options' => ['readonly' => true, 'class' => 'form-control','style'=>'color:red']
-                                                                                ])->label(false); ?></th>
-                                            </tr> 
+                                                                                        'options' => ['readonly' => true, 'class' => 'form-control','style'=> $modelDetalhesModeloA->deta_dotacaofinal < 0 ? 'color:red' : 'color:green']
+                                                                                ])->label(false); ?> </th>
+                        </tr> 
                         <?php endforeach; ?>
             </tbody> 
         </table>
 </div>
+
+<?php  $this->registerJsFile(Yii::$app->request->baseUrl.'/js/modeloa.js', ['depends' => [\yii\web\JqueryAsset::className()]]); ?>

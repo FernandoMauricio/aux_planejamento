@@ -8,6 +8,13 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<?php
+    //Pega as mensagens
+    foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+    echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+    }
+?>
+
 <div class="modelo-a-form">
 
     <?php $form = ActiveForm::begin(); ?>
