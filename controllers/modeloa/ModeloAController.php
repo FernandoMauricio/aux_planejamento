@@ -100,7 +100,7 @@ class ModeloAController extends Controller
                 //Inclui as informações do Centro de Custos para o Modelo A
                 Yii::$app->db_apl->createCommand()
                     ->insert('modeloa_moda', [
-                             'moda_codano'              => $model->anoModeloA->an_codano
+                             'moda_codano'              => $model->anoModeloA->an_codano,
                              'moda_centrocusto'         => $cen_centrocusto,
                              'moda_centrocustoreduzido' => $cen_centrocustoreduzido,
                              'moda_nomecentrocusto'     => $cen_nomecentrocusto,
@@ -116,9 +116,9 @@ class ModeloAController extends Controller
                              'moda_identificacao'       => $identificador_modeloa,
                              ])
                     ->execute();
-                }
+        }//FIM INSERÇÃO MODELOA A
 
-        //EXTRAINDO TODOS OS ORCAMENTOS PROGRAMAS EXISTENTES...
+        //EXTRAINDO TODOS OS ORCAMENTOS PROGRAMAS EXISTENTES PARA COMPOR OS DETALHES DO MODELO A...
         $orcamentoProgramas = OrcamentoPrograma::find()->all();
 
         foreach ($orcamentoProgramas as $orcamentoPrograma) {
@@ -131,36 +131,65 @@ class ModeloAController extends Controller
             $valor_programado = 0;
 
               //IDENTIFICANDO O TIPO DE TITULO PARA BUSCAR VALORES NAS PLANILHAS...
-              if($orcpro_identificacao == 111 || $orcpro_identificacao == 113 || $orcpro_identificacao == 116 || $orcpro_identificacao == 414 || $orcpro_identificacao == 430 || $orcpro_identificacao == 433 || $orcpro_identificacao == 439){
+              if($orcpro_identificacao == 111 || $orcpro_identificacao == 113 || $orcpro_identificacao == 116 || $orcpro_identificacao == 414 || $orcpro_identificacao == 430 || $orcpro_identificacao == 433 || $orcpro_identificacao == 439) {
 
                 //Localiza as Planilhas de Cursos onde contêm os centros de Custos cadastrados // Parâmetros -> situação 4 - (Homologada) e Tipo de Planilha (Produção)
-                $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_codano' => $model->anoModeloA->an_codano, 'placu_codsegmento' => $cen_codsegmento, 'placu_codtipoa' => $cen_codtipoacao, 'placu_codsituacao' = 4, 'placu_codtipla' => 1])->all();
+                $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_codano' => $model->anoModeloA->an_codano, 'placu_codsegmento' => $cen_codsegmento, 'placu_codtipoa' => $cen_codtipoacao, 'placu_codsituacao' => 4, 'placu_codtipla' => 1])->all();
 
                 foreach ($planilhaDeCursos as $planilhaDeCurso) {
 
-                    $placu_codplanilha           = $planilhaDeCurso['placu_codplanilha'];
-                    $placu_quantidadeturmas      = $planilhaDeCurso['placu_quantidadeturmas'];
-                    $placu_quantidadealunos      = $planilhaDeCurso['placu_quantidadealunos'];
-                    $placu_quantidadealunospsg   = $planilhaDeCurso['placu_quantidadealunospsg'];
-                    $placu_cargahorariaarealizar = $planilhaDeCurso['placu_cargahorariaarealizar'];
-                    $placu_diarias               += $planilhaDeCurso['placu_diarias'];
+                    $placu_codplanilha             = $planilhaDeCurso['placu_codplanilha'];
+                    $placu_quantidadeturmas        = $planilhaDeCurso['placu_quantidadeturmas'];
 
-                    if($orcpro_identificacao == 414) { //DIARIAS
+                    $placu_quantidadealunos        = $planilhaDeCurso['placu_quantidadealunos'];
+                    $placu_quantidadealunospsg     = $planilhaDeCurso['placu_quantidadealunospsg'];
+                    $placu_quantidadealunosisentos = $planilhaDeCurso['placu_quantidadealunosisentos'];
 
-                       $valor_programado = $placu_diarias * $placu_quantidadeturmas; //Valor das diárias das planilhas * Quantidade de Turmas
+                    $placu_cargahorariaarealizar   = $planilhaDeCurso['placu_cargahorariaarealizar'];
+
+                    $placu_diarias                 = $planilhaDeCurso['placu_diarias'];
+  
+                    $placu_custosmateriais         = $planilhaDeCurso['placu_custosmateriais'];
+                    $placu_PJApostila              = $planilhaDeCurso['placu_PJApostila'];
+                    $placu_custosconsumo           = $planilhaDeCurso['placu_custosconsumo'];
+                    //$placu_custosaluno          = $planilhaDeCurso['placu_custosaluno']; //----Verificar se entrará no cálculo
+
+                    if($orcpro_identificacao == 414) { //DIARIAS ----->DIÁRIAS - PESSOAL CIVIL
+
+                       $valor_programado += $placu_diarias * $placu_quantidadeturmas; //Valor das diárias das planilhas * Quantidade de Turmas
 
                     }
-                    else if($orcpro_identificacao == 430) { //MATERIAL DE CONSUMO, MATERIAL DIDÁTICO E MATERIAL DO ALUNO - TOTAL
+                    else if($orcpro_identificacao == 430) { //MATERIAL DE CONSUMO, MATERIAL DIDÁTICO E (MATERIAL DO ALUNO->Verificar se entra no cálculo) - TOTAL ----->MATERIAL DE CONSUMO
 
-                        //PAREI AQUI.
+                    $valor_programado += ($placu_custosmateriais * $placu_quantidadeturmas) + ($placu_PJApostila * $placu_quantidadeturmas) + ($placu_custosconsumo * $placu_quantidadeturmas);
 
                     }
-                         
+
+                    else if($orcpro_identificacao == 433) { //PASSAGENS URBANAS E INTERURBANAS ----->PASSAGENS E DESPESA COM LOCOMOÇÃO
+
+                    }
+
+                    else if($orcpro_identificacao == 439) { //SEGURO DOS ALUNOS ----->OUTROS SERVIÇOS TERC. PESSOA JURÍDICA
+
+                    }
+
+                    else if($orcpro_identificacao == 113) { //VALOR COM ENCARGOS ----->OBRIGAÇÕES PATRONAIS
+
+                    }
+
+                    else if($orcpro_identificacao == 111) { //VALOR COM HORAS AULAS SEM ENCARGOS ----->VENC. E VANTAGENS FIXAS - PESSOAL CIVIL
+
+                    }
+
+                    else if($orcpro_identificacao == 116) { //VALOR PRODUTIVIDADE 45% ----->OUTRAS DESP. VARIÁVEIS - PESSOAL CIVIL
+
+                    }
+
+
                 }
               }
             }
 
-        }
 
         Yii::$app->session->setFlash('success','<strong>Sucesso!</strong> Modelo A gerado!');
 

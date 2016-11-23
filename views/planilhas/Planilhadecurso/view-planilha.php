@@ -223,11 +223,11 @@ use yii\helpers\Html;
             <tr>
                 <td><?= $modelPlaniDespDocente->planides_descricao ?></td>
                 <td><?= $modelPlaniDespDocente->planides_encargos . '%' ?></td>
-                <td><?= 'R$ ' . $modelPlaniDespDocente->planides_valor ?></td>
-                <td><?= 'R$ ' . $modelPlaniDespDocente->planides_dsr ?></td>
-                <td><?= 'R$ ' . $modelPlaniDespDocente->planides_planejamento ?></td>
-                <td><?= 'R$ ' . $modelPlaniDespDocente->planides_produtividade ?></td>
-                <td><?= 'R$ ' . $modelPlaniDespDocente->planides_valorhoraaula ?></td>
+                <td><?= 'R$ ' . number_format($modelPlaniDespDocente->planides_valor, 2, ',', '.'); ?></td>
+                <td><?= 'R$ ' . number_format($modelPlaniDespDocente->planides_dsr, 2, ',', '.'); ?></td>
+                <td><?= 'R$ ' . number_format($modelPlaniDespDocente->planides_planejamento, 2, ',', '.'); ?></td>
+                <td><?= 'R$ ' . number_format($modelPlaniDespDocente->planides_produtividade, 2, ',', '.'); ?></td>
+                <td><?= 'R$ ' . number_format($modelPlaniDespDocente->planides_valorhoraaula, 2, ',', '.'); ?></td>
                 <td><?= $modelPlaniDespDocente->planides_cargahoraria ?></td>
             </tr>
                <?php endforeach; ?>
