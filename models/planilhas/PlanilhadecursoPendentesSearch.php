@@ -89,7 +89,6 @@ class PlanilhadecursoPendentesSearch extends PlanilhadecursoPendentes
             'placu_quantidadealunos' => $this->placu_quantidadealunos,
             'placu_quantidadeparcelas' => $this->placu_quantidadeparcelas,
             'placu_valormensalidade' => $this->placu_valormensalidade,
-            'placu_codsituacao' => $this->placu_codsituacao,
             'placu_codcolaborador' => $this->placu_codcolaborador,
             'placu_codunidade' => $this->placu_codunidade,
             'placu_quantidadealunospsg' => $this->placu_quantidadealunospsg,
@@ -141,6 +140,7 @@ class PlanilhadecursoPendentesSearch extends PlanilhadecursoPendentes
             'placu_valorparcelas' => $this->placu_valorparcelas,
             'placu_data' => $this->placu_data,
             'placu_anoexercicio' => $this->placu_anoexercicio,
+            'placu_codsituacao' => 3, //Em análise pelo GPO
         ]);
 
         $query->andFilterWhere(['like', 'placu_nomeunidade', $this->placu_nomeunidade])

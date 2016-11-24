@@ -53,6 +53,24 @@ class ModeloAController extends Controller
         ]);
     }
 
+    public function actionImprimirModeloA($id) 
+    {
+        $this->layout = 'main-imprimir-modelo-a';
+        $model = $this->findModel($id);
+
+        $modelsDespesasCorrentes = DetalhesModeloA::find()->where(['deta_codmodelo' => $model->moda_codmodelo, 'deta_codtipo' => 1])->all();
+        $modelsDespesasCapital = DetalhesModeloA::find()->where(['deta_codmodelo' => $model->moda_codmodelo, 'deta_codtipo' => 2])->all();
+
+        $modeloa = ModeloA::find()->where(['moda_codmodelo' => $model->moda_codmodelo])->all();
+
+        return $this->render('imprimir-modelo-a', [
+            'model' => $model,
+            'modeloa' => $modeloa,
+            'modelsDespesasCorrentes' => $modelsDespesasCorrentes,
+            'modelsDespesasCapital'   => $modelsDespesasCapital,
+            ]);
+    }
+
     /**
      * Displays a single ModeloA model.
      * @param string $id

@@ -14,7 +14,7 @@ $session = Yii::$app->session;
 $sess_planilhadecurso = $session['sess_planilhadecurso'];
 
 $this->title = 'Justificativas para Correção ';
-$this->params['breadcrumbs'][] = ['label' => 'Listagem de Planilhas', 'url' => ['planilhas/planilhadecurso-admin/index']];
+$this->params['breadcrumbs'][] = ['label' => 'Listagem de Planilhas - Administrador', 'url' => ['planilhas/planilhadecurso-admin/index']];
 $this->params['breadcrumbs'][] = ['label' => $sess_planilhadecurso, 'url' => ['planilhas/planilhadecurso-admin/view', 'id' => $sess_planilhadecurso]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

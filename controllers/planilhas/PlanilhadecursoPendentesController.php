@@ -5,6 +5,7 @@ namespace app\controllers\planilhas;
 use Yii;
 use app\models\cadastros\Tipoprogramacao;
 use app\models\base\Unidade;
+use app\models\planilhas\Planilhadecurso;
 use app\models\planilhas\PlanilhadecursoPendentes;
 use app\models\planilhas\PlanilhadecursoPendentesSearch;
 use yii\web\Controller;
@@ -55,19 +56,21 @@ class PlanilhadecursoPendentesController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $modelsPlaniDespDocente = $model->planiDespDocente;
-        $modelsPlaniUC          = $model->planiUC;
-        $modelsPlaniMaterial    = $model->planiMateriais;
-        $modelsPlaniConsumo     = $model->planiConsumo;
-        $modelsPlaniEquipamento = $model->planiEquipamento;
+        $modelsPlaniDespDocente    = $model->planiDespDocente;
+        $modelsPlaniUC             = $model->planiUC;
+        $modelsPlaniMaterial       = $model->planiMateriais;
+        $modelsPlaniConsumo        = $model->planiConsumo;
+        $modelsPlaniMateriaisAluno = $model->planiMateriaisAluno;
+        $modelsPlaniEquipamento    = $model->planiEquipamento;
 
-        return $this->render('/planilhas/planilhadecurso/view-Pendentes', [
+        return $this->render('view', [
             'model' => $this->findModel($id),
-            'modelsPlaniDespDocente' => $modelsPlaniDespDocente,
-            'modelsPlaniUC'          => $modelsPlaniUC,
-            'modelsPlaniMaterial'    => $modelsPlaniMaterial,
-            'modelsPlaniConsumo'     => $modelsPlaniConsumo,
-            'modelsPlaniEquipamento' => $modelsPlaniEquipamento,
+            'modelsPlaniDespDocente'    => $modelsPlaniDespDocente,
+            'modelsPlaniUC'             => $modelsPlaniUC,
+            'modelsPlaniMaterial'       => $modelsPlaniMaterial,
+            'modelsPlaniConsumo'        => $modelsPlaniConsumo,
+            'modelsPlaniMateriaisAluno' => $modelsPlaniMateriaisAluno,
+            'modelsPlaniEquipamento'    => $modelsPlaniEquipamento,
         ]);
     }
 
