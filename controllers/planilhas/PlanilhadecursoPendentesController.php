@@ -3,6 +3,8 @@
 namespace app\controllers\planilhas;
 
 use Yii;
+use app\models\cadastros\Tipoprogramacao;
+use app\models\base\Unidade;
 use app\models\planilhas\PlanilhadecursoPendentes;
 use app\models\planilhas\PlanilhadecursoPendentesSearch;
 use yii\web\Controller;

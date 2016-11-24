@@ -5,6 +5,7 @@ namespace app\controllers\planilhas;
 use Yii;
 use app\models\MultipleModel as Model;
 use app\models\base\Unidade;
+use app\models\cadastros\Tipoprogramacao;
 use app\models\despesas\Markup;
 use app\models\despesas\Despesasdocente;
 use app\models\planos\Planodeacao;
@@ -75,6 +76,38 @@ class PlanilhadecursoAdminController extends Controller
         return $this->redirect(['/planilhas/planilha-justificativas/observacoes-admin-gerentes'], [
              'model' => $model,
          ]);
+    }
+
+    //Envia todo o Planejamento para o GPO da unidade selecionada pelo Administrador
+    public function actionEnviarPlanejamentoAdmin()
+    {
+        $model = new PlanilhadecursoAdmin();
+        $unidades = Unidade::find()->where(['uni_codsituacao' => 1])->orderBy('uni_nomeabreviado')->all();
+        $tipoProgramacao = Tipoprogramacao::find()->all();
+
+        if ($model->load(Yii::$app->request->post())) {
+
+        //Realiza a Contagem das Planilhas da unidade que estão definidas como PRODUÇÃO, PROGRAMAÇÃO ANUAL e AGUARDANDO ENVIO
+        $countPlanilhas = 0;
+        $countPlanilhas = Planilhadecurso::find()->where(['placu_codtipla' => 1, 'placu_codsituacao' => 7, 'placu_codprogramacao' => 1, 'placu_codunidade' => $model->placu_codunidade])->count();  
+        if($countPlanilhas != 0){
+        //Envia as Planilhas para o GPO da unidade que estão definidas como PRODUÇÃO, PROGRAMAÇÃO ANUAL e AGUARDANDO ENVIO
+        Yii::$app->db_apl->createCommand('UPDATE `planilhadecurso_placu` SET `placu_codsituacao` = 3 WHERE `placu_codtipla` = 1 AND `placu_codprogramacao` = 1 AND `placu_codsituacao` = 7 AND `placu_codunidade` = "'.$model->placu_codunidade.'" ')->execute();
+
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Total de '.$countPlanilhas.' planilhas de "'.$model->unidade->uni_nomeabreviado.'" enviadas para análise do GPO!</strong>');
+        }else{
+        Yii::$app->session->setFlash('warning', '<strong>AVISO! </strong> Não existem planilhas com a situação: <strong>Aguardando Envio Planejamento</strong> de <strong>'.$model->unidade->uni_nomeabreviado.'</strong> para serem enviadas à GPO!</strong>');
+        }
+
+        return $this->redirect(['index']);
+
+            }else{
+                return $this->renderAjax('enviar-planejamento-admin', [
+                'model' => $model,
+                'unidades'=> $unidades,
+                'tipoProgramacao' => $tipoProgramacao,
+            ]);
+        }
     }
 
     /**
