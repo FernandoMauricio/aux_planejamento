@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="tab-pane" id="tab2">
                     <?= $this->render('view-orgcurricular', [
-                        'modelsPlaniUC' => $modelsPlaniUC,
+                        'modelsPlaniUC'     => $modelsPlaniUC,
                     ]) ?>
                 </div>
 

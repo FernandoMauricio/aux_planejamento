@@ -16,14 +16,28 @@ use yii\helpers\Html;
             </tr>
          </thead>
            <tbody>
+               <?php
+
+                  $valorTotal = 0;
+                  
+               ?>
                <?php foreach ($modelsPlaniEquipamento as $i => $modelPlaniEquipamento): ?>
             <tr>
                 <td><?= $modelPlaniEquipamento->planieq_descricao ?></td>
                 <td><?= $modelPlaniEquipamento->planieq_quantidade ?></td>
                 <td><?= $modelPlaniEquipamento->planieq_tipo ?></td>
             </tr>
+            <?php
+              $valorTotal += $modelPlaniEquipamento->planieq_quantidade;
+            ?>
                <?php endforeach; ?>
            </tbody>
+           <tfoot>
+                 <tr class="warning kv-edit-hidden" style="border-top: #dedede">
+                   <th>TOTAL</th>
+                   <th colspan="2" style="color:red"><?php echo $valorTotal; ?></th>
+                 </tr>
+           </tfoot>
         </table>
 
 </div>

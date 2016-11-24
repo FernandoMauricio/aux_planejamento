@@ -7,7 +7,7 @@ use yii\helpers\Url;
 
 $this->title = 'Atualizar Modelo A: ' . $model->moda_codmodelo;
 $this->params['breadcrumbs'][] = ['label' => 'Listagem Modelo A', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->moda_codmodelo, 'url' => ['view', 'id' => $model->moda_codmodelo]];
+$this->params['breadcrumbs'][] = ['label' => $model->moda_codmodelo];
 $this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="modelo-a-update">

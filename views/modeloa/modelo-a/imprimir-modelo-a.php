@@ -5,15 +5,12 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 ?>
-
-
 		   <table width="100%" border="0">
-           <tr> 
-           <td width="19%"><img src="<?php echo Url::base().'/uploads/logo.png' ?>" height="100px"></td>
-           <td width="81%">&nbsp;</td>
-           </tr>
+	           <tr> 
+		           <td width="19%"><img src="<?php echo Url::base().'/uploads/logo.png' ?>" height="100px"></td>
+		           <td width="81%">&nbsp;</td>
+	           </tr>
            </table>
-		   
 		   
 		   <br>
            <table width="100%" border="1" cellspacing="0" bordercolor="#000000">

@@ -209,13 +209,13 @@ echo DetailView::widget([
           }
         ?>
     </tbody>
-     <tfoot>
+      <tfoot>
             <tr class="warning kv-edit-hidden" style="border-top: #dedede">
               <th>TOTAL </th>
               <th></th>
                <th colspan="12" style="color:red"><?php echo $valorTotal . " horas" ?></th>
             </tr>
-         </tfoot>
+      </tfoot>
   </table>
 
                               <!-- SEÇÃO 3 - MATERIAIS DIDÁTICOS -->

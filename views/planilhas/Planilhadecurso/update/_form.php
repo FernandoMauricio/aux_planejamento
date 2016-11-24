@@ -97,7 +97,7 @@ use app\models\planilhas\PlanilhaMaterial;
          </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Atualizar', ['class' =>'btn btn-info']); ?>
+        <?= Html::submitButton('Atualizar', ['class' =>'btn btn-primary']); ?>
 
         <?= Html::a('Finalizar Planilha', ['finalizar', 'id' => $model->placu_codplanilha], [
             'class' => 'btn btn-success',
