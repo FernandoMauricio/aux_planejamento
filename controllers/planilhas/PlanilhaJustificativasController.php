@@ -56,6 +56,17 @@ class PlanilhaJustificativasController extends Controller
         ]);
     }
 
+    public function actionObservacoesAdminGerentes()
+    {
+        $searchModel = new PlanilhaJustificativasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('observacoes-admin-gerentes', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     public function actionObservacoesGerentes()
     {
         $searchModel = new PlanilhaJustificativasSearch();

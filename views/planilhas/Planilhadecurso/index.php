@@ -8,7 +8,6 @@ use yii\helpers\ArrayHelper;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
 
-
 use app\models\cadastros\Eixo;
 use app\models\cadastros\Segmento;
 use app\models\cadastros\Tipo;

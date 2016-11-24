@@ -101,7 +101,8 @@ use kartik\nav\NavX;
                             ]],
                                      '<li class="divider"></li>',
                             ['label' => 'Administração', 'items' => [
-                                ['label' => 'Planilhas Pendentes', 'url' => ['/planilhas/planilhadecurso-admin/index']],
+                                ['label' => 'Planilhas de Curso', 'url' => ['/planilhas/planilhadecurso-admin/index']],
+                                ['label' => 'Planilhas Pendentes', 'url' => ['/planilhas/planilhadecurso-pendentes/index']],
                                 ['label' => 'Planilhas Homologadas', 'url' => ['/planilhas/planilhadecurso-homologadas/index']],
 
                             ]],

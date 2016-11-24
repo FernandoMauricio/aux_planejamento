@@ -17,13 +17,13 @@ use app\models\cadastros\Tipoprogramacao;
 use app\models\cadastros\Situacaoplanilha;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\planos\PlanodeacaoSearch */
+/* @var $searchModel app\models\planilhas\PlanilhadecursoPendentesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Listagem de Planilhas - Administrador';
+$this->title = 'Listagem de Planilhas - Pendentes';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="planilhadecurso-admin-index">
+<div class="planilhadecurso-pendentes-index">
 
 <?php
     //Pega as mensagens
@@ -33,6 +33,21 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <p>
+        <?= Html::button('Homologar Planejamento', ['value'=> Url::to('index.php?r=planilhas/planilhadecurso-admin/homologar-planejamento'), 'class' => 'btn btn-success', 'id'=>'modalButton']) ?>
+    </p>
+
+    <?php
+        Modal::begin([
+            'header' => '<h4>Defina a unidade a ser Homologada:</h4>',
+            'id' => 'modal',
+            'size' => 'modal-lg',
+            ]);
+
+        echo "<div id='modalContent'></div>";
+
+        Modal::end();
+   ?>
 
 <?php Pjax::begin(); ?>    
 
@@ -88,11 +103,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             [
-              'attribute'=>'anoLabel',
-              'value'=> 'planilhaAno.an_ano',
-            ],
-
-            [
                 'attribute'=>'placu_nomeunidade', 
                 'width'=>'350px',
                 'value'=>function ($model, $key, $index, $widget) { 
@@ -105,12 +115,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'filterInputOptions'=>['placeholder'=>'Selecione a Unidade'],
             ],
-            
+
             'placu_codplanilha',
 
             [
               'attribute'=>'PlanoLabel',
               'value'=> 'plano.plan_descricao',
+               'width'=>'15%',
             ],
 
             [
@@ -142,56 +153,31 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             [
-                'attribute'=>'placu_codsituacao', 
-                'width'=>'250px',
-                'value'=>function ($model, $key, $index, $widget) { 
-                    return $model->situacaoPlani->sipla_descricao;
-                },
-                'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>ArrayHelper::map(Situacaoplanilha::find()->orderBy('sipla_descricao')->asArray()->all(), 'sipla_codsituacao', 'sipla_descricao'), 
-                'filterWidgetOptions'=>[
-                    'pluginOptions'=>['allowClear'=>true],
-                ],
-                'filterInputOptions'=>['placeholder'=>'Situação'],
+                'attribute'=>'placu_codsituacao',
+                'value' =>'situacaoPlani.sipla_descricao',
+                'filter'=>false,
             ],
         
             ['class' => 'yii\grid\ActionColumn',
-                'template' => '{observacoes-admin-gerentes} {view} {update} {delete}',
-                'options' => ['width' => '5%'],
+                'template' => '{view} {correcao}',
+                'contentOptions' => ['style' => 'width: 350px;'],
                 'buttons' => [
 
-                //PLANILHA COM ALGUMA JUSTIFICATIVA
-                'observacoes-admin-gerentes' => function ($url, $model) {
-                    return $model->placu_codsituacao == 2 ?  Html::a('<span class="glyphicon glyphicon-info-sign" style="color:red"></span>', $url, [
-                        'title' => Yii::t('app', 'Observações'),
-                           ]): '';
+                //VISUALIZAR
+                'view' => function ($url, $model) {
+                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', $url, [
+                                'class'=>'btn btn-primary btn-xs',
+               
+                    ]);
+                },
+
+                //ENVIAR PARA CORREÇÃO E INSERIR JUSTIIFCATIVA
+                'correcao' => function ($url, $model) {
+                    return Html::a('<span class="glyphicon glyphicon-repeat"></span> Para Correção', $url, [
+                                 'class'=>'btn btn-warning btn-xs',
+                                 'id'=>'modalButton',
+                           ]);
                         },
-
-                //Situação 1 = Em Elaboração / 2 = Para Correção / 7 = Aguardando Envio Planejamento
-                'update' => function ($url, $model) {
-                    if($model->placu_codsituacao == 1 || $model->placu_codsituacao == 2 || $model->placu_codsituacao == 7){
-                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
-                                'title' => Yii::t('app', 'Editar Planilha'),
-                    ]);
-                    }else{
-                        '';
-                    }
-                },
-
-                //Situação 1 = Em Elaboração / 2 = Para Correção / 7 = Aguardando Envio Planejamento
-                'delete' => function ($url, $model) {
-                    if($model->placu_codsituacao == 1 || $model->placu_codsituacao == 2 || $model->placu_codsituacao == 7){
-                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                               'title' => Yii::t('app', 'Deletar Planilha'),
-                               'data' => [
-                                                'confirm' => 'Você tem CERTEZA que deseja EXCLUIR essa Planilha?',
-                                                'method' => 'post',
-                                        ],
-                    ]);
-                    }else{
-                        '';
-                    }
-                },
 
                 ],
             ],
@@ -199,3 +185,4 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>
+

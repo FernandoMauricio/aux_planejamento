@@ -15,6 +15,7 @@ use app\models\cadastros\Tipoprogramacao;
 use app\models\cadastros\Tipoplanilha;
 use app\models\cadastros\Situacaoplanilha;
 use app\models\planos\Planodeacao;
+
 /**
  * This is the model class for table "planilhadecurso_placu".
  *
@@ -50,12 +51,14 @@ use app\models\planos\Planodeacao;
  * @property double $placu_ferias
  * @property double $placu_tercoferias
  * @property double $placu_totalsalario
+ * @property double $placu_totalsalarioPrestador
  * @property double $placu_totalencargosPrestador
  * @property double $placu_totalencargos
  * @property double $placu_totalsalarioencargo
  * @property double $placu_custosmateriais
  * @property double $placu_hiddenmaterialdidatico
  * @property double $placu_custosconsumo
+ * @property double $placu_custosaluno
  * @property double $placu_diarias
  * @property double $placu_passagens
  * @property double $placu_pessoafisica
@@ -85,9 +88,11 @@ use app\models\planos\Planodeacao;
  * @property integer $placu_parcelas
  * @property double $placu_valorparcelas
  * @property string $placu_data
+ * @property integer $placu_anoexercicio
  *
  * @property HistoricoplanilhaHis[] $historicoplanilhaHis
  * @property ObservacaoplanilhaObpla[] $observacaoplanilhaObplas
+ * @property PlanilhaJustificativas[] $planilhaJustificativas
  * @property PlanilhaconsumoPlanico[] $planilhaconsumoPlanicos
  * @property AnoAn $placuCodano
  * @property CategoriaplanilhaCat $placuCodcategoria
@@ -102,9 +107,10 @@ use app\models\planos\Planodeacao;
  * @property PlanilhadespesadocePlanides[] $planilhadespesadocePlanides
  * @property PlanilhaequipPlanieq[] $planilhaequipPlanieqs
  * @property PlanilhamaterialPlanima[] $planilhamaterialPlanimas
+ * @property PlanilhamaterialalunoPlanimatalun[] $planilhamaterialalunoPlanimataluns
  * @property PlanilhaunidadescurricularesPlaniuc[] $planilhaunidadescurricularesPlaniucs
  */
-class PlanilhadecursoAdmin extends Planilhadecurso
+class PlanilhadecursoPendentes extends \yii\db\ActiveRecord
 {
     public $nivelLabel;
     public $segmentoLabel;
@@ -116,6 +122,10 @@ class PlanilhadecursoAdmin extends Planilhadecurso
     public $tipoProgramacaoLabel;
     public $nomeUsuario;
     public $situacaoLabel;
+    public $categoriaLabel;
+
+    public $unidades;
+
 
     /**
      * @inheritdoc
@@ -139,11 +149,12 @@ class PlanilhadecursoAdmin extends Planilhadecurso
     public function rules()
     {
         return [
-            [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_nomeunidade', 'placu_tipocalculo', 'placu_quantidadealunos', 'placu_quantidadealunospsg', 'placu_quantidadealunosisentos','placu_codprogramacao'], 'required'],
-            [['placu_precosugerido', 'placu_parcelas'], 'required', 'on' => 'update'],
-            [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_quantidadeparcelas', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_tipocalculo', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao'], 'integer'],
+            [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_nomeunidade', 'placu_tipocalculo', 'placu_quantidadealunos', 'placu_quantidadealunospsg', 'placu_quantidadealunosisentos','placu_quantidadeturmas', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar', 'placu_cargahorariavivencia', 'placu_codprogramacao'], 'required'],
+            [['placu_precosugerido', 'placu_parcelas', 'placu_totalsalarioencargo'], 'required', 'on' => 'update'],
+            [['placu_precosugerido', 'placu_parcelas', 'placu_totalsalarioencargo'], 'compare', 'compareValue' => 0, 'operator' => '>'],
+            [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_quantidadeparcelas', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_tipocalculo', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao', 'placu_anoexercicio'], 'integer'],
             [['placu_cargahorariaplano', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar', 'placu_valormensalidade', 'placu_taxaretorno'], 'number'],
-            [['nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoAcaoLabel', 'PlanoLabel', 'tipoProgramacaoLabel', 'placu_diarias', 'placu_equipamentos', 'placu_pessoafisica', 'placu_pessoajuridica', 'placu_totalcustodocente', 'placu_decimo', 'placu_ferias', 'placu_tercoferias', 'placu_totalsalario', 'placu_totalencargosPrestador', 'placu_totalencargos', 'placu_totalsalarioencargo', 'placu_custosmateriais', 'placu_custosconsumo', 'placu_PJApostila', 'placu_totalcustodireto', 'placu_totalhoraaulacustodireto', 'placu_hiddenmaterialdidatico', 'placu_hiddenpjapostila', 'placu_custosindiretos', 'placu_ipca', 'placu_reservatecnica', 'placu_despesadm', 'placu_totalincidencias', 'placu_totalcustoindireto', 'placu_despesatotal', 'placu_markdivisor', 'placu_markmultiplicador', 'placu_vendaturma', 'placu_vendaaluno', 'placu_horaaulaaluno', 'placu_retorno', 'placu_porcentretorno', 'placu_precosugerido', 'placu_retornoprecosugerido', 'placu_minimoaluno', 'placu_parcelas', 'placu_valorparcelas', 'nomeUsuario', 'situacaoLabel', 'placu_data'], 'safe'],
+            [['nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoAcaoLabel', 'PlanoLabel', 'anoLabel', 'tipoProgramacaoLabel', 'placu_diarias', 'placu_passagens', 'placu_equipamentos', 'placu_pessoafisica', 'placu_pessoajuridica', 'placu_totalcustodocente', 'placu_decimo', 'placu_ferias', 'placu_tercoferias', 'placu_totalsalario', 'placu_totalencargosPrestador', 'placu_totalencargos', 'placu_totalsalarioencargo', 'placu_custosmateriais', 'placu_custosconsumo', 'placu_custosaluno', 'placu_PJApostila', 'placu_totalcustodireto', 'placu_totalhoraaulacustodireto', 'placu_hiddenmaterialdidatico', 'placu_hiddenpjapostila', 'placu_custosindiretos', 'placu_ipca', 'placu_reservatecnica', 'placu_despesadm', 'placu_totalincidencias', 'placu_totalcustoindireto', 'placu_despesatotal', 'placu_markdivisor', 'placu_markmultiplicador', 'placu_vendaturma', 'placu_vendaaluno', 'placu_horaaulaaluno', 'placu_retorno', 'placu_porcentretorno', 'placu_precosugerido', 'placu_retornoprecosugerido', 'placu_minimoaluno', 'placu_parcelas', 'placu_valorparcelas', 'nomeUsuario', 'situacaoLabel', 'categoriaLabel', 'placu_data', 'unidades', 'placu_totalsalarioPrestador'], 'safe'],
             [['placu_observacao'], 'string'],
             [['placu_nomeunidade'], 'string', 'max' => 150],
             [['placu_codano'], 'exist', 'skipOnError' => true, 'targetClass' => Ano::className(), 'targetAttribute' => ['placu_codano' => 'an_codano']],
@@ -159,6 +170,61 @@ class PlanilhadecursoAdmin extends Planilhadecurso
         ];
     }
 
+    public function scenarios()
+        {
+            $scenarios = parent::scenarios();
+            $scenarios['update'] = ['nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoAcaoLabel', 'PlanoLabel', 'anoLabel', 'tipoProgramacaoLabel', 'placu_diarias', 'placu_equipamentos', 'placu_pessoafisica', 'placu_pessoajuridica', 'placu_totalcustodocente', 'placu_decimo', 'placu_ferias', 'placu_tercoferias', 'placu_totalsalario', 'placu_totalencargosPrestador', 'placu_totalencargos', 'placu_totalsalarioencargo', 'placu_custosmateriais', 'placu_custosconsumo', 'placu_custosaluno', 'placu_PJApostila', 'placu_totalcustodireto', 'placu_totalhoraaulacustodireto', 'placu_hiddenmaterialdidatico', 'placu_hiddenpjapostila', 'placu_custosindiretos', 'placu_ipca', 'placu_reservatecnica', 'placu_despesadm', 'placu_totalincidencias', 'placu_totalcustoindireto', 'placu_despesatotal', 'placu_markdivisor', 'placu_markmultiplicador', 'placu_vendaturma', 'placu_vendaaluno', 'placu_horaaulaaluno', 'placu_retorno', 'placu_porcentretorno', 'placu_precosugerido', 'placu_retornoprecosugerido', 'placu_minimoaluno', 'placu_parcelas', 'placu_valorparcelas', 'nomeUsuario', 'situacaoLabel', 'categoriaLabel', 'placu_data', 'placu_codtipla', 'placu_cargahorariaplano', 'placu_quantidadeturmas', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar', 'placu_cargahorariavivencia', 'placu_quantidadealunos', 'placu_quantidadealunosisentos', 'placu_quantidadealunospsg', 'placu_passagens', 'placu_totalsalarioPrestador'];//Scenario Values Only Accepted
+            return $scenarios;
+        }
+
+    //Replace de ',' por '.' nos valores da precificação
+    public function beforeSave($insert) {
+            if (parent::beforeSave($insert)) {
+                $this->placu_totalcustodocente        = str_replace(",", ".", $this->placu_totalcustodocente);
+                $this->placu_decimo                   = str_replace(",", ".", $this->placu_decimo);
+                $this->placu_ferias                   = str_replace(",", ".", $this->placu_ferias);
+                $this->placu_tercoferias              = str_replace(",", ".", $this->placu_tercoferias);
+                $this->placu_totalsalario             = str_replace(",", ".", $this->placu_totalsalario);
+                $this->placu_totalsalarioPrestador    = str_replace(",", ".", $this->placu_totalsalarioPrestador);
+                $this->placu_totalencargosPrestador   = str_replace(",", ".", $this->placu_totalencargosPrestador);
+                $this->placu_totalencargos            = str_replace(",", ".", $this->placu_totalencargos);
+                $this->placu_totalsalarioencargo      = str_replace(",", ".", $this->placu_totalsalarioencargo);
+                $this->placu_PJApostila               = str_replace(",", ".", $this->placu_PJApostila);
+                $this->placu_custosmateriais          = str_replace(",", ".", $this->placu_custosmateriais);
+                $this->placu_custosconsumo            = str_replace(",", ".", $this->placu_custosconsumo);
+                $this->placu_custosaluno              = str_replace(",", ".", $this->placu_custosaluno);
+                $this->placu_diarias                  = str_replace(",", ".", $this->placu_diarias);
+                $this->placu_passagens                = str_replace(",", ".", $this->placu_passagens);
+                $this->placu_pessoafisica             = str_replace(",", ".", $this->placu_pessoafisica);
+                $this->placu_pessoajuridica           = str_replace(",", ".", $this->placu_pessoajuridica);
+                $this->placu_totalcustodireto         = str_replace(",", ".", $this->placu_totalcustodireto);
+                $this->placu_totalhoraaulacustodireto = str_replace(",", ".", $this->placu_totalhoraaulacustodireto);
+                $this->placu_custosindiretos          = str_replace(",", ".", $this->placu_custosindiretos);
+                $this->placu_ipca                     = str_replace(",", ".", $this->placu_ipca);
+                $this->placu_reservatecnica           = str_replace(",", ".", $this->placu_reservatecnica);
+                $this->placu_despesadm                = str_replace(",", ".", $this->placu_despesadm);
+                $this->placu_totalincidencias         = str_replace(",", ".", $this->placu_totalincidencias);
+                $this->placu_totalcustoindireto       = str_replace(",", ".", $this->placu_totalcustoindireto);
+                $this->placu_despesatotal             = str_replace(",", ".", $this->placu_despesatotal);
+                $this->placu_markdivisor              = str_replace(",", ".", $this->placu_markdivisor);
+                $this->placu_markmultiplicador        = str_replace(",", ".", $this->placu_markmultiplicador);
+                $this->placu_vendaturma               = str_replace(",", ".", $this->placu_vendaturma);
+                $this->placu_vendaaluno               = str_replace(",", ".", $this->placu_vendaaluno);
+                $this->placu_horaaulaaluno            = str_replace(",", ".", $this->placu_horaaulaaluno);
+                $this->placu_retorno                  = str_replace(",", ".", $this->placu_retorno);
+                $this->placu_porcentretorno           = str_replace(",", ".", $this->placu_porcentretorno);
+                $this->placu_precosugerido            = str_replace(",", ".", $this->placu_precosugerido);
+                $this->placu_retornoprecosugerido     = str_replace(",", ".", $this->placu_retornoprecosugerido);
+                $this->placu_minimoaluno              = str_replace(",", ".", $this->placu_minimoaluno);
+                $this->placu_parcelas                 = str_replace(",", ".", $this->placu_parcelas);
+                $this->placu_valorparcelas            = str_replace(",", ".", $this->placu_valorparcelas);
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+
     /**
      * @inheritdoc
      */
@@ -171,12 +237,12 @@ class PlanilhadecursoAdmin extends Planilhadecurso
             'placu_codplano' => 'Plano de Ação',
             'placu_codtipoa' => 'Tipo de Ação',
             'placu_codnivel' => 'Nível',
-            'placu_cargahorariaplano' => 'Carga Horária do Plano',
+            'placu_cargahorariaplano' => 'CH do Plano',
             'placu_cargahorariarealizada' => 'Carga Horária Realizada',
             'placu_cargahorariaarealizar' => 'Carga Horária a Realizar no SENAC',
             'placu_cargahorariavivencia' => 'Carga Horária na Vivência(Aprend)',
-            'placu_codano' => 'Ano',
-            'placu_codcategoria' => 'Categoria',
+            'placu_codano' => 'Ano da Planilha',
+            'placu_codcategoria' => 'Fonte de Financiamento',
             'placu_codtipla' => 'Tipo de Planilha',
             'placu_quantidadeturmas' => 'Quantidade Turmas',
             'placu_quantidadealunos' => 'Quantidade Alunos Pagantes por Turma',
@@ -197,12 +263,14 @@ class PlanilhadecursoAdmin extends Planilhadecurso
             'placu_decimo' => '1/12 de 13º',
             'placu_ferias' => '1/12 de Férias',
             'placu_tercoferias' => '1/12 de 1/3 de férias',
-            'placu_totalsalario' => 'Total de Salários',
-            'placu_totalencargosPrestador' => '(%) Encargos s/13º, férias e salários',
-            'placu_totalencargos' => 'Total de Encargos',
-            'placu_totalsalarioencargo' => 'Total de Salários + Encargos',
+            'placu_totalsalario' => 'SubTotal de Vencimentos',
+            'placu_totalsalarioPrestador' => 'SubTotal de Vencimentos(Prestador)',
+            'placu_totalencargosPrestador' => 'SubTotal de Encargos(Prestador)',
+            'placu_totalencargos' => 'SubTotal de Encargos',
+            'placu_totalsalarioencargo' => 'Total Vencimentos + Encargos (Horista+Prestador)',
             'placu_custosmateriais' => 'Mat. Didático (Livros/plano A):',
             'placu_custosconsumo' => 'Mat. de Consumo',
+            'placu_custosaluno' => 'Mat. do Aluno',
             'placu_diarias' => 'Diárias',
             'placu_passagens' => 'Passagens',
             'placu_pessoafisica' => 'Serv. Terceiros (PF)',
@@ -243,8 +311,22 @@ class PlanilhadecursoAdmin extends Planilhadecurso
             'tipoProgramacaoLabel' => 'Tipo de Programação',
             'nomeUsuario' => 'Última modificação',
             'situacaoLabel' => 'Situação da Planilha',
+            'categoriaLabel' => 'Fonte de Financiamento',
+
         ];
     }
+
+    //Busca dados dos Planos que estão vinculados ao eixo e segmento escolhido pelo usuário
+    public static function getPlanosSubCat($cat_id, $subcat_id) {
+        $data=\app\models\planos\Planodeacao::find()
+       ->where(['plan_codeixo' => $cat_id, 'plan_codsegmento' => $subcat_id])
+       ->select(['plan_codplano AS id','plan_descricao AS name'])
+       ->orderBy('name')
+       ->asArray()->all();
+
+            return $data;
+        }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -273,9 +355,9 @@ class PlanilhadecursoAdmin extends Planilhadecurso
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPlacuCodcategoria()
+    public function getCategoriaPlanilha()
     {
-        return $this->hasOne(CategoriaplanilhaCat::className(), ['cat_codcategoria' => 'placu_codcategoria']);
+        return $this->hasOne(Categoriaplanilha::className(), ['cat_codcategoria' => 'placu_codcategoria']);
     }
 
     /**
@@ -348,6 +430,14 @@ class PlanilhadecursoAdmin extends Planilhadecurso
     public function getPlaniMateriais()
     {
         return $this->hasMany(PlanilhaMaterial::className(), ['planilhadecurso_cod' => 'placu_codplanilha']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPlaniMateriaisAluno()
+    {
+        return $this->hasMany(PlanilhaMaterialAluno::className(), ['planilhadecurso_cod' => 'placu_codplanilha']);
     }
 
     /**

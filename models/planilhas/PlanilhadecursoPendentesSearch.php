@@ -5,12 +5,12 @@ namespace app\models\planilhas;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\planilhas\PlanilhadecursoAdmin;
+use app\models\planilhas\PlanilhadecursoPendentes;
 
 /**
- * PlanilhadecursoAdminSearch represents the model behind the search form about `app\models\planilhas\PlanilhadecursoAdmin`.
+ * PlanilhadecursoPendentesSearch represents the model behind the search form about `app\models\planilhas\PlanilhadecursoPendentes`.
  */
-class PlanilhadecursoAdminSearch extends PlanilhadecursoAdmin
+class PlanilhadecursoPendentesSearch extends PlanilhadecursoPendentes
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class PlanilhadecursoAdminSearch extends PlanilhadecursoAdmin
     public function rules()
     {
         return [
-            [['placu_codplanilha', 'placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_quantidadeparcelas', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_tipocalculo', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao', 'placu_parcelas'], 'integer'],
-            [['placu_cargahorariaplano', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar', 'placu_valormensalidade', 'placu_taxaretorno', 'placu_totalcustodocente', 'placu_decimo', 'placu_ferias', 'placu_tercoferias', 'placu_totalsalario', 'placu_totalencargosPrestador', 'placu_totalencargos', 'placu_totalsalarioencargo', 'placu_custosmateriais', 'placu_hiddenmaterialdidatico', 'placu_custosconsumo', 'placu_diarias', 'placu_passagens', 'placu_pessoafisica', 'placu_pessoajuridica', 'placu_equipamentos', 'placu_PJApostila', 'placu_hiddenpjapostila', 'placu_totalcustodireto', 'placu_totalhoraaulacustodireto', 'placu_custosindiretos', 'placu_ipca', 'placu_reservatecnica', 'placu_despesadm', 'placu_totalincidencias', 'placu_totalcustoindireto', 'placu_despesatotal', 'placu_markdivisor', 'placu_markmultiplicador', 'placu_vendaturma', 'placu_vendaaluno', 'placu_horaaulaaluno', 'placu_retorno', 'placu_porcentretorno', 'placu_precosugerido', 'placu_retornoprecosugerido', 'placu_minimoaluno', 'placu_valorparcelas'], 'number'],
+            [['placu_codplanilha', 'placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_quantidadeparcelas', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_tipocalculo', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao', 'placu_parcelas', 'placu_anoexercicio'], 'integer'],
+            [['placu_cargahorariaplano', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar', 'placu_valormensalidade', 'placu_taxaretorno', 'placu_totalcustodocente', 'placu_decimo', 'placu_ferias', 'placu_tercoferias', 'placu_totalsalario', 'placu_totalsalarioPrestador', 'placu_totalencargosPrestador', 'placu_totalencargos', 'placu_totalsalarioencargo', 'placu_custosmateriais', 'placu_hiddenmaterialdidatico', 'placu_custosconsumo', 'placu_custosaluno', 'placu_diarias', 'placu_passagens', 'placu_pessoafisica', 'placu_pessoajuridica', 'placu_equipamentos', 'placu_PJApostila', 'placu_hiddenpjapostila', 'placu_totalcustodireto', 'placu_totalhoraaulacustodireto', 'placu_custosindiretos', 'placu_ipca', 'placu_reservatecnica', 'placu_despesadm', 'placu_totalincidencias', 'placu_totalcustoindireto', 'placu_despesatotal', 'placu_markdivisor', 'placu_markmultiplicador', 'placu_vendaturma', 'placu_vendaaluno', 'placu_horaaulaaluno', 'placu_retorno', 'placu_porcentretorno', 'placu_precosugerido', 'placu_retornoprecosugerido', 'placu_minimoaluno', 'placu_valorparcelas'], 'number'],
             [['placu_nomeunidade', 'placu_observacao', 'placu_data', 'PlanoLabel', 'anoLabel'], 'safe'],
         ];
     }
@@ -42,7 +42,7 @@ class PlanilhadecursoAdminSearch extends PlanilhadecursoAdmin
      */
     public function search($params)
     {
-        $query = PlanilhadecursoAdmin::find();
+        $query = PlanilhadecursoPendentes::find();
 
         // add conditions that should always apply here
 
@@ -89,6 +89,7 @@ class PlanilhadecursoAdminSearch extends PlanilhadecursoAdmin
             'placu_quantidadealunos' => $this->placu_quantidadealunos,
             'placu_quantidadeparcelas' => $this->placu_quantidadeparcelas,
             'placu_valormensalidade' => $this->placu_valormensalidade,
+            'placu_codsituacao' => $this->placu_codsituacao,
             'placu_codcolaborador' => $this->placu_codcolaborador,
             'placu_codunidade' => $this->placu_codunidade,
             'placu_quantidadealunospsg' => $this->placu_quantidadealunospsg,
@@ -102,12 +103,14 @@ class PlanilhadecursoAdminSearch extends PlanilhadecursoAdmin
             'placu_ferias' => $this->placu_ferias,
             'placu_tercoferias' => $this->placu_tercoferias,
             'placu_totalsalario' => $this->placu_totalsalario,
+            'placu_totalsalarioPrestador' => $this->placu_totalsalarioPrestador,
             'placu_totalencargosPrestador' => $this->placu_totalencargosPrestador,
             'placu_totalencargos' => $this->placu_totalencargos,
             'placu_totalsalarioencargo' => $this->placu_totalsalarioencargo,
             'placu_custosmateriais' => $this->placu_custosmateriais,
             'placu_hiddenmaterialdidatico' => $this->placu_hiddenmaterialdidatico,
             'placu_custosconsumo' => $this->placu_custosconsumo,
+            'placu_custosaluno' => $this->placu_custosaluno,
             'placu_diarias' => $this->placu_diarias,
             'placu_passagens' => $this->placu_passagens,
             'placu_pessoafisica' => $this->placu_pessoafisica,
@@ -137,13 +140,11 @@ class PlanilhadecursoAdminSearch extends PlanilhadecursoAdmin
             'placu_parcelas' => $this->placu_parcelas,
             'placu_valorparcelas' => $this->placu_valorparcelas,
             'placu_data' => $this->placu_data,
-            'placu_codsituacao' =>  $this->placu_codsituacao,
-
+            'placu_anoexercicio' => $this->placu_anoexercicio,
         ]);
 
         $query->andFilterWhere(['like', 'placu_nomeunidade', $this->placu_nomeunidade])
-            ->andFilterWhere(['like', 'placu_observacao', $this->placu_observacao])
-            ->andFilterWhere(['like', 'planodeacao_plan.plan_descricao', $this->PlanoLabel]);
+            ->andFilterWhere(['like', 'placu_observacao', $this->placu_observacao]);
 
         return $dataProvider;
     }
