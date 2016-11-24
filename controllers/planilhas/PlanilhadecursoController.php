@@ -253,6 +253,7 @@ class PlanilhadecursoController extends Controller
                              'planides_descricao'     => $doce_descricao,
                              'planides_encargos'      => $doce_encargos,
                              'planides_valor'         => $doce_valor,
+                             'planides_valorhidden'   => $doce_valor,
                              'planides_dsr'           => $doce_dsr,
                              'planides_planejamento'  => $doce_planejamento,
                              'planides_produtividade' => $doce_produtividade,
@@ -481,7 +482,7 @@ class PlanilhadecursoController extends Controller
 
         //Caso o exercicio da Planilha seja diferente com o ano da Planilha, será avisado ao usuário para excluir alguns itens
         if($model->placu_anoexercicio != $model->planilhaAno->an_ano){
-             Yii::$app->session->setFlash('warning', '<strong>AVISO! </strong> Planilha '.$id.' com ano retroativo. Por favor, <strong>exclua</strong> os itens de Organização Curricular, Material Didático, Consumo e Aluno que não irá utilizar!</strong>');
+             Yii::$app->session->setFlash('danger', '<strong>AVISO! </strong> Planilha '.$id.' do ano de <strong>'.$model->planilhaAno->an_ano.'</strong>. Por favor, <strong>exclua</strong> os itens de Organização Curricular, Material Didático, Consumo e Aluno que não irá utilizar!</strong>');
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

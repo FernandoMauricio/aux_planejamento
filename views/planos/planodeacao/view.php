@@ -236,7 +236,7 @@ echo DetailView::widget([
     <tbody>
         <?php
              $valorTotal = 0;
-             $query_planoMaterial = "SELECT * FROM planomaterial_plama WHERE plama_codplano = '".$id."' ORDER BY plama_tipoplano ASC";
+             $query_planoMaterial = "SELECT * FROM planomaterial_plama WHERE plama_codplano = '".$id."' ORDER BY nivel_uc ASC";
              $modelsPlanoMaterial = PlanoMaterial::findBySql($query_planoMaterial)->all(); 
              foreach ($modelsPlanoMaterial as $modelPlanoMaterial) {
 

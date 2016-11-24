@@ -245,7 +245,7 @@ use yii\helpers\Html;
 
                       <div class="col-md-2"><strong>1/12 de 1/3 de férias:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_tercoferias, 2, ',', '.'); ?></div>
 
-                      <div class="col-md-3"><strong>Total de Salários:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalsalario, 2, ',', '.'); ?></div>
+                      <div class="col-md-3"><strong>SubTotal de Vencimentos:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalsalario, 2, ',', '.'); ?></div>
               </div>
 
             <br>
@@ -254,11 +254,11 @@ use yii\helpers\Html;
 
                       <div class="col-md-3"><strong>SubTotal de Encargos:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalencargos, 2, ',', '.'); ?></div>
 
-                      <div class="col-md-3"><strong>SubTotal de Salários(Prestador):</strong><br> <?php echo 'R$ ' . number_format($model->placu_totalsalarioPrestador, 2, ',', '.'); ?></div>
+                      <div class="col-md-3"><strong>SubTotal de Vencimentos(Prestador):</strong><br> <?php echo 'R$ ' . number_format($model->placu_totalsalarioPrestador, 2, ',', '.'); ?></div>
 
                       <div class="col-md-3"><strong>SubTotal de Encargos(Prestador):</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalencargosPrestador, 2, ',', '.'); ?></div>
 
-                      <div class="col-md-3"><strong>Total de Salários + Encargos:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalsalarioencargo, 2, ',', '.'); ?></div>
+                      <div class="col-md-3"><strong>Total Vencimentos + Encargos (Horista+Prestador):</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalsalarioencargo, 2, ',', '.'); ?></div>
               </div>
 
               <br>

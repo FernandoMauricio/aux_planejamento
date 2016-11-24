@@ -79,6 +79,8 @@ use yii\helpers\Url;
                                                                                 ]); ?></th>
 
                                            <td><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_cargahoraria")->textInput() ?></td>
+
+                                           <td><?= $form->field($modelPlaniDespDocente, "[{$i}]planides_valorhidden")->hiddenInput()->label(false); ?></td>
                                             </tr> 
                         <?php endforeach; ?>
             </tbody> 

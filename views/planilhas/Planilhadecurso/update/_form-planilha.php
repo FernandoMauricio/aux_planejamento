@@ -233,7 +233,7 @@ use app\models\cadastros\Tipoprogramacao;
 
 
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <?= $form->field($model, 'placu_totalencargos')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -277,7 +277,7 @@ use app\models\cadastros\Tipoprogramacao;
                     ]); ?>
                 </div>
                 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <?= $form->field($model, 'placu_totalsalarioencargo')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',

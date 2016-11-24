@@ -20,19 +20,10 @@ $(function() {
 
     //DESPESAS COM DOCENTE
     //Linha 0 - Docente Nível Médio
-    $('#planilhadespesadocente-0-planides_encargos').keyup(function() {
-       updateTotal();
-    });
     $('#planilhadespesadocente-0-planides_valor').keyup(function() {
        updateTotal();
     });
-    $('#planilhadespesadocente-0-planides_dsr').keyup(function() {
-       updateTotal();
-    });
-    $('#planilhadespesadocente-0-planides_planejamento').keyup(function() {
-       updateTotal();
-    });
-    $('#planilhadespesadocente-0-planides_produtividade').keyup(function() {
+    $('#planilhadespesadocente-0-planides_valorhidden').keyup(function() {
        updateTotal();
     });
     $('#planilhadespesadocente-0-planides_valorhoraaula').keyup(function() {
@@ -43,19 +34,10 @@ $(function() {
     });
 
     //Linha 1 - Docente Nível Superior
-    $('#planilhadespesadocente-1-planides_encargos').keyup(function() {
-       updateTotal();
-    });
     $('#planilhadespesadocente-1-planides_valor').keyup(function() {
        updateTotal();
     });
-    $('#planilhadespesadocente-1-planides_dsr').keyup(function() {
-       updateTotal();
-    });
-    $('#planilhadespesadocente-1-planides_planejamento').keyup(function() {
-       updateTotal();
-    });
-    $('#planilhadespesadocente-1-planides_produtividade').keyup(function() {
+    $('#planilhadespesadocente-1-planides_valorhidden').keyup(function() {
        updateTotal();
     });
     $('#planilhadespesadocente-1-planides_valorhoraaula').keyup(function() {
@@ -66,19 +48,10 @@ $(function() {
     });
 
     //Linha 2 - Docente Nível Pós Graduado
-    $('#planilhadespesadocente-2-planides_encargos').keyup(function() {
-       updateTotal();
-    });
     $('#planilhadespesadocente-2-planides_valor').keyup(function() {
        updateTotal();
     });
-    $('#planilhadespesadocente-2-planides_dsr').keyup(function() {
-       updateTotal();
-    });
-    $('#planilhadespesadocente-2-planides_planejamento').keyup(function() {
-       updateTotal();
-    });
-    $('#planilhadespesadocente-2-planides_produtividade').keyup(function() {
+    $('#planilhadespesadocente-2-planides_valorhidden').keyup(function() {
        updateTotal();
     });
     $('#planilhadespesadocente-2-planides_valorhoraaula').keyup(function() {
@@ -89,19 +62,10 @@ $(function() {
     });
 
     //Linha 3 - Docente Nível Especialista(Fatese)
-    $('#planilhadespesadocente-3-planides_encargos').keyup(function() {
-       updateTotal();
-    });
     $('#planilhadespesadocente-3-planides_valor').keyup(function() {
        updateTotal();
     });
-    $('#planilhadespesadocente-3-planides_dsr').keyup(function() {
-       updateTotal();
-    });
-    $('#planilhadespesadocente-3-planides_planejamento').keyup(function() {
-       updateTotal();
-    });
-    $('#planilhadespesadocente-3-planides_produtividade').keyup(function() {
+    $('#planilhadespesadocente-3-planides_valorhidden').keyup(function() {
        updateTotal();
     });
     $('#planilhadespesadocente-3-planides_valorhoraaula').keyup(function() {
@@ -112,19 +76,10 @@ $(function() {
     });
 
     //Linha 4 - Docente Nível Mestre(Fatese)
-    $('#planilhadespesadocente-4-planides_encargos').keyup(function() {
-       updateTotal();
-    });
     $('#planilhadespesadocente-4-planides_valor').keyup(function() {
        updateTotal();
     });
-    $('#planilhadespesadocente-4-planides_dsr').keyup(function() {
-       updateTotal();
-    });
-    $('#planilhadespesadocente-4-planides_planejamento').keyup(function() {
-       updateTotal();
-    });
-    $('#planilhadespesadocente-4-planides_produtividade').keyup(function() {
+    $('#planilhadespesadocente-4-planides_valorhidden').keyup(function() {
        updateTotal();
     });
     $('#planilhadespesadocente-4-planides_valorhoraaula').keyup(function() {
@@ -135,19 +90,10 @@ $(function() {
     });
 
     //Linha 5 - Docente Nível Doutor(Fatese)
-    $('#planilhadespesadocente-5-planides_encargos').keyup(function() {
-       updateTotal();
-    });
     $('#planilhadespesadocente-5-planides_valor').keyup(function() {
        updateTotal();
     });
-    $('#planilhadespesadocente-5-planides_dsr').keyup(function() {
-       updateTotal();
-    });
-    $('#planilhadespesadocente-5-planides_planejamento').keyup(function() {
-       updateTotal();
-    });
-    $('#planilhadespesadocente-5-planides_produtividade').keyup(function() {
+    $('#planilhadespesadocente-5-planides_valorhidden').keyup(function() {
        updateTotal();
     });
     $('#planilhadespesadocente-5-planides_valorhoraaula').keyup(function() {
@@ -162,15 +108,6 @@ $(function() {
        updateTotal();
     });
     $('#planilhadespesadocente-6-planides_valor').keyup(function() {
-       updateTotal();
-    });
-    $('#planilhadespesadocente-6-planides_dsr').keyup(function() {
-       updateTotal();
-    });
-    $('#planilhadespesadocente-6-planides_planejamento').keyup(function() {
-       updateTotal();
-    });
-    $('#planilhadespesadocente-6-planides_produtividade').keyup(function() {
        updateTotal();
     });
     $('#planilhadespesadocente-6-planides_valorhoraaula').keyup(function() {
@@ -271,54 +208,35 @@ $(function() {
       var placu_pjapostila             = parseFloat($('#planilhadecurso-placu_pjapostila').val());
       var placu_hiddenpjapostila       = parseFloat($('#planilhadecurso-placu_hiddenpjapostila').val());
 
-
       //Despesas com Docentes
       //Linha 0 - Docente Nível Médio
-      var planides_encargos0      = parseFloat($('#planilhadespesadocente-0-planides_encargos').val());
       var planides_valor0         = parseFloat($('#planilhadespesadocente-0-planides_valor').val());
-      var planides_dsr0           = parseFloat($('#planilhadespesadocente-0-planides_dsr').val());
-      var planides_planejamento0  = parseFloat($('#planilhadespesadocente-0-planides_planejamento').val());
-      var planides_produtividade0 = parseFloat($('#planilhadespesadocente-0-planides_produtividade').val());
+      var planides_valorhidden0   = parseFloat($('#planilhadespesadocente-0-planides_valorhidden').val());
       var planides_valorhoraaula0 = parseFloat($('#planilhadespesadocente-0-planides_valorhoraaula').val());
       var planides_cargahoraria0  = parseFloat($('#planilhadespesadocente-0-planides_cargahoraria').val());
       //Linha 1 - Docente Nível Superior
-      var planides_encargos1      = parseFloat($('#planilhadespesadocente-1-planides_encargos').val());
       var planides_valor1         = parseFloat($('#planilhadespesadocente-1-planides_valor').val());
-      var planides_dsr1           = parseFloat($('#planilhadespesadocente-1-planides_dsr').val());
-      var planides_planejamento1  = parseFloat($('#planilhadespesadocente-1-planides_planejamento').val());
-      var planides_produtividade1 = parseFloat($('#planilhadespesadocente-1-planides_produtividade').val());
+      var planides_valorhidden1   = parseFloat($('#planilhadespesadocente-1-planides_valorhidden').val());
       var planides_valorhoraaula1 = parseFloat($('#planilhadespesadocente-1-planides_valorhoraaula').val());
       var planides_cargahoraria1  = parseFloat($('#planilhadespesadocente-1-planides_cargahoraria').val());
       //Linha 2 - Docente Nível Pós Graduado
-      var planides_encargos2      = parseFloat($('#planilhadespesadocente-2-planides_encargos').val());
       var planides_valor2         = parseFloat($('#planilhadespesadocente-2-planides_valor').val());
-      var planides_dsr2           = parseFloat($('#planilhadespesadocente-2-planides_dsr').val());
-      var planides_planejamento2  = parseFloat($('#planilhadespesadocente-2-planides_planejamento').val());
-      var planides_produtividade2 = parseFloat($('#planilhadespesadocente-2-planides_produtividade').val());
+      var planides_valorhidden2   = parseFloat($('#planilhadespesadocente-2-planides_valorhidden').val());
       var planides_valorhoraaula2 = parseFloat($('#planilhadespesadocente-2-planides_valorhoraaula').val());
       var planides_cargahoraria2  = parseFloat($('#planilhadespesadocente-2-planides_cargahoraria').val());
       //Linha 3 - Docente Nível Especialista(Fatese)
-      var planides_encargos3      = parseFloat($('#planilhadespesadocente-3-planides_encargos').val());
       var planides_valor3         = parseFloat($('#planilhadespesadocente-3-planides_valor').val());
-      var planides_dsr3           = parseFloat($('#planilhadespesadocente-3-planides_dsr').val());
-      var planides_planejamento3  = parseFloat($('#planilhadespesadocente-3-planides_planejamento').val());
-      var planides_produtividade3 = parseFloat($('#planilhadespesadocente-3-planides_produtividade').val());
+      var planides_valorhidden3   = parseFloat($('#planilhadespesadocente-3-planides_valorhidden').val());
       var planides_valorhoraaula3 = parseFloat($('#planilhadespesadocente-3-planides_valorhoraaula').val());
       var planides_cargahoraria3  = parseFloat($('#planilhadespesadocente-3-planides_cargahoraria').val());
       //Linha 4 - Docente Nível Mestre(Fatese)
-      var planides_encargos4      = parseFloat($('#planilhadespesadocente-4-planides_encargos').val());
       var planides_valor4         = parseFloat($('#planilhadespesadocente-4-planides_valor').val());
-      var planides_dsr4           = parseFloat($('#planilhadespesadocente-4-planides_dsr').val());
-      var planides_planejamento4  = parseFloat($('#planilhadespesadocente-4-planides_planejamento').val());
-      var planides_produtividade4 = parseFloat($('#planilhadespesadocente-4-planides_produtividade').val());
+      var planides_valorhidden4   = parseFloat($('#planilhadespesadocente-4-planides_valorhidden').val());
       var planides_valorhoraaula4 = parseFloat($('#planilhadespesadocente-4-planides_valorhoraaula').val());
       var planides_cargahoraria4  = parseFloat($('#planilhadespesadocente-4-planides_cargahoraria').val());
       //Linha 5 - Docente Nível Doutor(Fatese)
-      var planides_encargos5      = parseFloat($('#planilhadespesadocente-5-planides_encargos').val());
       var planides_valor5         = parseFloat($('#planilhadespesadocente-5-planides_valor').val());
-      var planides_dsr5           = parseFloat($('#planilhadespesadocente-5-planides_dsr').val());
-      var planides_planejamento5  = parseFloat($('#planilhadespesadocente-5-planides_planejamento').val());
-      var planides_produtividade5 = parseFloat($('#planilhadespesadocente-5-planides_produtividade').val());
+      var planides_valorhidden5   = parseFloat($('#planilhadespesadocente-5-planides_valorhidden').val());
       var planides_valorhoraaula5 = parseFloat($('#planilhadespesadocente-5-planides_valorhoraaula').val());
       var planides_cargahoraria5  = parseFloat($('#planilhadespesadocente-5-planides_cargahoraria').val());
       //Linha 6 - Prestador de Serviço
@@ -346,29 +264,6 @@ $(function() {
 
     //CÁLCULOS REALIZADOS
       //Linha 0 - Docente Nível Médio
-      var planides_dsr0 = planides_valor0 / 6;
-      var planides_planejamento0 = planides_valor0 + planides_dsr0;
-      var planides_produtividade0 = (planides_valor0 * 45) / 100;
-      var planides_valorhoraaula0 = planides_valor0 + planides_dsr0 + planides_produtividade0;
-      //Linha 1 - Docente Nível Superior
-      var planides_dsr1 = planides_valor1 / 6;
-      var planides_planejamento1 = planides_valor1 + planides_dsr1;
-      var planides_produtividade1 = (planides_valor1 * 45) / 100;
-      var planides_valorhoraaula1 = planides_valor1 + planides_dsr1 + planides_produtividade1;
-      //Linha 2 - Docente Nível Pós Graduado
-      var planides_dsr2 = planides_valor2 / 6;
-      var planides_planejamento2 = planides_valor2 + planides_dsr2;
-      var planides_produtividade2 = (planides_valor2 * 45) / 100;
-      var planides_valorhoraaula2 = planides_valor2 + planides_dsr2 + planides_produtividade2;
-      //Linha 3 - Docente Nível Especialista(Fatese)
-      var planides_dsr3 = planides_valor3 / 6;
-      var planides_valorhoraaula3 = planides_valor3 + planides_dsr3;
-      //Linha 4 - Docente Nível Mestre(Fatese)
-      var planides_dsr4 = planides_valor4 / 6;
-      var planides_valorhoraaula4 = planides_valor4 + planides_dsr4;
-      //Linha 5 - Docente Nível Doutor(Fatese)
-      var planides_dsr5 = planides_valor5 / 6;
-      var planides_valorhoraaula5 = planides_valor5 + planides_dsr5;
       //Linha 6 - Prestador de Serviço
       var planides_valorhoraaula6 = planides_valor6; // Valor Hora/Aula será igual ao valor informado na planilha
 
@@ -424,31 +319,15 @@ $(function() {
         }
 
       //RESULTADO DOS VALORES
-        //---DESPESAS COM DOCENTES
-      //Linha 0 - Docente Nível Médio
-      $('#planilhadespesadocente-0-planides_dsr').val(planides_dsr0);
-      $('#planilhadespesadocente-0-planides_planejamento').val(planides_planejamento0);
-      $('#planilhadespesadocente-0-planides_produtividade').val(planides_produtividade0);
-      $('#planilhadespesadocente-0-planides_valorhoraaula').val(planides_valorhoraaula0);
-      //Linha 1 - Docente Nível Superior
-      $('#planilhadespesadocente-1-planides_dsr').val(planides_dsr1);
-      $('#planilhadespesadocente-1-planides_planejamento').val(planides_planejamento1);
-      $('#planilhadespesadocente-1-planides_produtividade').val(planides_produtividade1);
-      $('#planilhadespesadocente-1-planides_valorhoraaula').val(planides_valorhoraaula1);
-      //Linha 2 - Docente Nível Pós Graduado
-      $('#planilhadespesadocente-2-planides_dsr').val(planides_dsr2);
-      $('#planilhadespesadocente-2-planides_planejamento').val(planides_planejamento2);
-      $('#planilhadespesadocente-2-planides_produtividade').val(planides_produtividade2);
-      $('#planilhadespesadocente-2-planides_valorhoraaula').val(planides_valorhoraaula2);
-      //Linha 3 - Docente Nível Especialista(Fatese)
-      $('#planilhadespesadocente-3-planides_dsr').val(planides_dsr3);
-      $('#planilhadespesadocente-3-planides_valorhoraaula').val(planides_valorhoraaula3);
-      //Linha 4 - Docente Nível Mestre(Fatese)
-      $('#planilhadespesadocente-4-planides_dsr').val(planides_dsr4);
-      $('#planilhadespesadocente-4-planides_valorhoraaula').val(planides_valorhoraaula4);
-      //Linha 5 - Docente Nível Doutor(Fatese)
-      $('#planilhadespesadocente-5-planides_dsr').val(planides_dsr5);
-      $('#planilhadespesadocente-5-planides_valorhoraaula').val(planides_valorhoraaula5);
+      //---DESPESAS COM DOCENTES
+      //Valores de Horistas forçados 
+      $('#planilhadespesadocente-0-planides_valor').val(planides_valorhidden0);
+      $('#planilhadespesadocente-1-planides_valor').val(planides_valorhidden1);
+      $('#planilhadespesadocente-2-planides_valor').val(planides_valorhidden2);
+      $('#planilhadespesadocente-3-planides_valor').val(planides_valorhidden3);
+      $('#planilhadespesadocente-4-planides_valor').val(planides_valorhidden4);
+      $('#planilhadespesadocente-5-planides_valor').val(planides_valorhidden5);
+
       //Linha 6 - Prestador de Serviço
       $('#planilhadespesadocente-6-planides_valorhoraaula').val(planides_valorhoraaula6);
 
@@ -482,7 +361,6 @@ $(function() {
       $('#planilhadecurso-placu_minimoaluno').val(MinimoAlunos); // Despesa Total / Preço Sugerido;
       $('#planilhadecurso-placu_valorparcelas').val(ValorParcelas); // Preço Sugerido / Quantidade de Parcelas;
       
-
       //Prestador de Serviço
       $('#planilhadecurso-placu_totalsalarioprestador').val(valorTotalMaoDeObraPrestador); // Total de Mão de Obra - Prestador
       $('#planilhadecurso-placu_totalencargosprestador').val(totalEncargosPrestador); // Total de Encargos - Prestador
