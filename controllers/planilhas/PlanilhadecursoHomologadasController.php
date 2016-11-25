@@ -3,6 +3,7 @@
 namespace app\controllers\planilhas;
 
 use Yii;
+use app\models\planilhas\Planilhadecurso;
 use app\models\planilhas\PlanilhadecursoHomologadas;
 use app\models\planilhas\PlanilhadecursoHomologadasSearch;
 use yii\web\Controller;
@@ -67,6 +68,17 @@ class PlanilhadecursoHomologadasController extends Controller
             'modelsPlaniConsumo'     => $modelsPlaniConsumo,
             'modelsPlaniEquipamento' => $modelsPlaniEquipamento,
         ]);
+    }
+
+    public function actionCorrecao($id) 
+    {
+        $model = Planilhadecurso::findOne($id);
+        $session = Yii::$app->session;
+        $session->set('sess_planilhadecurso', $model->placu_codplanilha);
+
+        return $this->redirect(['planilhas/planilha-justificativas/index'], [
+             'model' => $model,
+         ]);
     }
 
     /**

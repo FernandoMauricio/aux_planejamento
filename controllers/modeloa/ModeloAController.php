@@ -71,14 +71,12 @@ class ModeloAController extends Controller
             ]);
     }
 
-
     public function actionGerarModeloA()
     {
         $session = Yii::$app->session;
 
         $model = new ModeloA();
 
-        //$unidades = Unidade::find()->where(['uni_codsituacao' => 1])->orderBy('uni_nomeabreviado')->all();
         $ano = Ano::find()->where(['an_status'=> 1])->orderBy(['an_codano'=>SORT_DESC])->all();
         $tipoProgramacao = Tipoprogramacao::find()->all();
 
@@ -126,7 +124,6 @@ class ModeloAController extends Controller
             $cod_modeloa        = $modelModeloA['moda_codmodelo'];
         }
 
-
         //EXTRAINDO TODOS OS ORCAMENTOS PROGRAMAS EXISTENTES PARA COMPOR OS DETALHES DO MODELO A...
         $orcamentoProgramas = OrcamentoPrograma::find()->all();
 
@@ -149,6 +146,7 @@ class ModeloAController extends Controller
 
                     $placu_codplanilha             = $planilhaDeCurso['placu_codplanilha'];
                     $placu_quantidadeturmas        = $planilhaDeCurso['placu_quantidadeturmas'];
+                    $placu_codsituacao             = $planilhaDeCurso['placu_codsituacao'];
 
                     $placu_quantidadealunos        = $planilhaDeCurso['placu_quantidadealunos'];
                     $placu_quantidadealunospsg     = $planilhaDeCurso['placu_quantidadealunospsg'];
@@ -252,8 +250,12 @@ class ModeloAController extends Controller
               }
             }
 
-        Yii::$app->session->setFlash('success','<strong>Sucesso!</strong> Modelo A gerado!');
-
+        //--Irá ser verificado se existe centros de custos cadastrados para o ano informado da unidade
+        if($centrocustos != NULL){
+            Yii::$app->session->setFlash('success','<strong>Sucesso!</strong> Modelo A gerado!');
+        }else{
+            Yii::$app->session->setFlash('danger','<strong>Erro!</strong> Não existem centros de custo cadastrados para a sua unidade. Por favor, informe à GPO!');
+        }
         return $this->redirect(['index']);
 
         }else{
@@ -330,7 +332,7 @@ class ModeloAController extends Controller
                                 if ($flag) {
                                     $transaction->commit();
 
-                                    Yii::$app->session->setFlash('info', '<strong>SUCESSO! </strong> Modelo A '.$id.' Atualizado!</strong>');
+                                    Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Modelo A código <strong>'.$id.'</strong> Atualizado!</strong>');
 
                                     return $this->redirect(['update', 'id' => $model->moda_codmodelo]);
                                 }
@@ -340,7 +342,7 @@ class ModeloAController extends Controller
                         }
                         $model->save();
 
-            Yii::$app->session->setFlash('info', '<strong>SUCESSO! </strong> Modelo A '.$id.' Atualizado!</strong>');
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Modelo A código <strong>'.$id.'</strong> Atualizado!</strong>');
 
             return $this->redirect(['update', 'id' => $model->moda_codmodelo]);
         } else {

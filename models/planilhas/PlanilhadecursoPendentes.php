@@ -110,7 +110,7 @@ use app\models\planos\Planodeacao;
  * @property PlanilhamaterialalunoPlanimatalun[] $planilhamaterialalunoPlanimataluns
  * @property PlanilhaunidadescurricularesPlaniuc[] $planilhaunidadescurricularesPlaniucs
  */
-class PlanilhadecursoPendentes extends \yii\db\ActiveRecord
+class PlanilhadecursoPendentes extends Planilhadecurso
 {
     public $nivelLabel;
     public $segmentoLabel;
@@ -224,97 +224,6 @@ class PlanilhadecursoPendentes extends \yii\db\ActiveRecord
                 return false;
             }
         }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'placu_codplanilha' => 'Cód. Planilha',
-            'placu_codeixo' => 'Eixo',
-            'placu_codsegmento' => 'Segmento',
-            'placu_codplano' => 'Plano de Ação',
-            'placu_codtipoa' => 'Tipo de Ação',
-            'placu_codnivel' => 'Nível',
-            'placu_cargahorariaplano' => 'CH do Plano',
-            'placu_cargahorariarealizada' => 'Carga Horária Realizada',
-            'placu_cargahorariaarealizar' => 'Carga Horária a Realizar no SENAC',
-            'placu_cargahorariavivencia' => 'Carga Horária na Vivência(Aprend)',
-            'placu_codano' => 'Ano da Planilha',
-            'placu_codcategoria' => 'Fonte de Financiamento',
-            'placu_codtipla' => 'Tipo de Planilha',
-            'placu_quantidadeturmas' => 'Quantidade Turmas',
-            'placu_quantidadealunos' => 'Quantidade Alunos Pagantes por Turma',
-            'placu_quantidadealunospsg' => 'Quantidade Alunos PSG por Turma',
-            'placu_quantidadealunosisentos' => 'Quantidade Alunos Isentos por Turma',
-            'placu_quantidadeparcelas' => 'Quantidadeparcelas',
-            'placu_valormensalidade' => 'Valormensalidade',
-            'placu_codsituacao' => 'Situação da Planilha',
-            'placu_codcolaborador' => 'Colaborador',
-            'placu_codunidade' => 'Cód. Unidade',
-            'placu_nomeunidade' => 'Unidade',
-            'placu_tipocalculo' => 'Tipocalculo',
-            'placu_observacao' => 'Observacao',
-            'placu_taxaretorno' => 'Taxaretorno',
-            'placu_codprogramacao' => 'Tipo de Programação',
-
-            'placu_totalcustodocente' => 'Custo de Mão de Obra Direta',
-            'placu_decimo' => '1/12 de 13º',
-            'placu_ferias' => '1/12 de Férias',
-            'placu_tercoferias' => '1/12 de 1/3 de férias',
-            'placu_totalsalario' => 'SubTotal de Vencimentos',
-            'placu_totalsalarioPrestador' => 'SubTotal de Vencimentos(Prestador)',
-            'placu_totalencargosPrestador' => 'SubTotal de Encargos(Prestador)',
-            'placu_totalencargos' => 'SubTotal de Encargos',
-            'placu_totalsalarioencargo' => 'Total Vencimentos + Encargos (Horista+Prestador)',
-            'placu_custosmateriais' => 'Mat. Didático (Livros/plano A):',
-            'placu_custosconsumo' => 'Mat. de Consumo',
-            'placu_custosaluno' => 'Mat. do Aluno',
-            'placu_diarias' => 'Diárias',
-            'placu_passagens' => 'Passagens',
-            'placu_pessoafisica' => 'Serv. Terceiros (PF)',
-            'placu_pessoajuridica' => 'Serv. Terceiros (PJ)',
-            'placu_equipamentos' => 'Equipamentos',
-            'placu_PJApostila' => 'Mat. Didático (Apost./plano A):',
-            'placu_totalcustodireto' => 'Total de Custo Direto',
-            'placu_totalhoraaulacustodireto' => 'V. Hora/Aula de Custo Direto',
-
-            'placu_custosindiretos' => 'Custos Indiretos(%)',
-            'placu_ipca' => 'IPCA/Mês(%)',
-            'placu_reservatecnica' => 'Rerserva Técnica(%)',
-            'placu_despesadm' => 'Despesa Sede ADM ' .  date('Y') . '(%)',
-            'placu_totalincidencias' => 'Total Incidências(%)',
-            'placu_totalcustoindireto' => 'Total Custo Indireto',
-            'placu_despesatotal' => 'Despesa Total',
-            'placu_markdivisor' => 'Mark-Up Divisor 100-X/100',
-            'placu_markmultiplicador' => 'Mark-Up Multiplicador 100/Markup',
-            'placu_vendaturma' => 'Preço de venda total da turma',
-            'placu_vendaaluno' => 'Preço de venda total por aluno',
-            'placu_horaaulaaluno' => 'Valor Hora/Aula por aluno',
-            'placu_retorno' => 'Retorno com preço de venda',
-            'placu_porcentretorno' => '% de Retorno',
-            'placu_precosugerido' => 'Preço Sugerido',
-            'placu_retornoprecosugerido' => 'Retorno com preço sugerido',
-            'placu_minimoaluno' => 'Numero minimo de alunos por turma',
-            'placu_parcelas' => 'Quantidade de Parcelas',
-            'placu_valorparcelas' => 'Valor das Parcelas',
-            'placu_data' => 'Data da modificação',
-
-            'nivelLabel' => 'Nível',
-            'segmentoLabel' => 'Segmento',
-            'eixoLabel' => 'Eixo',
-            'tipoAcaoLabel' => 'Tipo de Ação',
-            'PlanoLabel' => 'Plano de Ação',
-            'anoLabel' => 'Ano da Planilha',
-            'tipoPlanilhaLabel' => 'Tipo de Planilha',
-            'tipoProgramacaoLabel' => 'Tipo de Programação',
-            'nomeUsuario' => 'Última modificação',
-            'situacaoLabel' => 'Situação da Planilha',
-            'categoriaLabel' => 'Fonte de Financiamento',
-
-        ];
-    }
 
     //Busca dados dos Planos que estão vinculados ao eixo e segmento escolhido pelo usuário
     public static function getPlanosSubCat($cat_id, $subcat_id) {

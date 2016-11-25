@@ -25,6 +25,7 @@ class AppAsset extends AssetBundle
         'js/main.js',
         'js/precificacao.js',
         'js/planilhadecurso.js',
+        'js/planilhadecursoadmin.js',
         'js/modeloa.js',
     ];
     public $depends = [

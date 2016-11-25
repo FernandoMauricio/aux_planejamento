@@ -57,17 +57,20 @@ class ModeloASearch extends ModeloA
             return $dataProvider;
         }
 
+        $session = Yii::$app->session;
+        
         // grid filtering conditions
         $query->andFilterWhere([
             'moda_codmodelo' => $this->moda_codmodelo,
-            'moda_codano' => 6,
-            'moda_codunidade' => $this->moda_codunidade,
+            'moda_codsituacao' => $this->moda_codsituacao,
             'moda_codcolaborador' => $this->moda_codcolaborador,
             'moda_codusuario' => $this->moda_codusuario,
-            'moda_codsituacao' => $this->moda_codsituacao,
             'moda_codentrada' => $this->moda_codentrada,
             'moda_codsegmento' => $this->moda_codsegmento,
             'moda_codtipoacao' => $this->moda_codtipoacao,
+            'moda_codunidade' => $session['sess_codunidade'],
+            'moda_codano' => 6, //---Ano 2017
+
         ]);
 
         $query->andFilterWhere(['like', 'moda_centrocusto', $this->moda_centrocusto])

@@ -32,3 +32,5 @@ $this->params['breadcrumbs'][] = 'Atualizar';
     ]) ?>
 
 </div>
+
+<?php $this->registerJsFile(Yii::$app->request->baseUrl.'/js/planilhadecursoadmin.js', ['position'=>$this::POS_READY]); ?>
