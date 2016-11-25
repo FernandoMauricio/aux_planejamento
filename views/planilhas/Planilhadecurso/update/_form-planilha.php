@@ -155,7 +155,7 @@ use app\models\cadastros\Tipoprogramacao;
         <div class="panel-body">
             <div class="row">
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <?= $form->field($model, 'placu_totalcustodocente')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -214,8 +214,7 @@ use app\models\cadastros\Tipoprogramacao;
                             'options' => ['readonly' => true, 'class' => 'form-control']
                     ]); ?>
                 </div>
-
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <?= $form->field($model, 'placu_totalsalario')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -229,12 +228,26 @@ use app\models\cadastros\Tipoprogramacao;
                             'options' => ['readonly' => true, 'class' => 'form-control']
                     ]); ?>
                 </div>
+                <div class="col-md-2">
+                    <?= $form->field($model, 'placu_totalencargos')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
             </div>
 
 
             <div class="row">
                 <div class="col-md-2">
-                    <?= $form->field($model, 'placu_totalencargos')->widget(\yii\widgets\MaskedInput::className(), [
+                    <?= $form->field($model, 'placu_outdespvariaveis')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,

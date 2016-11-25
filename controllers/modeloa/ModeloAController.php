@@ -154,11 +154,21 @@ class ModeloAController extends Controller
                     $placu_cargahorariaarealizar   = $planilhaDeCurso['placu_cargahorariaarealizar'];
 
                     $placu_diarias                 = $planilhaDeCurso['placu_diarias'];
+                    $placu_passagens               = $planilhaDeCurso['placu_passagens'];
+
+                    $placu_pessoajuridica          = $planilhaDeCurso['placu_pessoajuridica'];
   
                     $placu_custosmateriais         = $planilhaDeCurso['placu_custosmateriais'];
                     $placu_PJApostila              = $planilhaDeCurso['placu_PJApostila'];
                     $placu_custosconsumo           = $planilhaDeCurso['placu_custosconsumo'];
-                    //$placu_custosaluno          = $planilhaDeCurso['placu_custosaluno']; //----Verificar se entrará no cálculo
+                    $placu_custosaluno             = $planilhaDeCurso['placu_custosaluno'];
+
+                    $placu_totalencargos           = $planilhaDeCurso['placu_totalencargos'];
+                    $placu_totalencargosprestador  = $planilhaDeCurso['placu_totalencargosprestador'];
+
+                    $placu_totalsalario            = $planilhaDeCurso['placu_totalsalario'];
+                    $placu_totalsalarioprestador   = $planilhaDeCurso['placu_totalsalarioprestador'];
+
 
                     if($orcpro_identificacao == 414) { //DIARIAS ----->DIÁRIAS - PESSOAL CIVIL
 
@@ -167,30 +177,35 @@ class ModeloAController extends Controller
                     }
                     else if($orcpro_identificacao == 430) { //MATERIAL DE CONSUMO, MATERIAL DIDÁTICO E (MATERIAL DO ALUNO->Verificar se entra no cálculo) - TOTAL ----->MATERIAL DE CONSUMO
 
-                    $valor_programado += ($placu_custosmateriais * $placu_quantidadeturmas) + ($placu_PJApostila * $placu_quantidadeturmas) + ($placu_custosconsumo * $placu_quantidadeturmas);
+                        $valor_programado += ($placu_custosmateriais * $placu_quantidadeturmas) + ($placu_custosconsumo * $placu_quantidadeturmas) + ($placu_custosaluno * $placu_quantidadeturmas);
 
                     }
 
                     else if($orcpro_identificacao == 433) { //PASSAGENS URBANAS E INTERURBANAS ----->PASSAGENS E DESPESA COM LOCOMOÇÃO
 
+                        $valor_programado += $placu_passagens * $placu_quantidadeturmas;
                     }
 
-                    else if($orcpro_identificacao == 439) { //SEGURO DOS ALUNOS ----->OUTROS SERVIÇOS TERC. PESSOA JURÍDICA
+                    else if($orcpro_identificacao == 439) { //SEGURO DOS ALUNOS + MATERIAL DIDÁTICO (APOSTILAS)----->OUTROS SERVIÇOS TERC. PESSOA JURÍDICA
+
+                        $valor_programado += ($placu_pessoajuridica * $placu_quantidadeturmas) + ($placu_PJApostila * $placu_quantidadeturmas);
 
                     }
 
                     else if($orcpro_identificacao == 113) { //VALOR COM ENCARGOS ----->OBRIGAÇÕES PATRONAIS
 
+                        $valor_programado += ($placu_totalencargos * $placu_quantidadeturmas) + ($placu_totalencargosprestador * $placu_quantidadeturmas);
                     }
 
                     else if($orcpro_identificacao == 111) { //VALOR COM HORAS AULAS SEM ENCARGOS ----->VENC. E VANTAGENS FIXAS - PESSOAL CIVIL
+
+                        $valor_programado += ($placu_totalsalario * $placu_quantidadeturmas) + ($placu_totalsalarioprestador * $placu_quantidadeturmas);
 
                     }
 
                     else if($orcpro_identificacao == 116) { //VALOR PRODUTIVIDADE 45% ----->OUTRAS DESP. VARIÁVEIS - PESSOAL CIVIL
 
                     }
-
 
                 }
               }

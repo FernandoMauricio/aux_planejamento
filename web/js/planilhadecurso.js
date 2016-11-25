@@ -289,7 +289,8 @@ $(function() {
       var valorTercoFerias         = valorTotalMaoDeObra / 12 / 3;
       var totalSalarios            = valorTotalMaoDeObra + valorDecimo + valorFerias + valorTercoFerias;
       var totalEncargos            = (totalSalarios * 32.7) / 100;
-      var totalSalariosEncargos    = totalSalarios + valorTotalMaoDeObraPrestador + totalEncargos + totalEncargosPrestador; // Total de Salários + Encargos (Horista e Prestador de Serviço)
+      var totalOutrasDespVar       = (valorTotalMaoDeObra * 45) / 100;
+      var totalSalariosEncargos    = totalSalarios + valorTotalMaoDeObraPrestador + totalEncargos + totalOutrasDespVar + totalEncargosPrestador; // Total de Salários + Outras Despesas Variáveis + Encargos (Horista e Prestador de Serviço)
       var totalMaterial            = placu_hiddenmaterialdidatico * valorTotalQntAlunos;
       var totalPJApostila          = placu_hiddenpjapostila * valorTotalQntAlunos;
       var valorTotalDireto         = totalSalariosEncargos + placu_diarias + placu_passagens + placu_equipamentos + placu_pessoafisica + placu_pessoajuridica + totalPJApostila + totalMaterial + placu_custosconsumo + placu_custosaluno;
@@ -339,6 +340,7 @@ $(function() {
       $('#planilhadecurso-placu_tercoferias').val(valorTercoFerias); // 1/12 de 1/3 de férias
       $('#planilhadecurso-placu_totalsalario').val(totalSalarios); // Total de Salários
       $('#planilhadecurso-placu_totalencargos').val(totalEncargos); // Total de Encargos
+      $('#planilhadecurso-placu_outdespvariaveis').val(totalOutrasDespVar); // Outras Despesas Variáveis (Mão de Obra * 45%)
       $('#planilhadecurso-placu_totalsalarioencargo').val(totalSalariosEncargos); // Total de Salários + Encargos
       $('#planilhadecurso-placu_pjapostila').val(totalPJApostila); // Total Mat. Didático (Apost./plano A)
       $('#planilhadecurso-placu_custosmateriais').val(totalMaterial); // Total Mat. Didático (Livros/plano A)
