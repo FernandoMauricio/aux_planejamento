@@ -91,16 +91,16 @@ class CentrocustoController extends Controller
         $segmento = Segmento::find()->where(['seg_status' => 1])->orderBy('seg_descricao')->all();
         $tipoacao = Tipo::find()->where(['tip_status' => 1])->orderBy('tip_descricao')->all();
         $unidades = Unidade::find()->where(['uni_codsituacao'=> 1])->orderBy('uni_nomecompleto')->all();
-        $anocentrocusto = Anocentrocusto::find()->where(['ance_ano'=> date('Y')])->all();
+        $anocentrocusto = Anocentrocusto::find()->where(['ance_ano'=> date('Y') + 1])->all();
 
-        $model->cen_data           = date('Y-m-d');
+        $model->cen_data    = date('Y-m-d');
         $model->cen_usuario = $session['sess_nomeusuario'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
                 //atualiza com os últimos 5 dígitos da classificação orçamentária
                 Yii::$app->db->createCommand(
-                'UPDATE centrocusto_cen SET cen_centrocustoreduzido= '.substr($model->cen_centrocusto, 17, 6).' WHERE cen_codcentrocusto='.$model->cen_codcentrocusto.'')
+                'UPDATE centrocusto_cen SET cen_centrocustoreduzido= '.substr($model->cen_centrocusto, 12, 2).'.'.substr($model->cen_centrocusto, 14,3).' WHERE cen_codcentrocusto='.$model->cen_codcentrocusto.'')
                 ->execute();
 
                 Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Centro de Custo cadastrado!</strong>');
@@ -109,9 +109,9 @@ class CentrocustoController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'segmento' => $segmento,
-                'tipoacao' => $tipoacao,
-                'unidades' => $unidades,
+                'segmento'       => $segmento,
+                'tipoacao'       => $tipoacao,
+                'unidades'       => $unidades,
                 'anocentrocusto' => $anocentrocusto,
             ]);
         }
@@ -132,16 +132,16 @@ class CentrocustoController extends Controller
         $segmento = Segmento::find()->where(['seg_status' => 1])->orderBy('seg_descricao')->all();
         $tipoacao = Tipo::find()->where(['tip_status' => 1])->orderBy('tip_descricao')->all();
         $unidades = Unidade::find()->where(['uni_codsituacao'=> 1])->orderBy('uni_nomecompleto')->all();
-        $anocentrocusto = Anocentrocusto::find()->where(['ance_ano'=> date('Y')])->all();
+        $anocentrocusto = Anocentrocusto::find()->where(['ance_ano'=> date('Y') + 1])->all();
         
-        $model->cen_data           = date('Y-m-d');
+        $model->cen_data    = date('Y-m-d');
         $model->cen_usuario = $session['sess_nomeusuario'];
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
                 //atualiza com os últimos 5 dígitos da classificação orçamentária
                 Yii::$app->db->createCommand(
-                'UPDATE centrocusto_cen SET cen_centrocustoreduzido= '.substr($model->cen_centrocusto, 17, 6).' WHERE cen_codcentrocusto='.$model->cen_codcentrocusto.'')
+                'UPDATE centrocusto_cen SET cen_centrocustoreduzido= '.substr($model->cen_centrocusto, 12, 2).'.'.substr($model->cen_centrocusto, 14,3).' WHERE cen_codcentrocusto='.$model->cen_codcentrocusto.'')
                 ->execute();
 
                 Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Centro de Custo cadastrado!</strong>');
@@ -150,9 +150,9 @@ class CentrocustoController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'segmento' => $segmento,
-                'tipoacao' => $tipoacao,
-                'unidades' => $unidades,
+                'segmento'       => $segmento,
+                'tipoacao'       => $tipoacao,
+                'unidades'       => $unidades,
                 'anocentrocusto' => $anocentrocusto,
             ]);
         }

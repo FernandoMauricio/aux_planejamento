@@ -481,7 +481,7 @@ class PlanilhadecursoController extends Controller
 
 
         //Caso o exercicio da Planilha seja diferente com o ano da Planilha, será avisado ao usuário para excluir alguns itens
-        if($model->placu_anoexercicio != $model->planilhaAno->an_ano){
+        if($model->planilhaAno->an_ano <= date('Y')){
              Yii::$app->session->setFlash('danger', '<strong>AVISO! </strong> Planilha '.$id.' do ano de <strong>'.$model->planilhaAno->an_ano.'</strong>. Por favor, <strong>exclua</strong> os itens de Organização Curricular, Material Didático, Consumo e Aluno que não irá utilizar!</strong>');
         }
 

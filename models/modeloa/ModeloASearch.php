@@ -60,7 +60,7 @@ class ModeloASearch extends ModeloA
         // grid filtering conditions
         $query->andFilterWhere([
             'moda_codmodelo' => $this->moda_codmodelo,
-            'moda_codano' => $this->moda_codano,
+            'moda_codano' => 6,
             'moda_codunidade' => $this->moda_codunidade,
             'moda_codcolaborador' => $this->moda_codcolaborador,
             'moda_codusuario' => $this->moda_codusuario,

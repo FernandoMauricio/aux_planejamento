@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::button('Homologar Planejamento', ['value'=> Url::to('index.php?r=planilhas/planilhadecurso-admin/homologar-planejamento'), 'class' => 'btn btn-success', 'id'=>'modalButton']) ?>
+        <?= Html::button('Homologar Planejamento', ['value'=> Url::to('index.php?r=planilhas/planilhadecurso-pendentes/homologar-planejamento'), 'class' => 'btn btn-success', 'id'=>'modalButton']) ?>
     </p>
 
     <?php

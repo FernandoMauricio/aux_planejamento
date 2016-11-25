@@ -130,7 +130,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             return $scenarios;
         }
 
-    //Replace de ',' por '.' nos valores da precificação
+    //Replace de ',' por '.' nos valores da planilha
     public function beforeSave($insert) {
             if (parent::beforeSave($insert)) {
                 $this->placu_totalcustodocente        = str_replace(",", ".", $this->placu_totalcustodocente);

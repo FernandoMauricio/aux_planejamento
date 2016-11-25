@@ -81,6 +81,16 @@ class Centrocusto extends \yii\db\ActiveRecord
         ];
     }
 
+    //Replace de '.' por '' nos valores da precificação
+    public function beforeSave($insert) {
+            if (parent::beforeSave($insert)) {
+                $this->cen_centrocusto        = str_replace(".", "", $this->cen_centrocusto);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
     /**
      * @return \yii\db\ActiveQuery
      */
