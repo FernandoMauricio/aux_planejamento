@@ -21,7 +21,7 @@
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-mpdf": "*",
         "kartik-v/yii2-widgets": "*",
-        "wbraganca/yii2-dynamicform": "*",
+        "wbraganca/yii2-dynamicform": "dev-master",
         "kartik-v/yii2-money": "dev-master",
         "phpoffice/phpexcel": "^1.8",
         "kartik-v/yii2-detail-view": "@dev",

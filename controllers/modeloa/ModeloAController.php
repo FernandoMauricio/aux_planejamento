@@ -282,6 +282,7 @@ class ModeloAController extends Controller
             $orcpro_codtipo       = $orcamentoPrograma['orcpro_codtipo'];
 
             $valor_programado = 0;
+            $valor_reforcoreducao = 0;
 
               //IDENTIFICANDO O TIPO DE TITULO PARA BUSCAR VALORES NAS PLANILHAS...
               if($orcpro_identificacao == 111 || $orcpro_identificacao == 113 || $orcpro_identificacao == 116 || $orcpro_identificacao == 414 || $orcpro_identificacao == 430 || $orcpro_identificacao == 433 || $orcpro_identificacao == 439) {
@@ -313,72 +314,117 @@ class ModeloAController extends Controller
                     $placu_outdespvariaveis        = $planilhaDeCurso['placu_outdespvariaveis'];
 
 
-                    if($orcpro_identificacao == 414) { //DIARIAS ----->DIÁRIAS - PESSOAL CIVIL
+                    if($model->moda_codentrada == 1){
 
-                        $valor_programado += $placu_diarias * $placu_quantidadeturmas; //Valor das diárias das planilhas * Quantidade de Turmas
+                        if($orcpro_identificacao == 414) { //DIARIAS ----->DIÁRIAS - PESSOAL CIVIL
 
-                    }
-                    else if($orcpro_identificacao == 430) { //MATERIAL DE CONSUMO, MATERIAL DIDÁTICO E (MATERIAL DO ALUNO->Verificar se entra no cálculo) - TOTAL ----->MATERIAL DE CONSUMO
+                            $valor_programado += $placu_diarias * $placu_quantidadeturmas; //Valor das diárias das planilhas * Quantidade de Turmas
 
-                        $valor_programado += ($placu_custosmateriais  + $placu_custosconsumo  + $placu_custosaluno) * $placu_quantidadeturmas;
+                        }
+                        else if($orcpro_identificacao == 430) { //MATERIAL DE CONSUMO, MATERIAL DIDÁTICO E (MATERIAL DO ALUNO->Verificar se entra no cálculo) - TOTAL ----->MATERIAL DE CONSUMO
 
-                    }
+                            $valor_programado += ($placu_custosmateriais  + $placu_custosconsumo  + $placu_custosaluno) * $placu_quantidadeturmas;
 
-                    else if($orcpro_identificacao == 433) { //PASSAGENS URBANAS E INTERURBANAS ----->PASSAGENS E DESPESA COM LOCOMOÇÃO
+                        }
 
-                        $valor_programado += $placu_passagens * $placu_quantidadeturmas;
-                    }
+                        else if($orcpro_identificacao == 433) { //PASSAGENS URBANAS E INTERURBANAS ----->PASSAGENS E DESPESA COM LOCOMOÇÃO
 
-                    else if($orcpro_identificacao == 439) { //SEGURO DOS ALUNOS + MATERIAL DIDÁTICO (APOSTILAS)----->OUTROS SERVIÇOS TERC. PESSOA JURÍDICA
+                            $valor_programado += $placu_passagens * $placu_quantidadeturmas;
+                        }
 
-                        $valor_programado += ($placu_PJApostila * $placu_quantidadeturmas);
+                        else if($orcpro_identificacao == 439) { //SEGURO DOS ALUNOS + MATERIAL DIDÁTICO (APOSTILAS)----->OUTROS SERVIÇOS TERC. PESSOA JURÍDICA
 
-                    }
+                            $valor_programado += ($placu_PJApostila * $placu_quantidadeturmas);
 
-                    else if($orcpro_identificacao == 113) { //VALOR COM ENCARGOS ----->OBRIGAÇÕES PATRONAIS
+                        }
 
-                        $valor_programado += ($placu_totalencargos * $placu_quantidadeturmas) + ($placu_totalencargosPrestador * $placu_quantidadeturmas);
-                    }
+                        else if($orcpro_identificacao == 113) { //VALOR COM ENCARGOS ----->OBRIGAÇÕES PATRONAIS
 
-                    else if($orcpro_identificacao == 111) { //VALOR COM HORAS AULAS SEM ENCARGOS ----->VENC. E VANTAGENS FIXAS - PESSOAL CIVIL
+                            $valor_programado += ($placu_totalencargos * $placu_quantidadeturmas) + ($placu_totalencargosPrestador * $placu_quantidadeturmas);
+                        }
 
-                        $valor_programado += ($placu_totalsalario * $placu_quantidadeturmas) + ($placu_totalsalarioPrestador * $placu_quantidadeturmas);
+                        else if($orcpro_identificacao == 111) { //VALOR COM HORAS AULAS SEM ENCARGOS ----->VENC. E VANTAGENS FIXAS - PESSOAL CIVIL
 
-                    }
+                            $valor_programado += ($placu_totalsalario * $placu_quantidadeturmas) + ($placu_totalsalarioPrestador * $placu_quantidadeturmas);
 
-                    else if($orcpro_identificacao == 116) { //VALOR PRODUTIVIDADE 45% ----->OUTRAS DESP. VARIÁVEIS - PESSOAL CIVIL
+                        }
 
-                        $valor_programado += $placu_outdespvariaveis * $placu_quantidadeturmas;
+                        else if($orcpro_identificacao == 116) { //VALOR PRODUTIVIDADE 45% ----->OUTRAS DESP. VARIÁVEIS - PESSOAL CIVIL
 
-                    }
+                            $valor_programado += $placu_outdespvariaveis * $placu_quantidadeturmas;
 
-                    //Inclui as informações das Planilhas para o Modelo A utilizando as condições acima
+                        }
+
+                    //Inclui as informações das Planilhas para o Modelo A utilizando as condições acima COM A SITUAÇÃO DE ENTRADA: PROGRAMADO
+                    Yii::$app->db_apl->createCommand()
+                        ->update('detalhesmodeloa_deta',[
+                                 'deta_programado'     => $valor_programado > 0 && $valor_programado < 1000 ?  1000 : $valor_programado,
+                                 ], [//------WHERE
+                                 'deta_codmodelo'      => $model->moda_codmodelo,
+                                 'deta_identificacao'  => $orcpro_identificacao,
+                                 ])
+                        ->execute();
+
+                    }else{
+
+                        if($orcpro_identificacao == 414) { //DIARIAS ----->DIÁRIAS - PESSOAL CIVIL
+
+                            $valor_reforcoreducao += $placu_diarias * $placu_quantidadeturmas; //Valor das diárias das planilhas * Quantidade de Turmas
+
+                        }
+                        else if($orcpro_identificacao == 430) { //MATERIAL DE CONSUMO, MATERIAL DIDÁTICO E (MATERIAL DO ALUNO->Verificar se entra no cálculo) - TOTAL ----->MATERIAL DE CONSUMO
+
+                            $valor_reforcoreducao += ($placu_custosmateriais  + $placu_custosconsumo  + $placu_custosaluno) * $placu_quantidadeturmas;
+
+                        }
+
+                        else if($orcpro_identificacao == 433) { //PASSAGENS URBANAS E INTERURBANAS ----->PASSAGENS E DESPESA COM LOCOMOÇÃO
+
+                            $valor_reforcoreducao += $placu_passagens * $placu_quantidadeturmas;
+                        }
+
+                        else if($orcpro_identificacao == 439) { //SEGURO DOS ALUNOS + MATERIAL DIDÁTICO (APOSTILAS)----->OUTROS SERVIÇOS TERC. PESSOA JURÍDICA
+
+                            $valor_reforcoreducao += ($placu_PJApostila * $placu_quantidadeturmas);
+
+                        }
+
+                        else if($orcpro_identificacao == 113) { //VALOR COM ENCARGOS ----->OBRIGAÇÕES PATRONAIS
+
+                            $valor_reforcoreducao += ($placu_totalencargos * $placu_quantidadeturmas) + ($placu_totalencargosPrestador * $placu_quantidadeturmas);
+                        }
+
+                        else if($orcpro_identificacao == 111) { //VALOR COM HORAS AULAS SEM ENCARGOS ----->VENC. E VANTAGENS FIXAS - PESSOAL CIVIL
+
+                            $valor_reforcoreducao += ($placu_totalsalario * $placu_quantidadeturmas) + ($placu_totalsalarioPrestador * $placu_quantidadeturmas);
+
+                        }
+
+                        else if($orcpro_identificacao == 116) { //VALOR PRODUTIVIDADE 45% ----->OUTRAS DESP. VARIÁVEIS - PESSOAL CIVIL
+
+                            $valor_reforcoreducao += $placu_outdespvariaveis * $placu_quantidadeturmas;
+
+                        }
+
+
+                    //Inclui as informações das Planilhas para o Modelo A utilizando as condições acima COM A SITUAÇÃO DE ENTRADA: REFOÇO-REDUÇÃO
                     Yii::$app->db_apl->createCommand()
                         ->update('detalhesmodeloa_deta', [
-                                 'deta_programado'     => $valor_programado > 0 && $valor_programado < 1000 ?  1000 : $valor_programado,
-                                 'deta_reforcoreducao' => 0,
-                                 'deta_dotacaofinal'   => $valor_programado > 0 && $valor_programado < 1000 ?  1000 : $valor_programado,
+                                 'deta_reforcoreducao' => $valor_reforcoreducao > 0 && $valor_reforcoreducao < 1000 ?  1000 : $valor_reforcoreducao,
                                  ], [//------WHERE
-                                 'deta_codmodelo' => $model->moda_codmodelo,
-                                 'deta_identificacao' => $orcpro_identificacao,
+                                 'deta_codmodelo'      => $model->moda_codmodelo,
+                                 'deta_identificacao'  => $orcpro_identificacao,
                                  ])
                         ->execute();
                     }
-
-                    }else{
-                    //Inclui os outros elementos de despesas que não trazem as informações automáticas das planilhas
-                    Yii::$app->db_apl->createCommand()
-                        ->update('detalhesmodeloa_deta', [
-                                 'deta_programado'     => 0,
-                                 'deta_reforcoreducao' => 0,
-                                 'deta_dotacaofinal'   => 0,
-                                 ], [//------WHERE
-                                 'deta_codmodelo' => $model->moda_codmodelo,
-                                 'deta_identificacao' => $orcpro_identificacao,
-                                 ])
-                        ->execute();  
-                    }
+                        
                 }
+
+            }
+
+        }
+
+        //Incluir aqui Cálculo do somatório da Dotação Final ao atualizar a planilha ------
 
         Yii::$app->session->setFlash('success','<strong>Sucesso!</strong> Modelo A Atualizado conforme dados das Planilhas!');
         
