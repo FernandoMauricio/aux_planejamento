@@ -82,8 +82,14 @@ class ModeloAController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-        $centrocustos = Centrocusto::find()->where(['cen_codano' => $model->anoModeloA->an_ano, 'cen_codunidade' =>$session['sess_codunidade'], 'cen_codsituacao' => 1])->all();
+        //Localiza os modelos A dos Centros de Custos que já foram gerados pela unidade
+        $ModeloA = 'SELECT `moda_centrocustoreduzido` FROM `db_apl`.`modeloa_moda` WHERE moda_codano = '.$model->anoModeloA->an_codano.' AND `moda_codunidade` = '.$session['sess_codunidade'].' ';
 
+        //Localiza somente os centros de custos que não foram gerados o Modelo A para o ano e unidade selecionada
+        $sqlCentroCustos = 'SELECT * FROM `db_base`.`centrocusto_cen` WHERE `cen_centrocustoreduzido` NOT IN ('.implode(',', [$ModeloA]).') AND `cen_codano` = '.$model->anoModeloA->an_ano.' AND `cen_codunidade` = '.$session['sess_codunidade'].' AND `cen_codsituacao` = 1';
+
+            $centrocustos = Centrocusto::findBySql($sqlCentroCustos)->all();
+        
         foreach ($centrocustos as $centrocusto) {
 
            $cen_codcentrocusto      = $centrocusto['cen_codcentrocusto'];
@@ -147,36 +153,28 @@ class ModeloAController extends Controller
                     $placu_codplanilha             = $planilhaDeCurso['placu_codplanilha'];
                     $placu_quantidadeturmas        = $planilhaDeCurso['placu_quantidadeturmas'];
                     $placu_codsituacao             = $planilhaDeCurso['placu_codsituacao'];
-
                     $placu_quantidadealunos        = $planilhaDeCurso['placu_quantidadealunos'];
                     $placu_quantidadealunospsg     = $planilhaDeCurso['placu_quantidadealunospsg'];
                     $placu_quantidadealunosisentos = $planilhaDeCurso['placu_quantidadealunosisentos'];
-
                     $placu_cargahorariaarealizar   = $planilhaDeCurso['placu_cargahorariaarealizar'];
-
                     $placu_diarias                 = $planilhaDeCurso['placu_diarias'];
                     $placu_passagens               = $planilhaDeCurso['placu_passagens'];
-
                     $placu_pessoajuridica          = $planilhaDeCurso['placu_pessoajuridica'];
-  
                     $placu_custosmateriais         = $planilhaDeCurso['placu_custosmateriais'];
                     $placu_PJApostila              = $planilhaDeCurso['placu_PJApostila'];
                     $placu_custosconsumo           = $planilhaDeCurso['placu_custosconsumo'];
                     $placu_custosaluno             = $planilhaDeCurso['placu_custosaluno'];
-
                     $placu_totalsalarioPrestador   = $planilhaDeCurso['placu_totalsalarioPrestador'];
                     $placu_totalencargos           = $planilhaDeCurso['placu_totalencargos'];
                     $placu_totalencargosPrestador  = $planilhaDeCurso['placu_totalencargosPrestador'];
-
                     $placu_totalsalario            = $planilhaDeCurso['placu_totalsalario'];
                     $placu_outdespvariaveis        = $planilhaDeCurso['placu_outdespvariaveis'];
-
                     $placu_outdespvariaveis        = $planilhaDeCurso['placu_outdespvariaveis'];
 
 
                     if($orcpro_identificacao == 414) { //DIARIAS ----->DIÁRIAS - PESSOAL CIVIL
 
-                       $valor_programado += $placu_diarias * $placu_quantidadeturmas; //Valor das diárias das planilhas * Quantidade de Turmas
+                                $valor_programado += $placu_diarias * $placu_quantidadeturmas; //Valor das diárias das planilhas * Quantidade de Turmas
 
                     }
                     else if($orcpro_identificacao == 430) { //MATERIAL DE CONSUMO, MATERIAL DIDÁTICO E (MATERIAL DO ALUNO->Verificar se entra no cálculo) - TOTAL ----->MATERIAL DE CONSUMO
@@ -213,7 +211,7 @@ class ModeloAController extends Controller
 
                     }
 
-                    //Inclui as informações das Planilhas para o Modelo A
+                    //Inclui as informações das Planilhas para o Modelo A utilizando as condições acima
                     Yii::$app->db_apl->createCommand()
                         ->insert('detalhesmodeloa_deta', [
                                  'deta_codmodelo'      => $cod_modeloa,
@@ -223,14 +221,14 @@ class ModeloAController extends Controller
                                  'deta_titulo'         => $orcpro_titulo,
                                  'deta_identificacao'  => $orcpro_identificacao,
                                  'deta_codtipo'        => $orcpro_codtipo,
-                                 'deta_programado'     => $valor_programado,
+                                 'deta_programado'     => $valor_programado > 0 && $valor_programado < 1000 ?  1000 : $valor_programado,
                                  'deta_reforcoreducao' => 0,
-                                 'deta_dotacaofinal'   => $valor_programado,
+                                 'deta_dotacaofinal'   => $valor_programado > 0 && $valor_programado < 1000 ?  1000 : $valor_programado,
                                  ])
                         ->execute();
                     }
                 }else{
-                     //Inclui as informações das Planilhas para o Modelo A
+                     //Inclui os outros elementos de despesas que não trazem as informações automáticas das planilhas
                     Yii::$app->db_apl->createCommand()
                         ->insert('detalhesmodeloa_deta', [
                                  'deta_codmodelo'      => $cod_modeloa,
