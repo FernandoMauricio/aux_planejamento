@@ -41,7 +41,6 @@ class PlanilhaMaterialAluno extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['planilhadecurso_cod'], 'required'],
             [['planilhadecurso_cod', 'planodeacao_cod', 'planimatalun_quantidade'], 'integer'],
             [['planimatalun_valor'], 'number'],
             [['planimatalun_descricao'], 'string', 'max' => 100],

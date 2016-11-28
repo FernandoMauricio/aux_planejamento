@@ -60,7 +60,7 @@ class ModeloA extends \yii\db\ActiveRecord
     {
         return [
             [['moda_codano', 'moda_centrocusto', 'moda_centrocustoreduzido', 'moda_nomecentrocusto', 'moda_codunidade', 'moda_nomeunidade', 'moda_codcolaborador', 'moda_codusuario', 'moda_nomeusuario', 'moda_codsituacao', 'moda_codentrada', 'moda_codsegmento', 'moda_codtipoacao', 'moda_identificacao'], 'required'],
-            [['moda_codano', 'moda_codunidade', 'moda_codcolaborador', 'moda_codusuario', 'moda_codsituacao', 'moda_codentrada', 'moda_codsegmento', 'moda_codtipoacao'], 'integer'],
+            [['moda_codano', 'moda_codunidade', 'moda_codcolaborador', 'moda_codusuario', 'moda_codsituacao', 'moda_codentrada', 'moda_codsegmento', 'moda_codtipoacao', 'moda_anoexercicio'], 'integer'],
             [['moda_descriminacaoprojeto'], 'string'],
             [['moda_centrocusto'], 'string', 'max' => 45],
             [['moda_centrocustoreduzido'], 'string', 'max' => 15],

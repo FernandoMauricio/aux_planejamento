@@ -40,7 +40,6 @@ class PlanilhaUnidadesCurriculares extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['planilhadecurso_cod', 'planodeacao_cod', 'planiuc_descricao', 'planiuc_cargahoraria', 'planiuc_nivelUC'], 'required'],
             [['planilhadecurso_cod', 'planodeacao_cod', 'planiuc_cargahoraria', 'planiuc_nivelUC'], 'integer'],
             [['planiuc_descricao'], 'string', 'max' => 255],
             [['planilhadecurso_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Planilhadecurso::className(), 'targetAttribute' => ['planilhadecurso_cod' => 'placu_codplanilha']],

@@ -119,6 +119,7 @@ class ModeloAController extends Controller
                              'moda_codsegmento'         => $cen_codsegmento,
                              'moda_codtipoacao'         => $cen_codtipoacao,
                              'moda_identificacao'       => $identificador_modeloa,
+                             'moda_anoexercicio'        => date('Y'),
                              ])
                     ->execute();
 
@@ -146,7 +147,7 @@ class ModeloAController extends Controller
               if($orcpro_identificacao == 111 || $orcpro_identificacao == 113 || $orcpro_identificacao == 116 || $orcpro_identificacao == 414 || $orcpro_identificacao == 430 || $orcpro_identificacao == 433 || $orcpro_identificacao == 439) {
 
                 //Localiza as Planilhas de Cursos onde contêm os centros de Custos cadastrados // Parâmetros -> situação 4 - (Homologada) e Tipo de Planilha (Produção)
-                $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_codano' => $model->anoModeloA->an_codano, 'placu_codsegmento' => $cen_codsegmento, 'placu_codtipoa' => $cen_codtipoacao, 'placu_codsituacao' => 4, 'placu_codtipla' => 1])->all();
+                $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_anoexercicio' => date('Y'), 'placu_codsegmento' => $cen_codsegmento, 'placu_codtipoa' => $cen_codtipoacao, 'placu_codsituacao' => 4, 'placu_codtipla' => 1])->all();
 
                 foreach ($planilhaDeCursos as $planilhaDeCurso) {
 
@@ -174,7 +175,7 @@ class ModeloAController extends Controller
 
                     if($orcpro_identificacao == 414) { //DIARIAS ----->DIÁRIAS - PESSOAL CIVIL
 
-                                $valor_programado += $placu_diarias * $placu_quantidadeturmas; //Valor das diárias das planilhas * Quantidade de Turmas
+                        $valor_programado += $placu_diarias * $placu_quantidadeturmas; //Valor das diárias das planilhas * Quantidade de Turmas
 
                     }
                     else if($orcpro_identificacao == 430) { //MATERIAL DE CONSUMO, MATERIAL DIDÁTICO E (MATERIAL DO ALUNO->Verificar se entra no cálculo) - TOTAL ----->MATERIAL DE CONSUMO
@@ -243,9 +244,8 @@ class ModeloAController extends Controller
                                  'deta_dotacaofinal'   => 0,
                                  ])
                         ->execute();
+                    }
                 }
-
-              }
             }
 
         //--Irá ser verificado se existe centros de custos cadastrados para o ano informado da unidade
@@ -264,6 +264,128 @@ class ModeloAController extends Controller
             ]);
         }
     }
+
+    public function actionAtualizarModeloaAConformePlanilhas($id)
+    {
+        $session = Yii::$app->session;
+
+        $model = $this->findModel($id);
+
+        //EXTRAINDO TODOS OS ORCAMENTOS PROGRAMAS EXISTENTES PARA COMPOR OS DETALHES DO MODELO A...
+        $orcamentoProgramas = OrcamentoPrograma::find()->all();
+
+        foreach ($orcamentoProgramas as $orcamentoPrograma) {
+
+            $orcpro_codigo        = $orcamentoPrograma['orcpro_codigo'];
+            $orcpro_titulo        = $orcamentoPrograma['orcpro_titulo'];
+            $orcpro_identificacao = $orcamentoPrograma['orcpro_identificacao'];
+            $orcpro_codtipo       = $orcamentoPrograma['orcpro_codtipo'];
+
+            $valor_programado = 0;
+
+              //IDENTIFICANDO O TIPO DE TITULO PARA BUSCAR VALORES NAS PLANILHAS...
+              if($orcpro_identificacao == 111 || $orcpro_identificacao == 113 || $orcpro_identificacao == 116 || $orcpro_identificacao == 414 || $orcpro_identificacao == 430 || $orcpro_identificacao == 433 || $orcpro_identificacao == 439) {
+
+                //Localiza as Planilhas de Cursos onde contêm os centros de Custos cadastrados // Parâmetros -> situação 4 - (Homologada) e Tipo de Planilha (Produção)
+                $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_anoexercicio' => $model->moda_anoexercicio, 'placu_codsegmento' => $model->moda_codsegmento, 'placu_codtipoa' => $model->moda_codtipoacao, 'placu_codsituacao' => 4, 'placu_codtipla' => 1, 'placu_codprogramacao' => $model->moda_codentrada])->all();
+
+                foreach ($planilhaDeCursos as $planilhaDeCurso) {
+
+                    $placu_codplanilha             = $planilhaDeCurso['placu_codplanilha'];
+                    $placu_quantidadeturmas        = $planilhaDeCurso['placu_quantidadeturmas'];
+                    $placu_codsituacao             = $planilhaDeCurso['placu_codsituacao'];
+                    $placu_quantidadealunos        = $planilhaDeCurso['placu_quantidadealunos'];
+                    $placu_quantidadealunospsg     = $planilhaDeCurso['placu_quantidadealunospsg'];
+                    $placu_quantidadealunosisentos = $planilhaDeCurso['placu_quantidadealunosisentos'];
+                    $placu_cargahorariaarealizar   = $planilhaDeCurso['placu_cargahorariaarealizar'];
+                    $placu_diarias                 = $planilhaDeCurso['placu_diarias'];
+                    $placu_passagens               = $planilhaDeCurso['placu_passagens'];
+                    $placu_pessoajuridica          = $planilhaDeCurso['placu_pessoajuridica'];
+                    $placu_custosmateriais         = $planilhaDeCurso['placu_custosmateriais'];
+                    $placu_PJApostila              = $planilhaDeCurso['placu_PJApostila'];
+                    $placu_custosconsumo           = $planilhaDeCurso['placu_custosconsumo'];
+                    $placu_custosaluno             = $planilhaDeCurso['placu_custosaluno'];
+                    $placu_totalsalarioPrestador   = $planilhaDeCurso['placu_totalsalarioPrestador'];
+                    $placu_totalencargos           = $planilhaDeCurso['placu_totalencargos'];
+                    $placu_totalencargosPrestador  = $planilhaDeCurso['placu_totalencargosPrestador'];
+                    $placu_totalsalario            = $planilhaDeCurso['placu_totalsalario'];
+                    $placu_outdespvariaveis        = $planilhaDeCurso['placu_outdespvariaveis'];
+                    $placu_outdespvariaveis        = $planilhaDeCurso['placu_outdespvariaveis'];
+
+
+                    if($orcpro_identificacao == 414) { //DIARIAS ----->DIÁRIAS - PESSOAL CIVIL
+
+                        $valor_programado += $placu_diarias * $placu_quantidadeturmas; //Valor das diárias das planilhas * Quantidade de Turmas
+
+                    }
+                    else if($orcpro_identificacao == 430) { //MATERIAL DE CONSUMO, MATERIAL DIDÁTICO E (MATERIAL DO ALUNO->Verificar se entra no cálculo) - TOTAL ----->MATERIAL DE CONSUMO
+
+                        $valor_programado += ($placu_custosmateriais  + $placu_custosconsumo  + $placu_custosaluno) * $placu_quantidadeturmas;
+
+                    }
+
+                    else if($orcpro_identificacao == 433) { //PASSAGENS URBANAS E INTERURBANAS ----->PASSAGENS E DESPESA COM LOCOMOÇÃO
+
+                        $valor_programado += $placu_passagens * $placu_quantidadeturmas;
+                    }
+
+                    else if($orcpro_identificacao == 439) { //SEGURO DOS ALUNOS + MATERIAL DIDÁTICO (APOSTILAS)----->OUTROS SERVIÇOS TERC. PESSOA JURÍDICA
+
+                        $valor_programado += ($placu_PJApostila * $placu_quantidadeturmas);
+
+                    }
+
+                    else if($orcpro_identificacao == 113) { //VALOR COM ENCARGOS ----->OBRIGAÇÕES PATRONAIS
+
+                        $valor_programado += ($placu_totalencargos * $placu_quantidadeturmas) + ($placu_totalencargosPrestador * $placu_quantidadeturmas);
+                    }
+
+                    else if($orcpro_identificacao == 111) { //VALOR COM HORAS AULAS SEM ENCARGOS ----->VENC. E VANTAGENS FIXAS - PESSOAL CIVIL
+
+                        $valor_programado += ($placu_totalsalario * $placu_quantidadeturmas) + ($placu_totalsalarioPrestador * $placu_quantidadeturmas);
+
+                    }
+
+                    else if($orcpro_identificacao == 116) { //VALOR PRODUTIVIDADE 45% ----->OUTRAS DESP. VARIÁVEIS - PESSOAL CIVIL
+
+                        $valor_programado += $placu_outdespvariaveis * $placu_quantidadeturmas;
+
+                    }
+
+                    //Inclui as informações das Planilhas para o Modelo A utilizando as condições acima
+                    Yii::$app->db_apl->createCommand()
+                        ->update('detalhesmodeloa_deta', [
+                                 'deta_programado'     => $valor_programado > 0 && $valor_programado < 1000 ?  1000 : $valor_programado,
+                                 'deta_reforcoreducao' => 0,
+                                 'deta_dotacaofinal'   => $valor_programado > 0 && $valor_programado < 1000 ?  1000 : $valor_programado,
+                                 ], [//------WHERE
+                                 'deta_codmodelo' => $model->moda_codmodelo,
+                                 'deta_identificacao' => $orcpro_identificacao,
+                                 ])
+                        ->execute();
+                    }
+
+                    }else{
+                    //Inclui os outros elementos de despesas que não trazem as informações automáticas das planilhas
+                    Yii::$app->db_apl->createCommand()
+                        ->update('detalhesmodeloa_deta', [
+                                 'deta_programado'     => 0,
+                                 'deta_reforcoreducao' => 0,
+                                 'deta_dotacaofinal'   => 0,
+                                 ], [//------WHERE
+                                 'deta_codmodelo' => $model->moda_codmodelo,
+                                 'deta_identificacao' => $orcpro_identificacao,
+                                 ])
+                        ->execute();  
+                    }
+                }
+
+        Yii::$app->session->setFlash('success','<strong>Sucesso!</strong> Modelo A Atualizado conforme dados das Planilhas!');
+        
+        return $this->redirect(['update', 'id' => $model->moda_codmodelo]);
+
+    }
+
     /**
      * Creates a new ModeloA model.
      * If creation is successful, the browser will be redirected to the 'view' page.

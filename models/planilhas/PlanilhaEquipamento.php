@@ -40,7 +40,6 @@ class PlanilhaEquipamento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['planieq_descricao', 'planieq_quantidade', 'planieq_tipo'], 'required'],
             [['planilhadecurso_cod', 'planodeacao_cod', 'planieq_quantidade'], 'integer'],
             [['planieq_descricao'], 'string', 'max' => 100],
             [['planieq_tipo'], 'string', 'max' => 45],

@@ -46,7 +46,6 @@ class PlanilhaMaterial extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['planima_titulo', 'planima_valor'], 'required'],
             [['planilhadecurso_cod', 'planima_codplano', 'planima_codrepositorio', 'planima_nivelUC'], 'integer'],
             [['planima_valor'], 'number'],
             [['planima_tipoplano'], 'string', 'max' => 45],
