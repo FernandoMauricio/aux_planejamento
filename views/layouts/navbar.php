@@ -112,6 +112,8 @@ use kartik\nav\NavX;
                                 ['label' => 'Listagem do Modelo A', 'url' => ['/modeloa/modelo-a/index']],
 
                             ]],
+                                     '<li class="divider"></li>',
+                         ['label' => 'Relatórios', 'url' => ['planilhas/relatorios/relatorio']],
                      ],
             ],
 
