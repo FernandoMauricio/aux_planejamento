@@ -104,6 +104,7 @@ use kartik\nav\NavX;
                                 ['label' => 'Planilhas de Curso', 'url' => ['/planilhas/planilhadecurso-admin/index']],
                                 ['label' => 'Planilhas Pendentes', 'url' => ['/planilhas/planilhadecurso-pendentes/index']],
                                 ['label' => 'Planilhas Homologadas', 'url' => ['/planilhas/planilhadecurso-homologadas/index']],
+                                ['label' => 'Entrada de Dados Modelo A', 'url' => ['/modeloa/modelo-a/configuracao-entrada-dados-modelo-a']],
 
                             ]],
                                      '<li class="divider"></li>',

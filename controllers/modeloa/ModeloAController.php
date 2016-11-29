@@ -4,9 +4,11 @@ namespace app\controllers\modeloa;
 
 use Yii;
 use app\models\MultipleModel as Model;
+use app\models\base\Unidade;
 use app\models\cadastros\Centrocusto;
 use app\models\cadastros\Ano;
 use app\models\cadastros\Tipoprogramacao;
+use app\models\modeloa\EntradaModeloA;
 use app\models\modeloa\DetalhesModeloA;
 use app\models\modeloa\ModeloA;
 use app\models\modeloa\ModeloASearch;
@@ -52,6 +54,38 @@ class ModeloAController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+
+    public function actionConfiguracaoEntradaDadosModeloA()
+    {
+        $model = new ModeloA();
+        $ano = Ano::find()->where(['an_status'=> 1])->orderBy(['an_codano'=>SORT_DESC])->all();
+        $entradaModeloA = EntradaModeloA::find()->all();
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            Yii::$app->db_apl->createCommand()
+                ->update('modeloa_moda',[
+                         'moda_codentrada'   => $model->moda_codentrada,
+                         ], [//------WHERE
+                         'moda_anoexercicio' => $model->moda_anoexercicio,
+                         ])
+                ->execute();
+
+           Yii::$app->session->setFlash('success','<strong>Sucesso!</strong> Definida a Entrada de Dados do <strong>Ano de Exercicio '.$model->moda_anoexercicio.'</strong> para o Modelo A como: <strong>'.$model->entradaModeloA->enta_entrada.'</strong> !');
+
+            return $this->redirect(['configuracao-entrada-dados-modelo-a']);
+
+
+        }else{
+        return $this->render('configuracao-entrada-dados-modelo-a', [
+            'model' => $model,
+            'ano'   => $ano,
+            'entradaModeloA' => $entradaModeloA,
+            ]);
+        }
+    }
+
 
     public function actionImprimirModeloA($id) 
     {

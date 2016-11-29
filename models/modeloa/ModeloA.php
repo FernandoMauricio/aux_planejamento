@@ -97,6 +97,7 @@ class ModeloA extends \yii\db\ActiveRecord
             'moda_codtipoacao' => 'Codtipoacao',
             'moda_descriminacaoprojeto' => 'Descriminação do Projeto ou Atividade',
             'moda_identificacao' => 'Identificação',
+            'moda_anoexercicio' => 'Ano de Exercício',
 
             'anoLabel' => 'Ano',
             'entradaDadosLabel' => 'Entrada dos Dados',
