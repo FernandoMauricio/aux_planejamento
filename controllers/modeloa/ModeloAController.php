@@ -281,6 +281,18 @@ class ModeloAController extends Controller
             $orcpro_identificacao = $orcamentoPrograma['orcpro_identificacao'];
             $orcpro_codtipo       = $orcamentoPrograma['orcpro_codtipo'];
 
+
+        //Localiza os Detalhes do Modelo A para ser somado a Dotação Final ao atualizar
+        $detalhesModeloa = DetalhesModeloA::find()->where(['deta_codmodelo' => $model->moda_codmodelo, 'deta_identificacao'  => $orcpro_identificacao,])->all();
+
+        foreach ($detalhesModeloa as $detalheModeloa) {
+
+            $deta_programado     = $detalheModeloa['deta_programado'];
+            $deta_reforcoreducao = $detalheModeloa['deta_reforcoreducao'];
+            $deta_dotacaofinal   = $detalheModeloa['deta_dotacaofinal'];
+
+        }
+
             $valor_programado = 0;
             $valor_reforcoreducao = 0;
 
@@ -359,6 +371,7 @@ class ModeloAController extends Controller
                     Yii::$app->db_apl->createCommand()
                         ->update('detalhesmodeloa_deta',[
                                  'deta_programado'     => $valor_programado > 0 && $valor_programado < 1000 ?  1000 : $valor_programado,
+                                 'deta_dotacaofinal'   => $valor_programado + $deta_reforcoreducao,
                                  ], [//------WHERE
                                  'deta_codmodelo'      => $model->moda_codmodelo,
                                  'deta_identificacao'  => $orcpro_identificacao,
@@ -411,13 +424,14 @@ class ModeloAController extends Controller
                     Yii::$app->db_apl->createCommand()
                         ->update('detalhesmodeloa_deta', [
                                  'deta_reforcoreducao' => $valor_reforcoreducao > 0 && $valor_reforcoreducao < 1000 ?  1000 : $valor_reforcoreducao,
+                                 'deta_dotacaofinal'   => $deta_programado + $valor_reforcoreducao,
                                  ], [//------WHERE
                                  'deta_codmodelo'      => $model->moda_codmodelo,
                                  'deta_identificacao'  => $orcpro_identificacao,
                                  ])
                         ->execute();
                     }
-                        
+
                 }
 
             }
