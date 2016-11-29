@@ -17,9 +17,10 @@ use kartik\select2\Select2;
                     $data_unidades = ArrayHelper::map($unidades, 'uni_codunidade', 'uni_nomeabreviado');
                     echo $form->field($model, 'placu_codunidade')->widget(Select2::classname(), [
                             'data' =>  $data_unidades,
+                            'hideSearch' => true,
                             'options' => ['placeholder' => 'Selecione uma unidade...'],
                             'pluginOptions' => [
-                                    'allowClear' => true
+                                    'allowClear' => true,
                                 ],
                             ]);
                 ?>

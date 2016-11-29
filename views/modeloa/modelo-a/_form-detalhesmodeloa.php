@@ -9,14 +9,6 @@ use yii\helpers\Url;
 ?>
 
 <div class="panel panel-default">
-<br>
-          <?= Html::a('Atualizar valores de Títulos conforme Planilhas', ['atualizar-modeloa-a-conforme-planilhas', 'id' => $model->moda_codmodelo], [
-            'class' => 'btn btn-success','style' => 'margin-left: 33.33%;',
-            'data' => [
-                'confirm' => 'ATENÇÃO!!! É de extrema importância que você tenha este Modelo A impresso, pois os dados atuais serão modificados. Caso não tenha impresso ainda, cancele esta operação, caso contrário, confirme clicando em OK.',
-                'method' => 'post',
-                      ],
-                      ]) ?>
                 <table class="table"> 
                     <thead> 
                         <tr>    

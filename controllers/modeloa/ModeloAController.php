@@ -212,6 +212,8 @@ class ModeloAController extends Controller
 
                     }
 
+                    }
+
                     //Inclui as informações das Planilhas para o Modelo A utilizando as condições acima
                     Yii::$app->db_apl->createCommand()
                         ->insert('detalhesmodeloa_deta', [
@@ -227,7 +229,6 @@ class ModeloAController extends Controller
                                  'deta_dotacaofinal'   => $valor_programado > 0 && $valor_programado < 1000 ?  1000 : $valor_programado,
                                  ])
                         ->execute();
-                    }
                 }else{
                      //Inclui os outros elementos de despesas que não trazem as informações automáticas das planilhas
                     Yii::$app->db_apl->createCommand()
