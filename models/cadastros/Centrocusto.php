@@ -33,6 +33,7 @@ use app\models\base\Unidade;
  */
 class Centrocusto extends \yii\db\ActiveRecord
 {
+    public $nomeUnidade;
     /**
      * @inheritdoc
      */
@@ -49,7 +50,7 @@ class Centrocusto extends \yii\db\ActiveRecord
         return [
             [['cen_centrocusto', 'cen_nomecentrocusto', 'cen_codsituacao', 'cen_codunidade', 'cen_codano'], 'required'],
             [['cen_coddepartamento', 'cen_codsituacao', 'cen_codunidade', 'cen_codsegmento', 'cen_codtipoacao', 'cen_codano'], 'integer'],
-            [['cen_data'], 'safe'],
+            [['cen_data', 'nomeUnidade'], 'safe'],
             [['cen_centrocusto'], 'string', 'max' => 45],
             [['cen_nomecentrocusto', 'cen_usuario'], 'string', 'max' => 100],
             [['cen_centrocustoreduzido'], 'string', 'max' => 10],
@@ -78,6 +79,7 @@ class Centrocusto extends \yii\db\ActiveRecord
             'cen_centrocustoreduzido' => 'Centro de Custo',
             'cen_data' => 'Data Cadastro/Atualização',
             'cen_usuario' => 'Cadastrado/Atualizado por',
+            'nomeUnidade'   => 'Unidade',
         ];
     }
 

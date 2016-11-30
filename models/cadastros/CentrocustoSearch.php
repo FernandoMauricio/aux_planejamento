@@ -19,7 +19,7 @@ class CentrocustoSearch extends Centrocusto
     {
         return [
             [['cen_codcentrocusto', 'cen_coddepartamento', 'cen_codsituacao', 'cen_codunidade', 'cen_codsegmento', 'cen_codtipoacao', 'cen_codano'], 'integer'],
-            [['cen_centrocusto', 'cen_nomecentrocusto', 'cen_centrocustoreduzido'], 'safe'],
+            [['cen_centrocusto', 'cen_nomecentrocusto', 'cen_centrocustoreduzido', 'nomeUnidade'], 'safe'],
         ];
     }
 
@@ -68,7 +68,10 @@ class CentrocustoSearch extends Centrocusto
             'cen_codano' => $this->cen_codano,
         ]);
 
-        $query->andFilterWhere(['like', 'cen_centrocusto', $this->cen_centrocusto])
+        $query->joinWith('unidade');
+
+        $query->andFilterWhere(['like', 'unidade_uni.uni_nomeabreviado', $this->nomeUnidade])
+            ->andFilterWhere(['like', 'cen_centrocusto', $this->cen_centrocusto])
             ->andFilterWhere(['like', 'cen_nomecentrocusto', $this->cen_nomecentrocusto])
             ->andFilterWhere(['like', 'cen_centrocustoreduzido', $this->cen_centrocustoreduzido]);
 

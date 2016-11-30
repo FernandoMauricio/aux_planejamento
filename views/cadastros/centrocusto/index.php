@@ -3,12 +3,18 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\editable\Editable;
+use yii\widgets\Pjax;
+use yii\helpers\ArrayHelper;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
+
+use app\models\base\Unidade;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\cadastros\CentrocustoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Listagem de Centros de Custo';
+$this->title = 'Centros de Custo';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="centrocusto-index">
@@ -28,27 +34,37 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     <p>
         <?= Html::a('Novo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            'cen_codcentrocusto',
-            'cen_codano',
+
+<?php echo  GridView::widget([
+            'dataProvider'=>$dataProvider,
+            'filterModel'=>$searchModel,
+            'pjax'=>true,
+            'striped'=>true,
+            'hover'=>true,
+            'panel'=>['type'=>'primary', 'heading'=>'Listagem de Centros de Custo'],
+            'columns' => [
             [
-                'attribute' => 'cen_codunidade',
-                'value' => 'unidade.uni_nomeabreviado'
+                'attribute'=>'nomeUnidade', 
+                'width'=>'350px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->unidade->uni_nomeabreviado;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(Unidade::find()->orderBy('uni_nomeabreviado')->asArray()->all(), 'uni_nomeabreviado', 'uni_nomeabreviado'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'Selecione a Unidade'],
             ],
+            'cen_codcentrocusto',
+            [
+                'attribute' => 'cen_codano',
+                'value' => 'ano.ance_ano'
+            ],
+
             'cen_centrocusto',
             'cen_centrocustoreduzido',
             'cen_nomecentrocusto',
-            [
-                'attribute' => 'cen_codsegmento',
-                'value' => 'segmento.seg_descricao',
-            ],
-            [
-                'attribute' => 'cen_codtipoacao',
-                'value' => 'tipoacao.tip_descricao',
-            ],
 
             [
                 'class'=>'kartik\grid\BooleanColumn',
