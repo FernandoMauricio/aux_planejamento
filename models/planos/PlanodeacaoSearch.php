@@ -19,7 +19,7 @@ class PlanodeacaoSearch extends Planodeacao
     {
         return [
             [['plan_codplano', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_codcolaborador', 'plan_status', 'plan_modelonacional'], 'integer'],
-            [['plan_descricao', 'plan_cargahoraria', 'plan_sobre', 'plan_prerequisito', 'plan_perfTecnico', 'plan_data'], 'safe'],
+            [['plan_descricao', 'plan_cargahoraria', 'plan_sobre', 'plan_prerequisito', 'plan_perfTecnico', 'plan_data', 'plan_categoriasPlano'], 'safe'],
         ];
     }
 
@@ -49,6 +49,13 @@ class PlanodeacaoSearch extends Planodeacao
             'query' => $query,
         ]);
 
+        $query->joinWith('planoCategorias.categoria');
+
+        $dataProvider->sort->attributes['plan_categoriasPlano'] = [
+        'asc' => ['descricao' => SORT_ASC],
+        'desc' => ['descricao' => SORT_DESC],
+        ];
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -74,7 +81,8 @@ class PlanodeacaoSearch extends Planodeacao
             ->andFilterWhere(['like', 'plan_cargahoraria', $this->plan_cargahoraria])
             ->andFilterWhere(['like', 'plan_sobre', $this->plan_sobre])
             ->andFilterWhere(['like', 'plan_prerequisito', $this->plan_prerequisito])
-            ->andFilterWhere(['like', 'plan_perfTecnico', $this->plan_perfTecnico]);
+            ->andFilterWhere(['like', 'plan_perfTecnico', $this->plan_perfTecnico])
+            ->andFilterWhere(['like', 'descricao', $this->plan_categoriasPlano]);
 
         return $dataProvider;
     }

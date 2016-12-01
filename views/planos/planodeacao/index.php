@@ -84,13 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'plan_descricao',
 
             [
-                'class'=>'kartik\grid\BooleanColumn',
-                'attribute'=>'plan_status', 
-                'vAlign'=>'middle'
-            ], 
-
-            [
-                'label' => 'Categoria do <br> Plano',
+                'label' => 'Categorias do <br> Plano',
                 'encodeLabel' => false,
                 'attribute' => 'plan_categoriasPlano',
                 'width'=>'5%',
@@ -98,6 +92,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         return implode(', ', \yii\helpers\ArrayHelper::map($model->planoCategorias, 'id', 'categoria.descricao'));
                     },
             ],
+
+            [
+                'class'=>'kartik\grid\BooleanColumn',
+                'attribute'=>'plan_status', 
+                'vAlign'=>'middle'
+            ], 
 
             [
                 'label' => 'Novo Modelo <br> Pedagógico',
