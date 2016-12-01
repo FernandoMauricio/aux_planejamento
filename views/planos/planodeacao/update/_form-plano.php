@@ -80,5 +80,8 @@ use app\models\cadastros\Segmento;
 
                         <?= $form->field($model, 'plan_perfTecnico')->textarea(['rows' => 4]) ?>
 
+                        <?php    
+                            $options = \yii\helpers\ArrayHelper::map($categoria, 'idcategoria', 'descricao');
+                            echo $form->field($model, 'plan_categoriasPlano')->checkboxList($options); 
+                        ?>
            </div>
-

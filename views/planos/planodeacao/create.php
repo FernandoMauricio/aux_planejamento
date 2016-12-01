@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	            'modelsPlanoEstrutura'		 => $modelsPlanoEstrutura,
 	            'modelsPlanoConsumo'  		 => $modelsPlanoConsumo,
 	            'modelsPlanoAluno' 	  		 => $modelsPlanoAluno,
+	            'categoria'                  => $categoria,
 	    ])
 	?>
 

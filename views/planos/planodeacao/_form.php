@@ -39,6 +39,7 @@ use app\models\cadastros\Segmento;
                                                         <?= $this->render('_form-plano', [
                                                             'form' => $form,
                                                             'model' => $model,
+                                                            'categoria' => $categoria,
                                                         ]) ?>
                                                     </div>
 
@@ -79,15 +80,16 @@ use app\models\cadastros\Segmento;
                                                            'estruturafisica' => $estruturafisica,
                                                            'modelsPlanoEstrutura' => $modelsPlanoEstrutura,
                                                        ]) ?>
-
-                                                       <!-- SUBMIT CRIAÇÃO DO PLANO -->
-                                                        <div class="form-group">
-                                                        <?= Html::submitButton($model->isNewRecord ? 'Criar Plano' : 'Atualizar Plano', ['class' => $model->isNewRecord ?'btn btn-success btn-lg btn-block' : 'btn btn-primary btn-lg btn-block']) ?>
-                                                        </div>
                                                     </div>
                                            </div> 
                                    </div> 
                   </div>
+
+
+                           <!-- SUBMIT CRIAÇÃO DO PLANO -->
+                        <div class="form-group">
+                        <?= Html::submitButton($model->isNewRecord ? 'Criar Plano' : 'Atualizar Plano', ['class' => $model->isNewRecord ?'btn btn-success btn-lg btn-block' : 'btn btn-primary btn-lg btn-block']) ?>
+                        </div>
                         <?php ActiveForm::end(); ?>
            </div>
 

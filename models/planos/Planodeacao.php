@@ -43,6 +43,7 @@ class Planodeacao extends \yii\db\ActiveRecord
     public $segmentoLabel;
     public $eixoLabel;
     public $tipoLabel;
+    public $plan_categoriasPlano;
 
     /**
      * @inheritdoc
@@ -66,7 +67,7 @@ class Planodeacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['plan_descricao', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria', 'plan_codcolaborador', 'plan_data', 'plan_status', 'plan_modelonacional'], 'required'],
+            [['plan_descricao', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria', 'plan_codcolaborador', 'plan_data', 'plan_status', 'plan_modelonacional', 'plan_categoriasPlano'], 'required'],
             [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria','plan_codcolaborador', 'plan_status','plan_modelonacional'], 'integer'],
             [['plan_sobre', 'plan_prerequisito', 'plan_perfConclusao','plan_perfTecnico'], 'string'],
             [['plan_data','nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoLabel', 'plan_custoMaterialLivro', 'plan_custoMaterialApostila', 'plan_custoTotalConsumo', 'plan_custoTotalAluno'], 'safe'],
@@ -104,6 +105,7 @@ class Planodeacao extends \yii\db\ActiveRecord
             'segmentoLabel' => 'Segmento',
             'eixoLabel' => 'Eixo',
             'tipoLabel' => 'Tipo de Ação',
+            'plan_categoriasPlano' => 'Categorias do Plano',
         ];
     }
 
@@ -115,6 +117,22 @@ class Planodeacao extends \yii\db\ActiveRecord
 
             return $data;
         }
+
+
+    public function getPlanoCategorias()
+    {
+        return $this->hasMany(PlanoCategorias::className(), ['planodeacao_cod' => 'plan_codplano']);
+    }
+
+    public function afterSave($insert, $changedAttributes){
+        \Yii::$app->db_apl->createCommand()->delete('plano_categorias', 'planodeacao_cod = '.(int) $this->plan_codplano)->execute(); //Delete existing value
+        foreach ($this->plan_categoriasPlano as $id) { //Write new values
+            $tc = new PlanoCategorias();
+            $tc->planodeacao_cod = $this->plan_codplano;
+            $tc->categoria_cod = $id;
+            $tc->save();
+        }
+    }
 
     /**
      * @return \yii\db\ActiveQuery

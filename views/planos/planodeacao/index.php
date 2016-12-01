@@ -9,6 +9,8 @@ use yii\helpers\ArrayHelper;
 use app\models\cadastros\Eixo;
 use app\models\cadastros\Segmento;
 use app\models\cadastros\Tipo;
+use app\models\planos\Categoria;
+use app\models\planos\PlanoCategorias;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\planos\PlanodeacaoSearch */
@@ -86,6 +88,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'plan_status', 
                 'vAlign'=>'middle'
             ], 
+
+            [
+                'label' => 'Categoria do <br> Plano',
+                'encodeLabel' => false,
+                'attribute' => 'plan_categoriasPlano',
+                'width'=>'5%',
+                'value' => function($model) {
+                        return implode(', ', \yii\helpers\ArrayHelper::map($model->planoCategorias, 'id', 'categoria.descricao'));
+                    },
+            ],
 
             [
                 'label' => 'Novo Modelo <br> Pedagógico',

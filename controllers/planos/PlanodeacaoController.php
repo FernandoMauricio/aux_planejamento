@@ -18,6 +18,7 @@ use app\models\planos\Segmentotipoacao;
 use app\models\planos\PlanoEstruturafisica;
 use app\models\planos\Planodeacao;
 use app\models\planos\PlanodeacaoSearch;
+use app\models\planos\Categoria;
 use app\models\repositorio\Repositorio;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -55,7 +56,7 @@ class PlanodeacaoController extends Controller
     {
         $searchModel = new PlanodeacaoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+      
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -118,6 +119,7 @@ class PlanodeacaoController extends Controller
         $materialconsumo = Materialconsumo::find()->where(['matcon_status' => 1])->orderBy('matcon_descricao')->all();
         $materialaluno   = Materialaluno::find()->where(['matalu_status' => 1])->orderBy('matalu_descricao')->all();
         $estruturafisica = EstruturaFisica::find()->where(['estr_status' => 1])->orderBy('estr_descricao')->all();
+        $categoria       = Categoria::find()->where(['status' => 1])->orderBy('descricao')->all();
 
         $model->plan_data           = date('Y-m-d');
         $model->plan_codcolaborador = $session['sess_codcolaborador'];
@@ -249,6 +251,7 @@ class PlanodeacaoController extends Controller
                 'repositorio'                => $repositorio,
                 'materialconsumo'            => $materialconsumo,
                 'materialaluno'              => $materialaluno,
+                'categoria'                  => $categoria,
                 'modelsUnidadesCurriculares' => (empty($modelsUnidadesCurriculares)) ? [new Unidadescurriculares] : $modelsUnidadesCurriculares,
                 'modelsPlanoMaterial'        => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
                 'modelsPlanoEstrutura'       => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,
@@ -338,6 +341,14 @@ class PlanodeacaoController extends Controller
         $materialconsumo   = Materialconsumo::find()->where(['matcon_status' => 1])->orderBy('matcon_descricao')->all();
         $materialaluno     = Materialaluno::find()->where(['matalu_status' => 1])->orderBy('matalu_descricao')->all();
         $estruturafisica   = EstruturaFisica::find()->where(['estr_status' => 1])->orderBy('estr_descricao')->all();
+        $categoria         = Categoria::find()->where(['status' => 1])->orderBy('descricao')->all();
+
+
+        //Retrieve the stored checkboxes
+        $model->plan_categoriasPlano = \yii\helpers\ArrayHelper::getColumn(
+            $model->getPlanoCategorias()->asArray()->all(),
+            'categoria_cod'
+        );
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -486,6 +497,7 @@ class PlanodeacaoController extends Controller
                 'repositorio'                => $repositorio,
                 'materialconsumo'            => $materialconsumo,
                 'materialaluno'              => $materialaluno,
+                'categoria'                  => $categoria,
                 'modelsUnidadesCurriculares' => (empty($modelsUnidadesCurriculares)) ? [new Unidadescurriculares] : $modelsUnidadesCurriculares,
                 'modelsPlanoMaterial'        => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
                 'modelsPlanoEstrutura'       => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,
