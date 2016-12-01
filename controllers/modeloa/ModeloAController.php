@@ -181,7 +181,7 @@ class ModeloAController extends Controller
               if($orcpro_identificacao == 111 || $orcpro_identificacao == 113 || $orcpro_identificacao == 116 || $orcpro_identificacao == 414 || $orcpro_identificacao == 430 || $orcpro_identificacao == 433 || $orcpro_identificacao == 439) {
 
                 //Localiza as Planilhas de Cursos onde contêm os centros de Custos cadastrados // Parâmetros -> situação 4 - (Homologada) e Tipo de Planilha (Produção)
-                $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_anoexercicio' => date('Y'), 'placu_codsegmento' => $cen_codsegmento, 'placu_codtipoa' => $cen_codtipoacao, 'placu_codsituacao' => 4, 'placu_codtipla' => 1])->all();
+                $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_anoexercicio' => date('Y'), 'placu_codsegmento' => $cen_codsegmento, 'placu_codtipoa' => $cen_codtipoacao, 'placu_codsituacao' => 4, 'placu_codtipla' => 1, 'placu_codprogramacao' => 1])->all();
 
                 foreach ($planilhaDeCursos as $planilhaDeCurso) {
 
@@ -258,9 +258,9 @@ class ModeloAController extends Controller
                                  'deta_titulo'         => $orcpro_titulo,
                                  'deta_identificacao'  => $orcpro_identificacao,
                                  'deta_codtipo'        => $orcpro_codtipo,
-                                 'deta_programado'     => $valor_programado > 0 && $valor_programado < 1000 ?  1000 : $valor_programado,
+                                 'deta_programado'     => $valor_programado > 0 && $valor_programado < 1000 ?  1000 : round($valor_programado, -3),
                                  'deta_reforcoreducao' => 0,
-                                 'deta_dotacaofinal'   => $valor_programado > 0 && $valor_programado < 1000 ?  1000 : $valor_programado,
+                                 'deta_dotacaofinal'   => $valor_programado > 0 && $valor_programado < 1000 ?  1000 : round($valor_programado, -3),
                                  ])
                         ->execute();
                 }else{
