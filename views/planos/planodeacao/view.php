@@ -158,6 +158,14 @@ $attributes = [
                     'options'=>['rows'=>4]
                 ],
 
+                [
+                    'attribute'=>'plan_categoriasPlano',
+                    'format' => 'ntext',
+                    'value'=> implode(', ', \yii\helpers\ArrayHelper::map($model->planoCategorias, 'id', 'categoria.descricao')),
+                    'type'=>DetailView::INPUT_TEXTAREA, 
+                    'options'=>['rows'=>4]
+                ],
+
             ];
 
 echo DetailView::widget([
