@@ -24,9 +24,9 @@ $this->params['breadcrumbs'][] = 'Relatórios';
 
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-2">
                 <?php
-                    $data_ano = ArrayHelper::map($ano, 'an_ano', 'an_ano');
+                    $data_ano = ArrayHelper::map($ano, 'an_codano', 'an_ano');
                     echo $form->field($model, 'placu_codano')->widget(Select2::classname(), [
                             'data' =>  $data_ano,
                             'options' => ['placeholder' => 'Selecione o ano...'],
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = 'Relatórios';
                 ?>
 				</div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                 <?php
                     $data_situacao = ArrayHelper::map($situacaoPlanilha, 'sipla_codsituacao', 'sipla_descricao');
                     echo $form->field($model, 'placu_codsituacao')->widget(Select2::classname(), [
@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = 'Relatórios';
                 ?>
 				</div>
 
-                <div class="col-md-4">
+                <div class="col-md-2">
                 <?php
                     $data_tipoPlanilha = ArrayHelper::map($tipoPlanilha, 'tipla_codtipla', 'tipla_descricao');
                     echo $form->field($model, 'placu_codtipla')->widget(Select2::classname(), [
@@ -62,6 +62,19 @@ $this->params['breadcrumbs'][] = 'Relatórios';
                             ]);
                 ?>
 				</div>
+
+                <div class="col-md-5">
+                <?php
+                    $data_tipoRelatorio = ArrayHelper::map($tipoRelatorio, 'tiprel_id', 'tiprel_descricao');
+                    echo $form->field($model, 'placu_tiporelatorio')->widget(Select2::classname(), [
+                            'data' =>  $data_tipoRelatorio,
+                            'options' => ['placeholder' => 'Selecione o tipo de Relatório...'],
+                            'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ]);
+                ?>
+                </div>
 
 			</div>
 
