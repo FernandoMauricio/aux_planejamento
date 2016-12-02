@@ -479,6 +479,19 @@ class PlanilhadecursoController extends Controller
         $modelsPlaniEquipamento    = $model->planiEquipamento;
         $modelsPlaniDespDocente    = $model->planiDespDocente;
 
+        //Será verificado se existem os valores dos campos abaixo
+        if($model->placu_PJApostila == NULL){
+            $model->placu_PJApostila = 0;
+        }
+        if($model->placu_custosmateriais == NULL){
+            $model->placu_custosmateriais = 0;
+        }
+        if($model->placu_custosconsumo == NULL){
+            $model->placu_custosconsumo = 0;
+        }
+        if($model->placu_custosaluno == NULL){
+            $model->placu_custosaluno = 0;
+        }
 
         //Caso o exercicio da Planilha seja diferente com o ano da Planilha, será avisado ao usuário para excluir alguns itens
         if($model->planilhaAno->an_ano <= date('Y')){

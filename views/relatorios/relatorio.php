@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = 'Relatórios';
         <?= Html::a('Gerar Relatório', ['relatorio'], [
             'class' => 'btn btn-success',
             'data' => [
-                'method' => 'post'
+                'method' => 'post',
             ],
         ]) ?>
     </div>

@@ -79,6 +79,10 @@ class Planilhadecurso extends \yii\db\ActiveRecord
 
     public $unidades;
 
+    public $ano_planilha;
+    public $tipo_planilha;
+    public $situacao_planilha;
+
 
     /**
      * @inheritdoc
@@ -255,6 +259,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             'placu_parcelas' => 'Quantidade de Parcelas',
             'placu_valorparcelas' => 'Valor das Parcelas',
             'placu_data' => 'Data da modificação',
+            'placu_anoexercicio' => 'Ano de Exercício',
 
             'nivelLabel' => 'Nível',
             'segmentoLabel' => 'Segmento',
