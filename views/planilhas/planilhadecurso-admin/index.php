@@ -184,7 +184,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 //Situação 1 = Em Elaboração / 2 = Para Correção / 7 = Aguardando Envio Planejamento
                 'update' => function ($url, $model) {
-                    if($model->placu_codsituacao == 1 || $model->placu_codsituacao == 2 || $model->placu_codsituacao == 7){
+                    if($model->placu_codsituacao == 1 || $model->placu_codsituacao == 2 || $model->placu_codsituacao == 5){
                     return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
                                 'title' => Yii::t('app', 'Editar Planilha'),
                     ]);
@@ -195,7 +195,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 //Situação 1 = Em Elaboração / 2 = Para Correção / 7 = Aguardando Envio Planejamento
                 'delete' => function ($url, $model) {
-                    if($model->placu_codsituacao == 1 || $model->placu_codsituacao == 2 || $model->placu_codsituacao == 7){
+                    if($model->placu_codsituacao == 1 || $model->placu_codsituacao == 2 || $model->placu_codsituacao == 5){
                     return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
                                'title' => Yii::t('app', 'Deletar Planilha'),
                                'data' => [

@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?php 
             //Botão para atualizar a planilha só aparecerá caso esteja na situação 1 - em elaboração, 2 - Para correção, 7 - Aguardando Envio Planejamento
-            if($model->placu_codsituacao == 1 || $model->placu_codsituacao == 2 || $model->placu_codsituacao == 7){
+            if($model->placu_codsituacao == 1 || $model->placu_codsituacao == 2 || $model->placu_codsituacao == 5){
             echo Html::a('Listagem de Planilhas', ['index'], ['class' => 'btn btn-warning']);
             echo Html::a('Atualizar Planilha', ['update', 'id' => $model->placu_codplanilha], ['class' => 'btn btn-primary', 'style' => 'margin-left: 20px']);
             }else{

@@ -89,7 +89,7 @@ class PlanilhadecursoAdminController extends Controller
 
         //Realiza a Contagem das Planilhas da unidade que estão definidas como PRODUÇÃO, PROGRAMAÇÃO ANUAL e AGUARDANDO ENVIO
         $countPlanilhas = 0;
-        $countPlanilhas = Planilhadecurso::find()->where(['placu_codtipla' => 1, 'placu_codsituacao' => 7, 'placu_codprogramacao' => 1, 'placu_codunidade' => $model->placu_codunidade])->count();  
+        $countPlanilhas = Planilhadecurso::find()->where(['placu_codtipla' => 1, 'placu_codsituacao' => 5, 'placu_codprogramacao' => 1, 'placu_codunidade' => $model->placu_codunidade])->count();  
         if($countPlanilhas != 0){
         //Envia as Planilhas para o GPO da unidade que estão definidas como PRODUÇÃO, PROGRAMAÇÃO ANUAL e AGUARDANDO ENVIO
         Yii::$app->db_apl->createCommand('UPDATE `planilhadecurso_placu` SET `placu_codsituacao` = 3 WHERE `placu_codtipla` = 1 AND `placu_codprogramacao` = 1 AND `placu_codsituacao` = 7 AND `placu_codunidade` = "'.$model->placu_codunidade.'" ')->execute();
@@ -382,7 +382,7 @@ class PlanilhadecursoAdminController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            $model->placu_codsituacao  = 7; //Atualiza a Planilha para Aguardando Envio Planejamento
+            $model->placu_codsituacao  = 5; //Atualiza a Planilha para Aguardando Envio Planejamento
             $model->save();
             Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Planilha '.$id.' Atualizada e Aguardando o Envio do Planejamento!</strong>');
 
