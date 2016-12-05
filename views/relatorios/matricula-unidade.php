@@ -134,8 +134,8 @@ use app\models\planilhas\Planilhadecurso;
 		   }// FIM DAS UNIDADES
 		   
 		   ?>
-                 <tr> 
-                 <td bgcolor="#CACACA"> <div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong>TOTAL 
+                 <tr > 
+                 <td bgcolor="#fcf8e3"> <div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong>TOTAL 
                  GERAL </strong></font></div></td>
                  <td bgcolor="#EEEEEE"> <div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo $quantidade_educacao_profissional_geral; ?></strong></font></div></td>
                  <td bgcolor="#EEEEEE"> <div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo $quantidade_acao_extensiva_geral; ?></strong></font></div></td>

@@ -92,7 +92,7 @@ class PlanilhadecursoAdminController extends Controller
         $countPlanilhas = Planilhadecurso::find()->where(['placu_codtipla' => 1, 'placu_codsituacao' => 5, 'placu_codprogramacao' => 1, 'placu_codunidade' => $model->placu_codunidade])->count();  
         if($countPlanilhas != 0){
         //Envia as Planilhas para o GPO da unidade que estão definidas como PRODUÇÃO, PROGRAMAÇÃO ANUAL e AGUARDANDO ENVIO
-        Yii::$app->db_apl->createCommand('UPDATE `planilhadecurso_placu` SET `placu_codsituacao` = 3 WHERE `placu_codtipla` = 1 AND `placu_codprogramacao` = 1 AND `placu_codsituacao` = 7 AND `placu_codunidade` = "'.$model->placu_codunidade.'" ')->execute();
+        Yii::$app->db_apl->createCommand('UPDATE `planilhadecurso_placu` SET `placu_codsituacao` = 3 WHERE `placu_codtipla` = 1 AND `placu_codprogramacao` = 1 AND `placu_codsituacao`= 5 AND `placu_codunidade` = "'.$model->placu_codunidade.'" ')->execute();
 
         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Total de '.$countPlanilhas.' planilhas de "'.$model->unidade->uni_nomeabreviado.'" enviadas para análise do GPO!</strong>');
         }else{

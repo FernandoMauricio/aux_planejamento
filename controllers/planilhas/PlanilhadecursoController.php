@@ -91,7 +91,7 @@ class PlanilhadecursoController extends Controller
 
         if($countPlanilhas != 0){
         //Envia as Planilhas para o GPO da unidade que estão definidas como PRODUÇÃO, PROGRAMAÇÃO ANUAL e AGUARDANDO ENVIO
-        Yii::$app->db_apl->createCommand('UPDATE `planilhadecurso_placu` SET `placu_codsituacao` = 3 WHERE `placu_codtipla` = 1 AND `placu_codprogramacao` = 1 AND `placu_codsituacao` = 7 AND `placu_codunidade` = "'.$session['sess_codunidade'].'" ')->execute();
+        Yii::$app->db_apl->createCommand('UPDATE `planilhadecurso_placu` SET `placu_codsituacao` = 3 WHERE `placu_codtipla` = 1 AND `placu_codprogramacao` = 1 AND `placu_codsituacao`= 5 AND `placu_codunidade` = "'.$session['sess_codunidade'].'" ')->execute();
 
         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Total de '.$countPlanilhas.' planilhas de "'.$session['sess_unidade'].'" enviadas para análise do GPO!</strong>');
         }else{
@@ -112,7 +112,7 @@ class PlanilhadecursoController extends Controller
 
         if($countPlanilhas != 0){
         //Envia as Planilhas para o GPO da unidade que estão definidas como PRODUÇÃO, RETIFICATIVO e AGUARDANDO ENVIO
-        Yii::$app->db_apl->createCommand('UPDATE `planilhadecurso_placu` SET `placu_codsituacao` = 3 WHERE `placu_codtipla` = 1 AND `placu_codprogramacao` = 2 AND `placu_codsituacao` = 7 AND `placu_codunidade` = "'.$session['sess_codunidade'].'" ')->execute();
+        Yii::$app->db_apl->createCommand('UPDATE `planilhadecurso_placu` SET `placu_codsituacao` = 3 WHERE `placu_codtipla` = 1 AND `placu_codprogramacao` = 2 AND `placu_codsituacao`= 5 AND `placu_codunidade` = "'.$session['sess_codunidade'].'" ')->execute();
 
         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Total de '.$countPlanilhas.' planilhas de "'.$session['sess_unidade'].'" enviadas para análise do GPO!</strong>');
         }else{
