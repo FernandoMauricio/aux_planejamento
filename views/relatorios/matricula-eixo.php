@@ -59,14 +59,11 @@ use app\models\planilhas\Planilhadecurso;
 		   <BR>
            
            
-		   <table width="100%"  border="1" cellspacing="0" bordercolor="#000000">
-           <tr>
-           <td>
-		   
-		   
-		   <table  border="0">
-           <tr> 
-           <td  width="30%" valign="middle" bgcolor="#CACACA"> <div align="center"><font size="1"><strong><font face="Verdana, Arial, Helvetica, sans-serif">UNIDADES</font></strong></font></div></td>
+          <div class="container">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+           <th>UNIDADES</th>
            
 		    <?php
 		        			
@@ -87,15 +84,13 @@ use app\models\planilhas\Planilhadecurso;
 
 			?>		  
 	
-			<td width="8%" valign="middle" bgcolor="#CACACA"><div align="center"><strong><font size="1" face="Arial"><?php echo $nome_eixo; ?></font></strong></div></td>
+			<td><strong><?php echo $nome_eixo; ?></strong></td>
 	
 			<?php
 				    }
 			?>
 		   
-           <td width="12%" valign="middle" bgcolor="#CACACA">
-		   <div align="center"><font size="1"><strong><font face="Verdana, Arial, Helvetica, sans-serif">TOTAL</font></strong></font></div>
-		   </td>
+           <td><strong>TOTAL</strong></td>
            </tr>
 		   
 		   <?php
@@ -113,7 +108,7 @@ use app\models\planilhas\Planilhadecurso;
 			?>
 					 
 					  <tr> 
-                      <td valign="middle" bgcolor="#EEEEEE"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $nome_unidade; ?></font></td>
+                      <td><?php echo $nome_unidade; ?></td>
                      <?php
 					  //RESGATANDO OS EIXOS CONFORME ORDEM DO CABEÇALHO...
 					  $query_eixos2 = "SELECT eix_codeixo, eix_descricao FROM eixo_eix WHERE eix_codeixo <> 8 ORDER BY eix_descricao";
@@ -145,13 +140,13 @@ use app\models\planilhas\Planilhadecurso;
 							$subtotal_unidade 					+= $quantidade_matriculas_por_eixo;
 												  
 					?>
-							 <td bgcolor="#EEEEEE"><div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_matriculas_por_eixo; ?></font></div></td>
+							 <td><?php echo $quantidade_matriculas_por_eixo; ?></td>
 							<?php
 							
 					  }// FIM DOS EIXOS...
 					  
 					  ?>
-					  <td bgcolor="#EEEEEE"><div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $subtotal_unidade; ?></font></div></td>
+					  <td><?php echo $subtotal_unidade; ?></td>
                       </tr>     
 					  <?php
 					  		 
@@ -159,8 +154,7 @@ use app\models\planilhas\Planilhadecurso;
 		    ?>
 		   
            <tr> 
-           <td valign="middle" bgcolor="#CACACA"><div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong>TOTAL 
-           GERAL </strong></font></div></td>
+           <td><strong>TOTAL GERAL</strong></td>
             <?php
 				$query_eixos3 = "SELECT eix_codeixo, eix_descricao FROM eixo_eix WHERE eix_codeixo <> 8 ORDER BY eix_descricao";
 				  $eixos3 = Eixo::findBySql($query_eixos3)->all(); 
@@ -170,27 +164,24 @@ use app\models\planilhas\Planilhadecurso;
 			    	$codigo_eixo = $eixo3['eix_codeixo'];
 
 		    ?>
-					<td bgcolor="#CACACA"><div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo $conta_eixo[$codigo_eixo]; ?></strong></font></div></td>
+					<td><strong><?php echo $conta_eixo[$codigo_eixo]; ?></strong></td>
 					  
 		 <?php
 			   }
 		  
 		  ?>
 		  
-          <td bgcolor="#CACACA"><div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo $soma_total_geral; ?></strong></font></div></td>
+          <td><strong><?php echo $soma_total_geral; ?></strong></td>
            </tr>
-           </table>
-		   
-		   
-		   
-		   </td>
-           </tr>
-           </table>
-		   
+
+              </tbody>
+            </table>
+          </div>
+				 
 		   <br>
            <table width="100%" border="0">
            <tr>
            <td><div align="right"><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Gerado 
-           em: <?php echo date("d/m/Y"); ?> &agrave;s <?php echo date("H:i:s");?></font></div></td>
+           em: <?php echo date("d/m/Y"); ?> &agrave;s <?php echo date("H:i:s");?></td>
            </tr>
            </table>

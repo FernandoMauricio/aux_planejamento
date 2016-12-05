@@ -152,7 +152,7 @@ use app\models\planilhas\Planilhadecurso;
             } // FIM DAS UNIDADES...
         ?>
         <tr style="background-color: #fcf8e3;">
-        <td>TOTAL GERAL</td>
+        <td><strong>TOTAL GERAL<strong></td>
         <?php
         $query_segmentos2 = "SELECT seg_codsegmento, seg_descricao FROM segmento_seg WHERE seg_codsegmento <> 17 ORDER BY seg_descricao";
           $segmentos2 = Segmento::findBySql($query_segmentos2)->all(); 
@@ -161,22 +161,19 @@ use app\models\planilhas\Planilhadecurso;
 
             $codigo_segmento = $segmento2['seg_codsegmento'];
         ?>
-        <td><?php echo $conta_segmento[$codigo_segmento] ;?></td>
+        <td><strong><?php echo $conta_segmento[$codigo_segmento] ;?></strong></td>
                <?php
         }
       
       ?>
 
-      <td><?php echo $soma_total_geral; ?></td>
+      <td><strong><?php echo $soma_total_geral; ?></strong></td>
 
       </tr>
               </tbody>
             </table>
           </div>
            
-		   
-
-		   
 		   <br>
            <table width="100%" border="0">
            <tr>

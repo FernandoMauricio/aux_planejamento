@@ -56,19 +56,18 @@ use app\models\planilhas\Planilhadecurso;
            </tr>
            </table>
 		   <BR>
-<table width="100%" border="1" cellspacing="0" bordercolor="#000000">
-  <tr>
-    <td><table width="100%" border="0">
-        <tr> 
-          <td width="50%" bgcolor="#CACACA"> <div align="center"><font size="1"><strong><font face="Verdana, Arial, Helvetica, sans-serif">UNIDADES</font></strong></font></div></td>
-          <td width="19%" bgcolor="#CACACA"> <div align="center"><font size="1"><strong><font face="Verdana, Arial, Helvetica, sans-serif">EDUCA&Ccedil;&Atilde;O 
-              <br>
-              PROFISSIONAL </font></strong></font></div></td>
-          <td width="17%" bgcolor="#CACACA"> <div align="center"><font size="1"><strong><font face="Verdana, Arial, Helvetica, sans-serif">A&Ccedil;&Otilde;ES 
-              <br>
-              EXTENSIVAS </font></strong></font></div></td>
-          <td width="14%" bgcolor="#CACACA"> <div align="center"><font size="1"><strong><font face="Verdana, Arial, Helvetica, sans-serif">TOTAL</font></strong></font></div></td>
-        </tr>
+
+          <div class="container">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>UNIDADES</th>
+                  <th>EDUCA&Ccedil;&Atilde;O <br> PROFISSIONAL</th>
+                  <th>A&Ccedil;&Otilde;ES  <br>  EXTENSIVAS </th>
+                  <th>TOTAL</th>
+                </tr>
+              </thead>
+              <tbody>
         <?php
 		   
 		   $total_geral = 0;
@@ -124,28 +123,26 @@ use app\models\planilhas\Planilhadecurso;
 
 				  ?>
                   <tr> 
-                  <td bgcolor="#EEEEEE"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $nome_unidade; ?></font></td>
-                  <td bgcolor="#EEEEEE"> <div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_educacao_profissional; ?></font></div></td>
-                  <td bgcolor="#EEEEEE"> <div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_acao_extensiva; ?></font></div></td>
-                  <td bgcolor="#EEEEEE"> <div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $subtotal_unidade; ?></font></div></td>
+                  <td><?php echo $nome_unidade; ?></td>
+                  <td><?php echo $quantidade_educacao_profissional; ?></td>
+                  <td><?php echo $quantidade_acao_extensiva; ?></td>
+                  <td><?php echo $subtotal_unidade; ?></td>
                   </tr>
            <?php
 		   
 		   }// FIM DAS UNIDADES
 		   
 		   ?>
-                 <tr > 
-                 <td bgcolor="#fcf8e3"> <div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong>TOTAL 
-                 GERAL </strong></font></div></td>
-                 <td bgcolor="#EEEEEE"> <div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo $quantidade_educacao_profissional_geral; ?></strong></font></div></td>
-                 <td bgcolor="#EEEEEE"> <div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo $quantidade_acao_extensiva_geral; ?></strong></font></div></td>
-                 <td bgcolor="#EEEEEE"> <div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo $total_geral; ?></strong></font></div></td>
+                 <tr style="background-color: #fcf8e3;">
+                 <td><strong>TOTAL GERAL<strong></td>
+                 <td><?php echo $quantidade_educacao_profissional_geral; ?></td>
+                 <td><?php echo $quantidade_acao_extensiva_geral; ?></td>
+                 <td><?php echo $total_geral; ?></td>
                  </tr>
-                 </table></td>
-                 </tr>
-                 </table>
-                 </td>
-                 </tr> </table> 
+
+              </tbody>
+            </table>
+          </div>
 				 
 				 <br>
                  <table width="100%" border="0">

@@ -59,15 +59,11 @@ use app\models\planilhas\Planilhadecurso;
            </table>
 		   <BR>
            
-           
-		   <table width="150%"  border="1" cellspacing="0" bordercolor="#000000">
-           <tr>
-           <td>
-		   
-		   
-		   <table  border="0">
-           <tr> 
-           <td  width="30%" valign="middle" bgcolor="#CACACA"> <div align="center"><font size="1"><strong><font face="Verdana, Arial, Helvetica, sans-serif">UNIDADES</font></strong></font></div></td>
+          <div class="container">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>UNIDADES</th>
            
 		   <?php
 		        			
@@ -86,20 +82,17 @@ use app\models\planilhas\Planilhadecurso;
 					 $conta_segmento[$codigo_segmento] = 0;
 
 					?>
-					      <td width="8%" valign="middle" bgcolor="#CACACA"><div align="center"><strong><font size="1" face="Arial"><?php echo $nome_segmento; ?></font></strong></div></td>
+					      <th><?php echo $nome_segmento; ?></th>
 					 
 					 <?php
 					  
 			    }
 			?>
 		   
-           <td width="12%" valign="middle" bgcolor="#CACACA">
-		   <div align="center"><font size="1"><strong><font face="Verdana, Arial, Helvetica, sans-serif">TOTAL</font></strong></font></div>
-		   </td>
+           <th>TOTAL</th>
            </tr>
 		   
 		   <?php
-               				
 				//EXTRAINDO AS UNIDADES....
 				$query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."'  group by placu_codunidade ORDER BY placu_nomeunidade";
 			    $unidades = Planilhadecurso::findBySql($query_unidades)->all(); 
@@ -111,12 +104,10 @@ use app\models\planilhas\Planilhadecurso;
 
 						 $subtotal_unidade = 0;
 			?>
-					 
 					  <tr> 
-                      <td valign="middle" bgcolor="#EEEEEE"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $nome_unidade; ?></font></td>
+                      <td><?php echo $nome_unidade; ?></td>
                      
                      <?php
-					 
 					  //RESGATANDO OS EIXOS CONFORME ORDEM DO CABEÇALHO...
 					  $query_segmentos2 = "SELECT seg_codsegmento, seg_descricao FROM segmento_seg WHERE seg_codsegmento <> 17 ORDER BY seg_descricao";
 					  $segmentos2 = Segmento::findBySql($query_segmentos2)->all(); 
@@ -148,13 +139,13 @@ use app\models\planilhas\Planilhadecurso;
 							
 												  
 					        ?>
-							 <td bgcolor="#EEEEEE"><div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_matriculas_por_segmento; ?></font></div></td>
+							 <td><?php echo $quantidade_matriculas_por_segmento; ?></td>
 							<?php
 							
 					  }// FIM DOS EIXOS...
 					  
 					  ?>
-					  <td bgcolor="#EEEEEE"><div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $subtotal_unidade; ?></font></div></td>
+					  <td><?php echo $subtotal_unidade; ?></td>
                       </tr>     
 					  <?php
 					  		 
@@ -163,9 +154,8 @@ use app\models\planilhas\Planilhadecurso;
 		  
 		   
 		   
-           <tr> 
-           <td valign="middle" bgcolor="#CACACA"><div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong>TOTAL 
-           GERAL </strong></font></div></td>
+           <tr style="background-color: #fcf8e3;"> 
+           <td>TOTAL GERAL</td>
             <?php
 				$query_segmentos3 = "SELECT seg_codsegmento, seg_descricao FROM segmento_seg WHERE seg_codsegmento <> 17 ORDER BY seg_descricao";
 				  $segmentos2 = Segmento::findBySql($query_segmentos3)->all(); 
@@ -175,22 +165,19 @@ use app\models\planilhas\Planilhadecurso;
 			    	$codigo_segmento = $segmento2['seg_codsegmento'];
 
 		    ?>
-					  <td bgcolor="#CACACA"><div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo $conta_segmento[$codigo_segmento]; ?></strong></font></div></td>
+					  <td><?php echo $conta_segmento[$codigo_segmento]; ?></td>
 					  
 			         <?php
 			  }
 		  
 		  ?>
 		  
-          <td bgcolor="#CACACA"><div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo $soma_total_geral; ?></strong></font></div></td>
+          <td><?php echo $soma_total_geral; ?></td>
            </tr>
-           </table>
-		   
-		   
-		   
-		   </td>
-           </tr>
-           </table>
+
+              </tbody>
+            </table>
+          </div>
 		   
 		   <br>
            <table width="100%" border="0">
