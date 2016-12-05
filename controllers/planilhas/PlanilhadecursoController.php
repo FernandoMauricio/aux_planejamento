@@ -207,7 +207,6 @@ class PlanilhadecursoController extends Controller
         $model->placu_equipamentos   = 0;
         $model->placu_pessoafisica   = 0;
         $model->placu_pessoajuridica = 0;
-        $model->placu_tiporelatorio  = 1;
         $model->placu_data           = date('Y-m-d');
         $model->placu_anoexercicio   = date('Y');
 
