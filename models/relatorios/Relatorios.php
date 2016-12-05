@@ -40,10 +40,10 @@ class Relatorios extends Model
     public function attributeLabels()
     {
         return [
-            'relat_codano' => 'Código',
-            'relat_codtipla' => 'Ano',
-            'relat_codsituacao' => 'Situação',
-            'relat_tiporelatorio' => 'Situação',
+            'relat_codano' => 'Ano Planilha',
+            'relat_codsituacao' => 'Situação Planilha',
+            'relat_codtipla' => 'Tipo Planilha',
+            'relat_tiporelatorio' => 'Tipo de Relatório',
         ];
     }
 }

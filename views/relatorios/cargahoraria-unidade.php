@@ -83,7 +83,7 @@ use app\models\planilhas\Planilhadecurso;
             foreach ($unidades as $unidade) {
 
 		      $codigo_unidade  = $unidade['placu_codunidade'];
-			  $nome_unidade    = $unidade['placu_nomeunidade'];
+			    $nome_unidade    = $unidade['placu_nomeunidade'];
 				  
 			  $quantidade_educacao_profissional = 0;
 			  $quantidade_acao_extensiva_geral = 0;

@@ -153,7 +153,7 @@ use app\models\planilhas\Planilhadecurso;
 		        } // FIM DAS UNIDADES...
 		    ?>
 		   
-           <tr> 
+           <tr style="background-color: #fcf8e3;">
            <td><strong>TOTAL GERAL</strong></td>
             <?php
 				$query_eixos3 = "SELECT eix_codeixo, eix_descricao FROM eixo_eix WHERE eix_codeixo <> 8 ORDER BY eix_descricao";
