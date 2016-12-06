@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = 'Relatórios PAAR';
     }
 ?>
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options'=>['target'=>'_blank']]); ?>
 
         <div class="panel-body">
             <div class="row">

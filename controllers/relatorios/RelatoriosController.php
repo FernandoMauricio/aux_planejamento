@@ -69,17 +69,11 @@ class RelatoriosController extends Controller
 
     public function actionMatriculaUnidade($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
-        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$ano_planilha."'";
-        $ano_planilha = Ano::findBySql($queryAno)->one();
-
-        $querySituacaoPlanilha = "SELECT * FROM situacaoplanilha_sipla WHERE sipla_codsituacao = '".$situacao_planilha."'";
-        $situacao_planilha = Situacaoplanilha::findBySql($querySituacaoPlanilha)->one(); 
-
-        $queryTipoPlanilha = "SELECT * FROM tipoplanilha_tipla WHERE tipla_codtipla = '".$tipo_planilha."'";
-        $tipo_planilha = Tipoplanilha::findBySql($queryTipoPlanilha)->one(); 
-
-        $queryTipoRelatorio = "SELECT * FROM tiporelatorio_tiprel WHERE tiprel_id = '".$tipo_relatorio."'";
-        $tipo_relatorio = Tiporelatorio::findBySql($queryTipoRelatorio)->one();
+       $this->layout = 'main-imprimir';
+       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
+       $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/matricula-unidade', [
               'ano_planilha'      => $ano_planilha, 
@@ -91,17 +85,11 @@ class RelatoriosController extends Controller
 
     public function actionCargahorariaUnidade($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
-        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$ano_planilha."'";
-        $ano_planilha = Ano::findBySql($queryAno)->one();
-
-        $querySituacaoPlanilha = "SELECT * FROM situacaoplanilha_sipla WHERE sipla_codsituacao = '".$situacao_planilha."'";
-        $situacao_planilha = Situacaoplanilha::findBySql($querySituacaoPlanilha)->one(); 
-
-        $queryTipoPlanilha = "SELECT * FROM tipoplanilha_tipla WHERE tipla_codtipla = '".$tipo_planilha."'";
-        $tipo_planilha = Tipoplanilha::findBySql($queryTipoPlanilha)->one(); 
-
-        $queryTipoRelatorio = "SELECT * FROM tiporelatorio_tiprel WHERE tiprel_id = '".$tipo_relatorio."'";
-        $tipo_relatorio = Tiporelatorio::findBySql($queryTipoRelatorio)->one();
+       $this->layout = 'main-imprimir';
+       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
+       $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/cargahoraria-unidade', [
               'ano_planilha'      => $ano_planilha, 
@@ -113,17 +101,12 @@ class RelatoriosController extends Controller
 
     public function actionMatriculaEixo($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
-        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$ano_planilha."'";
-        $ano_planilha = Ano::findBySql($queryAno)->one();
 
-        $querySituacaoPlanilha = "SELECT * FROM situacaoplanilha_sipla WHERE sipla_codsituacao = '".$situacao_planilha."'";
-        $situacao_planilha = Situacaoplanilha::findBySql($querySituacaoPlanilha)->one(); 
-
-        $queryTipoPlanilha = "SELECT * FROM tipoplanilha_tipla WHERE tipla_codtipla = '".$tipo_planilha."'";
-        $tipo_planilha = Tipoplanilha::findBySql($queryTipoPlanilha)->one(); 
-
-        $queryTipoRelatorio = "SELECT * FROM tiporelatorio_tiprel WHERE tiprel_id = '".$tipo_relatorio."'";
-        $tipo_relatorio = Tiporelatorio::findBySql($queryTipoRelatorio)->one();
+       $this->layout = 'main-imprimir';
+       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
+       $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/matricula-eixo', [
               'ano_planilha'      => $ano_planilha, 
@@ -135,17 +118,11 @@ class RelatoriosController extends Controller
 
     public function actionCargahorariaEixo($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
-        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$ano_planilha."'";
-        $ano_planilha = Ano::findBySql($queryAno)->one();
-
-        $querySituacaoPlanilha = "SELECT * FROM situacaoplanilha_sipla WHERE sipla_codsituacao = '".$situacao_planilha."'";
-        $situacao_planilha = Situacaoplanilha::findBySql($querySituacaoPlanilha)->one(); 
-
-        $queryTipoPlanilha = "SELECT * FROM tipoplanilha_tipla WHERE tipla_codtipla = '".$tipo_planilha."'";
-        $tipo_planilha = Tipoplanilha::findBySql($queryTipoPlanilha)->one(); 
-
-        $queryTipoRelatorio = "SELECT * FROM tiporelatorio_tiprel WHERE tiprel_id = '".$tipo_relatorio."'";
-        $tipo_relatorio = Tiporelatorio::findBySql($queryTipoRelatorio)->one();
+       $this->layout = 'main-imprimir';
+       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
+       $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/cargahoraria-eixo', [
               'ano_planilha'      => $ano_planilha, 
@@ -157,17 +134,11 @@ class RelatoriosController extends Controller
 
     public function actionMatriculaSegmento($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
-        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$ano_planilha."'";
-        $ano_planilha = Ano::findBySql($queryAno)->one();
-
-        $querySituacaoPlanilha = "SELECT * FROM situacaoplanilha_sipla WHERE sipla_codsituacao = '".$situacao_planilha."'";
-        $situacao_planilha = Situacaoplanilha::findBySql($querySituacaoPlanilha)->one(); 
-
-        $queryTipoPlanilha = "SELECT * FROM tipoplanilha_tipla WHERE tipla_codtipla = '".$tipo_planilha."'";
-        $tipo_planilha = Tipoplanilha::findBySql($queryTipoPlanilha)->one(); 
-
-        $queryTipoRelatorio = "SELECT * FROM tiporelatorio_tiprel WHERE tiprel_id = '".$tipo_relatorio."'";
-        $tipo_relatorio = Tiporelatorio::findBySql($queryTipoRelatorio)->one();
+       $this->layout = 'main-imprimir';
+       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
+       $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/matricula-segmento', [
               'ano_planilha'      => $ano_planilha, 
@@ -179,17 +150,11 @@ class RelatoriosController extends Controller
 
     public function actionCargahorariaSegmento($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
-        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$ano_planilha."'";
-        $ano_planilha = Ano::findBySql($queryAno)->one();
-
-        $querySituacaoPlanilha = "SELECT * FROM situacaoplanilha_sipla WHERE sipla_codsituacao = '".$situacao_planilha."'";
-        $situacao_planilha = Situacaoplanilha::findBySql($querySituacaoPlanilha)->one(); 
-
-        $queryTipoPlanilha = "SELECT * FROM tipoplanilha_tipla WHERE tipla_codtipla = '".$tipo_planilha."'";
-        $tipo_planilha = Tipoplanilha::findBySql($queryTipoPlanilha)->one(); 
-
-        $queryTipoRelatorio = "SELECT * FROM tiporelatorio_tiprel WHERE tiprel_id = '".$tipo_relatorio."'";
-        $tipo_relatorio = Tiporelatorio::findBySql($queryTipoRelatorio)->one();
+       $this->layout = 'main-imprimir';
+       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
+       $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/cargahoraria-segmento', [
               'ano_planilha'      => $ano_planilha, 
@@ -201,17 +166,11 @@ class RelatoriosController extends Controller
 
     public function actionMatriculaEducacaoprofissional($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
-        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$ano_planilha."'";
-        $ano_planilha = Ano::findBySql($queryAno)->one();
-
-        $querySituacaoPlanilha = "SELECT * FROM situacaoplanilha_sipla WHERE sipla_codsituacao = '".$situacao_planilha."'";
-        $situacao_planilha = Situacaoplanilha::findBySql($querySituacaoPlanilha)->one(); 
-
-        $queryTipoPlanilha = "SELECT * FROM tipoplanilha_tipla WHERE tipla_codtipla = '".$tipo_planilha."'";
-        $tipo_planilha = Tipoplanilha::findBySql($queryTipoPlanilha)->one(); 
-
-        $queryTipoRelatorio = "SELECT * FROM tiporelatorio_tiprel WHERE tiprel_id = '".$tipo_relatorio."'";
-        $tipo_relatorio = Tiporelatorio::findBySql($queryTipoRelatorio)->one();
+       $this->layout = 'main-imprimir';
+       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
+       $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/matricula-educacaoprofissional', [
               'ano_planilha'      => $ano_planilha, 
@@ -223,17 +182,11 @@ class RelatoriosController extends Controller
 
     public function actionCargahorariaEducacaoprofissional($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
-        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$ano_planilha."'";
-        $ano_planilha = Ano::findBySql($queryAno)->one();
-
-        $querySituacaoPlanilha = "SELECT * FROM situacaoplanilha_sipla WHERE sipla_codsituacao = '".$situacao_planilha."'";
-        $situacao_planilha = Situacaoplanilha::findBySql($querySituacaoPlanilha)->one(); 
-
-        $queryTipoPlanilha = "SELECT * FROM tipoplanilha_tipla WHERE tipla_codtipla = '".$tipo_planilha."'";
-        $tipo_planilha = Tipoplanilha::findBySql($queryTipoPlanilha)->one(); 
-
-        $queryTipoRelatorio = "SELECT * FROM tiporelatorio_tiprel WHERE tiprel_id = '".$tipo_relatorio."'";
-        $tipo_relatorio = Tiporelatorio::findBySql($queryTipoRelatorio)->one();
+       $this->layout = 'main-imprimir';
+       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
+       $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/cargahoraria-educacaoprofissional', [
               'ano_planilha'      => $ano_planilha, 
@@ -241,6 +194,50 @@ class RelatoriosController extends Controller
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
               ]);
+    }
+
+    protected function findModelAnoPlanilha($ano_planilha)
+    {
+        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$ano_planilha."'";
+
+        if (($ano_planilha = Ano::findBySql($queryAno)->one()) !== null) {
+            return $ano_planilha;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function findModelSituacaoPlanilha($situacao_planilha)
+    {
+        $querySituacaoPlanilha = "SELECT * FROM situacaoplanilha_sipla WHERE sipla_codsituacao = '".$situacao_planilha."'";
+
+        if (($situacao_planilha = Situacaoplanilha::findBySql($querySituacaoPlanilha)->one()) !== null ) {
+            return $situacao_planilha;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function findModelTipoPlanilha($tipo_planilha)
+    {
+        $queryTipoPlanilha = "SELECT * FROM tipoplanilha_tipla WHERE tipla_codtipla = '".$tipo_planilha."'";
+
+        if (($tipo_planilha = Tipoplanilha::findBySql($queryTipoPlanilha)->one()) !== null ) {
+            return $tipo_planilha;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function findModelTipoRelatorio($tipo_relatorio)
+    {
+        $queryTipoRelatorio = "SELECT * FROM tiporelatorio_tiprel WHERE tiprel_id = '".$tipo_relatorio."'";
+
+        if (($tipo_relatorio = Tiporelatorio::findBySql($queryTipoRelatorio)->one()) !== null) {
+            return $tipo_relatorio;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
 }

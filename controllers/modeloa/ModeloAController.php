@@ -89,7 +89,7 @@ class ModeloAController extends Controller
 
     public function actionImprimirModeloA($id) 
     {
-        $this->layout = 'main-imprimir-modelo-a';
+        $this->layout = 'main-imprimir';
         $model = $this->findModel($id);
 
         $modelsDespesasCorrentes = DetalhesModeloA::find()->where(['deta_codmodelo' => $model->moda_codmodelo, 'deta_codtipo' => 1])->all();
