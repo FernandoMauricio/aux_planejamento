@@ -114,7 +114,7 @@ use kartik\nav\NavX;
                             ]],
                                      '<li class="divider"></li>',
                             ['label' => 'Relatórios', 'items' => [
-                                ['label' => 'PAAR', 'url' => ['relatorios/relatorios/relatorio']],
+                                ['label' => 'PAAR', 'url' => ['relatorios/relatorios-paar/gerar-relatorio']],
                             ]],
                      ],
             ],
