@@ -45,10 +45,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'placu_quantidadealunos') ?>
 
-    <?php // echo $form->field($model, 'placu_quantidadeparcelas') ?>
-
-    <?php // echo $form->field($model, 'placu_valormensalidade') ?>
-
     <?php // echo $form->field($model, 'placu_codsituacao') ?>
 
     <?php // echo $form->field($model, 'placu_codcolaborador') ?>
@@ -59,15 +55,11 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'placu_quantidadealunospsg') ?>
 
-    <?php // echo $form->field($model, 'placu_tipocalculo') ?>
-
     <?php // echo $form->field($model, 'placu_arquivolistamaterial') ?>
 
     <?php // echo $form->field($model, 'placu_listamaterialdoaluno') ?>
 
     <?php // echo $form->field($model, 'placu_observacao') ?>
-
-    <?php // echo $form->field($model, 'placu_taxaretorno') ?>
 
     <?php // echo $form->field($model, 'placu_cargahorariavivencia') ?>
 

@@ -18,8 +18,8 @@ class PlanilhadecursoSearch extends Planilhadecurso
     public function rules()
     {
         return [
-            [['placu_codplanilha', 'placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_quantidadeparcelas', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_tipocalculo', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao'], 'integer'],
-            [['placu_cargahorariaplano', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar', 'placu_valormensalidade', 'placu_taxaretorno'], 'number'],
+            [['placu_codplanilha', 'placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao'], 'integer'],
+            [['placu_cargahorariaplano', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar'], 'number'],
             [['placu_nomeunidade', 'placu_observacao','PlanoLabel', 'anoLabel'], 'safe'],
         ];
     }
@@ -88,13 +88,9 @@ class PlanilhadecursoSearch extends Planilhadecurso
             'placu_codtipla' => $this->placu_codtipla,
             'placu_quantidadeturmas' => $this->placu_quantidadeturmas,
             'placu_quantidadealunos' => $this->placu_quantidadealunos,
-            'placu_quantidadeparcelas' => $this->placu_quantidadeparcelas,
-            'placu_valormensalidade' => $this->placu_valormensalidade,
             'placu_codsituacao' => $this->placu_codsituacao,
             'placu_codcolaborador' => $this->placu_codcolaborador,
             'placu_quantidadealunospsg' => $this->placu_quantidadealunospsg,
-            'placu_tipocalculo' => $this->placu_tipocalculo,
-            'placu_taxaretorno' => $this->placu_taxaretorno,
             'placu_cargahorariavivencia' => $this->placu_cargahorariavivencia,
             'placu_quantidadealunosisentos' => $this->placu_quantidadealunosisentos,
             'placu_codprogramacao' => $this->placu_codprogramacao,

@@ -6,7 +6,8 @@ use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 
 $this->title = 'Relatórios PAAR';
-$this->params['breadcrumbs'][] = 'Relatórios PAAR';
+$this->params['breadcrumbs'][] = 'Relatórios';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="relatorios">

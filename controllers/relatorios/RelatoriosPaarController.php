@@ -7,7 +7,7 @@ use app\models\cadastros\Ano;
 use app\models\cadastros\Tiporelatorio;
 use app\models\cadastros\Tipoplanilha;
 use app\models\cadastros\Situacaoplanilha;
-use app\models\relatorios\Relatorios;
+use app\models\relatorios\RelatoriosPaar;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -21,7 +21,7 @@ class RelatoriosPaarController extends Controller
     public function actionGerarRelatorio()
     {
       $session = Yii::$app->session;
-    	$model = new Relatorios();
+    	$model = new RelatoriosPaar();
 
     	$ano              = Ano::find()->orderBy(['an_codano'=>SORT_DESC])->all();
       $tipoPlanilha     = Tipoplanilha::find()->all();
