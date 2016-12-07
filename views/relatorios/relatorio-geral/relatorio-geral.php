@@ -15,12 +15,6 @@ use app\models\planos\Planodeacao;
 use app\models\planilhas\Planilhadecurso;
 ?>
 
-
-<?php
-      		   
-		   $valor_hora_aluno_total_geral = 0;  
-		   
-		   ?>
 		   <table width="100%" border="0">
            <tr> 
            <td width="21%"><img src="<?php echo Url::base().'/uploads/logo.png' ?>" height="100px"></td>
@@ -47,7 +41,7 @@ use app\models\planilhas\Planilhadecurso;
            <tr> 
            <td width="4%">&nbsp;</td>
            <td width="9%" valign="middle"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">UNIDADE</font></strong></td>
-           <td colspan="3" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php //echo $nome_unidade;?></font></td>
+           <td colspan="3" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $combounidade['placu_codunidade'] == 0 ? "Todas as Unidades" : $combounidade['placu_nomeunidade'];?></font></td>
            </tr>
            <tr> 
            <td>&nbsp;</td>
@@ -69,8 +63,9 @@ use app\models\planilhas\Planilhadecurso;
            </table>
            <br>
 		   		   
-		   <?php
+		<?php
 		   
+		   $valor_hora_aluno_total_geral = 0;  
 		   
 		   $quantidade_turmas_educacao_profissional_geral = 0;
 		   $quantidade_turmas_acao_extensivas_geral = 0;
@@ -87,13 +82,12 @@ use app\models\planilhas\Planilhadecurso;
 		   $despesa_prevista_educacao_profissional_geral = 0;
 		   $despesa_prevista_acao_extensivas_geral = 0;
 		   
-		   
 		   //EXTRAINDO AS UNIDADES CONFORME CRITÉRIO....
-		   $combounidade = 0;
-		   if($combounidade['placu_nomeunidade'] == 0) //TODAS...
+		   if($combounidade['placu_codunidade'] == 0)//TODAS...
+		    { 
 		     	   $query_unidades = "SELECT placu_nomeunidade, placu_codunidade FROM `db_apl`.`planilhadecurso_placu` WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
-           else //UMA UNIDADE EM ESPECÍFICO...
-		           $query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$combounidade."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
+            } else //UMA UNIDADE EM ESPECÍFICO...
+		           $query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$combounidade['placu_codunidade']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
 		   
 		   	    $unidades = Planilhadecurso::findBySql($query_unidades)->all(); 
 
@@ -118,7 +112,7 @@ use app\models\planilhas\Planilhadecurso;
 					
 					$hora_aluno_total_unidade = 0;
 				
-				     ?>
+		?>
 				
 			         <table width="100%" border="0">
                      <tr> 

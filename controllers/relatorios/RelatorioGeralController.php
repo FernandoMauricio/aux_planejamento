@@ -9,6 +9,7 @@ use app\models\cadastros\Tipoprogramacao;
 use app\models\cadastros\Tipoplanilha;
 use app\models\cadastros\Situacaoplanilha;
 use app\models\relatorios\RelatorioGeral;
+use app\models\planilhas\Planilhadecurso;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -28,14 +29,14 @@ class RelatorioGeralController extends Controller
 	    $ano              = Ano::find()->orderBy(['an_codano'=>SORT_DESC])->all();
 	    $tipoPlanilha     = Tipoplanilha::find()->all();
 	    $situacaoPlanilha = Situacaoplanilha::find()->all();
-	    $tipoProgramacao    = Tipoprogramacao::find()->all();
+	    $tipoProgramacao  = Tipoprogramacao::find()->all();
 
         if ($model->load(Yii::$app->request->post())) {
 
         	//Irá pesquisar todas as unidades
-        	if(isset($model->relat_unidade)){
-        		$model->relat_unidade = 0;
-        	}
+        	// if($model->relat_unidade == NULL){
+        	// 	$model->relat_unidade = 0;
+        	// }
 
             return $this->redirect(['relatorio-geral', 'combounidade' => $model->relat_unidade, 'ano_planilha' => $model->relat_codano, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_planilha' => $model->relat_codtipla, 'tipo' => $model->relat_modelorelatorio, 'combotipoprogramacao' => $model->relat_tipoprogramacao]);
 
@@ -46,7 +47,7 @@ class RelatorioGeralController extends Controller
 	                'ano'              => $ano,
 	                'tipoPlanilha'     => $tipoPlanilha,
 	                'situacaoPlanilha' => $situacaoPlanilha,
-	                'tipoProgramacao'    => $tipoProgramacao,
+	                'tipoProgramacao'  => $tipoProgramacao,
 	                ]);
 	         }
     }
@@ -54,12 +55,14 @@ class RelatorioGeralController extends Controller
     public function actionRelatorioGeral($combounidade, $ano_planilha, $situacao_planilha, $tipo_planilha, $tipo, $combotipoprogramacao)
     {
        $this->layout = 'main-imprimir';
+       $combounidade      = $this->findModelUnidade($combounidade);
        $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo              = 1;
 
             return $this->render('/relatorios/relatorio-geral/relatorio-geral', [
+              'combounidade'      => $combounidade,
               'ano_planilha'      => $ano_planilha, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
@@ -69,13 +72,11 @@ class RelatorioGeralController extends Controller
 
     protected function findModelUnidade($combounidade)
     {
-        $queryUnidade = "SELECT placu_nomeunidade FROM planilhadecurso_placu WHERE placu_codunidade = '".$combounidade."'";
+        $queryUnidade = "SELECT placu_codunidade, placu_nomeunidade FROM planilhadecurso_placu WHERE placu_codunidade = '".$combounidade."'";
 
-        if (($combounidade = Unidade::findBySql($queryUnidade)->one()) !== null) {
-            return $combounidade;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+        $combounidade = Planilhadecurso::findBySql($queryUnidade)->one();
+
+        return $combounidade;
     }
 
     protected function findModelAnoPlanilha($ano_planilha)
