@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="col-md-2">
                 <?php
-                    $data_modeloRelatorio = ['1' => 'Geral', '2' => 'PSG'];
+                    $data_modeloRelatorio = ['1' => 'Modelo 1', '2' => 'Modelo 2'];
                     echo $form->field($model, 'relat_modelorelatorio')->widget(Select2::classname(), [
                             'data' =>  $data_modeloRelatorio,
                             'options' => ['placeholder' => 'Selecione o tipo da Planilha...'],

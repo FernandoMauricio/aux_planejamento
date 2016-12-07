@@ -21,8 +21,6 @@ class RelatorioGeralController extends Controller
 {
     public function actionGerarRelatorio()
     {
-
-	    $session = Yii::$app->session;
 	    $model = new RelatorioGeral();
 
 	    $unidades     	  = Unidade::find()->where(['uni_codsituacao' => 1])->orderBy('uni_nomeabreviado')->all();
@@ -33,13 +31,12 @@ class RelatorioGeralController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-        	//Irá pesquisar todas as unidades
-        	// if($model->relat_unidade == NULL){
-        	// 	$model->relat_unidade = 0;
-        	// }
-
-            return $this->redirect(['relatorio-geral', 'combounidade' => $model->relat_unidade, 'ano_planilha' => $model->relat_codano, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_planilha' => $model->relat_codtipla, 'tipo' => $model->relat_modelorelatorio, 'combotipoprogramacao' => $model->relat_tipoprogramacao]);
-
+            if($model->relat_modelorelatorio == 1){
+                return $this->redirect(['relatorio-geral-modelo-1', 'combounidade' => $model->relat_unidade, 'ano_planilha' => $model->relat_codano, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_planilha' => $model->relat_codtipla, 'modelorelatorio' => $model->relat_modelorelatorio, 'combotipoprogramacao' => $model->relat_tipoprogramacao]);
+                    }
+            else if($model->relat_modelorelatorio == 2){
+                return $this->redirect(['relatorio-geral-modelo-2', 'combounidade' => $model->relat_unidade, 'ano_planilha' => $model->relat_codano, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_planilha' => $model->relat_codtipla, 'modelorelatorio' => $model->relat_modelorelatorio, 'combotipoprogramacao' => $model->relat_tipoprogramacao]);
+                    }
         }else{
 	            return $this->render('/relatorios/relatorio-geral/gerar-relatorio', [
 	                'model'            => $model,
@@ -52,23 +49,85 @@ class RelatorioGeralController extends Controller
 	         }
     }
 
-    public function actionRelatorioGeral($combounidade, $ano_planilha, $situacao_planilha, $tipo_planilha, $tipo, $combotipoprogramacao)
+    public function actionRelatorioGeralModelo1($combounidade, $ano_planilha, $situacao_planilha, $tipo_planilha, $modelorelatorio, $combotipoprogramacao)
     {
        $this->layout = 'main-imprimir';
-       $combounidade      = $this->findModelUnidade($combounidade);
-       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
-       $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
-       $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
-       $tipo              = 1;
+       $combounidade         = $this->findModelUnidade($combounidade);
+       $ano_planilha         = $this->findModelAnoPlanilha($ano_planilha);
+       $situacao_planilha    = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha        = $this->findModelTipoPlanilha($tipo_planilha);
+       $modelorelatorio      = $modelorelatorio;
+       $combotipoprogramacao = $this->findModelTipoProgramacao($combotipoprogramacao);
 
-            return $this->render('/relatorios/relatorio-geral/relatorio-geral', [
-              'combounidade'      => $combounidade,
-              'ano_planilha'      => $ano_planilha, 
-              'situacao_planilha' => $situacao_planilha,
-              'tipo_planilha'     => $tipo_planilha, 
+            return $this->render('/relatorios/relatorio-geral/relatorio-geral-modelo-1', [
+              'combounidade'         => $combounidade,
+              'ano_planilha'         => $ano_planilha, 
+              'situacao_planilha'    => $situacao_planilha,
+              'tipo_planilha'        => $tipo_planilha,
+              'combotipoprogramacao' => $combotipoprogramacao,
               ]);
     }
 
+    public function actionRelatorioGeralModelo2($combounidade, $ano_planilha, $situacao_planilha, $tipo_planilha, $modelorelatorio, $combotipoprogramacao)
+    {
+
+       $this->layout = 'main-imprimir';
+       $combounidade         = $this->findModelUnidade($combounidade);
+       $ano_planilha         = $this->findModelAnoPlanilha($ano_planilha);
+       $situacao_planilha    = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha        = $this->findModelTipoPlanilha($tipo_planilha);
+       $modelorelatorio      = $modelorelatorio;
+       $combotipoprogramacao = $this->findModelTipoProgramacao($combotipoprogramacao);
+
+
+             return $this->render('/relatorios/relatorio-geral/relatorio-geral-modelo-2', [
+              'combounidade'         => $combounidade,
+              'ano_planilha'         => $ano_planilha, 
+              'situacao_planilha'    => $situacao_planilha,
+              'tipo_planilha'        => $tipo_planilha,
+              'combotipoprogramacao' => $combotipoprogramacao,
+              ]);
+    }
+
+    public function actionRelatorioGeralModelo2Psg($combounidade, $ano_planilha, $situacao_planilha, $tipo_planilha, $modelorelatorio, $combotipoprogramacao)
+    {
+
+       $this->layout = 'main-imprimir';
+       $combounidade         = $this->findModelUnidade($combounidade);
+       $ano_planilha         = $this->findModelAnoPlanilha($ano_planilha);
+       $situacao_planilha    = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha        = $this->findModelTipoPlanilha($tipo_planilha);
+       $modelorelatorio      = $modelorelatorio;
+       $combotipoprogramacao = $this->findModelTipoProgramacao($combotipoprogramacao);
+
+            return $this->render('/relatorios/relatorio-geral/relatorio-geral-modelo-2-psg', [
+              'combounidade'         => $combounidade,
+              'ano_planilha'         => $ano_planilha, 
+              'situacao_planilha'    => $situacao_planilha,
+              'tipo_planilha'        => $tipo_planilha,
+              'combotipoprogramacao' => $combotipoprogramacao,
+              ]);
+    }
+
+    public function actionRelatorioGeralModelo2NaoPsg($combounidade, $ano_planilha, $situacao_planilha, $tipo_planilha, $modelorelatorio, $combotipoprogramacao)
+    {
+
+       $this->layout = 'main-imprimir';
+       $combounidade         = $this->findModelUnidade($combounidade);
+       $ano_planilha         = $this->findModelAnoPlanilha($ano_planilha);
+       $situacao_planilha    = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha        = $this->findModelTipoPlanilha($tipo_planilha);
+       $modelorelatorio      = $modelorelatorio;
+       $combotipoprogramacao = $this->findModelTipoProgramacao($combotipoprogramacao);
+
+            return $this->render('/relatorios/relatorio-geral/relatorio-geral-modelo-2-nao-psg', [
+              'combounidade'         => $combounidade,
+              'ano_planilha'         => $ano_planilha, 
+              'situacao_planilha'    => $situacao_planilha,
+              'tipo_planilha'        => $tipo_planilha,
+              'combotipoprogramacao' => $combotipoprogramacao,
+              ]);
+    }
 
     protected function findModelUnidade($combounidade)
     {
