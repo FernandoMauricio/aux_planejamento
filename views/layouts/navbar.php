@@ -116,6 +116,7 @@ use kartik\nav\NavX;
                             ['label' => 'Relatórios', 'items' => [
                                 ['label' => 'PAAR', 'url' => ['relatorios/relatorios-paar/gerar-relatorio']],
                                 ['label' => 'Relatório Geral', 'url' => ['relatorios/relatorio-geral/gerar-relatorio']],
+                                ['label' => 'Modelo B', 'url' => ['relatorios/relatorio-modelo-b/gerar-relatorio']],
                             ]],
                      ],
             ],
