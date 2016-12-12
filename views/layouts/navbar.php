@@ -9,7 +9,7 @@ use kartik\nav\NavX;
     <?php
 
     NavBar::begin([
-        'brandLabel' => 'Senac AM',
+        'brandLabel' => '<img src="css/img/logo_senac_topo.png"/>',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => ['class' => 'navbar-inverse navbar-fixed-top'],
     ]);
