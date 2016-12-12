@@ -21,11 +21,27 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="planodeacao-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<?php
+$session = Yii::$app->session;
 
-    <p>
-        <?= Html::a('Novo Plano de Ação', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+//Pega as mensagens
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+}
+
+?>
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <?php
+        if($session['sess_codunidade'] == 11) { //ÁREA DA DEP
+    ?>
+            <p>
+                <?= Html::a('Novo Plano de Ação', ['create'], ['class' => 'btn btn-success']) ?>
+            </p>
+    <?php
+        }
+    ?>
 
 <?php Pjax::begin(); ?>    
 
@@ -109,7 +125,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 'encodeLabel' => false,
             ],
 
-            ['class' => 'yii\grid\ActionColumn','template' => '{view} {update}'],
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update}',
+                'options' => ['width' => '5%'],
+                'buttons' => [
+
+                //Situação 1 = Em Elaboração / 2 = Para Correção / 7 = Aguardando Envio Planejamento
+                'update' => function ($url, $model) {
+                    $session = Yii::$app->session;
+                    if($session['sess_codunidade'] == 17){
+                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                'title' => Yii::t('app', 'Editar Plano'),
+                    ]);
+                    }else{
+                        '';
+                    }
+                },
+
+                ],
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

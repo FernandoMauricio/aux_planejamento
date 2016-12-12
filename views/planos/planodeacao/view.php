@@ -32,9 +32,14 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 ?>
     <h1><?= Html::encode($this->title) ?></h1>
 
-        <p>
+  <p>
+    <?php
+        if($session['sess_codunidade'] == 11) { //ÁREA DA DEP
+    ?>
            <?= Html::a('Atualizar', ['update', 'id' => $id], ['class' => 'btn btn-primary']) ?>
-
+    <?php
+        }
+    ?>
             <?php
                   echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir','id' => $id], [
                       'class'=>'btn btn-warning', 

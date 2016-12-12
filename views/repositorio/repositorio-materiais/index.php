@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="repositorio-index">
 
 <?php
+$session = Yii::$app->session;
 
 //Pega as mensagens
 foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
@@ -21,13 +22,19 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 }
 
 ?>
-
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Novo Material Didático', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php
+        if($session['sess_codunidade'] == 11 ) { //ÁREA DA DEP
+    ?>
+            <p>
+                <?= Html::a('Novo Material Didático', ['create'], ['class' => 'btn btn-success']) ?>
+            </p>
+    <?php
+        }
+    ?>
+
 <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

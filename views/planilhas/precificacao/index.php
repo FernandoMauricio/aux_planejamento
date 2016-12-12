@@ -19,9 +19,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Nova', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php
+        $session = Yii::$app->session;
+        if($session['sess_codunidade'] == 11) { //ÁREA DA DEP
+    ?>
+            <p>
+                <?= Html::a('Nova', ['create'], ['class' => 'btn btn-success']) ?>
+            </p>
+    <?php
+        }
+    ?>
 
 <?php
     $gridColumns = [
