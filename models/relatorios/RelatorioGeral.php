@@ -42,4 +42,6 @@ class RelatorioGeral extends Model
             'relat_tipoprogramacao' => 'Tipo de Programação',
         ];
     }
+
+
 }

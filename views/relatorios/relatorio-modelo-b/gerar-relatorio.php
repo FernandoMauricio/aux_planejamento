@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $data_unidades = ArrayHelper::map($unidades, 'uni_codunidade', 'uni_nomeabreviado');
                     echo $form->field($model, 'relat_unidade')->widget(Select2::classname(), [
                             'data' =>  $data_unidades,
-                            'options' => ['placeholder' => 'Todas as Unidades...'],
+                            'options' => ['placeholder' => 'Selecione a Unidade...'],
                             'pluginOptions' => [
                                     'allowClear' => true
                                 ],
