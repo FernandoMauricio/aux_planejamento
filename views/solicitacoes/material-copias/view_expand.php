@@ -215,7 +215,7 @@ $attributes = [
    
                <?php
                //somatória de Quantidade * Valor de todas as linhas
-               $query = (new \yii\db\Query())->from('db_apl.materialcopias_matc')->where(['matc_id' => $model->matc_id]);
+               $query = (new \yii\db\Query())->from('db_apl2.materialcopias_matc')->where(['matc_id' => $model->matc_id]);
                $sum = $query->sum('matc_totalValorMono+matc_totalValorColor');
                ?>
                <tr class="warning" style="border-top: #dedede">

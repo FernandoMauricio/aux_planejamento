@@ -99,10 +99,10 @@ class MaterialconsumoController extends Controller
 
         //apaga a tabela completa para preparar a importação
         Yii::$app->db->createCommand()->checkIntegrity(false)->execute();
-        Yii::$app->db->createCommand()->truncateTable('db_apl.materialconsumo_matcon')->execute();
+        Yii::$app->db->createCommand()->truncateTable('db_apl2.materialconsumo_matcon')->execute();
         //--------insere em massa os materiais de consumo exportados do MXM
         Yii::$app->db->createCommand()
-            ->batchInsert('db_apl.materialconsumo_matcon', ['matcon_codMXM','matcon_descricao', 'matcon_tipo', 'matcon_valor', 'matcon_status'], $data)
+            ->batchInsert('db_apl2.materialconsumo_matcon', ['matcon_codMXM','matcon_descricao', 'matcon_tipo', 'matcon_valor', 'matcon_status'], $data)
             ->execute();
         
         //-------atualiza os planos já criados com os valores de materiais de consumo atuais

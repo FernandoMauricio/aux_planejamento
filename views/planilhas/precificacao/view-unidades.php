@@ -30,15 +30,15 @@ use app\models\base\Unidade;
         <?php
 
             //realiza a soma do valor total da turma das unidades
-            $query = (new \yii\db\Query())->from('db_apl.precificacao_unidades')->where(['precificacao_id' => $model->planp_id]);
+            $query = (new \yii\db\Query())->from('db_apl2.precificacao_unidades')->where(['precificacao_id' => $model->planp_id]);
             $totalVendaTurma = $query->sum('uprec_vendaturma');
 
             //realiza a soma do valor por aluno
-            $queryVendaAluno = (new \yii\db\Query())->from('db_apl.precificacao_unidades')->where(['precificacao_id' => $model->planp_id]);
+            $queryVendaAluno = (new \yii\db\Query())->from('db_apl2.precificacao_unidades')->where(['precificacao_id' => $model->planp_id]);
             $totalVendaAluno = $queryVendaAluno->sum('uprec_vendaaluno');
 
             //realiza a soma do valor por aluno
-            $queryHoraAula = (new \yii\db\Query())->from('db_apl.precificacao_unidades')->where(['precificacao_id' => $model->planp_id]);
+            $queryHoraAula = (new \yii\db\Query())->from('db_apl2.precificacao_unidades')->where(['precificacao_id' => $model->planp_id]);
             $totalHoraAula = $queryHoraAula->sum('uprec_horaaula');
 
             //Busca no banco o quantitativo de Precificação das unidades configuradas pelo Markup

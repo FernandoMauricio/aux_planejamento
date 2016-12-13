@@ -211,19 +211,19 @@ class PlanodeacaoController extends Controller
                             if($model->save()){
 
                                 //realiza a soma dos custos de material didático(LIVROS) SOMENTE DO PLANO A
-                                $query = (new \yii\db\Query())->from('db_apl.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano, 'plama_tipoplano' => 'Plano A', 'plama_tipomaterial' => 'LIVRO']);
+                                $query = (new \yii\db\Query())->from('db_apl2.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano, 'plama_tipoplano' => 'Plano A', 'plama_tipomaterial' => 'LIVRO']);
                                 $totalValorMaterialLivro = $query->sum('plama_valor');
 
                                 //realiza a soma dos custos de material didático(APOSTILAS) SOMENTE DO PLANO A
-                                $query = (new \yii\db\Query())->from('db_apl.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano, 'plama_tipoplano' => 'Plano A', 'plama_tipomaterial' => 'APOSTILAS']);
+                                $query = (new \yii\db\Query())->from('db_apl2.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano, 'plama_tipoplano' => 'Plano A', 'plama_tipomaterial' => 'APOSTILAS']);
                                 $totalValorMaterialApostila = $query->sum('plama_valor');
 
                                 //realiza a soma dos custos de materiais de consumo (somatória de Quantidade * Valor de todas as linhas)
-                                $query = (new \yii\db\Query())->from('db_apl.plano_materialconsumo')->where(['planodeacao_cod' => $model->plan_codplano]);
+                                $query = (new \yii\db\Query())->from('db_apl2.plano_materialconsumo')->where(['planodeacao_cod' => $model->plan_codplano]);
                                 $totalValorConsumo = $query->sum('planmatcon_valor*planmatcon_quantidade');
 
                                 //realiza a soma dos custos de material do aluno
-                                $query = (new \yii\db\Query())->from('db_apl.plano_materialaluno')->where(['planodeacao_cod' => $model->plan_codplano]);
+                                $query = (new \yii\db\Query())->from('db_apl2.plano_materialaluno')->where(['planodeacao_cod' => $model->plan_codplano]);
                                 $totalValorAluno = $query->sum('planmatalu_valor*planmatalu_quantidade');
 
                                 $model->plan_custoMaterialLivro    = $totalValorMaterialLivro; //save custo material didático - LIVROS
@@ -459,19 +459,19 @@ class PlanodeacaoController extends Controller
                                 if($model->save()){
 
                                 //realiza a soma dos custos de material didático(LIVROS) SOMENTE DO PLANO A
-                                $query = (new \yii\db\Query())->from('db_apl.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano, 'plama_tipoplano' => 'Plano A', 'plama_tipomaterial' => 'LIVRO']);
+                                $query = (new \yii\db\Query())->from('db_apl2.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano, 'plama_tipoplano' => 'Plano A', 'plama_tipomaterial' => 'LIVRO']);
                                 $totalValorMaterialLivro = $query->sum('plama_valor');
 
                                 //realiza a soma dos custos de material didático(APOSTILAS) SOMENTE DO PLANO A
-                                $query = (new \yii\db\Query())->from('db_apl.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano, 'plama_tipoplano' => 'Plano A', 'plama_tipomaterial' => 'APOSTILAS']);
+                                $query = (new \yii\db\Query())->from('db_apl2.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano, 'plama_tipoplano' => 'Plano A', 'plama_tipomaterial' => 'APOSTILAS']);
                                 $totalValorMaterialApostila = $query->sum('plama_valor');
 
                                 //realiza a soma dos custos de materiais de consumo (somatória de Quantidade * Valor de todas as linhas)
-                                $query = (new \yii\db\Query())->from('db_apl.plano_materialconsumo')->where(['planodeacao_cod' => $model->plan_codplano]);
+                                $query = (new \yii\db\Query())->from('db_apl2.plano_materialconsumo')->where(['planodeacao_cod' => $model->plan_codplano]);
                                 $totalValorConsumo = $query->sum('planmatcon_valor*planmatcon_quantidade');
 
                                 //realiza a soma dos custos de material de consumo
-                                $query = (new \yii\db\Query())->from('db_apl.plano_materialaluno')->where(['planodeacao_cod' => $model->plan_codplano]);
+                                $query = (new \yii\db\Query())->from('db_apl2.plano_materialaluno')->where(['planodeacao_cod' => $model->plan_codplano]);
                                 $totalValorAluno = $query->sum('planmatalu_valor*planmatalu_quantidade');
 
                                 $model->plan_custoMaterialLivro    = $totalValorMaterialLivro; //save custo material didático - LIVROS

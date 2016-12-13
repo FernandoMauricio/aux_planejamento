@@ -109,7 +109,7 @@ class CustosunidadeController extends Controller
                             $valorTotalPorcentagem = 0;
 
                             //realiza a soma da capitação máxima de alunos
-                            $query = (new \yii\db\Query())->from('db_apl.custosindireto_custin')->where(['custosunidade_id' => $model->cust_codcusto]);
+                            $query = (new \yii\db\Query())->from('db_apl2.custosindireto_custin')->where(['custosunidade_id' => $model->cust_codcusto]);
                             $totalCapmaximo = $query->sum('custin_capmaximo');
              
                             //busca pelas despesas cadastradas para cada custo da unidade
@@ -129,11 +129,11 @@ class CustosunidadeController extends Controller
                             $modelCustosIndireto->save();
 
                             //realiza a soma da porcentagem
-                            $query = (new \yii\db\Query())->from('db_apl.custosindireto_custin')->where(['custosunidade_id' => $model->cust_codcusto]);
+                            $query = (new \yii\db\Query())->from('db_apl2.custosindireto_custin')->where(['custosunidade_id' => $model->cust_codcusto]);
                             $totalPorcentagem = $query->sum('custin_porcentagem');
 
                             //realiza a soma do custo indireto
-                            $query = (new \yii\db\Query())->from('db_apl.custosindireto_custin')->where(['custosunidade_id' => $model->cust_codcusto]);
+                            $query = (new \yii\db\Query())->from('db_apl2.custosindireto_custin')->where(['custosunidade_id' => $model->cust_codcusto]);
                             $totalCustoIndireto = $query->sum('custin_custoindireto');
 
                             //Busca no banco o quantitativo de linhas da porcentagem
@@ -222,7 +222,7 @@ class CustosunidadeController extends Controller
                             $valorTotalPorcentagem = 0;
 
                             //realiza a soma da capitação máxima de alunos
-                            $query = (new \yii\db\Query())->from('db_apl.custosindireto_custin')->where(['custosunidade_id' => $model->cust_codcusto]);
+                            $query = (new \yii\db\Query())->from('db_apl2.custosindireto_custin')->where(['custosunidade_id' => $model->cust_codcusto]);
                             $totalCapmaximo = $query->sum('custin_capmaximo');
              
                             //busca pelas despesas cadastradas para cada custo da unidade
@@ -242,11 +242,11 @@ class CustosunidadeController extends Controller
                             $modelCustosIndireto->save();
 
                             //realiza a soma da porcentagem
-                            $query = (new \yii\db\Query())->from('db_apl.custosindireto_custin')->where(['custosunidade_id' => $model->cust_codcusto]);
+                            $query = (new \yii\db\Query())->from('db_apl2.custosindireto_custin')->where(['custosunidade_id' => $model->cust_codcusto]);
                             $totalPorcentagem = $query->sum('custin_porcentagem');
 
                             //realiza a soma do custo indireto
-                            $query = (new \yii\db\Query())->from('db_apl.custosindireto_custin')->where(['custosunidade_id' => $model->cust_codcusto]);
+                            $query = (new \yii\db\Query())->from('db_apl2.custosindireto_custin')->where(['custosunidade_id' => $model->cust_codcusto]);
                             $totalCustoIndireto = $query->sum('custin_custoindireto');
 
                             //Busca no banco o quantitativo de linhas da porcentagem

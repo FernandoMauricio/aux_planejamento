@@ -122,7 +122,7 @@ class MaterialCopias extends \yii\db\ActiveRecord
     //Busca dados de segmentos e tipos de ação vinculados aos planos de cursos
     public static function getCentroCustoSubCat($cat_id, $subcat_id) {
         $session = Yii::$app->session;
-        $data=\app\models\cadastros\CentroCusto::find()
+        $data=\app\models\cadastros\Centrocusto::find()
        ->where(['cen_codsegmento'=>$cat_id, 'cen_codtipoacao'=> $subcat_id, 'cen_codano' => date('Y'), 'cen_codunidade' => $session['sess_codunidade']])
        ->select(['cen_centrocustoreduzido AS id','cen_centrocustoreduzido AS name'])->asArray()->all();
 

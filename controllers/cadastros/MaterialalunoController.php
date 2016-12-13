@@ -100,7 +100,7 @@ class MaterialalunoController extends Controller
 
         //--------insere em massa os materiais de aluno exportados do MXM
         Yii::$app->db->createCommand()
-            ->batchInsert('db_apl.materialaluno_matalu', ['matalu_cod','matalu_descricao', 'matalu_unidade', 'matalu_valor', 'matalu_status'], $data)
+            ->batchInsert('db_apl2.materialaluno_matalu', ['matalu_cod','matalu_descricao', 'matalu_unidade', 'matalu_valor', 'matalu_status'], $data)
             ->execute();
         
         //-------atualiza os planos já criados com os valores de materiais de aluno atuais

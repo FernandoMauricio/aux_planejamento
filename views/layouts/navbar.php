@@ -15,7 +15,7 @@ use kartik\nav\NavX;
         'options' => ['class' => 'navbar-inverse navbar-fixed-top'],
     ]);
 
-    if($session['sess_codunidade'] == 51){ //ÁREA DO GPO
+    if($session['sess_codunidade'] == 51 && $session['sess_responsavelsetor'] == 1){ //ÁREA GERENTE DO GPO 
 
         echo NavX::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
@@ -71,12 +71,9 @@ use kartik\nav\NavX;
             'items' => [
                          ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
                                      '<li class="divider"></li>',
-                            ['label' => 'Cadastros', 'items' => [
-                                ['label' => 'Tipos de Acabamento', 'url' => ['/solicitacoes/acabamento/index']],
-
+                            ['label' => 'Administração', 'items' => [
+                                ['label' => 'Solicitações em aprovação', 'url' => ['/solicitacoes/material-copias-aut-gerencia/index']],
                             ]],
-
-
                      ],
             ],
 
@@ -130,6 +127,78 @@ use kartik\nav\NavX;
         ],
     ]);
 
+     }else if($session['sess_codunidade'] == 51) { //ÁREA USUÁRIOS DO GPO
+
+        echo NavX::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+
+            'items' => [
+                ['label' => 'Home', 'url' => ['/site/index']],
+
+                [
+                'label' => 'Repositório',
+                'items' => [
+                             ['label' => 'Materiais Didáticos', 'url' => ['/repositorio/repositorio-materiais/index']],
+                                         '<li class="divider"></li>',
+                                ['label' => 'Cadastros', 'items' => [
+                                      ['label' => 'Categoria', 'url' => ['/repositorio/categoria/index']],
+                                      ['label' => 'Editora', 'url' => ['/repositorio/editora/index']],
+                                      ['label' => 'Tipo de Material', 'url' => ['/repositorio/tipomaterial/index']],
+                                ]],
+
+                           ],
+                ],
+
+                [
+                'label' => 'Plano de Ação',
+                'items' => [
+                             ['label' => 'Cadastro do Plano', 'url' => ['/planos/planodeacao/index']],
+                                         '<li class="divider"></li>',
+                                ['label' => 'Cadastros', 'items' => [
+                                    ['label' => 'Material do Aluno', 'url' => ['/cadastros/materialaluno/index']],
+                                    ['label' => 'Equipamentos / Utensílios', 'url' => ['/cadastros/estruturafisica/index']],
+                                    '<li class="divider"></li>',
+                                    ['label' => 'Material de Consumo', 'url' => ['/cadastros/materialconsumo/index']],
+
+                                ]],
+
+                         ],
+                ],
+
+                [
+                'label' => 'Solicitações de Material',
+                'items' => [
+                             ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
+                                         '<li class="divider"></li>',
+                                ['label' => 'Administração', 'items' => [
+                                    ['label' => 'Solicitações em aprovação', 'url' => ['/solicitacoes/material-copias-aut-gerencia/index']],
+                                         '<li class="divider"></li>',
+                                    ['label' => 'Solicitações Pendentes', 'url' => ['/solicitacoes/material-copias-pendentes/index']],
+                                    ['label' => 'Solicitações Aprovadas', 'url' => ['/solicitacoes/material-copias-aprovadas/index']],
+                                    ['label' => 'Solicitações Encerradas', 'url' => ['/solicitacoes/material-copias-encerradas/index']],
+                                ]],
+                                ['label' => 'Cadastros', 'items' => [
+                                    ['label' => 'Tipos de Acabamento', 'url' => ['/solicitacoes/acabamento/index']],
+
+                                ]],
+
+
+                         ],
+                ],
+
+                [
+                'label' => 'Usuário (' . ucwords(strtolower($session['sess_nomeusuario'])) . ')',
+                'items' => [
+                             '<li class="dropdown-header">Área Usuário</li>',
+                                    //['label' => 'Alterar Senha', 'url' => ['usuario-usu/update', 'id' => $sess_codusuario]],
+                                    //['label' => 'Versões Anteriores', 'url' => ['/site/versao']],
+                                    ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
+                        
+                            ],
+                ],
+            ],
+        ]);
+
     }else if($session['sess_codunidade'] == 11) { //ÁREA DA DEP
 
     echo NavX::widget([
@@ -177,7 +246,6 @@ use kartik\nav\NavX;
                                 ['label' => 'Solicitações em aprovação', 'url' => ['/solicitacoes/material-copias-aut-gerencia/index']],
                                      '<li class="divider"></li>',
                                 ['label' => 'Solicitações Pendentes', 'url' => ['/solicitacoes/material-copias-pendentes/index']],
-                                ['label' => 'Solicitações Aprovadas', 'url' => ['/solicitacoes/material-copias-aprovadas/index']],
                                 ['label' => 'Solicitações Encerradas', 'url' => ['/solicitacoes/material-copias-encerradas/index']],
                             ]],
                             ['label' => 'Cadastros', 'items' => [
@@ -193,8 +261,6 @@ use kartik\nav\NavX;
             'label' => 'Usuário (' . ucwords(strtolower($session['sess_nomeusuario'])) . ')',
             'items' => [
                          '<li class="dropdown-header">Área Usuário</li>',
-                                //['label' => 'Alterar Senha', 'url' => ['usuario-usu/update', 'id' => $sess_codusuario]],
-                                //['label' => 'Versões Anteriores', 'url' => ['/site/versao']],
                                 ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
                     
                         ],
@@ -245,6 +311,39 @@ use kartik\nav\NavX;
                                 ['label' => 'PAAR', 'url' => ['relatorios/relatorios-paar/gerar-relatorio']],
                                 ['label' => 'Relatório Geral', 'url' => ['relatorios/relatorio-geral/gerar-relatorio']],
                                 ['label' => 'Modelo B', 'url' => ['relatorios/relatorio-modelo-b/gerar-relatorio']],
+                            ]],
+                     ],
+            ],
+
+            [
+            'label' => 'Usuário (' . ucwords(strtolower($session['sess_nomeusuario'])) . ')',
+            'items' => [
+                         '<li class="dropdown-header">Área Usuário</li>',
+                                //['label' => 'Alterar Senha', 'url' => ['usuario-usu/update', 'id' => $sess_codusuario]],
+                                //['label' => 'Versões Anteriores', 'url' => ['/site/versao']],
+                                ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
+                    
+                        ],
+            ],
+        ],
+    ]);
+
+    }else if($session['sess_codunidade'] == 12) {//ÁREA DA REPROGRAFIA - GMT
+
+    echo NavX::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+
+        'items' => [
+            ['label' => 'Home', 'url' => ['/site/index']],
+
+            [
+            'label' => 'Solicitações de Material',
+            'items' => [
+                         ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
+                                     '<li class="divider"></li>',
+                            ['label' => 'Administração', 'items' => [
+                                ['label' => 'Solicitações Aprovadas', 'url' => ['/solicitacoes/material-copias-aprovadas/index']],
+                                ['label' => 'Solicitações Encerradas', 'url' => ['/solicitacoes/material-copias-encerradas/index']],
                             ]],
                      ],
             ],

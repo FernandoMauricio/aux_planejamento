@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
         $session = Yii::$app->session;
-        if($session['sess_codunidade'] == 11) { //ÁREA DA DEP
+        if($session['sess_codunidade'] == 51) { //ÁREA DO GPO
     ?>
             <p>
                 <?= Html::a('Nova', ['create'], ['class' => 'btn btn-success']) ?>

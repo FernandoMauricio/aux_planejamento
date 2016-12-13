@@ -130,10 +130,10 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 'options' => ['width' => '5%'],
                 'buttons' => [
 
-                //Situação 1 = Em Elaboração / 2 = Para Correção / 7 = Aguardando Envio Planejamento
+                //Só aparecerá para editar caso o usuário seja da DEP
                 'update' => function ($url, $model) {
                     $session = Yii::$app->session;
-                    if($session['sess_codunidade'] == 17){
+                    if($session['sess_codunidade'] == 11){
                     return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
                                 'title' => Yii::t('app', 'Editar Plano'),
                     ]);

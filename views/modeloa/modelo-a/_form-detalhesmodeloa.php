@@ -63,7 +63,7 @@ use yii\helpers\Url;
                 <tr class="warning kv-edit-hidden" style="border-top: #dedede">
                <?php
                    //somatória das despesas do tipo 1
-                   $query = (new \yii\db\Query())->from('db_apl.detalhesmodeloa_deta')->where(['deta_codtipo' => 1, 'deta_codmodelo' => $model->moda_codmodelo]);
+                   $query = (new \yii\db\Query())->from('db_apl2.detalhesmodeloa_deta')->where(['deta_codtipo' => 1, 'deta_codmodelo' => $model->moda_codmodelo]);
                    $despesascorrentes = $query->sum('deta_dotacaofinal');
                ?>
                   <th colspan="5" style="text-align: right;">Total Despesas de Correntes</th>
@@ -72,7 +72,7 @@ use yii\helpers\Url;
                 <tr class="warning kv-edit-hidden" style="border-top: #dedede">
                <?php
                    //somatória das despesas do tipo 2
-                   $query = (new \yii\db\Query())->from('db_apl.detalhesmodeloa_deta')->where(['deta_codtipo' => 2, 'deta_codmodelo' => $model->moda_codmodelo]);
+                   $query = (new \yii\db\Query())->from('db_apl2.detalhesmodeloa_deta')->where(['deta_codtipo' => 2, 'deta_codmodelo' => $model->moda_codmodelo]);
                    $despesascapital = $query->sum('deta_dotacaofinal');
                ?>
                   <th colspan="5" style="text-align: right;">Total Despesas de Capital</th>
@@ -81,7 +81,7 @@ use yii\helpers\Url;
                 <tr class="warning kv-edit-hidden" style="border-top: #dedede">
                <?php
                    //somatória total das despesas
-                   $query = (new \yii\db\Query())->from('db_apl.detalhesmodeloa_deta')->where(['deta_codmodelo' => $model->moda_codmodelo]);
+                   $query = (new \yii\db\Query())->from('db_apl2.detalhesmodeloa_deta')->where(['deta_codmodelo' => $model->moda_codmodelo]);
                    $deta_dotacaofinal = $query->sum('deta_dotacaofinal');
                ?>
                   <th colspan="5" style="text-align: right;">Total Dotação Final</th>

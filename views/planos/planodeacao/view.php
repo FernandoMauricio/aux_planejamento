@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 //RESGATANDO AS INFORMAÇÕES
 $id = $model->plan_codplano;
-
+$session = Yii::$app->session;
 ?>
 <div class="planodeacao-view">
 <?php
@@ -336,7 +336,7 @@ echo DetailView::widget([
             <tr>
                <?php
                //somatória de Quantidade * Valor de todas as linhas
-               $query = (new \yii\db\Query())->from('db_apl.plano_materialconsumo')->where(['planodeacao_cod' => $id]);
+               $query = (new \yii\db\Query())->from('db_apl2.plano_materialconsumo')->where(['planodeacao_cod' => $id]);
                $sum = $query->sum('planmatcon_valor*planmatcon_quantidade');
                ?>
                <tr class="warning kv-edit-hidden" style="border-top: #dedede">
@@ -389,7 +389,7 @@ echo DetailView::widget([
 
                <?php
                //somatória de Quantidade * Valor de todas as linhas
-               $query = (new \yii\db\Query())->from('db_apl.plano_materialaluno')->where(['planodeacao_cod' => $id]);
+               $query = (new \yii\db\Query())->from('db_apl2.plano_materialaluno')->where(['planodeacao_cod' => $id]);
                $sum = $query->sum('planmatalu_valor*planmatalu_quantidade');
                ?>
                <th colspan="12" style="color:red"><?php echo 'R$ ' . number_format($sum, 2, ',', '.') ?></th>
