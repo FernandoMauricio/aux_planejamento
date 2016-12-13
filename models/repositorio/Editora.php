@@ -49,7 +49,7 @@ class Editora extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'edi_codeditora' => 'Edi Codeditora',
+            'edi_codeditora' => 'Código',
             'edi_descricao' => 'Descrição',
             'edi_status' => 'Situação',
         ];

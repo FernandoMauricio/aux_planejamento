@@ -15,7 +15,7 @@ use kartik\nav\NavX;
         'options' => ['class' => 'navbar-inverse navbar-fixed-top'],
     ]);
 
-    if($session['sess_codunidade'] == 2){ //ÁREA DO GPO 51
+    if($session['sess_codunidade'] == 51){ //ÁREA DO GPO
 
         echo NavX::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
@@ -30,7 +30,7 @@ use kartik\nav\NavX;
                          ['label' => 'Nivel', 'url' => ['/cadastros/nivel/index']],
                          ['label' => 'Eixo', 'url' => ['/cadastros/eixo/index']],
                          ['label' => 'Segmento', 'url' => ['/cadastros/segmento/index']],
-                         ['label' => 'Tipo', 'url' => ['/cadastros/tipo/index']],
+                         ['label' => 'Tipos de Ação', 'url' => ['/cadastros/tipo/index']],
                           '<li class="divider"></li>',
                          ['label' => 'Centro de Custo', 'url' => ['/cadastros/centrocusto/index']],
                        ],
@@ -117,6 +117,16 @@ use kartik\nav\NavX;
                      ],
             ],
 
+            [
+            'label' => 'Usuário (' . ucwords(strtolower($session['sess_nomeusuario'])) . ')',
+            'items' => [
+                         '<li class="dropdown-header">Área Usuário</li>',
+                                //['label' => 'Alterar Senha', 'url' => ['usuario-usu/update', 'id' => $sess_codusuario]],
+                                //['label' => 'Versões Anteriores', 'url' => ['/site/versao']],
+                                ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
+                    
+                        ],
+            ],
         ],
     ]);
 
@@ -178,6 +188,17 @@ use kartik\nav\NavX;
 
                      ],
             ],
+
+            [
+            'label' => 'Usuário (' . ucwords(strtolower($session['sess_nomeusuario'])) . ')',
+            'items' => [
+                         '<li class="dropdown-header">Área Usuário</li>',
+                                //['label' => 'Alterar Senha', 'url' => ['usuario-usu/update', 'id' => $sess_codusuario]],
+                                //['label' => 'Versões Anteriores', 'url' => ['/site/versao']],
+                                ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
+                    
+                        ],
+            ],
         ],
     ]);
 
@@ -228,6 +249,16 @@ use kartik\nav\NavX;
                      ],
             ],
 
+            [
+            'label' => 'Usuário (' . ucwords(strtolower($session['sess_nomeusuario'])) . ')',
+            'items' => [
+                         '<li class="dropdown-header">Área Usuário</li>',
+                                //['label' => 'Alterar Senha', 'url' => ['usuario-usu/update', 'id' => $sess_codusuario]],
+                                //['label' => 'Versões Anteriores', 'url' => ['/site/versao']],
+                                ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
+                    
+                        ],
+            ],
         ],
     ]);
 
@@ -253,6 +284,16 @@ use kartik\nav\NavX;
                      ],
             ],
             
+            [
+            'label' => 'Usuário (' . ucwords(strtolower($session['sess_nomeusuario'])) . ')',
+            'items' => [
+                         '<li class="dropdown-header">Área Usuário</li>',
+                                //['label' => 'Alterar Senha', 'url' => ['usuario-usu/update', 'id' => $sess_codusuario]],
+                                //['label' => 'Versões Anteriores', 'url' => ['/site/versao']],
+                                ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
+                    
+                        ],
+            ],
         ],
     ]);
 

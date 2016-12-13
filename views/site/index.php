@@ -3,51 +3,40 @@
 /* @var $this yii\web\View */
 
 $this->title = 'Auxílio ao Planejamento';
+$session = Yii::$app->session;
+$nome_user    = $session['sess_nomeusuario'];
 ?>
+
 <div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+        <h1 class="text-center"> Auxílio ao Planejamento</h1>
+            <div class="body-content">
+                <div class="container">
+                            <h3>Bem vindo(a), <?php echo $nome_user = ucwords(strtolower($nome_user))?>!</h3>
+                </div>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
+            <div class="panel panel-primary">
+            <div class="panel-heading">
+                        <i class="glyphicon glyphicon-star-empty"></i> Resumo do Módulo - Versão 1.0 - Publicado em 15/12/2016
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <div class="panel-body">
+              <h4><strong style="color: #337ab7;">Implementações</strong></h4>
+                        <h5><i class="glyphicon glyphicon-tag"></i><strong> Cadastros</strong></h5>
+                            <h5>- Cadastro de Materiais Didáticos </h5>
+                            <h5>- Cadastro de Planos </h5>
+                            <h5>- Cadastro de Planilhas de Curso (cadastro realizado pelo gerente imediato da unidade) </h5>
+                            <h5>- Cadastro de Planilhas de Precificação </h5><br>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+                            <h5><i class="glyphicon glyphicon-tag"></i><strong> Modelo A</strong></h5>
+                            <h5>- Geração do Modelo A</h5>
+                            <h5>- Atualização e Impressão do Modelo A</h5><br>
+
+                            <h5><i class="glyphicon glyphicon-tag"></i><strong> Solicitações de Cópias</strong></h5>
+                            <h5>- Solicitação e Acompanhamento de Cópias de Material (Apostilas)</h5><br>
+
+                            <h5><i class="glyphicon glyphicon-tag"></i><strong> Relatórios</strong></h5>
+                            <h5>- Visualizar Relatórios (Relatórios PAAR, MODELO B e Relatório Geral)</h5>
+                </div>
             </div>
-        </div>
 
-    </div>
 </div>
