@@ -23,6 +23,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                             'formFields' => [
                                                 'id',
                                                 'planima_titulo',
+                                                'planima_codmxm',
                                                 'planima_valor',
                                                 'planima_arquivo',
                                                 'planima_tipomaterial',
@@ -57,6 +58,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         <?= $form->field($modelPlaniMaterial, "[{$i}]planima_nivelUC")->textInput(['readonly'=> true]) ?>
                                     </div>
 
+                                    <div class="col-sm-2">
+                                        <?= $form->field($modelPlaniMaterial, "[{$i}]planima_codmxm")->textInput(['readonly'=> true]) ?>
+                                    </div>
+
                                     <div class="col-sm-6">
                                     	<?= $form->field($modelPlaniMaterial, "[{$i}]planima_titulo")->textInput(['readonly'=> true]) ?>
                                     </div>
@@ -77,7 +82,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         <?= $form->field($modelPlaniMaterial, "[{$i}]planima_editora")->textInput(['readonly'=> true]) ?>
                                     </div>
 
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-6">
                                         <?= $form->field($modelPlaniMaterial, "[{$i}]planima_observacao")->textInput(['readonly'=> true]) ?>
                                     </div>
 

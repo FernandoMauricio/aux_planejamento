@@ -236,8 +236,9 @@ echo DetailView::widget([
     <thead>
     <tr class="info"><th colspan="12">SEÇÃO 3: Materiais Didáticos</th></tr>
       <tr>
-        <th>Descrição</th>
         <th>Nivel UC</th>
+        <th>Cód MXM</th>
+        <th>Descrição</th>
         <th>Valor Unitário</th>
         <th>Tipo Material</th>
         <th>Editora</th>
@@ -254,6 +255,7 @@ echo DetailView::widget([
              foreach ($modelsPlanoMaterial as $modelPlanoMaterial) {
 
                 $nivel_uc           = $modelPlanoMaterial["nivel_uc"];
+                $plama_codmxm       = $modelPlanoMaterial["plama_codmxm"];
                 $plama_titulo       = $modelPlanoMaterial["plama_titulo"];
                 $plama_valor        = $modelPlanoMaterial["plama_valor"];
                 $plama_tipomaterial = $modelPlanoMaterial["plama_tipomaterial"];
@@ -274,8 +276,9 @@ echo DetailView::widget([
 
         ?>
         <tr>
-        <td><?php echo $plama_titulo ?></td>
         <td><?php echo $nivuc_descricao ?></td>
+        <td><?php echo $plama_codmxm ?></td>
+        <td><?php echo $plama_titulo ?></td>
         <td><?php echo 'R$ ' . number_format($plama_valor, 2, ',', '.') ?></td>
         <td><?php echo $plama_tipomaterial ?></td>
         <td><?php echo $plama_editora ?></td>

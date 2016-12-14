@@ -10,8 +10,9 @@ use yii\helpers\Html;
          <caption> Listagem de Materiais Didáticos</caption>
           <thead>
             <tr>
-              <th>Descrição</th>
               <th>Nivel UC</th>
+              <th>Cód. MXM</th>
+              <th>Descrição</th>
               <th>Valor Unitário</th>
               <th>Tipo Material</th>
               <th>Editora</th>
@@ -28,8 +29,9 @@ use yii\helpers\Html;
                ?>
                <?php foreach ($modelsPlaniMaterial as $i => $modelPlaniMaterial): ?>
             <tr>
-                <td><?= $modelPlaniMaterial->planima_titulo ?></td>
                 <td><?= $modelPlaniMaterial->planima_nivelUC ?></td>
+                <td><?= $modelPlaniMaterial->planima_codmxm ?></td>
+                <td><?= $modelPlaniMaterial->planima_titulo ?></td>
                 <td><?= 'R$ ' . number_format($modelPlaniMaterial->planima_valor, 2, ',', '.') ?></td>
                 <td><?= $modelPlaniMaterial->planima_tipomaterial ?></td>
                 <td><?= $modelPlaniMaterial->planima_editora ?></td>

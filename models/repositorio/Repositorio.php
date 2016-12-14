@@ -49,7 +49,7 @@ class Repositorio extends \yii\db\ActiveRecord
         return [
             [['rep_titulo', 'rep_categoria', 'rep_tipo', 'rep_elementodespesa', 'rep_editora', 'rep_sobre', 'rep_codunidade', 'rep_codcolaborador', 'rep_data', 'rep_status'], 'required'],
             [['rep_valor'], 'number'],
-            [['rep_codunidade', 'rep_codcolaborador', 'rep_status', 'rep_qtdoriginais'], 'integer'],
+            [['rep_codunidade', 'rep_codmxm', 'rep_codcolaborador', 'rep_status', 'rep_qtdoriginais'], 'integer'],
             [['rep_data', 'image'], 'safe'],
             [['file'], 'file','checkExtensionByMimeType'=>false, 'extensions' => 'pdf, zip, rar, doc, docx'],
             [['image'], 'file', 'extensions'=>'jpg, gif, png'],
@@ -70,6 +70,7 @@ class Repositorio extends \yii\db\ActiveRecord
         return [
             'rep_codrepositorio' => 'Código',
             'rep_titulo' => 'Título',
+            'rep_codmxm' => 'Cód. MXM',
             'rep_qtdoriginais' => 'QTD Originais',
             'rep_categoria' => 'Categoria',
             'rep_tipo' => 'Tipo de Material',

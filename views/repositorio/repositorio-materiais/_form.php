@@ -21,12 +21,18 @@ use yii\helpers\Json;
 
 <div class="row">
 
-    <div class="col-md-8">
+    <div class="col-md-6">
 
     <?= $form->field($model, 'rep_titulo')->textInput(['maxlength' => true]) ?>
 
     </div>
 
+
+    <div class="col-md-2">
+
+    <?php echo $form->field($model, 'rep_codmxm')->textInput() ?>
+
+    </div>
 
     <div class="col-md-2">
 

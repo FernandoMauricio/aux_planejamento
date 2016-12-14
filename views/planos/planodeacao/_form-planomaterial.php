@@ -24,6 +24,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                 'id',
                                                 'nivel_uc',
                                                 'plama_codrepositorio',
+                                                'plama_codmxm',
                                                 'plama_valor',
                                                 'plama_tipomaterial',
                                                 'plama_editora',
@@ -55,7 +56,20 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     }
                                 ?>
 
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-2">
+                                    <?php
+                                        $nivelListUC=ArrayHelper::map(app\models\planos\NivelUnidadesCurriculares::find()->all(), 'nivuc_id', 'nivuc_descricao' ); 
+                                                    echo $form->field($modelPlanoMaterial, "[{$i}]nivel_uc")->widget(Select2::classname(), [
+                                                            'data' =>  $nivelListUC,
+                                                            'options' => ['placeholder' => 'Selecione o Nivel da UC...'],
+                                                            'pluginOptions' => [
+                                                                    'allowClear' => true
+                                                                ],
+                                                            ]);
+                                    ?>
+                                    </div>
+                                    
+                                    <div class="col-sm-8">
                                     <?php
                                          $data_repositorio = ArrayHelper::map($repositorio, 'rep_codrepositorio', 'rep_titulo');
                                          echo $form->field($modelPlanoMaterial, "[{$i}]plama_codrepositorio")->widget(Select2::classname(), [
@@ -69,13 +83,15 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                                 var $divPanelBody =  $(select).parent().parent().parent();
 
                                                                 var $inputTitulo = $divPanelBody.find("input:eq(0)");
-                                                                var $inputValor = $divPanelBody.find("input:eq(1)");
-                                                                var $inputTipoMaterial = $divPanelBody.find("input:eq(2)");
-                                                                var $inputEditora = $divPanelBody.find("input:eq(3)");
-                                                                var $inputArquivo = $divPanelBody.find("input:eq(5)");
+                                                                var $inputCodMXM = $divPanelBody.find("input:eq(1)");
+                                                                var $inputValor = $divPanelBody.find("input:eq(2)");
+                                                                var $inputTipoMaterial = $divPanelBody.find("input:eq(3)");
+                                                                var $inputEditora = $divPanelBody.find("input:eq(4)");
+                                                                var $inputArquivo = $divPanelBody.find("input:eq(6)");
 
 
                                                                 $inputTitulo.val(data.rep_titulo);
+                                                                $inputCodMXM.val(data.rep_codmxm);
                                                                 $inputValor.val(data.rep_valor);
                                                                 $inputTipoMaterial.val(data.rep_tipo);
                                                                 $inputEditora.val(data.rep_editora);
@@ -91,16 +107,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     </div>
 
                                     <div class="col-sm-2">
-                                    <?php
-                                        $nivelListUC=ArrayHelper::map(app\models\planos\NivelUnidadesCurriculares::find()->all(), 'nivuc_id', 'nivuc_descricao' ); 
-                                                    echo $form->field($modelPlanoMaterial, "[{$i}]nivel_uc")->widget(Select2::classname(), [
-                                                            'data' =>  $nivelListUC,
-                                                            'options' => ['placeholder' => 'Selecione o Nivel da UC...'],
-                                                            'pluginOptions' => [
-                                                                    'allowClear' => true
-                                                                ],
-                                                            ]);
-                                    ?>
+                                        <?= $form->field($modelPlanoMaterial, "[{$i}]plama_codmxm")->textInput(['readonly'=> true]) ?>
                                     </div>
 
                                     <div class="col-sm-2">

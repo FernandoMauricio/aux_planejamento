@@ -97,6 +97,8 @@ $id = $model->plan_codplano;
     <thead>
     <tr class="info"><th colspan="12">SEÇÃO 3: Materiais Didáticos</th></tr>
       <tr>
+        <th>Nivel UC</th>
+        <th>Cód MXM</th>
         <th>Descrição</th>
         <th>Valor Unitário</th>
         <th>Tipo Material</th>
@@ -112,7 +114,9 @@ $id = $model->plan_codplano;
              $query_planoMaterial = "SELECT * FROM planomaterial_plama WHERE plama_codplano = '".$id."' ORDER BY plama_tipoplano ASC";
              $modelsPlanoMaterial = PlanoMaterial::findBySql($query_planoMaterial)->all(); 
              foreach ($modelsPlanoMaterial as $modelPlanoMaterial) {
-                
+              
+                $nivel_uc           = $modelPlanoMaterial["nivel_uc"];
+                $plama_codmxm       = $modelPlanoMaterial["plama_codmxm"];
                 $plama_titulo       = $modelPlanoMaterial["plama_titulo"];
                 $plama_valor        = $modelPlanoMaterial["plama_valor"];
                 $plama_tipomaterial = $modelPlanoMaterial["plama_tipomaterial"];
@@ -121,8 +125,19 @@ $id = $model->plan_codplano;
                 $plama_observacao   = $modelPlanoMaterial["plama_observacao"];
                 $valorTotal        += $modelPlanoMaterial["plama_valor"]; //somatório de todos os valores dos itens
 
+                //busca pelos níveis das unidades curriculares
+                $query_nivelUC = "SELECT nivuc_descricao FROM `nivelunidcurriculares_nivuc`, `unidadescurriculares_uncu` WHERE `nivuc_id` = '".$nivel_uc."' ";
+                $modelsNivelUC = NivelUnidadesCurriculares::findBySql($query_nivelUC)->all(); 
+
+                foreach ($modelsNivelUC as $modelNivelUC) {
+
+                 $nivuc_descricao   = $modelNivelUC["nivuc_descricao"];
+              }
+
         ?>
         <tr>
+        <td><?php echo $nivuc_descricao ?></td>
+        <td><?php echo $plama_codmxm ?></td>
         <td><?php echo $plama_titulo ?></td>
         <td><?php echo 'R$ ' . number_format($plama_valor, 2, ',', '.') ?></td>
         <td><?php echo $plama_tipomaterial ?></td>
