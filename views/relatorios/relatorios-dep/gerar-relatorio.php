@@ -10,4 +10,8 @@ $this->params['breadcrumbs'][] = 'Relatórios';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h2>Relatório em Construção</h2>
+<h3>Relatório Segmento - Plano - Materiais:
+
+<?= Html::a('Gerar Excel', ['segmento-plano-material'], ['class' => 'btn btn-primary']) ?>
+	
+</h3>

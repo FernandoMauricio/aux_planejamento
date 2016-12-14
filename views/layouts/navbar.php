@@ -105,7 +105,12 @@ use kartik\nav\NavX;
                                 ['label' => 'Listagem do Modelo A', 'url' => ['/modeloa/modelo-a/index']],
 
                             ]],
-                                     '<li class="divider"></li>',
+                     ],
+            ],
+
+            [
+            'label' => 'Relatórios',
+            'items' => [
                             ['label' => 'Relatórios', 'items' => [
                                 ['label' => 'PAAR', 'url' => ['relatorios/relatorios-paar/gerar-relatorio']],
                                 ['label' => 'Relatório Geral', 'url' => ['relatorios/relatorio-geral/gerar-relatorio']],
@@ -214,7 +219,12 @@ use kartik\nav\NavX;
                                 ['label' => 'Listagem do Modelo A', 'url' => ['/modeloa/modelo-a/index']],
 
                             ]],
-                                     '<li class="divider"></li>',
+                     ],
+            ],
+
+            [
+            'label' => 'Relatórios',
+            'items' => [
                             ['label' => 'Relatórios', 'items' => [
                                 ['label' => 'PAAR', 'url' => ['relatorios/relatorios-paar/gerar-relatorio']],
                                 ['label' => 'Relatório Geral', 'url' => ['relatorios/relatorio-geral/gerar-relatorio']],
@@ -296,6 +306,18 @@ use kartik\nav\NavX;
             ],
 
             [
+            'label' => 'Relatórios',
+            'items' => [
+                            ['label' => 'Relatórios', 'items' => [
+                                ['label' => 'PAAR', 'url' => ['relatorios/relatorios-paar/gerar-relatorio']],
+                                ['label' => 'Relatório Geral', 'url' => ['relatorios/relatorio-geral/gerar-relatorio']],
+                                ['label' => 'Modelo B', 'url' => ['relatorios/relatorio-modelo-b/gerar-relatorio']],
+                                ['label' => 'Relatórios DEP', 'url' => ['relatorios/relatorios-dep/gerar-relatorio']],
+                            ]],
+                     ],
+            ],
+
+            [
             'label' => 'Usuário (' . ucwords(strtolower($session['sess_nomeusuario'])) . ')',
             'items' => [
                          '<li class="dropdown-header">Área Usuário</li>',
@@ -344,7 +366,12 @@ use kartik\nav\NavX;
                                 ['label' => 'Listagem do Modelo A', 'url' => ['/modeloa/modelo-a/index']],
 
                             ]],
-                                     '<li class="divider"></li>',
+                     ],
+            ],
+
+            [
+            'label' => 'Relatórios',
+            'items' => [
                             ['label' => 'Relatórios', 'items' => [
                                 ['label' => 'PAAR', 'url' => ['relatorios/relatorios-paar/gerar-relatorio']],
                                 ['label' => 'Relatório Geral', 'url' => ['relatorios/relatorio-geral/gerar-relatorio']],
@@ -421,7 +448,19 @@ use kartik\nav\NavX;
                          ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
                      ],
             ],
-            
+
+            [
+            'label' => 'Relatórios',
+            'items' => [
+                            ['label' => 'Relatórios', 'items' => [
+                                ['label' => 'PAAR', 'url' => ['relatorios/relatorios-paar/gerar-relatorio']],
+                                ['label' => 'Relatório Geral', 'url' => ['relatorios/relatorio-geral/gerar-relatorio']],
+                                ['label' => 'Modelo B', 'url' => ['relatorios/relatorio-modelo-b/gerar-relatorio']],
+                                ['label' => 'Relatórios DEP', 'url' => ['relatorios/relatorios-dep/gerar-relatorio']],
+                            ]],
+                     ],
+            ],
+               
             [
             'label' => 'Usuário (' . ucwords(strtolower($session['sess_nomeusuario'])) . ')',
             'items' => [

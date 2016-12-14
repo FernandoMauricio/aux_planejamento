@@ -6,6 +6,7 @@ use Yii;
 use app\models\base\Unidade;
 use app\models\cadastros\Ano;
 use app\models\relatorios\RelatoriosDep;
+use app\models\planos\Planodeacao;
 use app\models\planilhas\Planilhadecurso;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -20,8 +21,6 @@ class RelatoriosDepController extends Controller
     public function behaviors()
     {
 
-        $this->AccessAllow(); //Irá ser verificado se o usuário está logado no sistema
-
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -31,65 +30,92 @@ class RelatoriosDepController extends Controller
             ],
         ];
     }
-    
+
     public function actionGerarRelatorio()
     {
-	    $model = new RelatoriosDep();
+    
+        return $this->render('/relatorios/relatorios-dep/gerar-relatorio');
 
-	    $unidades = Unidade::find()->where(['uni_codsituacao' => 1])->orderBy('uni_nomeabreviado')->all();
-	    $ano      = Ano::find()->orderBy(['an_codano'=>SORT_DESC])->all();
-
-        if ($model->load(Yii::$app->request->post())) {
-
-                return $this->redirect(['segmento-plano-material', 'combo_unidade' => $model->relat_unidade, 'combo_ano' => $model->relat_codano]);
-        }else{
-
-	            return $this->render('/relatorios/relatorios-dep/gerar-relatorio', [
-	                'model'            => $model,
-	                'unidades'         => $unidades,
-	                'ano'              => $ano,
-	                ]);
-	        }
     }
 
-    public function actionSegmentoPlanoMaterial($combo_unidade, $combo_ano)
+    public function actionSegmentoPlanoMaterial()
     {
-       $this->layout = 'main-imprimir';
-       $combo_unidade         = $this->findModelUnidade($combo_unidade);
-       $combo_ano         = $this->findModelAnoPlanilha($combo_ano);
 
-             return $this->render('/relatorios/relatorios-dep/segmento-plano-material', [
-              'combo_unidade'         => $combo_unidade,
-              'combo_ano'         => $combo_ano, 
-              ]);
-    }
+        $objPHPExcel = new \PHPExcel();
 
-    protected function findModelUnidade($combo_unidade)
-    {
-        $queryUnidade = "SELECT placu_codunidade, placu_nomeunidade FROM planilhadecurso_placu WHERE placu_codunidade = '".$combo_unidade."'";
+        $sheet=0;
+                  
+            $objPHPExcel->setActiveSheetIndex($sheet);
 
-        $combo_unidade = Planilhadecurso::findBySql($queryUnidade)->one();
+                        $queryUnidade = "SELECT 
+                        `segmento_seg`.`seg_descricao`, 
+                        `planodeacao_plan`.`plan_codsegmento`, 
+                        `planodeacao_plan`.`plan_codplano`, 
+                        `planodeacao_plan`.`plan_descricao`, 
+                        `planomaterial_plama`.`plama_codplano`, 
+                        `planomaterial_plama`.`plama_tipoplano`,
+                        `planomaterial_plama`.`plama_codmxm`, 
+                        `planomaterial_plama`.`plama_titulo`, 
+                        `planomaterial_plama`.`plama_tipomaterial`, 
+                        `planomaterial_plama`.`plama_editora`, 
+                        `planomaterial_plama`.`plama_valor`
+                    FROM 
+                        `planodeacao_plan`
+                        INNER JOIN `segmento_seg` ON `planodeacao_plan`.`plan_codsegmento` = `segmento_seg`.`seg_codsegmento` 
+                        INNER JOIN `planomaterial_plama` ON `planodeacao_plan`.`plan_codplano` = `planomaterial_plama`.`plama_codplano`
+                    WHERE 
+                        `planodeacao_plan`.`plan_status` = 1 
+                       AND seg_codsegmento = plan_codsegmento";
 
-        return $combo_unidade;
-    }
+            $foos = Planodeacao::findBySql($queryUnidade)->all();
+               
+            //TAMANHO DAS COLUNAS  
+            $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(50);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(20);
 
-    protected function findModelAnoPlanilha($combo_ano)
-    {
-        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$combo_ano."'";
 
-        if (($combo_ano = Ano::findBySql($queryAno)->one()) !== null) {
-            return $combo_ano;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
+            //TÍTULO DAS COLUNAS
+            $objPHPExcel->getActiveSheet()->setTitle('Segmento-Plano-Material')                     
+             ->setCellValue('A1', 'SEGMENTO')
+             ->setCellValue('B1', 'CÓD. PLANO')
+             ->setCellValue('C1', 'PLANO')
+             ->setCellValue('D1', 'TIPO DE MATERIAL')
+             ->setCellValue('E1', 'CÓD. MXM')
+             ->setCellValue('F1', 'NOME DO MATERIAL')
+             ->setCellValue('G1', 'EDITORA')
+             ->setCellValue('H1', 'VALOR');
+                 
+         $row=2; //GERAÇÃO DOS DADOS A PARTIR DA LINHA 2
+         $i = 0;
+                                
+                foreach ($foos as $foo) {  
+                        
+                    $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$foo['segmento']['seg_descricao']); 
+                    $objPHPExcel->getActiveSheet()->setCellValue('B'.$row,$foo['plan_codplano']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('C'.$row,$foo['plan_descricao']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('D'.$row,$foo['planoMateriais'][$i]['plama_tipoplano']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('E'.$row,$foo['planoMateriais'][$i]['plama_codmxm']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$foo['planoMateriais'][$i]['plama_titulo']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$foo['planoMateriais'][$i]['plama_editora']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['planoMateriais'][$i]['plama_valor']);
 
-    public function AccessAllow()
-    {
-        $session = Yii::$app->session;
-        if (!isset($session['sess_codusuario']) && !isset($session['sess_codcolaborador']) && !isset($session['sess_codunidade']) && !isset($session['sess_nomeusuario']) && !isset($session['sess_coddepartamento']) && !isset($session['sess_codcargo']) && !isset($session['sess_cargo']) && !isset($session['sess_setor']) && !isset($session['sess_unidade']) && !isset($session['sess_responsavelsetor'])) 
-        {
-           return $this->redirect('http://portalsenac.am.senac.br');
-        }
+                    $row++ ;
+                }
+                     
+                    $i++ ;
+
+        header('Content-Type: application/vnd.ms-excel');
+        $filename = "Relatoio_DEP_".date("d-m-Y-His").".xls";
+        header('Content-Disposition: attachment;filename='.$filename .' ');
+        header('Cache-Control: max-age=0');
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');      
+
     }
 }

@@ -145,7 +145,7 @@ use app\models\planilhas\Planilhadecurso;
   </tr>
   <?php
 					 //EXTRAINDO AS INFORMAÇÕES DAS PLANILHAS...
-					 $query_planilhas = "SELECT plan_descricao, placu_cargahorariaarealizar,placu_quantidadealunosisentos, placu_cargahorariavivencia, placu_quantidadeturmas, placu_codeixo, placu_quantidadealunos, placu_quantidadealunospsg, placu_codplano FROM  planilhadecurso_placu, planodeacao_plan WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_quantidadealunospsg > 0 AND placu_codplano = plan_codplano AND placu_codprogramacao = '".$combotipoprogramacao['tipro_codprogramacao']."'  ORDER BY plan_descricao";
+					 $query_planilhas = "SELECT plan_descricao, placu_cargahorariaarealizar,placu_quantidadealunosisentos, placu_cargahorariavivencia, placu_quantidadeturmas, placu_codeixo, placu_quantidadealunos, placu_quantidadealunospsg, placu_codplano FROM  planilhadecurso_placu, planodeacao_plan WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_quantidadealunospsg > 0 AND placu_codplano = plan_codplano AND placu_codprogramacao = '".$combotipoprogramacao['tipro_codprogramacao']."' ORDER BY plan_descricao";
 
             $planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
                      foreach ($planilhas as $planilha) {
