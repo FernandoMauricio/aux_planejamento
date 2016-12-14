@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\detail\DetailView;
 use app\models\solicitacoes\Acabamento;
+use app\models\solicitacoes\MaterialCopiasItens;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\solicitacoes\MaterialCopias */
@@ -106,70 +107,6 @@ $attributes = [
 
                     ],
                 ],
-
-//-------------- SESSÃO 2 INFORMAÇÕES DE IMPRESSÃO
-                [
-                    'group'=>true,
-                    'label'=>'SEÇÃO 2: Informações das Impressões',
-                    'rowOptions'=>['class'=>'info']
-                ],
-
-                // [
-                //     'columns' => [
-                //         [
-                //             'attribute'=>'matc_qtoriginais', 
-                //             'displayOnly'=>true,
-                //             'valueColOptions'=>['style'=>'width:10%'],
-                //             'labelColOptions'=>['style'=>'width:10%'],
-                //         ],
-
-                //         [
-                //             'attribute'=>'matc_qtexemplares', 
-                //             'displayOnly'=>true,
-                //             'valueColOptions'=>['style'=>'width:10%'],
-                //             'labelColOptions'=>['style'=>'width:10%'],
-                //         ],
-
-
-                //     ],
-
-                // ],
-
-                [
-                    'columns' => [
-
-                        // [
-                        //     'attribute'=>'matc_mono', 
-                        //     'displayOnly'=>true,
-                        //     'valueColOptions'=>['style'=>'width:10%'],
-                        //     'labelColOptions'=>['style'=>'width:10%'],
-                        // ],
-
-                        // [
-                        //     'attribute'=>'matc_color', 
-                        //     'displayOnly'=>true,
-                        //     'valueColOptions'=>['style'=>'width:10%'],
-                        //     'labelColOptions'=>['style'=>'width:10%'],
-                        // ],
-
-                    ],
-
-                ],
-
-                [
-                    'columns' => [
-
-                        // [
-                        //     'attribute'=>'matc_qteTotal', 
-                        //     'displayOnly'=>true,
-                        //     'valueColOptions'=>['style'=>'width:75%'],
-                        //     'labelColOptions'=>['style'=>'width:0%'],
-                        // ],
-
-                    ],
-
-                ],
-
             ];
 
     echo DetailView::widget([
@@ -181,6 +118,56 @@ $attributes = [
     ]);
 
     ?>
+
+               <!-- SEÇÃO 2 INFORMAÇÕES DAS IMPRESSÕES -->
+
+  <table class="table table-condensed table-hover">
+    <thead>
+    <tr class="info"><th colspan="12">SEÇÃO 2: Informações das Impressões</th></tr>
+    </thead>
+    <thead>
+      <tr>
+        <th>Material</th>
+        <th>Qte Originais</th>
+        <th>Qte Exempalres</th>
+        <th>Qte Cópias</th>
+        <th>Mono</th>
+        <th>Color</th>
+        <th>Qte Total</th>
+        <th>Observação</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<?php
+
+  $query_itens = "SELECT * FROM materialcopias_item WHERE materialcopias_id = '".$model->matc_id."'";
+  $itensModel = MaterialCopiasItens::findBySql($query_itens)->all(); 
+  foreach ($itensModel as $itens) {
+   $item_descricao    = $itens["item_descricao"];
+   $item_qtoriginais = $itens["item_qtoriginais"];
+   $item_qtexemplares   = $itens["item_qtexemplares"];
+   $item_qteCopias    = $itens["item_qteCopias"];
+   $item_mono         = $itens["item_mono"];
+   $item_color        = $itens["item_color"];
+   $item_qteTotal     = $itens["item_qteTotal"];
+   $item_observacao   = $itens["item_observacao"];
+   ?>
+      <tr>
+        <td><?php echo $item_descricao; ?></td>
+        <td><?php echo $item_qtoriginais; ?></td>
+        <td><?php echo $item_qtexemplares; ?></td>
+        <td><?php echo $item_qteCopias; ?></td>
+        <td><?php echo $item_mono; ?></td>
+        <td><?php echo $item_color; ?></td>
+        <td><?php echo $item_qteTotal; ?></td>
+        <td><?php echo $item_observacao; ?></td>
+      </tr>
+
+    <?php } ?>
+        </tr> 
+    </tbody>
+ </table>
 
                 <!-- SESSÃO 3 SERVIÇOS DE ACABAMENTO -->
   <table class="table table-condensed table-hover">
@@ -235,16 +222,47 @@ $attributes = [
         </tr>
     </tbody>                            
   </table>
+                          <!-- CAIXA DE AUTORIZAÇÃO GERÊNCIA DO SETOR -->
+<div class="container">
+<div class="row">
+<div class="col-md-4">
+    <?php if($model->matc_ResponsavelGer != NULL){ ?>
+
+     <table class="table" colspan="2"  border="1" style="max-width: 80%;">
+        <thead>
+          <tr>
+            <th class="warning" colspan="2" style="border-top: #dedede;text-align: center;">AUTORIZAÇÃO DO SETOR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="2" style="text-align: center;">
+
+            <?php echo $model->matc_autorizadoGer ? '<span class="label label-success">AUTORIZADO</span>' : '<span class="label label-danger">NÃO AUTORIZADO</span>' ?>
+
+          </tr>
+          <tr>
+            <td colspan="2"><strong>Responsável:</strong> <?php echo $model->matc_ResponsavelGer ?></td>
+          </tr>
+          <tr>
+            <td colspan="2"><strong>Data</strong>: <?php echo date('d/m/Y à\s H:i', strtotime( $model->matc_dataGer )) ?></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <?php } ?>
+</div>
+
                         <!-- CAIXA DE AUTORIZAÇÃO DEP -->
 <div class="container">
 <div class="row">
-<div class="col-md-6">
+<div class="col-md-4">
     <?php if($model->matc_ResponsavelAut != NULL){ ?>
 
-     <table class="table" colspan="2" border="1" style="max-width: 30%; margin-left:5%">
+     <table class="table" colspan="2"  border="1" style="max-width: 80%;">
         <thead>
           <tr>
-            <th class="warning" colspan="2" style="border-top: #dedede;text-align: center;">AUTORIZAÇÃO</th>
+            <th class="warning" colspan="2" style="border-top: #dedede;text-align: center;">AUTORIZAÇÃO DEP</th>
           </tr>
         </thead>
         <tbody>
@@ -269,8 +287,8 @@ $attributes = [
 
 
     <?php if($model->matc_ResponsavelRepro != NULL){ ?>
-<div class="col-md-6">
-     <table class="table" colspan="2" border="1" style="max-width: 50%; margin-left:5%">
+<div class="col-md-4">
+     <table class="table" colspan="2"  border="1" style="max-width: 50%;">
         <thead>
           <tr>
             <th class="warning" colspan="2" style="border-top: #dedede;text-align: center;">REPROGRAFIA</th>
@@ -296,7 +314,8 @@ $attributes = [
       </div>
   </div>
 </div>
-            </div>
-        </div>
-    </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
