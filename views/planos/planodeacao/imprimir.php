@@ -2,6 +2,7 @@
 
 use kartik\detail\DetailView;
 use yii\helpers\Html;
+use app\models\planos\NivelUnidadesCurriculares;
 use app\models\planos\Unidadescurriculares;
 use app\models\planos\PlanoMaterial;
 use app\models\planos\PlanoConsumo;
