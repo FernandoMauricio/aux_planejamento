@@ -44,7 +44,7 @@ use kartik\nav\NavX;
                             ['label' => 'Cadastros', 'items' => [
                                   ['label' => 'Categoria', 'url' => ['/repositorio/categoria/index']],
                                   ['label' => 'Editora', 'url' => ['/repositorio/editora/index']],
-                                  ['label' => 'Tipo de Material', 'url' => ['/repositorio/tipomaterial/index']],
+                                  // ['label' => 'Tipo de Material', 'url' => ['/repositorio/tipomaterial/index']],
                             ]],
 
                        ],
@@ -162,7 +162,7 @@ use kartik\nav\NavX;
                             ['label' => 'Cadastros', 'items' => [
                                   ['label' => 'Categoria', 'url' => ['/repositorio/categoria/index']],
                                   ['label' => 'Editora', 'url' => ['/repositorio/editora/index']],
-                                  ['label' => 'Tipo de Material', 'url' => ['/repositorio/tipomaterial/index']],
+                                  // ['label' => 'Tipo de Material', 'url' => ['/repositorio/tipomaterial/index']],
                             ]],
 
                        ],
@@ -263,7 +263,7 @@ use kartik\nav\NavX;
                             ['label' => 'Cadastros', 'items' => [
                                   ['label' => 'Categoria', 'url' => ['/repositorio/categoria/index']],
                                   ['label' => 'Editora', 'url' => ['/repositorio/editora/index']],
-                                  ['label' => 'Tipo de Material', 'url' => ['/repositorio/tipomaterial/index']],
+                                  // ['label' => 'Tipo de Material', 'url' => ['/repositorio/tipomaterial/index']],
                             ]],
 
                        ],

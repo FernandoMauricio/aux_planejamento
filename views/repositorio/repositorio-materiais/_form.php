@@ -85,7 +85,7 @@ use yii\helpers\Json;
 
                                        var $divPanelBody = $(select).parent().parent().parent();
 
-                                       var $inputDescricao = $divPanelBody.find("input:eq(4)");
+                                       var $inputDescricao = $divPanelBody.find("input:eq(5)");
                                        
                                        $inputDescricao.val(data.tip_elementodespesa_id);
                                        

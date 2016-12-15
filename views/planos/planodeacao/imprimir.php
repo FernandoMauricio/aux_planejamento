@@ -98,7 +98,7 @@ $id = $model->plan_codplano;
     <thead>
     <tr class="info"><th colspan="12">SEÇÃO 3: Materiais Didáticos</th></tr>
       <tr>
-        <th>Nivel UC</th>
+        <th>UC</th>
         <th>Cód MXM</th>
         <th>Descrição</th>
         <th>Valor Unitário</th>

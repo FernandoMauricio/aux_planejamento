@@ -73,7 +73,7 @@ class PlanilhaMaterial extends \yii\db\ActiveRecord
             'planima_tipomaterial' => 'Tipo Material',
             'planima_editora' => 'Editora',
             'planima_observacao' => 'Observação',
-            'planima_nivelUC' => 'Nivel UC',
+            'planima_nivelUC' => 'UC',
         ];
     }
 

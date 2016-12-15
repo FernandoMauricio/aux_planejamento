@@ -10,7 +10,7 @@ use yii\helpers\Html;
          <caption> Listagem de Materiais Didáticos</caption>
           <thead>
             <tr>
-              <th>Nivel UC</th>
+              <th>UC</th>
               <th>Cód. MXM</th>
               <th>Descrição</th>
               <th>Valor Unitário</th>

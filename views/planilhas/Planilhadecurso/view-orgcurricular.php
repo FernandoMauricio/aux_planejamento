@@ -11,7 +11,7 @@ use app\models\planos\Unidadescurriculares;
          <caption> Listagem de Unidades Curriculares</caption>
           <thead>
             <tr>
-              <th>Nivel UC</th>
+              <th>UC</th>
               <th>Descrição</th>
               <th>Carga Horária</th>
             </tr>

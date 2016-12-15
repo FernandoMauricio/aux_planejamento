@@ -57,7 +57,7 @@ class PlanilhaUnidadesCurriculares extends \yii\db\ActiveRecord
             'planodeacao_cod' => 'Cód. Plano',
             'planiuc_descricao' => 'Descrição',
             'planiuc_cargahoraria' => 'Carga Horária',
-            'planiuc_nivelUC' => 'Nivel UC',
+            'planiuc_nivelUC' => 'UC',
         ];
     }
 

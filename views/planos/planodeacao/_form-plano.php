@@ -48,7 +48,7 @@ use app\models\cadastros\Segmento;
                     <div class="row">
                         <div class="col-md-3">
                             <?php
-                            $nivelList=ArrayHelper::map(app\models\cadastros\Nivel::find()->all(), 'niv_codnivel', 'niv_descricao' ); 
+                                $nivelList=ArrayHelper::map(app\models\cadastros\Nivel::find()->all(), 'niv_codnivel', 'niv_descricao' ); 
                                         echo $form->field($model, 'plan_codnivel')->widget(Select2::classname(), [
                                                 'data' =>  $nivelList,
                                                 'options' => ['placeholder' => 'Selecione o Nivel...'],

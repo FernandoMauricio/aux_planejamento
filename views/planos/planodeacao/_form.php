@@ -20,7 +20,7 @@ use app\models\cadastros\Segmento;
                    
      <div class="panel panel-primary">
                       <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-book"></span>  Cadastros de Planos de Ação</h3>
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-book"></span>  Cadastro de Planos de Ação</h3>
                       </div>
                                         <?php echo $form->errorSummary($model); ?>
                                  <div id="rootwizard" class="tabbable tabs-left">

@@ -49,6 +49,8 @@ class Repositorio extends \yii\db\ActiveRecord
         return [
             [['rep_titulo', 'rep_categoria', 'rep_tipo', 'rep_elementodespesa', 'rep_editora', 'rep_sobre', 'rep_codunidade', 'rep_codcolaborador', 'rep_data', 'rep_status'], 'required'],
             [['rep_valor'], 'number'],
+            ['rep_codmxm', 'unique'],
+            [['rep_sobre'], 'string'],
             [['rep_codunidade', 'rep_codmxm', 'rep_codcolaborador', 'rep_status', 'rep_qtdoriginais'], 'integer'],
             [['rep_data', 'image'], 'safe'],
             [['file'], 'file','checkExtensionByMimeType'=>false, 'extensions' => 'pdf, zip, rar, doc, docx'],
@@ -57,7 +59,7 @@ class Repositorio extends \yii\db\ActiveRecord
             [['rep_titulo'], 'string', 'max' => 80],
             [['rep_categoria', 'rep_editora'], 'string', 'max' => 50],
             [['rep_tipo'], 'string', 'max' => 100],
-            [['rep_sobre','rep_arquivo','rep_image_src_filename','rep_image_web_filename'], 'string', 'max' => 255],
+            [['rep_arquivo','rep_image_src_filename','rep_image_web_filename'], 'string', 'max' => 255],
 
         ];
     }
