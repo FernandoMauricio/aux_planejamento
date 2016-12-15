@@ -20,29 +20,20 @@ use app\models\cadastros\Segmento;
 
                     <div class="row">
                         <div class="col-md-5">
-
-                        <?= $form->field($model, 'plan_descricao')->textInput(['maxlength' => true]) ?>
-
+                            <?= $form->field($model, 'plan_descricao')->textInput(['maxlength' => true]) ?>
                         </div>
 
                         <div class="col-md-2">
-
-                        <?= $form->field($model, 'plan_cargahoraria')->textInput(['maxlength' => true]) ?>
-
+                            <?= $form->field($model, 'plan_cargahoraria')->textInput(['maxlength' => true]) ?>
                         </div>
 
                         <div class="col-md-2">
-
-                        <?= $form->field($model, 'plan_status')->radioList([1 => 'Ativo', 0 => 'Inativo']) ?>
-
+                            <?= $form->field($model, 'plan_status')->radioList([1 => 'Ativo', 0 => 'Inativo']) ?>
                         </div>
 
                         <div class="col-md-3">
-
-                        <?= $form->field($model, 'plan_modelonacional')->radioList([1 => 'Sim', 0 => 'Não']) ?>
-
+                            <?= $form->field($model, 'plan_modelonacional')->radioList([1 => 'Sim', 0 => 'Não']) ?>
                         </div>
-
                     </div>
 
                     <div class="row">
@@ -57,7 +48,6 @@ use app\models\cadastros\Segmento;
                                                     ],
                                                 ]);
                             ?>
-
                         </div>
 
                         <div class="col-md-3">
@@ -89,7 +79,6 @@ use app\models\cadastros\Segmento;
                                     ]
                                 ]);
                             ?>
-
                         </div>
 
                         <div class="col-md-3">
@@ -105,9 +94,7 @@ use app\models\cadastros\Segmento;
                                     ]
                                 ]);
                             ?>
-
                         </div>
-
                     </div>
 
                         <?= $form->field($model, 'plan_sobre')->textarea(['rows' => 4]) ?>

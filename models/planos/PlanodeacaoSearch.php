@@ -41,7 +41,7 @@ class PlanodeacaoSearch extends Planodeacao
      */
     public function search($params)
     {
-        $query = Planodeacao::find();
+        $query = Planodeacao::find()->orderBy(['plan_codplano' => SORT_DESC]);
 
         // add conditions that should always apply here
 

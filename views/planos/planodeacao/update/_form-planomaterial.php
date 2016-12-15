@@ -70,7 +70,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     ?>
                                     </div>
                                     
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-8">
                                     <?php
                                          $data_repositorio = ArrayHelper::map($repositorio, 'rep_codrepositorio', 'rep_titulo');
                                          echo $form->field($modelPlanoMaterial, "[{$i}]plama_codrepositorio")->widget(Select2::classname(), [
@@ -137,7 +137,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     </div>
 
                                     <div class="col-sm-12">
-                                   <?= $form->field($modelPlanoMaterial, "[{$i}]plama_arquivo")->hiddenInput()->label(false) ?>
+                                        <?= $form->field($modelPlanoMaterial, "[{$i}]plama_arquivo")->hiddenInput()->label(false) ?>
                                    <?php //echo '<a id="inputArquivo" target="_blank"> Download do Arquivo</a>' ?>
                                     </div>
 
