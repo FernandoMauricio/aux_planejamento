@@ -55,8 +55,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         echo Html::activeHiddenInput($modelPlanoMaterial, "[{$i}]id");
                                     }
                                 ?>
-
-
                                     <div class="col-sm-2">
                                     <?php
                                         $nivelListUC=ArrayHelper::map(app\models\planos\NivelUnidadesCurriculares::find()->all(), 'nivuc_id', 'nivuc_descricao' ); 

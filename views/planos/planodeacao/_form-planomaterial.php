@@ -15,7 +15,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                             'widgetBody' => '.container-items-planomaterial', // required: css class selector
                                             'widgetItem' => '.item-planomaterial', // required: css class
                                             'limit' => 999, // the maximum times, an element can be cloned (default 999)
-                                            'min' => 1, // 0 or 1 (default 1)
+                                            'min' => 0, // 0 or 1 (default 1)
                                             'insertButton' => '.add-item-planomaterial', // css class
                                             'deleteButton' => '.remove-item-planomaterial', // css class
                                             'model' => $modelsPlanoMaterial[0],
@@ -55,7 +55,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         echo Html::activeHiddenInput($modelPlanoMaterial, "[{$i}]id");
                                     }
                                 ?>
-
                                     <div class="col-sm-2">
                                     <?php
                                         $nivelListUC=ArrayHelper::map(app\models\planos\NivelUnidadesCurriculares::find()->all(), 'nivuc_id', 'nivuc_descricao' ); 

@@ -15,6 +15,7 @@ use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
 
 
+
 class RelatoriosDepController extends Controller
 {
 
@@ -47,31 +48,32 @@ class RelatoriosDepController extends Controller
                   
             $objPHPExcel->setActiveSheetIndex($sheet);
 
-                    //     $queryUnidade = "SELECT 
-                    //     `segmento_seg`.`seg_descricao`, 
-                    //     `planodeacao_plan`.`plan_codsegmento`, 
-                    //     `planodeacao_plan`.`plan_codplano`, 
-                    //     `planodeacao_plan`.`plan_descricao`, 
-                    //     `planomaterial_plama`.`plama_codplano`, 
-                    //     `planomaterial_plama`.`plama_tipoplano`,
-                    //     `planomaterial_plama`.`plama_codmxm`, 
-                    //     `planomaterial_plama`.`plama_titulo`, 
-                    //     `planomaterial_plama`.`plama_tipomaterial`, 
-                    //     `planomaterial_plama`.`plama_editora`, 
-                    //     `planomaterial_plama`.`plama_valor`
-                    // FROM 
-                    //     `planodeacao_plan`
-                    //     INNER JOIN `segmento_seg` ON `planodeacao_plan`.`plan_codsegmento` = `segmento_seg`.`seg_codsegmento` 
-                    //     INNER JOIN `planomaterial_plama` ON `planodeacao_plan`.`plan_codplano` = `planomaterial_plama`.`plama_codplano`
-                    // WHERE 
-                    //     `planodeacao_plan`.`plan_status` = 1 
-                    //    AND seg_codsegmento = plan_codsegmento";
+                $connection = Yii::$app->db_apl;
+                $command = $connection->createCommand('
+                    SELECT 
+                        `segmento_seg`.`seg_descricao`, 
+                        `planodeacao_plan`.`plan_codsegmento`, 
+                        `planodeacao_plan`.`plan_codplano`, 
+                        `planodeacao_plan`.`plan_descricao`, 
+                        `planomaterial_plama`.`plama_codplano`, 
+                        `planomaterial_plama`.`plama_tipoplano`,
+                        `planomaterial_plama`.`plama_codmxm`, 
+                        `planomaterial_plama`.`plama_titulo`, 
+                        `planomaterial_plama`.`plama_tipomaterial`, 
+                        `planomaterial_plama`.`plama_editora`, 
+                        `planomaterial_plama`.`plama_valor`
+                    FROM 
+                        `planodeacao_plan`
+                        INNER JOIN `segmento_seg` ON `planodeacao_plan`.`plan_codsegmento` = `segmento_seg`.`seg_codsegmento` 
+                        INNER JOIN `planomaterial_plama` ON `planodeacao_plan`.`plan_codplano` = `planomaterial_plama`.`plama_codplano`
+                    WHERE 
+                        `planodeacao_plan`.`plan_status` = 1 
+                       AND seg_codsegmento = plan_codsegmento
 
-            $foos = Planodeacao::find()->select(['plan_codsegmento', 'plan_codplano', 'plan_descricao', 'plama_codplano', 'plama_tipoplano', 'plama_codmxm', 'plama_titulo', 'plama_tipomaterial', 'plama_editora', 'plama_valor'])->joinWith(['segmento', 'planoMateriais'], false, 'INNER JOIN')->all();
+                    ');
 
-            // echo '<pre>';
-            // echo var_dump($foos);
-            // echo '</pre>';   
+                $foos = $command->queryAll();
+
             //TAMANHO DAS COLUNAS  
             $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
             $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
@@ -81,7 +83,6 @@ class RelatoriosDepController extends Controller
             $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
             $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
             $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(20);
-
 
             //TÍTULO DAS COLUNAS
             $objPHPExcel->getActiveSheet()->setTitle('Segmento-Plano-Material')                     
@@ -95,28 +96,19 @@ class RelatoriosDepController extends Controller
              ->setCellValue('H1', 'VALOR');
                  
          $row=2; //GERAÇÃO DOS DADOS A PARTIR DA LINHA 2
-         $i = 0;
                                 
                 foreach ($foos as $foo) {  
 
-                    $segmento = $foo['segmento']['seg_descricao'];
-                    $codplano = $foo['plan_codplano'];
-                    $plano    = $foo['plan_descricao'];
-
-                        
-                    $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$foo['segmento']['seg_descricao']); 
+                    $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$foo['seg_descricao']); 
                     $objPHPExcel->getActiveSheet()->setCellValue('B'.$row,$foo['plan_codplano']);
                     $objPHPExcel->getActiveSheet()->setCellValue('C'.$row,$foo['plan_descricao']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('D'.$row,$foo['planoMateriais']['plama_tipoplano']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('E'.$row,$foo['planoMateriais']['plama_codmxm']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$foo['planoMateriais']['plama_titulo']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$foo['planoMateriais']['plama_editora']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['planoMateriais']['plama_valor']);
-
+                    $objPHPExcel->getActiveSheet()->setCellValue('D'.$row,$foo['plama_tipoplano']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('E'.$row,$foo['plama_codmxm']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$foo['plama_titulo']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$foo['plama_editora']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['plama_valor']);
 
                     $row++ ;
-                     
-
                }
 
 
