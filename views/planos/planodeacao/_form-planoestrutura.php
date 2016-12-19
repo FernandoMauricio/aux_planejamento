@@ -59,7 +59,23 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                         echo $form->field($modelPlanoEstrutura, "[{$i}]estruturafisica_cod")->widget(Select2::classname(), [
                                                                 'data' =>  $data_estruturafisica,
                                                                 'options' => ['placeholder' => 'Selecione o item...',
-                                                                'onchange'=>'
+                                                                'onchange'=>
+                                                                isset($modelPlanoEstrutura->id) ? //Irá ser verificado se será atualização ou cadastro novo
+                                                                                 '
+                                                                                 var select = this;
+                                                                                 $.getJSON( "'.Url::toRoute('/planos/planodeacao/get-plano-estrutura-fisica').'", { estrfisicID: $(this).val() } )
+                                                                                 .done(function( data ) {
+
+                                                                                        var $divPanelBody =  $(select).parent().parent().parent();
+
+                                                                                        var $inputDescricao = $divPanelBody.find("input:eq(1)");
+
+                                                                                        $inputDescricao.val(data.estr_descricao);
+
+                                                                                     });
+                                                                                 '
+                                                                                 :
+                                                                                 '
                                                                                  var select = this;
                                                                                  $.getJSON( "'.Url::toRoute('/planos/planodeacao/get-plano-estrutura-fisica').'", { estrfisicID: $(this).val() } )
                                                                                  .done(function( data ) {

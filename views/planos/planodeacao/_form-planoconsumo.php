@@ -61,7 +61,29 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                          echo $form->field($modelPlanoConsumo, "[{$i}]materialconsumo_cod")->widget(Select2::classname(), [
                                                  'data' =>  $data_planoconsumo,
                                                  'options' => ['placeholder' => 'Selecione o Material de Consumo...',
-                                                 'onchange'=>'
+                                                 'onchange'=>
+                                                  isset($modelPlanoConsumo->id) ? //Irá ser verificado se será atualização ou cadastro novo
+                                                         '
+                                                         var select = this;
+                                                         $.getJSON( "'.Url::toRoute('/planos/planodeacao/get-plano-consumo').'", { matconId: $(this).val() } )
+                                                         .done(function( data ) {
+
+                                                                var $divPanelBody =  $(select).parent().parent().parent();
+
+                                                                var $inputDescricao = $divPanelBody.find("input:eq(1)");
+                                                                var $inputCodMXM    = $divPanelBody.find("input:eq(2)");
+                                                                var $inputTipo      = $divPanelBody.find("input:eq(3)");
+                                                                var $inputValor     = $divPanelBody.find("input:eq(4)");
+                                                                
+                                                                $inputCodMXM.val(data.matcon_codMXM);
+                                                                $inputDescricao.val(data.matcon_descricao);
+                                                                $inputValor.val(data.matcon_valor);
+                                                                $inputTipo.val(data.matcon_tipo);
+
+                                                             });
+                                                         '
+                                                         :
+                                                         '
                                                          var select = this;
                                                          $.getJSON( "'.Url::toRoute('/planos/planodeacao/get-plano-consumo').'", { matconId: $(this).val() } )
                                                          .done(function( data ) {

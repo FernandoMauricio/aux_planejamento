@@ -60,7 +60,27 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                          echo $form->field($modelPlanoAluno, "[{$i}]materialaluno_cod")->widget(Select2::classname(), [
                                                  'data' =>  $data_planoaluno,
                                                  'options' => ['placeholder' => 'Selecione o Material do Aluno...',
-                                                 'onchange'=>'
+                                                 'onchange'=> 
+                                                 isset($modelPlanoAluno->id) ? //Irá ser verificado se será atualização ou cadastro novo
+                                                         '
+                                                         var select = this;
+                                                         $.getJSON( "'.Url::toRoute('/planos/planodeacao/get-plano-aluno').'", { mataluId: $(this).val() } )
+                                                         .done(function( data ) {
+
+                                                                var $divPanelBody =  $(select).parent().parent().parent();
+
+                                                                var $inputDescricao = $divPanelBody.find("input:eq(1)");
+                                                                var $inputUnidade = $divPanelBody.find("input:eq(2)");
+                                                                var $inputValor = $divPanelBody.find("input:eq(3)");
+
+                                                                $inputDescricao.val(data.matalu_descricao);
+                                                                $inputUnidade.val(data.matalu_unidade);
+                                                                $inputValor.val(data.matalu_valor);
+
+                                                             });
+                                                         '
+                                                         :
+                                                         '
                                                          var select = this;
                                                          $.getJSON( "'.Url::toRoute('/planos/planodeacao/get-plano-aluno').'", { mataluId: $(this).val() } )
                                                          .done(function( data ) {

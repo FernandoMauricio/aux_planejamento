@@ -154,19 +154,19 @@ use kartik\nav\NavX;
                        ],
             ],
 
-            [
-            'label' => 'Repositório',
-            'items' => [
-                         ['label' => 'Materiais Didáticos', 'url' => ['/repositorio/repositorio-materiais/index']],
-                                     '<li class="divider"></li>',
-                            ['label' => 'Cadastros', 'items' => [
-                                  ['label' => 'Categoria', 'url' => ['/repositorio/categoria/index']],
-                                  ['label' => 'Editora', 'url' => ['/repositorio/editora/index']],
-                                  // ['label' => 'Tipo de Material', 'url' => ['/repositorio/tipomaterial/index']],
-                            ]],
+            // [
+            // 'label' => 'Repositório',
+            // 'items' => [
+            //              ['label' => 'Materiais Didáticos', 'url' => ['/repositorio/repositorio-materiais/index']],
+            //                          '<li class="divider"></li>',
+            //                 ['label' => 'Cadastros', 'items' => [
+            //                       ['label' => 'Categoria', 'url' => ['/repositorio/categoria/index']],
+            //                       ['label' => 'Editora', 'url' => ['/repositorio/editora/index']],
+            //                       // ['label' => 'Tipo de Material', 'url' => ['/repositorio/tipomaterial/index']],
+            //                 ]],
 
-                       ],
-            ],
+            //            ],
+            // ],
 
             [
             'label' => 'Plano de Ação',

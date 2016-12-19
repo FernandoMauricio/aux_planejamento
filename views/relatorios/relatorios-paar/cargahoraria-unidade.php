@@ -74,6 +74,8 @@ use app\models\planilhas\Planilhadecurso;
 		   $total_geral = 0;
 		   $quantidade_educacao_profissional_geral = 0;
 		   $quantidade_acao_extensiva = 0;
+       $quantidade_acao_extensiva_geral = 0;
+
 		   
 		   //EXTRAINDO AS UNIDADES DAS PLANILHAS....
 		    $query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu  WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' group by placu_codunidade order by placu_nomeunidade";

@@ -74,7 +74,35 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                          echo $form->field($modelPlanoMaterial, "[{$i}]plama_codrepositorio")->widget(Select2::classname(), [
                                                  'data' =>  $data_repositorio,
                                                  'options' => ['placeholder' => 'Selecione o Material Didático...',
-                                                 'onchange'=>'
+                                                 'onchange'=>
+                                                 isset($modelPlanoMaterial->id) ? //Irá ser verificado se será atualização ou cadastro novo
+                                                         '
+                                                         var select = this;
+                                                         $.getJSON( "'.Url::toRoute('/planos/planodeacao/get-repositorio').'", { repId: $(this).val() } )
+                                                         .done(function( data ) {
+
+                                                                var $divPanelBody =  $(select).parent().parent().parent();
+
+                                                                var $inputTitulo = $divPanelBody.find("input:eq(1)");
+                                                                var $inputCodMXM = $divPanelBody.find("input:eq(2)");
+                                                                var $inputValor = $divPanelBody.find("input:eq(3)");
+                                                                var $inputTipoMaterial = $divPanelBody.find("input:eq(4)");
+                                                                var $inputEditora = $divPanelBody.find("input:eq(5)");
+                                                                var $inputArquivo = $divPanelBody.find("input:eq(7)");
+
+                                                                $inputTitulo.val(data.rep_titulo);
+                                                                $inputCodMXM.val(data.rep_codmxm);
+                                                                $inputValor.val(data.rep_valor);
+                                                                $inputTipoMaterial.val(data.rep_tipo);
+                                                                $inputEditora.val(data.rep_editora);
+                                                                $inputArquivo.val(data.rep_arquivo);
+
+                                                                //$("#inputArquivo").attr("href", data.rep_arquivo);
+                                                                
+                                                             });
+                                                         '
+                                                         :
+                                                         '
                                                          var select = this;
                                                          $.getJSON( "'.Url::toRoute('/planos/planodeacao/get-repositorio').'", { repId: $(this).val() } )
                                                          .done(function( data ) {
@@ -88,18 +116,16 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                                 var $inputEditora = $divPanelBody.find("input:eq(4)");
                                                                 var $inputArquivo = $divPanelBody.find("input:eq(6)");
 
-
                                                                 $inputTitulo.val(data.rep_titulo);
                                                                 $inputCodMXM.val(data.rep_codmxm);
                                                                 $inputValor.val(data.rep_valor);
                                                                 $inputTipoMaterial.val(data.rep_tipo);
                                                                 $inputEditora.val(data.rep_editora);
                                                                 $inputArquivo.val(data.rep_arquivo);
-
-                                                                //$("#inputArquivo").attr("href", data.rep_arquivo);
                                                                 
                                                              });
                                                          '
+
                                                  ]]);
                                       ?>
                                       <?= $form->field($modelPlanoMaterial, "[{$i}]plama_titulo")->hiddenInput()->label(false) ?>
