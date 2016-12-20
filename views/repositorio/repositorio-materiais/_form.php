@@ -20,32 +20,24 @@ use yii\helpers\Json;
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
 <div class="row">
-
     <div class="col-md-6">
-
     <?= $form->field($model, 'rep_titulo')->textInput(['maxlength' => true]) ?>
-
     </div>
 
-
     <div class="col-md-2">
-
     <?php echo $form->field($model, 'rep_codmxm')->textInput() ?>
-
     </div>
 
     <div class="col-md-2">
-
     <?php echo $form->field($model, 'rep_qtdoriginais')->textInput() ?>
-
     </div>
 
     <div class="col-md-2">
-
     <?php echo $form->field($model, 'rep_valor')->widget(MaskMoney::classname());  ?>
-
     </div>
+</div>
 
+<div class="row">
     <div class="col-md-3">
         <?php
             $data_categoria = ArrayHelper::map($categoria, 'cat_descricao', 'cat_descricao');
@@ -83,9 +75,9 @@ use yii\helpers\Json;
                                 $.getJSON( "'.Url::toRoute('/repositorio/repositorio-materiais/get-tipo-material').'", { tipmatId: $(this).val() } )
                                 .done(function( data ) {
 
-                                       var $divPanelBody = $(select).parent().parent().parent();
+                                       var $divPanelBody = $(select).parent().parent().parent().parent().parent();
 
-                                       var $inputDescricao = $divPanelBody.find("input:eq(5)");
+                                       var $inputDescricao = $divPanelBody.find("input:eq(6)");
                                        
                                        $inputDescricao.val(data.tip_elementodespesa_id);
                                        
@@ -98,12 +90,15 @@ use yii\helpers\Json;
     <div class="col-md-3">
         <?= $form->field($model, 'rep_elementodespesa')->textInput(['readonly' => true]) ?>
     </div>
+</div>
 
-
+<div class="row">
     <div class="col-md-12">
         <?= $form->field($model, 'rep_sobre')->textarea(['rows' => 4]) ?>
     </div>
+</div>
 
+<div class="row">
     <div class="col-md-6">
           <?= $form->field($model, 'file')->widget(FileInput::classname(), [
                    // 'options' => ['accept' => 'image/*'],
@@ -127,10 +122,13 @@ use yii\helpers\Json;
                 ],
               ]);   ?>
     </div>
- 
+ </div>
+
+<div class="row">
     <div class="col-md-12">
     <?= $form->field($model, 'rep_status')->radioList(['1' => 'Ativo', '0' => 'Inativo']) ?>
     </div>
+</div>
 
   </div>  
 

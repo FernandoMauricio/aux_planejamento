@@ -66,7 +66,11 @@ class EstruturafisicaController extends Controller
      */
     public function actionCreate()
     {
+        $session = Yii::$app->session;
         $model = new Estruturafisica();
+
+        $model->estr_data           = date('Y-m-d');
+        $model->estr_codcolaborador = $session['sess_codcolaborador'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -88,7 +92,11 @@ class EstruturafisicaController extends Controller
      */
     public function actionUpdate($id)
     {
+        $session = Yii::$app->session;
         $model = $this->findModel($id);
+
+        $model->estr_data           = date('Y-m-d');
+        $model->estr_codcolaborador = $session['sess_codcolaborador'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 

@@ -52,7 +52,7 @@ class Unidadescurriculares extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nivel_uc' => 'Nível UC',
+            'nivel_uc' => 'UC',
             'uncu_descricao' => 'Descrição',
             'uncu_cargahoraria' => 'Carga Horária',
             'planodeacao_cod' => 'Planodeacao Cod',

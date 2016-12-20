@@ -3,6 +3,7 @@
 namespace app\models\cadastros;
 
 use Yii;
+use app\models\base\Colaborador;
 
 /**
  * This is the model class for table "materialconsumo_matcon".
@@ -42,8 +43,8 @@ class Materialconsumo extends \yii\db\ActiveRecord
             [['matcon_descricao', 'matcon_tipo', 'matcon_valor', 'matcon_status'], 'required'],
             ['matcon_codMXM', 'unique'],
             [['matcon_valor'], 'number'],
-            ['matcon_codMXM', 'unique'],
-            [['matcon_status', 'matcon_codMXM'], 'integer'],
+            [['matalu_data'], 'safe'],
+            [['matcon_status', 'matcon_codMXM', 'matcon_codcolaborador'], 'integer'],
             [['matcon_descricao'], 'string', 'max' => 100],
             [['matcon_tipo'], 'string', 'max' => 45],
         ];
@@ -60,6 +61,8 @@ class Materialconsumo extends \yii\db\ActiveRecord
             'matcon_tipo' => 'Tipo',
             'matcon_valor' => 'Valor',
             'matcon_status' => 'Situação',
+            'matcon_codcolaborador' => 'Atualizado por',
+            'matcon_data' => 'Última Modifcação',
         ];
     }
 
@@ -69,5 +72,10 @@ class Materialconsumo extends \yii\db\ActiveRecord
     public function getPlanoMaterialconsumos()
     {
         return $this->hasMany(PlanoMaterialconsumo::className(), ['materialconsumo_cod' => 'matcon_codMXM']);
+    }
+
+    public function getColaborador()
+    {
+        return $this->hasOne(Colaborador::className(), ['col_codcolaborador' => 'matcon_codcolaborador']);
     }
 }

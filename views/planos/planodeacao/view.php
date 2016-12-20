@@ -187,7 +187,7 @@ echo DetailView::widget([
     <thead>
     <tr class="info"><th colspan="12">SEÇÃO 2: Organização Curricular</th></tr>
       <tr>
-        <th>Nível UC</th>
+        <th>UC</th>
         <th>Descrição</th>
         <th>Carga Horária</th>
       </tr>

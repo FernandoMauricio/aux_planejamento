@@ -22,7 +22,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
 ?>
 
-
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -38,6 +37,11 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             'matalu_descricao',
             'matalu_unidade',
             'matalu_valor',
+            [
+                'attribute' => 'matalu_codcolaborador',
+                'value' => 'colaborador.usuario.usu_nomeusuario',
+            ],
+            'matalu_data',
             [
                 'class'=>'kartik\grid\BooleanColumn',
                 'attribute'=>'matalu_status', 

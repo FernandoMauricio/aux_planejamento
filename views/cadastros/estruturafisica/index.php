@@ -37,6 +37,11 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             'estr_cod',
             'estr_descricao',
             [
+                'attribute' => 'estr_codcolaborador',
+                'value' => 'colaborador.usuario.usu_nomeusuario',
+            ],
+            'estr_data',
+            [
                 'class'=>'kartik\grid\BooleanColumn',
                 'attribute'=>'estr_status', 
                 'vAlign'=>'middle'

@@ -120,9 +120,14 @@ class MaterialalunoController extends Controller
      */
     public function actionCreate()
     {
+        $session = Yii::$app->session;
+
         $model = new Materialaluno();
 
         $tipounidade = TipoUnidade::find()->orderBy('tipuni_descricao')->all();
+
+        $model->matalu_data           = date('Y-m-d');
+        $model->matalu_codcolaborador = $session['sess_codcolaborador'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -145,9 +150,13 @@ class MaterialalunoController extends Controller
      */
     public function actionUpdate($id)
     {
+        $session = Yii::$app->session;
         $model = $this->findModel($id);
 
         $tipounidade = TipoUnidade::find()->orderBy('tipuni_descricao')->all();
+
+        $model->matalu_data           = date('Y-m-d');
+        $model->matalu_codcolaborador = $session['sess_codcolaborador'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 

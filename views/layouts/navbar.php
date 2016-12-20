@@ -67,7 +67,7 @@ use kartik\nav\NavX;
             ],
 
             [
-            'label' => 'Solicitações de Material',
+            'label' => 'Solicitações de Cópias',
             'items' => [
                          ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
                                      '<li class="divider"></li>',
@@ -185,7 +185,7 @@ use kartik\nav\NavX;
             ],
 
             [
-            'label' => 'Solicitações de Material',
+            'label' => 'Solicitações de Cópias',
             'items' => [
                          ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
                      ],
@@ -286,7 +286,7 @@ use kartik\nav\NavX;
             ],
 
             [
-            'label' => 'Solicitações de Material',
+            'label' => 'Solicitações de Cópias',
             'items' => [
                          ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
                                      '<li class="divider"></li>',
@@ -344,7 +344,7 @@ use kartik\nav\NavX;
             ],
 
             [
-            'label' => 'Solicitações de Material',
+            'label' => 'Solicitações de Cópias',
             'items' => [
                          ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
                                      '<li class="divider"></li>',
@@ -403,7 +403,7 @@ use kartik\nav\NavX;
             ['label' => 'Home', 'url' => ['/site/index']],
 
             [
-            'label' => 'Solicitações de Material',
+            'label' => 'Solicitações de Cópias',
             'items' => [
                          ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
                                      '<li class="divider"></li>',
@@ -443,7 +443,7 @@ use kartik\nav\NavX;
             ],
 
             [
-            'label' => 'Solicitações de Material',
+            'label' => 'Solicitações de Cópias',
             'items' => [
                          ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
                      ],

@@ -3,6 +3,7 @@
 namespace app\models\cadastros;
 
 use Yii;
+use app\models\base\Colaborador;
 
 /**
  * This is the model class for table "materialaluno_matalu".
@@ -41,7 +42,8 @@ class Materialaluno extends \yii\db\ActiveRecord
         return [
             [['matalu_descricao', 'matalu_unidade', 'matalu_valor', 'matalu_status'], 'required'],
             [['matalu_valor'], 'number'],
-            [['matalu_status'], 'integer'],
+            [['matalu_data'], 'safe'],
+            [['matalu_status', 'matalu_codcolaborador'], 'integer'],
             [['matalu_descricao'], 'string', 'max' => 100],
             [['matalu_unidade'], 'string', 'max' => 20],
         ];
@@ -58,6 +60,8 @@ class Materialaluno extends \yii\db\ActiveRecord
             'matalu_unidade' => 'Unidade',
             'matalu_valor' => 'Valor',
             'matalu_status' => 'Situação',
+            'matalu_codcolaborador' => 'Atualizado por',
+            'matalu_data' => 'Última Modifcação',
         ];
     }
 
@@ -67,5 +71,10 @@ class Materialaluno extends \yii\db\ActiveRecord
     public function getPlanoMaterialalunos()
     {
         return $this->hasMany(PlanoMaterialaluno::className(), ['materialaluno_cod' => 'matalu_cod']);
+    }
+
+    public function getColaborador()
+    {
+        return $this->hasOne(Colaborador::className(), ['col_codcolaborador' => 'matalu_codcolaborador']);
     }
 }

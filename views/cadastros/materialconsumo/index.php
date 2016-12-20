@@ -44,6 +44,11 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             'matcon_tipo',
             'matcon_valor',
             [
+                'attribute' => 'matcon_codcolaborador',
+                'value' => 'colaborador.usuario.usu_nomeusuario',
+            ],
+            'matcon_data',
+            [
                 'class'=>'kartik\grid\BooleanColumn',
                 'attribute'=>'matcon_status', 
                 'vAlign'=>'middle'

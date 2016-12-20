@@ -123,9 +123,13 @@ class MaterialconsumoController extends Controller
      */
     public function actionCreate()
     {
+        $session = Yii::$app->session;
         $model = new Materialconsumo();
 
         $tipounidade = TipoUnidade::find()->orderBy('tipuni_descricao')->all();
+
+        $model->matcon_data           = date('Y-m-d');
+        $model->matcon_codcolaborador = $session['sess_codcolaborador'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -149,9 +153,13 @@ class MaterialconsumoController extends Controller
      */
     public function actionUpdate($id)
     {
+        $session = Yii::$app->session;
         $model = $this->findModel($id);
 
         $tipounidade = TipoUnidade::find()->orderBy('tipuni_descricao')->all();
+
+        $model->matcon_data           = date('Y-m-d');
+        $model->matcon_codcolaborador = $session['sess_codcolaborador'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
