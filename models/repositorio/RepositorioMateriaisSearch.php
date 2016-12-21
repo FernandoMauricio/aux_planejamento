@@ -18,7 +18,7 @@ class RepositorioMateriaisSearch extends Repositorio
     public function rules()
     {
         return [
-            [['rep_codrepositorio', 'rep_codunidade', 'rep_codcolaborador', 'rep_status'], 'integer'],
+            [['rep_codrepositorio', 'rep_codunidade', 'rep_codcolaborador', 'rep_status', 'rep_codmxm'], 'integer'],
             [['rep_titulo', 'rep_categoria', 'rep_tipo', 'rep_editora', 'rep_sobre', 'rep_arquivo', 'rep_data'], 'safe'],
             [['rep_valor'], 'number'],
         ];
@@ -61,6 +61,7 @@ class RepositorioMateriaisSearch extends Repositorio
         // grid filtering conditions
         $query->andFilterWhere([
             'rep_codrepositorio' => $this->rep_codrepositorio,
+            'rep_codmxm' => $this->rep_codmxm,
             'rep_valor' => $this->rep_valor,
             'rep_codunidade' => $this->rep_codunidade,
             'rep_codcolaborador' => $this->rep_codcolaborador,

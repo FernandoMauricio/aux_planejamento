@@ -41,6 +41,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
         'columns' => [
 
             'rep_codrepositorio',
+            'rep_codmxm',
             'rep_titulo',
             'rep_categoria',
             'rep_tipo',

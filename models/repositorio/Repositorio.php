@@ -47,7 +47,7 @@ class Repositorio extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rep_titulo', 'rep_categoria', 'rep_tipo', 'rep_elementodespesa', 'rep_editora', 'rep_sobre', 'rep_codunidade', 'rep_codcolaborador', 'rep_data', 'rep_status'], 'required'],
+            [['rep_titulo', 'rep_categoria', 'rep_sobre', 'rep_codunidade', 'rep_codcolaborador', 'rep_data', 'rep_status'], 'required'],
             [['rep_valor'], 'number'],
             ['rep_codmxm', 'unique'],
             [['rep_sobre'], 'string'],
