@@ -162,7 +162,7 @@ class RelatorioGeralController extends Controller
         if (($ano_planilha = Ano::findBySql($queryAno)->one()) !== null) {
             return $ano_planilha;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página solicitada não existe.');
         }
     }
 
@@ -173,7 +173,7 @@ class RelatorioGeralController extends Controller
         if (($situacao_planilha = Situacaoplanilha::findBySql($querySituacaoPlanilha)->one()) !== null ) {
             return $situacao_planilha;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página solicitada não existe.');
         }
     }
 
@@ -184,7 +184,7 @@ class RelatorioGeralController extends Controller
         if (($tipo_planilha = Tipoplanilha::findBySql($queryTipoPlanilha)->one()) !== null ) {
             return $tipo_planilha;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página solicitada não existe.');
         }
     }
 
@@ -195,7 +195,7 @@ class RelatorioGeralController extends Controller
         if (($combotipoprogramacao = Tipoprogramacao::findBySql($queryTipoProgramacao)->one()) !== null) {
             return $combotipoprogramacao;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página solicitada não existe.');
         }
     }
 

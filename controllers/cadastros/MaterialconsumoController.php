@@ -203,7 +203,7 @@ class MaterialconsumoController extends Controller
         if (($model = Materialconsumo::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página solicitada não existe.');
         }
     }
 

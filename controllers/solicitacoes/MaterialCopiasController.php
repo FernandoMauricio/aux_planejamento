@@ -430,7 +430,7 @@ class MaterialCopiasController extends Controller
         if (($model = MaterialCopias::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página solicitada não existe.');
         }
     }
 

@@ -121,7 +121,7 @@ class PlanoMaterialController extends Controller
         if (($planoMaterial = PlanoMaterial::findOne($id)) !== null) {
             return $planoMaterial;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página solicitada não existe.');
         }
     }
 

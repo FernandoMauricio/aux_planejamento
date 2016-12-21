@@ -111,6 +111,11 @@ class PlanodeacaoController extends Controller
     public function actionCreate()
     {
         $session = Yii::$app->session;
+
+        if($session['sess_codunidade'] != 11) { //ÁREA DA DEP
+             throw new NotFoundHttpException('A página solicitada não existe.');
+        }else{
+
         $model = new Planodeacao();
         $modelsUnidadesCurriculares = [new Unidadescurriculares];
         $modelsPlanoMaterial        = [new PlanoMaterial];
@@ -261,6 +266,8 @@ class PlanodeacaoController extends Controller
                 'modelsPlanoConsumo'         => (empty($modelsPlanoConsumo)) ? [new PlanoConsumo] : $modelsPlanoConsumo,
                 'modelsPlanoAluno'           => (empty($modelsPlanoAluno)) ? [new PlanoAluno] : $modelsPlanoAluno,
             ]);
+
+            }
         }
     }
 
@@ -332,6 +339,10 @@ class PlanodeacaoController extends Controller
     public function actionUpdate($id)
     {
         $session = Yii::$app->session;
+
+        if($session['sess_codunidade'] != 11) { //ÁREA DA DEP
+             throw new NotFoundHttpException('A página solicitada não existe.');
+        }else{
 
         $model = $this->findModel($id);
         $modelsUnidadesCurriculares = $model->unidadescurriculares;
@@ -507,6 +518,8 @@ class PlanodeacaoController extends Controller
                 'modelsPlanoConsumo'         => (empty($modelsPlanoConsumo)) ? [new PlanoConsumo] : $modelsPlanoConsumo,
                 'modelsPlanoAluno'           => (empty($modelsPlanoAluno)) ? [new PlanoAluno] : $modelsPlanoAluno,
             ]);
+            
+            }
         }
     }
 
@@ -535,7 +548,7 @@ class PlanodeacaoController extends Controller
         if (($model = Planodeacao::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página solicitada não existe.');
         }
     }
 

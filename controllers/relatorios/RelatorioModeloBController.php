@@ -80,7 +80,7 @@ class RelatorioModeloBController extends Controller
         if (($combo_ano = Ano::findBySql($queryAno)->one()) !== null) {
             return $combo_ano;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página solicitada não existe.');
         }
     }
 

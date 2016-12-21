@@ -146,7 +146,7 @@ class PlanilhadecursoHomologadasController extends Controller
         if (($model = PlanilhadecursoHomologadas::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página solicitada não existe.');
         }
     }
 

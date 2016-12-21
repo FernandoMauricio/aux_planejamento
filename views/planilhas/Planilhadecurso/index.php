@@ -146,6 +146,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'Programação'],
             ],
 
+            'placu_observacao',
+
             [
                 'attribute'=>'placu_codsituacao', 
                 'width'=>'250px',

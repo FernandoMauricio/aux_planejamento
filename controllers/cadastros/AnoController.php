@@ -127,7 +127,7 @@ class AnoController extends Controller
         if (($model = Ano::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página solicitada não existe.');
         }
     }
 

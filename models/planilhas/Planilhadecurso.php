@@ -206,7 +206,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             'placu_codunidade' => 'Cód. Unidade',
             'placu_nomeunidade' => 'Unidade',
             'placu_tipocalculo' => 'Tipocalculo',
-            'placu_observacao' => 'Observacao',
+            'placu_observacao' => 'Observação',
             'placu_codprogramacao' => 'Tipo de Programação',
 
             'placu_totalcustodocente' => 'Mão de Obra Direta',
