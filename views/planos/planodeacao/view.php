@@ -291,10 +291,9 @@ echo DetailView::widget([
         ?>
     </tbody>
      <tfoot>
-            <tr class="warning kv-edit-hidden" style="border-top: #dedede">
-              <th>TOTAL <i>(Valor Unitário)</i> </th>
-              <th></th>
-               <th colspan="12" style="color:red"><?php echo 'R$ ' . number_format($valorTotal, 2, ',', '.') ?></th>
+               <tr class="warning kv-edit-hidden" style="border-top: #dedede">
+               <th colspan="3">TOTAL <i>(Valor Unitário)</i></th>
+               <th colspan="9" style="color:red"><?php echo 'R$ ' . number_format($valorTotal, 2, ',', '.') ?></th>
             </tr>
          </tfoot>
   </table>

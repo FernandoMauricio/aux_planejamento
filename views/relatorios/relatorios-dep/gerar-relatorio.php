@@ -15,3 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= Html::a('Gerar Excel', ['segmento-plano-material'], ['class' => 'btn btn-primary']) ?>
 	
 </h3>
+
+<h3>Planos de Ação:
+
+<?= Html::a('Gerar Excel', ['planos'], ['class' => 'btn btn-primary']) ?>
+	
+</h3>
