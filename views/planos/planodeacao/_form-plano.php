@@ -17,7 +17,7 @@ use app\models\cadastros\Segmento;
 ?>
 
 <div class="planodeacao-form">
-
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-md-5">
 
@@ -120,3 +120,4 @@ use app\models\cadastros\Segmento;
                             echo $form->field($model, 'plan_categoriasPlano')->checkboxList($options); 
                         ?>
            </div>
+        </div>

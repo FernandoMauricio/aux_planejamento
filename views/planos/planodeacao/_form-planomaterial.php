@@ -177,20 +177,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 
 <?php
-//request plano material
-// function onChangeRepositorio() {
-//     var select = this;
-//     $.getJSON( "'.Url::toRoute('/planos/planodeacao/get-repositorio').'", { repId: $(this).val() } )
-//     .done(function( data ) {
-//         var $divPanelBody =  $(select).parent().parent().parent();
-//         var $inputValor = $divPanelBody.find("input:eq(0)");
-//         var $inputTipoMaterial = $divPanelBody.find("input:eq(1)");
-        
-//         $inputValor.val(data.rep_valor);
-//         $inputTipoMaterial.val(data.rep_tipo);
-//      });
-// };
-
 $js = '
 jQuery(".dynamicform_planomaterial").on("afterInsert", function(e, item) {
     jQuery(".dynamicform_planomaterial .panel-title-planomaterial").each(function(i) {
