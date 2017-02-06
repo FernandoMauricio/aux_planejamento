@@ -18,6 +18,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h3>Planos de Ação:
 
-<?= Html::a('Gerar Excel', ['planos'], ['class' => 'btn btn-primary']) ?>
 	
 </h3>

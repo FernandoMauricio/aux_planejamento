@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 
 //RESGATANDO AS INFORMAÇÕES
-$id = $model->plan_codplano;
+//$id = $model->plan_codplano;
 $session = Yii::$app->session;
 ?>
 <div class="planodeacao-view">
@@ -36,12 +36,12 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     <?php
         if($session['sess_codunidade'] == 11) { //ÁREA DA DEP
     ?>
-           <?= Html::a('Atualizar', ['update', 'id' => $id], ['class' => 'btn btn-primary']) ?>
+           <?= Html::a('Atualizar', ['update', 'id' => $model->plan_codplano], ['class' => 'btn btn-primary']) ?>
     <?php
         }
     ?>
             <?php
-                  echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir','id' => $id], [
+                  echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir','id' => $model->plan_codplano], [
                       'class'=>'btn btn-warning', 
                       'target'=>'_blank', 
                       'data-toggle'=>'tooltip', 
@@ -195,7 +195,7 @@ echo DetailView::widget([
     <tbody>
         <?php
              $valorTotal = 0;
-             $query_planoUnidadesCurriculares = "SELECT * FROM unidadescurriculares_uncu WHERE planodeacao_cod = '".$id."' ORDER BY id ASC";
+             $query_planoUnidadesCurriculares = "SELECT * FROM unidadescurriculares_uncu WHERE planodeacao_cod = '".$model->plan_codplano."' ORDER BY id ASC";
              $modelsUnidadesCurriculares = Unidadescurriculares::findBySql($query_planoUnidadesCurriculares)->all(); 
              foreach ($modelsUnidadesCurriculares as $modelUnidadesCurriculares) {
                 
@@ -250,20 +250,22 @@ echo DetailView::widget([
     <tbody>
         <?php
              $valorTotal = 0;
-             $query_planoMaterial = "SELECT * FROM planomaterial_plama WHERE plama_codplano = '".$id."' ORDER BY nivel_uc ASC";
+             $query_planoMaterial = "SELECT * FROM planomaterial_plama WHERE plama_codplano = '".$model->plan_codplano."' ORDER BY nivel_uc ASC";
              $modelsPlanoMaterial = PlanoMaterial::findBySql($query_planoMaterial)->all(); 
              foreach ($modelsPlanoMaterial as $modelPlanoMaterial) {
 
-                $nivel_uc           = $modelPlanoMaterial["nivel_uc"];
-                $plama_codmxm       = $modelPlanoMaterial["plama_codmxm"];
-                $plama_titulo       = $modelPlanoMaterial["plama_titulo"];
-                $plama_valor        = $modelPlanoMaterial["plama_valor"];
-                $plama_tipomaterial = $modelPlanoMaterial["plama_tipomaterial"];
-                $plama_editora      = $modelPlanoMaterial["plama_editora"];
-                $plama_tipoplano    = $modelPlanoMaterial["plama_tipoplano"];
-                $plama_observacao   = $modelPlanoMaterial["plama_observacao"];
-                $plama_arquivo      = $modelPlanoMaterial["plama_arquivo"];
-                $valorTotal        += $modelPlanoMaterial["plama_valor"]; //somatório de todos os valores dos itens
+                //$model->plan_codplano                   = $modelPlanoMaterial["id"];
+                $nivel_uc             = $modelPlanoMaterial["nivel_uc"];
+                $plama_codmxm         = $modelPlanoMaterial["plama_codmxm"];
+                $plama_codrepositorio = $modelPlanoMaterial["plama_codrepositorio"];
+                $plama_titulo         = $modelPlanoMaterial["plama_titulo"];
+                $plama_valor          = $modelPlanoMaterial["plama_valor"];
+                $plama_tipomaterial   = $modelPlanoMaterial["plama_tipomaterial"];
+                $plama_editora        = $modelPlanoMaterial["plama_editora"];
+                $plama_tipoplano      = $modelPlanoMaterial["plama_tipoplano"];
+                $plama_observacao     = $modelPlanoMaterial["plama_observacao"];
+                $plama_arquivo        = $modelPlanoMaterial["plama_arquivo"];
+                $valorTotal           += $modelPlanoMaterial["plama_valor"]; //somatório de todos os valores dos itens
 
                 //busca pelos níveis das unidades curriculares
                 $query_nivelUC = "SELECT nivuc_descricao FROM `nivelunidcurriculares_nivuc`, `unidadescurriculares_uncu` WHERE `nivuc_id` = '".$nivel_uc."' ";
@@ -284,7 +286,7 @@ echo DetailView::widget([
         <td><?php echo $plama_editora ?></td>
         <td><?php echo $plama_tipoplano ?></td>
         <td><?php echo $plama_observacao ?></td>
-        <td><a target="_blank" href="http://localhost/aux_planejamento/web/uploads/repositorio/<?php echo $plama_arquivo ?>"> <?php echo $plama_arquivo ?></a></td>
+        <td><a target="_blank" href="http://portalsenac.am.senac.br/aux_planejamento/web/uploads/repositorio/<?php echo $plama_codrepositorio .'/'. $plama_arquivo ?>"> <?php echo $plama_arquivo ?></a></td>
       </tr>
         <?php
           }
@@ -312,7 +314,7 @@ echo DetailView::widget([
     <tbody>
         <?php
              $valorTotal = 0;
-             $query_planoConsumo = "SELECT * FROM plano_materialconsumo WHERE planodeacao_cod = '".$id."' ORDER BY id ASC";
+             $query_planoConsumo = "SELECT * FROM plano_materialconsumo WHERE planodeacao_cod = '".$model->plan_codplano."' ORDER BY id ASC";
              $modelsPlanoConsumo = PlanoConsumo::findBySql($query_planoConsumo)->all(); 
              foreach ($modelsPlanoConsumo as $modelPlanoConsumo) {
                 $planmatcon_codMXM     = $modelPlanoConsumo["planmatcon_codMXM"];
@@ -338,7 +340,7 @@ echo DetailView::widget([
             <tr>
                <?php
                //somatória de Quantidade * Valor de todas as linhas
-               $query = (new \yii\db\Query())->from('db_apl2.plano_materialconsumo')->where(['planodeacao_cod' => $id]);
+               $query = (new \yii\db\Query())->from('db_apl2.plano_materialconsumo')->where(['planodeacao_cod' => $model->plan_codplano]);
                $sum = $query->sum('planmatcon_valor*planmatcon_quantidade');
                ?>
                <tr class="warning kv-edit-hidden" style="border-top: #dedede">
@@ -364,7 +366,7 @@ echo DetailView::widget([
     <tbody>
         <?php
              $valorTotal = 0;
-             $query_planoAluno = "SELECT * FROM plano_materialaluno WHERE planodeacao_cod = '".$id."' ORDER BY planmatalu_tipo ASC";
+             $query_planoAluno = "SELECT * FROM plano_materialaluno WHERE planodeacao_cod = '".$model->plan_codplano."' ORDER BY planmatalu_tipo ASC";
              $modelsPlanoAluno = PlanoAluno::findBySql($query_planoAluno)->all(); 
              foreach ($modelsPlanoAluno as $modelPlanoAluno) {
                 
@@ -391,7 +393,7 @@ echo DetailView::widget([
 
                <?php
                //somatória de Quantidade * Valor de todas as linhas
-               $query = (new \yii\db\Query())->from('db_apl2.plano_materialaluno')->where(['planodeacao_cod' => $id]);
+               $query = (new \yii\db\Query())->from('db_apl2.plano_materialaluno')->where(['planodeacao_cod' => $model->plan_codplano]);
                $sum = $query->sum('planmatalu_valor*planmatalu_quantidade');
                ?>
                <th colspan="12" style="color:red"><?php echo 'R$ ' . number_format($sum, 2, ',', '.') ?></th>
@@ -413,7 +415,7 @@ echo DetailView::widget([
     <tbody>
       <tr>
         <?php
-             $query_PlanoEstrutura = "SELECT * FROM plano_estruturafisica WHERE planodeacao_cod = '".$id."' ORDER BY planestr_tipo ASC";
+             $query_PlanoEstrutura = "SELECT * FROM plano_estruturafisica WHERE planodeacao_cod = '".$model->plan_codplano."' ORDER BY planestr_tipo ASC";
              $modelsPlanoEstrutura = PlanoEstruturafisica::findBySql($query_PlanoEstrutura)->all(); 
              foreach ($modelsPlanoEstrutura as $modelPlanoEstrutura) {
                 

@@ -11,7 +11,7 @@ $nome_user    = $session['sess_nomeusuario'];
         <h1 class="text-center"> Auxílio ao Planejamento</h1>
             <div class="body-content">
                 <div class="container">
-                            <h3>Bem vindo(a), <?php echo $nome_user = ucwords(strtolower($nome_user))?>!</h3>
+                            <h3>Bem vindo(a), <?php echo $nome_user = utf8_encode(ucwords(strtolower($nome_user)))?>!</h3>
                 </div>
             </div>
             <div class="panel panel-primary">
