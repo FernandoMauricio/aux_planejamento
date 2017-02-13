@@ -47,12 +47,12 @@ class Repositorio extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rep_titulo', 'rep_categoria', 'rep_sobre', 'rep_codunidade', 'rep_codcolaborador', 'rep_data', 'rep_status'], 'required'],
+            [['rep_titulo', 'rep_categoria', 'rep_tipo', 'rep_sobre', 'rep_codunidade', 'rep_codcolaborador', 'rep_data', 'rep_status'], 'required'],
             [['rep_valor'], 'number'],
             ['rep_codmxm', 'unique'],
             [['rep_sobre'], 'string'],
             [['rep_codunidade', 'rep_codmxm', 'rep_codcolaborador', 'rep_status', 'rep_qtdoriginais'], 'integer'],
-            [['rep_data', 'image'], 'safe'],
+            [['rep_data', 'image', 'rep_elementodespesa'], 'safe'],
             [['file'], 'file','checkExtensionByMimeType'=>false, 'extensions' => 'pdf, zip, rar, doc, docx'],
             [['image'], 'file', 'extensions'=>'jpg, gif, png'],
             [['image'], 'file', 'maxSize'=>'100000'],

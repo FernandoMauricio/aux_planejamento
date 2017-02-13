@@ -86,9 +86,9 @@ class RepositorioMateriaisController extends Controller
 
         $model = new Repositorio();
 
-        $categoria = Categoria::find()->where(['cat_status' => 1])->orderBy('cat_descricao')->all();
+        $categoria = Categoria::find()->where(['cat_status' => 1])->orderBy('cat_codcategoria')->all();
         $editora = Editora::find()->where(['edi_status' => 1])->orderBy('edi_descricao')->all();
-        $tipomaterial = Tipomaterial::find()->where(['tip_status' => 1])->orderBy('tip_descricao')->all();
+        $tipomaterial = Tipomaterial::find()->where(['tip_status' => 1])->orderBy('tip_codtipo')->all();
 
         $model->rep_data = date('Y-m-d');
         $model->rep_codunidade = $session['sess_codunidade'];
@@ -147,9 +147,9 @@ class RepositorioMateriaisController extends Controller
 
         $model = $this->findModel($id);
 
-        $categoria = Categoria::find()->where(['cat_status' => 1])->orderBy('cat_descricao')->all();
+        $categoria = Categoria::find()->where(['cat_status' => 1])->orderBy('cat_codcategoria')->all();
         $editora = Editora::find()->where(['edi_status' => 1])->orderBy('edi_descricao')->all();
-        $tipomaterial = Tipomaterial::find()->where(['tip_status' => 1])->orderBy('tip_descricao')->all();
+        $tipomaterial = Tipomaterial::find()->where(['tip_status' => 1])->orderBy('tip_codtipo')->all();
 
         $model->rep_data = date('Y-m-d');
         $model->rep_codunidade = $session['sess_codunidade'];
