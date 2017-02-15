@@ -87,7 +87,7 @@ $attributes = [
                             'attribute'=>'plan_status', 
                             'format'=>'raw',
                             'type'=>DetailView::INPUT_SWITCH,
-                            'value'=>$model->plan_status ? '<span class="label label-success">Ativo</span>' : '<span class="label label-danger">Inativo</span>',
+                            'value'=>$model->plan_status ? '<span class="label label-success">Liberado</span>' : '<span class="label label-danger">Em elaboração</span>',
                             'valueColOptions'=>['style'=>'width:0%']
                         ],
 
