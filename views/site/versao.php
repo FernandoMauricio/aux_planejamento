@@ -6,6 +6,8 @@ use app\models\Comunicacaointerna;
 use app\models\Destinocomunicacao;
 use yii\helpers\ArrayHelper;
 
+$this->title = 'Auxílio ao Planejamento';
+
 ?>
 
 <div class="site-index">
