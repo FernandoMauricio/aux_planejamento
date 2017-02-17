@@ -29,9 +29,9 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
         <?= Html::a('Novo Material de Consumo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-     <p>
+<!--      <p>
         <?= Html::a('Importar Cadastros - MXM', ['/cadastros/materialconsumo/import-excel-material-consumo'], ['class' => 'btn btn-primary']) ?>
-    </p>
+    </p> -->
 
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,

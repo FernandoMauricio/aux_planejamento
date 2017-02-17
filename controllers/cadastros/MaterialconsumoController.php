@@ -144,7 +144,7 @@ class MaterialconsumoController extends Controller
         ->execute();
 
         //-------atualiza os planos já criados com os valores de materiais de consumo atuais
-        Yii::$app->db_apl->createCommand('UPDATE `plano_materialconsumo`, `materialconsumo_matcon` SET `planmatcon_valor` = `matcon_valor`, `planmatcon_data` = `matcon_data` WHERE `planmatcon_codMXM` = `matcon_codMXM`')
+        Yii::$app->db_apl->createCommand('UPDATE `plano_materialconsumo`, `materialconsumo_matcon` SET `planmatcon_codMXM` = `matcon_codMXM` , `planmatcon_descricao` = `matcon_descricao`, `planmatcon_valor` = `matcon_valor`, `planmatcon_tipo` = `matcon_tipo`, `planmatcon_data` = `matcon_data` WHERE `planmatcon_codMXM` = `matcon_codMXM`')
             ->execute();
 
         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Material de Consumo importado!</strong>');

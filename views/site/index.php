@@ -16,7 +16,7 @@ $nome_user    = $session['sess_nomeusuario'];
             </div>
             <div class="panel panel-primary">
             <div class="panel-heading">
-                        <i class="glyphicon glyphicon-star-empty"></i> O que há de novo? - Versão 1.1 - Publicado em 16/02/2017
+                        <i class="glyphicon glyphicon-star-empty"></i> O que há de novo? - Versão 1.1 - Publicado em 17/02/2017
             </div>
 
                   <div class="panel-body">
