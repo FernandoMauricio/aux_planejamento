@@ -130,6 +130,9 @@ use app\models\cadastros\Tipoprogramacao;
                     <?= $form->field($model, 'placu_quantidadealunosisentos')->textInput() ?>
                 </div>
 
+                <div class="col-md-4">
+                    <?= $form->field($model, 'placu_quantidadealunospsg')->textInput() ?>
+                </div>
                 
             </div>
 
