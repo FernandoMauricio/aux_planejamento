@@ -234,6 +234,13 @@ class PlanilhadecursoController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
+            //Se a CH do Plano for inferior a 40 horas e for selecionado a Fonte de Financiamento PSG, o sistema não deixará prosseguir
+            if($model->placu_cargahorariaplano < 40 && $model->placu_codcategoria == 2){
+                 Yii::$app->session->setFlash('danger', '<strong>AVISO! </strong> Fonte de Financiamento selecionado não pode ter a Carga Horária do Plano inferior a <strong>40 horas</strong>.');
+
+                 return $this->redirect(['create']);
+            }
+            
             //Localiza as Despesas com Docentes
             $ListagemDespDocente = "SELECT * FROM `despesas_docente` WHERE doce_status = 1";
 

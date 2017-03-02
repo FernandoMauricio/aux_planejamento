@@ -101,7 +101,7 @@ use app\models\planilhas\Planilhadecurso;
 
 		   if($combounidade['placu_codunidade'] == 0)//TODAS...
 		    { 
-		     	   $query_unidades = "SELECT placu_nomeunidade, placu_codunidade FROM `db_apl`.`planilhadecurso_placu` WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
+		     	   $query_unidades = "SELECT placu_nomeunidade, placu_codunidade FROM `db_apl2`.`planilhadecurso_placu` WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
             } else //UMA UNIDADE EM ESPECÍFICO...
 		           $query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$combounidade['placu_codunidade']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
 		   

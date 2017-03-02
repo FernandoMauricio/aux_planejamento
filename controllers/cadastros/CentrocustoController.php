@@ -94,7 +94,7 @@ class CentrocustoController extends Controller
         $segmento = Segmento::find()->where(['seg_status' => 1])->orderBy('seg_descricao')->all();
         $tipoacao = Tipo::find()->where(['tip_status' => 1])->orderBy('tip_descricao')->all();
         $unidades = Unidade::find()->where(['uni_codsituacao'=> 1])->orderBy('uni_nomecompleto')->all();
-        $anocentrocusto = Anocentrocusto::find()->where(['ance_ano'=> date('Y') + 1])->all();
+        $anocentrocusto = Anocentrocusto::find()->where(['ance_ano'=> date('Y')])->all();
 
         $model->cen_data    = date('Y-m-d');
         $model->cen_usuario = $session['sess_nomeusuario'];
@@ -135,7 +135,7 @@ class CentrocustoController extends Controller
         $segmento = Segmento::find()->where(['seg_status' => 1])->orderBy('seg_descricao')->all();
         $tipoacao = Tipo::find()->where(['tip_status' => 1])->orderBy('tip_descricao')->all();
         $unidades = Unidade::find()->where(['uni_codsituacao'=> 1])->orderBy('uni_nomecompleto')->all();
-        $anocentrocusto = Anocentrocusto::find()->where(['ance_ano'=> date('Y') + 1])->all();
+        $anocentrocusto = Anocentrocusto::find()->where(['ance_ano'=> date('Y')])->all();
         
         $model->cen_data    = date('Y-m-d');
         $model->cen_usuario = $session['sess_nomeusuario'];

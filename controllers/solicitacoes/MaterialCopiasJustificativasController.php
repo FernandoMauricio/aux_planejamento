@@ -98,7 +98,7 @@ class MaterialCopiasJustificativasController extends Controller
 
     $connection = Yii::$app->db;
     $command = $connection->createCommand(
-    "UPDATE `db_apl`.`materialcopias_matc` SET `situacao_id` = 3, `matc_dataAut` = '".date('Y-m-d H:i:s')."', `matc_ResponsavelAut` = '". $session['sess_nomeusuario']."'   WHERE `matc_id` = '".$materialCopia->matc_id."'");
+    "UPDATE `db_apl2`.`materialcopias_matc` SET `situacao_id` = 3, `matc_dataAut` = '".date('Y-m-d H:i:s')."', `matc_ResponsavelAut` = '". $session['sess_nomeusuario']."'   WHERE `matc_id` = '".$materialCopia->matc_id."'");
     $command->execute();
 
             $model->matc_totalGeral = $model->matc_totalValorMono + $model->matc_totalValorColor;

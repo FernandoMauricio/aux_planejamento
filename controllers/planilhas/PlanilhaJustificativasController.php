@@ -112,7 +112,7 @@ class PlanilhaJustificativasController extends Controller
 
             $connection = Yii::$app->db;
             $command = $connection->createCommand(
-            "UPDATE `db_apl`.`planilhadecurso_placu` SET `placu_codsituacao` = 2 WHERE `placu_codplanilha` = '".$model->planilhadecurso_id."'");
+            "UPDATE `db_apl2`.`planilhadecurso_placu` SET `placu_codsituacao` = 2 WHERE `placu_codplanilha` = '".$model->planilhadecurso_id."'");
             $command->execute();
 
             Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Justificativa para Correção da Planilha '.$model->planilhadecurso_id.' enviada!</strong>');

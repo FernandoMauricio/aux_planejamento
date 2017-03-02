@@ -120,7 +120,7 @@ class ModeloAController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
         //Localiza os modelos A dos Centros de Custos que já foram gerados pela unidade
-        $ModeloA = 'SELECT `moda_centrocustoreduzido` FROM `db_apl`.`modeloa_moda` WHERE moda_codano = '.$model->anoModeloA->an_codano.' AND `moda_codunidade` = '.$session['sess_codunidade'].' ';
+        $ModeloA = 'SELECT `moda_centrocustoreduzido` FROM `db_apl2`.`modeloa_moda` WHERE moda_codano = '.$model->anoModeloA->an_codano.' AND `moda_codunidade` = '.$session['sess_codunidade'].' ';
 
         //Localiza somente os centros de custos que não foram gerados o Modelo A para o ano e unidade selecionada
         $sqlCentroCustos = 'SELECT * FROM `db_base`.`centrocusto_cen` WHERE `cen_centrocustoreduzido` NOT IN ('.implode(',', [$ModeloA]).') AND `cen_codano` = '.$model->anoModeloA->an_ano.' AND `cen_codunidade` = '.$session['sess_codunidade'].' AND `cen_codsituacao` = 1';
