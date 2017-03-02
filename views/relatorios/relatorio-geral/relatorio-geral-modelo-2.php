@@ -207,8 +207,8 @@ use app\models\planilhas\Planilhadecurso;
     <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $nome_plano; ?></font></td>
     <td> <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_turmas; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $carga_horaria_planilha; ?></font></font></font></font></div></td>
-    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_turmas * $carga_horaria_planilha; ?></font></font></font></font></div></td>
-    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $calculo1; ?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($quantidade_turmas * $carga_horaria_planilha, 0, ',', '.'); ?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($calculo1, 0, ',', '.'); ?></font></font></font></font></div></td>
     <td> <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_alunos; ?></font></font></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_alunos_psg; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_alunos_isentos; ?></font></font></font></font></font></font></div></td>
@@ -225,8 +225,8 @@ use app\models\planilhas\Planilhadecurso;
     <td bgcolor="#E0E0E0"> <div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><em><strong>TOTAL</strong></em></font></div></td>
     <td bgcolor="#E0E0E0"> <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_turmas_total; ?></font></font></font></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><em></em></font></div></td>
     <td bgcolor="#E0E0E0"><div align="center">--------</div></td>
-    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $carga_horaria_total; ?></font></font></font></font></div></td>
-    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $hora_aluno_unidade; ?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($carga_horaria_total, 0, ',', '.'); ?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($hora_aluno_unidade, 0, ',', '.'); ?></font></font></font></font></div></td>
     <td colspan="3" bgcolor="#E0E0E0"> <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"></font></font></font></div>
       <div align="center">-------------------</div>
       <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"></font></font></font></div></td>
@@ -269,8 +269,8 @@ use app\models\planilhas\Planilhadecurso;
     <td> <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $matricula_pag_total_geral; ?></font></font></div></td>
     <td> <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $matricula_psg_total_geral; ?></font></font></div></td>
     <td><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $matricula_isento_total_geral; ?></font></font></td>
-    <td> <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $carga_horaria_total_geral;?></font></font></div></td>
-    <td><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $valor_hora_aluno_total_geral;?></font></font></td>
+    <td> <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($carga_horaria_total_geral, 0, ',', '.');?></font></font></div></td>
+    <td><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($valor_hora_aluno_total_geral, 0, ',', '.');?></font></font></td>
   </tr>
 </table> 
 		   

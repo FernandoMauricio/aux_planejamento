@@ -136,8 +136,10 @@ use app\models\cadastros\Tipoprogramacao;
                 
             </div>
 
-            <div class="col-md-12">
-                   <?= $form->field($model, 'placu_observacao')->textarea(['rows' => 4]) ?>
+            <div class="row">
+                <div class="col-md-12">
+                       <?= $form->field($model, 'placu_observacao')->textarea(['rows' => 4]) ?>
+                </div>
             </div>
 
         </div>

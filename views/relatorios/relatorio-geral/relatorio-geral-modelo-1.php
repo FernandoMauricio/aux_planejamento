@@ -293,20 +293,20 @@ use app\models\planilhas\Planilhadecurso;
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_turmas; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $carga_horaria_planilha; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"> 
-        <?php  echo $carga_horaria_planilha * $quantidade_turmas; ?>
+        <?php  echo number_format($carga_horaria_planilha * $quantidade_turmas, 0, ',', '.'); ?>
         </font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2">
-      <?php  echo $calculo1; ?>
+      <?php  echo number_format($calculo1, 0, ',', '.'); ?>
     </font></font></font></font></div></td>
     <td> <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_alunos; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_alunos_psg; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_alunos_isentos; ?></font></font></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $matriculas_total_turma; ?></font></font></font></font></div></td>
-    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($receita_prevista_aluno,2,",",".");?></font></font></font></font></div></td>
-    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($receita_prevista_total_aluno,2,",",".");?></font></font></font></font></div></td>
-    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($custo_planilha,2,",",".");?></font></font></font></font></div></td>
-    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($custo_total_planilha,2,",",".");?></font></font></font></font></div></td>
-    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2" color="<?php echo $cor; ?>"><?php echo $placu_porcentretorno; ?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($receita_prevista_aluno, 2, ',', '.');?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($receita_prevista_total_aluno, 2, ',', '.');?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($custo_planilha, 2, ',', '.');?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($custo_total_planilha, 2, ',', '.');?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2" color="<?php echo $cor; ?>"><?php echo number_format($placu_porcentretorno, 2, ',', '.'); ?></font></font></font></font></div></td>
   </tr>
   			<?php
 						  
@@ -364,15 +364,15 @@ use app\models\planilhas\Planilhadecurso;
     <td colspan="2"><div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><em><strong>TOTAL</strong></em></font></div></td>
     <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_turmas_tipoacao; ?></font></font></div></td>
     <td bgcolor="#E0E0E0"> <div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif">-</font></font></div></td>
-    <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo $cargahoraria_turmas_tipoacao; ?></font></font></div></td>
-    <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo $hora_aluno_unidade; ?></font></font></div></td>
+    <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($cargahoraria_turmas_tipoacao, 0, ',', '.'); ?></font></font></div></td>
+    <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($hora_aluno_unidade, 0, ',', '.'); ?></font></font></div></td>
     <td colspan="3" bgcolor="#E0E0E0"> <div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif">-</font></font></div>
       <div align="center"><font size="2"></font></div></td>
     <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo $matriculas_turmas_tipoacao; ?></font></font></div></td>
     <td bgcolor="#E0E0E0"> <div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif">-</font></font></div></td>
-    <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($receita_turmas_tipoacao,2,",","."); ?></font></font></div></td>
+    <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($receita_turmas_tipoacao, 2, ',', '.'); ?></font></font></div></td>
     <td bgcolor="#E0E0E0"> <div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif">-</font></font></div></td>
-    <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($despesa_turmas_tipoacao,2,",","."); ?></font></font></div></td>
+    <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($despesa_turmas_tipoacao, 2, ',', '.'); ?></font></font></div></td>
     <td bgcolor="#E0E0E0"> <div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif">-</font></font></div></td>
   </tr>
 </table>
@@ -410,21 +410,21 @@ use app\models\planilhas\Planilhadecurso;
              <tr> 
              <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Carga 
              Hor&aacute;ria</font></td>
-             <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $carga_horaria_educacao_profissional; ?></font></div></td>
+             <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($carga_horaria_educacao_profissional, 0, ',', '.'); ?></font></div></td>
              </tr>
              <tr>
                <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Carga 
              Hor&aacute;ria</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> Aluno</font></td>
-               <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $hora_aluno_total_unidade; ?></font></div></td>
+               <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($hora_aluno_total_unidade, 0, ',', '.'); ?></font></div></td>
              </tr>
              <tr> 
              <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Receita 
              Prevista</font></td>
-             <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($receita_prevista_educacao_profissional,2,",",".");?></font></div></td>
+             <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($receita_prevista_educacao_profissional, 2, ',', '.');?></font></div></td>
              </tr>
              <tr> 
              <td height="23" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Despesa</font></td>
-             <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, HelvAetica, sans-serif"><?php echo number_format($despesa_prevista_educacao_profissional,2,",",".");?></font></div></td>
+             <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, HelvAetica, sans-serif"><?php echo number_format($despesa_prevista_educacao_profissional, 2, ',', '.');?></font></div></td>
              </tr>
              </table></td>
              <td width="1%">&nbsp;</td>
@@ -449,11 +449,11 @@ use app\models\planilhas\Planilhadecurso;
              <tr> 
              <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Receita 
              Prevista</font></td>
-             <td><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($receita_prevista_acao_extensivas,2,",",".");?></font></div></td>
+             <td><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($receita_prevista_acao_extensivas, 2, ',', '.');?></font></div></td>
              </tr>
              <tr> 
              <td height="23" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Despesa</font></td>
-             <td><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-seriAf"><?php echo number_format($despesa_prevista_acao_extensivas,2,",",".");?></font></div></td>
+             <td><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-seriAf"><?php echo number_format($despesa_prevista_acao_extensivas, 2, ',', '.');?></font></div></td>
              </tr>
              </table></td>
              </tr>
@@ -489,26 +489,26 @@ use app\models\planilhas\Planilhadecurso;
         </tr>
         <tr> 
           <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Matr&iacute;culas</font></td>
-          <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_matriculas_educacao_profissional_geral; ?></font></div></td>
+          <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($quantidade_matriculas_educacao_profissional_geral, 0, ',', '.'); ?></font></div></td>
         </tr>
         <tr>
           <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Carga 
           Hor&aacute;ria Aluno</font></td>
-          <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $valor_hora_aluno_total_geral; ?></font></div></td>
+          <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($valor_hora_aluno_total_geral, 0, ',', '.'); ?></font></div></td>
         </tr>
         <tr> 
           <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Carga 
             Hor&aacute;ria</font></td>
-          <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $carga_horaria_educacao_profissional_geral; ?></font></div></td>
+          <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($carga_horaria_educacao_profissional_geral, 0, ',', '.'); ?></font></div></td>
         </tr>
         <tr> 
           <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Receita 
             Prevista</font></td>
-          <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($receita_prevista_educacao_profissional_geral,2,",",".");?></font></div></td>
+          <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($receita_prevista_educacao_profissional_geral, 2, ',', '.');?></font></div></td>
         </tr>
         <tr> 
           <td height="23" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Despesa</font></td>
-          <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($despesa_prevista_educacao_profissional_geral,2,",",".");?></font></div></td>
+          <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($despesa_prevista_educacao_profissional_geral, 2, ',', '.');?></font></div></td>
         </tr>
     </table></td>
     <td width="1%">&nbsp;</td>
@@ -523,21 +523,21 @@ use app\models\planilhas\Planilhadecurso;
         </tr>
         <tr> 
           <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Matr&iacute;culas</font></td>
-          <td><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_matriculas_acao_extensivas_geral; ?></font></div></td>
+          <td><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($quantidade_matriculas_acao_extensivas_geral, 0, ',', '.'); ?></font></div></td>
         </tr>
         <tr> 
           <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Carga 
             Hor&aacute;ria</font></td>
-          <td><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $carga_horaria_acao_extensivas_geral; ?></font></div></td>
+          <td><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($carga_horaria_acao_extensivas_geral, 0, ',', '.'); ?></font></div></td>
         </tr>
         <tr> 
           <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Receita 
             Prevista</font></td>
-          <td><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($receita_prevista_acao_extensivas_geral,2,",",".");?></font></div></td>
+          <td><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($receita_prevista_acao_extensivas_geral, 2, ',', '.');?></font></div></td>
         </tr>
         <tr> 
           <td height="23" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Despesa</font></td>
-          <td><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($despesa_prevista_acao_extensivas_geral,2,",",".");?></font></div></td>
+          <td><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($despesa_prevista_acao_extensivas_geral, 2, ',', '.');?></font></div></td>
         </tr>
       </table></td>
   </tr>
