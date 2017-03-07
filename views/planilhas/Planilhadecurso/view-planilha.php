@@ -195,6 +195,18 @@ use yii\helpers\Html;
                                     ],
                                 ],
                             ],
+
+                            [
+                                'columns' => [
+                                    [
+                                        'attribute'=>'placu_observacao', 
+                                        'labelColOptions'=>['style'=>'width:3.55%'],
+                                        'valueColOptions'=>['style'=>'width:50%'],
+                                        'displayOnly'=>true
+                                    ],
+                                ],
+                            ],
+
                     ];
 
     echo DetailView::widget([

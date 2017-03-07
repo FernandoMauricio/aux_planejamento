@@ -28,6 +28,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
+use kartik\mpdf\Pdf;
+use mPDF;
 
 /**
  * PlanilhadecursoController implements the CRUD actions for Planilhadecurso model.
@@ -126,6 +128,30 @@ class PlanilhadecursoController extends Controller
         return $this->redirect(['index']);
         
     }
+
+   public function actionImprimir($id) 
+    {
+        $this->layout = 'main-imprimir';
+        
+        $model = $this->findModel($id);
+        $modelsPlaniDespDocente    = $model->planiDespDocente;
+        $modelsPlaniUC             = $model->planiUC;
+        $modelsPlaniMaterial       = $model->planiMateriais;
+        $modelsPlaniConsumo        = $model->planiConsumo;
+        $modelsPlaniMateriaisAluno = $model->planiMateriaisAluno;
+        $modelsPlaniEquipamento    = $model->planiEquipamento;
+
+        return $this->render('imprimir', [
+            'model' => $this->findModel($id),
+            'modelsPlaniDespDocente'    => $modelsPlaniDespDocente,
+            'modelsPlaniUC'             => $modelsPlaniUC,
+            'modelsPlaniMaterial'       => $modelsPlaniMaterial,
+            'modelsPlaniConsumo'        => $modelsPlaniConsumo,
+            'modelsPlaniMateriaisAluno' => $modelsPlaniMateriaisAluno,
+            'modelsPlaniEquipamento'    => $modelsPlaniEquipamento,
+        ]);
+    }
+
     /**
      * Lists all Planilhadecurso models.
      * @return mixed
