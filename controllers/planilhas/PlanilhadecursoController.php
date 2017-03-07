@@ -516,6 +516,11 @@ class PlanilhadecursoController extends Controller
              Yii::$app->session->setFlash('danger', '<strong>AVISO! </strong> Planilha '.$id.' do ano de <strong>'.$model->planilhaAno->an_ano.'</strong>. Por favor, <strong>exclua</strong> os itens de Organização Curricular, Material Didático, Consumo e Aluno que não irá utilizar!</strong>');
         }
 
+        // Se a Planilha estiver HOMOLOGADA e o usuário tentar acessar, será redirecionada automaticamente para a listagem
+        if($model->placu_codsituacao == 4){ 
+            return $this->redirect(['index']);
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
         //--------Despesas com Docentes--------------

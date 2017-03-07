@@ -43,8 +43,8 @@ class PlanilhaConsumo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['planilhadecurso_cod', 'planodeacao_cod', 'materialconsumo_cod', 'planico_codMXM', 'planico_quantidade'], 'integer'],
-            [['planico_valor'], 'number'],
+            [['planilhadecurso_cod', 'planodeacao_cod', 'materialconsumo_cod', 'planico_codMXM'], 'integer'],
+            [['planico_valor', 'planico_quantidade'], 'number'],
             [['planico_descricao'], 'string', 'max' => 100],
             [['planico_tipo'], 'string', 'max' => 45],
             [['planilhadecurso_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Planilhadecurso::className(), 'targetAttribute' => ['planilhadecurso_cod' => 'placu_codplanilha']],
