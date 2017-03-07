@@ -106,7 +106,6 @@ use app\models\cadastros\Tipoprogramacao;
 
         <?= $form->field($model, 'placu_cargahorariaplano')->hiddenInput()->label(false); ?>
 
-
             <div class="row">
                 <div class="col-md-4">
                     <?= $form->field($model, 'placu_cargahorariarealizada')->textInput() ?>
@@ -135,7 +134,7 @@ use app\models\cadastros\Tipoprogramacao;
                 </div>
                 
             </div>
-
+            
             <div class="row">
                 <div class="col-md-12">
                        <?= $form->field($model, 'placu_observacao')->textarea(['rows' => 4]) ?>

@@ -119,6 +119,12 @@ use yii\helpers\Html;
                                         'displayOnly'=>true
                                     ],
                                     [
+                                        'attribute'=>'placu_codano', 
+                                        'value'=> $model->categoriaPlanilha->cat_descricao,
+                                        'labelColOptions'=>['style'=>'width:0%'], 
+                                        'displayOnly'=>true
+                                    ],
+                                    [
                                         'attribute'=>'placu_codtipla', 
                                         'value'=> $model->tipoplanilha->tipla_descricao,
                                         'labelColOptions'=>['style'=>'width:0%'], 
