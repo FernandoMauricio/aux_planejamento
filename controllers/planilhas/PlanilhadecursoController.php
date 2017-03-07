@@ -20,6 +20,7 @@ use app\models\planilhas\PlanilhaMaterial;
 use app\models\planilhas\PlanilhaConsumo;
 use app\models\planilhas\PlanilhaMaterialAluno;
 use app\models\planilhas\PlanilhaEquipamento;
+use app\models\planilhas\PlanilhaJustificativas;
 use app\models\planilhas\Planilhadecurso;
 use app\models\planilhas\PlanilhadecursoSearch;
 use yii\web\Controller;
@@ -926,6 +927,7 @@ class PlanilhadecursoController extends Controller
         PlanilhaConsumo::deleteAll('planilhadecurso_cod = "'.$id.'"');
         PlanilhaMaterialAluno::deleteAll('planilhadecurso_cod = "'.$id.'"');
         PlanilhaEquipamento::deleteAll('planilhadecurso_cod = "'.$id.'"');
+        PlanilhaJustificativas::deleteAll('planilhadecurso_id = "'.$id.'"');
         $model->delete(); //Exclui a planilha
 
         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Planilha de Curso de código: ' . '<strong>' .$id. '</strong>' . ' excluída!');

@@ -409,7 +409,7 @@ class ModeloAController extends Controller
                     Yii::$app->db_apl->createCommand()
                         ->update('detalhesmodeloa_deta',[
                                  'deta_programado'     => $valor_programado > 0 && $valor_programado < 1000 ?  1000 : $valor_programado,
-                                 'deta_dotacaofinal'   => $valor_programado + $deta_reforcoreducao,
+                                 'deta_dotacaofinal'   => $deta_programado + $valor_reforcoreducao > 0 && $deta_programado + $valor_reforcoreducao < 1000 ? 1000 : $deta_programado + $valor_reforcoreducao,
                                  ], [//------WHERE
                                  'deta_codmodelo'      => $model->moda_codmodelo,
                                  'deta_identificacao'  => $orcpro_identificacao,
@@ -462,7 +462,7 @@ class ModeloAController extends Controller
                     Yii::$app->db_apl->createCommand()
                         ->update('detalhesmodeloa_deta', [
                                  'deta_reforcoreducao' => $valor_reforcoreducao > 0 && $valor_reforcoreducao < 1000 ?  1000 : $valor_reforcoreducao,
-                                 'deta_dotacaofinal'   => $deta_programado + $valor_reforcoreducao,
+                                 'deta_dotacaofinal'   => $deta_programado + $valor_reforcoreducao > 0 && $deta_programado + $valor_reforcoreducao < 1000 ? 1000 : $deta_programado + $valor_reforcoreducao,
                                  ], [//------WHERE
                                  'deta_codmodelo'      => $model->moda_codmodelo,
                                  'deta_identificacao'  => $orcpro_identificacao,
