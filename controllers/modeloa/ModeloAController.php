@@ -207,7 +207,6 @@ class ModeloAController extends Controller
                     $placu_totalencargosPrestador  = $planilhaDeCurso['placu_totalencargosPrestador'];
                     $placu_totalsalario            = $planilhaDeCurso['placu_totalsalario'];
                     $placu_outdespvariaveis        = $planilhaDeCurso['placu_outdespvariaveis'];
-                    $placu_outdespvariaveis        = $planilhaDeCurso['placu_outdespvariaveis'];
 
 
                     if($orcpro_identificacao == 414) { //DIARIAS ----->DIÁRIAS - PESSOAL CIVIL
@@ -360,7 +359,6 @@ class ModeloAController extends Controller
                     $placu_totalencargos           = $planilhaDeCurso['placu_totalencargos'];
                     $placu_totalencargosPrestador  = $planilhaDeCurso['placu_totalencargosPrestador'];
                     $placu_totalsalario            = $planilhaDeCurso['placu_totalsalario'];
-                    $placu_outdespvariaveis        = $planilhaDeCurso['placu_outdespvariaveis'];
                     $placu_outdespvariaveis        = $planilhaDeCurso['placu_outdespvariaveis'];
 
 

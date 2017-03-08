@@ -287,9 +287,9 @@ $(function() {
       var valorDecimo              = valorTotalMaoDeObra / 12;
       var valorFerias              = valorTotalMaoDeObra / 12;
       var valorTercoFerias         = valorTotalMaoDeObra / 12 / 3;
-      var totalSalarios            = valorTotalMaoDeObra + valorDecimo + valorFerias + valorTercoFerias;
-      var totalEncargos            = (totalSalarios * 32.7) / 100;
       var totalOutrasDespVar       = (valorTotalMaoDeObra * 45) / 100;
+      var totalSalarios            = valorTotalMaoDeObra + valorDecimo + valorFerias + valorTercoFerias;
+      var totalEncargos            = (totalOutrasDespVar + totalSalarios) * 32.7 / 100; //(SubTotal de Venc. + Outras Desp. Variáveis) * 32.7%
       var totalSalariosEncargos    = totalSalarios + valorTotalMaoDeObraPrestador + totalEncargos + totalOutrasDespVar + totalEncargosPrestador; // Total de Salários + Outras Despesas Variáveis + Encargos (Horista e Prestador de Serviço)
       var totalMaterial            = placu_hiddenmaterialdidatico * valorTotalQntAlunos;
       var totalPJApostila          = placu_hiddenpjapostila * valorTotalQntAlunos;
