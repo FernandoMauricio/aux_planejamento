@@ -216,7 +216,7 @@ class PlanodeacaoController extends Controller
                             if($model->save()){
 
                                 //realiza a soma dos custos de material didático(LIVROS) SOMENTE DO PLANO A
-                                $query = (new \yii\db\Query())->from('db_apl2.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano, 'plama_tipoplano' => 'Plano A', 'plama_tipomaterial' => 'LIVRO']);
+                                $query = (new \yii\db\Query())->from('db_apl2.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano, 'plama_tipoplano' => 'Plano A', 'plama_tipomaterial' => 'LIVROS']);
                                 $totalValorMaterialLivro = $query->sum('plama_valor');
 
                                 //realiza a soma dos custos de material didático(APOSTILAS) SOMENTE DO PLANO A
@@ -470,7 +470,7 @@ class PlanodeacaoController extends Controller
                                 if($model->save()){
 
                                 //realiza a soma dos custos de material didático(LIVROS) SOMENTE DO PLANO A
-                                $query = (new \yii\db\Query())->from('db_apl2.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano, 'plama_tipoplano' => 'Plano A', 'plama_tipomaterial' => 'LIVRO']);
+                                $query = (new \yii\db\Query())->from('db_apl2.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano, 'plama_tipoplano' => 'Plano A', 'plama_tipomaterial' => 'LIVROS']);
                                 $totalValorMaterialLivro = $query->sum('plama_valor');
 
                                 //realiza a soma dos custos de material didático(APOSTILAS) SOMENTE DO PLANO A
