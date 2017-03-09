@@ -387,11 +387,16 @@ use app\models\cadastros\Tipoprogramacao;
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
                             'options' => ['readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
+                    
+                    <?= $form->field($model, 'placu_hiddencustosaluno')->hiddenInput()->label(false); ?>
                 </div>
             </div>
 

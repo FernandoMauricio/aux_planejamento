@@ -102,6 +102,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'placu_totalcustodireto')->textInput() ?>
 
+    <?= $form->field($model, 'placu_hiddencustosaluno')->textInput() ?>
+
     <?= $form->field($model, 'placu_totalhoraaulacustodireto')->textInput() ?>
 
     <?= $form->field($model, 'placu_custosindiretos')->textInput() ?>

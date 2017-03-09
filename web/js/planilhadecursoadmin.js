@@ -163,6 +163,10 @@ $(function() {
        updateTotal();
     });
 
+    $('#planilhadecursoadmin-placu_hiddencustosaluno').keyup(function() {
+       updateTotal();
+    });
+
     //Despesas Indiretas
     $('#planilhadecursoadmin-placu_custosindiretos').keyup(function() {
        updateTotal();
@@ -245,13 +249,14 @@ $(function() {
       var planides_cargahoraria6  = parseFloat($('#planilhadespesadocente-6-planides_cargahoraria').val());
 
       //Despesas Diretas
-      var placu_diarias        = parseFloat($('#planilhadecursoadmin-placu_diarias').val());
-      var placu_passagens      = parseFloat($('#planilhadecursoadmin-placu_passagens').val());
-      var placu_equipamentos   = parseFloat($('#planilhadecursoadmin-placu_equipamentos').val());
-      var placu_pessoafisica   = parseFloat($('#planilhadecursoadmin-placu_pessoafisica').val());
-      var placu_pessoajuridica = parseFloat($('#planilhadecursoadmin-placu_pessoajuridica').val());
-      var placu_custosconsumo  = parseFloat($('#planilhadecursoadmin-placu_custosconsumo').val());
-      var placu_custosaluno    = parseFloat($('#planilhadecursoadmin-placu_custosaluno').val());
+      var placu_diarias           = parseFloat($('#planilhadecursoadmin-placu_diarias').val());
+      var placu_passagens         = parseFloat($('#planilhadecursoadmin-placu_passagens').val());
+      var placu_equipamentos      = parseFloat($('#planilhadecursoadmin-placu_equipamentos').val());
+      var placu_pessoafisica      = parseFloat($('#planilhadecursoadmin-placu_pessoafisica').val());
+      var placu_pessoajuridica    = parseFloat($('#planilhadecursoadmin-placu_pessoajuridica').val());
+      var placu_custosconsumo     = parseFloat($('#planilhadecursoadmin-placu_custosconsumo').val());
+      var placu_custosaluno       = parseFloat($('#planilhadecursoadmin-placu_custosaluno').val());
+      var placu_hiddencustosaluno = parseFloat($('#planilhadecursoadmin-placu_hiddencustosaluno').val());
 
       //Despesas Indiretas
       var placu_custosindiretos  = parseFloat($('#planilhadecursoadmin-placu_custosindiretos').val());
@@ -293,7 +298,9 @@ $(function() {
       var totalSalariosEncargos    = totalSalarios + valorTotalMaoDeObraPrestador + totalEncargos + totalOutrasDespVar + totalEncargosPrestador; // Total de Salários + Outras Despesas Variáveis + Encargos (Horista e Prestador de Serviço)
       var totalMaterial            = placu_hiddenmaterialdidatico * valorTotalQntAlunos;
       var totalPJApostila          = placu_hiddenpjapostila * valorTotalQntAlunos;
-      var valorTotalDireto         = totalSalariosEncargos + placu_diarias + placu_passagens + placu_equipamentos + placu_pessoafisica + placu_pessoajuridica + totalPJApostila + totalMaterial + placu_custosconsumo + placu_custosaluno;
+      var totalCustosAluno         = placu_hiddencustosaluno * placu_quantidadealunospsg; //Multiplica o valor do material de aluno por Quantidade de Alunos PSG
+
+      var valorTotalDireto         = totalSalariosEncargos + placu_diarias + placu_passagens + placu_equipamentos + placu_pessoafisica + placu_pessoajuridica + totalPJApostila + totalMaterial + placu_custosconsumo + totalCustosAluno;
       var totalhoraaulacustodireto = valorTotalDireto / placu_cargahorariaplano / valorTotalQntAlunos;
 
       //Despesas Indiretas
@@ -344,6 +351,7 @@ $(function() {
       $('#planilhadecursoadmin-placu_totalsalarioencargo').val(totalSalariosEncargos); // Total de Salários + Encargos
       $('#planilhadecursoadmin-placu_pjapostila').val(totalPJApostila); // Total Mat. Didático (Apost./plano A)
       $('#planilhadecursoadmin-placu_custosmateriais').val(totalMaterial); // Total Mat. Didático (Livros/plano A)
+      $('#planilhadecursoadmin-placu_custosaluno').val(totalCustosAluno); // //Total do valor de Material de Aluno * Quantidade de Alunos PSG
       $('#planilhadecursoadmin-placu_totalcustodireto').val(valorTotalDireto); // Total de Custo Direto
       $('#planilhadecursoadmin-placu_totalhoraaulacustodireto').val(totalhoraaulacustodireto); // V. Hora/Aula de Custo Direto
 

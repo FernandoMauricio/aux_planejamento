@@ -163,18 +163,20 @@ class PlanilhadecursoAdminController extends Controller
         if($model->placu_hiddenpjapostila == NULL){
             $model->placu_hiddenpjapostila = 0;
         }
-
-        if($model->placu_hiddenmaterialdidatico == NULL){
-            $model->placu_hiddenmaterialdidatico = 0;
-        }
         if($model->placu_custosmateriais == NULL){
             $model->placu_custosmateriais = 0;
+        }
+        if($model->placu_hiddenmaterialdidatico == NULL){
+            $model->placu_hiddenmaterialdidatico = 0;
         }
         if($model->placu_custosconsumo == NULL){
             $model->placu_custosconsumo = 0;
         }
         if($model->placu_custosaluno == NULL){
             $model->placu_custosaluno = 0;
+        }
+        if($model->placu_hiddencustosaluno == NULL){
+            $model->placu_hiddencustosaluno = 0;
         }
 
         //Caso o exercicio da Planilha seja diferente com o ano da Planilha, será avisado ao usuário para excluir alguns itens
@@ -332,6 +334,7 @@ class PlanilhadecursoAdminController extends Controller
 
                                     $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro; //save hidden custo para multiplicação javascript
                                     $model->placu_hiddenpjapostila       = $totalValorMaterialApostila; //save hidden custo para multiplicação javascript
+                                    $model->placu_hiddencustosaluno      = ($totalValorAluno * $model->placu_quantidadealunospsg) + 0; //save hidden custo para multiplicação javascript
                                     $model->placu_data                   = date('Y-m-d');
                                     $model->placu_codsituacao            = 1; //Situação Padrão: Em elaboração
 
@@ -535,6 +538,7 @@ class PlanilhadecursoAdminController extends Controller
 
                                     $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro; //save hidden custo para multiplicação javascript
                                     $model->placu_hiddenpjapostila       = $totalValorMaterialApostila; //save hidden custo para multiplicação javascript
+                                    $model->placu_hiddencustosaluno      = ($totalValorAluno * $model->placu_quantidadealunospsg) + 0; //save hidden custo para multiplicação javascript
                                     $model->placu_data                   = date('Y-m-d');
                                     $model->placu_codsituacao  = 5; //Atualiza a Planilha para Aguardando Envio Planejamento
                                     
