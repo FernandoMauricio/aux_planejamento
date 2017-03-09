@@ -281,7 +281,7 @@ class PlanilhadecursoController extends Controller
                     $doce_dsr           = $despDocente['doce_dsr'];
                     $doce_planejamento  = $despDocente['doce_planejamento'];
                     $doce_produtividade = $despDocente['doce_produtividade'];
-                    $doce_valorhoraaula = $despDocente['doce_valorhoraaula'];
+                    $doce_valorhoraaula = $despDocente['doce_planejamento']; // Valor hora/aula + pruditividade será calculado em custos diretos. Por isso estamos repetindo o valor do planejamento aqui.
 
                 //Inclui Despesas com Docentes do Plano na Planilha que está sendo criada
                 Yii::$app->db_apl->createCommand()
@@ -486,7 +486,6 @@ class PlanilhadecursoController extends Controller
 
                     $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro + 0; //save hidden custo para multiplicação javascript
                     $model->placu_hiddenpjapostila       = $totalValorMaterialApostila + 0; //save hidden custo para multiplicação javascript
-                    //$model->placu_hiddencustosaluno      = ($totalValorAluno * $model->placu_quantidadealunospsg) + 0; //save hidden custo para multiplicação javascript
                     
                     $model->save();
                 }

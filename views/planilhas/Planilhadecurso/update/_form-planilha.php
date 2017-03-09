@@ -177,7 +177,7 @@ use app\models\cadastros\Tipoprogramacao;
                 </div>
 
                 <div class="col-md-2">
-                    <?= $form->field($model, 'placu_decimo')->widget(\yii\widgets\MaskedInput::className(), [
+                    <?= $form->field($model, 'placu_outdespvariaveis')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,
@@ -187,7 +187,7 @@ use app\models\cadastros\Tipoprogramacao;
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
-                            'options' => ['readonly' => true, 'class' => 'form-control']
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
                 </div>
 
@@ -221,7 +221,7 @@ use app\models\cadastros\Tipoprogramacao;
                     ]); ?>
                 </div>
                 <div class="col-md-2">
-                    <?= $form->field($model, 'placu_totalsalario')->widget(\yii\widgets\MaskedInput::className(), [
+                    <?= $form->field($model, 'placu_decimo')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,
@@ -235,7 +235,7 @@ use app\models\cadastros\Tipoprogramacao;
                     ]); ?>
                 </div>
                 <div class="col-md-2">
-                    <?= $form->field($model, 'placu_totalencargos')->widget(\yii\widgets\MaskedInput::className(), [
+                    <?= $form->field($model, 'placu_totalsalario')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,
@@ -245,7 +245,7 @@ use app\models\cadastros\Tipoprogramacao;
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
-                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                            'options' => ['readonly' => true, 'class' => 'form-control']
                     ]); ?>
                 </div>
             </div>
@@ -253,7 +253,7 @@ use app\models\cadastros\Tipoprogramacao;
 
             <div class="row">
                 <div class="col-md-2">
-                    <?= $form->field($model, 'placu_outdespvariaveis')->widget(\yii\widgets\MaskedInput::className(), [
+                    <?= $form->field($model, 'placu_totalencargos')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,
