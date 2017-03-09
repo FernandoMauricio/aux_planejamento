@@ -482,11 +482,11 @@ class PlanilhadecursoController extends Controller
                     $model->placu_custosmateriais  = ($totalValorMaterialLivro * $valorTotalQntAlunos) + 0; //save custo material didático - LIVROS
                     $model->placu_PJApostila       = ($totalValorMaterialApostila * $valorTotalQntAlunos) + 0; //save custo material didático - APOSTILAS
                     $model->placu_custosconsumo    = $totalValorConsumo + 0; //save custo material consumo
-                    $model->placu_custosaluno      = $totalValorAluno; //save custo material consumo
+                    $model->placu_custosaluno      = ($totalValorAluno * $model->placu_quantidadealunospsg) + 0; //save custo material do aluno
 
                     $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro + 0; //save hidden custo para multiplicação javascript
                     $model->placu_hiddenpjapostila       = $totalValorMaterialApostila + 0; //save hidden custo para multiplicação javascript
-                    $model->placu_hiddencustosaluno      = ($totalValorAluno * $model->placu_quantidadealunospsg) + 0; //save hidden custo para multiplicação javascript
+                    //$model->placu_hiddencustosaluno      = ($totalValorAluno * $model->placu_quantidadealunospsg) + 0; //save hidden custo para multiplicação javascript
                     
                     $model->save();
                 }
@@ -691,11 +691,11 @@ class PlanilhadecursoController extends Controller
                                     $model->placu_custosmateriais  = $totalValorMaterialLivro * $valorTotalQntAlunos; //save custo material didático - LIVROS
                                     $model->placu_PJApostila       = $totalValorMaterialApostila * $valorTotalQntAlunos; //save custo material didático - APOSTILAS
                                     $model->placu_custosconsumo    = $totalValorConsumo; //save custo material consumo
-                                    $model->placu_custosaluno      = $totalValorAluno; //save custo material consumo
+                                    $model->placu_custosaluno      = ($totalValorAluno * $model->placu_quantidadealunospsg) + 0; //save custo material do aluno
 
                                     $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro; //save hidden custo para multiplicação javascript
                                     $model->placu_hiddenpjapostila       = $totalValorMaterialApostila; //save hidden custo para multiplicação javascript
-                                    $model->placu_hiddencustosaluno      = ($totalValorAluno * $model->placu_quantidadealunospsg) + 0; //save hidden custo para multiplicação javascript
+                                    $model->placu_hiddencustosaluno      = $totalValorAluno + 0; //save hidden custo para multiplicação javascript
                                     $model->placu_data                   = date('Y-m-d');
                                     $model->placu_codsituacao            = 1; //Situação Padrão: Em elaboração
 
@@ -895,11 +895,11 @@ class PlanilhadecursoController extends Controller
                                     $model->placu_custosmateriais  = $totalValorMaterialLivro * $valorTotalQntAlunos; //save custo material didático - LIVROS
                                     $model->placu_PJApostila       = $totalValorMaterialApostila * $valorTotalQntAlunos; //save custo material didático - APOSTILAS
                                     $model->placu_custosconsumo    = $totalValorConsumo; //save custo material consumo
-                                    $model->placu_custosaluno      = $totalValorAluno; //save custo material consumo
+                                    $model->placu_custosaluno      = ($totalValorAluno * $model->placu_quantidadealunospsg) + 0; //save custo material do aluno
 
                                     $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro; //save hidden custo para multiplicação javascript
                                     $model->placu_hiddenpjapostila       = $totalValorMaterialApostila; //save hidden custo para multiplicação javascript
-                                    $model->placu_hiddencustosaluno      = ($totalValorAluno * $model->placu_quantidadealunospsg) + 0; //save hidden custo para multiplicação javascript
+                                    $model->placu_hiddencustosaluno      = $totalValorAluno + 0; //save hidden custo para multiplicação javascript
                                     $model->placu_data                   = date('Y-m-d');
                                     $model->placu_codsituacao  = 5; //Atualiza a Planilha para Aguardando Envio Planejamento
 
