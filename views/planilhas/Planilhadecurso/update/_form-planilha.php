@@ -145,7 +145,7 @@ use app\models\cadastros\Tipoprogramacao;
 
             <table class="table table-condensed table-hover">
               <thead>
-                <tr class="info"><th colspan="12">SEÇÃO 4: Cálculos de Custos Indiretos</th></tr>
+                <tr class="info"><th colspan="12">SEÇÃO 3: Cálculos de Custos Diretos</th></tr>
               </thead>
             </table>
 

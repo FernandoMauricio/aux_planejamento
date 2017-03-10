@@ -131,7 +131,7 @@ $(function() {
       var valorFerias              = valorTotalMaoDeObra / 12;
       var valorTercoFerias         = valorTotalMaoDeObra / 12 / 3;
       var totalSalarios            = valorTotalMaoDeObra + valorDecimo + valorFerias + valorTercoFerias;
-      var totalEncargos            = (totalSalarios * 32.7) / 100;
+      var totalEncargos            = (totalSalarios * 33.29) / 100;
       var totalSalariosEncargos    = totalSalarios + totalEncargos;
       var totalMaterial            = hiddenmaterialdidatico * planp_qntaluno;
       var totalPJApostila          = hiddenPJApostila * planp_qntaluno;
@@ -216,7 +216,7 @@ $(function() {
       $('#precificacao-planp_ferias').val(valorFerias); // 1/12 de Férias
       $('#precificacao-planp_tercoferias').val(valorTercoFerias); // 1/12 de 1/3 de férias
       $('#precificacao-planp_totalsalario').val(totalSalarios); // Total de Salários
-      $('#precificacao-planp_totalencargos').val(totalEncargos); // Total de Salários x 32.7% (encargos)
+      $('#precificacao-planp_totalencargos').val(totalEncargos); // Total de Salários x 33.29% (encargos)
       $('#precificacao-planp_totalsalarioencargo').val(totalSalariosEncargos); // Total de Salários + Total de Encargos
       $('#precificacao-planp_pjapostila').val(totalPJApostila); // Total de Material x Quantidade de Alunos
       $('#precificacao-planp_custosmateriais').val(totalMaterial); // Total de Apostilas x Quantidade de Alunos
