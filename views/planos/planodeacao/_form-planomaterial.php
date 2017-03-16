@@ -46,6 +46,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                             <div class="panel-heading">
                                 <span class="panel-title-planomaterial">Item: <?= ($i + 1) ?></span>
                                 <button type="button" class="pull-right remove-item-planomaterial btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                <button type="button" class="pull-right add-item-planomaterial btn btn-success btn-xs" style="margin-right: 12px;"><i class="glyphicon glyphicon-plus"></i></button>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="panel-body">
