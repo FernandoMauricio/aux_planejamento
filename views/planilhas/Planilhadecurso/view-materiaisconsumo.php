@@ -12,8 +12,8 @@ use yii\helpers\Html;
             <tr>
               <th>Cód MXM</th>
               <th>Descrição</th>
-              <th>Valor Unitário</th>
               <th>Quantidade</th>
+              <th>Valor Unitário</th>
               <th>Unidade</th>
             </tr>
          </thead>

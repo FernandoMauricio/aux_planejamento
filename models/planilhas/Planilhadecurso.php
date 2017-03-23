@@ -219,7 +219,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             'placu_totalencargos' => 'SubTotal de Encargos',
             'placu_outdespvariaveis' => 'Outras Desp. Variáveis',
             'placu_totalsalarioencargo' => 'Total Vencimentos + Encargos (Horista+Prestador)',
-            'placu_custosmateriais' => 'Mat. Didático (Livros/plano A):',
+            'placu_custosmateriais' => 'Mat. Didático (Livros):',
             'placu_custosconsumo' => 'Mat. de Consumo',
             'placu_custosaluno' => 'Mat. do Aluno',
             'placu_diarias' => 'Diárias',
@@ -227,7 +227,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             'placu_pessoafisica' => 'Serv. Terceiros (PF)',
             'placu_pessoajuridica' => 'Serv. Terceiros (PJ)',
             'placu_equipamentos' => 'Equipamentos',
-            'placu_PJApostila' => 'Mat. Didático (Apost./plano A):',
+            'placu_PJApostila' => 'Mat. Didático (Apostilas):',
             'placu_totalcustodireto' => 'Total de Custo Direto',
             'placu_totalhoraaulacustodireto' => 'V. Hora/Aula de Custo Direto',
 

@@ -181,7 +181,7 @@ class ModeloAController extends Controller
             $valor_programado = 0;
 
               //IDENTIFICANDO O TIPO DE TITULO PARA BUSCAR VALORES NAS PLANILHAS...
-              if($orcpro_identificacao == 111 || $orcpro_identificacao == 113 || $orcpro_identificacao == 116 || $orcpro_identificacao == 414 || $orcpro_identificacao == 430 || $orcpro_identificacao == 433 || $orcpro_identificacao == 439) {
+              if($orcpro_identificacao == 111 || $orcpro_identificacao == 113 || $orcpro_identificacao == 116 || $orcpro_identificacao == 414 || $orcpro_identificacao == 430 || $orcpro_identificacao == 436 || $orcpro_identificacao == 433 || $orcpro_identificacao == 439 || $orcpro_identificacao == 552) {
 
                 //Localiza as Planilhas de Cursos onde contêm os centros de Custos cadastrados // Parâmetros -> situação 4 - (Homologada) e Tipo de Planilha (Produção)
                 $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_anoexercicio' => date('Y'), 'placu_codsegmento' => $cen_codsegmento, 'placu_codtipoa' => $cen_codtipoacao, 'placu_codsituacao' => 4, 'placu_codtipla' => 1, 'placu_codprogramacao' => 1])->all();
@@ -197,6 +197,8 @@ class ModeloAController extends Controller
                     $placu_cargahorariaarealizar   = $planilhaDeCurso['placu_cargahorariaarealizar'];
                     $placu_diarias                 = $planilhaDeCurso['placu_diarias'];
                     $placu_passagens               = $planilhaDeCurso['placu_passagens'];
+                    $placu_equipamentos            = $planilhaDeCurso['placu_equipamentos'];
+                    $placu_pessoafisica            = $planilhaDeCurso['placu_pessoafisica'];
                     $placu_pessoajuridica          = $planilhaDeCurso['placu_pessoajuridica'];
                     $placu_custosmateriais         = $planilhaDeCurso['placu_custosmateriais'];
                     $placu_PJApostila              = $planilhaDeCurso['placu_PJApostila'];
@@ -225,9 +227,21 @@ class ModeloAController extends Controller
                         $valor_programado += $placu_passagens * $placu_quantidadeturmas;
                     }
 
+                    else if($orcpro_identificacao == 436) { //PESSOA FÍSICA
+
+                        $valor_programado += ($placu_pessoafisica * $placu_quantidadeturmas);
+
+                    }
+
                     else if($orcpro_identificacao == 439) { //SEGURO DOS ALUNOS + MATERIAL DIDÁTICO (APOSTILAS)----->OUTROS SERVIÇOS TERC. PESSOA JURÍDICA
 
                         $valor_programado += ($placu_PJApostila * $placu_quantidadeturmas);
+
+                    }
+
+                    else if($orcpro_identificacao == 552) { //CAMPO EQUIPAMENTOS * QUANTIDADE DE TURMAS
+
+                        $valor_programado += ($placu_equipamentos * $placu_quantidadeturmas);
 
                     }
 
@@ -334,7 +348,7 @@ class ModeloAController extends Controller
             $valor_reforcoreducao = 0;
 
               //IDENTIFICANDO O TIPO DE TITULO PARA BUSCAR VALORES NAS PLANILHAS...
-              if($orcpro_identificacao == 111 || $orcpro_identificacao == 113 || $orcpro_identificacao == 116 || $orcpro_identificacao == 414 || $orcpro_identificacao == 430 || $orcpro_identificacao == 433 || $orcpro_identificacao == 439) {
+              if($orcpro_identificacao == 111 || $orcpro_identificacao == 113 || $orcpro_identificacao == 116 || $orcpro_identificacao == 414 || $orcpro_identificacao == 430 || $orcpro_identificacao == 436 || $orcpro_identificacao == 433 || $orcpro_identificacao == 439 || $orcpro_identificacao == 552) {
 
                 //Localiza as Planilhas de Cursos onde contêm os centros de Custos cadastrados // Parâmetros -> situação 4 - (Homologada) e Tipo de Planilha (Produção)
                 $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_anoexercicio' => $model->moda_anoexercicio, 'placu_codsegmento' => $model->moda_codsegmento, 'placu_codtipoa' => $model->moda_codtipoacao, 'placu_codsituacao' => 4, 'placu_codtipla' => 1, 'placu_codprogramacao' => $model->moda_codentrada])->all();
@@ -350,6 +364,8 @@ class ModeloAController extends Controller
                     $placu_cargahorariaarealizar   = $planilhaDeCurso['placu_cargahorariaarealizar'];
                     $placu_diarias                 = $planilhaDeCurso['placu_diarias'];
                     $placu_passagens               = $planilhaDeCurso['placu_passagens'];
+                    $placu_equipamentos            = $planilhaDeCurso['placu_equipamentos'];
+                    $placu_pessoafisica            = $planilhaDeCurso['placu_pessoafisica'];
                     $placu_pessoajuridica          = $planilhaDeCurso['placu_pessoajuridica'];
                     $placu_custosmateriais         = $planilhaDeCurso['placu_custosmateriais'];
                     $placu_PJApostila              = $planilhaDeCurso['placu_PJApostila'];
@@ -380,9 +396,21 @@ class ModeloAController extends Controller
                             $valor_programado += $placu_passagens * $placu_quantidadeturmas;
                         }
 
+                        else if($orcpro_identificacao == 436) { //PESSOA FÍSICA
+
+                            $valor_programado += ($placu_pessoafisica * $placu_quantidadeturmas);
+
+                        }
+
                         else if($orcpro_identificacao == 439) { //SEGURO DOS ALUNOS + MATERIAL DIDÁTICO (APOSTILAS)----->OUTROS SERVIÇOS TERC. PESSOA JURÍDICA
 
                             $valor_programado += ($placu_PJApostila * $placu_quantidadeturmas);
+
+                        }
+
+                        else if($orcpro_identificacao == 552) { //CAMPO EQUIPAMENTOS * QUANTIDADE DE TURMAS
+
+                            $valor_programado += ($placu_equipamentos * $placu_quantidadeturmas);
 
                         }
 
@@ -430,6 +458,12 @@ class ModeloAController extends Controller
                         else if($orcpro_identificacao == 433) { //PASSAGENS URBANAS E INTERURBANAS ----->PASSAGENS E DESPESA COM LOCOMOÇÃO
 
                             $valor_reforcoreducao += $placu_passagens * $placu_quantidadeturmas;
+                        }
+
+                        else if($orcpro_identificacao == 436) { //PESSOA FÍSICA
+
+                            $valor_programado += ($placu_pessoafisica * $placu_quantidadeturmas);
+
                         }
 
                         else if($orcpro_identificacao == 439) { //SEGURO DOS ALUNOS + MATERIAL DIDÁTICO (APOSTILAS)----->OUTROS SERVIÇOS TERC. PESSOA JURÍDICA

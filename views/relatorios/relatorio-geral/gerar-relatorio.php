@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="col-md-3">
                 <?php
-                    $data_ano = ArrayHelper::map($ano, 'an_codano', 'an_ano');
+                    $data_ano = ArrayHelper::map($ano, 'an_ano', 'an_ano');
                     echo $form->field($model, 'relat_codano')->widget(Select2::classname(), [
                             'data' =>  $data_ano,
                             'options' => ['placeholder' => 'Selecione o ano...'],

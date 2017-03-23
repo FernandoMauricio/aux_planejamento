@@ -85,9 +85,9 @@ use app\models\planilhas\Planilhadecurso;
 		   //EXTRAINDO AS UNIDADES CONFORME CRITÉRIO....
 		   if($combounidade['placu_codunidade'] == 0)//TODAS...
 		    { 
-		     	   $query_unidades = "SELECT placu_nomeunidade, placu_codunidade FROM `db_apl2`.`planilhadecurso_placu` WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
+		     	   $query_unidades = "SELECT placu_nomeunidade, placu_codunidade FROM `db_apl2`.`planilhadecurso_placu` WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_anoexercicio = '".$ano_planilha['an_ano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
             } else //UMA UNIDADE EM ESPECÍFICO...
-		           $query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$combounidade['placu_codunidade']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
+		           $query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_anoexercicio = '".$ano_planilha['an_ano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$combounidade['placu_codunidade']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
 		   
 		   	    $unidades = Planilhadecurso::findBySql($query_unidades)->all(); 
 
@@ -124,7 +124,7 @@ use app\models\planilhas\Planilhadecurso;
 					 
 					 
 					 //EXTRAINDO OS EIXOS DAS PLANILHAS CONFORME A UNIDADE ACIMA...
-					 $query_eixos = "SELECT eix_descricao, eix_codeixo FROM eixo_eix, planilhadecurso_placu WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = eix_codeixo GROUP BY placu_codeixo ORDER BY eix_descricao";
+					 $query_eixos = "SELECT eix_descricao, eix_codeixo FROM eixo_eix, planilhadecurso_placu WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_anoexercicio = '".$ano_planilha['an_ano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = eix_codeixo GROUP BY placu_codeixo ORDER BY eix_descricao";
 					    $eixos = Eixo::findBySql($query_eixos)->all(); 
 
 			           foreach ($eixos as $eixo) {
@@ -144,7 +144,7 @@ use app\models\planilhas\Planilhadecurso;
 						      <?php
 							  
 							   //EXTRAINDO OS EIXOS DAS PLANILHAS CONFORME A UNIDADE ACIMA...
-					           $query_segmentos = "SELECT seg_descricao, seg_codsegmento FROM segmento_seg, planilhadecurso_placu WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = '".$codigo_eixo."' AND placu_codsegmento = seg_codsegmento GROUP BY placu_codsegmento ORDER BY seg_descricao";
+					           $query_segmentos = "SELECT seg_descricao, seg_codsegmento FROM segmento_seg, planilhadecurso_placu WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_anoexercicio = '".$ano_planilha['an_ano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = '".$codigo_eixo."' AND placu_codsegmento = seg_codsegmento GROUP BY placu_codsegmento ORDER BY seg_descricao";
 						          $segmentos = Segmento::findBySql($query_segmentos)->all(); 
 
 						              foreach ($segmentos as $segmento) {
@@ -163,7 +163,7 @@ use app\models\planilhas\Planilhadecurso;
 									 
 									  <?php
 									  
-									  $query_tipos = "SELECT tip_descricao, tip_codtipoa FROM tipodeacao_tip, planilhadecurso_placu WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = '".$codigo_eixo."' AND placu_codsegmento = '".$codigo_segmento."' AND placu_codtipoa = tip_codtipoa GROUP BY placu_codtipoa ORDER BY tip_descricao";
+									  $query_tipos = "SELECT tip_descricao, tip_codtipoa FROM tipodeacao_tip, planilhadecurso_placu WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_anoexercicio = '".$ano_planilha['an_ano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = '".$codigo_eixo."' AND placu_codsegmento = '".$codigo_segmento."' AND placu_codtipoa = tip_codtipoa GROUP BY placu_codtipoa ORDER BY tip_descricao";
 									   	    $tipos = Tipo::findBySql($query_tipos)->all(); 
 
 							            	foreach ($tipos as $tipo) {
@@ -198,6 +198,7 @@ use app\models\planilhas\Planilhadecurso;
     <td width="12%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Plano</font></strong></div></td>
     <td width="7%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">N&iacute;vel</font></strong></div></td>
     <td> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Turmas</font></strong></div></td>
+    <td> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Ano</font></strong></div></td>
     <td width="6%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Uma  Turma</font></strong></div></td>
     <td width="4%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CHT</font></strong></div></td>
     <td width="5%"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CHA</font></strong></div></td>
@@ -221,7 +222,7 @@ use app\models\planilhas\Planilhadecurso;
 				 $despesa_turmas_tipoacao = 0;
 				 
 				 //EXTRAINDO AS PLANILHAS E SUAS INFORMAÇÕES...
-				 $query_planilhas = "SELECT placu_codplanilha, plan_descricao, niv_sigla, placu_quantidadeturmas,placu_quantidadealunosisentos, placu_cargahorariavivencia, placu_cargahorariaarealizar,placu_quantidadealunos, placu_quantidadealunospsg,placu_precosugerido, placu_despesatotal, placu_porcentretorno, placu_codnivel, placu_codplano FROM planodeacao_plan, planilhadecurso_placu, nivel_niv WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = '".$codigo_eixo."' AND placu_codsegmento = '".$codigo_segmento."' AND placu_codtipoa = '".$codigo_tipodeacao."' AND placu_codplano = plan_codplano AND placu_codnivel = niv_codnivel AND placu_codprogramacao = '".$combotipoprogramacao['tipro_codprogramacao']."'  ORDER BY plan_descricao";
+				 $query_planilhas = "SELECT placu_codplanilha, plan_descricao, niv_sigla, placu_quantidadeturmas,placu_quantidadealunosisentos, placu_cargahorariavivencia, placu_cargahorariaarealizar,placu_quantidadealunos, placu_quantidadealunospsg,placu_precosugerido, placu_despesatotal, placu_porcentretorno, placu_codnivel, placu_codplano, placu_anoexercicio, placu_codano FROM planodeacao_plan, planilhadecurso_placu, nivel_niv WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_anoexercicio = '".$ano_planilha['an_ano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = '".$codigo_eixo."' AND placu_codsegmento = '".$codigo_segmento."' AND placu_codtipoa = '".$codigo_tipodeacao."' AND placu_codplano = plan_codplano AND placu_codnivel = niv_codnivel AND placu_codprogramacao = '".$combotipoprogramacao['tipro_codprogramacao']."'  ORDER BY plan_descricao";
 			     	$planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
 						         foreach ($planilhas as $planilha) {
 			         	 $codigo_planilha  			   = $planilha['placu_codplanilha'];
@@ -236,6 +237,8 @@ use app\models\planilhas\Planilhadecurso;
 			         	 $quantidade_alunos_isentos    = $planilha['placu_quantidadealunosisentos'];
 			         	 $carga_hora_para_aluno        = $planilha['placu_cargahorariaarealizar'];
 			         	 $quantidade_turmas_para_aluno = $planilha['placu_quantidadeturmas'];
+			         	 $placu_anoexercicio           = $planilha['placu_anoexercicio'];
+			         	 $placu_codano                 = $planilha['planilhaAno']['an_ano'];
 
 			         	 $custo_planilha               = $planilha['placu_despesatotal'];
 			         	 $placu_porcentretorno	       = $planilha['placu_porcentretorno'];
@@ -291,6 +294,7 @@ use app\models\planilhas\Planilhadecurso;
     <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $nome_plano; ?></font></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $sigla_nivel; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_turmas; ?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $placu_codano; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $carga_horaria_planilha; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"> 
         <?php  echo number_format($carga_horaria_planilha * $quantidade_turmas, 0, ',', '.'); ?>
@@ -363,6 +367,7 @@ use app\models\planilhas\Planilhadecurso;
   <tr valign="middle"> 
     <td colspan="2"><div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><em><strong>TOTAL</strong></em></font></div></td>
     <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_turmas_tipoacao; ?></font></font></div></td>
+    <td bgcolor="#E0E0E0"> <div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif">-</font></font></div></td>
     <td bgcolor="#E0E0E0"> <div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif">-</font></font></div></td>
     <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($cargahoraria_turmas_tipoacao, 0, ',', '.'); ?></font></font></div></td>
     <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($hora_aluno_unidade, 0, ',', '.'); ?></font></font></div></td>

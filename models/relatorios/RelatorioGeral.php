@@ -34,7 +34,7 @@ class RelatorioGeral extends Model
     {
         return [
             'relat_unidade' => 'Unidade',
-            'relat_codano' => 'Ano Planilha',
+            'relat_codano' => 'Ano',
             'relat_codsituacao' => 'Situação Planilha',
             'relat_codtipla' => 'Tipo Planilha',
             'relat_tiporelatorio' => 'Tipo de Relatório',

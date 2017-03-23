@@ -157,7 +157,7 @@ class RelatorioGeralController extends Controller
 
     protected function findModelAnoPlanilha($ano_planilha)
     {
-        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$ano_planilha."'";
+        $queryAno = "SELECT * FROM ano_an WHERE an_ano = '".$ano_planilha."'";
 
         if (($ano_planilha = Ano::findBySql($queryAno)->one()) !== null) {
             return $ano_planilha;

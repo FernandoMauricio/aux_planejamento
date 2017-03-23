@@ -88,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     [
                       'attribute'=>'planp_precosugerido',
-                      'format' => 'currency',
+                      //'format' => 'currency',
                       'width'=>'5%',
                     ], 
 

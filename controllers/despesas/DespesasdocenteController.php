@@ -74,7 +74,7 @@ class DespesasdocenteController extends Controller
                 $model->doce_dsr = $model->doce_valor / 6; // Valor do DSR = Valor / 6
                 $model->doce_planejamento = $model->doce_valor + $model->doce_dsr; //Planejamento = Valor + DSR
                 $model->doce_produtividade = ($model->doce_valor * 45) / 100; //Produtividade = Valor * 45%
-                $model->doce_valorhoraaula = $model->doce_valor + $model->doce_dsr + $model->doce_produtividade; // Valor Hora Aula = valor + DSR + Produtividade
+                $model->doce_valorhoraaula = $model->doce_valor + $model->doce_dsr; // Valor Hora Aula = valor + DSR
                 $model->save();
             }else{
                 $model->doce_dsr = $model->doce_valor / 6; // Valor do DSR = Valor / 6
@@ -112,7 +112,7 @@ class DespesasdocenteController extends Controller
                 $model->doce_dsr = $model->doce_valor / 6; // Valor do DSR = Valor / 6
                 $model->doce_planejamento = $model->doce_valor + $model->doce_dsr; //Planejamento = Valor + DSR
                 $model->doce_produtividade = ($model->doce_valor * 45) / 100; //Produtividade = Valor * 45%
-                $model->doce_valorhoraaula = $model->doce_valor + $model->doce_dsr + $model->doce_produtividade; // Valor Hora Aula = valor + DSR + Produtividade
+                $model->doce_valorhoraaula = $model->doce_valor + $model->doce_dsr; // Valor Hora Aula = valor + DSR
                 $model->save();
             }else{
                 if($model->doce_id != 7){ //Diferente de Prestador de Serviço

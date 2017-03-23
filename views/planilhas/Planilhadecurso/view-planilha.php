@@ -119,7 +119,7 @@ use yii\helpers\Html;
                                         'displayOnly'=>true
                                     ],
                                     [
-                                        'attribute'=>'placu_codano', 
+                                        'attribute'=>'placu_codcategoria', 
                                         'value'=> $model->categoriaPlanilha->cat_descricao,
                                         'labelColOptions'=>['style'=>'width:0%'], 
                                         'displayOnly'=>true
@@ -298,9 +298,9 @@ use yii\helpers\Html;
               <div class="row">
                       <div class="col-md-3"><strong>Serv. Terceiros (PJ):</strong><br> <?php echo 'R$ ' . number_format( $model->placu_pessoajuridica, 2, ',', '.'); ?></div>
 
-                      <div class="col-md-3"><strong>Mat. Didático (Apostila/plano A):</strong><br> <?php echo 'R$ ' .  number_format($model->placu_PJApostila, 2, ',', '.'); ?></div>
+                      <div class="col-md-3"><strong>Mat. Didático (Apostila):</strong><br> <?php echo 'R$ ' .  number_format($model->placu_PJApostila, 2, ',', '.'); ?></div>
 
-                      <div class="col-md-3"><strong>Mat. Didático (Livros/plano A):</strong><br> <?php echo 'R$ ' .  number_format($model->placu_custosmateriais, 2, ',', '.'); ?></div>
+                      <div class="col-md-3"><strong>Mat. Didático (Livros):</strong><br> <?php echo 'R$ ' .  number_format($model->placu_custosmateriais, 2, ',', '.'); ?></div>
 
                       <div class="col-md-3"><strong>Material Consumo:</strong><br> <?php echo 'R$ ' .  number_format($model->placu_custosconsumo, 2, ',', '.'); ?></div>
               </div>
