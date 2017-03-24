@@ -36,38 +36,26 @@ class RelatorioOrcamentoController extends Controller
     {
         $model = new RelatorioModeloB();
 
-        $unidades = Unidade::find()->where(['uni_codsituacao' => 1])->orderBy('uni_nomeabreviado')->all();
-        $ano      = Ano::find()->orderBy(['an_codano'=>SORT_DESC])->all();
+        $ano = Ano::find()->orderBy(['an_codano'=>SORT_DESC])->all();
 
         if ($model->load(Yii::$app->request->post())) {
 
-                return $this->redirect(['relatorio-modelo-b', 'combo_unidade' => $model->relat_unidade, 'combo_ano' => $model->relat_codano]);
+                return $this->redirect(['relatorio-unidades-elemento-despesa', 'combo_ano' => $model->relat_codano]);
         }else{
 
                 return $this->render('/relatorios/relatorio-orcamento/gerar-relatorio', [
                     'model'            => $model,
-                    'unidades'         => $unidades,
                     'ano'              => $ano,
                     ]);
             }
     }
 
-    public function actionRelatorioUnidadesElementoDespesa() 
+    public function actionRelatorioUnidadesElementoDespesa($combo_ano) 
     {
        $this->layout = 'main-imprimir';
-       // $combo_unidade     = $this->findModelUnidade($combo_unidade);
-       // $combo_ano         = $this->findModelAnoPlanilha($combo_ano);
+        $combo_ano   = $this->findModelAnoPlanilha($combo_ano);
 
              return $this->render('/relatorios/relatorio-orcamento/relatorio-unidades-elemento-despesa');
-    }
-
-    protected function findModelUnidade($combo_unidade)
-    {
-        $queryUnidade = "SELECT placu_codunidade, placu_nomeunidade FROM planilhadecurso_placu WHERE placu_codunidade = '".$combo_unidade."'";
-
-        $combo_unidade = Planilhadecurso::findBySql($queryUnidade)->one();
-
-        return $combo_unidade;
     }
 
     protected function findModelAnoPlanilha($combo_ano)

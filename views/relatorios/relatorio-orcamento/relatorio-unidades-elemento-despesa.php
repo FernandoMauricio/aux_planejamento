@@ -51,22 +51,21 @@ use app\models\modeloa\OrcamentoPrograma;
     <td class="tg-titulo2">3.1.90.91</td>
     <td class="tg-titulo1">3.1.90.94</td>
     <td class="tg-titulo2">3.3.50.41</td>
-    <td class="tg-titulo1">3.3.90.18</td>
-    <td class="tg-titulo2">3.3.90.35</td>
-    <td class="tg-titulo1">3.3.90.37</td>
-    <td class="tg-titulo2">3.3.90.91</td>
-    <td class="tg-titulo1">3.3.90.93</td>
-    <td class="tg-titulo2">3.4.90.14</td>
-    <td class="tg-titulo1">3.4.90.30</td>
-    <td class="tg-titulo2">3.4.90.33</td>
-    <td class="tg-titulo1">3.4.90.36</td>
-    <td class="tg-titulo2">3.4.90.39</td>
-    <td class="tg-titulo1">3.4.90.47</td>
-    <td class="tg-titulo2">4.5.90.51</td>
-    <td class="tg-titulo1">4.5.90.52</td>
-    <td class="tg-titulo2">4.6.90.61</td>
-    <td class="tg-titulo1">4.6.90.64</td>
-    <td class="tg-titulo2">Total</td>
+    <td class="tg-titulo1">3.3.90.14</td>
+    <td class="tg-titulo2">3.3.90.18</td>
+    <td class="tg-titulo1">3.3.90.30</td>
+    <td class="tg-titulo2">3.3.90.33</td>
+    <td class="tg-titulo1">3.3.90.36</td>
+    <td class="tg-titulo2">3.3.90.37</td>
+    <td class="tg-titulo1">3.3.90.39</td>
+    <td class="tg-titulo2">3.3.90.47</td>
+    <td class="tg-titulo1">3.3.90.91</td>
+    <td class="tg-titulo2">3.3.90.93</td>
+    <td class="tg-titulo1">4.4.90.51</td>
+    <td class="tg-titulo2">4.4.90.52</td>
+    <td class="tg-titulo1">4.5.90.61</td>
+    <td class="tg-titulo2">4.5.90.64</td>
+    <td class="tg-titulo1">Total</td>
   </tr>
 
       <?php

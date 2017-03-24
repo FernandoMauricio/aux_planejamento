@@ -25,18 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-6">
-                <?php
-                    $data_unidades = ArrayHelper::map($unidades, 'uni_codunidade', 'uni_nomeabreviado');
-                    echo $form->field($model, 'relat_unidade')->widget(Select2::classname(), [
-                            'data' =>  $data_unidades,
-                            'options' => ['placeholder' => 'Selecione a Unidade...'],
-                            'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ]);
-                ?>
-                </div>
                 <div class="col-md-3">
                 <?php
                     $data_ano = ArrayHelper::map($ano, 'an_codano', 'an_ano');
