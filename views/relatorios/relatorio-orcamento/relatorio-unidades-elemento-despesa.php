@@ -69,7 +69,7 @@ use app\models\modeloa\OrcamentoPrograma;
   </tr>
 
       <?php
-                 $query_unidades = "SELECT DISTINCT moda_nomeunidade, moda_codunidade FROM modeloa_moda, ano_an WHERE moda_codano = 6 AND moda_codano = an_codano";
+                 $query_unidades = "SELECT DISTINCT moda_nomeunidade, moda_codunidade FROM modeloa_moda, ano_an WHERE moda_codano = '".$combo_ano['an_codano']."' AND moda_codano = an_codano";
 
                     $unidades = ModeloA::findBySql($query_unidades)->all(); 
 
@@ -78,7 +78,7 @@ use app\models\modeloa\OrcamentoPrograma;
                      $cod_unidade  = $unidade['moda_codunidade'];
 
                       //Localiza os centros de custos das unidades que serão selecionas acima
-                      $query_unidades = "SELECT moda_centrocusto FROM modeloa_moda, ano_an WHERE moda_codunidade = '".$cod_unidade."' AND moda_codano = 6 AND moda_codano = an_codano";
+                      $query_unidades = "SELECT moda_centrocusto FROM modeloa_moda, ano_an WHERE moda_codunidade = '".$cod_unidade."' AND moda_codano = '".$combo_ano['an_codano']."' AND moda_codano = an_codano";
 
                     $unidades = ModeloA::findBySql($query_unidades)->all(); 
 
@@ -114,7 +114,7 @@ use app\models\modeloa\OrcamentoPrograma;
                      $acumula_reforco = 0;
 
                         
-                        $query_detalhesmodelo = "SELECT deta_identificacao, deta_programado, deta_reforcoreducao FROM detalhesmodeloa_deta, modeloa_moda WHERE deta_identificacao = '".$identificacao."' AND deta_codmodelo = moda_codmodelo AND moda_codunidade = '".$cod_unidade."' AND moda_codano = 6 ORDER BY deta_identificacao";
+                        $query_detalhesmodelo = "SELECT deta_identificacao, deta_programado, deta_reforcoreducao FROM detalhesmodeloa_deta, modeloa_moda WHERE deta_identificacao = '".$identificacao."' AND deta_codmodelo = moda_codmodelo AND moda_codunidade = '".$cod_unidade."' AND moda_codano = '".$combo_ano['an_codano']."' ORDER BY deta_identificacao";
 
                          $detalhesmodelo = DetalhesModeloA::findBySql($query_detalhesmodelo)->all(); 
 
@@ -136,29 +136,23 @@ use app\models\modeloa\OrcamentoPrograma;
 
                      }
         ?> 
-    <td class="tg-lqy6"><?php echo number_format($acumula_programado + $acumula_reforco,2,".",".");?></td>
+    <td class="tg-lqy6"><?php echo number_format($acumula_programado + $acumula_reforco,0,".",".");?></td>
 
       <?php
         }
       ?>
- <td class="tg-lqy6"><strong><?php echo number_format($totalgeral_dotacao,2,".",".");?></strong></td>
+ <td class="tg-lqy6"><strong><?php echo number_format($totalgeral_dotacao,0,".",".");?></strong></td>
 
      <?php
        }
       ?>
-
   </tr>
 
   <tr>
     <td class="tg-tajt" colspan="2">Total</td>
             <?php
-                 $totalgeral_programado = 0;
-                 $totalgeral_reforco = 0;
                  $totalgeral_dotacao = 0;
-                 
-                 $total_programado_corrente = 0;
-                 $total_reforco_corrente = 0;
-                 
+
                  $query_orcamentos = "SELECT orcpro_identificacao, orcpro_codigo, orcpro_titulo FROM orcamentoprograma_orcpro ORDER BY orcpro_codorcpro";
 
                          $orcamentos = OrcamentoPrograma::findBySql($query_orcamentos)->all(); 
@@ -171,7 +165,7 @@ use app\models\modeloa\OrcamentoPrograma;
                  
                      $total_elemento = 0;
                     
-                        $query_detalhesmodelo = "SELECT deta_identificacao, deta_programado, deta_reforcoreducao FROM detalhesmodeloa_deta, modeloa_moda WHERE deta_identificacao = '".$identificacao."' AND deta_codmodelo = moda_codmodelo AND moda_codano = 6 ORDER BY deta_identificacao";
+                        $query_detalhesmodelo = "SELECT deta_identificacao, deta_programado, deta_reforcoreducao FROM detalhesmodeloa_deta, modeloa_moda WHERE deta_identificacao = '".$identificacao."' AND deta_codmodelo = moda_codmodelo AND moda_codano = '".$combo_ano['an_codano']."' ORDER BY deta_identificacao";
 
                          $detalhesmodelo = DetalhesModeloA::findBySql($query_detalhesmodelo)->all(); 
 
@@ -185,14 +179,16 @@ use app\models\modeloa\OrcamentoPrograma;
                      $acumula_reforco = $acumula_reforco + $reforco;
 
                      $total_elemento += $programado + $reforco;
+                     $totalgeral_dotacao    = $totalgeral_dotacao + ( $programado + $reforco);
                      }
         ?> 
 
-     <td class="tg-tajt"><?php echo number_format($total_elemento,2,".",".");?></td>
+     <td class="tg-tajt"><?php echo number_format($total_elemento,0,".",".");?></td>
 
      <?php
        }
       ?>
+ <td class="tg-tajt"><?php echo number_format($totalgeral_dotacao,0,".",".");?></td>
 
     </tr>
 </table>

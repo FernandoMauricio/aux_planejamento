@@ -59,7 +59,7 @@ class RelatorioModeloBController extends Controller
        $combo_ano         = $this->findModelAnoPlanilha($combo_ano);
 
              return $this->render('/relatorios/relatorio-modelo-b/relatorio-modelo-b', [
-              'combo_unidade'         => $combo_unidade,
+              'combo_unidade'     => $combo_unidade,
               'combo_ano'         => $combo_ano, 
               ]);
     }

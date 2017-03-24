@@ -55,7 +55,9 @@ class RelatorioOrcamentoController extends Controller
        $this->layout = 'main-imprimir';
         $combo_ano   = $this->findModelAnoPlanilha($combo_ano);
 
-             return $this->render('/relatorios/relatorio-orcamento/relatorio-unidades-elemento-despesa');
+           return $this->render('/relatorios/relatorio-orcamento/relatorio-unidades-elemento-despesa', [
+              'combo_ano'         => $combo_ano, 
+              ]);
     }
 
     protected function findModelAnoPlanilha($combo_ano)
