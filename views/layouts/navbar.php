@@ -230,6 +230,7 @@ use kartik\nav\NavX;
                                 ['label' => 'Relatório Geral', 'url' => ['relatorios/relatorio-geral/gerar-relatorio']],
                                 ['label' => 'Modelo B', 'url' => ['relatorios/relatorio-modelo-b/gerar-relatorio']],
                                 ['label' => 'Relatórios DEP', 'url' => ['relatorios/relatorios-dep/gerar-relatorio']],
+                                ['label' => 'Relatório Elemento de Despesa - Orc', 'url' => ['relatorios/relatorio-orcamento/gerar-relatorio']],
                             ]],
                      ],
             ],
