@@ -48,7 +48,7 @@ class Centrocusto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cen_centrocusto', 'cen_nomecentrocusto', 'cen_codsituacao', 'cen_codunidade', 'cen_codano'], 'required'],
+            [['cen_centrocusto', 'cen_codsituacao', 'cen_codunidade', 'cen_codano'], 'required'],
             [['cen_coddepartamento', 'cen_codsituacao', 'cen_codunidade', 'cen_codsegmento', 'cen_codtipoacao', 'cen_codano'], 'integer'],
             [['cen_data', 'nomeUnidade'], 'safe'],
             [['cen_centrocusto'], 'string', 'max' => 45],

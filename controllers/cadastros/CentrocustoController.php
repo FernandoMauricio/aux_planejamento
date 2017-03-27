@@ -103,7 +103,7 @@ class CentrocustoController extends Controller
 
                 //atualiza com os últimos 5 dígitos da classificação orçamentária
                 Yii::$app->db->createCommand(
-                'UPDATE centrocusto_cen SET cen_centrocustoreduzido= '.substr($model->cen_centrocusto, 12, 2).'.'.substr($model->cen_centrocusto, 14,3).' WHERE cen_codcentrocusto='.$model->cen_codcentrocusto.'')
+                'UPDATE centrocusto_cen SET cen_centrocustoreduzido= '.substr($model->cen_centrocusto, 12, 2).'.'.substr($model->cen_centrocusto, 14,3).', cen_nomecentrocusto = "'.$model->segmento->seg_descricao. ' - ' .$model->tipoacao->tip_descricao.'" WHERE cen_codcentrocusto='.$model->cen_codcentrocusto.'')
                 ->execute();
 
                 Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Centro de Custo cadastrado!</strong>');
@@ -139,12 +139,12 @@ class CentrocustoController extends Controller
         
         $model->cen_data    = date('Y-m-d');
         $model->cen_usuario = $session['sess_nomeusuario'];
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
                 //atualiza com os últimos 5 dígitos da classificação orçamentária
                 Yii::$app->db->createCommand(
-                'UPDATE centrocusto_cen SET cen_centrocustoreduzido= '.substr($model->cen_centrocusto, 12, 2).'.'.substr($model->cen_centrocusto, 14,3).' WHERE cen_codcentrocusto='.$model->cen_codcentrocusto.'')
+                'UPDATE centrocusto_cen SET cen_centrocustoreduzido= '.substr($model->cen_centrocusto, 12, 2).'.'.substr($model->cen_centrocusto, 14,3).', cen_nomecentrocusto = "'.$model->segmento->seg_descricao. ' - ' .$model->tipoacao->tip_descricao.'" WHERE cen_codcentrocusto='.$model->cen_codcentrocusto.'')
                 ->execute();
 
                 Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Centro de Custo cadastrado!</strong>');
