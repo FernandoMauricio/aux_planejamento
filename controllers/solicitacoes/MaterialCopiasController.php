@@ -6,6 +6,7 @@ use Yii;
 
 use app\models\MultipleModel as Model;
 use app\models\planos\Planodeacao;
+use app\models\planos\PlanoMaterial;
 use app\models\base\Emailusuario;
 use app\models\cadastros\Centrocusto;
 use app\models\repositorio\Repositorio;
@@ -70,16 +71,34 @@ class MaterialCopiasController extends Controller
     }
 
     //Localiza os dados de quantidade de originais de materiais didático cadastrados no repositorio
-    public function actionGetRepositorio($repId){
+    public function actionGetRepositorio($repId) 
+    {
 
         $getRepositorio = Repositorio::find()->where(['rep_titulo' => $repId])->one();
 
         echo Json::encode($getRepositorio);
     }
 
-    //Localiza os dados de tipos de material cadastrados no repositorio
-    public function actionCentrocusto(){
+    //Localiza os materiais didático cadastrados no plano selecionado
+    public function actionPlanoMateriais() 
+    {
+            $out = [];
+            if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
 
+            if ($parents != null) {
+                    $curso_id = $parents[0];
+                    $out = MaterialCopias::getPlanoMateriaisSubCat($curso_id);
+                    echo Json::encode(['output'=>$out, 'selected'=>'']);
+                    return;
+                    }
+                 }
+            echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+
+    //Localiza os dados de tipos de material cadastrados no repositorio
+    public function actionCentrocusto()
+    {
             $out = [];
             if (isset($_POST['depdrop_parents'])) {
             $parents = $_POST['depdrop_parents'];
@@ -97,7 +116,8 @@ class MaterialCopiasController extends Controller
 
 
     //Localiza os cursos onde foram selecionados o segmento e tipo de ação
-    public function actionCursos() {
+    public function actionCursos() 
+    {
             $out = [];
             if (isset($_POST['depdrop_parents'])) {
             $parents = $_POST['depdrop_parents'];

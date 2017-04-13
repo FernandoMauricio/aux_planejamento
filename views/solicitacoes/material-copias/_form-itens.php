@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
+use kartik\depdrop\DepDrop;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
@@ -76,8 +77,9 @@ $this->registerJs($js);
                                         echo Html::activeHiddenInput($modelItens, "[{$i}]id");
                                     }
                                 ?>
-
+                                <div class="row">
                                     <div class="col-sm-6">
+
                                     <?php
                                          $data_repositorio = ArrayHelper::map($repositorio, 'rep_titulo', 'rep_titulo');
                                          echo $form->field($modelItens, "[{$i}]item_descricao")->widget(Select2::classname(), [
@@ -97,7 +99,36 @@ $this->registerJs($js);
                                                              });
                                                          '
                                                  ]]);
+                                      ?>
+                                      
+                                    <?php
+                                         // $data_repositorio = ArrayHelper::map($repositorio, 'rep_titulo', 'rep_titulo');
+
+                                         // echo $form->field($modelItens, "[{$i}]item_descricao")->widget(DepDrop::classname(), [
+                                         //        'type'=>DepDrop::TYPE_SELECT2,
+                                         //        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                                         //        'pluginOptions'=>[
+                                         //            'depends'=>['materialcopias-matc_curso'],
+                                         //            'placeholder'=>'Selecione o Material...',
+                                         //            'url'=>Url::to(['/solicitacoes/material-copias/plano-materiais'])
+                                         //        ],
+                                         //        'options' => ['placeholder' => 'Selecione o Material...',
+                                         //         'onchange'=>'
+                                         //                 var select = this;
+                                         //                 $.getJSON( "'.Url::toRoute('/solicitacoes/material-copias/get-repositorio').'", { repId: $(this).val() } )
+                                         //                 .done(function( data ) {
+
+                                         //                        var $divPanelBody =  $(select).parent().parent().parent();
+
+                                         //                        var $inputTitulo = $divPanelBody.find("input:eq(0)");
+
+                                         //                        $inputTitulo.val(data.rep_qtdoriginais) ;
+                                                                
+                                         //                     });
+                                         //                 '
+                                         //    ]]);
                                       ?> 
+
                                     </div>
 
 
@@ -260,7 +291,6 @@ $this->registerJs($js);
                                                               $('#materialcopiasitens-3-item_qtecopias').val(item_qteCopias3);
                                                               $('#materialcopiasitens-3-item_qtetotal').val(item_qteTotal3);
 
-
                                                               //totais
                                                                    var mono = 0.12;
                                                                    var color = 0.6;
@@ -283,7 +313,6 @@ $this->registerJs($js);
                                                                    var item_totalGeral2 = item_totalGeral + item_totalValorMono1 + item_totalValorColor1 + item_totalValorMono2 + item_totalValorColor2;
                                                                    var item_totalGeral3 = item_totalGeral + item_totalGeral1 + item_totalValorMono2 + item_totalValorColor2 + item_totalValorMono3 + item_totalValorColor3;
 
-                                                                 
                                                                    //valores output mono
                                                                   if(item_totalValorMono >= 0){
                                                                    $('#materialcopias-matc_totalvalormono').val(item_totalValorMono)
@@ -300,7 +329,6 @@ $this->registerJs($js);
                                                                   if(item_totalValorMono3 >= 0){
                                                                    $('#materialcopias-matc_totalvalormono').val(item_totalValorMono + item_totalValorMono1 + item_totalValorMono2 + item_totalValorMono3)
                                                                   }
-
 
                                                                   //valores output color
                                                                   if(item_totalValorColor >= 0){
@@ -319,7 +347,6 @@ $this->registerJs($js);
                                                                    $('#materialcopias-matc_totalvalorcolor').val(item_totalValorColor + item_totalValorColor1 + item_totalValorColor2 + item_totalValorColor3)
                                                                   }
 
-
                                                                   //valores output Geral
                                                                   if(item_totalGeral >= 0){
                                                                    $('#materialcopias-matc_totalgeral').val(item_totalGeral)
@@ -336,8 +363,6 @@ $this->registerJs($js);
                                                                   if(item_totalValorColor3 >= 0){
                                                                    $('#materialcopias-matc_totalgeral').val(item_totalGeral3)
                                                                   }
-
-
                                                             };
                                                          });
                                                  "
@@ -348,7 +373,9 @@ $this->registerJs($js);
                                     <div class="col-sm-2">
                                         <?= $form->field($modelItens, "[{$i}]item_qteCopias")->textInput(['readonly'=> true]) ?>
                                     </div>
-
+                                  </div>
+                                   
+                                  <div class="row">
                                     <div class="col-sm-4">
                                         <?= $form->field($modelItens, "[{$i}]item_mono")->textInput() ?>
                                     </div>
@@ -360,10 +387,13 @@ $this->registerJs($js);
                                     <div class="col-sm-4">
                                         <?= $form->field($modelItens, "[{$i}]item_qteTotal")->textInput(['readonly'=>true]) ?>
                                     </div>
+                                  </div>
 
+                                  <div class="row">
                                     <div class="col-sm-12">
                                         <?= $form->field($modelItens, "[{$i}]item_observacao")->textInput() ?>
                                     </div>
+                                  </div>
 
                             </div>
                         </div>
