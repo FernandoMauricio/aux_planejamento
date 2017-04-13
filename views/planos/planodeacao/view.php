@@ -47,6 +47,14 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                       'data-toggle'=>'tooltip', 
                       'title'=>' Clique aqui para gerar um arquivo PDF'
                   ]);
+            ?>
+            <?php
+                  echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Material do Aluno', ['imprimir-material-aluno','id' => $model->plan_codplano], [
+                      'class'=>'btn btn-primary pull-right', 
+                      'target'=>'_blank', 
+                      'data-toggle'=>'tooltip', 
+                      'title'=>' Clique aqui para gerar um arquivo PDF'
+                  ]);
 
             ?>
         </p>

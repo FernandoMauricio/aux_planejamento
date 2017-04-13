@@ -103,6 +103,20 @@ class PlanodeacaoController extends Controller
         ]);
     }
 
+
+    public function actionImprimirMaterialAluno($id)
+    {
+        $this->layout = 'main-imprimir';
+
+        $model = $this->findModel($id);
+        $modelsPlanoAluno = [new PlanoAluno];
+
+        return $this->render('imprimir-material-aluno', [
+            'model' => $model,
+            'modelsPlanoAluno'  => (empty($modelsPlanoAluno)) ? [new PlanoAluno] : $modelsPlanoAluno,
+        ]);
+    }
+
     /**
      * Creates a new Planodeacao model.
      * If creation is successful, the browser will be redirected to the 'view' page.
