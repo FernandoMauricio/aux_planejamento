@@ -55,7 +55,7 @@ class Repositorio extends \yii\db\ActiveRecord
             [['rep_data', 'image', 'rep_elementodespesa'], 'safe'],
             [['file'], 'file','checkExtensionByMimeType'=>false, 'extensions' => 'pdf, zip, rar, doc, docx'],
             [['image'], 'file', 'extensions'=>'jpg, gif, png'],
-            [['image'], 'file', 'maxSize'=>'1000000'],
+            [['image'], 'file', 'maxSize'=>'100000'],
             [['rep_titulo'], 'string', 'max' => 80],
             [['rep_categoria', 'rep_editora'], 'string', 'max' => 50],
             [['rep_tipo'], 'string', 'max' => 100],

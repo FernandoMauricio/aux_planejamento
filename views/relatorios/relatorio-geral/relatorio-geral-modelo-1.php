@@ -184,7 +184,7 @@ use app\models\planilhas\Planilhadecurso;
 												 
 <table width="100%" border="1" cellspacing="0" bordercolor="#000000">
   <tr> 
-    <td colspan="3">&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
     <td width="7%">&nbsp;</td>
     <td colspan="3"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CARGA 
         HOR&Aacute;RIAS</font></strong></div></td>
@@ -197,8 +197,8 @@ use app\models\planilhas\Planilhadecurso;
   <tr valign="middle"> 
     <td width="12%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Plano</font></strong></div></td>
     <td width="7%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">N&iacute;vel</font></strong></div></td>
-    <td> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Ano</font></strong></div></td>
     <td> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Turmas</font></strong></div></td>
+    <td> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Ano</font></strong></div></td>
     <td width="6%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Uma  Turma</font></strong></div></td>
     <td width="4%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CHT</font></strong></div></td>
     <td width="5%"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CHA</font></strong></div></td>
@@ -293,8 +293,8 @@ use app\models\planilhas\Planilhadecurso;
   <tr valign="middle"> 
     <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $nome_plano; ?></font></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $sigla_nivel; ?></font></font></font></font></div></td>
-	<td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $placu_codano; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_turmas; ?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $placu_codano; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $carga_horaria_planilha; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"> 
         <?php  echo number_format($carga_horaria_planilha * $quantidade_turmas, 0, ',', '.'); ?>

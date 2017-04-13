@@ -123,11 +123,9 @@ class RepositorioMateriaisController extends Controller
                         if ($model->save()) {  
                         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Material didático cadastrado!</strong>');           
                             return $this->redirect(['index']);       
-                        }  
-
-                        // else {
-                        //     var_dump ($model->getErrors()); die();
-                        //  }
+                        }  else {
+                            var_dump ($model->getErrors()); die();
+                         }
                 } 
             return $this->render('create', [
                 'model' => $model,
@@ -185,11 +183,9 @@ class RepositorioMateriaisController extends Controller
                         if ($model->save()) {  
                         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Material didático atualizado!</strong>');           
                             return $this->redirect(['index']);       
-                        }  
-
-                        // else {
-                        //     var_dump ($model->getErrors()); die();
-                        //  }
+                        }  else {
+                            var_dump ($model->getErrors()); die();
+                         }
                 } 
             return $this->render('update', [
                 'model' => $model,

@@ -8,8 +8,6 @@ use app\models\base\Colaborador;
 use app\models\base\Unidade;
 use app\models\cadastros\Segmento;
 use app\models\cadastros\Tipo;
-use app\models\planos\PlanoMaterial;
-use app\models\planos\Planodeacao;
 
 /**
  * This is the model class for table "materialcopias_matc".
@@ -116,7 +114,7 @@ class MaterialCopias extends \yii\db\ActiveRecord
     public static function getPlanodeacaoSubCat($cat_id, $subcat_id) {
         $data=\app\models\planos\Planodeacao::find()
        ->where(['plan_codsegmento'=>$cat_id, 'plan_codtipoa'=> $subcat_id])
-       ->select(['plan_codplano AS id','plan_descricao AS name'])->asArray()->all();
+       ->select(['plan_descricao AS id','plan_descricao AS name'])->asArray()->all();
 
             return $data;
         }
@@ -131,23 +129,14 @@ class MaterialCopias extends \yii\db\ActiveRecord
             return $data;
         }
 
-    //Busca dados de materiais didáticos vinculados aos planos de cursos
-    public static function getPlanoMateriaisSubCat($curso_id) {
-        $session = Yii::$app->session;
-        $data=\app\models\planos\PlanoMaterial::find()
-       ->where(['plama_codplano'=>$curso_id])
-       ->select(['plama_titulo AS id','plama_titulo AS name'])->asArray()->all();
-
-            return $data;
-        }
-
-    public function getCopiasAcabamento() //Relation between Cópias & Acabamento table
+    public function getCopiasAcabamento() //Relation between Cargos & Processo table
     {
         return $this->hasMany(CopiasAcabamento::className(), ['materialcopias_id' => 'matc_id']);
     }
 
+
     public function afterSave($insert, $changedAttributes){
-        //Acabamentos
+        //Cargos
         \Yii::$app->db_apl->createCommand()->delete('copiasacabamento_copac', 'materialcopias_id = '.(int) $this->matc_id)->execute(); //Delete existing value
         foreach ($this->listAcabamento as $id) { //Write new values
             $tc = new CopiasAcabamento();
@@ -155,11 +144,6 @@ class MaterialCopias extends \yii\db\ActiveRecord
             $tc->acabamento_id = $id;
             $tc->save();
         }
-
-        $plano = Planodeacao::find()->where(['plan_codplano'=> $this->matc_curso])->one();
-
-        Yii::$app->db_apl->createCommand('UPDATE `materialcopias_matc`, `planomaterial_plama` SET `matc_curso` = "'.$plano->plan_descricao.'"  WHERE `matc_id` = '.$this->matc_id.'')
-                ->execute();
     }
 
     /**
