@@ -55,7 +55,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     }
                                 ?>
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-5">
                                     <?php
                                          $data_planoaluno = ArrayHelper::map($materialaluno, 'matalu_cod', 'matalu_descricao');
                                          echo $form->field($modelPlanoAluno, "[{$i}]materialaluno_cod")->widget(Select2::classname(), [
@@ -71,9 +71,11 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                                 var $divPanelBody =  $(select).parent().parent().parent();
 
                                                                 var $inputDescricao = $divPanelBody.find("input:eq(1)");
-                                                                var $inputUnidade = $divPanelBody.find("input:eq(2)");
-                                                                var $inputValor = $divPanelBody.find("input:eq(3)");
+                                                                var $inputCodMXM    = $divPanelBody.find("input:eq(2)");
+                                                                var $inputUnidade = $divPanelBody.find("input:eq(3)");
+                                                                var $inputValor = $divPanelBody.find("input:eq(4)");
 
+                                                                $inputCodMXM.val(data.matalu_codMXM);
                                                                 $inputDescricao.val(data.matalu_descricao);
                                                                 $inputUnidade.val(data.matalu_unidade);
                                                                 $inputValor.val(data.matalu_valor);
@@ -89,9 +91,11 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                                 var $divPanelBody =  $(select).parent().parent().parent();
 
                                                                 var $inputDescricao = $divPanelBody.find("input:eq(0)");
-                                                                var $inputUnidade = $divPanelBody.find("input:eq(1)");
-                                                                var $inputValor = $divPanelBody.find("input:eq(2)");
+                                                                var $inputCodMXM    = $divPanelBody.find("input:eq(1)");
+                                                                var $inputUnidade = $divPanelBody.find("input:eq(2)");
+                                                                var $inputValor = $divPanelBody.find("input:eq(3)");
 
+                                                                $inputCodMXM.val(data.matalu_codMXM);
                                                                 $inputDescricao.val(data.matalu_descricao);
                                                                 $inputUnidade.val(data.matalu_unidade);
                                                                 $inputValor.val(data.matalu_valor);
@@ -101,6 +105,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                  ]]);
                                       ?>
                                       <?= $form->field($modelPlanoAluno, "[{$i}]planmatalu_descricao")->hiddenInput()->label(false) ?>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <?= $form->field($modelPlanoAluno, "[{$i}]planmatalu_codMXM")->textInput(['readonly'=> true]) ?>
                                     </div>
 
                                     <div class="col-sm-1">

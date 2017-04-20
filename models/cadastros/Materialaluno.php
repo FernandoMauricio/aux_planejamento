@@ -41,6 +41,7 @@ class Materialaluno extends \yii\db\ActiveRecord
     {
         return [
             [['matalu_descricao', 'matalu_unidade', 'matalu_valor', 'matalu_status'], 'required'],
+            ['matalu_codMXM', 'unique'],
             [['matalu_valor'], 'number'],
             [['matalu_data'], 'safe'],
             [['matalu_status', 'matalu_codcolaborador'], 'integer'],
@@ -55,7 +56,7 @@ class Materialaluno extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'matalu_cod' => 'Cod',
+            'matalu_codMXM' => 'Código MXM',
             'matalu_descricao' => 'Descrição',
             'matalu_unidade' => 'Unidade',
             'matalu_valor' => 'Valor',

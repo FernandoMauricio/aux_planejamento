@@ -33,13 +33,20 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
         'filterModel' => $searchModel,
         'columns' => [
 
-            'matalu_cod',
+            'matalu_codMXM',
             'matalu_descricao',
             'matalu_unidade',
             'matalu_valor',
             [
                 'attribute' => 'matalu_codcolaborador',
-                'value' => 'colaborador.usuario.usu_nomeusuario',
+                'value' => function ($data) {
+                                                if($data->matalu_codcolaborador == 9999)
+                                                {
+                                                    return 'Importado pelo MXM';
+                                                }else{
+                                                    return $data->colaborador->usuario->usu_nomeusuario;
+                                                }
+                                            },
             ],
             'matalu_data',
             [

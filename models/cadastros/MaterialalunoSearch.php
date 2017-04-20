@@ -18,7 +18,7 @@ class MaterialalunoSearch extends Materialaluno
     public function rules()
     {
         return [
-            [['matalu_cod', 'matalu_status'], 'integer'],
+            [['matalu_cod', 'matalu_codMXM', 'matalu_status'], 'integer'],
             [['matalu_descricao', 'matalu_unidade'], 'safe'],
             [['matalu_valor'], 'number'],
         ];
@@ -61,6 +61,7 @@ class MaterialalunoSearch extends Materialaluno
         // grid filtering conditions
         $query->andFilterWhere([
             'matalu_cod' => $this->matalu_cod,
+            'matalu_codMXM' => $this->matalu_codMXM,
             'matalu_valor' => $this->matalu_valor,
             'matalu_status' => $this->matalu_status,
         ]);
