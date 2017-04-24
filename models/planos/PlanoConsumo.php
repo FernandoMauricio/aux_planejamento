@@ -47,7 +47,7 @@ class PlanoConsumo extends \yii\db\ActiveRecord
             [['planodeacao_cod', 'materialconsumo_cod', 'planmatcon_codMXM'], 'integer'],
             [['planmatcon_valor', 'planmatcon_quantidade'], 'number'],
             [['planmatcon_tipo'], 'string', 'max' => 45],
-            [['planmatcon_descricao'], 'string', 'max' => 100],
+            [['planmatcon_descricao'], 'string', 'max' => 255],
             [['materialconsumo_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Materialconsumo::className(), 'targetAttribute' => ['materialconsumo_cod' => 'matcon_codMXM']],
             [['planodeacao_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planodeacao_cod' => 'plan_codplano']],
         ];

@@ -49,7 +49,7 @@ class PlanoAluno extends \yii\db\ActiveRecord
             [['planmatalu_valor'], 'number'],
             [['planmatalu_unidade'], 'string', 'max' => 20],
             [['planmatalu_tipo'], 'string', 'max' => 45],
-            [['planmatalu_descricao'], 'string', 'max' => 100],
+            [['planmatalu_descricao'], 'string', 'max' => 255],
             [['materialaluno_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Materialaluno::className(), 'targetAttribute' => ['materialaluno_cod' => 'matalu_cod']],
             [['planodeacao_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planodeacao_cod' => 'plan_codplano']],
         ];

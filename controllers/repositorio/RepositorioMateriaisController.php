@@ -160,9 +160,15 @@ class RepositorioMateriaisController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
+            $subdiretorio = Yii::$app->basePath . '/web/uploads/repositorio/' . $model->rep_codrepositorio;
+
             //INCLUSÃO DO ARQUIVO
             $model->file = UploadedFile::getInstance($model, 'file');
                        if (!is_null($model->file)) {
+                            if(!file_exists($subdiretorio))
+                                {
+                                  if(!mkdir($subdiretorio));
+                                }
                           $model->rep_arquivo = $model->file->baseName . '.' . $model->file->extension;
                           //salva o arquivo no caminho da criação da pasta
                           Yii::$app->params['uploadPath'] = Yii::$app->basePath . '/web/uploads/repositorio/' . $model->rep_codrepositorio .'/';
