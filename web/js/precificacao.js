@@ -123,6 +123,9 @@ $(function() {
       var planp_parcelas         = parseFloat($('#precificacao-planp_parcelas').val());
 
 
+      //Reserva Técnica = CH do Plano >= 800  == 10 % senão == 5%;
+      planp_reservatecnica = planp_cargahoraria >= 800 ? 10 : 5;
+
       //CÁLCULOS REALIZADOS
       //SEÇÃO 2
       var valor_servpedagogico     = planp_servpedagogico * hiddenplanejamento;
@@ -150,9 +153,9 @@ $(function() {
       var ValorhoraAulaAluno   = PrecoVendaTurma / planp_cargahoraria / planp_qntaluno; //Preço de Venda da Turma / CH TOTAL / QNT Alunos
       var RetornoPrecoVenda    = PrecoVendaTurma - despesaTotal; // Preço de venda da turma - Despesa Total;
       var PorcentagemRetorno   = (RetornoPrecoVenda / PrecoVendaTurma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
-      var RetornoPrecoSugerido = (planp_precosugerido * planp_qntaluno) - despesaTotal; // Preço Sugerido x Qnt de Alunos - Despesa Total;
+      var RetornoPrecoSugerido = (planp_precosugerido * planp_qntaluno) - despesaTotal; // Preço de Venda x Qnt de Alunos - Despesa Total;
 
-      var MinimoAlunos = Math.ceil(despesaTotal / planp_precosugerido); // Despesa Total / Preço Sugerido;
+      var MinimoAlunos = Math.ceil(despesaTotal / planp_precosugerido); // Despesa Total / Preço de Venda;
 
       var ValorParcelas =  planp_precosugerido / planp_parcelas;
 
@@ -224,6 +227,7 @@ $(function() {
       $('#precificacao-planp_totalhoraaulacustodireto').val(totalhoraaulacustodireto); // Valor hora/aula de custo direto (Total de custo direto / CH Total / Qnt Aluno)
 
       //SEÇÃO 3
+      $('#precificacao-planp_reservatecnica').val(planp_reservatecnica); // Reserva Técnica baseada na CH: (5% < 800 >= 10%)
       $('#precificacao-planp_totalincidencias').val(totalIncidencia); // Valor Custos indireto + IPCA/MES + reserva técnica + despesa adm
       $('#precificacao-planp_totalcustoindireto').val(totalCustoIndireto); // Valor Custo Direto x Total Incidencias
       $('#precificacao-planp_despesatotal').val(despesaTotal); // Valor Custo Indireto + Custo Direto
@@ -234,8 +238,8 @@ $(function() {
       $('#precificacao-planp_horaaulaaluno').val(ValorhoraAulaAluno); // Preço de Venda da Turma / CH TOTAL / QNT Alunos
       $('#precificacao-planp_retorno').val(RetornoPrecoVenda); // Preço de venda da turma - Despesa Total
       $('#precificacao-planp_porcentretorno').val(PorcentagemRetorno); // % de Retorno / Preço de venda da Turma
-      $('#precificacao-planp_retornoprecosugerido').val(RetornoPrecoSugerido); // Preço Sugerido x Qnt de Alunos - Despesa Total;
-      $('#precificacao-planp_minimoaluno').val(MinimoAlunos); // Despesa Total / Preço Sugerido;
-      $('#precificacao-planp_valorparcelas').val(ValorParcelas); // Preço Sugerido / Quantidade de Parcelas;
+      $('#precificacao-planp_retornoprecosugerido').val(RetornoPrecoSugerido); // Preço de Venda x Qnt de Alunos - Despesa Total;
+      $('#precificacao-planp_minimoaluno').val(MinimoAlunos); // Despesa Total / Preço de Venda;
+      $('#precificacao-planp_valorparcelas').val(ValorParcelas); // Preço de Venda / Quantidade de Parcelas;
     };
  });

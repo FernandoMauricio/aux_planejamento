@@ -350,9 +350,10 @@ $(function() {
       var ValorhoraAulaAluno   = PrecoVendaTurma / placu_cargahorariaplano / valorTotalQntAlunos; //Preço de Venda da Turma / CH TOTAL / QNT Alunos
       var RetornoPrecoVenda    = PrecoVendaTurma - despesaTotal; // Preço de venda da turma - Despesa Total;
       var PorcentagemRetorno   = (RetornoPrecoVenda / PrecoVendaTurma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
-      var RetornoPrecoSugerido = (placu_precosugerido * valorTotalQntAlunos) - despesaTotal; // Preço Sugerido x Qnt de Alunos - Despesa Total;
+      var RetornoPrecoSugerido = (placu_precosugerido * valorTotalQntAlunos) - despesaTotal; // Preço de Venda x Qnt de Alunos - Despesa Total;
+      var PorcentagemRetornoPS = (RetornoPrecoSugerido / PrecoVendaTurma) * 100; // PREÇO SUGERIDO == % de Retorno / Preço de venda da Turma -- Valores em %
 
-      var MinimoAlunos = Math.ceil(despesaTotal / placu_precosugerido); // Despesa Total / Preço Sugerido;
+      var MinimoAlunos = Math.ceil(despesaTotal / placu_precosugerido); // Despesa Total / Preço de Venda;
 
       var ValorParcelas =  placu_precosugerido / placu_parcelas;
 
@@ -402,9 +403,10 @@ $(function() {
       $('#planilhadecurso-placu_horaaulaaluno').val(ValorhoraAulaAluno); // Preço de Venda da Turma / CH TOTAL / QNT Alunos
       $('#planilhadecurso-placu_retorno').val(RetornoPrecoVenda); // Preço de venda da turma - Despesa Total
       $('#planilhadecurso-placu_porcentretorno').val(PorcentagemRetorno); // % de Retorno / Preço de venda da Turma
-      $('#planilhadecurso-placu_retornoprecosugerido').val(RetornoPrecoSugerido); // Preço Sugerido x Qnt de Alunos - Despesa Total;
-      $('#planilhadecurso-placu_minimoaluno').val(MinimoAlunos); // Despesa Total / Preço Sugerido;
-      $('#planilhadecurso-placu_valorparcelas').val(ValorParcelas); // Preço Sugerido / Quantidade de Parcelas;
+      $('#planilhadecurso-placu_retornoprecosugerido').val(RetornoPrecoSugerido); // Preço de Venda x Qnt de Alunos - Despesa Total;
+      $('#planilhadecurso-placu_porcentprecosugerido').val(PorcentagemRetornoPS); // PREÇO SUGERIDO == % de Retorno / Preço de venda da Turma -- Valores em %
+      $('#planilhadecurso-placu_minimoaluno').val(MinimoAlunos); // Despesa Total / Preço de Venda;
+      $('#planilhadecurso-placu_valorparcelas').val(ValorParcelas); // Preço de Venda / Quantidade de Parcelas;
       
       //Prestador de Serviço
       $('#planilhadecurso-placu_totalsalarioprestador').val(valorTotalMaoDeObraPrestador); // Total de Mão de Obra - Prestador

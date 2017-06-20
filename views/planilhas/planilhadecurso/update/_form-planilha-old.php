@@ -437,16 +437,76 @@ use app\models\cadastros\Tipoprogramacao;
 
         <table class="table table-condensed table-hover">
           <thead>
-            <tr class="info"><th colspan="12">SEÇÃO 4: Resumo da Planilha</th></tr>
+            <tr class="info"><th colspan="12">SEÇÃO 4: Cálculos de Custos Indiretos</th></tr>
           </thead>
         </table>
 
         <div class="panel panel-default">
-            <div class="panel-heading"> Resumo de Custos</div><br>
+            <div class="panel-heading"> Resumo de Custos Indiretos</div><br>
         <div class="panel-body">
 
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <?= $form->field($model, 'placu_custosindiretos')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+                <div class="col-md-3">
+                    <?= $form->field($model, 'placu_ipca')->textInput() ?>
+                </div>
+
+
+                <div class="col-md-3">
+                    <?= $form->field($model, 'placu_reservatecnica')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+                <div class="col-md-3">
+                    <?= $form->field($model, 'placu_despesadm')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <?= $form->field($model, 'placu_totalincidencias')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+                <div class="col-md-3">
                     <?= $form->field($model, 'placu_totalcustoindireto')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -461,7 +521,7 @@ use app\models\cadastros\Tipoprogramacao;
                     ]); ?>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <?= $form->field($model, 'placu_despesatotal')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -476,7 +536,36 @@ use app\models\cadastros\Tipoprogramacao;
                     ]); ?>
                 </div>
 
-                <div class="col-md-4">
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <?= $form->field($model, 'placu_markdivisor')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+                <div class="col-md-3">
+                    <?= $form->field($model, 'placu_markmultiplicador')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+                <div class="col-md-6">
                     <?= $form->field($model, 'placu_vendaturma')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -579,19 +668,6 @@ use app\models\cadastros\Tipoprogramacao;
                     <?= $form->field($model, 'placu_minimoaluno')->textInput(['readonly' => true]) ?>
                 </div>
 
-                <div class="col-md-3">
-                    <?= $form->field($model, 'placu_porcentprecosugerido')->widget(\yii\widgets\MaskedInput::className(), [
-                            'clientOptions' => [
-                            'alias' => 'decimal',
-                            'digits' => 2,
-                            'suffix' => '%',
-                            'autoGroup' => true,
-                            'removeMaskOnSubmit' => true,
-                            ],
-                            'options' => ['readonly' => true, 'class' => 'form-control' ]
-                    ]); ?>
-                </div>
-
             </div>
 
             <div class="row">
@@ -614,14 +690,6 @@ use app\models\cadastros\Tipoprogramacao;
                     ]); ?>
                 </div>
             </div>
-                    <!-- CAMPOS OCULTOS MAS UTILIZADOS-->
-                    <?= $form->field($model, 'placu_custosindiretos')->hiddenInput()->label(false); ?>
-                    <?= $form->field($model, 'placu_ipca')->hiddenInput()->label(false); ?>
-                    <?= $form->field($model, 'placu_reservatecnica')->hiddenInput()->label(false); ?>
-                    <?= $form->field($model, 'placu_despesadm')->hiddenInput()->label(false); ?>
-                    <?= $form->field($model, 'placu_totalincidencias')->hiddenInput()->label(false); ?>
-                    <?= $form->field($model, 'placu_markdivisor')->hiddenInput()->label(false); ?>
-                    <?= $form->field($model, 'placu_markmultiplicador')->hiddenInput()->label(false); ?>
         </div>
     </div>
 </div>

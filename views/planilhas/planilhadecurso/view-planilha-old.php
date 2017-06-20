@@ -318,20 +318,40 @@ use yii\helpers\Html;
     </div>
 
         <div class="row">
-            <p class="bg-info" style="padding: 7px; margin-right: 15px; margin-left: 15px;"><strong> SEÇÃO 4: Resumo Planilha</strong></p>
+            <p class="bg-info" style="padding: 7px; margin-right: 15px; margin-left: 15px;"><strong> SEÇÃO 4: Cálculos de Custos Indiretos</strong></p>
         </div>
 
     <div class="panel panel-default">
-            <div class="panel-heading"> Resumo de Custos</div><br>
+            <div class="panel-heading"> Resumo de Custos Indiretos</div><br>
         <div class="container">
+              <div class="row">
+                  <div class="col-md-3"><strong>Custos Indiretos(%):</strong><br> <?php echo number_format($model->placu_custosindiretos, 2, ',', '.') . '%'; ?></div>
+
+                  <div class="col-md-3"><strong>IPCA/Mês(%):</strong><br> <?php echo number_format($model->placu_ipca, 2, ',', '.') . '%'; ?></div>
+
+                  <div class="col-md-3"><strong>Rerserva Técnica(%):</strong><br> <?php echo number_format($model->placu_reservatecnica, 2, ',', '.') . '%'; ?></div>
+
+                  <div class="col-md-3"><strong>Despesa Sede ADM 2016(%):</strong><br> <?php echo number_format($model->placu_despesadm, 2, ',', '.') . '%'; ?></div>
+          </div>
+
+        <br>
 
           <div class="row">
+                  <div class="col-md-3"><strong>Total Incidências(%):</strong><br> <?php echo number_format($model->placu_totalincidencias, 2, ',', '.') . '%'; ?></div>
+
                   <div class="col-md-3" style="color: #F7941D;"><strong>Total Custo Indireto:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalcustoindireto, 2, ',', '.'); ?></div>
 
-                  <div class="col-md-3" style="color: red;"><strong>Despesa Total:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_despesatotal, 2, ',', '.'); ?></div>
+                  <div class="col-md-4" style="color: red;"><strong>Despesa Total:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_despesatotal, 2, ',', '.'); ?></div>
+          </div>
 
-                  <div class="col-md-3"><strong>Preço de Venda Total da Turma:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_vendaturma, 2, ',', '.'); ?></div>
+        <br>
 
+          <div class="row">
+                  <div class="col-md-3"><strong>Mark-Up Divisor 100-X/100:</strong><br> <?php echo number_format($model->placu_markdivisor, 2, ',', '.') . '%'; ?></div>
+
+                  <div class="col-md-3"><strong>Mark-Up Multiplicador 100/Markup:</strong><br> <?php echo number_format($model->placu_markmultiplicador, 2, ',', '.') . '%'; ?></div>
+
+                  <div class="col-md-4"><strong>Preço de Venda Total da Turma:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_vendaturma, 2, ',', '.'); ?></div>
           </div>
 
         <br>
@@ -354,8 +374,6 @@ use yii\helpers\Html;
                   <div class="col-md-3"><strong>Retorno com preço sugerido:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_retornoprecosugerido, 2, ',', '.'); ?></div>
 
                   <div class="col-md-3"><strong>Numero minimo de alunos por turma:</strong><br> <?php echo $model->placu_minimoaluno; ?></div>
-
-                  <div class="col-md-3"><strong>% de Retorno - Preço Sugerido:</strong><br>  <?php echo number_format($model->placu_porcentprecosugerido, 2, ',', '.') . '%'; ?></div>
 
           </div>
 

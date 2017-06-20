@@ -184,7 +184,7 @@ class Precificacao extends \yii\db\ActiveRecord
             'planp_totalhoraaulacustodireto' => 'V. Hora/Aula de Custo Direto',
             'planp_custosindiretos' => 'Custos Indiretos(%)',
             'planp_ipca' => 'IPCA/Mês(%)',
-            'planp_reservatecnica' => 'Rerserva Técnica(%)',
+            'planp_reservatecnica' => 'Reserva Técnica(%)',
             'planp_despesadm' => 'Despesa Sede ADM ' .  date('Y') . '(%)',
             'planp_totalincidencias' => 'Total Incidências(%)',
             'planp_totalcustoindireto' => 'Total Custo Indireto',
