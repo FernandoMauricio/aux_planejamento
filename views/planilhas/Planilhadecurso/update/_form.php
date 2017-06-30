@@ -30,7 +30,7 @@ use app\models\planilhas\PlanilhaMaterial;
                                         <?php echo $form->errorSummary($model); ?>
                                 <div id="rootwizard" class="tabbable tabs-left">
                                   <ul>
-                                        <li><a href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Informações</a></li>
+                                        <li><a href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Planejamento</a></li>
                                         <li><a href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-folder-open"></span> Organização Curricular</a></li>
                                         <li><a href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Material Didático</a></li>
                                         <li><a href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-tags"></span> Material de Consumo</a></li>

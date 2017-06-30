@@ -622,6 +622,8 @@ use app\models\cadastros\Tipoprogramacao;
                     <?= $form->field($model, 'placu_totalincidencias')->hiddenInput()->label(false); ?>
                     <?= $form->field($model, 'placu_markdivisor')->hiddenInput()->label(false); ?>
                     <?= $form->field($model, 'placu_markmultiplicador')->hiddenInput()->label(false); ?>
+                    <?= $form->field($model, 'placu_codcategoria')->hiddenInput()->label(false); ?>
+                    <?= $form->field($model, 'placu_porcentprecosugerido')->hiddenInput()->label(false); ?>
         </div>
     </div>
 </div>
