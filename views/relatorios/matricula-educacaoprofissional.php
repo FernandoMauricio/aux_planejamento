@@ -23,7 +23,7 @@ use app\models\planilhas\Planilhadecurso;
       </p></td>
     <td align="left" valign="middle"><font size="3" face="Verdana, Arial, Helvetica, sans-serif">Aux&iacute;lio 
       ao Planejamento<strong><br>
-      </strong>Matr&iacute;culas por Ações de Educação Profissional</font><em></em></td>
+      </strong>Matrículas por Tipo de Curso de Educação Profissional</font><em></em></td>
   </tr>
   <tr> 
     <td colspan="3"><hr align="left" width="70%"></td>

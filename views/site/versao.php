@@ -37,7 +37,7 @@ $this->title = 'Auxílio ao Planejamento';
 
                 <div class="panel panel-danger">
                 <div class="panel-heading">
-                            <i class="glyphicon glyphicon-star-empty"></i> Versão 1.3 - Publicado em 20/04/2017
+                            <i class="glyphicon glyphicon-folder-close"></i> Versão 1.3 - Publicado em 20/04/2017
                 </div>
                     <div class="panel-body">
                       <h4><strong style="color: #337ab7;">Implementações</strong></h4>
