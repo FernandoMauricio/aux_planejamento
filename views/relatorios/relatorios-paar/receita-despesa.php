@@ -11,7 +11,6 @@ use app\models\cadastros\Tipo;
 use app\models\planilhas\Planilhadecurso;
 ?>
 
-
 		   <table width="100%" border="0">
            <tr> 
            <td width="21%"><img src="<?php echo Url::base().'/uploads/logo.png' ?>" height="100px"></td>
@@ -83,7 +82,7 @@ use app\models\planilhas\Planilhadecurso;
             foreach ($unidades as $unidade) {
 
 		        $codigo_unidade  = $unidade['placu_codunidade'];
-			    $nome_unidade    = $unidade['placu_nomeunidade'];
+			      $nome_unidade    = $unidade['placu_nomeunidade'];
 				  
 				  $quantidade_educacao_profissional = 0;
 				  $quantidade_acao_extensiva = 0;
@@ -97,10 +96,10 @@ use app\models\planilhas\Planilhadecurso;
 
             foreach ($planilhas as $planilha) {
 
-					     $placu_codplanilha         = $planilha['placu_codplanilha'];
-					     $codigo_eixo               = $planilha['placu_codeixo'];
-					     $carga_horaria_turma       = $planilha['placu_cargahorariaarealizar'];
-					     $quantidade_turmas         = $planilha['placu_quantidadeturmas'];
+					   $placu_codplanilha         = $planilha['placu_codplanilha'];
+					   $codigo_eixo               = $planilha['placu_codeixo'];
+					   $carga_horaria_turma       = $planilha['placu_cargahorariaarealizar'];
+					   $quantidade_turmas         = $planilha['placu_quantidadeturmas'];
 						 $quantidade_alunos         = $planilha['placu_quantidadealunos'];
 						 $quantidade_alunos_psg     = $planilha['placu_quantidadealunospsg'];
 						 $quantidade_alunos_isentos = $planilha['placu_quantidadealunosisentos'];
@@ -134,18 +133,15 @@ use app\models\planilhas\Planilhadecurso;
             				$encargos      = $planilha['planides_encargos'];
             				$valor         = $planilha['planides_valorhoraaula'];
             				$carga_horaria = $planilha['planides_cargahoraria'];
-
 					
                                         $carga_horaria_total = $carga_horaria_total + $carga_horaria;
                                        	$valor_calcular = $valor * $carga_horaria;
                                        	$valor_total_docente = $valor_total_docente + $valor_calcular;				
                                         $encargos_calcular_docente = ( $encargos * $valor_calcular ) / 100 ;
                                         $encargos_total_docente = $encargos_total_docente + $encargos_calcular_docente;
-													  
-						        }
+						      }
 														
 								 $valor_total_indireto = 0;
-														
 														
 								//CALCULANDO O CUSTO TOTAL DA PLANILHA...
 								$custo_planilha = $valor_total_docente + $encargos_total_docente + $valor_total_direta + $valor_total_indireto ;
@@ -154,7 +150,7 @@ use app\models\planilhas\Planilhadecurso;
 							    {
 								      $inadimplencia_3 = ($custo_planilha * 3) / 100;
 									  $custo_planilha = $custo_planilha + $inadimplencia_3;
-								}
+								  }
 														
 								$custo_total_planilha = $custo_planilha * $quantidade_turmas;
 								
