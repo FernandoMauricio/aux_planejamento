@@ -17,7 +17,24 @@ $this->title = 'Auxílio ao Planejamento';
 
                 <div class="panel panel-primary">
                 <div class="panel-heading">
-                            <i class="glyphicon glyphicon-star-empty"></i> Versão 1.4 - (ATUALMENTE) - Publicado em 30/06/2017
+                            <i class="glyphicon glyphicon-star-empty"></i> Versão 1.5 - (ATUALMENTE) - Publicado em 04/07/2017
+                </div>
+                    <div class="panel-body">
+                      <h4><strong style="color: #337ab7;">Implementações</strong></h4>
+                                <h5><i class="glyphicon glyphicon-tag"></i><strong> Relatórios PAAR</strong></h5>
+                                   <h5>Novos relatórios do PAAR foram incluídos: </h5>
+                                   <h5>&nbsp;&nbsp;&nbsp;&nbsp;-> Receita x Despesa por Unidade</h5>
+                                   <h5>&nbsp;&nbsp;&nbsp;&nbsp;-> Receita x Segmento x Tipo Ação</h5>
+                                   <h5>&nbsp;&nbsp;&nbsp;&nbsp;-> Listagem de Cursos Previstos</h5>
+                                   <h5>&nbsp;&nbsp;&nbsp;&nbsp;-> Matrículas por Segmento e Tipo de Ação</h5>
+                                   <h5>&nbsp;&nbsp;&nbsp;&nbsp;-> Matrículas PSG por Segmento</h5>
+                                   <h5>&nbsp;&nbsp;&nbsp;&nbsp;-> Quantidade Hora Aluno por Segmento</h5>
+                    </div>
+                </div>
+
+                <div class="panel panel-danger">
+                <div class="panel-heading">
+                            <i class="glyphicon glyphicon-folder-close"></i> Versão 1.5 - (ATUALMENTE) - Publicado em 30/06/2017
                 </div>
                     <div class="panel-body">
                       <h4><strong style="color: #337ab7;">Implementações</strong></h4>

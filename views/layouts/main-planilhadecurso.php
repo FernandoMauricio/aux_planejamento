@@ -40,7 +40,7 @@ AppAsset::register($this);
     <div class="container">
         <p class="pull-left">&copy; Gerência de Informática Corporativa <?= date('Y') ?></p>
 
-        <p class="pull-right">Versão 1.4</p>
+        <p class="pull-right">Versão 1.5</p>
     </div>
 </footer>
 
