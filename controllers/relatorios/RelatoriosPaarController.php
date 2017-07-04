@@ -88,6 +88,9 @@ class RelatoriosPaarController extends Controller
             else if($model->relat_tiporelatorio == 14){
                   return $this->redirect(['matricula-segmento-tipo', 'ano_planilha' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
                 }
+            else if($model->relat_tiporelatorio == 15){
+                  return $this->redirect(['matricula-psg-segmento', 'ano_planilha' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
+                }
 
         }else{
             return $this->render('/relatorios/relatorios-paar/gerar-relatorio', [
@@ -335,6 +338,22 @@ class RelatoriosPaarController extends Controller
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/matricula-segmento-tipo', [
+              'ano_planilha'      => $ano_planilha, 
+              'situacao_planilha' => $situacao_planilha,
+              'tipo_planilha'     => $tipo_planilha, 
+              'tipo_relatorio'    => $tipo_relatorio,
+              ]);
+    }
+
+    public function actionMatriculaPsgSegmento($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    {
+       $this->layout = 'main-imprimir';
+       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
+       $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
+
+            return $this->render('/relatorios/relatorios-paar/matricula-psg-segmento', [
               'ano_planilha'      => $ano_planilha, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 

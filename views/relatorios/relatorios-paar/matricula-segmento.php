@@ -113,6 +113,7 @@ use app\models\planilhas\Planilhadecurso;
 					  $segmentos2 = Segmento::findBySql($query_segmentos2)->all(); 
 
 	            	  foreach ($segmentos2 as $segmento) {
+	            	  	
                       		$codigo_segmento  = $segmento['seg_codsegmento'];
 					         
 							 $quantidade_matriculas_por_segmento = 0;

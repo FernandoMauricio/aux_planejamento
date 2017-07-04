@@ -62,7 +62,7 @@ use app\models\planilhas\Planilhadecurso;
            
         <?php
 		  //EXTRAINDO AS UNIDADES....
-		  $query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."'  group by placu_codunidade ORDER BY placu_nomeunidade";
+		  $query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
 			    $unidades = Planilhadecurso::findBySql($query_unidades)->all(); 
 
 	            foreach ($unidades as $unidade) {
