@@ -101,7 +101,7 @@ use app\models\planilhas\Planilhadecurso;
 
               foreach ($unidades as $unidade) {
 
-              $codigo_unidade  = $unidade['placu_codunidade'];
+            $codigo_unidade  = $unidade['placu_codunidade'];
             $nome_unidade    = $unidade['placu_nomeunidade'];
 
              $subtotal_unidade = 0;
