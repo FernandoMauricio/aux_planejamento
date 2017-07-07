@@ -115,31 +115,35 @@ use yii\helpers\Html;
                                     [
                                         'attribute'=>'placu_codano', 
                                         'value'=> $model->planilhaAno->an_ano,
-                                        'labelColOptions'=>['style'=>'width:0%'], 
+                                        'displayOnly'=>true
+                                    ],
+                                    [
+                                        'attribute'=>'placu_anoexercicio', 
                                         'displayOnly'=>true
                                     ],
                                     [
                                         'attribute'=>'placu_codcategoria', 
                                         'value'=> $model->categoriaPlanilha->cat_descricao,
-                                        'labelColOptions'=>['style'=>'width:0%'], 
                                         'displayOnly'=>true
                                     ],
+                                ],
+                            ],
+
+[
+                                'columns' => [
                                     [
                                         'attribute'=>'placu_codtipla', 
                                         'value'=> $model->tipoplanilha->tipla_descricao,
-                                        'labelColOptions'=>['style'=>'width:0%'], 
                                         'displayOnly'=>true
                                     ],
                                     [
                                         'attribute'=>'placu_codprogramacao', 
                                         'value'=> $model->tipoprogramacao->tipro_descricao,
-                                        'labelColOptions'=>['style'=>'width:0%'], 
                                         'displayOnly'=>true
                                     ],
                                     [
                                         'attribute'=>'placu_quantidadeturmas', 
                                         'value'=> $model->placu_quantidadeturmas,
-                                        'labelColOptions'=>['style'=>'width:0%'], 
                                         'displayOnly'=>true
                                     ],
                                 ],

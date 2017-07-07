@@ -42,7 +42,6 @@ class RelatoriosPaarController extends Controller
       $tipoPlanilha     = Tipoplanilha::find()->all();
     	$situacaoPlanilha = Situacaoplanilha::find()->all();
       $tipoRelatorio    = Tiporelatorio::find()->all();
-      //$tipoRelatorio    = Tiporelatorio::find()->orderBy(['tiprel_descricao'=>SORT_ASC])->all();
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -93,6 +92,9 @@ class RelatoriosPaarController extends Controller
                 }
             else if($model->relat_tiporelatorio == 16){
                   return $this->redirect(['hora-aluno-segmento', 'ano_orcamento' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
+                }
+            else if($model->relat_tiporelatorio == 17){
+                  return $this->redirect(['cargahoraria-aluno', 'ano_orcamento' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
                 }
 
         }else{
@@ -373,6 +375,22 @@ class RelatoriosPaarController extends Controller
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/hora-aluno-segmento', [
+              'ano_orcamento'      => $ano_orcamento, 
+              'situacao_planilha' => $situacao_planilha,
+              'tipo_planilha'     => $tipo_planilha, 
+              'tipo_relatorio'    => $tipo_relatorio,
+              ]);
+    }
+
+    public function actionCargahorariaAluno($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    {
+       $this->layout = 'main-imprimir';
+       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
+       $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
+
+            return $this->render('/relatorios/relatorios-paar/cargahoraria-aluno', [
               'ano_orcamento'      => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 

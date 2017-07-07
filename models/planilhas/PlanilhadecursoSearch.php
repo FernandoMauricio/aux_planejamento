@@ -18,7 +18,7 @@ class PlanilhadecursoSearch extends Planilhadecurso
     public function rules()
     {
         return [
-            [['placu_codplanilha', 'placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao'], 'integer'],
+            [['placu_codplanilha', 'placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao', 'placu_anoexercicio'], 'integer'],
             [['placu_cargahorariaplano', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar'], 'number'],
             [['placu_nomeunidade', 'placu_observacao','PlanoLabel', 'anoLabel'], 'safe'],
         ];
@@ -94,6 +94,7 @@ class PlanilhadecursoSearch extends Planilhadecurso
             'placu_cargahorariavivencia' => $this->placu_cargahorariavivencia,
             'placu_quantidadealunosisentos' => $this->placu_quantidadealunosisentos,
             'placu_codprogramacao' => $this->placu_codprogramacao,
+            'placu_anoexercicio' => $this->placu_anoexercicio,
             'placu_codunidade' => $session['sess_codunidade'],
         ]);
 
