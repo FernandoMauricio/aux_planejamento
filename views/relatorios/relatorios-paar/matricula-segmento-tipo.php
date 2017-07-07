@@ -42,8 +42,8 @@ use app\models\planilhas\Planilhadecurso;
         </tr>
         <tr> 
           <td>&nbsp;</td>
-          <td valign="middle"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">ANO</font></strong></td>
-          <td width="12%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $ano_planilha['an_ano'];?></font></td>
+          <td valign="middle"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">ORÇAMENTO</font></strong></td>
+          <td width="12%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $ano_orcamento['an_ano'];?></font></td>
           <td width="13%" valign="middle"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong>SITUA&Ccedil;&Atilde;O</strong></font></td>
           <td width="62%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $situacao_planilha['sipla_descricao'];?></font></td>
         </tr>
@@ -62,7 +62,7 @@ use app\models\planilhas\Planilhadecurso;
            
         <?php
 		  //EXTRAINDO AS UNIDADES....
-		  $query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
+		  $query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
 			    $unidades = Planilhadecurso::findBySql($query_unidades)->all(); 
 
 	            foreach ($unidades as $unidade) {
@@ -86,7 +86,7 @@ use app\models\planilhas\Planilhadecurso;
 				  
 				<?php
 				  
-				  $query_tiposAcao = "SELECT tip_codtipoa, tip_descricao FROM tipodeacao_tip ,planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codtipoa = tip_codtipoa GROUP BY placu_codtipoa ORDER BY tip_descricao";
+				  $query_tiposAcao = "SELECT tip_codtipoa, tip_descricao FROM tipodeacao_tip ,planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codtipoa = tip_codtipoa GROUP BY placu_codtipoa ORDER BY tip_descricao";
 
 		    		$tiposAcao = Tipo::findBySql($query_tiposAcao)->all(); 
 
@@ -104,7 +104,7 @@ use app\models\planilhas\Planilhadecurso;
                   </tr>
 				  
 				<?php
-					  $query_segmentos = "SELECT seg_codsegmento, seg_descricao FROM segmento_seg, planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codsegmento = seg_codsegmento GROUP BY placu_codsegmento ORDER BY seg_descricao";
+					  $query_segmentos = "SELECT seg_codsegmento, seg_descricao FROM segmento_seg, planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codsegmento = seg_codsegmento GROUP BY placu_codsegmento ORDER BY seg_descricao";
 
 						$segmentos = Segmento::findBySql($query_segmentos)->all(); 
 
@@ -119,7 +119,7 @@ use app\models\planilhas\Planilhadecurso;
                      <td valign="middle" bgcolor="#EEEEEE"> <div align="left"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo $nome_segmento; ?></strong></font></div></td>
 				<?php
 					 
-					$query_tiposAcao = "SELECT tip_codtipoa, tip_descricao FROM tipodeacao_tip ,planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codtipoa = tip_codtipoa GROUP BY placu_codtipoa ORDER BY tip_descricao";
+					$query_tiposAcao = "SELECT tip_codtipoa, tip_descricao FROM tipodeacao_tip ,planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codtipoa = tip_codtipoa GROUP BY placu_codtipoa ORDER BY tip_descricao";
 
 		    		$tiposAcao = Tipo::findBySql($query_tiposAcao)->all(); 
 
@@ -130,7 +130,7 @@ use app\models\planilhas\Planilhadecurso;
 					      
 						  $soma_segmento_tipoacao = 0;
 
-					$query_planilhas = "SELECT placu_quantidadeturmas, placu_quantidadealunos, placu_quantidadealunospsg, placu_quantidadealunosisentos FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$codigo_unidade."' AND placu_codsegmento = '".$codigo_segmento."' AND placu_codtipoa = '".$codigo_tipoacao."'";
+					$query_planilhas = "SELECT placu_quantidadeturmas, placu_quantidadealunos, placu_quantidadealunospsg, placu_quantidadealunosisentos FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$codigo_unidade."' AND placu_codsegmento = '".$codigo_segmento."' AND placu_codtipoa = '".$codigo_tipoacao."'";
 
 				            $planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
 
@@ -167,7 +167,7 @@ use app\models\planilhas\Planilhadecurso;
 				  <?php
 					  $conta_total_unidade = 0;
 
-					  $query_tiposAcao = "SELECT tip_codtipoa, tip_descricao FROM tipodeacao_tip ,planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codtipoa = tip_codtipoa GROUP BY placu_codtipoa ORDER BY tip_descricao";
+					  $query_tiposAcao = "SELECT tip_codtipoa, tip_descricao FROM tipodeacao_tip ,planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codtipoa = tip_codtipoa GROUP BY placu_codtipoa ORDER BY tip_descricao";
 
 			    		$tiposAcao = Tipo::findBySql($query_tiposAcao)->all(); 
 
@@ -178,7 +178,7 @@ use app\models\planilhas\Planilhadecurso;
 							  
 						$soma_tipoacao = 0;
 
-							$query_planilhas = "SELECT placu_quantidadeturmas, placu_quantidadealunos, placu_quantidadealunospsg, placu_quantidadealunosisentos FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codtipoa = '".$codigo_tipoacao."' AND placu_codunidade = '".$codigo_unidade."'";
+							$query_planilhas = "SELECT placu_quantidadeturmas, placu_quantidadealunos, placu_quantidadealunospsg, placu_quantidadealunosisentos FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codtipoa = '".$codigo_tipoacao."' AND placu_codunidade = '".$codigo_unidade."'";
 
 					            $planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
 
@@ -231,7 +231,7 @@ use app\models\planilhas\Planilhadecurso;
           </font></strong></font></div></td>
 		  
 		    <?php
-			  $query_tiposAcao = "SELECT tip_codtipoa, tip_descricao FROM tipodeacao_tip ,planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codtipoa = tip_codtipoa GROUP BY placu_codtipoa ORDER BY tip_descricao";
+			  $query_tiposAcao = "SELECT tip_codtipoa, tip_descricao FROM tipodeacao_tip ,planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codtipoa = tip_codtipoa GROUP BY placu_codtipoa ORDER BY tip_descricao";
 
 				    		$tiposAcao = Tipo::findBySql($query_tiposAcao)->all(); 
 
@@ -249,7 +249,7 @@ use app\models\planilhas\Planilhadecurso;
           </tr>
 				  
 		    <?php
-				  $query_segmentos = "SELECT seg_codsegmento, seg_descricao FROM segmento_seg ,planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codsegmento = seg_codsegmento GROUP BY placu_codsegmento ORDER BY seg_descricao";
+				  $query_segmentos = "SELECT seg_codsegmento, seg_descricao FROM segmento_seg ,planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codsegmento = seg_codsegmento GROUP BY placu_codsegmento ORDER BY seg_descricao";
 
 					    		$segmentos = Segmento::findBySql($query_segmentos)->all(); 
 
@@ -263,7 +263,7 @@ use app\models\planilhas\Planilhadecurso;
 				<tr> 
                 <td valign="middle" bgcolor="#EEEEEE"> <div align="left"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo $nome_segmento; ?></strong></font></div></td>
 				<?php
-						$query_tiposAcao = "SELECT tip_codtipoa, tip_descricao FROM tipodeacao_tip ,planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codtipoa = tip_codtipoa GROUP BY placu_codtipoa ORDER BY tip_descricao";
+						$query_tiposAcao = "SELECT tip_codtipoa, tip_descricao FROM tipodeacao_tip ,planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codtipoa = tip_codtipoa GROUP BY placu_codtipoa ORDER BY tip_descricao";
 
 						    		$tiposAcao = Tipo::findBySql($query_tiposAcao)->all(); 
 
@@ -274,7 +274,7 @@ use app\models\planilhas\Planilhadecurso;
 							      
 								 		$soma_segmento_tipoacao = 0;
 
-								 	$query_planilhas = "SELECT placu_quantidadeturmas, placu_quantidadealunos,placu_quantidadealunospsg, placu_quantidadealunosisentos FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$codigo_unidade."' AND placu_codtipoa = '".$codigo_tipoacao."' AND placu_codsegmento = '".$codigo_segmento."'";
+								 	$query_planilhas = "SELECT placu_quantidadeturmas, placu_quantidadealunos,placu_quantidadealunospsg, placu_quantidadealunosisentos FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$codigo_unidade."' AND placu_codtipoa = '".$codigo_tipoacao."' AND placu_codsegmento = '".$codigo_segmento."'";
 
 						            $planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
 
@@ -308,7 +308,7 @@ use app\models\planilhas\Planilhadecurso;
 				<?php
 
 				  $conta_total_geral = 0;
-				  $query_tiposAcao = "SELECT tip_codtipoa, tip_descricao FROM tipodeacao_tip ,planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codtipoa = tip_codtipoa GROUP BY placu_codtipoa ORDER BY tip_descricao";
+				  $query_tiposAcao = "SELECT tip_codtipoa, tip_descricao FROM tipodeacao_tip ,planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codtipoa = tip_codtipoa GROUP BY placu_codtipoa ORDER BY tip_descricao";
 
 						    		$tiposAcao = Tipo::findBySql($query_tiposAcao)->all(); 
 
@@ -319,7 +319,7 @@ use app\models\planilhas\Planilhadecurso;
 						  
 						  $soma_tipoacao = 0;
 
-						  $query_planilhas = "SELECT placu_quantidadeturmas, placu_quantidadealunos,placu_quantidadealunospsg, placu_quantidadealunosisentos FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano ='".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$codigo_unidade."' AND placu_codtipoa = '".$codigo_tipoacao."' AND placu_codsegmento = '".$codigo_segmento."' ";
+						  $query_planilhas = "SELECT placu_quantidadeturmas, placu_quantidadealunos,placu_quantidadealunospsg, placu_quantidadealunosisentos FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano ='".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$codigo_unidade."' AND placu_codtipoa = '".$codigo_tipoacao."' AND placu_codsegmento = '".$codigo_segmento."' ";
 
 						            $planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
 

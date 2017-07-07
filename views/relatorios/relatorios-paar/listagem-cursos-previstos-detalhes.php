@@ -42,8 +42,8 @@ use app\models\planilhas\Planilhadecurso;
            </tr>
            <tr> 
            <td>&nbsp;</td>
-           <td valign="middle"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">ANO</font></strong></td>
-           <td width="12%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $ano_planilha['an_ano'];?></font></td>
+           <td valign="middle"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">ORÇAMENTO</font></strong></td>
+           <td width="12%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $ano_orcamento['an_ano'];?></font></td>
            <td width="13%" valign="middle"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong>SITUA&Ccedil;&Atilde;O</strong></font></td>
            <td width="62%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $situacao_planilha['sipla_descricao'];?></font></td>
            </tr>
@@ -90,7 +90,7 @@ use app\models\planilhas\Planilhadecurso;
        $quantidade_alunos_unidade_geral = 0;
 
        //EXTRAINDO AS UNIDADES DAS PLANILHAS....
-       $query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codplano = '".$_GET['codplano']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
+       $query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codplano = '".$_GET['codplano']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
 
                 $unidades = Planilhadecurso::findBySql($query_unidades)->all(); 
 
@@ -103,7 +103,7 @@ use app\models\planilhas\Planilhadecurso;
                       $quantidade_alunos_unidade = 0;
           
           //EXRAINDO AS INFORMAÇÕES DAS PLANILHAS...
-          $query_planilhas = "SELECT placu_quantidadeturmas,placu_quantidadealunos,placu_quantidadealunospsg, placu_quantidadealunosisentos FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codplano = '".$_GET['codplano']."' ";
+          $query_planilhas = "SELECT placu_quantidadeturmas,placu_quantidadealunos,placu_quantidadealunospsg, placu_quantidadealunosisentos FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codplano = '".$_GET['codplano']."' ";
 
                 $planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
 

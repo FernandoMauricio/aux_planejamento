@@ -121,8 +121,22 @@ use app\models\cadastros\Tipoprogramacao;
                                 ]);
                 ?>
                 </div>
+                
+                <div class="col-md-2">
+                <?php
+                        $rows = Ano::find()->where(['an_status'=> 1])->orderBy(['an_codano'=>SORT_DESC])->all();
+                        $data_ano = ArrayHelper::map($rows, 'an_ano', 'an_ano');
+                        echo $form->field($model, 'placu_anoexercicio')->widget(Select2::classname(), [
+                                'data' =>  $data_ano,
+                                'options' => ['placeholder' => 'Selecione o Ano...'],
+                                'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ]);
+                ?>
+                </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                 <?php
                         $rows = Categoriaplanilha::find()->orderBy('cat_descricao')->all();
                         $data_ano = ArrayHelper::map($rows, 'cat_codcategoria', 'cat_descricao');
@@ -150,7 +164,7 @@ use app\models\cadastros\Tipoprogramacao;
                 ?>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                 <?php
                         $rows = Tipoprogramacao::find()->all();
                         $data_tipoprogramacao = ArrayHelper::map($rows, 'tipro_codprogramacao', 'tipro_descricao');

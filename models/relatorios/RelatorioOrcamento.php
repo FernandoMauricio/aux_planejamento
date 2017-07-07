@@ -29,7 +29,7 @@ class RelatorioOrcamento extends Model
     {
         return [
             'relat_unidade' => 'Unidade',
-            'relat_codano' => 'Ano',
+            'relat_codano' => 'Orçamento',
         ];
     }
 }

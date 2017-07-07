@@ -30,7 +30,7 @@ class RelatoriosPaar extends Model
     public function attributeLabels()
     {
         return [
-            'relat_codano' => 'Ano',
+            'relat_codano' => 'Orçamento',
             'relat_codsituacao' => 'Situação Planilha',
             'relat_codtipla' => 'Tipo Planilha',
             'relat_tiporelatorio' => 'Tipo de Relatório',

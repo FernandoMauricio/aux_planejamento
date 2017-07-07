@@ -34,7 +34,7 @@ $this->title = 'Auxílio ao Planejamento';
 
                 <div class="panel panel-danger">
                 <div class="panel-heading">
-                            <i class="glyphicon glyphicon-folder-close"></i> Versão 1.5 - (ATUALMENTE) - Publicado em 30/06/2017
+                            <i class="glyphicon glyphicon-folder-close"></i> Versão 1.4 - Publicado em 30/06/2017
                 </div>
                     <div class="panel-body">
                       <h4><strong style="color: #337ab7;">Implementações</strong></h4>
@@ -45,10 +45,10 @@ $this->title = 'Auxílio ao Planejamento';
 
                                 <h5><i class="glyphicon glyphicon-tag"></i><strong> Planilhas de Cursos</strong></h5>
                                    <h5>- Ocultação de alguns campos para planilhas de curso (informações sobre o markup).</h5>
-                                   <h5>- Inserido novo campo para planilhas de curso: <b>% de Retorno - Preço Sugerido</b>.</h5>
+                                   <h5>- Inserido novo campo para planilhas de curso: <b>% de Retorno - Preço de Venda</b>.</h5>
                                    <h5>- Mensagem de validação do campo "Valor Sugerido" onde lia-se <strong style="color: red;">"valores maiores que 0"</strong>, leia-se <strong style="color: green;">"valores maiores que 0 e sem vírgulas"</strong>.</h5>
                                    <h5>- Alterações de nomeclaturas.</h5>
-                                   <h5>- Os campos "<strong style="color: red;">Número mínimo de alunos</strong>" e "<strong style="color: red;">% de Retorno - Preço Sugerido</strong>" terão valores iguais a 0 quando a Fonte de Financiamento for igual a PSG.</h5>
+                                   <h5>- Os campos "<strong style="color: red;">Número mínimo de alunos</strong>" e "<strong style="color: red;">% de Retorno - Preço de Venda</strong>" terão valores iguais a 0 quando a Fonte de Financiamento for igual a PSG.</h5>
                     </div>
                 </div>
 

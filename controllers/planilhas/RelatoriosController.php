@@ -32,10 +32,10 @@ class RelatoriosController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             if($model->placu_tiporelatorio == 1){
-                  return $this->redirect(['matricula-unidade', 'ano_planilha' => $model->placu_codano, 'tipo_planilha'=> $model->placu_codtipla, 'situacao_planilha' => $model->placu_codsituacao, 'tipo_relatorio' => $model->placu_tiporelatorio]);
+                  return $this->redirect(['matricula-unidade', 'ano_orcamento' => $model->placu_codano, 'tipo_planilha'=> $model->placu_codtipla, 'situacao_planilha' => $model->placu_codsituacao, 'tipo_relatorio' => $model->placu_tiporelatorio]);
                 }
             else if($model->placu_tiporelatorio == 2){
-                  return $this->redirect(['cargahoraria-unidade', 'ano_planilha' => $model->placu_codano, 'tipo_planilha'=> $model->placu_codtipla, 'situacao_planilha' => $model->placu_codsituacao, 'tipo_relatorio' => $model->placu_tiporelatorio]);
+                  return $this->redirect(['cargahoraria-unidade', 'ano_orcamento' => $model->placu_codano, 'tipo_planilha'=> $model->placu_codtipla, 'situacao_planilha' => $model->placu_codsituacao, 'tipo_relatorio' => $model->placu_tiporelatorio]);
                 }
 
 
@@ -51,10 +51,10 @@ class RelatoriosController extends Controller
 
     }
 
-    public function actionMatriculaUnidade($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    public function actionMatriculaUnidade($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
-        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$ano_planilha."'";
-        $ano_planilha = Ano::findBySql($queryAno)->one();
+        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$ano_orcamento."'";
+        $ano_orcamento = Ano::findBySql($queryAno)->one();
 
         $querySituacaoPlanilha = "SELECT * FROM situacaoplanilha_sipla WHERE sipla_codsituacao = '".$situacao_planilha."'";
         $situacao_planilha = Situacaoplanilha::findBySql($querySituacaoPlanilha)->one(); 
@@ -66,17 +66,17 @@ class RelatoriosController extends Controller
         $tipo_relatorio = Tiporelatorio::findBySql($queryTipoRelatorio)->one();
 
             return $this->render('/relatorios/matricula-unidade', [
-              'ano_planilha'      => $ano_planilha, 
+              'ano_orcamento'      => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
               ]);
     }
 
-    public function actionCargahorariaUnidade($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    public function actionCargahorariaUnidade($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
-        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$ano_planilha."'";
-        $ano_planilha = Ano::findBySql($queryAno)->one();
+        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$ano_orcamento."'";
+        $ano_orcamento = Ano::findBySql($queryAno)->one();
 
         $querySituacaoPlanilha = "SELECT * FROM situacaoplanilha_sipla WHERE sipla_codsituacao = '".$situacao_planilha."'";
         $situacao_planilha = Situacaoplanilha::findBySql($querySituacaoPlanilha)->one(); 
@@ -88,7 +88,7 @@ class RelatoriosController extends Controller
         $tipo_relatorio = Tiporelatorio::findBySql($queryTipoRelatorio)->one();
 
             return $this->render('/relatorios/cargahoraria-unidade', [
-              'ano_planilha'      => $ano_planilha, 
+              'ano_orcamento'      => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,

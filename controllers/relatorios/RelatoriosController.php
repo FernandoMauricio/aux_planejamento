@@ -31,28 +31,28 @@ class RelatoriosController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             if($model->relat_tiporelatorio == 1){
-                  return $this->redirect(['matricula-unidade', 'ano_planilha' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
+                  return $this->redirect(['matricula-unidade', 'ano_orcamento' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
                 }
             else if($model->relat_tiporelatorio == 2){
-                  return $this->redirect(['cargahoraria-unidade', 'ano_planilha' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
+                  return $this->redirect(['cargahoraria-unidade', 'ano_orcamento' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
                 }
             else if($model->relat_tiporelatorio == 3){
-                  return $this->redirect(['matricula-eixo', 'ano_planilha' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
+                  return $this->redirect(['matricula-eixo', 'ano_orcamento' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
                 }
             else if($model->relat_tiporelatorio == 4){
-                  return $this->redirect(['cargahoraria-eixo', 'ano_planilha' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
+                  return $this->redirect(['cargahoraria-eixo', 'ano_orcamento' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
                 }
             else if($model->relat_tiporelatorio == 5){
-                  return $this->redirect(['matricula-segmento', 'ano_planilha' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
+                  return $this->redirect(['matricula-segmento', 'ano_orcamento' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
                 }
             else if($model->relat_tiporelatorio == 6){
-                  return $this->redirect(['cargahoraria-segmento', 'ano_planilha' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
+                  return $this->redirect(['cargahoraria-segmento', 'ano_orcamento' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
                 }
             else if($model->relat_tiporelatorio == 7){
-                  return $this->redirect(['matricula-educacaoprofissional', 'ano_planilha' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
+                  return $this->redirect(['matricula-educacaoprofissional', 'ano_orcamento' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
                 }
             else if($model->relat_tiporelatorio == 8){
-                  return $this->redirect(['cargahoraria-educacaoprofissional', 'ano_planilha' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
+                  return $this->redirect(['cargahoraria-educacaoprofissional', 'ano_orcamento' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
                 }
 
         }else{
@@ -67,141 +67,141 @@ class RelatoriosController extends Controller
 
     }
 
-    public function actionMatriculaUnidade($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    public function actionMatriculaUnidade($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/matricula-unidade', [
-              'ano_planilha'      => $ano_planilha, 
+              'ano_orcamento'      => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
               ]);
     }
 
-    public function actionCargahorariaUnidade($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    public function actionCargahorariaUnidade($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/cargahoraria-unidade', [
-              'ano_planilha'      => $ano_planilha, 
+              'ano_orcamento'      => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
               ]);
     }
 
-    public function actionMatriculaEixo($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    public function actionMatriculaEixo($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
 
        $this->layout = 'main-imprimir';
-       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/matricula-eixo', [
-              'ano_planilha'      => $ano_planilha, 
+              'ano_orcamento'      => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
               ]);
     }
 
-    public function actionCargahorariaEixo($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    public function actionCargahorariaEixo($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/cargahoraria-eixo', [
-              'ano_planilha'      => $ano_planilha, 
+              'ano_orcamento'      => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
               ]);
     }
 
-    public function actionMatriculaSegmento($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    public function actionMatriculaSegmento($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/matricula-segmento', [
-              'ano_planilha'      => $ano_planilha, 
+              'ano_orcamento'      => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
               ]);
     }
 
-    public function actionCargahorariaSegmento($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    public function actionCargahorariaSegmento($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/cargahoraria-segmento', [
-              'ano_planilha'      => $ano_planilha, 
+              'ano_orcamento'      => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
               ]);
     }
 
-    public function actionMatriculaEducacaoprofissional($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    public function actionMatriculaEducacaoprofissional($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/matricula-educacaoprofissional', [
-              'ano_planilha'      => $ano_planilha, 
+              'ano_orcamento'      => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
               ]);
     }
 
-    public function actionCargahorariaEducacaoprofissional($ano_planilha, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    public function actionCargahorariaEducacaoprofissional($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_planilha      = $this->findModelAnoPlanilha($ano_planilha);
+       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/cargahoraria-educacaoprofissional', [
-              'ano_planilha'      => $ano_planilha, 
+              'ano_orcamento'      => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
               ]);
     }
 
-    protected function findModelAnoPlanilha($ano_planilha)
+    protected function findModelAnoPlanilha($ano_orcamento)
     {
-        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$ano_planilha."'";
+        $queryAno = "SELECT * FROM ano_an WHERE an_codano = '".$ano_orcamento."'";
 
-        if (($ano_planilha = Ano::findBySql($queryAno)->one()) !== null) {
-            return $ano_planilha;
+        if (($ano_orcamento = Ano::findBySql($queryAno)->one()) !== null) {
+            return $ano_orcamento;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }

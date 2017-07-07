@@ -43,16 +43,16 @@ use yii\helpers\Html;
 
 <p><b> Preço de Venda Total da Turma</b> =  ( Total de Custo Direto<b class="calc"> / </b> Mark-Up Divisor)<b class="calc"> x </b> 100 </p>
 
-<p><b> Preço de Venda Total por Aluno</b> =  Preço de Venda Total da Turma<b class="calc"> / </b>  Quantidade de Alunos</p>
+<p><b> Preço de Venda pela planilha</b> =  Preço de Venda Total da Turma<b class="calc"> / </b>  Quantidade de Alunos</p>
 
-<p><b> Retorno com Preço de Venda</b> =  Preço de Venda Total por Aluno <b class="calc"> - </b> Despesa Total </p>
+<p><b> Retorno com Preço de Venda</b> =  Preço de Venda pela planilha <b class="calc"> - </b> Despesa Total </p>
 
 <p><b> Valor Hora/Aula por Aluno </b> =  Preço de Venda Total da Turma<b class="calc"> / </b> Carga Horária<b class="calc"> / </b> Quantidade de Alunos </p>
 
 <p><b> % de Retorno </b> = ( Retorno com Preço de Venda <b class="calc"> / </b> Preço de Venda Total da Turma ) * 100 </p>
 
-<p><b> Retorno com Preço Sugerido</b> = ( Preço Sugerido<b class="calc"> x </b> Quantidade de Alunos ) <b class="calc"> / </b> Despesa Total</p>
+<p><b> Retorno com Preço de Venda</b> = ( Preço de Venda<b class="calc"> x </b> Quantidade de Alunos ) <b class="calc"> / </b> Despesa Total</p>
 
-<p><b> Numero Minimo de Alunos por Turma</b> =  Despesa Total <b class="calc"> / </b> Preço Sugerido </p>
+<p><b> Numero Minimo de Alunos por Turma</b> =  Despesa Total <b class="calc"> / </b> Preço de Venda </p>
 
 </div>

@@ -49,10 +49,10 @@ class RelatorioGeralController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             if($model->relat_modelorelatorio == 1){
-                return $this->redirect(['relatorio-geral-modelo-1', 'combounidade' => $model->relat_unidade, 'ano_planilha' => $model->relat_codano, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_planilha' => $model->relat_codtipla, 'modelorelatorio' => $model->relat_modelorelatorio, 'combotipoprogramacao' => $model->relat_tipoprogramacao]);
+                return $this->redirect(['relatorio-geral-modelo-1', 'combounidade' => $model->relat_unidade, 'ano_orcamento' => $model->relat_codano, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_planilha' => $model->relat_codtipla, 'modelorelatorio' => $model->relat_modelorelatorio, 'combotipoprogramacao' => $model->relat_tipoprogramacao]);
                     }
             else if($model->relat_modelorelatorio == 2){
-                return $this->redirect(['relatorio-geral-modelo-2', 'combounidade' => $model->relat_unidade, 'ano_planilha' => $model->relat_codano, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_planilha' => $model->relat_codtipla, 'modelorelatorio' => $model->relat_modelorelatorio, 'combotipoprogramacao' => $model->relat_tipoprogramacao]);
+                return $this->redirect(['relatorio-geral-modelo-2', 'combounidade' => $model->relat_unidade, 'ano_orcamento' => $model->relat_codano, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_planilha' => $model->relat_codtipla, 'modelorelatorio' => $model->relat_modelorelatorio, 'combotipoprogramacao' => $model->relat_tipoprogramacao]);
                     }
         }else{
 	            return $this->render('/relatorios/relatorio-geral/gerar-relatorio', [
@@ -66,11 +66,11 @@ class RelatorioGeralController extends Controller
 	         }
     }
 
-    public function actionRelatorioGeralModelo1($combounidade, $ano_planilha, $situacao_planilha, $tipo_planilha, $modelorelatorio, $combotipoprogramacao)
+    public function actionRelatorioGeralModelo1($combounidade, $ano_orcamento, $situacao_planilha, $tipo_planilha, $modelorelatorio, $combotipoprogramacao)
     {
        $this->layout = 'main-imprimir';
        $combounidade         = $this->findModelUnidade($combounidade);
-       $ano_planilha         = $this->findModelAnoPlanilha($ano_planilha);
+       $ano_orcamento         = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha    = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha        = $this->findModelTipoPlanilha($tipo_planilha);
        $modelorelatorio      = $modelorelatorio;
@@ -78,19 +78,19 @@ class RelatorioGeralController extends Controller
 
             return $this->render('/relatorios/relatorio-geral/relatorio-geral-modelo-1', [
               'combounidade'         => $combounidade,
-              'ano_planilha'         => $ano_planilha, 
+              'ano_orcamento'         => $ano_orcamento, 
               'situacao_planilha'    => $situacao_planilha,
               'tipo_planilha'        => $tipo_planilha,
               'combotipoprogramacao' => $combotipoprogramacao,
               ]);
     }
 
-    public function actionRelatorioGeralModelo2($combounidade, $ano_planilha, $situacao_planilha, $tipo_planilha, $modelorelatorio, $combotipoprogramacao)
+    public function actionRelatorioGeralModelo2($combounidade, $ano_orcamento, $situacao_planilha, $tipo_planilha, $modelorelatorio, $combotipoprogramacao)
     {
 
        $this->layout = 'main-imprimir';
        $combounidade         = $this->findModelUnidade($combounidade);
-       $ano_planilha         = $this->findModelAnoPlanilha($ano_planilha);
+       $ano_orcamento         = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha    = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha        = $this->findModelTipoPlanilha($tipo_planilha);
        $modelorelatorio      = $modelorelatorio;
@@ -99,19 +99,19 @@ class RelatorioGeralController extends Controller
 
              return $this->render('/relatorios/relatorio-geral/relatorio-geral-modelo-2', [
               'combounidade'         => $combounidade,
-              'ano_planilha'         => $ano_planilha, 
+              'ano_orcamento'         => $ano_orcamento, 
               'situacao_planilha'    => $situacao_planilha,
               'tipo_planilha'        => $tipo_planilha,
               'combotipoprogramacao' => $combotipoprogramacao,
               ]);
     }
 
-    public function actionRelatorioGeralModelo2Psg($combounidade, $ano_planilha, $situacao_planilha, $tipo_planilha, $modelorelatorio, $combotipoprogramacao)
+    public function actionRelatorioGeralModelo2Psg($combounidade, $ano_orcamento, $situacao_planilha, $tipo_planilha, $modelorelatorio, $combotipoprogramacao)
     {
 
        $this->layout = 'main-imprimir';
        $combounidade         = $this->findModelUnidade($combounidade);
-       $ano_planilha         = $this->findModelAnoPlanilha($ano_planilha);
+       $ano_orcamento         = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha    = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha        = $this->findModelTipoPlanilha($tipo_planilha);
        $modelorelatorio      = $modelorelatorio;
@@ -119,19 +119,19 @@ class RelatorioGeralController extends Controller
 
             return $this->render('/relatorios/relatorio-geral/relatorio-geral-modelo-2-psg', [
               'combounidade'         => $combounidade,
-              'ano_planilha'         => $ano_planilha, 
+              'ano_orcamento'         => $ano_orcamento, 
               'situacao_planilha'    => $situacao_planilha,
               'tipo_planilha'        => $tipo_planilha,
               'combotipoprogramacao' => $combotipoprogramacao,
               ]);
     }
 
-    public function actionRelatorioGeralModelo2NaoPsg($combounidade, $ano_planilha, $situacao_planilha, $tipo_planilha, $modelorelatorio, $combotipoprogramacao)
+    public function actionRelatorioGeralModelo2NaoPsg($combounidade, $ano_orcamento, $situacao_planilha, $tipo_planilha, $modelorelatorio, $combotipoprogramacao)
     {
 
        $this->layout = 'main-imprimir';
        $combounidade         = $this->findModelUnidade($combounidade);
-       $ano_planilha         = $this->findModelAnoPlanilha($ano_planilha);
+       $ano_orcamento         = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha    = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha        = $this->findModelTipoPlanilha($tipo_planilha);
        $modelorelatorio      = $modelorelatorio;
@@ -139,7 +139,7 @@ class RelatorioGeralController extends Controller
 
             return $this->render('/relatorios/relatorio-geral/relatorio-geral-modelo-2-nao-psg', [
               'combounidade'         => $combounidade,
-              'ano_planilha'         => $ano_planilha, 
+              'ano_orcamento'         => $ano_orcamento, 
               'situacao_planilha'    => $situacao_planilha,
               'tipo_planilha'        => $tipo_planilha,
               'combotipoprogramacao' => $combotipoprogramacao,
@@ -155,12 +155,12 @@ class RelatorioGeralController extends Controller
         return $combounidade;
     }
 
-    protected function findModelAnoPlanilha($ano_planilha)
+    protected function findModelAnoPlanilha($ano_orcamento)
     {
-        $queryAno = "SELECT * FROM ano_an WHERE an_ano = '".$ano_planilha."'";
+        $queryAno = "SELECT * FROM ano_an WHERE an_ano = '".$ano_orcamento."'";
 
-        if (($ano_planilha = Ano::findBySql($queryAno)->one()) !== null) {
-            return $ano_planilha;
+        if (($ano_orcamento = Ano::findBySql($queryAno)->one()) !== null) {
+            return $ano_orcamento;
         } else {
             throw new NotFoundHttpException('A página solicitada não existe.');
         }

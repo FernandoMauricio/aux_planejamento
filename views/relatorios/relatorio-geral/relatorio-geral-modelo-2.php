@@ -46,8 +46,8 @@ use app\models\planilhas\Planilhadecurso;
         </tr>
         <tr> 
           <td>&nbsp;</td>
-          <td valign="middle"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">ANO</font></strong></td>
-          <td width="12%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $ano_planilha['an_ano'];?></font></td>
+          <td valign="middle"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">ORÇAMENTO</font></strong></td>
+          <td width="12%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $ano_orcamento['an_ano'];?></font></td>
           <td width="13%" valign="middle"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong>SITUA&Ccedil;&Atilde;O</strong></font></td>
           <td width="62%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $situacao_planilha['sipla_descricao'];?></font></td>
         </tr>
@@ -69,7 +69,7 @@ use app\models\planilhas\Planilhadecurso;
 
       <!-- Visualizar as informações de PSG-->
 
-        <?= Html::a('<i class="glyphicon glyphicon-print"></i> PSG', ['relatorio-geral-modelo-2-psg', 'combounidade' => $combounidade['placu_codunidade'] == 0 ? 0 : $combounidade['placu_codunidade'], 'ano_planilha' => $ano_planilha['an_codano'], 'situacao_planilha' => $situacao_planilha['sipla_codsituacao'], 'tipo_planilha' => $tipo_planilha['tipla_codtipla'], 'modelorelatorio' => 2, 'combotipoprogramacao' => $combotipoprogramacao['tipro_codprogramacao']], [
+        <?= Html::a('<i class="glyphicon glyphicon-print"></i> PSG', ['relatorio-geral-modelo-2-psg', 'combounidade' => $combounidade['placu_codunidade'] == 0 ? 0 : $combounidade['placu_codunidade'], 'ano_orcamento' => $ano_orcamento['an_codano'], 'situacao_planilha' => $situacao_planilha['sipla_codsituacao'], 'tipo_planilha' => $tipo_planilha['tipla_codtipla'], 'modelorelatorio' => 2, 'combotipoprogramacao' => $combotipoprogramacao['tipro_codprogramacao']], [
             'class' => 'btn btn-primary',
             'data' => [
                 'method' => 'post',
@@ -80,7 +80,7 @@ use app\models\planilhas\Planilhadecurso;
 
     <!-- Visualizar as informações de NÃO PSG-->
 
-        <?= Html::a('<i class="glyphicon glyphicon-print"></i> NÃO PSG', ['relatorio-geral-modelo-2-nao-psg', 'combounidade' => $combounidade['placu_codunidade'] == 0 ? 0 : $combounidade['placu_codunidade'], 'ano_planilha' => $ano_planilha['an_codano'], 'situacao_planilha' => $situacao_planilha['sipla_codsituacao'], 'tipo_planilha' => $tipo_planilha['tipla_codtipla'], 'modelorelatorio' => 2, 'combotipoprogramacao' => $combotipoprogramacao['tipro_codprogramacao']], [
+        <?= Html::a('<i class="glyphicon glyphicon-print"></i> NÃO PSG', ['relatorio-geral-modelo-2-nao-psg', 'combounidade' => $combounidade['placu_codunidade'] == 0 ? 0 : $combounidade['placu_codunidade'], 'ano_orcamento' => $ano_orcamento['an_codano'], 'situacao_planilha' => $situacao_planilha['sipla_codsituacao'], 'tipo_planilha' => $tipo_planilha['tipla_codtipla'], 'modelorelatorio' => 2, 'combotipoprogramacao' => $combotipoprogramacao['tipro_codprogramacao']], [
             'class' => 'btn btn-primary',
             'data' => [
                 'method' => 'post',
@@ -101,9 +101,9 @@ use app\models\planilhas\Planilhadecurso;
 
 		   if($combounidade['placu_codunidade'] == 0)//TODAS...
 		    { 
-		     	   $query_unidades = "SELECT placu_nomeunidade, placu_codunidade FROM `db_apl2`.`planilhadecurso_placu` WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
+		     	   $query_unidades = "SELECT placu_nomeunidade, placu_codunidade FROM `db_apl2`.`planilhadecurso_placu` WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
             } else //UMA UNIDADE EM ESPECÍFICO...
-		           $query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$combounidade['placu_codunidade']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
+		           $query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$combounidade['placu_codunidade']."' GROUP BY placu_codunidade ORDER BY placu_nomeunidade";
 		   
 		   	    $unidades = Planilhadecurso::findBySql($query_unidades)->all(); 
 
@@ -159,7 +159,7 @@ use app\models\planilhas\Planilhadecurso;
   </tr>
   		<?php
 					 //EXTRAINDO AS INFORMAÇÕES DAS PLANILHAS...
-					 $query_planilhas = "SELECT plan_descricao, placu_cargahorariaarealizar, placu_cargahorariavivencia, placu_quantidadeturmas,placu_codeixo, placu_quantidadealunos,placu_quantidadealunosisentos, placu_quantidadealunospsg, placu_codplano FROM  planilhadecurso_placu, planodeacao_plan WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_planilha['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codplano = plan_codplano AND placu_codprogramacao = '".$combotipoprogramacao['tipro_codprogramacao']."'  ORDER BY plan_descricao";
+					 $query_planilhas = "SELECT plan_descricao, placu_cargahorariaarealizar, placu_cargahorariavivencia, placu_quantidadeturmas,placu_codeixo, placu_quantidadealunos,placu_quantidadealunosisentos, placu_quantidadealunospsg, placu_codplano FROM  planilhadecurso_placu, planodeacao_plan WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codplano = plan_codplano AND placu_codprogramacao = '".$combotipoprogramacao['tipro_codprogramacao']."'  ORDER BY plan_descricao";
 			     	$planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
 						         foreach ($planilhas as $planilha) {
 

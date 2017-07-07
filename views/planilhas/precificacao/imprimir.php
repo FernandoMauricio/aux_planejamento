@@ -96,14 +96,14 @@ use yii\helpers\Html;
             <td style="font-size:11px;" colspan="4"><strong>Preço de Venda Total da Turma: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaturma, 2, ',', '.'); ?></td>
         </tr>
         <tr>
-            <td style="font-size:11px;" colspan="3"><strong>Preço de Venda Total por Aluno: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaaluno, 2, ',', '.'); ?></td>
+            <td style="font-size:11px;" colspan="3"><strong>Preço de Venda pela planilha: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaaluno, 2, ',', '.'); ?></td>
             <td style="font-size:11px;" colspan="3"><strong>Retorno com Preço de Venda: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_retorno, 2, ',', '.'); ?></td>
             <td style="font-size:11px;" colspan="3"><strong>Valor Hora/Aula por Aluno: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_horaaulaaluno, 2, ',', '.'); ?></td>
             <td style="font-size:11px;" colspan="3"><strong>% de Retorno: </strong><br> <?php echo number_format($model->planp_porcentretorno, 2, ',', '.') . '%'; ?></td>
         </tr>
         <tr>
-            <td style="font-size:11px;" colspan="4"><strong>Preço Sugerido: </strong><br>  <?php echo 'R$ ' . number_format( $model->planp_precosugerido, 2, ',', '.'); ?></td>
-            <td style="font-size:11px;" colspan="4"><strong>Retorno com preço sugerido: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_retornoprecosugerido, 2, ',', '.'); ?></td>
+            <td style="font-size:11px;" colspan="4"><strong>Preço de Venda: </strong><br>  <?php echo 'R$ ' . number_format( $model->planp_precosugerido, 2, ',', '.'); ?></td>
+            <td style="font-size:11px;" colspan="4"><strong>Retorno com Preço de Venda: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_retornoprecosugerido, 2, ',', '.'); ?></td>
             <td style="font-size:11px;" colspan="4"><strong>Numero minimo de alunos por turma: </strong><br> <?php echo $model->planp_minimoaluno; ?></td>
         </tr>
         <tr>

@@ -133,7 +133,7 @@
         <br>
 
           <div class="row">
-                  <div class="col-md-3"><strong>Preço de Venda Total por Aluno:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaaluno, 2, ',', '.'); ?></div>
+                  <div class="col-md-3"><strong>Preço de Venda pela planilha:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaaluno, 2, ',', '.'); ?></div>
 
                   <div class="col-md-3"><strong>Retorno com Preço de Venda:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_retorno, 2, ',', '.'); ?></div>
 
@@ -145,9 +145,9 @@
         <br>
 
           <div class="row">
-                  <div class="col-md-3" style="color: green;"><strong>Preço Sugerido:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_precosugerido, 2, ',', '.'); ?></div>
+                  <div class="col-md-3" style="color: green;"><strong>Preço de Venda:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_precosugerido, 2, ',', '.'); ?></div>
 
-                  <div class="col-md-3"><strong>Retorno com preço sugerido:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_retornoprecosugerido, 2, ',', '.'); ?></div>
+                  <div class="col-md-3"><strong>Retorno com Preço de Venda:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_retornoprecosugerido, 2, ',', '.'); ?></div>
 
                   <div class="col-md-3"><strong>Numero minimo de alunos por turma:</strong><br> <?php echo $model->planp_minimoaluno; ?></div>
           </div>

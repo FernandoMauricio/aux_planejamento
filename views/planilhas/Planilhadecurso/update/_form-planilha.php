@@ -69,7 +69,11 @@ use app\models\cadastros\Tipoprogramacao;
 
             <div class="row">
                 <div class="col-md-2">
-                    <?= $form->field($model, 'anoLabel')->textInput(['value'=> $model->planilhaAno->an_ano,'readonly'=>true]) ?>
+                    <?= $form->field($model, 'placu_codano')->textInput(['value'=> $model->planilhaAno->an_ano,'readonly'=>true]) ?>
+                </div>
+
+                <div class="col-md-2">
+                    <?= $form->field($model, 'placu_anoexercicio')->textInput(['readonly'=>true]) ?>
                 </div>
 
                 <div class="col-md-3">

@@ -139,7 +139,8 @@ class PlanilhadecursoAdminSearch extends PlanilhadecursoAdmin
 
         $query->andFilterWhere(['like', 'placu_nomeunidade', $this->placu_nomeunidade])
             ->andFilterWhere(['like', 'placu_observacao', $this->placu_observacao])
-            ->andFilterWhere(['like', 'planodeacao_plan.plan_descricao', $this->PlanoLabel]);
+            ->andFilterWhere(['like', 'planodeacao_plan.plan_descricao', $this->PlanoLabel])
+            ->andFilterWhere(['like', 'ano_an.an_ano', $this->anoLabel]);
 
         return $dataProvider;
     }
