@@ -142,13 +142,13 @@ use app\models\planilhas\Planilhadecurso;
 									   $somar_matriculas        = $quantidade_alunos + $quantidade_alunos_psg + $quantidade_alunos_isentos;
 									   $quantidade_total_alunos = $somar_matriculas * $quantidade_turmas;
 									   
-									   $quantidade_hora_por_segmento = $quantidade_hora_por_segmento + ($quantidade_total_alunos * $carga_horaria_realizar);
-									   $soma_total_geral             = $soma_total_geral + ($quantidade_total_alunos * $carga_horaria_realizar);
+									   $quantidade_hora_por_segmento += $quantidade_total_alunos * $carga_horaria_realizar;
+									   $soma_total_geral             += $quantidade_total_alunos * $carga_horaria_realizar;
 
 					        }// FIM DAS QUANTIDADES..
 					        
-							$conta_segmento[$codigo_segmento] = $conta_segmento[$codigo_segmento] + $quantidade_hora_por_segmento;
-							$subtotal_unidade                 = $subtotal_unidade + $quantidade_hora_por_segmento;
+							$conta_segmento[$codigo_segmento] += $quantidade_hora_por_segmento;
+							$subtotal_unidade                 += $quantidade_hora_por_segmento;
 			?>
 							 <td bgcolor="#EEEEEE"><div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_hora_por_segmento; ?></font></div></td>
 				<?php

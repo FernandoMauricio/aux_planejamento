@@ -108,31 +108,32 @@ use app\models\planilhas\Planilhadecurso;
 						 
 						 if($codigo_eixo != 8)
 						 {
-						      $quantidade_educacao_profissional = $quantidade_educacao_profissional + ( $quantidade_turmas * $carga_horaria );   
-							  $quantidade_educacao_profissional_geral = $quantidade_educacao_profissional_geral + ( $quantidade_turmas * $carga_horaria );
+						    $quantidade_educacao_profissional       += $quantidade_turmas * $carga_horaria;   
+							  $quantidade_educacao_profissional_geral += $quantidade_turmas * $carga_horaria;
 						 }
 						 else
 						 {
-						      $quantidade_acao_extensiva = $quantidade_acao_extensiva + ( $quantidade_turmas * $carga_horaria );
-							  $quantidade_acao_extensiva_geral = $quantidade_acao_extensiva_geral + ( $quantidade_turmas * $carga_horaria );
+						    $quantidade_acao_extensiva       += $quantidade_turmas * $carga_horaria;
+							  $quantidade_acao_extensiva_geral += $quantidade_turmas * $carga_horaria;
+                  
 						 }
 		          
 				  }//FIM DAS PLANILHAS
 				  
 				  $subtotal_unidade = $quantidade_educacao_profissional + $quantidade_acao_extensiva;
-				  $total_geral = $total_geral + $subtotal_unidade;
-				  ?>
+				  $total_geral      = $total_geral + $subtotal_unidade;
+				?>
                   <tr> 
                   <td><?php echo $nome_unidade; ?></td>
                   <td><?php echo $quantidade_educacao_profissional; ?></td>
                   <td><?php echo $quantidade_acao_extensiva; ?></td>
                   <td><?php echo $subtotal_unidade; ?></td>
                   </tr>
-           <?php
+      <?php
 		   
 		   }// FIM DAS UNIDADES
 		   
-		   ?>
+		  ?>
                  <tr style="background-color: #fcf8e3;">
                  <td><strong>TOTAL GERAL </strong></td>
                  <td><strong><?php echo $quantidade_educacao_profissional_geral; ?></strong></td>

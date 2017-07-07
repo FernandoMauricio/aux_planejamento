@@ -111,8 +111,6 @@ use app\models\planilhas\Planilhadecurso;
 						 {
 						      $quantidade_educacao_profissional       += $quantidade_turmas * $soma_matricula * $carga_horariaarealizar;   
 							    $quantidade_educacao_profissional_geral += $quantidade_turmas * $soma_matricula * $carga_horariaarealizar;
-
-
 						 }
 						 else
 						 {
