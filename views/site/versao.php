@@ -17,7 +17,34 @@ $this->title = 'Auxílio ao Planejamento';
 
                 <div class="panel panel-primary">
                 <div class="panel-heading">
-                            <i class="glyphicon glyphicon-star-empty"></i> Versão 1.5 - (ATUALMENTE) - Publicado em 04/07/2017
+                            <i class="glyphicon glyphicon-star-empty"></i> Versão 1.6 - (ATUALMENTE) - Publicado em 21/07/2017
+                </div>
+                    <div class="panel-body">
+                      <h4><strong style="color: #337ab7;">Implementações</strong></h4>
+                                <h5><i class="glyphicon glyphicon-tag"></i><strong> Relatórios PAAR</strong></h5>
+                                   <h5>- Ordem alfabética dos tipos de relatórios do PAAR </h5>
+                                   <h5>- Novos relatórios do PAAR foram incluídos: </h5>
+                                   <h5>&nbsp;&nbsp;&nbsp;&nbsp;-> Carga Horária Aluno por Eixos Tecnológicos</h5>
+                                   <h5>&nbsp;&nbsp;&nbsp;&nbsp;-> Carga Horária Aluno por Segmento</h5>
+                                   <h5>&nbsp;&nbsp;&nbsp;&nbsp;-> Carga Horária Aluno por Ações de Educação Profissional</h5>
+                                   <h5>&nbsp;&nbsp;&nbsp;&nbsp;-> Carga Horária Aluno por Ações Extensivas</h5>
+                                   <h5>&nbsp;&nbsp;&nbsp;&nbsp;-> Carga Horária Aluno por Unidade</h5><br>
+                                   
+                      <h4><strong style="color: #337ab7;">Correções</strong></h4>
+                                <h5><i class="glyphicon glyphicon-tag"></i><strong> Planilha de Precificação</strong></h5>
+                                   <h5>- Alterações de nomeclatura dos campos:</h5>
+                                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;- <strong style="color: red;">"Preço sugerido"</strong> => <strong style="color: green;">"Preço de venda"</strong></h5>
+                                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;- <strong style="color: red;">"Preço de venda total por aluno"</strong> => <strong style="color: green;">"Preço sugerido pela planilha"</strong></h5><br>
+                                <h5><i class="glyphicon glyphicon-tag"></i><strong> Planilha de Curso</strong></h5>
+                                   <h5>- Inclusão do campo: "Orçamento" (será um campo para incluir o ano orçamentário, onde os relatórios se basearão)</h5>
+                                   <h5>- Alterações de nomeclatura dos campos:</h5>
+                                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;- <strong style="color: red;">"Ano da planilha"</strong> => <strong style="color: green;">"Início da Turma"</strong></h5>
+                    </div>
+                </div>
+
+                <div class="panel panel-danger">
+                <div class="panel-heading">
+                            <i class="glyphicon glyphicon-folder-close"></i> Versão 1.5 - Publicado em 04/07/2017
                 </div>
                     <div class="panel-body">
                       <h4><strong style="color: #337ab7;">Implementações</strong></h4>
