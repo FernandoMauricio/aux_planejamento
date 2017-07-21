@@ -41,7 +41,7 @@ class RelatoriosPaarController extends Controller
     	$ano              = Ano::find()->orderBy(['an_codano'=>SORT_DESC])->all();
       $tipoPlanilha     = Tipoplanilha::find()->all();
     	$situacaoPlanilha = Situacaoplanilha::find()->all();
-      $tipoRelatorio    = Tiporelatorio::find()->all();
+      $tipoRelatorio    = Tiporelatorio::find()->orderBy(['tiprel_descricao'=>SORT_ASC])->all();
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -96,6 +96,18 @@ class RelatoriosPaarController extends Controller
             else if($model->relat_tiporelatorio == 17){
                   return $this->redirect(['cargahoraria-aluno', 'ano_orcamento' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
                 }
+            else if($model->relat_tiporelatorio == 18){
+                  return $this->redirect(['cargahoraria-aluno-eixo', 'ano_orcamento' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
+                }
+            else if($model->relat_tiporelatorio == 19){
+                  return $this->redirect(['cargahoraria-aluno-segmento', 'ano_orcamento' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
+                }
+            else if($model->relat_tiporelatorio == 20){
+                  return $this->redirect(['cargahoraria-aluno-educacaoprofissional', 'ano_orcamento' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
+                }
+            else if($model->relat_tiporelatorio == 21){
+                  return $this->redirect(['cargahoraria-aluno-acaoextensiva', 'ano_orcamento' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
+                }
 
         }else{
             return $this->render('/relatorios/relatorios-paar/gerar-relatorio', [
@@ -112,13 +124,13 @@ class RelatoriosPaarController extends Controller
     public function actionMatriculaUnidade($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/matricula-unidade', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
@@ -128,13 +140,13 @@ class RelatoriosPaarController extends Controller
     public function actionCargahorariaUnidade($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/cargahoraria-unidade', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
@@ -145,13 +157,13 @@ class RelatoriosPaarController extends Controller
     {
 
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/matricula-eixo', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
@@ -161,13 +173,13 @@ class RelatoriosPaarController extends Controller
     public function actionCargahorariaEixo($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/cargahoraria-eixo', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
@@ -177,13 +189,13 @@ class RelatoriosPaarController extends Controller
     public function actionMatriculaSegmento($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/matricula-segmento', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
@@ -193,13 +205,13 @@ class RelatoriosPaarController extends Controller
     public function actionCargahorariaSegmento($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/cargahoraria-segmento', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
@@ -209,13 +221,13 @@ class RelatoriosPaarController extends Controller
     public function actionMatriculaEducacaoprofissional($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/matricula-educacaoprofissional', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
@@ -225,13 +237,13 @@ class RelatoriosPaarController extends Controller
     public function actionCargahorariaEducacaoprofissional($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/cargahoraria-educacaoprofissional', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
@@ -241,13 +253,13 @@ class RelatoriosPaarController extends Controller
     public function actionMatriculaAcaoextensiva($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/matricula-acaoextensiva', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
@@ -257,13 +269,13 @@ class RelatoriosPaarController extends Controller
     public function actionCargahorariaAcaoextensiva($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/cargahoraria-acaoextensiva', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
@@ -273,13 +285,13 @@ class RelatoriosPaarController extends Controller
     public function actionReceitaDespesa($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/receita-despesa', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
@@ -289,13 +301,13 @@ class RelatoriosPaarController extends Controller
     public function actionReceitaSegmentoTipo($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/receita-segmento-tipo', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
@@ -305,13 +317,13 @@ class RelatoriosPaarController extends Controller
     public function actionListagemCursosPrevistos($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/listagem-cursos-previstos', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
@@ -321,13 +333,13 @@ class RelatoriosPaarController extends Controller
     public function actionListagemCursosPrevistosDetalhes($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio,$codplano)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/listagem-cursos-previstos-detalhes', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
@@ -337,13 +349,13 @@ class RelatoriosPaarController extends Controller
     public function actionMatriculaSegmentoTipo($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/matricula-segmento-tipo', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
@@ -353,13 +365,13 @@ class RelatoriosPaarController extends Controller
     public function actionMatriculaPsgSegmento($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/matricula-psg-segmento', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
@@ -369,29 +381,77 @@ class RelatoriosPaarController extends Controller
     public function actionHoraAlunoSegmento($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/hora-aluno-segmento', [
-              'ano_orcamento'      => $ano_orcamento, 
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
               ]);
     }
 
-    public function actionCargahorariaAluno($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    public function actionCargahorariaAlunoEixo($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-       $ano_orcamento      = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
-            return $this->render('/relatorios/relatorios-paar/cargahoraria-aluno', [
-              'ano_orcamento'      => $ano_orcamento, 
+            return $this->render('/relatorios/relatorios-paar/cargahoraria-aluno-eixo', [
+              'ano_orcamento'     => $ano_orcamento, 
+              'situacao_planilha' => $situacao_planilha,
+              'tipo_planilha'     => $tipo_planilha, 
+              'tipo_relatorio'    => $tipo_relatorio,
+              ]);
+    }
+
+    public function actionCargahorariaAlunoSegmento($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    {
+       $this->layout = 'main-imprimir';
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
+       $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
+       $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
+
+            return $this->render('/relatorios/relatorios-paar/cargahoraria-aluno-segmento', [
+              'ano_orcamento'     => $ano_orcamento, 
+              'situacao_planilha' => $situacao_planilha,
+              'tipo_planilha'     => $tipo_planilha, 
+              'tipo_relatorio'    => $tipo_relatorio,
+              ]);
+    }
+
+    public function actionCargahorariaAlunoEducacaoprofissional($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    {
+       $this->layout = 'main-imprimir';
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
+       $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
+       $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
+
+            return $this->render('/relatorios/relatorios-paar/cargahoraria-aluno-educacaoprofissional', [
+              'ano_orcamento'     => $ano_orcamento, 
+              'situacao_planilha' => $situacao_planilha,
+              'tipo_planilha'     => $tipo_planilha, 
+              'tipo_relatorio'    => $tipo_relatorio,
+              ]);
+    }
+
+    public function actionCargahorariaAlunoAcaoextensiva($ano_orcamento, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    {
+       $this->layout = 'main-imprimir';
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
+       $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
+       $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
+
+            return $this->render('/relatorios/relatorios-paar/cargahoraria-aluno-acaoextensiva', [
+              'ano_orcamento'     => $ano_orcamento, 
               'situacao_planilha' => $situacao_planilha,
               'tipo_planilha'     => $tipo_planilha, 
               'tipo_relatorio'    => $tipo_relatorio,
