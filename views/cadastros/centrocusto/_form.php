@@ -25,7 +25,7 @@ use yii\helpers\Json;
     </div>
 
     <div class="col-md-5">
-    <?= $form->field($model, 'cen_nomecentrocusto')->textInput(['readonly' => true]) ?>
+    <?= $form->field($model, 'cen_nomecentrocusto')->textInput() ?>
     </div>
 
     <div class="col-md-2">

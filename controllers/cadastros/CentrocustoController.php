@@ -103,10 +103,17 @@ class CentrocustoController extends Controller
 
                 //atualiza com os últimos 5 dígitos da classificação orçamentária
                 Yii::$app->db->createCommand(
-                'UPDATE centrocusto_cen SET cen_centrocustoreduzido= '.substr($model->cen_centrocusto, 12, 2).'.'.substr($model->cen_centrocusto, 14,3).', cen_nomecentrocusto = "'.$model->segmento->seg_descricao. ' - ' .$model->tipoacao->tip_descricao.'" WHERE cen_codcentrocusto='.$model->cen_codcentrocusto.'')
+                'UPDATE centrocusto_cen SET cen_centrocustoreduzido = '.substr($model->cen_centrocusto, 12, 2).'.'.substr($model->cen_centrocusto, 14,3).' WHERE cen_codcentrocusto='.$model->cen_codcentrocusto.'')
                 ->execute();
 
-                Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Centro de Custo cadastrado!</strong>');
+                //Atualiza a descrição do centro de custo caso não tenha sido inserido nenhuma informação
+                if($model->cen_nomecentrocusto == '') {
+                Yii::$app->db->createCommand(
+                'UPDATE centrocusto_cen SET cen_nomecentrocusto = "'.$model->segmento->seg_descricao. ' - ' .$model->tipoacao->tip_descricao.'" WHERE cen_codcentrocusto='.$model->cen_codcentrocusto.'')
+                ->execute();
+                }
+
+                Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Centro de Custo cadastrado!');
 
             return $this->redirect(['index']);
         } else {
@@ -144,10 +151,17 @@ class CentrocustoController extends Controller
 
                 //atualiza com os últimos 5 dígitos da classificação orçamentária
                 Yii::$app->db->createCommand(
-                'UPDATE centrocusto_cen SET cen_centrocustoreduzido= '.substr($model->cen_centrocusto, 12, 2).'.'.substr($model->cen_centrocusto, 14,3).', cen_nomecentrocusto = "'.$model->segmento->seg_descricao. ' - ' .$model->tipoacao->tip_descricao.'" WHERE cen_codcentrocusto='.$model->cen_codcentrocusto.'')
+                'UPDATE centrocusto_cen SET cen_centrocustoreduzido = '.substr($model->cen_centrocusto, 12, 2).'.'.substr($model->cen_centrocusto, 14,3).' WHERE cen_codcentrocusto='.$model->cen_codcentrocusto.'')
                 ->execute();
 
-                Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Centro de Custo cadastrado!</strong>');
+                //Atualiza a descrição do centro de custo caso não tenha sido inserido nenhuma informação
+                if($model->cen_nomecentrocusto == '') {
+                Yii::$app->db->createCommand(
+                'UPDATE centrocusto_cen SET cen_nomecentrocusto = "'.$model->segmento->seg_descricao. ' - ' .$model->tipoacao->tip_descricao.'" WHERE cen_codcentrocusto='.$model->cen_codcentrocusto.'')
+                ->execute();
+                }
+
+                Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Centro de Custo cadastrado!');
 
             return $this->redirect(['index']);
         } else {
