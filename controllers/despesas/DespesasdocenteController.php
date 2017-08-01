@@ -74,11 +74,11 @@ class DespesasdocenteController extends Controller
                 $model->doce_dsr = $model->doce_valor / 6; // Valor do DSR = Valor / 6
                 $model->doce_planejamento = $model->doce_valor + $model->doce_dsr; //Planejamento = Valor + DSR
                 $model->doce_produtividade = ($model->doce_valor * 45) / 100; //Produtividade = Valor * 45%
-                $model->doce_valorhoraaula = $model->doce_valor + $model->doce_dsr; // Valor Hora Aula = valor + DSR
+                $model->doce_valorhoraaula = $model->doce_planejamento + $model->doce_produtividade; // Valor Hora Aula = Planejamento + Produtividade
                 $model->save();
             }else{
                 $model->doce_dsr = $model->doce_valor / 6; // Valor do DSR = Valor / 6
-                $model->doce_valorhoraaula = $model->doce_valor + $model->doce_dsr;
+                $model->doce_valorhoraaula = $model->doce_planejamento + $model->doce_produtividade;
                 $model->save();
             }
 
@@ -112,12 +112,12 @@ class DespesasdocenteController extends Controller
                 $model->doce_dsr = $model->doce_valor / 6; // Valor do DSR = Valor / 6
                 $model->doce_planejamento = $model->doce_valor + $model->doce_dsr; //Planejamento = Valor + DSR
                 $model->doce_produtividade = ($model->doce_valor * 45) / 100; //Produtividade = Valor * 45%
-                $model->doce_valorhoraaula = $model->doce_valor + $model->doce_dsr; // Valor Hora Aula = valor + DSR
+                $model->doce_valorhoraaula = $model->doce_planejamento + $model->doce_produtividade; // Valor Hora Aula = Planejamento + Produtividade
                 $model->save();
             }else{
                 if($model->doce_id != 7){ //Diferente de Prestador de Serviço
                 $model->doce_dsr = $model->doce_valor / 6; // Valor do DSR = Valor / 6
-                $model->doce_valorhoraaula = $model->doce_valor + $model->doce_dsr;
+                $model->doce_valorhoraaula = $model->doce_planejamento + $model->doce_produtividade;
                 $model->save();
                 }else{//Caso seja prestador, só irá duplicar o valor informado para o valor/hora.
                 $model->doce_dsr = 0;

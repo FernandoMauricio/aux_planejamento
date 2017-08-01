@@ -76,7 +76,7 @@ use app\models\cadastros\Tipoprogramacao;
                     <?= $form->field($model, 'placu_anoexercicio')->textInput(['readonly'=>true]) ?>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <?= $form->field($model, 'categoriaLabel')->textInput(['value'=> $model->categoriaPlanilha->cat_descricao,'readonly'=>true]) ?>
                 </div>
 
@@ -94,7 +94,7 @@ use app\models\cadastros\Tipoprogramacao;
                     ?>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <?= $form->field($model, 'tipoProgramacaoLabel')->textInput(['value'=> $model->tipoprogramacao->tipro_descricao,'readonly'=>true]) ?>
                 </div>
 
@@ -176,7 +176,11 @@ use app\models\cadastros\Tipoprogramacao;
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
-                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                            'options' => [
+                            'readonly' => true, 
+                            'class' => 'form-control', 
+                            'style' => 'background-color:#a8d7ef'
+                            ]
                     ]); ?>
                 </div>
 
@@ -191,7 +195,11 @@ use app\models\cadastros\Tipoprogramacao;
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
-                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                            'options' => [
+                            'readonly' => true, 
+                            'class' => 'form-control', 
+                            'style' => 'background-color:#f5c492'
+                            ]
                     ]); ?>
                 </div>
 

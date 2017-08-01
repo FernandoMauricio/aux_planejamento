@@ -142,7 +142,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                                              //inputa valores
                                              $zerahora.val(0);
                                              $zeraplanejmanento.val(0);
-                                             $inputCustoindireto.val(data.doce_valorhoraaula + data.doce_produtividade);
+                                             $inputCustoindireto.val(data.doce_valorhoraaula);
                                              $inputPlanejamento.val(data.doce_planejamento);
 
                                           });

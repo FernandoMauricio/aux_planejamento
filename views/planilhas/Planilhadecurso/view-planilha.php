@@ -247,8 +247,8 @@ use yii\helpers\Html;
                 <td><?= $modelPlaniDespDocente->planides_encargos . '%' ?></td>
                 <td><?= 'R$ ' . number_format($modelPlaniDespDocente->planides_valor, 2, ',', '.'); ?></td>
                 <td><?= 'R$ ' . number_format($modelPlaniDespDocente->planides_dsr, 2, ',', '.'); ?></td>
-                <td><?= 'R$ ' . number_format($modelPlaniDespDocente->planides_planejamento, 2, ',', '.'); ?></td>
-                <td><?= 'R$ ' . number_format($modelPlaniDespDocente->planides_produtividade, 2, ',', '.'); ?></td>
+                <td style="color: #3493e4;"><?= 'R$ ' . number_format($modelPlaniDespDocente->planides_planejamento, 2, ',', '.'); ?></td>
+                <td style="color: #F7941D;"><?= 'R$ ' . number_format($modelPlaniDespDocente->planides_produtividade, 2, ',', '.'); ?></td>
                 <td><?= 'R$ ' . number_format($modelPlaniDespDocente->planides_valorhoraaula, 2, ',', '.'); ?></td>
                 <td><?= $modelPlaniDespDocente->planides_cargahoraria ?></td>
             </tr>
@@ -259,9 +259,9 @@ use yii\helpers\Html;
             <div class="panel-heading"> Resumo de Custos Diretos</div><br>
         <div class="container">
               <div class="row">
-                      <div class="col-md-2"><strong>Mão de Obra Direta:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalcustodocente, 2, ',', '.'); ?></div>
+                      <div class="col-md-2"  style="color: #3493e4;"><strong>Mão de Obra Direta:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalcustodocente, 2, ',', '.'); ?></div>
 
-                      <div class="col-md-2"><strong>Outras Desp. Variáveis:</strong><br> <?php echo 'R$ ' . number_format($model->placu_outdespvariaveis, 2, ',', '.'); ?></div>
+                      <div class="col-md-2" style="color: #F7941D;"><strong>Outras Desp. Variáveis:</strong><br> <?php echo 'R$ ' . number_format($model->placu_outdespvariaveis, 2, ',', '.'); ?></div>
 
                       <div class="col-md-2"><strong>1/12 de 13º:</strong><br> <?php echo 'R$ ' . number_format($model->placu_decimo, 2, ',', '.'); ?></div>
 
@@ -314,7 +314,7 @@ use yii\helpers\Html;
               <div class="row">
                       <div class="col-md-3"><strong>Material do Aluno:</strong><br> <?php echo 'R$ ' .  number_format($model->placu_custosaluno, 2, ',', '.'); ?></div>
                       
-                      <div class="col-md-3" style="color: #F7941D;"><strong>Total de Custo Direto:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalcustodireto, 2, ',', '.'); ?></div>
+                      <div class="col-md-3" style="color: red;"><strong>Total de Custo Direto:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalcustodireto, 2, ',', '.'); ?></div>
 
                       <div class="col-md-3"><strong>Valor Hora/Aula de Custo Direto:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalhoraaulacustodireto, 2, ',', '.'); ?></div>
               </div><br>
@@ -330,7 +330,7 @@ use yii\helpers\Html;
         <div class="container">
 
           <div class="row">
-                  <div class="col-md-3" style="color: #F7941D;"><strong>Total Custo Indireto:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalcustoindireto, 2, ',', '.'); ?></div>
+                  <div class="col-md-3" style="color: red;"><strong>Total Custo Indireto:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_totalcustoindireto, 2, ',', '.'); ?></div>
 
                   <div class="col-md-3" style="color: red;"><strong>Despesa Total:</strong><br> <?php echo 'R$ ' . number_format( $model->placu_despesatotal, 2, ',', '.'); ?></div>
 

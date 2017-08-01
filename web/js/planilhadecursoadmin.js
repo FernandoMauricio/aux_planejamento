@@ -26,6 +26,9 @@ $(function() {
     $('#planilhadespesadocente-0-planides_valorhidden').keyup(function() {
        updateTotal();
     });
+    $('#planilhadespesadocente-0-planides_planejamento').keyup(function() {
+       updateTotal();
+    });
     $('#planilhadespesadocente-0-planides_produtividade').keyup(function() {
        updateTotal();
     });
@@ -41,6 +44,9 @@ $(function() {
        updateTotal();
     });
     $('#planilhadespesadocente-1-planides_valorhidden').keyup(function() {
+       updateTotal();
+    });
+    $('#planilhadespesadocente-1-planides_planejamento').keyup(function() {
        updateTotal();
     });
     $('#planilhadespesadocente-1-planides_produtividade').keyup(function() {
@@ -60,6 +66,9 @@ $(function() {
     $('#planilhadespesadocente-2-planides_valorhidden').keyup(function() {
        updateTotal();
     });
+    $('#planilhadespesadocente-2-planides_planejamento').keyup(function() {
+       updateTotal();
+    });
     $('#planilhadespesadocente-2-planides_produtividade').keyup(function() {
        updateTotal();
     });
@@ -75,6 +84,9 @@ $(function() {
        updateTotal();
     });
     $('#planilhadespesadocente-3-planides_valorhidden').keyup(function() {
+       updateTotal();
+    });
+    $('#planilhadespesadocente-3-planides_planejamento').keyup(function() {
        updateTotal();
     });
     $('#planilhadespesadocente-3-planides_produtividade').keyup(function() {
@@ -94,6 +106,9 @@ $(function() {
     $('#planilhadespesadocente-4-planides_valorhidden').keyup(function() {
        updateTotal();
     });
+    $('#planilhadespesadocente-4-planides_planejamento').keyup(function() {
+       updateTotal();
+    });
     $('#planilhadespesadocente-4-planides_produtividade').keyup(function() {
        updateTotal();
     });
@@ -109,6 +124,9 @@ $(function() {
        updateTotal();
     });
     $('#planilhadespesadocente-5-planides_valorhidden').keyup(function() {
+       updateTotal();
+    });
+    $('#planilhadespesadocente-5-planides_planejamento').keyup(function() {
        updateTotal();
     });
     $('#planilhadespesadocente-5-planides_produtividade').keyup(function() {
@@ -223,6 +241,9 @@ $(function() {
       //Carga Horária do Plano
       var placu_cargahorariaplano       = parseFloat($('#planilhadecursoadmin-placu_cargahorariaplano').val());
 
+      //Fonte de Financiamento do Plano
+      var placu_codcategoria            = parseFloat($('#planilhadecurso-placu_codcategoria').val());
+
       //Quantidade de Alunos Pagantes, Isentos e PSG 
       var placu_quantidadealunos        = parseFloat($('#planilhadecursoadmin-placu_quantidadealunos').val());
       var placu_quantidadealunosisentos = parseFloat($('#planilhadecursoadmin-placu_quantidadealunosisentos').val());
@@ -238,36 +259,42 @@ $(function() {
       //Linha 0 - Docente Nível Médio
       var planides_valor0         = parseFloat($('#planilhadespesadocente-0-planides_valor').val());
       var planides_valorhidden0   = parseFloat($('#planilhadespesadocente-0-planides_valorhidden').val());
+      var planides_planejamento0  = parseFloat($('#planilhadespesadocente-0-planides_planejamento').val());
       var planides_produtividade0 = parseFloat($('#planilhadespesadocente-0-planides_produtividade').val());
       var planides_valorhoraaula0 = parseFloat($('#planilhadespesadocente-0-planides_valorhoraaula').val());
       var planides_cargahoraria0  = parseFloat($('#planilhadespesadocente-0-planides_cargahoraria').val());
       //Linha 1 - Docente Nível Superior
       var planides_valor1         = parseFloat($('#planilhadespesadocente-1-planides_valor').val());
       var planides_valorhidden1   = parseFloat($('#planilhadespesadocente-1-planides_valorhidden').val());
+      var planides_planejamento1  = parseFloat($('#planilhadespesadocente-0-planides_planejamento').val());
       var planides_produtividade1 = parseFloat($('#planilhadespesadocente-1-planides_produtividade').val());
       var planides_valorhoraaula1 = parseFloat($('#planilhadespesadocente-1-planides_valorhoraaula').val());
       var planides_cargahoraria1  = parseFloat($('#planilhadespesadocente-1-planides_cargahoraria').val());
       //Linha 2 - Docente Nível Pós Graduado
       var planides_valor2         = parseFloat($('#planilhadespesadocente-2-planides_valor').val());
       var planides_valorhidden2   = parseFloat($('#planilhadespesadocente-2-planides_valorhidden').val());
+      var planides_planejamento2  = parseFloat($('#planilhadespesadocente-0-planides_planejamento').val());
       var planides_produtividade2 = parseFloat($('#planilhadespesadocente-2-planides_produtividade').val());
       var planides_valorhoraaula2 = parseFloat($('#planilhadespesadocente-2-planides_valorhoraaula').val());
       var planides_cargahoraria2  = parseFloat($('#planilhadespesadocente-2-planides_cargahoraria').val());
       //Linha 3 - Docente Nível Especialista(Fatese)
       var planides_valor3         = parseFloat($('#planilhadespesadocente-3-planides_valor').val());
       var planides_valorhidden3   = parseFloat($('#planilhadespesadocente-3-planides_valorhidden').val());
+      var planides_planejamento3  = parseFloat($('#planilhadespesadocente-0-planides_planejamento').val());
       var planides_produtividade3 = parseFloat($('#planilhadespesadocente-3-planides_produtividade').val());
       var planides_valorhoraaula3 = parseFloat($('#planilhadespesadocente-3-planides_valorhoraaula').val());
       var planides_cargahoraria3  = parseFloat($('#planilhadespesadocente-3-planides_cargahoraria').val());
       //Linha 4 - Docente Nível Mestre(Fatese)
       var planides_valor4         = parseFloat($('#planilhadespesadocente-4-planides_valor').val());
       var planides_valorhidden4   = parseFloat($('#planilhadespesadocente-4-planides_valorhidden').val());
+      var planides_planejamento4  = parseFloat($('#planilhadespesadocente-0-planides_planejamento').val());
       var planides_produtividade4 = parseFloat($('#planilhadespesadocente-4-planides_produtividade').val());
       var planides_valorhoraaula4 = parseFloat($('#planilhadespesadocente-4-planides_valorhoraaula').val());
       var planides_cargahoraria4  = parseFloat($('#planilhadespesadocente-4-planides_cargahoraria').val());
       //Linha 5 - Docente Nível Doutor(Fatese)
       var planides_valor5         = parseFloat($('#planilhadespesadocente-5-planides_valor').val());
       var planides_valorhidden5   = parseFloat($('#planilhadespesadocente-5-planides_valorhidden').val());
+      var planides_planejamento5  = parseFloat($('#planilhadespesadocente-0-planides_planejamento').val());
       var planides_produtividade5 = parseFloat($('#planilhadespesadocente-5-planides_produtividade').val());
       var planides_valorhoraaula5 = parseFloat($('#planilhadespesadocente-5-planides_valorhoraaula').val());
       var planides_cargahoraria5  = parseFloat($('#planilhadespesadocente-5-planides_cargahoraria').val());
@@ -308,12 +335,12 @@ $(function() {
       var totalEncargosPrestador       = (valorTotalMaoDeObraPrestador * 20) / 100; // Encargos - Prestador de Serviço
       
       //Custo de Mão de Obra Direta = Valor Hora/Aula * Carga Horária
-      var valorTotalMaoDeObra0 = planides_valorhoraaula0 * planides_cargahoraria0;
-      var valorTotalMaoDeObra1 = planides_valorhoraaula1 * planides_cargahoraria1;
-      var valorTotalMaoDeObra2 = planides_valorhoraaula2 * planides_cargahoraria2;
-      var valorTotalMaoDeObra3 = planides_valorhoraaula3 * planides_cargahoraria3;
-      var valorTotalMaoDeObra4 = planides_valorhoraaula4 * planides_cargahoraria4;
-      var valorTotalMaoDeObra5 = planides_valorhoraaula5 * planides_cargahoraria5;
+      var valorTotalMaoDeObra0 = planides_planejamento0 * planides_cargahoraria0;
+      var valorTotalMaoDeObra1 = planides_planejamento1 * planides_cargahoraria1;
+      var valorTotalMaoDeObra2 = planides_planejamento2 * planides_cargahoraria2;
+      var valorTotalMaoDeObra3 = planides_planejamento3 * planides_cargahoraria3;
+      var valorTotalMaoDeObra4 = planides_planejamento4 * planides_cargahoraria4;
+      var valorTotalMaoDeObra5 = planides_planejamento5 * planides_cargahoraria5;
       var valorTotalMaoDeObra  = valorTotalMaoDeObra0 + valorTotalMaoDeObra1 + valorTotalMaoDeObra2 + valorTotalMaoDeObra3 + valorTotalMaoDeObra4 + valorTotalMaoDeObra5;
 
       //Outras Despesas Variáveis = Produtividade * Carga Horária
