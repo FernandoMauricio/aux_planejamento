@@ -205,15 +205,17 @@ class CustosunidadeController extends Controller
                 $transaction = \Yii::$app->db_apl->beginTransaction();
                 try {
                     if ($flag = $model->save(false)) {
-                        foreach ($modelsCustosIndireto as $modelCustosIndireto) {
-                            $modelCustosIndireto->custosunidade_id = $model->cust_codcusto;
-
-                            if (! ($flag = $modelCustosIndireto->save(false))) {
-                                $transaction->rollBack();
-                                break;
-                            }
-                        }
-                    }
+                                    if (! empty($deletedIDsCustosIndireto)) {
+                                        Custosindireto::deleteAll(['id' => $deletedIDsCustosIndireto]);
+                                    }
+                                    foreach ($modelsCustosIndireto as $modelCustosIndireto) {
+                                        $modelCustosIndireto->custosunidade_id = $model->cust_codcusto;
+                                        if (! ($flag = $modelCustosIndireto->save(false))) {
+                                            $transaction->rollBack();
+                                            break;
+                                        }
+                                    }
+                                }
                     if ($flag) {
                         $transaction->commit();
 
