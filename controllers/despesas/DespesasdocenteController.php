@@ -78,7 +78,7 @@ class DespesasdocenteController extends Controller
                 $model->save();
             }else{
                 $model->doce_dsr = $model->doce_valor / 6; // Valor do DSR = Valor / 6
-                $model->doce_valorhoraaula = $model->doce_planejamento + $model->doce_produtividade;
+                $model->doce_valorhoraaula = $model->doce_valor + $model->doce_dsr;
                 $model->save();
             }
 
@@ -117,7 +117,7 @@ class DespesasdocenteController extends Controller
             }else{
                 if($model->doce_id != 7){ //Diferente de Prestador de Serviço
                 $model->doce_dsr = $model->doce_valor / 6; // Valor do DSR = Valor / 6
-                $model->doce_valorhoraaula = $model->doce_planejamento + $model->doce_produtividade;
+                $model->doce_valorhoraaula = $model->doce_valor + $model->doce_dsr;
                 $model->save();
                 }else{//Caso seja prestador, só irá duplicar o valor informado para o valor/hora.
                 $model->doce_dsr = 0;
