@@ -11,6 +11,11 @@ use app\models\base\Unidade;
 /* @var $searchModel app\models\planilhas\PrecificacaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+//Pega as mensagens
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+}
+
 $this->title = 'Listagem de Precificação de Custo';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -70,6 +75,10 @@ $this->params['breadcrumbs'][] = $this->title;
                       'width'=>'5%',
                     ],
 
+                    [
+                      'attribute'=>'planp_planodeacao',
+                      'width'=>'5%',
+                    ],
 
                     [
                       'attribute'=>'labelCurso',
@@ -98,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
                       'width'=>'5%',
                     ], 
 
-            ['class' => 'yii\grid\ActionColumn','template' => '{view}'],
+            ['class' => 'yii\grid\ActionColumn','template' => '{view} {delete}'],
         ];
      ?>
 
@@ -120,7 +129,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes da Precificação de Custo', 'options'=>['colspan'=>9, 'class'=>'text-center warning']],
+                ['content'=>'Detalhes da Precificação de Custo', 'options'=>['colspan'=>10, 'class'=>'text-center warning']],
                 ['content'=>'Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]

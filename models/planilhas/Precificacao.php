@@ -63,6 +63,7 @@ class Precificacao extends \yii\db\ActiveRecord
     public $hiddenMaterialDidatico;
     public $hiddenPJApostila;
     public $labelCurso;
+    public $desconto;
 
     /**
      * @inheritdoc
@@ -90,10 +91,11 @@ class Precificacao extends \yii\db\ActiveRecord
         return [
             [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_precosugerido', 'planp_parcelas'], 'required'],
             [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_servpedagogico','planp_codcolaborador', 'planp_parcelas'], 'integer'],
-            [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_custosmateriais', 'planp_custosconsumo', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'planp_custosindiretos', 'planp_ipca', 'planp_reservatecnica', 'planp_despesadm', 'planp_totalincidencias', 'planp_totalcustoindireto', 'planp_despesatotal', 'planp_markdivisor', 'planp_markmultiplicador', 'planp_vendaturma', 'planp_vendaaluno', 'planp_horaaulaaluno', 'planp_retorno', 'planp_porcentretorno', 'planp_precosugerido', 'planp_retornoprecosugerido', 'planp_minimoaluno', 'hiddenPlanejamento', 'hiddenMaterialDidatico', 'planp_data','labelCurso', 'planp_valorparcelas'], 'safe'],
+            [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_custosmateriais', 'planp_custosconsumo', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'planp_custosindiretos', 'planp_ipca', 'planp_reservatecnica', 'planp_despesadm', 'planp_totalincidencias', 'planp_totalcustoindireto', 'planp_despesatotal', 'planp_markdivisor', 'planp_markmultiplicador', 'planp_vendaturma', 'planp_vendaaluno', 'planp_horaaulaaluno', 'planp_retorno', 'planp_porcentretorno', 'planp_precosugerido', 'planp_retornoprecosugerido', 'planp_minimoaluno', 'hiddenPlanejamento', 'hiddenMaterialDidatico', 'planp_data','labelCurso', 'planp_valorparcelas', 'desconto', 'planp_valorcomdesconto'], 'safe'],
             [['planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_PJApostila', 'planp_ipca', 'planp_precosugerido'], 'number'],
             [['planp_docente'], 'exist', 'skipOnError' => true, 'targetClass' => Despesasdocente::className(), 'targetAttribute' => ['planp_docente' => 'doce_id']],
             [['planp_planodeacao'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planp_planodeacao' => 'plan_codplano']],
+            [['planp_observacao'], 'string', 'max' => 255],
             [['planp_totalhorasdocente', 'planp_precosugerido'], 'compare', 'compareValue' => 0, 'operator' => '>'],
 
         ];
@@ -140,6 +142,7 @@ class Precificacao extends \yii\db\ActiveRecord
                 $this->planp_retornoprecosugerido     = str_replace(",", ".", $this->planp_retornoprecosugerido);
                 $this->planp_minimoaluno              = str_replace(",", ".", $this->planp_minimoaluno);
                 $this->planp_valorparcelas            = str_replace(",", ".", $this->planp_valorparcelas);
+                $this->planp_valorcomdesconto         = str_replace(",", ".", $this->planp_valorcomdesconto);
 
                 return true;
             } else {
@@ -154,10 +157,10 @@ class Precificacao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'planp_id' => 'Cód',
+            'planp_id' => 'Cód. Planilha',
             'planp_ano' => 'Ano',
             'planp_codunidade' => 'Unidade',
-            'planp_planodeacao' => 'Curso',
+            'planp_planodeacao' => 'Cód. Plano',
             'planp_cargahoraria' => 'Carga Horária',
             'planp_qntaluno' => 'Qnt de Alunos',
             'planp_totalhorasdocente' => 'Total de horas docente',
@@ -202,9 +205,20 @@ class Precificacao extends \yii\db\ActiveRecord
             'planp_parcelas' => 'Quantidade de Parcelas',
             'planp_valorparcelas' => 'Valor das Parcelas',
             'planp_data' => 'Data de Cadastro',
+            'planp_observacao' => 'Observação',
+            'planp_valorcomdesconto' => 'Valor com desconto',
 
+            'desconto' => '30% de desconto',
             'labelCurso' => 'Curso',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPrecificacaoUnidades()
+    {
+        return $this->hasMany(PrecificacaoUnidades::className(), ['planp_id' => 'precificacao_id']);
     }
 
     /**

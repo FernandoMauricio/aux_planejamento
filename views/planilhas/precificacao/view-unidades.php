@@ -23,6 +23,7 @@ use app\models\base\Unidade;
         <th>Valor Total da Turma</th>
         <th>Valor Por Aluno</th>
         <th>Valor Hora/Aula</th>
+        <th>Preço de Venda</th>
       </tr>
     </thead>
 
@@ -77,6 +78,7 @@ use app\models\base\Unidade;
         <td><?php echo 'R$ ' . number_format($uprec_vendaturma, 2, ',', '.'); ?></td>
         <td><?php echo 'R$ ' . number_format($uprec_vendaaluno, 2, ',', '.'); ?></td>
         <td><?php echo 'R$ ' . number_format($uprec_horaaula, 2, ',', '.'); ?></td>
+        <td><?php echo 'R$ ' . number_format($model->planp_precosugerido, 2, ',', '.'); ?></td>
       </tr>
       <?php
         }
@@ -92,6 +94,7 @@ use app\models\base\Unidade;
                <th colspan="1" style="color:red"><?php echo 'R$ ' . number_format($MediaVendaTurma, 2, ',', '.'); ?></th>
                <th colspan="1" style="color:red"><?php echo 'R$ ' . number_format($MediaVendaAluno, 2, ',', '.'); ?></th>
                <th colspan="1" style="color:red"><?php echo 'R$ ' . number_format($MediaHoraAula, 2, ',', '.'); ?></th>
+               <th colspan="1" style="color:red"><?php echo 'R$ ' . number_format($model->planp_precosugerido, 2, ',', '.'); ?></th>
             </tr>
     </tfoot>
 

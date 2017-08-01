@@ -106,6 +106,10 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                     <?= $form->field($model, 'planp_qntaluno')->textInput() ?>
                 </div>
 
+                <div class="col-md-12">
+                    <?= $form->field($model, 'planp_observacao')->textarea(['rows' => '3']) ?>
+                </div>
+
             </div>
         </div>
 
@@ -138,7 +142,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                                              //inputa valores
                                              $zerahora.val(0);
                                              $zeraplanejmanento.val(0);
-                                             $inputCustoindireto.val(data.doce_valorhoraaula);
+                                             $inputCustoindireto.val(data.doce_valorhoraaula + data.doce_produtividade);
                                              $inputPlanejamento.val(data.doce_planejamento);
 
                                           });
@@ -639,6 +643,15 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                             'options' => ['readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
                 </div>
+
+            <div class="col-md-2" style="margin-top: 27px;">
+                <?= $form->field($model, 'desconto')->checkBox() ?>
+            </div>
+
+            <div class="col-md-3">
+                <?= $form->field($model, 'planp_valorcomdesconto')->textInput(['readonly' => true]) ?>
+            </div>
+
             </div>
         </div>
     </div>

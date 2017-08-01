@@ -17,11 +17,15 @@ use yii\helpers\Html;
             <td style="font-size:11px;" colspan="1"><strong>Código: </strong> <?php echo $model->planp_id; ?></td>
             <td style="font-size:11px;" colspan="1"><strong>Ano: </strong> <?php echo $model->planp_ano; ?></td>
             <td style="font-size:11px;" colspan="5"><strong>Unidade: </strong> <?php echo $model->unidade->uni_nomeabreviado; ?></td>
-            <td style="font-size:11px;" colspan="5"><strong>Plano de Ação: </strong> <?php echo $model->planodeacao->plan_descricao; ?></td>
         </tr>
         <tr>
+            <td style="font-size:11px;" colspan="2"><strong>Cód. Plano: </strong> <?php echo $model->planp_planodeacao; ?></td>
+            <td style="font-size:11px;" colspan="5"><strong>Plano de Ação: </strong> <?php echo $model->planodeacao->plan_descricao; ?></td>
             <td style="font-size:11px;" colspan="2"><strong>Carga Horária: </strong><br> <?php echo $model->planp_cargahoraria; ?></td>
-            <td style="font-size:11px;" colspan="10"><strong>Qnt Alunos: </strong><br> <?php echo $model->planp_qntaluno; ?></td>
+            <td style="font-size:11px;" colspan="2"><strong>Qnt Alunos: </strong><br> <?php echo $model->planp_qntaluno; ?></td>
+        </tr>
+        <tr>
+            <td style="font-size:11px;" colspan="12"><strong>Observação: </strong><br> <?php echo $model->planp_observacao; ?></td>
         </tr>
     </tbody>
  </table>

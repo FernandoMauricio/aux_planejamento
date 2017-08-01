@@ -146,9 +146,10 @@ class PrecificacaoController extends Controller
         $unidades     = Unidade::find()->where(['uni_codsituacao' => 1, 'uni_coddisp' => 1])->orderBy('uni_nomeabreviado')->all();
         $nivelDocente = Despesasdocente::find()->where(['doce_status' => 1])->all();
 
-        $model->planp_ano            = date('Y');
-        $model->planp_data           = date('Y-m-d');
-        $model->planp_codcolaborador = $session['sess_codcolaborador'];
+        $model->planp_ano              = date('Y');
+        $model->planp_data             = date('Y-m-d');
+        $model->planp_codcolaborador   = $session['sess_codcolaborador'];
+        $model->planp_valorcomdesconto = 0;
 
         //Realiza a Verificação se as configurações estão atualizadas do Markup
         foreach ($markups as $markup) {
@@ -257,7 +258,11 @@ class PrecificacaoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        PrecificacaoUnidades::deleteAll('precificacao_id = "'.$id.'"');
+        $model->delete(); //Exclui a planilha
+
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Precificação de Custo excluida!</strong>');
 
         return $this->redirect(['index']);
     }

@@ -9,17 +9,25 @@
                   <div class="col-md-1"><strong>Ano:</strong><br> <?php echo $model->planp_ano; ?></div>
 
                   <div class="col-md-5"><strong>Unidade:</strong> <?php echo $model->unidade->uni_nomeabreviado; ?></div>
-
-                  <div class="col-md-5"><strong>Plano de Ação:</strong> <?php echo $model->planodeacao->plan_descricao; ?></div>
-
           </div>
 
           <br>
 
           <div class="row">
-                  <div class="col-md-3"><strong>Carga Horária:</strong> <?php echo $model->planp_cargahoraria; ?></div>
 
-                  <div class="col-md-3"><strong>Qnt Alunos:</strong> <?php echo $model->planp_qntaluno; ?></div>
+                  <div class="col-md-2"><strong>Cód. Plano:</strong> <?php echo $model->planp_planodeacao; ?></div>
+
+                  <div class="col-md-6"><strong>Plano de Ação:</strong> <?php echo $model->planodeacao->plan_descricao; ?></div>
+
+                  <div class="col-md-2"><strong>Carga Horária:</strong> <?php echo $model->planp_cargahoraria; ?></div>
+
+                  <div class="col-md-2"><strong>Qnt Alunos:</strong> <?php echo $model->planp_qntaluno; ?></div>
+          </div>
+          
+          <br>
+          
+          <div class="row">
+                  <div class="col-md-12"><strong>Observação:</strong> <?php echo $model->planp_observacao; ?></div>
           </div>
 
         <br>

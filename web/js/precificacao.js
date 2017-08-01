@@ -241,5 +241,21 @@ $(function() {
       $('#precificacao-planp_retornoprecosugerido').val(RetornoPrecoSugerido); // Preço de Venda x Qnt de Alunos - Despesa Total;
       $('#precificacao-planp_minimoaluno').val(MinimoAlunos); // Despesa Total / Preço de Venda;
       $('#precificacao-planp_valorparcelas').val(ValorParcelas); // Preço de Venda / Quantidade de Parcelas;
+
+
+      //Aplicação do Desconto de 30%
+      $('#precificacao-planp_valorcomdesconto').text($('#precificacao-desconto').val());
+          $("#precificacao-desconto").on('change', function() {
+           if ($(this).is(':checked')) {
+
+             desconto = (planp_precosugerido * 70) / 100;
+             $('#precificacao-planp_valorcomdesconto').val(desconto);
+
+           } else {
+              $('#precificacao-planp_valorcomdesconto').val(0);
+           }
+           
+          });
+
     };
  });

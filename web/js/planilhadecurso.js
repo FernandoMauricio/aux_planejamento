@@ -217,10 +217,17 @@ $(function() {
        updateTotal();
     });
 
+    $('#planilhadecurso-placu_codcategoria').keyup(function() {
+       updateTotal();
+    });
+
     var updateTotal = function () {
 
       //Carga Horária do Plano
       var placu_cargahorariaplano       = parseFloat($('#planilhadecurso-placu_cargahorariaplano').val());
+
+      //Fonte de Financiamento do Plano
+      var placu_codcategoria            = parseFloat($('#planilhadecurso-placu_codcategoria').val());
 
       //Quantidade de Alunos Pagantes, Isentos e PSG 
       var placu_quantidadealunos        = parseFloat($('#planilhadecurso-placu_quantidadealunos').val());
@@ -351,11 +358,16 @@ $(function() {
       var RetornoPrecoVenda    = PrecoVendaTurma - despesaTotal; // Preço de venda da turma - Despesa Total;
       var PorcentagemRetorno   = (RetornoPrecoVenda / PrecoVendaTurma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
       var RetornoPrecoSugerido = (placu_precosugerido * valorTotalQntAlunos) - despesaTotal; // Preço de Venda x Qnt de Alunos - Despesa Total;
-      var PorcentagemRetornoPS = (RetornoPrecoSugerido / PrecoVendaTurma) * 100; // PREÇO SUGERIDO == % de Retorno / Preço de venda da Turma -- Valores em %
+      var ValorParcelas        =  placu_precosugerido / placu_parcelas;
 
+      //SE FOR DIFERENTE DE PSG, O SISTEMA MOSTRARÁ MINIMO DE ALUNOS E O RETORNO COM PREÇO SUGERIDO
+      if(placu_codcategoria != 2){
       var MinimoAlunos = Math.ceil(despesaTotal / placu_precosugerido); // Despesa Total / Preço de Venda;
-
-      var ValorParcelas =  placu_precosugerido / placu_parcelas;
+      var PorcentagemRetornoPS = (RetornoPrecoSugerido / PrecoVendaTurma) * 100; // PREÇO SUGERIDO == % de Retorno / Preço de venda da Turma -- Valores em %
+      }else{
+        var MinimoAlunos = 0;
+        var PorcentagemRetornoPS = 0;
+      }
 
         //Ocultar NaN
         if (isNaN(MinimoAlunos) || MinimoAlunos < 0) {
@@ -374,7 +386,6 @@ $(function() {
 
       //Linha 6 - Prestador de Serviço
       $('#planilhadespesadocente-6-planides_valorhoraaula').val(planides_valorhoraaula6);
-
 
       //---Despesas Diretas
       $('#planilhadecurso-placu_totalcustodocente').val(valorTotalMaoDeObra); // Custo de Mão de Obra Direta = Valor Hora/Aula * Carga Horária
