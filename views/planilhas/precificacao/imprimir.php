@@ -113,6 +113,7 @@ use yii\helpers\Html;
         <tr>
             <td style="font-size:11px;" colspan="4"><strong>Quantidade de Parcelas: </strong><br> <?php echo $model->planp_parcelas; ?></td>
             <td style="font-size:11px;" colspan="4"><strong>Valor das Parcelas: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_valorparcelas, 2, ',', '.'); ?></td>
+            <td style="font-size:11px;" colspan="4"><strong>Valor com desconto: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_valorcomdesconto, 2, ',', '.'); ?></td>
             <td style="font-size:11px;" colspan="4"></td>
         </tr>
     </tbody>

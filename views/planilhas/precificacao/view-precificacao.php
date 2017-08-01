@@ -166,6 +166,8 @@
                   <div class="col-md-3"><strong>Quantidade de Parcelas:</strong><br> <?php echo $model->planp_parcelas; ?></div>
 
                   <div class="col-md-3"><strong>Valor das Parcelas:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_valorparcelas, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-3"><strong>Valor com desconto:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_valorcomdesconto, 2, ',', '.'); ?></div>
           </div>
 
         <br>

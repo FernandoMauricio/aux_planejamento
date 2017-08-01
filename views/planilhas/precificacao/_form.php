@@ -629,7 +629,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-
                     <?= $form->field($model, 'planp_valorparcelas')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -649,7 +648,18 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             </div>
 
             <div class="col-md-3">
-                <?= $form->field($model, 'planp_valorcomdesconto')->textInput(['readonly' => true]) ?>
+                <?= $form->field($model, 'planp_valorcomdesconto')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 0,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
             </div>
 
             </div>
