@@ -52,15 +52,18 @@ echo TabularForm::widget([
                 },
         ],
 
-        'mark_ipca' => ['type' => TabularForm::INPUT_TEXT,
+        'mark_ipca' => [
+        'type' => function($model, $key, $index, $widget) { return ($model->mark_tipo == 1) ? TabularForm::INPUT_TEXT : TabularForm::INPUT_STATIC; },
         'columnOptions'=>['width'=>'50px'],
         ],
 
-        'mark_reservatecnica' => ['type' => TabularForm::INPUT_TEXT,
+        'mark_reservatecnica' => [
+        'type' => function($model, $key, $index, $widget) { return ($model->mark_tipo == 1) ? TabularForm::INPUT_TEXT : TabularForm::INPUT_STATIC; },
         'columnOptions'=>['width'=>'50px'],
         ],
 
-        'mark_despesasede' => ['type' => TabularForm::INPUT_TEXT,
+        'mark_despesasede' => [
+        'type' => function($model, $key, $index, $widget) { return ($model->mark_tipo == 1) ? TabularForm::INPUT_TEXT : TabularForm::INPUT_STATIC; },
         'columnOptions'=>['width'=>'50px'],
         ],
 
@@ -79,6 +82,7 @@ echo TabularForm::widget([
     ],
 'gridSettings'=>[
         'floatHeader'=>true,
+        'rowOptions' => function($model, $key, $index, $widget) { return ($model->mark_tipo == 1) ? ['class' => GridView::TYPE_DEFAULT] : ['class' => GridView::TYPE_WARNING]; },
         'panel'=>[
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem das Unidades</h3>',
             'type' => GridView::TYPE_PRIMARY,

@@ -84,15 +84,27 @@ class MarkupController extends Controller
                 $custos = Custosunidade::findBySql($listagemCustos)->all(); 
 
                     foreach ($custos as $custo) {
+
                         $cust_MediaPorcentagem = $custo['cust_MediaPorcentagem'];
-                        $cust_ano = $custo['cust_ano'];
+                        $cust_ano              = $custo['cust_ano'];
 
                 // populate and save records for each model
-                $model->mark_custoindireto = $cust_MediaPorcentagem;
-                $model->mark_ano = $cust_ano;
-                $model->mark_totalincidencias = $model->mark_custoindireto + $model->mark_ipca + $model->mark_reservatecnica + $model->mark_despesasede;
-                $model->mark_divisor = (100 - $model->mark_totalincidencias);
-
+                // Tipo = 1 (Unidades Fixas) // 2 (Unidades Móveis)
+                    if($model->mark_tipo == 1){
+                    $model->mark_custoindireto    = $cust_MediaPorcentagem;
+                    $model->mark_ano              = $cust_ano;
+                    $model->mark_totalincidencias = $model->mark_custoindireto + $model->mark_ipca + $model->mark_reservatecnica + $model->mark_despesasede;
+                    $model->mark_divisor          = (100 - $model->mark_totalincidencias);
+                    }else{
+                    $model->mark_custoindireto    = 0; 
+                    $model->mark_ano              = $cust_ano;
+                    $model->mark_custoindireto    = 0;
+                    $model->mark_ipca             = 0;
+                    $model->mark_reservatecnica   = 0;
+                    $model->mark_despesasede      = 0;
+                    $model->mark_totalincidencias = 0;
+                    $model->mark_divisor          = 0;
+                    }
                 }
                 if ($model->save()) {
                     $count++;

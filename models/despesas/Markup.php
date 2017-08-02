@@ -42,7 +42,7 @@ class Markup extends \yii\db\ActiveRecord
     {
         return [
             [['mark_codunidade', 'mark_ano', 'mark_custoindireto', 'mark_ipca', 'mark_reservatecnica', 'mark_despesasede'], 'required'],
-            [['mark_codunidade', 'mark_ano'], 'integer'],
+            [['mark_codunidade', 'mark_ano', 'mark_tipo'], 'integer'],
             [['mark_ipca', 'mark_reservatecnica', 'mark_custoindireto', 'mark_despesasede', 'mark_totalincidencias', 'mark_divisor'], 'number'],
         ];
     }
