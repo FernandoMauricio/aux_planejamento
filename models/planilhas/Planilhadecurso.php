@@ -275,6 +275,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
         $data=\app\models\planos\Planodeacao::find()
        ->where(['plan_codeixo' => $cat_id, 'plan_codsegmento' => $subcat_id])
        ->select(['plan_codplano AS id','plan_descricao AS name'])
+       ->where(['plan_status' => 1]) //somente os ativos
        ->orderBy('name')
        ->asArray()->all();
 

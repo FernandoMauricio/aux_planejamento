@@ -266,35 +266,35 @@ $(function() {
       //Linha 1 - Docente Nível Superior
       var planides_valor1         = parseFloat($('#planilhadespesadocente-1-planides_valor').val());
       var planides_valorhidden1   = parseFloat($('#planilhadespesadocente-1-planides_valorhidden').val());
-      var planides_planejamento1  = parseFloat($('#planilhadespesadocente-0-planides_planejamento').val());
+      var planides_planejamento1  = parseFloat($('#planilhadespesadocente-1-planides_planejamento').val());
       var planides_produtividade1 = parseFloat($('#planilhadespesadocente-1-planides_produtividade').val());
       var planides_valorhoraaula1 = parseFloat($('#planilhadespesadocente-1-planides_valorhoraaula').val());
       var planides_cargahoraria1  = parseFloat($('#planilhadespesadocente-1-planides_cargahoraria').val());
       //Linha 2 - Docente Nível Pós Graduado
       var planides_valor2         = parseFloat($('#planilhadespesadocente-2-planides_valor').val());
       var planides_valorhidden2   = parseFloat($('#planilhadespesadocente-2-planides_valorhidden').val());
-      var planides_planejamento2  = parseFloat($('#planilhadespesadocente-0-planides_planejamento').val());
+      var planides_planejamento2  = parseFloat($('#planilhadespesadocente-2-planides_planejamento').val());
       var planides_produtividade2 = parseFloat($('#planilhadespesadocente-2-planides_produtividade').val());
       var planides_valorhoraaula2 = parseFloat($('#planilhadespesadocente-2-planides_valorhoraaula').val());
       var planides_cargahoraria2  = parseFloat($('#planilhadespesadocente-2-planides_cargahoraria').val());
       //Linha 3 - Docente Nível Especialista(Fatese)
       var planides_valor3         = parseFloat($('#planilhadespesadocente-3-planides_valor').val());
       var planides_valorhidden3   = parseFloat($('#planilhadespesadocente-3-planides_valorhidden').val());
-      var planides_planejamento3  = parseFloat($('#planilhadespesadocente-0-planides_planejamento').val());
+      var planides_planejamento3  = parseFloat($('#planilhadespesadocente-3-planides_planejamento').val());
       var planides_produtividade3 = parseFloat($('#planilhadespesadocente-3-planides_produtividade').val());
       var planides_valorhoraaula3 = parseFloat($('#planilhadespesadocente-3-planides_valorhoraaula').val());
       var planides_cargahoraria3  = parseFloat($('#planilhadespesadocente-3-planides_cargahoraria').val());
       //Linha 4 - Docente Nível Mestre(Fatese)
       var planides_valor4         = parseFloat($('#planilhadespesadocente-4-planides_valor').val());
       var planides_valorhidden4   = parseFloat($('#planilhadespesadocente-4-planides_valorhidden').val());
-      var planides_planejamento4  = parseFloat($('#planilhadespesadocente-0-planides_planejamento').val());
+      var planides_planejamento4  = parseFloat($('#planilhadespesadocente-4-planides_planejamento').val());
       var planides_produtividade4 = parseFloat($('#planilhadespesadocente-4-planides_produtividade').val());
       var planides_valorhoraaula4 = parseFloat($('#planilhadespesadocente-4-planides_valorhoraaula').val());
       var planides_cargahoraria4  = parseFloat($('#planilhadespesadocente-4-planides_cargahoraria').val());
       //Linha 5 - Docente Nível Doutor(Fatese)
       var planides_valor5         = parseFloat($('#planilhadespesadocente-5-planides_valor').val());
       var planides_valorhidden5   = parseFloat($('#planilhadespesadocente-5-planides_valorhidden').val());
-      var planides_planejamento5  = parseFloat($('#planilhadespesadocente-0-planides_planejamento').val());
+      var planides_planejamento5  = parseFloat($('#planilhadespesadocente-5-planides_planejamento').val());
       var planides_produtividade5 = parseFloat($('#planilhadespesadocente-5-planides_produtividade').val());
       var planides_valorhoraaula5 = parseFloat($('#planilhadespesadocente-5-planides_valorhoraaula').val());
       var planides_cargahoraria5  = parseFloat($('#planilhadespesadocente-5-planides_cargahoraria').val());
