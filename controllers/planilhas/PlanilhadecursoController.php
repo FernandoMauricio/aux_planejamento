@@ -404,6 +404,9 @@ class PlanilhadecursoController extends Controller
             if($model->placu_codcategoria == 5){//PRONATEC/PSG
                 $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'PRONATEC/PSG'"; 
             }
+            if($model->placu_codcategoria == 6){//RECURSOS DA EMPRESA
+                $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'RECURSOS DA EMPRESA'"; 
+            }
 
                 $materiaisAluno = PlanoAluno::findBySql($ListagemMaterialAluno)->all(); 
 
@@ -473,7 +476,18 @@ class PlanilhadecursoController extends Controller
                     $query = (new \yii\db\Query())->from('db_apl2.planilhamaterialaluno_planimatalun')->where(['planilhadecurso_cod' => $model->placu_codplanilha]);
                     $totalValorAluno = $query->sum('planimatalun_valor*planimatalun_quantidade');
 
-
+                    //Valores padrões para caso não tenha custos com docente
+                    $model->placu_totalcustodocente      = 0;
+                    $model->placu_decimo                 = 0;
+                    $model->placu_ferias                 = 0;
+                    $model->placu_tercoferias            = 0;
+                    $model->placu_totalsalario           = 0;
+                    $model->placu_totalsalarioPrestador  = 0;
+                    $model->placu_totalencargosPrestador = 0;
+                    $model->placu_totalencargos          = 0;
+                    $model->placu_outdespvariaveis       = 0;
+                    $model->placu_totalsalarioencargo    = 0;
+                    
                     //Somatória Quantidade de Alunos Pagantes, Isentos e PSG 
                     $valorTotalQntAlunos = $model->placu_quantidadealunos + $model->placu_quantidadealunosisentos + $model->placu_quantidadealunospsg;
                     // + 0 -> Caso não tenha nenhum item relacionado será adicionado por default o 0
@@ -485,7 +499,24 @@ class PlanilhadecursoController extends Controller
                     $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro + 0; //save hidden custo para multiplicação javascript
                     $model->placu_hiddenpjapostila       = $totalValorMaterialApostila + 0; //save hidden custo para multiplicação javascript
                     $model->placu_hiddencustosaluno      = $totalValorAluno + 0; //save hidden custo para multiplicação javascript
-                    
+
+                    //Totalização das Despesas Diretas (Total de Custo Direto)
+                    $model->placu_totalcustodireto = $model->placu_totalsalarioencargo + $model->placu_diarias + $model->placu_passagens + $model->placu_pessoafisica + $model->placu_pessoajuridica + $model->placu_PJApostila + $model->placu_custosmateriais + $model->placu_custosconsumo + $model->placu_custosaluno;
+
+                    $model->placu_totalhoraaulacustodireto = $model->placu_totalcustodireto / $model->placu_cargahorariaplano / $valorTotalQntAlunos;
+
+                    //Despesas Indiretas
+                    $model->placu_totalincidencias     = $model->placu_custosindiretos + $model->placu_ipca + $model->placu_reservatecnica + $model->placu_despesadm;
+                    $model->placu_totalcustoindireto   = ($model->placu_totalcustodireto * $model->placu_totalincidencias) / 100;
+                    $model->placu_despesatotal         = $model->placu_totalcustoindireto + $model->placu_totalcustodireto;
+                    $model->placu_markdivisor          = (100 - $model->placu_totalincidencias);
+                    $model->placu_markmultiplicador    = ((100 / $model->placu_markdivisor) - 1) * 100; // Valores em %
+                    $model->placu_vendaturma           = ($model->placu_totalcustodireto / $model->placu_markdivisor) * 100; // Valores em %
+                    $model->placu_vendaaluno           = ($model->placu_vendaturma / $valorTotalQntAlunos);
+                    $model->placu_horaaulaaluno        = $model->placu_vendaturma / $model->placu_cargahorariaplano / $valorTotalQntAlunos; //Venda da Turma / CH TOTAL / QNT Alunos
+                    $model->placu_retorno              = $model->placu_vendaturma - $model->placu_despesatotal; // Preço de venda da turma - Despesa Total;
+                    $model->placu_porcentretorno       = ($model->placu_retorno / $model->placu_vendaturma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
+
                     $model->save();
                 }
 
