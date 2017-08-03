@@ -382,13 +382,20 @@ $(function() {
       var PorcentagemRetornoPS = (RetornoPrecoSugerido / PrecoVendaTurma) * 100; // PREÇO SUGERIDO == % de Retorno / Preço de venda da Turma -- Valores em %
       var ValorParcelas        =  placu_precosugerido / placu_parcelas;
 
-      //SE FOR DIFERENTE DE PSG, O SISTEMA MOSTRARÁ MINIMO DE ALUNOS E O RETORNO COM PREÇO SUGERIDO
-      if(placu_codcategoria != 2){
+      //SE PREÇO SUGERIRIDO FOR IGUAL A 0, O SISTEMA MOSTRARÁ MINIMO DE ALUNOS E O RETORNO COM PREÇO SUGERIDO
+      if(placu_precosugerido != 0){
       var MinimoAlunos = Math.ceil(despesaTotal / placu_precosugerido); // Despesa Total / Preço de Venda;
+      var RetornoPrecoSugerido = (placu_precosugerido * valorTotalQntAlunos) - despesaTotal; // Preço de Venda x Qnt de Alunos - Despesa Total;
       var PorcentagemRetornoPS = (RetornoPrecoSugerido / PrecoVendaTurma) * 100; // PREÇO SUGERIDO == % de Retorno / Preço de venda da Turma -- Valores em %
       }else{
         var MinimoAlunos = 0;
-        var PorcentagemRetornoPS = 0;
+        var PorcentagemRetornoPS = (RetornoPrecoSugerido / PrecoVendaTurma) * 100; // PREÇO SUGERIDO == % de Retorno / Preço de venda da Turma -- Valores em %
+      }
+
+      //SE PREÇO SUGERIDO FOR = 0. RETORNO COM PREÇO DE VENDA E Nº MINIMO DE ALUNOS TAMBÉM SERÃO 0.
+      if(placu_precosugerido == 0){
+        var MinimoAlunos = 0;
+        var RetornoPrecoSugerido = 0;
       }
 
         //Ocultar NaN
