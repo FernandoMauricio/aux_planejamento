@@ -222,7 +222,7 @@ use app\models\planilhas\Planilhadecurso;
 				 $despesa_turmas_tipoacao = 0;
 				 
 				 //EXTRAINDO AS PLANILHAS E SUAS INFORMAÇÕES...
-				 $query_planilhas = "SELECT placu_codplanilha, plan_descricao, niv_sigla, placu_quantidadeturmas,placu_quantidadealunosisentos, placu_cargahorariavivencia, placu_cargahorariaarealizar,placu_quantidadealunos, placu_quantidadealunospsg,placu_precosugerido, placu_despesatotal, placu_porcentretorno, placu_codnivel, placu_codplano, placu_anoexercicio, placu_codano FROM planodeacao_plan, planilhadecurso_placu, nivel_niv WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_anoexercicio = '".$ano_orcamento['an_ano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = '".$codigo_eixo."' AND placu_codsegmento = '".$codigo_segmento."' AND placu_codtipoa = '".$codigo_tipodeacao."' AND placu_codplano = plan_codplano AND placu_codnivel = niv_codnivel AND placu_codprogramacao = '".$combotipoprogramacao['tipro_codprogramacao']."'  ORDER BY plan_descricao";
+				 $query_planilhas = "SELECT placu_codplanilha, plan_descricao, niv_sigla, placu_quantidadeturmas,placu_quantidadealunosisentos, placu_cargahorariavivencia, placu_cargahorariaarealizar,placu_quantidadealunos, placu_quantidadealunospsg,placu_precosugerido, placu_despesatotal, placu_porcentprecosugerido, placu_codnivel, placu_codplano, placu_anoexercicio, placu_codano FROM planodeacao_plan, planilhadecurso_placu, nivel_niv WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_anoexercicio = '".$ano_orcamento['an_ano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = '".$codigo_eixo."' AND placu_codsegmento = '".$codigo_segmento."' AND placu_codtipoa = '".$codigo_tipodeacao."' AND placu_codplano = plan_codplano AND placu_codnivel = niv_codnivel AND placu_codprogramacao = '".$combotipoprogramacao['tipro_codprogramacao']."'  ORDER BY plan_descricao";
 			     	$planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
 						         foreach ($planilhas as $planilha) {
 			         	 $codigo_planilha  			   = $planilha['placu_codplanilha'];
@@ -241,7 +241,7 @@ use app\models\planilhas\Planilhadecurso;
 			         	 $placu_codano                 = $planilha['planilhaAno']['an_ano'];
 
 			         	 $custo_planilha               = $planilha['placu_despesatotal'];
-			         	 $placu_porcentretorno	       = $planilha['placu_porcentretorno'];
+			         	 $placu_porcentprecosugerido	       = $planilha['placu_porcentprecosugerido'];
 
 
 			         	 //Cálculos Realizados
@@ -254,34 +254,34 @@ use app\models\planilhas\Planilhadecurso;
                            
 							$cor = "#006633";
 						     
-						     if($placu_porcentretorno < 0 && $placu_porcentretorno >= -15)
+						     if($placu_porcentprecosugerido < 0 && $placu_porcentprecosugerido >= -15)
 			                        
 			                        $cor = "#FF0000";
-			                 elseif($placu_porcentretorno < -15 && $placu_porcentretorno >= -25)
+			                 elseif($placu_porcentprecosugerido < -15 && $placu_porcentprecosugerido >= -25)
 			                        
 			                        $cor = "#FF0000";
-			                 elseif($placu_porcentretorno < -25 && $placu_porcentretorno >= -35)
+			                 elseif($placu_porcentprecosugerido < -25 && $placu_porcentprecosugerido >= -35)
 			                        
 			                        $cor = "#FF0000";
-			                 elseif($placu_porcentretorno < -35 && $placu_porcentretorno >= -45)
+			                 elseif($placu_porcentprecosugerido < -35 && $placu_porcentprecosugerido >= -45)
 			                        
 			                        $cor = "#FF0000";
-			                 elseif($placu_porcentretorno < -45 && $placu_porcentretorno >= -55)
+			                 elseif($placu_porcentprecosugerido < -45 && $placu_porcentprecosugerido >= -55)
 			                       
 			                        $cor = "#FF0000";
-			                 elseif($placu_porcentretorno < -55 && $placu_porcentretorno >= -65)
+			                 elseif($placu_porcentprecosugerido < -55 && $placu_porcentprecosugerido >= -65)
 			                       
 			                       $cor = "#FF0000";
-			                 elseif($placu_porcentretorno < -65 && $placu_porcentretorno >= -75)
+			                 elseif($placu_porcentprecosugerido < -65 && $placu_porcentprecosugerido >= -75)
 			                       
 			                       $cor = "#FF0000";
-			                 elseif($placu_porcentretorno < -75 && $placu_porcentretorno >= -85)
+			                 elseif($placu_porcentprecosugerido < -75 && $placu_porcentprecosugerido >= -85)
 			                       
 			                       $cor = "#FF0000";
-			                 elseif($placu_porcentretorno < -85 && $placu_porcentretorno >= -96)
+			                 elseif($placu_porcentprecosugerido < -85 && $placu_porcentprecosugerido >= -96)
 			                        
 			                       $cor = "#FF0000";
-			                 elseif($placu_porcentretorno < -96)
+			                 elseif($placu_porcentprecosugerido < -96)
 			                        
 			                       $cor = "#FF0000";
 								  
@@ -310,7 +310,7 @@ use app\models\planilhas\Planilhadecurso;
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($receita_prevista_total_aluno, 2, ',', '.');?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($custo_planilha, 2, ',', '.');?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo number_format($custo_total_planilha, 2, ',', '.');?></font></font></font></font></div></td>
-    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2" color="<?php echo $cor; ?>"><?php echo number_format($placu_porcentretorno, 2, ',', '.'); ?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2" color="<?php echo $cor; ?>"><?php echo number_format($placu_porcentprecosugerido, 2, ',', '.'); ?></font></font></font></font></div></td>
   </tr>
   			<?php
 						  
@@ -340,7 +340,7 @@ use app\models\planilhas\Planilhadecurso;
 						  		 
 								 $hora_aluno_unidade 	       += $calculo1;
 								 $hora_aluno_total_unidade     += $calculo1;
-			                      $valor_hora_aluno_total_geral += $calculo1;
+			                     $valor_hora_aluno_total_geral += $calculo1;
 						         
 						  
 						  }

@@ -164,7 +164,7 @@ use app\models\cadastros\Tipoprogramacao;
             <div class="panel-heading"> Resumo de Custos Diretos</div><br>
         <div class="panel-body">
             <div class="row">
-
+            
                 <div class="col-md-2">
                     <?= $form->field($model, 'placu_totalcustodocente')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
