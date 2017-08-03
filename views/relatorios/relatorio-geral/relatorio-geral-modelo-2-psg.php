@@ -68,7 +68,7 @@ use app\models\planilhas\Planilhadecurso;
     <td width="16%">
           <!-- Visualizar as informações de NÃO PSG-->
 
-        <?= Html::a('<i class="glyphicon glyphicon-print"></i> NÃO PSG', ['relatorio-geral-modelo-2-nao-psg', 'combounidade' => $combounidade['placu_codunidade'] == 0 ? 0 : $combounidade['placu_codunidade'], 'ano_orcamento' => $ano_orcamento['an_codano'], 'situacao_planilha' => $situacao_planilha['sipla_codsituacao'], 'tipo_planilha' => $tipo_planilha['tipla_codtipla'], 'modelorelatorio' => 2, 'combotipoprogramacao' => $combotipoprogramacao['tipro_codprogramacao']], [
+        <?= Html::a('<i class="glyphicon glyphicon-print"></i> NÃO PSG', ['relatorio-geral-modelo-2-nao-psg', 'combounidade' => $combounidade['placu_codunidade'] == 0 ? 0 : $combounidade['placu_codunidade'], 'ano_orcamento' => $ano_orcamento['an_ano'], 'situacao_planilha' => $situacao_planilha['sipla_codsituacao'], 'tipo_planilha' => $tipo_planilha['tipla_codtipla'], 'modelorelatorio' => 2, 'combotipoprogramacao' => $combotipoprogramacao['tipro_codprogramacao']], [
             'class' => 'btn btn-primary',
             'data' => [
                 'method' => 'post',

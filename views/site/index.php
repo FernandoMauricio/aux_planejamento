@@ -30,7 +30,7 @@ $nome_user    = $session['sess_nomeusuario'];
                         <h5><i class="glyphicon glyphicon-tag"></i><strong> Custos da Unidade</strong></h5>
                                 <h5>- Correção de bug que não estava deletando os itens no cadastro de custos da unidade.</h5>
                         <h5><i class="glyphicon glyphicon-tag"></i><strong> Planilha de Curso</strong></h5>
-                                <h5>- Somente aparecerá planos ativos na listagem de planos.</h5>
+                                <h5>- Somente aparecerão planos ativos na listagem de planos.</h5>
                         <h5><i class="glyphicon glyphicon-tag"></i><strong> Relatórios</strong></h5>
                                 <h5>- Corrigido valores da coluna "Taxa de Retorno" do Relatório Geral.</h5><br>
 
