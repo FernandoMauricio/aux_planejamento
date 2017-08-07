@@ -45,7 +45,7 @@ class Materialconsumo extends \yii\db\ActiveRecord
             [['matcon_valor'], 'number'],
             [['matalu_data'], 'safe'],
             [['matcon_status', 'matcon_codMXM', 'matcon_codcolaborador'], 'integer'],
-            [['matcon_descricao'], 'string', 'max' => 100],
+            [['matcon_descricao'], 'string', 'max' => 255],
             [['matcon_tipo'], 'string', 'max' => 45],
         ];
     }

@@ -45,7 +45,7 @@ class PlanilhaConsumo extends \yii\db\ActiveRecord
         return [
             [['planilhadecurso_cod', 'planodeacao_cod', 'materialconsumo_cod', 'planico_codMXM'], 'integer'],
             [['planico_valor', 'planico_quantidade'], 'number'],
-            [['planico_descricao'], 'string', 'max' => 100],
+            [['planico_descricao'], 'string', 'max' => 255],
             [['planico_tipo'], 'string', 'max' => 45],
             [['planilhadecurso_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Planilhadecurso::className(), 'targetAttribute' => ['planilhadecurso_cod' => 'placu_codplanilha']],
         ];
