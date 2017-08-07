@@ -386,12 +386,13 @@ $(function() {
       if(placu_precosugerido != 0){
       var MinimoAlunos = Math.ceil(despesaTotal / placu_precosugerido); // Despesa Total / Preço de Venda;
       var RetornoPrecoSugerido = (placu_precosugerido * valorTotalQntAlunos) - despesaTotal; // Preço de Venda x Qnt de Alunos - Despesa Total;
-      var PorcentagemRetornoPS = (RetornoPrecoSugerido / PrecoVendaTurma) * 100; // PREÇO SUGERIDO == % de Retorno / Preço de venda da Turma -- Valores em %
+      var PorcentagemRetornoPS = PrecoVendaTurma != 0 ? (RetornoPrecoSugerido / PrecoVendaTurma) * 100 : 0; // PREÇO SUGERIDO == % de Retorno / Preço de venda da Turma -- Valores em %
+      var PorcentagemRetorno   = PrecoVendaTurma != 0 ? (RetornoPrecoVenda / PrecoVendaTurma) * 100 : 0;
       }else{
         var MinimoAlunos = 0;
-        var PorcentagemRetornoPS = (RetornoPrecoSugerido / PrecoVendaTurma) * 100; // PREÇO SUGERIDO == % de Retorno / Preço de venda da Turma -- Valores em %
+        var PorcentagemRetornoPS = PrecoVendaTurma != 0 ? (RetornoPrecoSugerido / PrecoVendaTurma) * 100 : 0; // PREÇO SUGERIDO == % de Retorno / Preço de venda da Turma -- Valores em %
+        var PorcentagemRetorno   = PrecoVendaTurma != 0 ? (RetornoPrecoVenda / PrecoVendaTurma) * 100 : 0;
       }
-
       //SE PREÇO SUGERIDO FOR = 0. RETORNO COM PREÇO DE VENDA E Nº MINIMO DE ALUNOS TAMBÉM SERÃO 0.
       if(placu_precosugerido == 0){
         var MinimoAlunos = 0;

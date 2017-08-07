@@ -518,7 +518,7 @@ class PlanilhadecursoController extends Controller
                     $model->placu_vendaaluno           = ($model->placu_vendaturma / $valorTotalQntAlunos);
                     $model->placu_horaaulaaluno        = $model->placu_vendaturma / $model->placu_cargahorariaplano / $valorTotalQntAlunos; //Venda da Turma / CH TOTAL / QNT Alunos
                     $model->placu_retorno              = $model->placu_vendaturma - $model->placu_despesatotal; // Preço de venda da turma - Despesa Total;
-                    $model->placu_porcentretorno       = ($model->placu_retorno / $model->placu_vendaturma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
+                    $model->placu_porcentretorno       = $model->placu_porcentretorno != 0 ? ($model->placu_retorno / $model->placu_vendaturma) * 100 : 0; // % de Retorno / Preço de venda da Turma -- Valores em %
 
                     $model->save();
                 }
@@ -744,7 +744,6 @@ class PlanilhadecursoController extends Controller
                                     $model->placu_vendaaluno           = ($model->placu_vendaturma / $valorTotalQntAlunos);
                                     $model->placu_horaaulaaluno        = $model->placu_vendaturma / $model->placu_cargahorariaplano / $valorTotalQntAlunos; //Venda da Turma / CH TOTAL / QNT Alunos
                                     $model->placu_retorno              = $model->placu_vendaturma - $model->placu_despesatotal; // Preço de venda da turma - Despesa Total;
-                                    $model->placu_porcentretorno       = ($model->placu_retorno / $model->placu_vendaturma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
                                     $model->placu_retornoprecosugerido = ($model->placu_precosugerido * $valorTotalQntAlunos) - $model->placu_despesatotal; // Preço Sugerido x Qnt de Alunos - Despesa  Total;
                                     $model->placu_valorparcelas        =  $model->placu_precosugerido / $model->placu_parcelas;
 
@@ -752,10 +751,12 @@ class PlanilhadecursoController extends Controller
                                     if($model->placu_precosugerido != 0){
                                         $model->placu_minimoaluno          = ceil($model->placu_despesatotal / $model->placu_precosugerido); // Despesa Total / Preço Sugerido;
                                         $model->placu_retornoprecosugerido = ($model->placu_precosugerido * $valorTotalQntAlunos) - $model->placu_despesatotal; // Preço Sugerido x Qnt de Alunos - Despesa  Total;
-                                        $model->placu_porcentprecosugerido = ($model->placu_retornoprecosugerido / $model->placu_vendaturma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
+                                        $model->placu_porcentprecosugerido = $model->placu_vendaturma != 0 ? ($model->placu_retornoprecosugerido / $model->placu_vendaturma) * 100 : 0; // % de Retorno / Preço de venda da Turma -- Valores em %
+                                        $model->placu_porcentretorno       = $model->placu_vendaturma != 0 ? ($model->placu_retorno / $model->placu_vendaturma) * 100 : 0;
                                     }else{
-                                      $model->placu_minimoaluno    = 0;
-                                      $model->placu_porcentprecosugerido = ($model->placu_retornoprecosugerido / $model->placu_vendaturma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
+                                      $model->placu_minimoaluno          = 0;
+                                      $model->placu_porcentprecosugerido = $model->placu_vendaturma != 0 ? ($model->placu_retornoprecosugerido / $model->placu_vendaturma) * 100 : 0; 
+                                      $model->placu_porcentretorno       = $model->placu_vendaturma != 0 ? ($model->placu_retorno / $model->placu_vendaturma) * 100 : 0; 
                                     }
 
                                     $model->save();
@@ -958,7 +959,6 @@ class PlanilhadecursoController extends Controller
                                     $model->placu_vendaaluno           = ($model->placu_vendaturma / $valorTotalQntAlunos);
                                     $model->placu_horaaulaaluno        = $model->placu_vendaturma / $model->placu_cargahorariaplano / $valorTotalQntAlunos; //Venda da Turma / CH TOTAL / QNT Alunos
                                     $model->placu_retorno              = $model->placu_vendaturma - $model->placu_despesatotal; // Preço de venda da turma - Despesa Total;
-                                    $model->placu_porcentretorno       = ($model->placu_retorno / $model->placu_vendaturma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
                                     $model->placu_retornoprecosugerido = ($model->placu_precosugerido * $valorTotalQntAlunos) - $model->placu_despesatotal; // Preço Sugerido x Qnt de Alunos - Despesa  Total;
                                     $model->placu_valorparcelas        =  $model->placu_precosugerido / $model->placu_parcelas;
 
@@ -966,10 +966,12 @@ class PlanilhadecursoController extends Controller
                                     if($model->placu_precosugerido != 0){
                                         $model->placu_minimoaluno          = ceil($model->placu_despesatotal / $model->placu_precosugerido); // Despesa Total / Preço Sugerido;
                                         $model->placu_retornoprecosugerido = ($model->placu_precosugerido * $valorTotalQntAlunos) - $model->placu_despesatotal; // Preço Sugerido x Qnt de Alunos - Despesa  Total;
-                                        $model->placu_porcentprecosugerido = ($model->placu_retornoprecosugerido / $model->placu_vendaturma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
+                                        $model->placu_porcentprecosugerido = $model->placu_vendaturma != 0 ? ($model->placu_retornoprecosugerido / $model->placu_vendaturma) * 100 : 0; // % de Retorno / Preço de venda da Turma -- Valores em %
+                                        $model->placu_porcentretorno       = $model->placu_vendaturma != 0 ? ($model->placu_retorno / $model->placu_vendaturma) * 100 : 0;
                                     }else{
-                                      $model->placu_minimoaluno    = 0;
-                                      $model->placu_porcentprecosugerido = ($model->placu_retornoprecosugerido / $model->placu_vendaturma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
+                                      $model->placu_minimoaluno          = 0;
+                                      $model->placu_porcentprecosugerido = $model->placu_vendaturma != 0 ? ($model->placu_retornoprecosugerido / $model->placu_vendaturma) * 100 : 0; 
+                                      $model->placu_porcentretorno       = $model->placu_vendaturma != 0 ? ($model->placu_retorno / $model->placu_vendaturma) * 100 : 0; 
                                     }
 
                                     $model->save();
