@@ -12,7 +12,7 @@ use app\models\modeloa\OrcamentoPrograma;
 	
 	<?php
 		   $contador = 0;
-		   $query_modeloA = "SELECT moda_codano, moda_codmodelo, moda_centrocusto, moda_centrocustoreduzido, moda_nomeunidade, moda_descriminacaoprojeto, an_ano, moda_nomecentrocusto FROM modeloa_moda, ano_an where moda_codunidade= '".$combo_unidade['placu_codunidade']."' AND moda_codano = '".$combo_ano['an_codano']."' AND moda_codano = an_codano";
+		   $query_modeloA = "SELECT moda_codano, moda_codmodelo, moda_centrocusto, moda_centrocustoreduzido, moda_nomeunidade, moda_descriminacaoprojeto, an_ano, moda_nomecentrocusto FROM modeloa_moda, ano_an where moda_codunidade= '".$combo_unidade['moda_codunidade']."' AND moda_codano = '".$combo_ano['an_codano']."' AND moda_codano = an_codano";
 
 		   	    $modelosa = ModeloA::findBySql($query_modeloA)->all(); 
 
@@ -98,12 +98,12 @@ use app\models\modeloa\OrcamentoPrograma;
 		  <?php
 		  
 		   $totalgeral_programado = 0;
-		   $totalgeral_reforco = 0;
-		   $totalgeral_dotacao = 0;
+		   $totalgeral_reforco    = 0;
+		   $totalgeral_dotacao    = 0;
 		   
 		   $total_programado_corrente = 0;
-		   $total_reforco_corrente = 0;
-		   $total_dotacao_corrente = 0;
+		   $total_reforco_corrente    = 0;
+		   $total_dotacao_corrente    = 0;
 		   
 		   
 		   $query_orcamentos = "SELECT orcpro_identificacao, orcpro_codigo, orcpro_titulo FROM orcamentoprograma_orcpro where orcpro_codtipo = 1 ORDER BY orcpro_codorcpro";
@@ -117,9 +117,9 @@ use app\models\modeloa\OrcamentoPrograma;
             		$titulo           = $orcamento['orcpro_titulo'];
 		   
 		       $acumula_programado = 0;
-			   $acumula_reforco = 0;
+			     $acumula_reforco    = 0;
 			   
-			   $query_detalhesmodelo = "SELECT deta_codtitulo, deta_titulo, deta_identificacao, deta_programado, deta_reforcoreducao FROM detalhesmodeloa_deta, modeloa_moda where deta_codtipo = 1 AND deta_identificacao = '".$identificacao."' AND deta_codmodelo = moda_codmodelo AND moda_codunidade = '".$combo_unidade['placu_codunidade']."' AND moda_codano = '".$combo_ano['an_codano']."' ORDER BY deta_identificacao";
+			   $query_detalhesmodelo = "SELECT deta_codtitulo, deta_titulo, deta_identificacao, deta_programado, deta_reforcoreducao FROM detalhesmodeloa_deta, modeloa_moda where deta_codtipo = 1 AND deta_identificacao = '".$identificacao."' AND deta_codmodelo = moda_codmodelo AND moda_codunidade = '".$combo_unidade['moda_codunidade']."' AND moda_codano = '".$combo_ano['an_codano']."' ORDER BY deta_identificacao";
 
 		   	    $detalhesmodelo = DetalhesModeloA::findBySql($query_detalhesmodelo)->all(); 
 
@@ -128,16 +128,16 @@ use app\models\modeloa\OrcamentoPrograma;
             		$programado = $detalhemodelo['deta_programado'];
             		$reforco    = $detalhemodelo['deta_reforcoreducao'];
 
-			         $acumula_programado = $acumula_programado + $programado;
-					 $acumula_reforco = $acumula_reforco + $reforco;
+			          $acumula_programado = $acumula_programado + $programado;
+					      $acumula_reforco    = $acumula_reforco + $reforco;
 					 
-					 $total_programado_corrente = $total_programado_corrente + $programado;
-		             $total_reforco_corrente = $total_reforco_corrente + $reforco;
-		             $total_dotacao_corrente = $total_dotacao_corrente + ( $programado + $reforco);
-			   
-			         $totalgeral_programado = $totalgeral_programado + $programado;
-		             $totalgeral_reforco = $totalgeral_reforco + $reforco;
-		             $totalgeral_dotacao = $totalgeral_dotacao + ( $programado + $reforco);
+					      $total_programado_corrente = $total_programado_corrente + $programado;
+		            $total_reforco_corrente    = $total_reforco_corrente + $reforco;
+		            $total_dotacao_corrente    = $total_dotacao_corrente + ( $programado + $reforco);
+			 
+			          $totalgeral_programado = $totalgeral_programado + $programado;
+		            $totalgeral_reforco    = $totalgeral_reforco + $reforco;
+		            $totalgeral_dotacao    = $totalgeral_dotacao + ( $programado + $reforco);
 			   
 		        }
 		        ?>
@@ -169,13 +169,12 @@ use app\models\modeloa\OrcamentoPrograma;
           <div align="right"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($total_dotacao_corrente,2,".",".");?></font></strong></div>
           <div align="right"></div></td>
           </tr>
-  
+
   	  
 		   <?php
 		   $total_programado_capital = 0;
-		   $total_reforco_capital = 0;
-		   $total_dotacao_capital = 0;
-
+		   $total_reforco_capital    = 0;
+		   $total_dotacao_capital    = 0;
 		   
 		   $query_orcamentos = "SELECT orcpro_identificacao, orcpro_codigo, orcpro_titulo FROM orcamentoprograma_orcpro where orcpro_codtipo = 2 ORDER BY orcpro_codorcpro";
 		   	    $orcamentos = OrcamentoPrograma::findBySql($query_orcamentos)->all(); 
@@ -189,7 +188,7 @@ use app\models\modeloa\OrcamentoPrograma;
 		       
 			   $acumula_programado = 0;
 			   $acumula_reforco = 0;
-			   $query_detalhesmodelo = "SELECT deta_codtitulo, deta_titulo, deta_identificacao, deta_programado, deta_reforcoreducao FROM detalhesmodeloa_deta, modeloa_moda where deta_codtipo = 2 AND deta_identificacao = '".$identificacao."' AND deta_codmodelo = moda_codmodelo AND moda_codunidade = '".$combo_unidade['placu_codunidade']."' AND moda_codano = '".$combo_ano['an_codano']."' ORDER BY deta_identificacao";
+			   $query_detalhesmodelo = "SELECT deta_codtitulo, deta_titulo, deta_identificacao, deta_programado, deta_reforcoreducao FROM detalhesmodeloa_deta, modeloa_moda where deta_codtipo = 2 AND deta_identificacao = '".$identificacao."' AND deta_codmodelo = moda_codmodelo AND moda_codunidade = '".$combo_unidade['moda_codunidade']."' AND moda_codano = '".$combo_ano['an_codano']."' ORDER BY deta_identificacao";
 		   	    $detalhesmodelo = DetalhesModeloA::findBySql($query_detalhesmodelo)->all(); 
 
             	foreach ($detalhesmodelo as $detalhemodelo) {
@@ -197,16 +196,16 @@ use app\models\modeloa\OrcamentoPrograma;
             		$programado = $detalhemodelo['deta_programado'];
             		$reforco    = $detalhemodelo['deta_reforcoreducao'];
 			          
-					  $acumula_programado = $acumula_programado + $programado;
-					  $acumula_reforco = $acumula_reforco + $reforco;
-					  
-			          $total_programado_capital = $total_programado_capital + $programado;
-		              $total_reforco_capital = $total_reforco_capital + $reforco;
-		              $total_dotacao_capital = $total_dotacao_capital + ( $programado + $reforco );
+					        $acumula_programado = $acumula_programado + $programado;
+					        $acumula_reforco    = $acumula_reforco + $reforco;
+					        
+			            $total_programado_capital = $total_programado_capital + $programado;
+		              $total_reforco_capital    = $total_reforco_capital + $reforco;
+		              $total_dotacao_capital    = $total_dotacao_capital + ( $programado + $reforco );
 			   
-			          $totalgeral_programado = $totalgeral_programado + $programado;
-		              $totalgeral_reforco = $totalgeral_reforco + $reforco;
-		              $totalgeral_dotacao = $totalgeral_dotacao + ( $programado + $reforco);
+			            $totalgeral_programado = $totalgeral_programado + $programado;
+		              $totalgeral_reforco    = $totalgeral_reforco + $reforco;
+		              $totalgeral_dotacao    = $totalgeral_dotacao + ( $programado + $reforco);
 			   		   
 		         }
 		        

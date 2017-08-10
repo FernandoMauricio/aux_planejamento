@@ -69,7 +69,7 @@ class ModeloASearch extends ModeloA
             'moda_codsegmento' => $this->moda_codsegmento,
             'moda_codtipoacao' => $this->moda_codtipoacao,
             'moda_codunidade' => $session['sess_codunidade'],
-            'moda_codano' => 6, //---Ano 2017
+            'moda_codano' => 7, //---Ano 2018
 
         ]);
 

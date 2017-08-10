@@ -26,7 +26,7 @@ use app\models\planilhas\Planilhadecurso;
       </p></td>
     <td width="41%" align="left" valign="middle"><font size="3" face="Verdana, Arial, Helvetica, sans-serif">Aux&iacute;lio 
       ao Planejamento<strong><br>
-      </strong>Relat&oacute;rio Geral - Modelo II / PSG</font></td>
+      </strong>Relat&oacute;rio Geral - Modelo II / NÃO PSG</font></td>
     <td colspan="2" align="right" valign="bottom"><em></em></td>
   </tr>
   <tr> 

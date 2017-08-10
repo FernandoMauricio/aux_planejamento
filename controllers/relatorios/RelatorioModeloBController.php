@@ -6,7 +6,7 @@ use Yii;
 use app\models\base\Unidade;
 use app\models\cadastros\Ano;
 use app\models\relatorios\RelatorioModeloB;
-use app\models\planilhas\Planilhadecurso;
+use app\models\modeloa\ModeloA;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -55,7 +55,7 @@ class RelatorioModeloBController extends Controller
     public function actionRelatorioModeloB($combo_unidade, $combo_ano)
     {
        $this->layout = 'main-imprimir';
-       $combo_unidade         = $this->findModelUnidade($combo_unidade);
+       $combo_unidade     = $this->findModelUnidade($combo_unidade);
        $combo_ano         = $this->findModelAnoPlanilha($combo_ano);
 
              return $this->render('/relatorios/relatorio-modelo-b/relatorio-modelo-b', [
@@ -66,9 +66,9 @@ class RelatorioModeloBController extends Controller
 
     protected function findModelUnidade($combo_unidade)
     {
-        $queryUnidade = "SELECT placu_codunidade, placu_nomeunidade FROM planilhadecurso_placu WHERE placu_codunidade = '".$combo_unidade."'";
+        $queryUnidade = "SELECT moda_codunidade FROM modeloa_moda WHERE moda_codunidade = '".$combo_unidade."'";
 
-        $combo_unidade = Planilhadecurso::findBySql($queryUnidade)->one();
+        $combo_unidade = ModeloA::findBySql($queryUnidade)->one();
 
         return $combo_unidade;
     }
