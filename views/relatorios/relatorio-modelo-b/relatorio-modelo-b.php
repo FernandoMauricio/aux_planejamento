@@ -146,9 +146,9 @@ use app\models\modeloa\OrcamentoPrograma;
                <td valign="middle"> <div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $codigo_orcamento;?></font></div></td>
                <td valign="middle"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $titulo;?></font></td>
                <td valign="middle"> <div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $identificacao;?></font></div></td>
-               <td valign="middle"> <div align="right"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($acumula_programado,2,".",".");?></font></div></td>
-               <td valign="middle"> <div align="right"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($acumula_reforco,2,".",".");?></font></div></td>
-               <td valign="middle"> <div align="right"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($acumula_programado + $acumula_reforco,2,".",".");?></font></div></td>
+               <td valign="middle"> <div align="right"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format(round($acumula_programado, -3),2,".",".");?></font></div></td>
+               <td valign="middle"> <div align="right"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format(round($acumula_reforco, -3),2,".",".");?></font></div></td>
+               <td valign="middle"> <div align="right"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format(round($acumula_programado + $acumula_reforco, -3),2,".",".");?></font></div></td>
                </tr>
 				
 			<?php
@@ -160,13 +160,13 @@ use app\models\modeloa\OrcamentoPrograma;
           <div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif">TOTAL 
           DE DESPESA DE CORRENTES</font></div></td>
           <td valign="middle" bgcolor="#CCCCCC">
-          <div align="right"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($total_programado_corrente,2,".",".");?></font></strong></div>
+          <div align="right"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format(round($total_programado_corrente, -3),2,".",".");?></font></strong></div>
           <div align="right"></div></td>
           <td valign="middle" bgcolor="#CCCCCC">
-          <div align="right"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($total_reforco_corrente,2,".",".");?></font></strong></div>
+          <div align="right"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format(round($total_reforco_corrente, -3),2,".",".");?></font></strong></div>
           <div align="right"></div></td>
           <td valign="middle" bgcolor="#CCCCCC">
-          <div align="right"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($total_dotacao_corrente,2,".",".");?></font></strong></div>
+          <div align="right"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format(round($total_dotacao_corrente, -3),2,".",".");?></font></strong></div>
           <div align="right"></div></td>
           </tr>
 
@@ -241,9 +241,9 @@ use app\models\modeloa\OrcamentoPrograma;
   
           <tr> 
           <td colspan="3" valign="middle"><div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif">TOTAIS</font></div></td>
-          <td valign="middle"><div align="right"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($totalgeral_programado,2,".",".");?></font></strong></div></td>
-          <td valign="middle"><div align="right"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($totalgeral_reforco,2,".",".");?></font></strong></div></td>
-          <td valign="middle"><div align="right"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($totalgeral_dotacao,2,".",".");?></font></strong></div></td>
+          <td valign="middle"><div align="right"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format(round($totalgeral_programado, -3),2,".",".");?></font></strong></div></td>
+          <td valign="middle"><div align="right"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format(round($totalgeral_reforco, -3),2,".",".");?></font></strong></div></td>
+          <td valign="middle"><div align="right"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format(round($totalgeral_dotacao, -3),2,".",".");?></font></strong></div></td>
           </tr>
 		  
           </table>
