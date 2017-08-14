@@ -184,7 +184,7 @@ class PrecificacaoController extends Controller
                 $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_custosmateriais + $model->planp_custosconsumo;
 
                 //Localiza as unidades configuradas pelo MARKUP
-                $listagemUnidades = "SELECT * FROM markup_mark";
+                $listagemUnidades = "SELECT * FROM markup_mark WHERE mark_tipo = 1";
                 $unidadesMarkup = Markup::findBySql($listagemUnidades)->all();
 
                 foreach ($unidadesMarkup as $unidadeMarkup) {
