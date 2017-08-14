@@ -381,7 +381,6 @@ use app\models\planilhas\Planilhadecurso;
     <td bgcolor="#E0E0E0"> <div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif">-</font></font></div></td>
   </tr>
 </table>
-<br>
 											 										 
 			<?php
 									  
