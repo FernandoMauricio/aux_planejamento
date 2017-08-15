@@ -26,11 +26,14 @@ $id = $model->plan_codplano;
     <tr class="info"><th colspan="12">SEÇÃO 1: Informações do Plano</th></tr>
     </thead>
     <tr>
-        <td colspan="4"><strong>Título: </strong><?php echo $model->plan_descricao; ?></td>
-        <td colspan="3" ><strong>CH: </strong><?php echo $model->plan_cargahoraria; ?></td> 
-        <td colspan="3"><strong>Situação: </strong> <?php echo $model->plan_status ? '<span class="label label-success">Liberado</span>' : '<span class="label label-danger">Em elaboração</span>' ?></td>
-        <td colspan="2"><strong>Novo Modelo Pedagógico: </strong> <?php echo $model->plan_modelonacional ? '<span class="label label-success">Sim</span>' : '<span class="label label-danger">Não</span>' ?></td>
-    </tr> 
+        <td colspan="12"><strong>Título: </strong><?php echo $model->plan_descricao; ?></td>
+    </tr> <br>
+    <tr>
+        <td colspan="2" ><strong>Qnt Alunos: </strong><?php echo $model->plan_qntaluno; ?></td>
+        <td colspan="2" ><strong>CH: </strong><?php echo $model->plan_cargahoraria; ?></td> 
+        <td colspan="4"><strong>Situação: </strong> <?php echo $model->plan_status ? '<span class="label label-success">Liberado</span>' : '<span class="label label-danger">Em elaboração</span>' ?></td>
+        <td colspan="4"><strong>Novo Modelo Pedagógico: </strong> <?php echo $model->plan_modelonacional ? '<span class="label label-success">Sim</span>' : '<span class="label label-danger">Não</span>' ?></td><br>
+    </tr> <br>
 <tbody>
     <tr>
         <td colspan="3"><strong>Nível: </strong> <?php echo $model->nivel->niv_descricao; ?></td>
@@ -49,6 +52,10 @@ $id = $model->plan_codplano;
 
     <tr>
         <td colspan="12"><strong>Perfil Profissional de Conclusão: </strong><?php echo $model->plan_perfConclusao; ?></td>
+    </tr> <br>
+
+    <tr>
+        <td colspan="12"><strong>Nível do Docente: </strong><?php echo  $model->despesasDocente->doce_descricao; ?></td>
     </tr> <br>
 
     <tr>

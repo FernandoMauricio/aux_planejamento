@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use yii\helpers\Url;
+use kartik\depdrop\DepDrop;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\planilhas\Precificacao */
@@ -81,13 +82,15 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                                              var $divPanelBody = $(select).parent().parent().parent().parent().parent();
 
                                              var $zerahoratotal            = $divPanelBody.find("input:eq(0)");
-                                             var $zeraqntaluno             = $divPanelBody.find("input:eq(1)");
+                                             //var $zeraqntaluno             = $divPanelBody.find("input:eq(1)");
+                                             var $inputQntAluno            = $divPanelBody.find("input:eq(1)");
                                              var $inputMaterialApostila    = $divPanelBody.find("input:eq(20)");
                                              var $inputCustoMaterialLivro  = $divPanelBody.find("input:eq(22)");
                                              var $inputCustoConsumo        = $divPanelBody.find("input:eq(23)");
 
                                              $zerahoratotal.val(data.plan_cargahoraria);
-                                             $zeraqntaluno.val(0);
+                                             //$zeraqntaluno.val(0);
+                                             $inputQntAluno.val(data.plan_qntaluno);
                                              $inputMaterialApostila.val(data.plan_custoMaterialApostila);
                                              $inputCustoMaterialLivro.val(data.plan_custoMaterialLivro);
                                              $inputCustoConsumo.val(data.plan_custoTotalConsumo);
@@ -103,7 +106,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-2">
-                    <?= $form->field($model, 'planp_qntaluno')->textInput() ?>
+                    <?= $form->field($model, 'planp_qntaluno')->textInput(['readonly' => true]) ?>
                 </div>
 
                 <div class="col-md-12">
@@ -123,31 +126,37 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             <div class="row">
                 <div class="col-md-6">
                     <?php
-                            $data_nivelDocente = ArrayHelper::map($nivelDocente, 'doce_id', 'doce_descricao');
-                            echo $form->field($model, 'planp_docente')->widget(Select2::classname(), [
-                                'data' =>  $data_nivelDocente,
-                                'options' => ['id' => 'nivelDocente-id','placeholder' => 'Selecione o Nível do Docente...',
-                                'onchange'=>'
-                                      var select = this;
-                                      $.getJSON( "'.Url::toRoute('/planilhas/precificacao/get-nivel-docente').'", { niveldocente: $(this).val() } )
-                                      .done(function( data ) {
+                    echo $form->field($model, 'planp_docente')->widget(DepDrop::classname(), [
+                                    'type'=>DepDrop::TYPE_SELECT2,
+                                    'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                                    'pluginOptions'=>[
+                                        'depends'=>['plano-id'],
+                                        'placeholder'=>'Selecione o Nível do Docente...',
+                                        'initialize' => true,
+                                        'url'=>Url::to(['/planilhas/precificacao/despesasdocente'])
+                                    ],
+                                    'options' => ['id' => 'nivelDocente-id',
+                                    'onchange'=>'
+                                          var select = this;
+                                          $.getJSON( "'.Url::toRoute('/planilhas/precificacao/get-nivel-docente').'", { niveldocente: $(this).val() } )
+                                          .done(function( data ) {
 
-                                             var $divPanelBody = $(select).parent().parent().parent().parent().parent();
+                                                 var $divPanelBody = $(select).parent().parent().parent().parent().parent();
 
-                                             var $zerahora = $divPanelBody.find("input:eq(2)");
-                                             var $zeraplanejmanento = $divPanelBody.find("input:eq(3)");
-                                             var $inputPlanejamento = $divPanelBody.find("input:eq(4)");
-                                             var $inputCustoindireto = $divPanelBody.find("input:eq(5)");
+                                                 var $zerahora = $divPanelBody.find("input:eq(2)");
+                                                 var $zeraplanejmanento = $divPanelBody.find("input:eq(3)");
+                                                 var $inputPlanejamento = $divPanelBody.find("input:eq(4)");
+                                                 var $inputCustoindireto = $divPanelBody.find("input:eq(5)");
 
-                                             //inputa valores
-                                             $zerahora.val(0);
-                                             $zeraplanejmanento.val(0);
-                                             $inputCustoindireto.val(data.doce_valorhoraaula);
-                                             $inputPlanejamento.val(data.doce_planejamento);
+                                                 //inputa valores
+                                                 $zerahora.val(0);
+                                                 $zeraplanejmanento.val(0);
+                                                 $inputCustoindireto.val(data.doce_valorhoraaula);
+                                                 $inputPlanejamento.val(data.doce_planejamento);
 
-                                          });
-                                      '
-                                ]]);
+                                              });
+                                          '
+                                    ]]);
                     ?>
                 </div>
 

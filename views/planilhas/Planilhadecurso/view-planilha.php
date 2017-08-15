@@ -129,7 +129,7 @@ use yii\helpers\Html;
                                 ],
                             ],
 
-[
+                            [
                                 'columns' => [
                                     [
                                         'attribute'=>'placu_codtipla', 

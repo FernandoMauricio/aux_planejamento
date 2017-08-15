@@ -101,6 +101,21 @@ class PrecificacaoController extends Controller
     }
 
 
+    //Localiza a despesa vinculada ao Plano
+    public function actionDespesasdocente() {
+                $out = [];
+                if (isset($_POST['depdrop_parents'])) {
+                    $parents = $_POST['depdrop_parents'];
+                    if ($parents != null) {
+                        $cat_id = $parents[0];
+                        $out = Despesasdocente::getDespesasdocenteSubCat($cat_id);
+                        echo Json::encode(['output'=>$out, 'selected'=>'']);
+                        return;
+                    }
+                }
+                echo Json::encode(['output'=>'', 'selected'=>'']);
+            }
+
     //Localiza os dados de custos indiretos da unidade escolhida
     public function actionGetMarkup($markup){
 

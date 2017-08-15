@@ -79,8 +79,18 @@ $attributes = [
                         [
                             'attribute'=>'plan_descricao', 
                             'displayOnly'=>true,
-                            'labelColOptions'=>['style'=>'width:0%'],
-                            'valueColOptions'=>['style'=>'width:30%']
+                        ],
+                    ],
+                ],
+
+                [
+                    'columns' => [
+                        [
+                            'attribute'=>'plan_qntaluno', 
+                            'format'=>'raw', 
+                            'value'=>$model->plan_qntaluno,
+                            'valueColOptions'=>['style'=>'width:0%'], 
+                            'displayOnly'=>true
                         ],
 
                         [
@@ -159,6 +169,14 @@ $attributes = [
                     'attribute'=>'plan_perfConclusao',
                     'format' => 'ntext',
                     'value'=> $model->plan_perfConclusao,
+                    'type'=>DetailView::INPUT_TEXTAREA, 
+                    'options'=>['rows'=>4]
+                ],
+
+                [
+                    'attribute'=>'plan_nivelDocente',
+                    'format' => 'ntext',
+                    'value'=> $model->despesasDocente->doce_descricao,
                     'type'=>DetailView::INPUT_TEXTAREA, 
                     'options'=>['rows'=>4]
                 ],

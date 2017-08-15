@@ -19,30 +19,28 @@ use app\models\cadastros\Segmento;
 <div class="planodeacao-form">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-4">
-
+                        <div class="col-md-12">
                         <?= $form->field($model, 'plan_descricao')->textInput(['maxlength' => true]) ?>
+                        </div>
+                    </div>
 
+                    <div class="row">
+
+                        <div class="col-md-2">
+                        <?= $form->field($model, 'plan_qntaluno')->textInput(['maxlength' => true]) ?>
                         </div>
 
                         <div class="col-md-2">
-
                         <?= $form->field($model, 'plan_cargahoraria')->textInput(['maxlength' => true]) ?>
-
                         </div>
 
                         <div class="col-md-3">
-
                         <?= $form->field($model, 'plan_status')->radioList([1 => 'Liberado', 0 => 'Em elaboração']) ?>
-
                         </div>
 
                         <div class="col-md-3">
-
                         <?= $form->field($model, 'plan_modelonacional')->radioList([1 => 'Sim', 0 => 'Não']) ?>
-
                         </div>
-
                     </div>
 
                     <div class="row">
@@ -128,6 +126,16 @@ use app\models\cadastros\Segmento;
                         <?= $form->field($model, 'plan_prerequisito')->textarea(['rows' => 4]) ?>
 
                         <?= $form->field($model, 'plan_perfConclusao')->textarea(['rows' => 4]) ?>
+
+                        <?php   $data_nivelDocente = ArrayHelper::map($nivelDocente, 'doce_id', 'doce_descricao');
+                                echo $form->field($model, 'plan_nivelDocente')->widget(Select2::classname(), [
+                                        'data' =>  $data_nivelDocente,
+                                        'options' => ['placeholder' => 'Selecione o Nivel do Docente...'],
+                                        'pluginOptions' => [
+                                                'allowClear' => true
+                                            ],
+                                        ]); 
+                        ?>
 
                         <?= $form->field($model, 'plan_perfTecnico')->textarea(['rows' => 4]) ?>
 

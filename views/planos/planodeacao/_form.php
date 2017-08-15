@@ -39,6 +39,7 @@ use app\models\cadastros\Segmento;
                                                         <?= $this->render('_form-plano', [
                                                             'form' => $form,
                                                             'model' => $model,
+                                                            'nivelDocente' => $nivelDocente,
                                                             'categoria' => $categoria,
                                                         ]) ?>
                                                     </div>

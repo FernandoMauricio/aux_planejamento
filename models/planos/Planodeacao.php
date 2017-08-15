@@ -9,6 +9,7 @@ use app\models\cadastros\Nivel;
 use app\models\cadastros\Segmento;
 use app\models\cadastros\Tipo;
 use app\models\base\Colaborador;
+use app\models\despesas\Despesasdocente;
 
 
 /**
@@ -21,8 +22,10 @@ use app\models\base\Colaborador;
  * @property string $plan_codtipoa
  * @property string $plan_codnivel
  * @property string $plan_cargahoraria
+ * @property integer $plan_qntaluno
  * @property string $plan_sobre
  * @property string $plan_prerequisito
+ * @property integer $plan_nivelDocente
  * @property string $plan_perfTecnico
  * @property integer $plan_codcolaborador
  * @property string $plan_data
@@ -67,9 +70,9 @@ class Planodeacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['plan_descricao', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria', 'plan_codcolaborador', 'plan_data', 'plan_status', 'plan_modelonacional', 'plan_categoriasPlano'], 'required'],
-            [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria','plan_codcolaborador', 'plan_status','plan_modelonacional'], 'integer'],
-            [['plan_sobre', 'plan_prerequisito', 'plan_perfConclusao','plan_perfTecnico'], 'string'],
+            [['plan_descricao', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria', 'plan_qntaluno', 'plan_codcolaborador', 'plan_data', 'plan_status', 'plan_modelonacional', 'plan_nivelDocente', 'plan_categoriasPlano'], 'required'],
+            [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria','plan_nivelDocente', 'plan_qntaluno', 'plan_codcolaborador', 'plan_status','plan_modelonacional'], 'integer'],
+            [['plan_sobre', 'plan_prerequisito', 'plan_perfConclusao', 'plan_perfTecnico'], 'string'],
             [['plan_data','nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoLabel', 'plan_custoMaterialLivro', 'plan_custoMaterialApostila', 'plan_custoTotalConsumo', 'plan_custoTotalAluno'], 'safe'],
             [['plan_descricao'], 'string', 'max' => 100],
             [['plan_codeixo'], 'exist', 'skipOnError' => true, 'targetClass' => Eixo::className(), 'targetAttribute' => ['plan_codeixo' => 'eix_codeixo']],
@@ -92,9 +95,11 @@ class Planodeacao extends \yii\db\ActiveRecord
             'plan_codtipoa' => 'Tipo de Ação',
             'plan_codnivel' => 'Nível',
             'plan_cargahoraria' => 'Carga Horária',
+            'plan_qntaluno' => 'Qnt Alunos',
             'plan_sobre' => 'Informações Comerciais',
             'plan_prerequisito' => 'Pré-Requisito',
             'plan_perfConclusao' => 'Perfil Profissional de Conclusão',
+            'plan_nivelDocente' => 'Nível do Docente',
             'plan_perfTecnico' => 'Perfil do Docente',
             'plan_codcolaborador' => 'Plan Codcolaborador',
             'plan_data' => 'Data',
@@ -234,4 +239,10 @@ class Planodeacao extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Colaborador::className(), ['col_codcolaborador' => 'plan_codcolaborador']);
     }
+
+    public function getDespesasDocente()
+    {
+        return $this->hasOne(Despesasdocente::className(), ['doce_id' => 'plan_nivelDocente']);
+    }
+
 }

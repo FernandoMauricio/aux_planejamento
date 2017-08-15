@@ -150,7 +150,6 @@ class Precificacao extends \yii\db\ActiveRecord
             }
         }
 
-
     /**
      * @inheritdoc
      */

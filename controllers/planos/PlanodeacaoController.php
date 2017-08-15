@@ -9,6 +9,7 @@ use app\models\cadastros\Eixo;
 use app\models\cadastros\Materialaluno;
 use app\models\cadastros\Materialconsumo;
 use app\models\cadastros\Estruturafisica;
+use app\models\despesas\Despesasdocente;
 use app\models\planos\PlanoMaterial;
 use app\models\planos\Unidadescurriculares;
 use app\models\planos\PlanoAluno;
@@ -142,6 +143,7 @@ class PlanodeacaoController extends Controller
         $materialaluno   = Materialaluno::find()->where(['matalu_status' => 1])->orderBy('matalu_descricao')->all();
         $estruturafisica = EstruturaFisica::find()->where(['estr_status' => 1])->orderBy('estr_descricao')->all();
         $categoria       = Categoria::find()->where(['status' => 1])->orderBy('descricao')->all();
+        $nivelDocente    = Despesasdocente::find()->where(['doce_status' => 1])->all();
 
         $model->plan_data           = date('Y-m-d');
         $model->plan_codcolaborador = $session['sess_codcolaborador'];
@@ -274,6 +276,7 @@ class PlanodeacaoController extends Controller
                 'materialconsumo'            => $materialconsumo,
                 'materialaluno'              => $materialaluno,
                 'categoria'                  => $categoria,
+                'nivelDocente'               => $nivelDocente,
                 'modelsUnidadesCurriculares' => (empty($modelsUnidadesCurriculares)) ? [new Unidadescurriculares] : $modelsUnidadesCurriculares,
                 'modelsPlanoMaterial'        => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
                 'modelsPlanoEstrutura'       => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,
@@ -370,8 +373,8 @@ class PlanodeacaoController extends Controller
         $materialaluno     = Materialaluno::find()->where(['matalu_status' => 1])->orderBy('matalu_descricao')->all();
         $estruturafisica   = EstruturaFisica::find()->where(['estr_status' => 1])->orderBy('estr_descricao')->all();
         $categoria         = Categoria::find()->where(['status' => 1])->orderBy('descricao')->all();
-
-
+        $nivelDocente      = Despesasdocente::find()->where(['doce_status' => 1])->all();
+        
         //Retrieve the stored checkboxes
         $model->plan_categoriasPlano = \yii\helpers\ArrayHelper::getColumn(
             $model->getPlanoCategorias()->asArray()->all(),
@@ -526,6 +529,7 @@ class PlanodeacaoController extends Controller
                 'materialconsumo'            => $materialconsumo,
                 'materialaluno'              => $materialaluno,
                 'categoria'                  => $categoria,
+                'nivelDocente'               => $nivelDocente,
                 'modelsUnidadesCurriculares' => (empty($modelsUnidadesCurriculares)) ? [new Unidadescurriculares] : $modelsUnidadesCurriculares,
                 'modelsPlanoMaterial'        => (empty($modelsPlanoMaterial)) ? [new PlanoMaterial] : $modelsPlanoMaterial,
                 'modelsPlanoEstrutura'       => (empty($modelsPlanoEstrutura)) ? [new PlanoEstruturafisica] : $modelsPlanoEstrutura,

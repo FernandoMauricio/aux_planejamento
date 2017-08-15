@@ -10,14 +10,8 @@ $this->params['breadcrumbs'][] = 'Relatórios';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h3>Relatório Segmento - Plano - Materiais:
+<h3>Relatório Segmento - Plano - Materiais: <?= Html::a('Gerar Excel', ['segmento-plano-material'], ['class' => 'btn btn-primary']) ?></h3>
 
-<?= Html::a('Gerar Excel', ['segmento-plano-material'], ['class' => 'btn btn-primary']) ?>
-	
-</h3>
+<h3>Planos de Ação: <?php echo Html::a('Gerar Excel', ['planos'], ['class' => 'btn btn-primary']) ?> </h3>
 
-<h3>Planos de Ação:
-
-<?php echo Html::a('Gerar Excel', ['planos'], ['class' => 'btn btn-primary']) ?>
-	
-</h3>
+<h3>Planilhas de Precificação x Quantidade Mínima de Alunos: <?php echo Html::a('Gerar Excel', ['precificacao-alunos-minimo'], ['class' => 'btn btn-primary']) ?></h3>

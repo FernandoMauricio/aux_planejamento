@@ -69,4 +69,13 @@ class Despesasdocente extends \yii\db\ActiveRecord
             'calculos' => 'Realizar cálculos de Planejamento e Produtividade',
         ];
     }
+
+    //Busca dados dos eixos vinculados aos segmentos
+    public static function getDespesasdocenteSubCat($cat_id) {
+
+        $sql = 'SELECT doce_id as id, doce_descricao as name FROM planodeacao_plan INNER JOIN despesas_docente ON plan_nivelDocente = doce_id WHERE plan_codplano = '.$cat_id.' ';
+        $data = \app\models\planos\Planodeacao::findBySql($sql)->asArray()->all();
+
+            return $data;
+        }
 }

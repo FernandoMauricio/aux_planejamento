@@ -223,5 +223,62 @@ class RelatoriosDepController extends Controller
         $objWriter->save('php://output');      
 
     }
-    
+
+    public function actionPrecificacaoAlunosMinimo()
+    {
+
+        $objPHPExcel = new \PHPExcel();
+
+        $sheet=0;
+                  
+            $objPHPExcel->setActiveSheetIndex($sheet);
+
+                $connection = Yii::$app->db_apl;
+                $command = $connection->createCommand('
+
+                    SELECT
+                        `db_base`.`unidade_uni`.`uni_nomecompleto`,
+                        `planodeacao_plan`.`plan_descricao`,
+                        `precificacao_planp`.`planp_minimoaluno`
+                    FROM 
+                        `precificacao_planp`
+                    INNER JOIN 
+                        `planodeacao_plan` ON  `precificacao_planp`.`planp_planodeacao` = `planodeacao_plan`.`plan_codplano`
+                    INNER JOIN
+                        `db_base`.`unidade_uni` ON `db_apl2`.`precificacao_planp`.`planp_codunidade` = `db_base`.`unidade_uni`.`uni_codunidade`
+                    ');
+
+                $foos = $command->queryAll();
+
+            //TAMANHO DAS COLUNAS  
+            $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(50);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(50);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+
+            //TÍTULO DAS COLUNAS
+            $objPHPExcel->getActiveSheet()->setTitle('Segmento-Plano-Material')                     
+             ->setCellValue('A1', 'UNIDADE OPERATIVA')
+             ->setCellValue('B1', 'PLANO DE AÇÃO')
+             ->setCellValue('C1', 'QUANT. MÍNIMA DE ALUNOS');
+                 
+         $row=2; //GERAÇÃO DOS DADOS A PARTIR DA LINHA 2
+                                
+                foreach ($foos as $foo) {  
+
+                    $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$foo['uni_nomecompleto']); 
+                    $objPHPExcel->getActiveSheet()->setCellValue('B'.$row,$foo['plan_descricao']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('C'.$row,$foo['planp_minimoaluno']);
+
+                    $row++ ;
+               }
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        $filename = "Relatoio_DEP_".date("d-m-Y-His").".xls";
+        header('Content-Disposition: attachment;filename='.$filename .' ');
+        header('Cache-Control: max-age=0');
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');      
+
+    }
 }
