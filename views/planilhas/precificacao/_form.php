@@ -297,7 +297,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
-                            'options' => ['value'=> 32.7, 'readonly' => true, 'class' => 'form-control' ]
+                            'options' => ['value'=> 33.29, 'readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
 
                 </div>
