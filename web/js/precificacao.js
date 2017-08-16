@@ -1,6 +1,9 @@
 $(function() {
 
     //SEÇÃO 2
+    $('#precificacao-planp_encargos').keyup(function() {
+       updateTotal();
+    });
     $('#precificacao-planp_cargahoraria').keyup(function() {
        updateTotal();
     });
@@ -96,6 +99,7 @@ $(function() {
 
     var updateTotal = function () {
       //SEÇÃO 2
+      var planp_encargos             = parseFloat($('#precificacao-planp_encargos').val());
       var planp_cargahoraria         = parseFloat($('#precificacao-planp_cargahoraria').val());
       var planp_qntaluno             = parseFloat($('#precificacao-planp_qntaluno').val());
       var planp_totalhorasdocente    = parseFloat($('#precificacao-planp_totalhorasdocente').val());
@@ -134,7 +138,7 @@ $(function() {
       var valorFerias              = valorTotalMaoDeObra / 12;
       var valorTercoFerias         = valorTotalMaoDeObra / 12 / 3;
       var totalSalarios            = valorTotalMaoDeObra + valorDecimo + valorFerias + valorTercoFerias;
-      var totalEncargos            = (totalSalarios * 33.29) / 100;
+      var totalEncargos            = (totalSalarios * planp_encargos) / 100;
       var totalSalariosEncargos    = totalSalarios + totalEncargos;
       var totalMaterial            = hiddenmaterialdidatico * planp_qntaluno;
       var totalPJApostila          = hiddenPJApostila * planp_qntaluno;
@@ -219,7 +223,7 @@ $(function() {
       $('#precificacao-planp_ferias').val(valorFerias); // 1/12 de Férias
       $('#precificacao-planp_tercoferias').val(valorTercoFerias); // 1/12 de 1/3 de férias
       $('#precificacao-planp_totalsalario').val(totalSalarios); // Total de Salários
-      $('#precificacao-planp_totalencargos').val(totalEncargos); // Total de Salários x 33.29% (encargos)
+      $('#precificacao-planp_totalencargos').val(totalEncargos); // Total de Salários x encargos %
       $('#precificacao-planp_totalsalarioencargo').val(totalSalariosEncargos); // Total de Salários + Total de Encargos
       $('#precificacao-planp_pjapostila').val(totalPJApostila); // Total de Material x Quantidade de Alunos
       $('#precificacao-planp_custosmateriais').val(totalMaterial); // Total de Apostilas x Quantidade de Alunos
