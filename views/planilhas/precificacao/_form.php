@@ -50,13 +50,15 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
                                              var $divPanelBody = $(select).parent().parent().parent().parent().parent();
 
-                                             var $zerahora = $divPanelBody.find("input:eq(2)");
+                                             var $zerahora             = $divPanelBody.find("input:eq(2)");
+                                             var $inputEncargos        = $divPanelBody.find("input:eq(12)");
                                              var $inputCustoIndireto   = $divPanelBody.find("input:eq(26)");
                                              var $inputIPCA            = $divPanelBody.find("input:eq(27)");
                                              var $inputReservaTecnica  = $divPanelBody.find("input:eq(28)");
                                              var $inputDespesaSede     = $divPanelBody.find("input:eq(29)");
-
+                                              
                                              $zerahora.val(0);
+                                             $inputEncargos.val(data.mark_codunidade == 30 ? "32.70" : "33.29"); // Valor diferente para FATESE(Cód. 30)
                                              $inputCustoIndireto.val(data.mark_custoindireto);
                                              $inputIPCA.val(data.mark_ipca);
                                              $inputReservaTecnica.val(data.mark_reservatecnica);
@@ -297,7 +299,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                             'autoGroup' => true,
                             'removeMaskOnSubmit' => true,
                             ],
-                            'options' => ['value'=> 33.29, 'readonly' => true, 'class' => 'form-control' ]
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
                     ]); ?>
 
                 </div>
