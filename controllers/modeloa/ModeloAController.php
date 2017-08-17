@@ -184,7 +184,7 @@ class ModeloAController extends Controller
               if($orcpro_identificacao == 111 || $orcpro_identificacao == 113 || $orcpro_identificacao == 116 || $orcpro_identificacao == 414 || $orcpro_identificacao == 430 || $orcpro_identificacao == 436 || $orcpro_identificacao == 433 || $orcpro_identificacao == 439 || $orcpro_identificacao == 552) {
 
                 //Localiza as Planilhas de Cursos onde contêm os centros de Custos cadastrados // Parâmetros -> situação 4 - (Homologada) e Tipo de Planilha (Produção)
-                $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_anoexercicio' => date('Y'), 'placu_codsegmento' => $cen_codsegmento, 'placu_codtipoa' => $cen_codtipoacao, 'placu_codsituacao' => 4, 'placu_codtipla' => 1, 'placu_codprogramacao' => 1])->all();
+                $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_codano' => $model->anoModeloA->an_codano, 'placu_codsegmento' => $cen_codsegmento, 'placu_codtipoa' => $cen_codtipoacao, 'placu_codsituacao' => 4, 'placu_codtipla' => 1, 'placu_codprogramacao' => 1])->all();
 
                 foreach ($planilhaDeCursos as $planilhaDeCurso) {
 
