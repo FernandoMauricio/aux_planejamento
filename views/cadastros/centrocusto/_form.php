@@ -42,7 +42,7 @@ use yii\helpers\Json;
     </div>
 
     <div class="col-md-2">
-    <?= $form->field($model, 'cen_codsituacao')->radioList(['1' => 'Ativo', '0' => 'Inativo']) ?>
+    <?= $form->field($model, 'cen_codsituacao')->radioList(['1' => 'Ativo', '2' => 'Inativo']) ?>
     </div>
 
 </div>

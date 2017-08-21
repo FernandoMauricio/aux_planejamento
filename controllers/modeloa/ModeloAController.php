@@ -139,6 +139,33 @@ class ModeloAController extends Controller
            //CRIANDO O MODELO A....
            $identificador_modeloa = $session['sess_codusuario']."-".$cen_codcentrocusto;
 
+
+           if($cen_codsegmento == 17) { //AÇÕES EXTENSIVAS
+
+                //Inclui as informações do Centro de Custos para o Modelo A
+                Yii::$app->db_apl->createCommand()
+                    ->insert('modeloa_moda', [
+                             'moda_codano'              => $model->anoModeloA->an_codano,
+                             'moda_centrocusto'         => $cen_centrocusto,
+                             'moda_centrocustoreduzido' => $cen_centrocustoreduzido,
+                             'moda_nomecentrocusto'     => $cen_nomecentrocusto,
+                             'moda_codunidade'          => $session['sess_codunidade'],
+                             'moda_nomeunidade'         => $session['sess_unidade'],
+                             'moda_codcolaborador'      => $session['sess_codcolaborador'],
+                             'moda_codusuario'          => $session['sess_codusuario'],
+                             'moda_nomeusuario'         => $session['sess_nomeusuario'],
+                             'moda_codsituacao'         => 1,
+                             'moda_codentrada'          => 1,
+                             'moda_codsegmento'         => $cen_codsegmento,
+                             'moda_codtipoacao'         => 17,
+                             'moda_identificacao'       => $identificador_modeloa,
+                             'moda_anoexercicio'        => date('Y'),
+                             ])
+                    ->execute();
+
+
+           }else{
+
                 //Inclui as informações do Centro de Custos para o Modelo A
                 Yii::$app->db_apl->createCommand()
                     ->insert('modeloa_moda', [
@@ -159,6 +186,7 @@ class ModeloAController extends Controller
                              'moda_anoexercicio'        => date('Y'),
                              ])
                     ->execute();
+            }
 
         //RESGATANDO O CODIGO DO MODELO A GERADO A CADA LOOP
         $queryModeloA = "SELECT * FROM modeloa_moda WHERE moda_identificacao = '".$identificador_modeloa."'";
@@ -183,8 +211,12 @@ class ModeloAController extends Controller
               //IDENTIFICANDO O TIPO DE TITULO PARA BUSCAR VALORES NAS PLANILHAS...
               if($orcpro_identificacao == 111 || $orcpro_identificacao == 113 || $orcpro_identificacao == 116 || $orcpro_identificacao == 414 || $orcpro_identificacao == 430 || $orcpro_identificacao == 436 || $orcpro_identificacao == 433 || $orcpro_identificacao == 439 || $orcpro_identificacao == 552) {
 
-                //Localiza as Planilhas de Cursos onde contêm os centros de Custos cadastrados // Parâmetros -> situação 4 - (Homologada) e Tipo de Planilha (Produção)
-                $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_codano' => $model->anoModeloA->an_codano, 'placu_codsegmento' => $cen_codsegmento, 'placu_codtipoa' => $cen_codtipoacao, 'placu_codsituacao' => 4, 'placu_codtipla' => 1, 'placu_codprogramacao' => 1])->all();
+                if($cen_codsegmento == 17) { //AÇÕES EXTENSIVAS
+                    //Localiza as Planilhas de Cursos onde contêm os centros de Custos cadastrados // Parâmetros -> situação 4 - (Homologada) e Tipo de Planilha (Produção)
+                    $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_codano' => $model->anoModeloA->an_codano, 'placu_codsegmento' => $cen_codsegmento, 'placu_codsituacao' => 4, 'placu_codtipla' => 1, 'placu_codprogramacao' => 1])->all();
+                }else{
+                  $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_codano' => $model->anoModeloA->an_codano, 'placu_codsegmento' => $cen_codsegmento, 'placu_codtipoa' => $cen_codtipoacao, 'placu_codsituacao' => 4, 'placu_codtipla' => 1, 'placu_codprogramacao' => 1])->all();
+                }
 
                 foreach ($planilhaDeCursos as $planilhaDeCurso) {
 
@@ -350,8 +382,13 @@ class ModeloAController extends Controller
               //IDENTIFICANDO O TIPO DE TITULO PARA BUSCAR VALORES NAS PLANILHAS...
               if($orcpro_identificacao == 111 || $orcpro_identificacao == 113 || $orcpro_identificacao == 116 || $orcpro_identificacao == 414 || $orcpro_identificacao == 430 || $orcpro_identificacao == 436 || $orcpro_identificacao == 433 || $orcpro_identificacao == 439 || $orcpro_identificacao == 552) {
 
-                //Localiza as Planilhas de Cursos onde contêm os centros de Custos cadastrados // Parâmetros -> situação 4 - (Homologada) e Tipo de Planilha (Produção)
-                $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_codano' => $model->moda_codano, 'placu_codsegmento' => $model->moda_codsegmento, 'placu_codtipoa' => $model->moda_codtipoacao, 'placu_codsituacao' => 4, 'placu_codtipla' => 1, 'placu_codprogramacao' => $model->moda_codentrada])->all();
+                if($model->moda_codsegmento == 17) { //AÇÕES EXTENSIVAS
+                    //Localiza as Planilhas de Cursos onde contêm os centros de Custos cadastrados // Parâmetros -> situação 4 - (Homologada) e Tipo de Planilha (Produção)
+                    $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_codano' => $model->moda_codano, 'placu_codsegmento' => $model->moda_codsegmento, 'placu_codsituacao' => 4, 'placu_codtipla' => 1, 'placu_codprogramacao' => $model->moda_codentrada])->all();
+                }else{
+                    //Localiza as Planilhas de Cursos onde contêm os centros de Custos cadastrados // Parâmetros -> situação 4 - (Homologada) e Tipo de Planilha (Produção)
+                    $planilhaDeCursos = Planilhadecurso::find()->where(['placu_codunidade' => $session['sess_codunidade'], 'placu_codano' => $model->moda_codano, 'placu_codsegmento' => $model->moda_codsegmento, 'placu_codtipoa' => $model->moda_codtipoacao, 'placu_codsituacao' => 4, 'placu_codtipla' => 1, 'placu_codprogramacao' => $model->moda_codentrada])->all();
+                }
 
                 foreach ($planilhaDeCursos as $planilhaDeCurso) {
 
