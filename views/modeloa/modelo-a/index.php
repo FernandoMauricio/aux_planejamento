@@ -86,8 +86,21 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'moda_descriminacaoprojeto:ntext',
             // 'moda_identificacao',
 
-            ['class' => 'yii\grid\ActionColumn','template' => '{update} {delete}',
-            'options' => ['width' => '5%'],
+            ['class' => 'yii\grid\ActionColumn','template' => '{imprimir-modelo-a} {update} {delete}',
+            'options' => ['width' => '8%'],
+            'buttons' => [
+
+                        //IMPRIMIR
+                        'imprimir-modelo-a' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-print"></span> ', $url, [
+                                        'target'=>'_blank', 
+                                        'data-pjax'=>"0",
+                                        'title' => Yii::t('app', 'Imprimir'),
+                       
+                            ]);
+                        },
+
+            ],
             ],
         ],
     ]); ?>
