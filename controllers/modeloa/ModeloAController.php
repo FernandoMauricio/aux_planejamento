@@ -612,7 +612,12 @@ class ModeloAController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+
+        DetalhesModeloA::deleteAll('deta_codmodelo = "'.$id.'"');//Exclui os detalhes do Modelo A
+        $model->delete(); //Exclui o Modelo A
+
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Modelo A código: ' . '<strong>' .$id. '</strong>' . ' excluído!');
 
         return $this->redirect(['index']);
     }

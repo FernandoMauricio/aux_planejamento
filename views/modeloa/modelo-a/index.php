@@ -86,7 +86,9 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'moda_descriminacaoprojeto:ntext',
             // 'moda_identificacao',
 
-            ['class' => 'yii\grid\ActionColumn','template' => '{update}'],
+            ['class' => 'yii\grid\ActionColumn','template' => '{update} {delete}',
+            'options' => ['width' => '5%'],
+            ],
         ],
     ]); ?>
 </div>
