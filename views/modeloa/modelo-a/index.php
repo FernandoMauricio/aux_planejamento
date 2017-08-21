@@ -100,8 +100,23 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]);
                         },
 
+                        //DELETAR
+                                'delete' => function ($url, $model) {
+                                    $session = Yii::$app->session;
+                                    $array = [48, 74];
+                                    return $session['sess_codusuario'] == in_array($session['sess_codusuario'], $array) ?  Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                                'title' => Yii::t('app', 'Excluir Modelo A'),
+                                                'data' => [
+                                                                'confirm' => 'Confirma a exclusão deste item?',
+                                                                'method' => 'post',
+                                                            ],
+
+                                    ]): '';
+                                },
+
             ],
             ],
         ],
     ]); ?>
+
 </div>
