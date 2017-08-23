@@ -51,6 +51,8 @@ class RelatoriosExcelController extends Controller
                 $connection = Yii::$app->db_apl;
                 $command = $connection->createCommand('
                    SELECT 
+                        `planilhadecurso_placu`.`placu_nomeunidade`,
+                        `eixo_eix`.`eix_descricao`,
                         `segmento_seg`.`seg_descricao`, 
                         `tipodeacao_tip`.`tip_descricao`,
                         `planodeacao_plan`.`plan_descricao`,
@@ -67,7 +69,8 @@ class RelatoriosExcelController extends Controller
                         (`planilhadecurso_placu`.`placu_quantidadealunos` + `planilhadecurso_placu`.`placu_quantidadealunospsg` + `planilhadecurso_placu`.`placu_quantidadealunosisentos`) AS MAT_TOTAL
                     FROM 
                         `planilhadecurso_placu` 
-                        INNER JOIN `segmento_seg` ON `planilhadecurso_placu`.`placu_codsegmento` = `segmento_seg`.`seg_codsegmento` 
+                        INNER JOIN `eixo_eix` ON `planilhadecurso_placu`.`placu_codsegmento` = `eixo_eix`.`eix_codeixo` 
+                        INNER JOIN `segmento_seg` ON `planilhadecurso_placu`.`placu_codeixo` = `segmento_seg`.`seg_codeixo` 
                         INNER JOIN `tipodeacao_tip` ON `planilhadecurso_placu`.`placu_codtipoa` = `tipodeacao_tip`.`tip_codtipoa` 
                         INNER JOIN `planodeacao_plan` ON `planilhadecurso_placu`.`placu_codplano` = `planodeacao_plan`.`plan_codplano` 
                         INNER JOIN `nivel_niv` ON `planilhadecurso_placu`.`placu_codnivel` = `nivel_niv`.`niv_codnivel`
@@ -82,9 +85,9 @@ class RelatoriosExcelController extends Controller
             //TAMANHO DAS COLUNAS  
             $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(30);
             $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(50);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(10);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(30);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(30);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(50);
             $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(10);
@@ -94,46 +97,50 @@ class RelatoriosExcelController extends Controller
             $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('N')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('O')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('P')->setWidth(10);
 
             //TÍTULO DAS COLUNAS
             $objPHPExcel->getActiveSheet()->setTitle('EXCEL-PAAR')                     
-             ->setCellValue('A1', 'SEGMENTO')
-             ->setCellValue('B1', 'TIPO')
-             ->setCellValue('C1', 'PLANO')
-             ->setCellValue('D1', 'NÍVEL')
-             ->setCellValue('E1', 'ANO')
-             ->setCellValue('F1', 'FINANCIAMENTO')
-             ->setCellValue('G1', 'QUANT. TURMAS')
-             ->setCellValue('H1', 'CH TURMAS')
-             ->setCellValue('I1', 'CH TOTAL')
-             ->setCellValue('J1', 'CHALUNO')
-             ->setCellValue('K1', 'MAT PAG')
-             ->setCellValue('L1', 'MAT PSG')
-             ->setCellValue('M1', 'MAT ISE')
-             ->setCellValue('N1', 'MAT TOTAL');
+             ->setCellValue('A1', 'UNIDADE')
+             ->setCellValue('B1', 'EIXO')
+             ->setCellValue('C1', 'SEGMENTO')
+             ->setCellValue('D1', 'TIPO')
+             ->setCellValue('E1', 'PLANO')
+             ->setCellValue('F1', 'NÍVEL')
+             ->setCellValue('G1', 'ANO')
+             ->setCellValue('H1', 'FINANCIAMENTO')
+             ->setCellValue('I1', 'QUANT. TURMAS')
+             ->setCellValue('J1', 'CH TURMAS')
+             ->setCellValue('K1', 'CH TOTAL')
+             ->setCellValue('L1', 'CHALUNO')
+             ->setCellValue('M1', 'MAT PAG')
+             ->setCellValue('N1', 'MAT PSG')
+             ->setCellValue('O1', 'MAT ISE')
+             ->setCellValue('P1', 'MAT TOTAL');
                  
          $row=2; //GERAÇÃO DOS DADOS A PARTIR DA LINHA 2
                                 
                 foreach ($foos as $foo) {  
-
-                    $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$foo['seg_descricao']); 
-                    $objPHPExcel->getActiveSheet()->setCellValue('B'.$row,$foo['tip_descricao']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('C'.$row,$foo['plan_descricao']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('D'.$row,$foo['niv_sigla']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('E'.$row,$foo['placu_anoexercicio']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$foo['descricao']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$foo['placu_quantidadeturmas']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['placu_cargahorariaplano']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$foo['CH_TOTAL']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$foo['CHALUNO']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['placu_quantidadealunos']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$foo['placu_quantidadealunospsg']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$foo['placu_quantidadealunosisentos']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['MAT_TOTAL']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$foo['placu_nomeunidade']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('B'.$row,$foo['eix_descricao']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('C'.$row,$foo['seg_descricao']); 
+                    $objPHPExcel->getActiveSheet()->setCellValue('D'.$row,$foo['tip_descricao']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('E'.$row,$foo['plan_descricao']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$foo['niv_sigla']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$foo['placu_anoexercicio']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['descricao']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$foo['placu_quantidadeturmas']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$foo['placu_cargahorariaplano']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['CH_TOTAL']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$foo['CHALUNO']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$foo['placu_quantidadealunos']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['placu_quantidadealunospsg']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('O'.$row,$foo['placu_quantidadealunosisentos']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('P'.$row,$foo['MAT_TOTAL']);
 
                     $row++ ;
                }
-
 
         header('Content-Type: application/vnd.ms-excel');
         $filename = "Relatoio_PAAR_".date("d-m-Y-His").".xls";
