@@ -19,9 +19,7 @@ class AnoController extends Controller
      */
     public function behaviors()
     {
-
         $this->AccessAllow(); //Irá ser verificado se o usuário está logado no sistema
-
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
