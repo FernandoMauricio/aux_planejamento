@@ -23,7 +23,6 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/bootbox.min.js', 
         'js/main.js',
-        'js/precificacao.js',
         'js/planilhadecurso.js',
         'js/planilhadecursoadmin.js',
         'js/modeloa.js',

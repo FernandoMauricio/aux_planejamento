@@ -17,6 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
         <p>
+            <?= Html::a('Atualizar', ['update', 'id' => $model->planp_id], ['class' => 'btn btn-primary']) ?>
+
             <?php
                   echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir','id' => $model->planp_id], [
                       'class'=>'btn btn-warning', 

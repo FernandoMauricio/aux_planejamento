@@ -97,6 +97,10 @@ $(function() {
        updateTotal();
     });
 
+    $('#precificacao-planp_desconto').keyup(function() {
+       updateTotal();
+    });
+
     var updateTotal = function () {
       //SEÇÃO 2
       var planp_encargos             = parseFloat($('#precificacao-planp_encargos').val());
@@ -125,10 +129,7 @@ $(function() {
       var planp_totalincidencias = parseFloat($('#precificacao-planp_totalincidencias').val());
       var planp_precosugerido    = parseFloat($('#precificacao-planp_precosugerido').val());
       var planp_parcelas         = parseFloat($('#precificacao-planp_parcelas').val());
-
-
-      //Reserva Técnica = CH do Plano >= 800  == 10 % senão == 5%;
-      planp_reservatecnica = planp_cargahoraria >= 800 ? 10 : 5;
+      var planp_desconto         = parseFloat($('#precificacao-planp_desconto').val());
 
       //CÁLCULOS REALIZADOS
       //SEÇÃO 2
@@ -162,6 +163,12 @@ $(function() {
       var MinimoAlunos = Math.ceil(despesaTotal / planp_precosugerido); // Despesa Total / Preço de Venda;
 
       var ValorParcelas =  planp_precosugerido / planp_parcelas;
+
+      //Reserva Técnica = CH do Plano >= 800  == 10 % senão == 5%;
+      planp_reservatecnica = planp_cargahoraria >= 800 ? 10 : 5;
+
+      //Aplicação do Desconto em cima do Preço Sugerido
+      var ValorComDesconto = planp_precosugerido - ((planp_precosugerido * planp_desconto) / 100);
 
         //OCULTAR O NAN
         //SEÇÃO 2
@@ -245,21 +252,22 @@ $(function() {
       $('#precificacao-planp_retornoprecosugerido').val(RetornoPrecoSugerido); // Preço de Venda x Qnt de Alunos - Despesa Total;
       $('#precificacao-planp_minimoaluno').val(MinimoAlunos); // Despesa Total / Preço de Venda;
       $('#precificacao-planp_valorparcelas').val(ValorParcelas); // Preço de Venda / Quantidade de Parcelas;
+      $('#precificacao-planp_valorcomdesconto').val(ValorComDesconto); //Cálculo do valor com desconto aplicado
 
 
       //Aplicação do Desconto de 30%
-      $('#precificacao-planp_valorcomdesconto').text($('#precificacao-desconto').val());
-          $("#precificacao-desconto").on('change', function() {
-           if ($(this).is(':checked')) {
+      // $('#precificacao-planp_valorcomdesconto').text($('#precificacao-desconto').val());
+      //     $("#precificacao-desconto").on('change', function() {
+      //      if ($(this).is(':checked')) {
 
-             desconto = (planp_precosugerido * 70) / 100;
-             $('#precificacao-planp_valorcomdesconto').val(desconto);
+      //        desconto = (planp_precosugerido * 70) / 100;
+      //        $('#precificacao-planp_valorcomdesconto').val(desconto);
 
-           } else {
-              $('#precificacao-planp_valorcomdesconto').val(0);
-           }
+      //      } else {
+      //         $('#precificacao-planp_valorcomdesconto').val(0);
+      //      }
            
-          });
+      //     });
 
     };
  });

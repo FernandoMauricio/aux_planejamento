@@ -37,6 +37,9 @@ use Yii;
  */
 class Precificacao extends \yii\db\ActiveRecord
 {
+    public $plano;
+    public $unidade;
+    public $nivelDocente;
     /**
      * @inheritdoc
      */
@@ -97,6 +100,10 @@ class Precificacao extends \yii\db\ActiveRecord
             'planp_pessoajuridica' => 'Planp Pessoajuridica',
             'planp_totalcustodireto' => 'Planp Totalcustodireto',
             'planp_totalhoraaulacustodireto' => 'Planp Totalhoraaulacustodireto',
+
+            'unidade' => 'Unidade',
+            'plano' => 'Plano',
+            'nivelDocente' => 'Nível Docente',
         ];
     }
 

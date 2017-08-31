@@ -38,69 +38,11 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-4">
-                    <?php
-                        $data_unidades = ArrayHelper::map($unidades, 'uni_codunidade', 'uni_nomeabreviado');
-                        echo $form->field($model, 'planp_codunidade')->widget(Select2::classname(), [
-                                'data' =>  $data_unidades,
-                                'options' => ['id' => 'unidade-id','placeholder' => 'Selecione a Unidade...',
-                                'onchange'=>'
-                                      var select = this;
-                                      $.getJSON( "'.Url::toRoute('/planilhas/precificacao/get-markup').'", { markup: $(this).val() } )
-                                      .done(function( data ) {
-
-                                             var $divPanelBody = $(select).parent().parent().parent().parent().parent();
-
-                                             var $zerahora             = $divPanelBody.find("input:eq(2)");
-                                             var $inputEncargos        = $divPanelBody.find("input:eq(12)");
-                                             var $inputCustoIndireto   = $divPanelBody.find("input:eq(26)");
-                                             var $inputIPCA            = $divPanelBody.find("input:eq(27)");
-                                             var $inputReservaTecnica  = $divPanelBody.find("input:eq(28)");
-                                             var $inputDespesaSede     = $divPanelBody.find("input:eq(29)");
-                                              
-                                             $zerahora.val(0);
-                                             $inputEncargos.val(data.mark_codunidade == 30 ? "32.70" : "33.29"); // Valor diferente para FATESE(Cód. 30)
-                                             $inputCustoIndireto.val(data.mark_custoindireto);
-                                             $inputIPCA.val(data.mark_ipca);
-                                             $inputReservaTecnica.val(data.mark_reservatecnica);
-                                             $inputDespesaSede.val(data.mark_despesasede);
-
-                                          });
-                                      '
-                                ]]);
-                ?>
+                    <?= $form->field($model, 'unidade')->textInput(['value' => $model->unidade->uni_nomeabreviado,'readonly' => true]) ?>
                 </div>
 
                 <div class="col-md-4">
-                    <?php
-                        $data_planos = ArrayHelper::map($planos, 'plan_codplano', 'plan_descricao');
-                        echo $form->field($model, 'planp_planodeacao')->widget(Select2::classname(), [
-                                'data' =>  $data_planos,
-                                'options' => ['id' => 'plano-id','placeholder' => 'Selecione o Curso...',
-                                'onchange'=>'
-                                      var select = this;
-                                      $.getJSON( "'.Url::toRoute('/planilhas/precificacao/get-plano').'", { plano: $(this).val() } )
-                                      .done(function( data ) {
-
-                                             var $divPanelBody = $(select).parent().parent().parent().parent().parent();
-
-                                             var $zerahoratotal            = $divPanelBody.find("input:eq(0)");
-                                             //var $zeraqntaluno             = $divPanelBody.find("input:eq(1)");
-                                             var $inputQntAluno            = $divPanelBody.find("input:eq(1)");
-                                             var $inputMaterialApostila    = $divPanelBody.find("input:eq(20)");
-                                             var $inputCustoMaterialLivro  = $divPanelBody.find("input:eq(22)");
-                                             var $inputCustoConsumo        = $divPanelBody.find("input:eq(23)");
-
-                                             $zerahoratotal.val(data.plan_cargahoraria);
-                                             //$zeraqntaluno.val(0);
-                                             $inputQntAluno.val(data.plan_qntaluno);
-                                             $inputMaterialApostila.val(data.plan_custoMaterialApostila);
-                                             $inputCustoMaterialLivro.val(data.plan_custoMaterialLivro);
-                                             $inputCustoConsumo.val(data.plan_custoTotalConsumo);
-
-                                          });
-                                      '
-                                ]]);
-                ?>
+                  <?= $form->field($model, 'plano')->textInput(['value' => $model->planodeacao->plan_descricao,'readonly' => true]) ?>
                 </div>
 
                 <div class="col-md-2">
@@ -108,7 +50,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-2">
-                    <?= $form->field($model, 'planp_qntaluno')->textInput() ?>
+                    <?= $form->field($model, 'planp_qntaluno')->textInput(['readonly' => true]) ?>
                 </div>
 
                 <div class="col-md-12">
@@ -127,47 +69,15 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-6">
-                    <?php
-                    echo $form->field($model, 'planp_docente')->widget(DepDrop::classname(), [
-                                    'type'=>DepDrop::TYPE_SELECT2,
-                                    'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
-                                    'pluginOptions'=>[
-                                        'depends'=>['plano-id'],
-                                        'placeholder'=>'Selecione o Nível do Docente...',
-                                        'initialize' => true,
-                                        'url'=>Url::to(['/planilhas/precificacao/despesasdocente'])
-                                    ],
-                                    'options' => ['id' => 'nivelDocente-id',
-                                    'onchange'=>'
-                                          var select = this;
-                                          $.getJSON( "'.Url::toRoute('/planilhas/precificacao/get-nivel-docente').'", { niveldocente: $(this).val() } )
-                                          .done(function( data ) {
-
-                                                 var $divPanelBody = $(select).parent().parent().parent().parent().parent();
-
-                                                 var $zerahora = $divPanelBody.find("input:eq(2)");
-                                                 var $zeraplanejmanento = $divPanelBody.find("input:eq(3)");
-                                                 var $inputPlanejamento = $divPanelBody.find("input:eq(4)");
-                                                 var $inputCustoindireto = $divPanelBody.find("input:eq(5)");
-
-                                                 //inputa valores
-                                                 $zerahora.val(0);
-                                                 $zeraplanejmanento.val(0);
-                                                 $inputCustoindireto.val(data.doce_valorhoraaula);
-                                                 $inputPlanejamento.val(data.doce_planejamento);
-
-                                              });
-                                          '
-                                    ]]);
-                    ?>
+                    <?= $form->field($model, 'nivelDocente')->textInput(['value' => $model->despesasdocente->doce_descricao, 'readonly' => true]) ?>
                 </div>
 
                 <div class="col-md-2">
-                    <?= $form->field($model, 'planp_totalhorasdocente')->textInput() ?>
+                    <?= $form->field($model, 'planp_totalhorasdocente')->textInput(['readonly' => true]) ?>
                 </div>
 
                 <div class="col-md-4">
-                    <?= $form->field($model, 'planp_servpedagogico')->textInput() ?>
+                    <?= $form->field($model, 'planp_servpedagogico')->textInput(['readonly' => true]) ?>
 
                     <?= $form->field($model, 'hiddenPlanejamento')->hiddenInput()->label(false); ?>
                 </div>
@@ -338,20 +248,20 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
             <div class="row">
                 <div class="col-md-3">
-                    <?= $form->field($model, 'planp_diarias')->textInput(['value' => 0]) ?>
+                    <?= $form->field($model, 'planp_diarias')->textInput(['readonly' => true]); ?>
                 </div>
 
                 <div class="col-md-3">
-                    <?= $form->field($model, 'planp_passagens')->textInput(['value' => 0]) ?>
+                    <?= $form->field($model, 'planp_passagens')->textInput(['readonly' => true]); ?>
                 </div>
 
 
                 <div class="col-md-3">
-                    <?= $form->field($model, 'planp_pessoafisica')->textInput(['value' => 0]) ?>
+                    <?= $form->field($model, 'planp_pessoafisica')->textInput(['readonly' => true]); ?>
                 </div>
 
                 <div class="col-md-3">
-                    <?= $form->field($model, 'planp_pessoajuridica')->textInput(['value' => 0]) ?>
+                    <?= $form->field($model, 'planp_pessoajuridica')->textInput(['readonly' => true]); ?>
                 </div>
             </div>
 
@@ -373,18 +283,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-                    <?= $form->field($model, 'planp_totalcustodireto')->widget(\yii\widgets\MaskedInput::className(), [
-                            'clientOptions' => [
-                            'alias' => 'decimal',
-                            'digits' => 2,
-                            'prefix' => 'R$ ',
-                            'groupSeparator' => '.',
-                            'radixPoint' => ',',
-                            'autoGroup' => true,
-                            'removeMaskOnSubmit' => true,
-                            ],
-                            'options' => ['readonly' => true, 'class' => 'form-control' ]
-                    ]); ?>
+                    <?= $form->field($model, 'planp_totalcustodireto')->textInput(['readonly' => true]); ?>
                 </div>
             </div>
 
@@ -429,7 +328,16 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-                    <?= $form->field($model, 'planp_ipca')->textInput() ?>
+                    <?= $form->field($model, 'planp_ipca')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
                 </div>
 
                 <div class="col-md-3">
@@ -489,18 +397,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-6">
-                    <?= $form->field($model, 'planp_despesatotal')->widget(\yii\widgets\MaskedInput::className(), [
-                            'clientOptions' => [
-                            'alias' => 'decimal',
-                            'digits' => 2,
-                            'prefix' => 'R$ ',
-                            'groupSeparator' => '.',
-                            'radixPoint' => ',',
-                            'autoGroup' => true,
-                            'removeMaskOnSubmit' => true,
-                            ],
-                            'options' => ['readonly' => true, 'class' => 'form-control' ]
-                    ]); ?>
+                    <?= $form->field($model, 'planp_despesatotal')->textInput(['readonly' => true]) ?>
                 </div>
             </div>
 
@@ -629,8 +526,34 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-                    <?= $form->field($model, 'planp_minimoaluno')->textInput(['readonly' => true]) ?>
+                    <?= $form->field($model, 'planp_vendaturmasugerido')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
                 </div>
+
+                <div class="col-md-3">
+                    <?= $form->field($model, 'planp_porcentretornosugerido')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+
             </div>
 
 
@@ -642,6 +565,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 <div class="col-md-3">
                     <?= $form->field($model, 'planp_valorparcelas')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
+                            'value' => $model->planp_valorparcelas,
                             'alias' => 'decimal',
                             'digits' => 0,
                             'prefix' => 'R$ ',
@@ -674,6 +598,12 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             </div>
 
             </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <?= $form->field($model, 'planp_minimoaluno')->textInput(['readonly' => true]) ?>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -685,4 +615,4 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
 </div>
 
-<?php $this->registerJsFile('@web/js/precificacao.js', ['depends' => [\yii\web\JqueryAsset::className()]]); ?>
+<?php $this->registerJsFile('@web/js/precificacao_update.js', ['depends' => [\yii\web\JqueryAsset::className()]]); ?>

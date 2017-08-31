@@ -155,7 +155,7 @@ class PrecificacaoController extends Controller
 
         $sourceMarkup = new MarkupSearch();
         $dataProvider = $sourceMarkup->search(Yii::$app->request->getQueryParams());
-        $markups = $dataProvider->getModels();
+        $markups      = $dataProvider->getModels();
 
         $planos       = Planodeacao::find()->where(['plan_status' => 1])->orderBy('plan_descricao')->all();
         $unidades     = Unidade::find()->where(['uni_codsituacao' => 1, 'uni_coddisp' => 1])->orderBy('uni_nomeabreviado')->all();
@@ -248,6 +248,11 @@ class PrecificacaoController extends Controller
         $session = Yii::$app->session;
 
         $model = $this->findModel($id);
+        $precificacaoUnidades = new PrecificacaoUnidades();
+
+        $sourceMarkup = new MarkupSearch();
+        $dataProvider = $sourceMarkup->search(Yii::$app->request->getQueryParams());
+        $markups      = $dataProvider->getModels();
 
         $planos       = Planodeacao::find()->where(['plan_status' => 1])->orderBy('plan_descricao')->all();
         $unidades     = Unidade::find()->where(['uni_codsituacao' => 1, 'uni_coddisp' => 1])->orderBy('uni_nomeabreviado')->all();
@@ -256,7 +261,63 @@ class PrecificacaoController extends Controller
         $model->planp_data           = date('Y-m-d');
         $model->planp_codcolaborador = $session['sess_codcolaborador'];
 
+        //Realiza a Verificação se as configurações estão atualizadas do Markup
+        foreach ($markups as $markup) {
+                    if($markup->mark_ano != date('Y')){
+                         Yii::$app->session->setFlash('danger', "As Configurações de Markup estão configuradas para o ano de <strong>" .$markup->mark_ano. "</strong>. Por gentileza, atualize as informações para o ano corrente(" .date('Y').") na tela de Configuração de Markup.<strong> clicando aqui</strong>!" );
+
+                         return $this->render('update', [
+                            'model' => $model,
+                            'precificacaoUnidades' => $precificacaoUnidades,
+                            'planos' => $planos,
+                            'unidades' => $unidades,
+                            'nivelDocente' => $nivelDocente,
+                        ]);
+                    }else{
+                        Yii::$app->session->removeFlash('danger',null);
+                    }
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+        //Realiza a Verificação se as configurações estão atualizadas do Markup
+        foreach ($markups as $markup) {
+                    if($markup->mark_ano != date('Y')){
+                         Yii::$app->session->setFlash('danger', "As Configurações de Markup estão configuradas para o ano de <strong>" .$markup->mark_ano. "</strong>. Por gentileza, atualize as informações para o ano corrente(" .date('Y').") na tela de Configuração de Markup.<strong> clicando aqui</strong>!" );
+                    }else{
+                        Yii::$app->session->removeFlash('danger',null);
+                    }
+        }
+
+            if($model->save()){
+
+                $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_custosmateriais + $model->planp_custosconsumo;
+
+                //SE A UNIDADE FOR FATESE OS ENCARGOS SERÃO 32.7
+                $model->planp_encargos = $model->planp_codunidade == 30 ? $model->planp_encargos = 32.70 : $model->planp_encargos = 33.29;
+
+                //Localiza as unidades configuradas pelo MARKUP
+                $listagemUnidades = "SELECT * FROM markup_mark WHERE mark_tipo = 1";
+                $unidadesMarkup = Markup::findBySql($listagemUnidades)->all();
+
+                foreach ($unidadesMarkup as $unidadeMarkup) {
+
+                    $mark_codunidade = $unidadeMarkup['mark_codunidade'];
+                    $mark_divisor    = $unidadeMarkup['mark_divisor'];
+
+                    $PrecoVendaTurma    = ($model->planp_totalcustodireto / $mark_divisor) * 100; // Valores em % -> Preço de Venda = Total Custo Direto / Markup Divisor
+                    $PrecoVendaAluno    = $PrecoVendaTurma / $model->planp_qntaluno; //Preço de Venda da Turma / QNT Alunos
+                    $ValorHoraAulaAluno = $PrecoVendaTurma / $model->planp_cargahoraria / $model->planp_qntaluno; //Preço de Venda da Turma / CH TOTAL / QNT Alunos
+
+                    $command = Yii::$app->db_apl->createCommand();
+                    $command->update('db_apl2.precificacao_unidades', array('uprec_codunidade'=>$mark_codunidade, 'precificacao_id' => $model->planp_id, 'uprec_cargahoraria' => $model->planp_cargahoraria, 'uprec_qntaluno' => $model->planp_qntaluno, 'uprec_totalcustodireto' => $model->planp_totalcustodireto, 'uprec_vendaturma' => $PrecoVendaTurma, 'uprec_vendaaluno' => $PrecoVendaAluno, 'uprec_horaaula' => $ValorHoraAulaAluno), array('precificacao_id' => $model->planp_id, 'uprec_codunidade'=>$mark_codunidade));
+                    $command->execute();
+
+                    }
+
+                    $precificacaoUnidades->save();
+                }
+
             return $this->redirect(['view', 'id' => $model->planp_id]);
         } else {
             return $this->render('update', [

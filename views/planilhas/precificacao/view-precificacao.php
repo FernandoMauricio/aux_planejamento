@@ -135,7 +135,8 @@
 
                   <div class="col-md-3"><strong>Mark-Up Multiplicador 100/Markup:</strong><br> <?php echo number_format($model->planp_markmultiplicador, 2, ',', '.') . '%'; ?></div>
 
-                  <div class="col-md-4"><strong>Preço de Venda Total da Turma:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaturma, 2, ',', '.'); ?></div>
+                  <div class="col-md-3"><strong>Preço de Venda Total da Turma:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaturma, 2, ',', '.'); ?></div>
+
           </div>
 
         <br>
@@ -146,8 +147,9 @@
                   <div class="col-md-3"><strong>Retorno com Preço de Venda:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_retorno, 2, ',', '.'); ?></div>
 
                   <div class="col-md-3"><strong>Valor Hora/Aula por Aluno:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_horaaulaaluno, 2, ',', '.'); ?> </div>
+                  
+                  <div class="col-md-3"><strong>% de Retorno:</strong><br> <?php echo number_format($model->planp_porcentretorno, 2, ',', '.') . '%'; ?></div>
 
-                  <div class="col-md-3"><strong>% de Retorno:</strong><br>  <?php echo number_format($model->planp_porcentretorno, 2, ',', '.') . '%'; ?></div>
           </div>
 
         <br>
@@ -157,7 +159,9 @@
 
                   <div class="col-md-3"><strong>Retorno com Preço de Venda:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_retornoprecosugerido, 2, ',', '.'); ?></div>
 
-                  <div class="col-md-3"><strong>Numero minimo de alunos por turma:</strong><br> <?php echo $model->planp_minimoaluno; ?></div>
+                  <div class="col-md-3"><strong>Valor Total:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaturmasugerido, 2, ',', '.'); ?></div>
+
+                  <div class="col-md-3"><strong>% de Retorno(Preço de Venda):</strong><br> <?php echo $model->planp_porcentretornosugerido; ?></div>
           </div>
 
           <br>
@@ -167,7 +171,15 @@
 
                   <div class="col-md-3"><strong>Valor das Parcelas:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_valorparcelas, 2, ',', '.'); ?></div>
 
+                  <div class="col-md-3"><strong>Desconto:</strong><br> <?php echo $model->planp_desconto . '%'; ?></div>
+
                   <div class="col-md-3"><strong>Valor com desconto:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_valorcomdesconto, 2, ',', '.'); ?></div>
+          </div>
+
+          <br>
+
+          <div class="row">
+                  <div class="col-md-3"><strong>Numero minimo de alunos por turma:</strong><br> <?php echo $model->planp_minimoaluno; ?></div>
           </div>
 
         <br>
