@@ -97,12 +97,12 @@ use yii\helpers\Html;
         <tr>
             <td style="font-size:11px;" colspan="4"><strong>Mark-Up Divisor 100-X/100: </strong><br> <?php echo number_format($model->planp_markdivisor, 2, ',', '.') . '%'; ?></td>
             <td style="font-size:11px;" colspan="4"><strong>Mark-Up Multiplicador 100/Markup: </strong><br> <?php echo number_format($model->planp_markmultiplicador, 2, ',', '.') . '%'; ?></td>
-            <td style="font-size:11px;" colspan="4"><strong>Preço de Venda Total da Turma: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaturma, 2, ',', '.'); ?></td>
+            <td style="font-size:11px;" colspan="3"><strong>Valor Hora/Aula por Aluno: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_horaaulaaluno, 2, ',', '.'); ?></td>
         </tr>
         <tr>
             <td style="font-size:11px;" colspan="3"><strong>Preço de Venda pela planilha: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaaluno, 2, ',', '.'); ?></td>
             <td style="font-size:11px;" colspan="3"><strong>Retorno com Preço de Venda: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_retorno, 2, ',', '.'); ?></td>
-            <td style="font-size:11px;" colspan="3"><strong>Valor Hora/Aula por Aluno: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_horaaulaaluno, 2, ',', '.'); ?></td>
+            <td style="font-size:11px;" colspan="4"><strong>Preço de Venda Total da Turma: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaturma, 2, ',', '.'); ?></td>
             <td style="font-size:11px;" colspan="3"><strong>% de Retorno: </strong><br> <?php echo number_format($model->planp_porcentretorno, 2, ',', '.') . '%'; ?></td>
         </tr>
         <tr>

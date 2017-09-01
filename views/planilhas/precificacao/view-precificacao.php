@@ -135,7 +135,7 @@
 
                   <div class="col-md-3"><strong>Mark-Up Multiplicador 100/Markup:</strong><br> <?php echo number_format($model->planp_markmultiplicador, 2, ',', '.') . '%'; ?></div>
 
-                  <div class="col-md-3"><strong>Preço de Venda Total da Turma:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaturma, 2, ',', '.'); ?></div>
+                  <div class="col-md-3"><strong>Valor Hora/Aula por Aluno:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_horaaulaaluno, 2, ',', '.'); ?> </div>
 
           </div>
 
@@ -145,8 +145,8 @@
                   <div class="col-md-3"><strong>Preço de Venda pela planilha:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaaluno, 2, ',', '.'); ?></div>
 
                   <div class="col-md-3"><strong>Retorno com Preço de Venda:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_retorno, 2, ',', '.'); ?></div>
-
-                  <div class="col-md-3"><strong>Valor Hora/Aula por Aluno:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_horaaulaaluno, 2, ',', '.'); ?> </div>
+                 
+                  <div class="col-md-3"><strong>Preço de Venda Total da Turma:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaturma, 2, ',', '.'); ?></div>
                   
                   <div class="col-md-3"><strong>% de Retorno:</strong><br> <?php echo number_format($model->planp_porcentretorno, 2, ',', '.') . '%'; ?></div>
 

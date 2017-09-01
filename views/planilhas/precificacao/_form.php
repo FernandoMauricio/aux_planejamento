@@ -531,8 +531,8 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                     ]); ?>
                 </div>
 
-                <div class="col-md-6">
-                    <?= $form->field($model, 'planp_vendaturma')->widget(\yii\widgets\MaskedInput::className(), [
+                <div class="col-md-3">
+                    <?= $form->field($model, 'planp_horaaulaaluno')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,
@@ -579,7 +579,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-                    <?= $form->field($model, 'planp_horaaulaaluno')->widget(\yii\widgets\MaskedInput::className(), [
+                    <?= $form->field($model, 'planp_vendaturma')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
                             'digits' => 2,
