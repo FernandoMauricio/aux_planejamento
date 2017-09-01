@@ -47,7 +47,6 @@ $(function() {
       //CÁLCULOS REALIZADOS
 
       //SEÇÃO 3
-
       var RetornoPrecoSugerido        = (planp_precosugerido * planp_qntaluno) - despesaTotal; // Preço de Venda x Qnt de Alunos - Despesa Total;
       var MinimoAlunos                = Math.ceil(despesaTotal / planp_precosugerido); // Despesa Total / Preço de Venda;
       var ValorParcelas               =  planp_precosugerido / planp_parcelas;
@@ -55,7 +54,7 @@ $(function() {
       var MarkupDivisor               = (100 - totalIncidencia);
       var PrecoVendaTurmaSugerido     = (valorTotalDireto / MarkupDivisor) * 100; // Valores em %
       var ValorTotalPrecoDeVendaTurma = (planp_precosugerido * planp_qntaluno);
-      var PorcentagemRetorno          = (RetornoPrecoSugerido / PrecoVendaTurmaSugerido) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
+      var PorcentagemRetornoSugerido          = (RetornoPrecoSugerido / PrecoVendaTurmaSugerido) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
 
       //Aplicação do Desconto em cima do Preço Sugerido
       var ValorComDesconto = planp_precosugerido - ((planp_precosugerido * planp_desconto) / 100);
@@ -66,7 +65,7 @@ $(function() {
       $('#precificacao-planp_valorparcelas').val(ValorParcelas); // Preço de Venda / Quantidade de Parcelas;
       $('#precificacao-planp_valorcomdesconto').val(ValorComDesconto); //Cálculo do valor com desconto aplicado
       $('#precificacao-planp_vendaturmasugerido').val(ValorTotalPrecoDeVendaTurma); //Cálculo do Preço Sugerido x quantidade de alunos
-      $('#precificacao-planp_porcentretornosugerido').val(PorcentagemRetorno); //Cálculo do valor com desconto aplicado
+      $('#precificacao-planp_porcentretornosugerido').val(PorcentagemRetornoSugerido); //Cálculo do valor com desconto aplicado
 
     };
  });

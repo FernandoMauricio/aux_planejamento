@@ -629,8 +629,34 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-                    <?= $form->field($model, 'planp_minimoaluno')->textInput(['readonly' => true]) ?>
+                    <?= $form->field($model, 'planp_vendaturmasugerido')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
                 </div>
+
+                <div class="col-md-3">
+                    <?= $form->field($model, 'planp_porcentretornosugerido')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'suffix' => '%',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+                </div>
+
+
             </div>
 
 
@@ -642,6 +668,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 <div class="col-md-3">
                     <?= $form->field($model, 'planp_valorparcelas')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
+                            'value' => $model->planp_valorparcelas,
                             'alias' => 'decimal',
                             'digits' => 0,
                             'prefix' => 'R$ ',
@@ -673,6 +700,12 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                     ]); ?>
             </div>
 
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <?= $form->field($model, 'planp_minimoaluno')->textInput(['readonly' => true]) ?>
+                </div>
             </div>
         </div>
     </div>

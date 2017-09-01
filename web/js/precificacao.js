@@ -133,32 +133,34 @@ $(function() {
 
       //CÁLCULOS REALIZADOS
       //SEÇÃO 2
-      var valor_servpedagogico     = planp_servpedagogico * hiddenplanejamento;
-      var valorTotalMaoDeObra      = (planp_totalhorasdocente * planp_valorhoraaula) + valor_servpedagogico;
-      var valorDecimo              = valorTotalMaoDeObra / 12;
-      var valorFerias              = valorTotalMaoDeObra / 12;
-      var valorTercoFerias         = valorTotalMaoDeObra / 12 / 3;
-      var totalSalarios            = valorTotalMaoDeObra + valorDecimo + valorFerias + valorTercoFerias;
-      var totalEncargos            = (totalSalarios * planp_encargos) / 100;
-      var totalSalariosEncargos    = totalSalarios + totalEncargos;
-      var totalMaterial            = hiddenmaterialdidatico * planp_qntaluno;
-      var totalPJApostila          = hiddenPJApostila * planp_qntaluno;
-      var valorTotalDireto         = totalSalariosEncargos + planp_diarias + planp_passagens + planp_pessoafisica + planp_pessoajuridica + totalPJApostila + totalMaterial + planp_custosconsumo;
-      var totalhoraaulacustodireto = valorTotalDireto / planp_cargahoraria / planp_qntaluno;
+      var valor_servpedagogico        = planp_servpedagogico * hiddenplanejamento;
+      var valorTotalMaoDeObra         = (planp_totalhorasdocente * planp_valorhoraaula) + valor_servpedagogico;
+      var valorDecimo                 = valorTotalMaoDeObra / 12;
+      var valorFerias                 = valorTotalMaoDeObra / 12;
+      var valorTercoFerias            = valorTotalMaoDeObra / 12 / 3;
+      var totalSalarios               = valorTotalMaoDeObra + valorDecimo + valorFerias + valorTercoFerias;
+      var totalEncargos               = (totalSalarios * planp_encargos) / 100;
+      var totalSalariosEncargos       = totalSalarios + totalEncargos;
+      var totalMaterial               = hiddenmaterialdidatico * planp_qntaluno;
+      var totalPJApostila             = hiddenPJApostila * planp_qntaluno;
+      var valorTotalDireto            = totalSalariosEncargos + planp_diarias + planp_passagens + planp_pessoafisica + planp_pessoajuridica + totalPJApostila + totalMaterial + planp_custosconsumo;
+      var totalhoraaulacustodireto    = valorTotalDireto / planp_cargahoraria / planp_qntaluno;
 
       //SEÇÃO 3
-      var totalIncidencia       = planp_custosindiretos + planp_ipca + planp_reservatecnica + planp_despesadm;
-      var totalCustoIndireto    = (valorTotalDireto * planp_totalincidencias) / 100;
-      var despesaTotal          = totalCustoIndireto + valorTotalDireto;
+      var totalIncidencia             = planp_custosindiretos + planp_ipca + planp_reservatecnica + planp_despesadm;
+      var totalCustoIndireto          = (valorTotalDireto * planp_totalincidencias) / 100;
+      var despesaTotal                = totalCustoIndireto + valorTotalDireto;
 
-      var MarkupDivisor        = (100 - totalIncidencia);
-      var MarkupMultiplicador  = ((100 / MarkupDivisor) - 1) * 100; // Valores em %
-      var PrecoVendaTurma      = (valorTotalDireto / MarkupDivisor) * 100; // Valores em %
-      var PrecoVendaAluno      = (PrecoVendaTurma / planp_qntaluno);
-      var ValorhoraAulaAluno   = PrecoVendaTurma / planp_cargahoraria / planp_qntaluno; //Preço de Venda da Turma / CH TOTAL / QNT Alunos
-      var RetornoPrecoVenda    = PrecoVendaTurma - despesaTotal; // Preço de venda da turma - Despesa Total;
-      var PorcentagemRetorno   = (RetornoPrecoVenda / PrecoVendaTurma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
-      var RetornoPrecoSugerido = (planp_precosugerido * planp_qntaluno) - despesaTotal; // Preço de Venda x Qnt de Alunos - Despesa Total;
+      var MarkupDivisor               = (100 - totalIncidencia);
+      var MarkupMultiplicador         = ((100 / MarkupDivisor) - 1) * 100; // Valores em %
+      var PrecoVendaTurma             = (valorTotalDireto / MarkupDivisor) * 100; // Valores em %
+      var PrecoVendaAluno             = (PrecoVendaTurma / planp_qntaluno);
+      var ValorhoraAulaAluno          = PrecoVendaTurma / planp_cargahoraria / planp_qntaluno; //Preço de Venda da Turma / CH TOTAL / QNT Alunos
+      var RetornoPrecoVenda           = PrecoVendaTurma - despesaTotal; // Preço de venda da turma - Despesa Total;
+      var PorcentagemRetorno          = (RetornoPrecoVenda / PrecoVendaTurma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
+      var RetornoPrecoSugerido        = (planp_precosugerido * planp_qntaluno) - despesaTotal; // Preço de Venda x Qnt de Alunos - Despesa Total;
+      var PorcentagemRetornoSugerido  = (RetornoPrecoSugerido / PrecoVendaTurma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
+      var ValorTotalPrecoDeVendaTurma = (planp_precosugerido * planp_qntaluno);
 
       var MinimoAlunos = Math.ceil(despesaTotal / planp_precosugerido); // Despesa Total / Preço de Venda;
 
@@ -253,6 +255,9 @@ $(function() {
       $('#precificacao-planp_minimoaluno').val(MinimoAlunos); // Despesa Total / Preço de Venda;
       $('#precificacao-planp_valorparcelas').val(ValorParcelas); // Preço de Venda / Quantidade de Parcelas;
       $('#precificacao-planp_valorcomdesconto').val(ValorComDesconto); //Cálculo do valor com desconto aplicado
+
+      $('#precificacao-planp_vendaturmasugerido').val(ValorTotalPrecoDeVendaTurma); //Cálculo do Preço Sugerido x quantidade de alunos
+      $('#precificacao-planp_porcentretornosugerido').val(PorcentagemRetornoSugerido); //Cálculo do valor com desconto aplicado
 
 
       //Aplicação do Desconto de 30%

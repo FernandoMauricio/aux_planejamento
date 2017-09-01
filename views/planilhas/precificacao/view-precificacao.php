@@ -161,7 +161,7 @@
 
                   <div class="col-md-3"><strong>Valor Total:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaturmasugerido, 2, ',', '.'); ?></div>
 
-                  <div class="col-md-3"><strong>% de Retorno(Preço de Venda):</strong><br> <?php echo $model->planp_porcentretornosugerido; ?></div>
+                  <div class="col-md-3"><strong>% de Retorno(Preço de Venda):</strong><br> <?php echo number_format($model->planp_porcentretornosugerido, 2, ',', '.') . '%'; ?></div>
           </div>
 
           <br>

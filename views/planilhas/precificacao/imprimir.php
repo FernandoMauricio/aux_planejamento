@@ -106,15 +106,19 @@ use yii\helpers\Html;
             <td style="font-size:11px;" colspan="3"><strong>% de Retorno: </strong><br> <?php echo number_format($model->planp_porcentretorno, 2, ',', '.') . '%'; ?></td>
         </tr>
         <tr>
-            <td style="font-size:11px;" colspan="4"><strong>Preço de Venda: </strong><br>  <?php echo 'R$ ' . number_format( $model->planp_precosugerido, 2, ',', '.'); ?></td>
-            <td style="font-size:11px;" colspan="4"><strong>Retorno com Preço de Venda: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_retornoprecosugerido, 2, ',', '.'); ?></td>
-            <td style="font-size:11px;" colspan="4"><strong>Numero minimo de alunos por turma: </strong><br> <?php echo $model->planp_minimoaluno; ?></td>
+            <td style="font-size:11px;" colspan="3"><strong>Preço de Venda: </strong><br>  <?php echo 'R$ ' . number_format( $model->planp_precosugerido, 2, ',', '.'); ?></td>
+            <td style="font-size:11px;" colspan="3"><strong>Retorno com Preço de Venda: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_retornoprecosugerido, 2, ',', '.'); ?></td>
+            <td style="font-size:11px;" colspan="3"><strong>Valor Total:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaturmasugerido, 2, ',', '.'); ?></td>
+            <td style="font-size:11px;" colspan="3"><strong>% de Retorno(Preço de Venda):</strong><br> <?php echo number_format($model->planp_porcentretornosugerido, 2, ',', '.') . '%'; ?></td>
         </tr>
         <tr>
-            <td style="font-size:11px;" colspan="4"><strong>Quantidade de Parcelas: </strong><br> <?php echo $model->planp_parcelas; ?></td>
-            <td style="font-size:11px;" colspan="4"><strong>Valor das Parcelas: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_valorparcelas, 2, ',', '.'); ?></td>
-            <td style="font-size:11px;" colspan="4"><strong>Valor com desconto: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_valorcomdesconto, 2, ',', '.'); ?></td>
-            <td style="font-size:11px;" colspan="4"></td>
+            <td style="font-size:11px;" colspan="3"><strong>Quantidade de Parcelas: </strong><br> <?php echo $model->planp_parcelas; ?></td>
+            <td style="font-size:11px;" colspan="3"><strong>Valor das Parcelas: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_valorparcelas, 2, ',', '.'); ?></td>
+            <td style="font-size:11px;" colspan="3"><strong>Desconto:</strong><br> <?php echo $model->planp_desconto . '%'; ?></div>
+            <td style="font-size:11px;" colspan="3"><strong>Valor com desconto: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_valorcomdesconto, 2, ',', '.'); ?></td>
+        </tr>
+        <tr>
+            <td style="font-size:11px;" colspan="12"><strong>Numero minimo de alunos por turma: </strong><br> <?php echo $model->planp_minimoaluno; ?></td>
         </tr>
     </tbody>
    </table>
