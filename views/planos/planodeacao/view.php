@@ -48,6 +48,16 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                       'title'=>' Clique aqui para gerar um arquivo PDF'
                   ]);
             ?>
+
+            <?php
+                  echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Informações Comerciais', ['imprimir-informacoes-comerciais','id' => $model->plan_codplano], [
+                      'class'=>'btn btn-danger', 
+                      'target'=>'_blank', 
+                      'data-toggle'=>'tooltip', 
+                      'title'=>' Clique aqui para gerar um arquivo PDF'
+                  ]);
+            ?>
+
             <?php
                   echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Material do Aluno', ['imprimir-material-aluno','id' => $model->plan_codplano], [
                       'class'=>'btn btn-primary pull-right', 
