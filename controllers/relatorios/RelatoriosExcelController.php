@@ -129,7 +129,7 @@ class RelatoriosExcelController extends Controller
                     $objPHPExcel->getActiveSheet()->setCellValue('E'.$row,$foo['plan_descricao']);
                     $objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$foo['niv_sigla']);
                     $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$foo['placu_anoexercicio']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['descricao']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['cat_descricao']);
                     $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$foo['placu_quantidadeturmas']);
                     $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$foo['placu_cargahorariaplano']);
                     $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['CH_TOTAL']);
