@@ -58,7 +58,7 @@ class RelatoriosExcelController extends Controller
                         `planodeacao_plan`.`plan_descricao`,
                         `nivel_niv`.`niv_sigla`,
                         `planilhadecurso_placu`.`placu_anoexercicio`,
-                        `categoria`.`descricao`,
+                        `categoriaplanilha_cat`.`cat_descricao`,
                         `planilhadecurso_placu`.`placu_quantidadeturmas`,
                         `planilhadecurso_placu`.`placu_cargahorariaplano`,
                         (`planilhadecurso_placu`.`placu_quantidadeturmas` * `planilhadecurso_placu`.`placu_cargahorariaplano`) AS CH_TOTAL,
@@ -74,10 +74,10 @@ class RelatoriosExcelController extends Controller
                         INNER JOIN `tipodeacao_tip` ON `planilhadecurso_placu`.`placu_codtipoa` = `tipodeacao_tip`.`tip_codtipoa` 
                         INNER JOIN `planodeacao_plan` ON `planilhadecurso_placu`.`placu_codplano` = `planodeacao_plan`.`plan_codplano` 
                         INNER JOIN `nivel_niv` ON `planilhadecurso_placu`.`placu_codnivel` = `nivel_niv`.`niv_codnivel`
-                        INNER JOIN `categoria` ON `planilhadecurso_placu`.`placu_codcategoria` = `categoria`.`idcategoria`
+                        INNER JOIN `categoriaplanilha_cat` ON `planilhadecurso_placu`.`placu_codcategoria` = `categoriaplanilha_cat`.`cat_codcategoria`
                     WHERE 
-                        `planilhadecurso_placu`.`placu_codsituacao` = 4 
-                        AND `seg_codsegmento` = `placu_codsegmento`
+                        `planilhadecurso_placu`.`placu_codsituacao` = 4
+                    AND `seg_codsegmento` = `placu_codsegmento`
                     ');
 
                 $foos = $command->queryAll();
