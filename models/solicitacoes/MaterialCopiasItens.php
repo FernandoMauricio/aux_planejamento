@@ -45,8 +45,8 @@ class MaterialCopiasItens extends \yii\db\ActiveRecord
     {
         return [
             [['item_descricao', 'item_qtoriginais', 'item_qtexemplares', 'item_qteCopias', 'item_mono', 'item_color', 'item_qteTotal'], 'required'],
-            [['id', 'item_qtoriginais', 'item_qtexemplares', 'item_qteCopias', 'item_mono', 'item_color', 'item_qteTotal', 'materialcopias_id'], 'integer'],
-            [['item_descricao', 'item_observacao'], 'string', 'max' => 255],
+            [['id', 'item_qtoriginais', 'item_qtexemplares', 'item_qteCopias', 'item_mono', 'item_color', 'item_qteTotal', 'materialcopias_id', 'item_codrepositorio'], 'integer'],
+            [['item_descricao', 'item_observacao', 'item_arquivo'], 'string', 'max' => 255],
             //[['item_color'], 'compare','compareAttribute'=>'item_mono'],
             [['materialcopias_id'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialCopias::className(), 'targetAttribute' => ['materialcopias_id' => 'matc_id']],
         ];
@@ -60,6 +60,7 @@ class MaterialCopiasItens extends \yii\db\ActiveRecord
         return [
             'id' => 'Item ID',
             'item_descricao' => 'Material',
+            'item_arquivo' => 'Arquivo',
             'item_qtoriginais' => 'Qte Originais',
             'item_qtexemplares' => 'Qte Exemplares',
             'item_qteCopias' => 'Qte Copias',

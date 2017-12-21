@@ -70,7 +70,7 @@ class RelatorioGeralController extends Controller
     {
        $this->layout = 'main-imprimir';
        $combounidade         = $this->findModelUnidade($combounidade);
-       $ano_orcamento         = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento        = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha    = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha        = $this->findModelTipoPlanilha($tipo_planilha);
        $modelorelatorio      = $modelorelatorio;
@@ -78,7 +78,7 @@ class RelatorioGeralController extends Controller
 
             return $this->render('/relatorios/relatorio-geral/relatorio-geral-modelo-1', [
               'combounidade'         => $combounidade,
-              'ano_orcamento'         => $ano_orcamento, 
+              'ano_orcamento'        => $ano_orcamento, 
               'situacao_planilha'    => $situacao_planilha,
               'tipo_planilha'        => $tipo_planilha,
               'combotipoprogramacao' => $combotipoprogramacao,
@@ -90,7 +90,7 @@ class RelatorioGeralController extends Controller
 
        $this->layout = 'main-imprimir';
        $combounidade         = $this->findModelUnidade($combounidade);
-       $ano_orcamento         = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento        = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha    = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha        = $this->findModelTipoPlanilha($tipo_planilha);
        $modelorelatorio      = $modelorelatorio;
@@ -99,7 +99,7 @@ class RelatorioGeralController extends Controller
 
              return $this->render('/relatorios/relatorio-geral/relatorio-geral-modelo-2', [
               'combounidade'         => $combounidade,
-              'ano_orcamento'         => $ano_orcamento, 
+              'ano_orcamento'        => $ano_orcamento, 
               'situacao_planilha'    => $situacao_planilha,
               'tipo_planilha'        => $tipo_planilha,
               'combotipoprogramacao' => $combotipoprogramacao,
@@ -111,7 +111,7 @@ class RelatorioGeralController extends Controller
 
        $this->layout = 'main-imprimir';
        $combounidade         = $this->findModelUnidade($combounidade);
-       $ano_orcamento         = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento        = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha    = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha        = $this->findModelTipoPlanilha($tipo_planilha);
        $modelorelatorio      = $modelorelatorio;
@@ -119,7 +119,7 @@ class RelatorioGeralController extends Controller
 
             return $this->render('/relatorios/relatorio-geral/relatorio-geral-modelo-2-psg', [
               'combounidade'         => $combounidade,
-              'ano_orcamento'         => $ano_orcamento, 
+              'ano_orcamento'        => $ano_orcamento, 
               'situacao_planilha'    => $situacao_planilha,
               'tipo_planilha'        => $tipo_planilha,
               'combotipoprogramacao' => $combotipoprogramacao,
@@ -131,7 +131,7 @@ class RelatorioGeralController extends Controller
 
        $this->layout = 'main-imprimir';
        $combounidade         = $this->findModelUnidade($combounidade);
-       $ano_orcamento         = $this->findModelAnoPlanilha($ano_orcamento);
+       $ano_orcamento        = $this->findModelAnoPlanilha($ano_orcamento);
        $situacao_planilha    = $this->findModelSituacaoPlanilha($situacao_planilha);
        $tipo_planilha        = $this->findModelTipoPlanilha($tipo_planilha);
        $modelorelatorio      = $modelorelatorio;
@@ -139,7 +139,7 @@ class RelatorioGeralController extends Controller
 
             return $this->render('/relatorios/relatorio-geral/relatorio-geral-modelo-2-nao-psg', [
               'combounidade'         => $combounidade,
-              'ano_orcamento'         => $ano_orcamento, 
+              'ano_orcamento'        => $ano_orcamento, 
               'situacao_planilha'    => $situacao_planilha,
               'tipo_planilha'        => $tipo_planilha,
               'combotipoprogramacao' => $combotipoprogramacao,

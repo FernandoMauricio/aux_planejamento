@@ -145,6 +145,7 @@ $attributes = [
         <th>Color</th>
         <th>Qte Total</th>
         <th>Observação</th>
+        <th>Arquivo</th>
       </tr>
     </thead>
     <tbody>
@@ -154,14 +155,16 @@ $attributes = [
   $query_itens = "SELECT * FROM materialcopias_item WHERE materialcopias_id = '".$model->matc_id."'";
   $itensModel = MaterialCopiasItens::findBySql($query_itens)->all(); 
   foreach ($itensModel as $itens) {
+   $item_repositorio  = $itens["item_codrepositorio"];
    $item_descricao    = $itens["item_descricao"];
-   $item_qtoriginais = $itens["item_qtoriginais"];
-   $item_qtexemplares   = $itens["item_qtexemplares"];
+   $item_qtoriginais  = $itens["item_qtoriginais"];
+   $item_qtexemplares = $itens["item_qtexemplares"];
    $item_qteCopias    = $itens["item_qteCopias"];
    $item_mono         = $itens["item_mono"];
    $item_color        = $itens["item_color"];
    $item_qteTotal     = $itens["item_qteTotal"];
    $item_observacao   = $itens["item_observacao"];
+   $item_arquivo      = $itens["item_arquivo"];
    ?>
       <tr>
         <td><?php echo $item_descricao; ?></td>
@@ -172,6 +175,7 @@ $attributes = [
         <td><?php echo $item_color; ?></td>
         <td><?php echo $item_qteTotal; ?></td>
         <td><?php echo $item_observacao; ?></td>
+        <td valign="middle"><a target="_blank" href="http://localhost/aux_planejamento/web/uploads/repositorio/<?php echo $item_repositorio; ?>/<?php echo $item_arquivo; ?>" "><?php echo $item_arquivo; ?></a>
       </tr>
 
     <?php } ?>

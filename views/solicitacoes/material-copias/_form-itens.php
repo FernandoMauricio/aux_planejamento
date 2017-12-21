@@ -54,7 +54,6 @@ $this->registerJs($js);
                                             ],
                                         ]); ?>
 
-
         <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class="glyphicon glyphicon-list-alt"></i> Listagem de Cópias
@@ -91,9 +90,12 @@ $this->registerJs($js);
                                                                 var $divPanelBody =  $(select).parent().parent().parent();
 
                                                                 var $inputTitulo = $divPanelBody.find("input:eq(0)");
+                                                                var $inputArquivo = $divPanelBody.find("input:eq(7)");
+                                                                var $inputRepositorio = $divPanelBody.find("input:eq(8)");
 
-                                                                $inputTitulo.val(data.rep_qtdoriginais) ;
-                                                                
+                                                                $inputTitulo.val(data.rep_qtdoriginais);
+                                                                $inputArquivo.val(data.rep_arquivo);
+                                                                $inputRepositorio.val(data.rep_codrepositorio);
                                                              });
                                                          '
                                                  ]]);
@@ -101,9 +103,7 @@ $this->registerJs($js);
                                     </div>
 
 
-                                    <div class="col-sm-2">
-                                        <?= $form->field($modelItens, "[{$i}]item_qtoriginais")->textInput(['readonly'=> true]) ?>
-                                    </div>
+                                    <div class="col-sm-2"><?= $form->field($modelItens, "[{$i}]item_qtoriginais")->textInput(['readonly'=> true]) ?></div>
 
                                     <div class="col-sm-2">
                                         <?= $form->field($modelItens, "[{$i}]item_qtexemplares")->textInput([
@@ -345,25 +345,19 @@ $this->registerJs($js);
                                       ?> 
                                     </div>
 
-                                    <div class="col-sm-2">
-                                        <?= $form->field($modelItens, "[{$i}]item_qteCopias")->textInput(['readonly'=> true]) ?>
-                                    </div>
+                                    <div class="col-sm-2"><?= $form->field($modelItens, "[{$i}]item_qteCopias")->textInput(['readonly'=> true]) ?></div>
 
-                                    <div class="col-sm-4">
-                                        <?= $form->field($modelItens, "[{$i}]item_mono")->textInput() ?>
-                                    </div>
+                                    <div class="col-sm-4"><?= $form->field($modelItens, "[{$i}]item_mono")->textInput() ?></div>
 
-                                    <div class="col-sm-4">
-                                           <?= $form->field($modelItens, "[{$i}]item_color")->textInput() ?>
-                                    </div>
+                                    <div class="col-sm-4"><?= $form->field($modelItens, "[{$i}]item_color")->textInput() ?></div>
                                     
-                                    <div class="col-sm-4">
-                                        <?= $form->field($modelItens, "[{$i}]item_qteTotal")->textInput(['readonly'=>true]) ?>
-                                    </div>
+                                    <div class="col-sm-4"><?= $form->field($modelItens, "[{$i}]item_qteTotal")->textInput(['readonly'=>true]) ?></div>
 
-                                    <div class="col-sm-12">
-                                        <?= $form->field($modelItens, "[{$i}]item_observacao")->textInput() ?>
-                                    </div>
+                                    <div class="col-sm-12"><?= $form->field($modelItens, "[{$i}]item_observacao")->textInput() ?></div>
+
+                                    <div class="col-sm-4"><?= $form->field($modelItens, "[{$i}]item_arquivo")->hiddenInput(['readonly'=> true])->label(false) ?></div>
+
+                                    <div class="col-sm-4"><?= $form->field($modelItens, "[{$i}]item_codrepositorio")->hiddenInput(['readonly'=> true])->label(false) ?></div>
 
                             </div>
                         </div>

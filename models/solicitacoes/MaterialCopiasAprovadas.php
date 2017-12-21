@@ -100,6 +100,14 @@ class MaterialCopiasAprovadas extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getMaterialCopiasItens()
+    {
+        return $this->hasMany(MaterialCopiasItens::className(), ['materialcopias_id' => 'matc_id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getSituacao()
     {
         return $this->hasOne(Situacao::className(), ['sitmat_id' => 'situacao_id']);
