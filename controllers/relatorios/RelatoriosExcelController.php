@@ -184,7 +184,8 @@ class RelatoriosExcelController extends Controller
                         ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "CARRETA DE BELEZA", `planilhaconsumo_planico`.`planico_quantidade` * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "CARRETA_BELEZA",
                         ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "CARRETA DE TURISMO E HOSPITALIDADE", `planilhaconsumo_planico`.`planico_quantidade` * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "CARRETA_HOSPITALIDADE",
                         ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "CARRETA DE INFORMATICA", `planilhaconsumo_planico`.`planico_quantidade` * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "CARRETA_INFORMATICA",
-                        ROUND(SUM(`planilhaconsumo_planico`.`planico_quantidade` * `planilhadecurso_placu`.`placu_quantidadeturmas`), 2) AS "QUANTIDADE_TOTAL"
+                        ROUND(SUM(`planilhaconsumo_planico`.`planico_quantidade` * `planilhadecurso_placu`.`placu_quantidadeturmas`), 2) AS "QUANTIDADE_TOTAL",
+                        `planilhaconsumo_planico`.`planico_valor` AS "VALOR_UNITARIO"
                     FROM 
                         `planilhadecurso_placu` 
                     LEFT JOIN 
@@ -231,7 +232,8 @@ class RelatoriosExcelController extends Controller
              ->setCellValue('P1', 'CARRETA DE BELEZA')
              ->setCellValue('Q1', 'CARRETA DE HOSPITALIDADE')
              ->setCellValue('R1', 'CARRETA DE INFORMÁTICA')
-             ->setCellValue('S1', 'QUANTIDADE');
+             ->setCellValue('S1', 'QUANTIDADE')
+             ->setCellValue('T1', 'VALOR_UNITARIO');
                  
          $row=2; //GERAÇÃO DOS DADOS A PARTIR DA LINHA 2
                                 
@@ -255,6 +257,7 @@ class RelatoriosExcelController extends Controller
                     $objPHPExcel->getActiveSheet()->setCellValue('Q'.$row,$foo['CARRETA_HOSPITALIDADE']);
                     $objPHPExcel->getActiveSheet()->setCellValue('R'.$row,$foo['CARRETA_INFORMATICA']);
                     $objPHPExcel->getActiveSheet()->setCellValue('S'.$row,$foo['QUANTIDADE_TOTAL']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('T'.$row,$foo['VALOR_UNITARIO']);
 
                     $row++ ;
                 }
