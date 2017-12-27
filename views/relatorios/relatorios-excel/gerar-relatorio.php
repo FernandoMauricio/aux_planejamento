@@ -28,3 +28,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
         Modal::end();
    ?>
+
+ <h4>Material Didático por Unidade: <?= Html::button('Gerar Excel', ['value'=> Url::to('index.php?r=relatorios/relatorios-excel/gerar-relatorio-itens-material-didatico'), 'class' => 'btn btn-primary', 'id'=>'modalButton2']) ?> </h4>
+
+    <?php
+        Modal::begin([
+            'header' => '<h4>Defina o ano orçamentário:</h4>',
+            'id' => 'modal2',
+            'size' => 'modal-lg',
+            ]);
+
+        echo "<div id='modalContent2'></div>";
+
+        Modal::end();
+   ?>

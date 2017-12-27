@@ -277,4 +277,128 @@ class RelatoriosExcelController extends Controller
         }
     }
 
+    public function actionGerarRelatorioItensMaterialDidatico()
+    {
+        $model = new RelatorioItensConsumo();
+        $ano = Ano::find()->orderBy(['an_codano'=>SORT_DESC])->all();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $objPHPExcel = new \PHPExcel();
+            $sheet=0;
+            $objPHPExcel->setActiveSheetIndex($sheet);
+
+                $connection = Yii::$app->db_apl;
+                $command = $connection->createCommand('
+                    SELECT
+                        `planilhadecurso_placu`.`placu_nomeunidade`,
+                        `planilhamaterial_planima`.`planima_codmxm`,
+                        `planilhamaterial_planima`.`planima_titulo`,
+                        `planilhamaterial_planima`.`planima_editora`,
+                        `planilhamaterial_planima`.`planima_tipomaterial`,
+                        ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "CE - MANOEL CATHARINO DOS SANTOS GOMES - CIN", 1 * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "CIN",
+                        ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "CENTRO DE TURISMO E HOSPITALIDADE - CTH", 1 * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "CTH",
+                        ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "CEP - JOSE TADROS - JT",  1 * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "JT",
+                        ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "CEP - FERNANDO ALFREDO PEQUENO FRANCO - PF",  1 * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "PF",
+                        ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "FACULDADE DE TECNOLOGIA SENAC - FATESE",  1 * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "FATESE",
+                        ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "CEP - LAZARO DA SILVA REIS - LSR",  1 * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "LSR",
+                        ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "CEP - MOYSES BENARROS ISRAEL - MBI",  1 * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "MBI",
+                        ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "CEP - MATHEUS PENNA RIBEIRO - MPR",  1 * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "MPR",
+                        ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "CEP - LILI BENCHIMOL - LB",  1 * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "LB",
+                        ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "CEP - PROFESSOR JEFFERSON PERES - PJP",  1 * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "PJP",
+                        ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "BALSA ESCOLA",  1 * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "BALSA_ESCOLA",
+                        ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "CARRETA DE BELEZA",  1 * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "CARRETA_BELEZA",
+                        ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "CARRETA DE TURISMO E HOSPITALIDADE",  1 * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "CARRETA_HOSPITALIDADE",
+                        ROUND(SUM(IF(`planilhadecurso_placu`.`placu_nomeunidade` = "CARRETA DE INFORMATICA",  1 * `planilhadecurso_placu`.`placu_quantidadeturmas`, 0)), 2) AS "CARRETA_INFORMATICA",
+                        ROUND(SUM( 1 * `planilhadecurso_placu`.`placu_quantidadeturmas`), 2) AS "QUANTIDADE_TOTAL",
+                        `planilhamaterial_planima`.`planima_valor` AS "VALOR_UNITARIO"
+                    FROM 
+                        `planilhadecurso_placu` 
+                    LEFT JOIN 
+                        `planilhamaterial_planima` ON `planilhadecurso_placu`.`placu_codplanilha` = `planilhamaterial_planima`.`planilhadecurso_cod`
+                    LEFT JOIN 
+                        `segmento_seg` ON `planilhadecurso_placu`.`placu_codsegmento` = `segmento_seg`.`seg_codsegmento` 
+                    WHERE 
+                        `planilhadecurso_placu`.`placu_codsituacao` = 4 
+                        AND`planilhamaterial_planima`.`planima_titulo` IS NOT NULL 
+                        AND `planilhadecurso_placu`.`placu_codano` = '.$_POST['RelatorioItensConsumo']['relat_codano'].'
+                    GROUP BY 
+                       `planilhamaterial_planima`.`planima_titulo`
+                    ORDER BY 
+                        `planilhamaterial_planima`.`planima_titulo` ASC
+                    ');
+
+                $foos = $command->queryAll();
+
+            //TAMANHO DAS COLUNAS  
+            $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(50);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(10);
+
+
+            //TÍTULO DAS COLUNAS
+            $objPHPExcel->getActiveSheet()->setTitle('EXCEL-PAAR')                     
+             ->setCellValue('A1', 'COD. MXM')
+             ->setCellValue('B1', 'DESCRIÇÃO')
+             ->setCellValue('C1', 'EDITORA')
+             ->setCellValue('D1', 'TIPO_MATERIAL')
+             ->setCellValue('E1', 'CIN')
+             ->setCellValue('F1', 'CTH')
+             ->setCellValue('G1', 'CEP-JT')
+             ->setCellValue('H1', 'CEP-PF')
+             ->setCellValue('I1', 'FATESE')
+             ->setCellValue('J1', 'CEP-LSR')
+             ->setCellValue('K1', 'CEP-MBI')
+             ->setCellValue('L1', 'CEP-MPR')
+             ->setCellValue('M1', 'CEP-LB')
+             ->setCellValue('N1', 'CEP-PJP')
+             ->setCellValue('O1', 'UMF')
+             ->setCellValue('P1', 'CARRETA DE BELEZA')
+             ->setCellValue('Q1', 'CARRETA DE HOSPITALIDADE')
+             ->setCellValue('R1', 'CARRETA DE INFORMÁTICA')
+             ->setCellValue('S1', 'QUANTIDADE')
+             ->setCellValue('T1', 'VALOR_UNITARIO');
+                 
+         $row=2; //GERAÇÃO DOS DADOS A PARTIR DA LINHA 2
+                                
+                foreach ($foos as $foo) {  
+                    $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$foo['planima_codmxm']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('B'.$row,$foo['planima_titulo']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('C'.$row,$foo['planima_editora']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('D'.$row,$foo['planima_tipomaterial']); 
+                    $objPHPExcel->getActiveSheet()->setCellValue('E'.$row,$foo['CIN']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$foo['CTH']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$foo['JT']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['PF']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$foo['FATESE']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$foo['LSR']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['MBI']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$foo['MPR']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$foo['LB']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['PJP']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('O'.$row,$foo['BALSA_ESCOLA']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('P'.$row,$foo['CARRETA_BELEZA']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('Q'.$row,$foo['CARRETA_HOSPITALIDADE']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('R'.$row,$foo['CARRETA_INFORMATICA']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('S'.$row,$foo['QUANTIDADE_TOTAL']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('T'.$row,$foo['VALOR_UNITARIO']);
+
+                    $row++ ;
+                }
+
+        header('Content-Type: application/vnd.ms-excel');
+        $filename = "Relatorio_Itens_Material_Didatico".date("d-m-Y-His").".xls";
+        header('Content-Disposition: attachment;filename='.$filename .' ');
+        header('Cache-Control: max-age=0');
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');      
+
+    }else{
+        return $this->renderAjax('gerar-relatorio-itens-material-didatico', [
+           'model'    => $model,
+           'ano'      => $ano,
+           ]);
+        }
+    }
 }
