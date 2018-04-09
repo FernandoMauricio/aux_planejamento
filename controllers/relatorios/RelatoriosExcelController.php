@@ -152,6 +152,89 @@ class RelatoriosExcelController extends Controller
 
     }
 
+    public function actionExcelPaar2()
+    {
+
+        $objPHPExcel = new \PHPExcel();
+
+        $sheet=0;
+                  
+            $objPHPExcel->setActiveSheetIndex($sheet);
+
+                $connection = Yii::$app->db_apl;
+                $command = $connection->createCommand('
+                   SELECT 
+                      `placu_anoexercicio`, 
+                      `placu_quantidadeturmas`, 
+                      `placu_cargahorariaplano`, 
+                      `placu_cargahorariarealizada`, 
+                      `placu_cargahorariavivencia`, 
+                      `placu_quantidadealunos` + `placu_quantidadealunospsg` + `placu_quantidadealunosisentos` AS `quantidadealunos` 
+                    FROM 
+                        `planilhadecurso_placu`
+                    WHERE 
+                        `planilhadecurso_placu`.`placu_codsituacao` = 4
+                    ');
+
+                $foos = $command->queryAll();
+
+            //TAMANHO DAS COLUNAS  
+            $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(15);
+
+            //TÍTULO DAS COLUNAS
+            $objPHPExcel->getActiveSheet()->setTitle('EXCEL-PAAR')                     
+             ->setCellValue('A1', 'AnoInicio')
+             ->setCellValue('B1', 'AnoTermino')
+             ->setCellValue('C1', 'Exercicio')
+             ->setCellValue('D1', 'SiglaRegional')
+             ->setCellValue('E1', 'CodCurso_Categoria')
+             ->setCellValue('F1', 'QtdTurmas')
+             ->setCellValue('G1', 'CargaHoraria')
+             ->setCellValue('H1', 'CargaHorariaSenac')
+             ->setCellValue('I1', 'CargaHorariaEmpresaTotal')
+             ->setCellValue('J1', 'CargaHorariaEmpresa100H')
+             ->setCellValue('K1', 'QtdAlunos')
+             ->setCellValue('L1', 'idTurma');
+                 
+         $row=2; //GERAÇÃO DOS DADOS A PARTIR DA LINHA 2
+        
+                foreach ($foos as $foo) {  
+                    $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,0);
+                    $objPHPExcel->getActiveSheet()->setCellValue('B'.$row,0);
+                    $objPHPExcel->getActiveSheet()->setCellValue('C'.$row,$foo['placu_anoexercicio']); 
+                    $objPHPExcel->getActiveSheet()->setCellValue('D'.$row,'AM');
+                    $objPHPExcel->getActiveSheet()->setCellValue('E'.$row,0);
+                    $objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$foo['placu_quantidadeturmas']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$foo['placu_cargahorariaplano']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['placu_cargahorariarealizada']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$foo['placu_cargahorariavivencia']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,0);
+                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['quantidadealunos']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,0);
+
+                    $row++ ;
+               }
+
+        header('Content-Type: application/vnd.ms-excel');
+        $filename = "Relatorio_PAAR_".date("d-m-Y-His").".xls";
+        header('Content-Disposition: attachment;filename='.$filename .' ');
+        header('Cache-Control: max-age=0');
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');      
+
+    }
+
     public function actionGerarRelatorioItensConsumo()
     {
         $model = new RelatorioItensConsumo();
