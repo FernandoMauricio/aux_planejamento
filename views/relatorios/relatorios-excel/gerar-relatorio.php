@@ -13,9 +13,7 @@ $this->params['breadcrumbs'][] = 'Relatórios';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h4>Relatório PAAR: <?= Html::a('Gerar Excel', ['excel-paar'], ['class' => 'btn btn-primary']) ?></h4>
-
-<h4>Relatório PAAR (Modelo 2): <?= Html::a('Gerar Excel', ['excel-paar2'], ['class' => 'btn btn-primary']) ?></h4>
+ <h4>Relatório PAAR: <?= Html::a('Gerar Excel', ['excel-paar'], ['class' => 'btn btn-primary']) ?></h4>
 
  <h4>Itens de Consumo por Unidade: <?= Html::button('Gerar Excel', ['value'=> Url::to('index.php?r=relatorios/relatorios-excel/gerar-relatorio-itens-consumo'), 'class' => 'btn btn-primary', 'id'=>'modalButton']) ?> </h4>
 
