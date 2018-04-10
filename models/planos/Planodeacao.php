@@ -70,8 +70,8 @@ class Planodeacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['plan_descricao', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria', 'plan_qntaluno', 'plan_codcolaborador', 'plan_data', 'plan_status', 'plan_modelonacional', 'plan_nivelDocente', 'plan_categoriasPlano'], 'required'],
-            [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria','plan_nivelDocente', 'plan_qntaluno', 'plan_codcolaborador', 'plan_status','plan_modelonacional'], 'integer'],
+            [['plan_descricao', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria', 'plan_qntaluno', 'plan_codcolaborador', 'plan_data', 'plan_status', 'plan_modelonacional', 'plan_nivelDocente', 'plan_categoriasPlano', 'plan_codnacional'], 'required'],
+            [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria','plan_nivelDocente', 'plan_qntaluno', 'plan_codcolaborador', 'plan_status','plan_modelonacional', 'plan_codnacional'], 'integer'],
             [['plan_sobre', 'plan_prerequisito', 'plan_perfConclusao', 'plan_perfTecnico'], 'string'],
             [['plan_data','nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoLabel', 'plan_custoMaterialLivro', 'plan_custoMaterialApostila', 'plan_custoTotalConsumo', 'plan_custoTotalAluno'], 'safe'],
             [['plan_descricao'], 'string', 'max' => 100],
@@ -111,6 +111,7 @@ class Planodeacao extends \yii\db\ActiveRecord
             'eixoLabel' => 'Eixo',
             'tipoLabel' => 'Tipo de Ação',
             'plan_categoriasPlano' => 'Categorias do Plano',
+            'plan_codnacional' => 'Cód. Plano DN',
         ];
     }
 

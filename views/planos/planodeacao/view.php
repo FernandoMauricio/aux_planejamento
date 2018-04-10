@@ -112,6 +112,14 @@ $attributes = [
                         ],
 
                         [
+                            'attribute'=>'plan_codnacional', 
+                            'format'=>'raw', 
+                            'value'=>$model->plan_codnacional,
+                            'valueColOptions'=>['style'=>'width:0%'], 
+                            'displayOnly'=>true
+                        ],
+
+                        [
                             'attribute'=>'plan_status', 
                             'format'=>'raw',
                             'type'=>DetailView::INPUT_SWITCH,

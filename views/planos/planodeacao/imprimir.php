@@ -30,8 +30,9 @@ $id = $model->plan_codplano;
     </tr> <br>
     <tr>
         <td colspan="2" ><strong>Qnt Alunos: </strong><?php echo $model->plan_qntaluno; ?></td>
-        <td colspan="2" ><strong>CH: </strong><?php echo $model->plan_cargahoraria; ?></td> 
-        <td colspan="4"><strong>Situação: </strong> <?php echo $model->plan_status ? '<span class="label label-success">Liberado</span>' : '<span class="label label-danger">Em elaboração</span>' ?></td>
+        <td colspan="2" ><strong>CH: </strong><?php echo $model->plan_cargahoraria; ?></td>
+        <td colspan="3" ><strong>Cod. Plano DN: </strong><?php echo $model->plan_codnacional; ?></td>
+        <td colspan="3"><strong>Situação: </strong> <?php echo $model->plan_status ? '<span class="label label-success">Liberado</span>' : '<span class="label label-danger">Em elaboração</span>' ?></td>
         <td colspan="4"><strong>Novo Modelo Pedagógico: </strong> <?php echo $model->plan_modelonacional ? '<span class="label label-success">Sim</span>' : '<span class="label label-danger">Não</span>' ?></td><br>
     </tr> <br>
 <tbody>
