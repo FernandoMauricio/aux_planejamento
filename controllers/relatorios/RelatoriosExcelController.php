@@ -63,12 +63,13 @@ class RelatoriosExcelController extends Controller
                         `planilhadecurso_placu`.`placu_quantidadeturmas`,
                         `planilhadecurso_placu`.`placu_anoexercicio`,
                         `planilhadecurso_placu`.`placu_cargahorariaplano`,
-                        (`planilhadecurso_placu`.`placu_quantidadeturmas` * `planilhadecurso_placu`.`placu_cargahorariaplano`) AS CH_TOTAL,
+                        (`planilhadecurso_placu`.`placu_quantidadeturmas` * `planilhadecurso_placu`.`placu_cargahorariaplano`) AS CH_TURMATOTAL,
                         (`planilhadecurso_placu`.`placu_cargahorariaplano` * (`planilhadecurso_placu`.`placu_quantidadealunos` + `planilhadecurso_placu`.`placu_quantidadealunospsg` + `planilhadecurso_placu`.`placu_quantidadealunosisentos`)) AS CHALUNO,
+                        `planilhadecurso_placu`.`placu_quantidadeturmas` * (`planilhadecurso_placu`.`placu_cargahorariaplano` * (`planilhadecurso_placu`.`placu_quantidadealunos` + `planilhadecurso_placu`.`placu_quantidadealunospsg` + `planilhadecurso_placu`.`placu_quantidadealunosisentos`)) AS CH_ALUNOTOTAL,
                         `planilhadecurso_placu`.`placu_quantidadealunos`,
                         `planilhadecurso_placu`.`placu_quantidadealunospsg`,
                         `planilhadecurso_placu`.`placu_quantidadealunosisentos`,
-                        (`planilhadecurso_placu`.`placu_quantidadealunos` + `planilhadecurso_placu`.`placu_quantidadealunospsg` + `planilhadecurso_placu`.`placu_quantidadealunosisentos`) AS MAT_TOTAL
+                        `planilhadecurso_placu`.`placu_quantidadeturmas` * (`planilhadecurso_placu`.`placu_quantidadealunos` + `planilhadecurso_placu`.`placu_quantidadealunospsg` + `planilhadecurso_placu`.`placu_quantidadealunosisentos`) AS MAT_TOTAL
                     FROM 
                         `planilhadecurso_placu` 
                         INNER JOIN `ano_an` ON `planilhadecurso_placu`.`placu_codano` = `ano_an`.`an_codano`
@@ -97,9 +98,9 @@ class RelatoriosExcelController extends Controller
             $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(10);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(15);
             $objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(10);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('N')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('N')->setWidth(15);
             $objPHPExcel->getActiveSheet()->getColumnDimension('O')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('P')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('Q')->setWidth(10);
@@ -117,10 +118,10 @@ class RelatoriosExcelController extends Controller
              ->setCellValue('H1', 'FINANCIAMENTO')
              ->setCellValue('I1', 'QUANT. TURMAS')
              ->setCellValue('J1', 'EXERCICIO')
-             ->setCellValue('K1', 'SIGLA REGIONAL')
-             ->setCellValue('L1', 'CH TURMA')
-             ->setCellValue('M1', 'CH TOTAL')
-             ->setCellValue('N1', 'CH ALUNO')
+             ->setCellValue('K1', 'CH TURMA')
+             ->setCellValue('L1', 'CH TURMA TOTAL')
+             ->setCellValue('M1', 'CH ALUNO')
+             ->setCellValue('N1', 'CH ALUNO TOTAL')
              ->setCellValue('O1', 'MAT PAG')
              ->setCellValue('P1', 'MAT PSG')
              ->setCellValue('Q1', 'MAT ISE')
@@ -139,10 +140,10 @@ class RelatoriosExcelController extends Controller
                     $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['cat_descricao']);
                     $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$foo['placu_quantidadeturmas']);
                     $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$foo['placu_anoexercicio']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,'AM');
-                    $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$foo['placu_cargahorariaplano']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$foo['CH_TOTAL']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['CHALUNO']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['placu_cargahorariaplano']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$foo['CH_TURMATOTAL']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$foo['CHALUNO']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['CH_ALUNOTOTAL']);
                     $objPHPExcel->getActiveSheet()->setCellValue('O'.$row,$foo['placu_quantidadealunos']);
                     $objPHPExcel->getActiveSheet()->setCellValue('P'.$row,$foo['placu_quantidadealunospsg']);
                     $objPHPExcel->getActiveSheet()->setCellValue('Q'.$row,$foo['placu_quantidadealunosisentos']);
