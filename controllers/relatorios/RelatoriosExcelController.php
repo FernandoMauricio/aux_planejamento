@@ -73,7 +73,7 @@ class RelatoriosExcelController extends Controller
                     FROM 
                         `planilhadecurso_placu` 
                         INNER JOIN `ano_an` ON `planilhadecurso_placu`.`placu_codano` = `ano_an`.`an_codano`
-                        INNER JOIN `eixo_eix` ON `planilhadecurso_placu`.`placu_codsegmento` = `eixo_eix`.`eix_codeixo`
+                        INNER JOIN `eixo_eix` ON `planilhadecurso_placu`.`placu_codeixo` = `eixo_eix`.`eix_codeixo`
                         INNER JOIN `segmento_seg` ON `planilhadecurso_placu`.`placu_codeixo` = `segmento_seg`.`seg_codeixo` 
                         INNER JOIN `tipodeacao_tip` ON `planilhadecurso_placu`.`placu_codtipoa` = `tipodeacao_tip`.`tip_codtipoa` 
                         INNER JOIN `planodeacao_plan` ON `planilhadecurso_placu`.`placu_codplano` = `planodeacao_plan`.`plan_codplano` 
