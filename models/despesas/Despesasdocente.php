@@ -66,7 +66,7 @@ class Despesasdocente extends \yii\db\ActiveRecord
             'doce_valorhoraaula' => 'Valor Hora/Aula',
             'doce_status' => 'Situação',
 
-            'calculos' => 'Realizar cálculos de Planejamento e Produtividade',
+            'calculos' => 'Realizar cálculos de Produtividade?',
         ];
     }
 
