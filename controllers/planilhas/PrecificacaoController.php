@@ -280,6 +280,35 @@ class PrecificacaoController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
+      //CÁLCULOS REALIZADOS - SEÇÃO 2
+        $model->planp_totalcustodocente = ($model->planp_totalhorasdocente * $model->planp_valorhoraaula) + $model->planp_servpedagogico;
+        $model->planp_decimo = $model->planp_totalcustodocente / $model->planp_mesesdocurso;
+        $model->planp_ferias = $model->planp_decimo;
+        $model->planp_tercoferias = $model->planp_ferias / 3;
+        $model->planp_totalsalario = $model->planp_totalcustodocente + $model->planp_decimo + $model->planp_ferias + $model->planp_tercoferias;
+        $model->planp_totalencargos = ($model->planp_totalsalario * $model->planp_encargos) / 100;
+        $model->planp_totalsalarioencargo = $model->planp_totalencargos + $model->planp_totalsalario ;
+        $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_custosmateriais + $model->planp_custosconsumo;
+        $model->planp_totalhoraaulacustodireto = $model->planp_totalcustodireto / $model->planp_cargahoraria / $model->planp_qntaluno;
+
+      //CÁLCULOS REALIZADOS - SEÇÃO 3
+        $model->planp_totalincidencias = $model->planp_custosindiretos + $model->planp_ipca + $model->planp_reservatecnica + $model->planp_despesadm;
+        $model->planp_totalcustoindireto = ($model->planp_totalcustodireto * $model->planp_totalincidencias) / 100;
+        $model->planp_despesatotal = $model->planp_totalcustoindireto + $model->planp_totalcustodireto;
+        $model->planp_markdivisor = (100 - $model->planp_totalincidencias);
+        $model->planp_markmultiplicador = ((100 / $model->planp_markdivisor) - 1) * 100;
+        $model->planp_vendaturma = ($model->planp_totalcustodireto / $model->planp_markdivisor) * 100;
+        $model->planp_vendaaluno = $model->planp_vendaturma / $model->planp_qntaluno;
+        $model->planp_horaaulaaluno = $model->planp_vendaturma / $model->planp_cargahoraria / $model->planp_qntaluno;
+        $model->planp_retorno = $model->planp_vendaturma - $model->planp_despesatotal;
+        $model->planp_porcentretorno = ($model->planp_retorno / $model->planp_vendaturma) * 100;
+        $model->planp_retornoprecosugerido = ($model->planp_precosugerido * $model->planp_qntaluno) - $model->planp_despesatotal;
+        $model->planp_minimoaluno = ceil($model->planp_despesatotal / $model->planp_precosugerido);
+        $model->planp_valorparcelas = $model->planp_precosugerido / $model->planp_parcelas;
+        $model->planp_reservatecnica = $model->planp_cargahoraria >= 800 ? 10 : 5;//Reserva Técnica = CH do Plano >= 800  == 10 % senão == 5%;
+        $model->planp_valorcomdesconto = $model->planp_precosugerido - (($model->planp_precosugerido * $model->planp_desconto) / 100);//Aplicação do Desconto em cima do Preço Sugerido
+        $model->save();
+
         //Realiza a Verificação se as configurações estão atualizadas do Markup
         foreach ($markups as $markup) {
                     if($markup->mark_ano != date('Y')){
@@ -291,7 +320,7 @@ class PrecificacaoController extends Controller
 
             if($model->save()){
 
-                $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_custosmateriais + $model->planp_custosconsumo;
+                // $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_custosmateriais + $model->planp_custosconsumo;
 
                 //SE A UNIDADE FOR FATESE OS ENCARGOS SERÃO 32.7
                 $model->planp_encargos = $model->planp_codunidade == 30 ? $model->planp_encargos = 32.70 : $model->planp_encargos = 33.29;

@@ -8,6 +8,10 @@ $(function() {
        updateTotal();
     });
 
+    $('#precificacao-planp_mesesdocurso').keyup(function() {
+       updateTotal();
+    });
+
     $('#precificacao-planp_precosugerido').keyup(function() {
        updateTotal();
     });
@@ -35,6 +39,9 @@ $(function() {
 
     var updateTotal = function () {
 
+      var planp_mesesdocurso    = parseFloat($('#precificacao-planp_mesesdocurso').val());
+
+
       //SEÇÃO 3
       var planp_qntaluno       = parseFloat($('#precificacao-planp_qntaluno').val());
       var planp_precosugerido  = parseFloat($('#precificacao-planp_precosugerido').val());
@@ -47,6 +54,7 @@ $(function() {
       //CÁLCULOS REALIZADOS
 
       //SEÇÃO 3
+
       var RetornoPrecoSugerido        = (planp_precosugerido * planp_qntaluno) - despesaTotal; // Preço de Venda x Qnt de Alunos - Despesa Total;
       var MinimoAlunos                = Math.ceil(despesaTotal / planp_precosugerido); // Despesa Total / Preço de Venda;
       var ValorParcelas               =  planp_precosugerido / planp_parcelas;

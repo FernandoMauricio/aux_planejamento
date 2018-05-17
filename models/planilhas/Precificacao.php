@@ -15,6 +15,7 @@ use app\models\base\Unidade;
  * @property integer $planp_codunidade
  * @property string $planp_planodeacao
  * @property integer $planp_cargahoraria
+ * @property integer $planp_mesesdocurso
  * @property integer $planp_qntaluno
  * @property integer $planp_totalhorasdocente
  * @property integer $planp_docente
@@ -89,15 +90,15 @@ class Precificacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_precosugerido', 'planp_parcelas'], 'required'],
-            [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_servpedagogico','planp_codcolaborador', 'planp_parcelas', 'planp_desconto'], 'integer'],
+            [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_precosugerido', 'planp_parcelas', 'planp_mesesdocurso'], 'required'],
+            [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_servpedagogico','planp_codcolaborador', 'planp_parcelas', 'planp_desconto', 'planp_mesesdocurso'], 'integer'],
             [['planp_qntaluno'], 'compare', 'compareValue' => 0, 'operator' => '>', 'message'=>'Valores maiores que 0 e sem vírgulas.'],
             [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_custosmateriais', 'planp_custosconsumo', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'planp_custosindiretos', 'planp_ipca', 'planp_reservatecnica', 'planp_despesadm', 'planp_totalincidencias', 'planp_totalcustoindireto', 'planp_despesatotal', 'planp_markdivisor', 'planp_markmultiplicador', 'planp_vendaturma', 'planp_vendaturmasugerido', 'planp_vendaaluno', 'planp_horaaulaaluno', 'planp_retorno', 'planp_porcentretorno', 'planp_porcentretornosugerido', 'planp_precosugerido', 'planp_retornoprecosugerido', 'planp_minimoaluno', 'hiddenPlanejamento', 'hiddenMaterialDidatico', 'planp_data','labelCurso', 'planp_valorparcelas', 'desconto', 'planp_valorcomdesconto'], 'safe'],
             [['planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_PJApostila', 'planp_ipca', 'planp_precosugerido'], 'number'],
             [['planp_docente'], 'exist', 'skipOnError' => true, 'targetClass' => Despesasdocente::className(), 'targetAttribute' => ['planp_docente' => 'doce_id']],
             [['planp_planodeacao'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planp_planodeacao' => 'plan_codplano']],
             [['planp_observacao'], 'string', 'max' => 255],
-            [['planp_totalhorasdocente', 'planp_precosugerido'], 'compare', 'compareValue' => 0, 'operator' => '>'],
+            [['planp_totalhorasdocente', 'planp_precosugerido', 'planp_mesesdocurso'], 'compare', 'compareValue' => 0, 'operator' => '>'],
 
         ];
     }
@@ -164,16 +165,17 @@ class Precificacao extends \yii\db\ActiveRecord
             'planp_codunidade' => 'Unidade',
             'planp_planodeacao' => 'Cód. Plano',
             'planp_cargahoraria' => 'Carga Horária',
+            'planp_mesesdocurso' => 'Total de meses do curso',
             'planp_qntaluno' => 'Qnt de Alunos',
             'planp_totalhorasdocente' => 'Total de horas docente',
             'planp_docente' => 'Nível Docente',
             'planp_valorhoraaula' => 'Valor hora/aula',
-            'planp_servpedagogico' => 'Hora/Aula S. Pedagógico (s/produtividade)',
+            'planp_servpedagogico' => 'Hora/Aula S. Pedag. (s/produtividade)',
             'planp_horaaulaplanejamento' => 'Valor hora/aula Planejamento',
             'planp_totalcustodocente' => 'Custo de Mão de Obra Direta' ,
-            'planp_decimo' => '1/12 de 13º',
-            'planp_ferias' => '1/12 de Férias',
-            'planp_tercoferias' => '1/12 de 1/3 de férias',
+            'planp_decimo' => 'Provisão de 13º',
+            'planp_ferias' => 'Provisão de Férias',
+            'planp_tercoferias' => 'Provisão de 1/3 de férias',
             'planp_totalsalario' => 'Total de Salários',
             'planp_encargos' => '(%) Encargos s/13º, férias e salários',
             'planp_totalencargos' => 'Total de Encargos',

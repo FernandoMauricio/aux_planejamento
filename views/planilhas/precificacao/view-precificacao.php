@@ -37,9 +37,11 @@
 
                   <div class="col-md-3"><strong>Nível Docente:</strong><br> <?php echo $model->despesasdocente->doce_descricao; ?></div>
 
+                  <div class="col-md-3"><strong>Total de Meses do Curso:</strong><br> <?php echo $model->planp_mesesdocurso; ?></div>
+
                   <div class="col-md-3"><strong>Total Horas Docente:</strong><br> <?php echo $model->planp_totalhorasdocente; ?></div>
 
-                  <div class="col-md-4"><strong>Hora/Aula Serv. Pedagógico (s/produtividade):</strong><br> <?php echo $model->planp_servpedagogico; ?></div>
+                  <div class="col-md-3"><strong>Hora/Aula Serv. Pedagógico (s/produtividade):</strong><br> <?php echo $model->planp_servpedagogico; ?></div>
           </div>
 
         <br>
@@ -55,11 +57,11 @@
         <br>
 
           <div class="row">
-                  <div class="col-md-3"><strong>1/12 de 13º:</strong><br> <?php echo 'R$ ' . number_format($model->planp_decimo, 2, ',', '.'); ?></div>
+                  <div class="col-md-3"><strong>Provisão de 13º:</strong><br> <?php echo 'R$ ' . number_format($model->planp_decimo, 2, ',', '.'); ?></div>
 
-                  <div class="col-md-3"><strong>1/12 de Férias:</strong><br> <?php  echo 'R$ ' . number_format($model->planp_ferias, 2, ',', '.'); ?></div>
+                  <div class="col-md-3"><strong>Provisão de Férias:</strong><br> <?php  echo 'R$ ' . number_format($model->planp_ferias, 2, ',', '.'); ?></div>
 
-                  <div class="col-md-3"><strong>1/12 de 1/3 de férias:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_tercoferias, 2, ',', '.'); ?></div>
+                  <div class="col-md-3"><strong>Provisão de 1/3 de férias:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_tercoferias, 2, ',', '.'); ?></div>
 
                   <div class="col-md-3"><strong>Total de Salários:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_totalsalario, 2, ',', '.'); ?></div>
           </div>

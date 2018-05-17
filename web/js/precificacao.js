@@ -8,6 +8,10 @@ $(function() {
        updateTotal();
     });
 
+    $('#precificacao-planp_mesesdocurso').keyup(function() {
+       updateTotal();
+    });
+
     $('#precificacao-planp_qntaluno').keyup(function() {
        updateTotal();
     });
@@ -105,6 +109,7 @@ $(function() {
       //SEÇÃO 2
       var planp_encargos             = parseFloat($('#precificacao-planp_encargos').val());
       var planp_cargahoraria         = parseFloat($('#precificacao-planp_cargahoraria').val());
+      var planp_mesesdocurso         = parseFloat($('#precificacao-planp_mesesdocurso').val());
       var planp_qntaluno             = parseFloat($('#precificacao-planp_qntaluno').val());
       var planp_totalhorasdocente    = parseFloat($('#precificacao-planp_totalhorasdocente').val());
       var planp_valorhoraaula        = parseFloat($('#precificacao-planp_valorhoraaula').val());
@@ -135,9 +140,9 @@ $(function() {
       //SEÇÃO 2
       var valor_servpedagogico        = planp_servpedagogico * hiddenplanejamento;
       var valorTotalMaoDeObra         = (planp_totalhorasdocente * planp_valorhoraaula) + valor_servpedagogico;
-      var valorDecimo                 = valorTotalMaoDeObra / 12;
-      var valorFerias                 = valorTotalMaoDeObra / 12;
-      var valorTercoFerias            = valorTotalMaoDeObra / 12 / 3;
+      var valorDecimo                 = valorTotalMaoDeObra / planp_mesesdocurso;
+      var valorFerias                 = valorDecimo;
+      var valorTercoFerias            = valorFerias / 3;
       var totalSalarios               = valorTotalMaoDeObra + valorDecimo + valorFerias + valorTercoFerias;
       var totalEncargos               = (totalSalarios * planp_encargos) / 100;
       var totalSalariosEncargos       = totalSalarios + totalEncargos;

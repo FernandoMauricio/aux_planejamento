@@ -51,11 +51,11 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                                              var $divPanelBody = $(select).parent().parent().parent().parent().parent();
 
                                              var $zerahora             = $divPanelBody.find("input:eq(2)");
-                                             var $inputEncargos        = $divPanelBody.find("input:eq(12)");
-                                             var $inputCustoIndireto   = $divPanelBody.find("input:eq(26)");
-                                             var $inputIPCA            = $divPanelBody.find("input:eq(27)");
-                                             var $inputReservaTecnica  = $divPanelBody.find("input:eq(28)");
-                                             var $inputDespesaSede     = $divPanelBody.find("input:eq(29)");
+                                             var $inputEncargos        = $divPanelBody.find("input:eq(13)");
+                                             var $inputCustoIndireto   = $divPanelBody.find("input:eq(27)");
+                                             var $inputIPCA            = $divPanelBody.find("input:eq(28)");
+                                             var $inputReservaTecnica  = $divPanelBody.find("input:eq(29)");
+                                             var $inputDespesaSede     = $divPanelBody.find("input:eq(30)");
                                               
                                              $zerahora.val(0);
                                              $inputEncargos.val(data.mark_codunidade == 30 ? "32.70" : "32.99"); // Valor diferente para FATESE(Cód. 30)
@@ -86,9 +86,9 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                                              var $zerahoratotal            = $divPanelBody.find("input:eq(0)");
                                              //var $zeraqntaluno             = $divPanelBody.find("input:eq(1)");
                                              var $inputQntAluno            = $divPanelBody.find("input:eq(1)");
-                                             var $inputMaterialApostila    = $divPanelBody.find("input:eq(20)");
-                                             var $inputCustoMaterialLivro  = $divPanelBody.find("input:eq(22)");
-                                             var $inputCustoConsumo        = $divPanelBody.find("input:eq(23)");
+                                             var $inputMaterialApostila    = $divPanelBody.find("input:eq(21)");
+                                             var $inputCustoMaterialLivro  = $divPanelBody.find("input:eq(23)");
+                                             var $inputCustoConsumo        = $divPanelBody.find("input:eq(24)");
 
                                              $zerahoratotal.val(data.plan_cargahoraria);
                                              //$zeraqntaluno.val(0);
@@ -126,7 +126,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <?php
                     echo $form->field($model, 'planp_docente')->widget(DepDrop::classname(), [
                                     'type'=>DepDrop::TYPE_SELECT2,
@@ -145,10 +145,10 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
                                                  var $divPanelBody = $(select).parent().parent().parent().parent().parent();
 
-                                                 var $zerahora = $divPanelBody.find("input:eq(2)");
-                                                 var $zeraplanejmanento = $divPanelBody.find("input:eq(3)");
-                                                 var $inputPlanejamento = $divPanelBody.find("input:eq(4)");
-                                                 var $inputCustoindireto = $divPanelBody.find("input:eq(5)");
+                                                 var $zerahora = $divPanelBody.find("input:eq(3)");
+                                                 var $zeraplanejmanento = $divPanelBody.find("input:eq(4)");
+                                                 var $inputPlanejamento = $divPanelBody.find("input:eq(5)");
+                                                 var $inputCustoindireto = $divPanelBody.find("input:eq(6)");
 
                                                  //inputa valores
                                                  $zerahora.val(0);
@@ -162,11 +162,11 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                     ?>
                 </div>
 
-                <div class="col-md-2">
-                    <?= $form->field($model, 'planp_totalhorasdocente')->textInput() ?>
-                </div>
+                <div class="col-md-3"><?= $form->field($model, 'planp_mesesdocurso')->textInput() ?></div>
+                
+                <div class="col-md-2"><?= $form->field($model, 'planp_totalhorasdocente')->textInput() ?></div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <?= $form->field($model, 'planp_servpedagogico')->textInput() ?>
 
                     <?= $form->field($model, 'hiddenPlanejamento')->hiddenInput()->label(false); ?>

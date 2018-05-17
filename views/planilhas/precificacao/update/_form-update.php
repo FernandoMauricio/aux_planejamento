@@ -37,26 +37,17 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-4">
-                    <?= $form->field($model, 'unidade')->textInput(['value' => $model->unidade->uni_nomeabreviado,'readonly' => true]) ?>
-                </div>
+                <div class="col-md-4"><?= $form->field($model, 'unidade')->textInput(['value' => $model->unidade->uni_nomeabreviado,'readonly' => true]) ?></div>
+                    
+                <div class="col-md-4"><?= $form->field($model, 'plano')->textInput(['value' => $model->planodeacao->plan_descricao,'readonly' => true]) ?></div>
 
-                <div class="col-md-4">
-                  <?= $form->field($model, 'plano')->textInput(['value' => $model->planodeacao->plan_descricao,'readonly' => true]) ?>
-                </div>
+                <div class="col-md-2"><?= $form->field($model, 'planp_cargahoraria')->textInput(['readonly' => true]) ?></div>
 
-                <div class="col-md-2">
-                    <?= $form->field($model, 'planp_cargahoraria')->textInput(['readonly' => true]) ?>
-                </div>
+                <div class="col-md-2"><?= $form->field($model, 'planp_qntaluno')->textInput(['readonly' => true]) ?></div>
+            </div>
 
-                <div class="col-md-2">
-                    <?= $form->field($model, 'planp_qntaluno')->textInput(['readonly' => true]) ?>
-                </div>
-
-                <div class="col-md-12">
-                    <?= $form->field($model, 'planp_observacao')->textarea(['rows' => '3']) ?>
-                </div>
-
+            <div class="row">
+                <div class="col-md-12"><?= $form->field($model, 'planp_observacao')->textarea(['rows' => '3']) ?></div>
             </div>
         </div>
 
@@ -68,20 +59,17 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-6">
-                    <?= $form->field($model, 'nivelDocente')->textInput(['value' => $model->despesasdocente->doce_descricao, 'readonly' => true]) ?>
-                </div>
+                <div class="col-md-4"><?= $form->field($model, 'nivelDocente')->textInput(['value' => $model->despesasdocente->doce_descricao, 'readonly' => true]) ?></div>
+                  
+                <div class="col-md-3"> <?= $form->field($model, 'planp_mesesdocurso')->textInput() ?></div>
 
-                <div class="col-md-2">
-                    <?= $form->field($model, 'planp_totalhorasdocente')->textInput(['readonly' => true]) ?>
-                </div>
+                <div class="col-md-2"> <?= $form->field($model, 'planp_totalhorasdocente')->textInput(['readonly' => true]) ?></div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <?= $form->field($model, 'planp_servpedagogico')->textInput(['readonly' => true]) ?>
 
                     <?= $form->field($model, 'hiddenPlanejamento')->hiddenInput()->label(false); ?>
                 </div>
-
             </div>
 
 
