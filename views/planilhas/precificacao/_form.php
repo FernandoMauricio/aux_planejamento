@@ -58,7 +58,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                                              var $inputDespesaSede     = $divPanelBody.find("input:eq(29)");
                                               
                                              $zerahora.val(0);
-                                             $inputEncargos.val(data.mark_codunidade == 30 ? "32.70" : "33.29"); // Valor diferente para FATESE(Cód. 30)
+                                             $inputEncargos.val(data.mark_codunidade == 30 ? "32.70" : "32.99"); // Valor diferente para FATESE(Cód. 30)
                                              $inputCustoIndireto.val(data.mark_custoindireto);
                                              $inputIPCA.val(data.mark_ipca);
                                              $inputReservaTecnica.val(data.mark_reservatecnica);

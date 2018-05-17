@@ -199,7 +199,7 @@ class PrecificacaoController extends Controller
                 $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_custosmateriais + $model->planp_custosconsumo;
 
                 //SE A UNIDADE FOR FATESE OS ENCARGOS SERÃO 32.7
-                $model->planp_encargos = $model->planp_codunidade == 30 ? $model->planp_encargos = 32.70 : $model->planp_encargos = 33.29;
+                $model->planp_encargos = $model->planp_codunidade == 30 ? $model->planp_encargos = 32.70 : $model->planp_encargos = 32.99;
 
                 //Localiza as unidades configuradas pelo MARKUP
                 $listagemUnidades = "SELECT * FROM markup_mark WHERE mark_tipo = 1";
