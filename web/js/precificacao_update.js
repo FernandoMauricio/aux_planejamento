@@ -71,7 +71,7 @@ $(function() {
       $('#precificacao-planp_valorparcelas').val(valorParcelas); // Preço de Venda / Quantidade de Parcelas;
       $('#precificacao-planp_valorcomdesconto').val(valorComDesconto); //Cálculo do valor com desconto aplicado
       $('#precificacao-planp_vendaturmasugerido').val(valorTotalPrecoDeVendaTurma); //Cálculo do Preço Sugerido x quantidade de alunos
-      $('#precificacao-planp_porcentretornosugerido').val(porcentagemRetornoSugerido); //Cálculo do valor com desconto aplicado
+      $('#precificacao-planp_porcentretornosugerido').val(porcentagemRetornoSugerido);  //% de Retorno com preço sugerido
 
     };
  });

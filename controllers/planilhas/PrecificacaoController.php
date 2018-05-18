@@ -303,6 +303,7 @@ class PrecificacaoController extends Controller
         $model->planp_retorno = $model->planp_vendaturma - $model->planp_despesatotal;
         $model->planp_porcentretorno = ($model->planp_retorno / $model->planp_vendaturma) * 100;
         $model->planp_retornoprecosugerido = ($model->planp_precosugerido * $model->planp_qntaluno) - $model->planp_despesatotal;
+        $model->planp_porcentretornosugerido = ($model->planp_retornoprecosugerido /$model->planp_vendaturmasugerido) * 100;// % de Retorno / Preço de venda da Turma -- Valores em %
         $model->planp_minimoaluno = ceil($model->planp_despesatotal / $model->planp_precosugerido);
         $model->planp_valorparcelas = $model->planp_precosugerido / $model->planp_parcelas;
         $model->planp_reservatecnica = $model->planp_cargahoraria >= 800 ? 10 : 5;//Reserva Técnica = CH do Plano >= 800  == 10 % senão == 5%;
