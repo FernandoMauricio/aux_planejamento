@@ -11,6 +11,7 @@ class RelatoriosPaar extends Model
     public $relat_codtipla;
     public $relat_codsituacao;
     public $relat_tiporelatorio;
+    public $relat_codprogramacao;
 
     /**
      * @inheritdoc
@@ -18,8 +19,8 @@ class RelatoriosPaar extends Model
     public function rules()
     {
         return [
-            [['relat_codano', 'relat_codtipla', 'relat_codsituacao', 'relat_tiporelatorio'], 'required'],
-            [['relat_codano', 'relat_codtipla', 'relat_codsituacao', 'relat_tiporelatorio'], 'integer'],
+            [['relat_codano', 'relat_codtipla', 'relat_codsituacao', 'relat_tiporelatorio', 'relat_codprogramacao'], 'required'],
+            [['relat_codano', 'relat_codtipla', 'relat_codsituacao', 'relat_tiporelatorio', 'relat_codprogramacao'], 'integer'],
         ];
     }
 
@@ -34,6 +35,7 @@ class RelatoriosPaar extends Model
             'relat_codsituacao' => 'Situação Planilha',
             'relat_codtipla' => 'Tipo Planilha',
             'relat_tiporelatorio' => 'Tipo de Relatório',
+            'relat_codprogramacao' => 'Tipo de Programação',
         ];
     }
 }

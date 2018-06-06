@@ -52,6 +52,11 @@ use app\models\planilhas\Planilhadecurso;
            <td valign="middle"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">TIPO</font></strong></td>
            <td colspan="3" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $tipo_planilha['tipla_descricao'];?></font></td>
            </tr>
+           <tr> 
+           <td>&nbsp;</td>
+           <td valign="middle"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">PROGRAMA&Ccedil;&Atilde;O</font></strong></td>
+           <td width="3%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $tipo_programacao['tipro_descricao'];?></font></td>
+           </tr>
            </table></td>
            </tr>
            <tr>
@@ -68,7 +73,7 @@ use app\models\planilhas\Planilhadecurso;
 			//EXTRAINDO OS EIXOS
 
 		   //EXTRAINDO AS UNIDADES DAS PLANILHAS....
-		    $query_eixos = "SELECT placu_codeixo, eix_descricao FROM planilhadecurso_placu, eixo_eix WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = eix_codeixo GROUP BY placu_codeixo ORDER BY eix_descricao";
+		    $query_eixos = "SELECT placu_codeixo, eix_descricao FROM planilhadecurso_placu, eixo_eix WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codprogramacao = '".$tipo_programacao['tipro_codprogramacao']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = eix_codeixo GROUP BY placu_codeixo ORDER BY eix_descricao";
 
 		    $eixos = Planilhadecurso::findBySql($query_eixos)->all(); 
 
@@ -86,7 +91,7 @@ use app\models\planilhas\Planilhadecurso;
 				   <?php
 				   
 				   // EXTRAINDO SEGMENTOS
-					   $query_segmentos = "SELECT placu_codsegmento, seg_descricao FROM planilhadecurso_placu, segmento_seg WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = '".$codigo_eixo."' AND placu_codsegmento = seg_codsegmento GROUP BY placu_codsegmento ORDER BY seg_descricao";
+					   $query_segmentos = "SELECT placu_codsegmento, seg_descricao FROM planilhadecurso_placu, segmento_seg WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codprogramacao = '".$tipo_programacao['tipro_codprogramacao']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = '".$codigo_eixo."' AND placu_codsegmento = seg_codsegmento GROUP BY placu_codsegmento ORDER BY seg_descricao";
 
 						    $segmentos = Planilhadecurso::findBySql($query_segmentos)->all(); 
 
@@ -118,7 +123,7 @@ use app\models\planilhas\Planilhadecurso;
     <td valign="middle">&nbsp;</td>
   </tr>
  			<?php
-						$query_planos = "SELECT placu_codplano, plan_descricao FROM planilhadecurso_placu, planodeacao_plan WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = '".$codigo_eixo."' AND placu_codsegmento = '".$codigo_segmento."' AND placu_codplano = plan_codplano GROUP BY placu_codplano ORDER BY plan_descricao ";
+						$query_planos = "SELECT placu_codplano, plan_descricao FROM planilhadecurso_placu, planodeacao_plan WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codprogramacao = '".$tipo_programacao['tipro_codprogramacao']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = '".$codigo_eixo."' AND placu_codsegmento = '".$codigo_segmento."' AND placu_codplano = plan_codplano GROUP BY placu_codplano ORDER BY plan_descricao ";
 
 						    $planos = Planilhadecurso::findBySql($query_planos)->all(); 
 
@@ -130,7 +135,7 @@ use app\models\planilhas\Planilhadecurso;
         								 $quantidade_turmas_total = 0;
         								 $quantidade_alunos_total = 0;
 
-						$query_planilhas = "SELECT placu_quantidadeturmas, placu_quantidadealunos, placu_quantidadealunospsg, placu_quantidadealunosisentos FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = '".$codigo_eixo."' AND placu_codsegmento = '".$codigo_segmento."' AND placu_codplano = '".$codigo_plano."'";
+						$query_planilhas = "SELECT placu_quantidadeturmas, placu_quantidadealunos, placu_quantidadealunospsg, placu_quantidadealunosisentos FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codprogramacao = '".$tipo_programacao['tipro_codprogramacao']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = '".$codigo_eixo."' AND placu_codsegmento = '".$codigo_segmento."' AND placu_codplano = '".$codigo_plano."'";
 
 						    $planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
 

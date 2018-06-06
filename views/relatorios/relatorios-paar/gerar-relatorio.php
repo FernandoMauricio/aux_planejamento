@@ -38,7 +38,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>
 				</div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
+                <?php
+                    $data_situacao = ArrayHelper::map($tipoProgramacao, 'tipro_codprogramacao', 'tipro_descricao');
+                    echo $form->field($model, 'relat_codprogramacao')->widget(Select2::classname(), [
+                            'data' =>  $data_situacao,
+                            'options' => ['placeholder' => 'Selecione o Tipo de Programação...'],
+                            'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ]);
+                ?>
+                </div>
+
+                <div class="col-md-2">
                 <?php
                     $data_situacao = ArrayHelper::map($situacaoPlanilha, 'sipla_codsituacao', 'sipla_descricao');
                     echo $form->field($model, 'relat_codsituacao')->widget(Select2::classname(), [
@@ -64,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>
 				</div>
 
-                <div class="col-md-5">
+                <div class="col-md-4">
                 <?php
                     $data_tipoRelatorio = ArrayHelper::map($tipoRelatorio, 'tiprel_id', 'tiprel_descricao');
                     echo $form->field($model, 'relat_tiporelatorio')->widget(Select2::classname(), [

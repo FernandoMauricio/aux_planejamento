@@ -50,6 +50,11 @@ use app\models\planilhas\Planilhadecurso;
            <td valign="middle"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">TIPO</font></strong></td>
            <td colspan="3" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $tipo_planilha['tipla_descricao'];?></font></td>
            </tr>
+           <tr> 
+           <td>&nbsp;</td>
+           <td valign="middle"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">PROGRAMA&Ccedil;&Atilde;O</font></strong></td>
+           <td width="3%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $tipo_programacao['tipro_descricao'];?></font></td>
+           </tr>
            </table></td>
            </tr>
            <tr>
@@ -95,7 +100,7 @@ use app\models\planilhas\Planilhadecurso;
 		   
 		   <?php
 				//EXTRAINDO AS UNIDADES....
-			    $query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu  WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' group by placu_codunidade order by placu_nomeunidade";
+			    $query_unidades = "SELECT placu_nomeunidade,placu_codunidade FROM planilhadecurso_placu  WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codprogramacao = '".$tipo_programacao['tipro_codprogramacao']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' group by placu_codunidade order by placu_nomeunidade";
 
 			    $unidades = Planilhadecurso::findBySql($query_unidades)->all(); 
 
@@ -121,7 +126,7 @@ use app\models\planilhas\Planilhadecurso;
 							$quantidade_matriculas_por_eixo = 0;
 
 							 //EXTRAINDO AS QUANTIDADES CONFORME O EIXO E UNIDADE....
-					    $query_unidadesEixos = "SELECT placu_quantidadeturmas, placu_quantidadealunos, placu_quantidadealunospsg, placu_quantidadealunosisentos FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' and placu_codano = '".$ano_orcamento['an_codano']."' and placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' and placu_codunidade = '".$codigo_unidade."' and placu_codeixo = '".$codigo_eixo."'";
+					    $query_unidadesEixos = "SELECT placu_quantidadeturmas, placu_quantidadealunos, placu_quantidadealunospsg, placu_quantidadealunosisentos FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codprogramacao = '".$tipo_programacao['tipro_codprogramacao']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' and placu_codunidade = '".$codigo_unidade."' and placu_codeixo = '".$codigo_eixo."'";
 
 					    $unidadesEixos = Planilhadecurso::findBySql($query_unidadesEixos)->all(); 
 
