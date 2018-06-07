@@ -37,18 +37,18 @@ class RelatoriosPaarController extends Controller
     public function actionGerarRelatorio()
     {
       $session = Yii::$app->session;
-    	$model = new RelatoriosPaar();
+      $model = new RelatoriosPaar();
 
-    	$ano              = Ano::find()->orderBy(['an_codano'=>SORT_DESC])->all();
+      $ano              = Ano::find()->orderBy(['an_codano'=>SORT_DESC])->all();
       $tipoProgramacao  = Tipoprogramacao::find()->all();
       $tipoPlanilha     = Tipoplanilha::find()->all();
-    	$situacaoPlanilha = Situacaoplanilha::find()->all();
+      $situacaoPlanilha = Situacaoplanilha::find()->all();
       $tipoRelatorio    = Tiporelatorio::find()->orderBy(['tiprel_descricao'=>SORT_ASC])->all();
 
         if ($model->load(Yii::$app->request->post())) {
 
             if($model->relat_tiporelatorio == 1){
-                  return $this->redirect(['matricula-unidade', 'ano_orcamento' => $model->relat_codano, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
+                  return $this->redirect(['matricula-unidade', 'ano_orcamento' => $model->relat_codano, 'tipo_programacao' => $model->relat_codprogramacao, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
                 }
             else if($model->relat_tiporelatorio == 2){
                   return $this->redirect(['cargahoraria-unidade', 'ano_orcamento' => $model->relat_codano, 'tipo_programacao' => $model->relat_codprogramacao, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
