@@ -96,7 +96,7 @@ use app\models\planilhas\Planilhadecurso;
 				  $valor_despesa = 0;
 
 				//EXRAINDO AS INFORMAÇÕES DAS PLANILHAS...
-				$query_planilhas = "SELECT placu_codeixo,placu_quantidadeturmas,placu_quantidadealunos,placu_quantidadealunosisentos,placu_quantidadealunospsg, placu_cargahorariaarealizar, placu_valorparcelas, placu_totalcustodireto, placu_totalcustoindireto FROM planilhadecurso_placu WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codprogramacao = '".$tipo_programacao['tipro_codprogramacao']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."'";
+				$query_planilhas = "SELECT placu_codeixo,placu_quantidadeturmas,placu_quantidadealunos,placu_quantidadealunosisentos,placu_quantidadealunospsg, placu_cargahorariaarealizar, placu_precosugerido, placu_totalcustodireto, placu_totalcustoindireto FROM planilhadecurso_placu WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codprogramacao = '".$tipo_programacao['tipro_codprogramacao']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."'";
         		$planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
 
             foreach ($planilhas as $planilha) {
@@ -108,7 +108,7 @@ use app\models\planilhas\Planilhadecurso;
 						 $quantidade_alunos         = $planilha['placu_quantidadealunos'];
 						 $quantidade_alunos_psg     = $planilha['placu_quantidadealunospsg'];
 						 $quantidade_alunos_isentos = $planilha['placu_quantidadealunosisentos'];
-						 $valor_mensalidade         = $planilha['placu_valorparcelas'];
+						 $valor_mensalidade         = $planilha['placu_precosugerido'];
 						 $valor_total_direta        = $planilha['placu_totalcustodireto'];
 						 $valor_total_indireto      = $planilha['placu_totalcustoindireto'];
 						 $quantidade_parcelas       = $planilha['placu_parcelas'];

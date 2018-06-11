@@ -146,7 +146,7 @@ use app\models\planilhas\Planilhadecurso;
 								$valor_por_tipo = 0;
 								 
 							  // DADOS PARA CALCULO...
-							  $query_planilhas = "SELECT placu_quantidadealunos, placu_valorparcelas, placu_quantidadeturmas FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codprogramacao = '".$tipo_programacao['tipro_codprogramacao']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$codigo_unidade."' AND placu_codsegmento = '".$codigo_segmento."' AND placu_codtipoa = '".$codigo_tipo."' ";
+							  $query_planilhas = "SELECT placu_quantidadealunos, placu_precosugerido, placu_quantidadeturmas FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codprogramacao = '".$tipo_programacao['tipro_codprogramacao']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$codigo_unidade."' AND placu_codsegmento = '".$codigo_segmento."' AND placu_codtipoa = '".$codigo_tipo."' ";
 
 
 					    		$planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
@@ -154,7 +154,7 @@ use app\models\planilhas\Planilhadecurso;
 					    		foreach ($planilhas as $planilha) {
 
 									    $quantidade_alunos  = $planilha['placu_quantidadealunos'];
-										$valor_curso        = $planilha['placu_valorparcelas'];
+										$valor_curso        = $planilha['placu_precosugerido'];
 									    $quantidade_turmas  = $planilha['placu_quantidadeturmas'];
 									    
 										$valor_curso = $quantidade_alunos * $valor_curso;
@@ -196,14 +196,14 @@ use app\models\planilhas\Planilhadecurso;
 								 $valor_por_segmento = 0;
 						 
 						 // DADOS PARA CALCULO...
-						 $query_planilhas = "SELECT placu_quantidadealunos, placu_valorparcelas, placu_quantidadeturmas FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codprogramacao = '".$tipo_programacao['tipro_codprogramacao']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$codigo_unidade."' AND placu_codsegmento = '".$codigo_segmento."' ";
+						 $query_planilhas = "SELECT placu_quantidadealunos, placu_precosugerido, placu_quantidadeturmas FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codprogramacao = '".$tipo_programacao['tipro_codprogramacao']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codunidade = '".$codigo_unidade."' AND placu_codsegmento = '".$codigo_segmento."' ";
 
 					    		$planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
 
 					    		foreach ($planilhas as $planilha) {
 
 				                 $quantidade_alunos  = $planilha['placu_quantidadealunos'];
-							     $valor_curso        = $planilha['placu_valorparcelas'];
+							     $valor_curso        = $planilha['placu_precosugerido'];
 								 $quantidade_turmas  = $planilha['placu_quantidadeturmas'];
 
 								 $valor_curso = $quantidade_alunos * $valor_curso;
@@ -309,14 +309,14 @@ use app\models\planilhas\Planilhadecurso;
 								 $valor_por_tipo = 0;
 								 
 								 // DADOS PARA CALCULO...
-								 $query_planilhas = "SELECT placu_quantidadealunos, placu_valorparcelas, placu_quantidadeturmas FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codprogramacao = '".$tipo_programacao['tipro_codprogramacao']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' and placu_codsegmento = '".$codigo_segmento."' and placu_codtipoa = '".$codigo_tipo."' ";
+								 $query_planilhas = "SELECT placu_quantidadealunos, placu_precosugerido, placu_quantidadeturmas FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codprogramacao = '".$tipo_programacao['tipro_codprogramacao']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' and placu_codsegmento = '".$codigo_segmento."' and placu_codtipoa = '".$codigo_tipo."' ";
 
 					    		$planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
 
 					    		foreach ($planilhas as $planilha) {
 
 									    $quantidade_alunos  = $planilha['placu_quantidadealunos'];
-										$valor_curso        = $planilha['placu_valorparcelas'];
+										$valor_curso        = $planilha['placu_precosugerido'];
 									    $quantidade_turmas  = $planilha['placu_quantidadeturmas'];
 									    
 										$valor_curso = $quantidade_alunos * $valor_curso;
@@ -357,14 +357,14 @@ use app\models\planilhas\Planilhadecurso;
 									 $valor_por_segmento = 0;
 
 						 // DADOS PARA CALCULO...
-						 $query_planilhas = "SELECT placu_quantidadealunos, placu_valorparcelas, placu_quantidadeturmas FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codprogramacao = '".$tipo_programacao['tipro_codprogramacao']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codsegmento = '".$codigo_segmento."'";
+						 $query_planilhas = "SELECT placu_quantidadealunos, placu_precosugerido, placu_quantidadeturmas FROM planilhadecurso_placu WHERE placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codprogramacao = '".$tipo_programacao['tipro_codprogramacao']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codsegmento = '".$codigo_segmento."'";
 
 					    		$planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
 
 					    		foreach ($planilhas as $planilha) {
 
 				                 $quantidade_alunos  = $planilha['placu_quantidadealunos'];
-							     $valor_curso        = $planilha['placu_valorparcelas'];
+							     $valor_curso        = $planilha['placu_precosugerido'];
 								 $quantidade_turmas  = $planilha['placu_quantidadeturmas'];
 									    
 								 $valor_curso = $quantidade_alunos * $valor_curso;
