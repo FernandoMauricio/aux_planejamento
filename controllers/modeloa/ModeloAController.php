@@ -71,11 +71,11 @@ class ModeloAController extends Controller
                 ->update('modeloa_moda',[
                          'moda_codentrada'   => $model->moda_codentrada,
                          ], [//------WHERE
-                         'moda_anoexercicio' => $model->moda_anoexercicio,
+                         'moda_codano' => $model->moda_codano,
                          ])
                 ->execute();
 
-           Yii::$app->session->setFlash('success','<strong>Sucesso!</strong> Definida a Entrada de Dados do <strong>Ano de Exercicio '.$model->moda_anoexercicio.'</strong> para o Modelo A como: <strong>'.$model->entradaModeloA->enta_entrada.'</strong> !');
+           Yii::$app->session->setFlash('success','<strong>Sucesso!</strong> Definida a Entrada de Dados do <strong>Ano de Exercicio '.$model->anoModeloA->an_ano.'</strong> para o Modelo A como: <strong>'.$model->entradaModeloA->enta_entrada.'</strong> !');
 
             return $this->redirect(['configuracao-entrada-dados-modelo-a']);
 
