@@ -499,7 +499,7 @@ class ModeloAController extends Controller
 
                         else if($orcpro_identificacao == 436) { //PESSOA FÍSICA
 
-                            $valor_programado += ($placu_pessoafisica * $placu_quantidadeturmas);
+                            $valor_reforcoreducao += ($placu_pessoafisica * $placu_quantidadeturmas);
 
                         }
 
@@ -526,12 +526,10 @@ class ModeloAController extends Controller
 
                         }
 
-
-                    //Inclui as informações das Planilhas para o Modelo A utilizando as condições acima COM A SITUAÇÃO DE ENTRADA: REFOÇO-REDUÇÃO
                     Yii::$app->db_apl->createCommand()
                         ->update('detalhesmodeloa_deta', [
-                                 'deta_reforcoreducao' => $valor_reforcoreducao > 0 && $valor_reforcoreducao < 1000 ?  1000 : $valor_reforcoreducao,
-                                 'deta_dotacaofinal'   => $deta_programado + $valor_reforcoreducao > 0 && $deta_programado + $valor_reforcoreducao < 1000 ? 1000 : $deta_programado + $valor_reforcoreducao,
+                                 'deta_reforcoreducao' => $valor_reforcoreducao > 0 && $valor_reforcoreducao < 1000 ?  1000 : round($deta_programado - $valor_reforcoreducao, -3),
+                                 'deta_dotacaofinal'   => $deta_programado + $valor_reforcoreducao > 0 && $deta_programado + $valor_reforcoreducao < 1000 ? 1000 : round($valor_reforcoreducao, -3),
                                  ], [//------WHERE
                                  'deta_codmodelo'      => $model->moda_codmodelo,
                                  'deta_identificacao'  => $orcpro_identificacao,
