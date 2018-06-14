@@ -525,11 +525,13 @@ class ModeloAController extends Controller
                             $valor_reforcoreducao += $placu_outdespvariaveis * $placu_quantidadeturmas;
 
                         }
+                        $retificativo =  $valor_reforcoreducao - $deta_programado;
+                        $dotacaofinal = $valor_reforcoreducao - $valor_programado;
 
                     Yii::$app->db_apl->createCommand()
                         ->update('detalhesmodeloa_deta', [
-                                 'deta_reforcoreducao' => $valor_reforcoreducao > 0 && $valor_reforcoreducao < 1000 ?  1000 : round($deta_programado - $valor_reforcoreducao, -3),
-                                 'deta_dotacaofinal'   => $deta_programado + $valor_reforcoreducao > 0 && $deta_programado + $valor_reforcoreducao < 1000 ? 1000 : round($valor_reforcoreducao, -3),
+                                 'deta_reforcoreducao' => $retificativo > 0 && $retificativo < 1000 ? 1000 : round($retificativo, -3),
+                                 'deta_dotacaofinal'   => $dotacaofinal > 0 && $dotacaofinal < 1000 ? 1000 : round($dotacaofinal, -3),
                                  ], [//------WHERE
                                  'deta_codmodelo'      => $model->moda_codmodelo,
                                  'deta_identificacao'  => $orcpro_identificacao,
