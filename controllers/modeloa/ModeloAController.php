@@ -453,7 +453,7 @@ class ModeloAController extends Controller
 
                         else if($orcpro_identificacao == 113) { //VALOR COM ENCARGOS ----->OBRIGAÇÕES PATRONAIS
 
-                            $valor_programado += ($placu_totalencargos * $placu_quantidadeturmas) + ($placu_totalencargosPrestador * $placu_quantidadeturmas);
+                            $valor_reforcoreducao += ($placu_totalsalario * $placu_quantidadeturmas + $placu_outdespvariaveis * $placu_quantidadeturmas + $placu_totalencargosPrestador * $placu_quantidadeturmas) * 33.29 / 100;
                         }
 
                         else if($orcpro_identificacao == 111) { //VALOR COM HORAS AULAS SEM ENCARGOS ----->VENC. E VANTAGENS FIXAS - PESSOAL CIVIL
@@ -511,7 +511,7 @@ class ModeloAController extends Controller
 
                         else if($orcpro_identificacao == 113) { //VALOR COM ENCARGOS ----->OBRIGAÇÕES PATRONAIS
 
-                            $valor_reforcoreducao += ($placu_totalencargos * $placu_quantidadeturmas) + ($placu_totalencargosPrestador * $placu_quantidadeturmas);
+                            $valor_reforcoreducao += ($placu_totalsalario * $placu_quantidadeturmas + $placu_outdespvariaveis * $placu_quantidadeturmas + $placu_totalencargosPrestador * $placu_quantidadeturmas) * 33.29 / 100;
                         }
 
                         else if($orcpro_identificacao == 111) { //VALOR COM HORAS AULAS SEM ENCARGOS ----->VENC. E VANTAGENS FIXAS - PESSOAL CIVIL
@@ -530,8 +530,8 @@ class ModeloAController extends Controller
 
                     Yii::$app->db_apl->createCommand()
                         ->update('detalhesmodeloa_deta', [
-                                 'deta_reforcoreducao' => $retificativo > 0 && $retificativo < 1000 ? 1000 : round($retificativo, -3),
-                                 'deta_dotacaofinal'   => $dotacaofinal > 0 && $dotacaofinal < 1000 ? 1000 : round($dotacaofinal, -3),
+                                 'deta_reforcoreducao' => $retificativo,
+                                 'deta_dotacaofinal'   => $dotacaofinal,
                                  ], [//------WHERE
                                  'deta_codmodelo'      => $model->moda_codmodelo,
                                  'deta_identificacao'  => $orcpro_identificacao,

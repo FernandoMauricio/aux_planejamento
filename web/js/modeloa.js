@@ -212,24 +212,24 @@ $(function() {
 
       //CÁLCULOS REALIZADOS
       //---------PROGRAMADO (+ ou -) REFORÇO,REDUÇÃO 
-      var deta_dotacaofinal0  = deta_programado0  + deta_reforcoreducao0 > 0 && deta_programado0  + deta_reforcoreducao0 < 1000 ? 1000 : Math.ceil(deta_programado0 + deta_reforcoreducao0);
-      var deta_dotacaofinal1  = deta_programado1  + deta_reforcoreducao1 > 0 && deta_programado1  + deta_reforcoreducao1 < 1000 ? 1000 : Math.ceil(deta_programado1 + deta_reforcoreducao1);
-      var deta_dotacaofinal2  = deta_programado2  + deta_reforcoreducao2 > 0 && deta_programado2  + deta_reforcoreducao2 < 1000 ? 1000 : Math.ceil(deta_programado2 + deta_reforcoreducao2);
-      var deta_dotacaofinal3  = deta_programado3  + deta_reforcoreducao3 > 0 && deta_programado3  + deta_reforcoreducao3 < 1000 ? 1000 : Math.ceil(deta_programado3 + deta_reforcoreducao4);
-      var deta_dotacaofinal4  = deta_programado4  + deta_reforcoreducao4 > 0 && deta_programado4  + deta_reforcoreducao4 < 1000 ? 1000 : Math.ceil(deta_programado4 + deta_reforcoreducao4);
-      var deta_dotacaofinal5  = deta_programado5  + deta_reforcoreducao5 > 0 && deta_programado5  + deta_reforcoreducao5 < 1000 ? 1000 : Math.ceil(deta_programado5 + deta_reforcoreducao5);
-      var deta_dotacaofinal6  = deta_programado6  + deta_reforcoreducao6 > 0 && deta_programado6  + deta_reforcoreducao6 < 1000 ? 1000 : Math.ceil(deta_programado6 + deta_reforcoreducao6);
-      var deta_dotacaofinal7  = deta_programado7  + deta_reforcoreducao7 > 0 && deta_programado7  + deta_reforcoreducao7 < 1000 ? 1000 : Math.ceil(deta_programado7 + deta_reforcoreducao7);
-      var deta_dotacaofinal8  = deta_programado8  + deta_reforcoreducao8 > 0 && deta_programado8  + deta_reforcoreducao8 < 1000 ? 1000 : Math.ceil(deta_programado8 + deta_reforcoreducao8);
-      var deta_dotacaofinal9  = deta_programado9  + deta_reforcoreducao9 > 0 && deta_programado9  + deta_reforcoreducao9 < 1000 ? 1000 : Math.ceil(deta_programado9 + deta_reforcoreducao9);
-      var deta_dotacaofinal10 = deta_programado10 + deta_reforcoreducao10 > 0 && deta_programado10 + deta_reforcoreducao10 < 1000 ? 1000 : Math.ceil(deta_programado10 + deta_reforcoreducao10);
-      var deta_dotacaofinal11 = deta_programado11 + deta_reforcoreducao11 > 0 && deta_programado11 + deta_reforcoreducao11 < 1000 ? 1000 : Math.ceil(deta_programado11 + deta_reforcoreducao11);
-      var deta_dotacaofinal12 = deta_programado12 + deta_reforcoreducao12 > 0 && deta_programado12 + deta_reforcoreducao12 < 1000 ? 1000 : Math.ceil(deta_programado12 + deta_reforcoreducao12);
-      var deta_dotacaofinal13 = deta_programado13 + deta_reforcoreducao13 > 0 && deta_programado13 + deta_reforcoreducao13 < 1000 ? 1000 : Math.ceil(deta_programado13 + deta_reforcoreducao13);
-      var deta_dotacaofinal14 = deta_programado14 + deta_reforcoreducao14 > 0 && deta_programado14 + deta_reforcoreducao14 < 1000 ? 1000 : Math.ceil(deta_programado14 + deta_reforcoreducao14);
-      var deta_dotacaofinal15 = deta_programado15 + deta_reforcoreducao15 > 0 && deta_programado15 + deta_reforcoreducao15 < 1000 ? 1000 : Math.ceil(deta_programado15 + deta_reforcoreducao15);
-      var deta_dotacaofinal16 = deta_programado16 + deta_reforcoreducao16 > 0 && deta_programado16 + deta_reforcoreducao16 < 1000 ? 1000 : Math.ceil(deta_programado16 + deta_reforcoreducao16);
-      var deta_dotacaofinal17 = deta_programado17 + deta_reforcoreducao17 > 0 && deta_programado17 + deta_reforcoreducao17 < 1000 ? 1000 : Math.ceil(deta_programado17 + deta_reforcoreducao17);
+      var deta_dotacaofinal0  = deta_programado0  + deta_reforcoreducao0;
+      var deta_dotacaofinal1  = deta_programado1  + deta_reforcoreducao1;
+      var deta_dotacaofinal2  = deta_programado2  + deta_reforcoreducao2;
+      var deta_dotacaofinal3  = deta_programado3  + deta_reforcoreducao3;
+      var deta_dotacaofinal4  = deta_programado4  + deta_reforcoreducao4;
+      var deta_dotacaofinal5  = deta_programado5  + deta_reforcoreducao5;
+      var deta_dotacaofinal6  = deta_programado6  + deta_reforcoreducao6;
+      var deta_dotacaofinal7  = deta_programado7  + deta_reforcoreducao7;
+      var deta_dotacaofinal8  = deta_programado8  + deta_reforcoreducao8;
+      var deta_dotacaofinal9  = deta_programado9  + deta_reforcoreducao9;
+      var deta_dotacaofinal10 = deta_programado10 + deta_reforcoreducao10;
+      var deta_dotacaofinal11 = deta_programado11 + deta_reforcoreducao11;
+      var deta_dotacaofinal12 = deta_programado12 + deta_reforcoreducao12;
+      var deta_dotacaofinal13 = deta_programado13 + deta_reforcoreducao13;
+      var deta_dotacaofinal14 = deta_programado14 + deta_reforcoreducao14;
+      var deta_dotacaofinal15 = deta_programado15 + deta_reforcoreducao15;
+      var deta_dotacaofinal16 = deta_programado16 + deta_reforcoreducao16;
+      var deta_dotacaofinal17 = deta_programado17 + deta_reforcoreducao17;
 
       //RESULTADO DOS VALORES
       $('#detalhesmodeloa-0-deta_dotacaofinal').val(deta_dotacaofinal0).css({'color': deta_dotacaofinal0 < 0 ? 'red' : 'green'});
