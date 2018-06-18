@@ -453,7 +453,7 @@ class ModeloAController extends Controller
 
                         else if($orcpro_identificacao == 113) { //VALOR COM ENCARGOS ----->OBRIGAÇÕES PATRONAIS
 
-                            $valor_reforcoreducao += ($placu_totalsalario * $placu_quantidadeturmas + $placu_outdespvariaveis * $placu_quantidadeturmas + $placu_totalencargosPrestador * $placu_quantidadeturmas) * 33.29 / 100;
+                            $valor_programado += ($placu_totalsalario * $placu_quantidadeturmas + $placu_outdespvariaveis * $placu_quantidadeturmas + $placu_totalencargosPrestador * $placu_quantidadeturmas) * 33.29 / 100;
                         }
 
                         else if($orcpro_identificacao == 111) { //VALOR COM HORAS AULAS SEM ENCARGOS ----->VENC. E VANTAGENS FIXAS - PESSOAL CIVIL

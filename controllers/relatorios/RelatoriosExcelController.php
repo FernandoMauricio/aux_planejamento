@@ -69,7 +69,8 @@ class RelatoriosExcelController extends Controller
                         `planilhadecurso_placu`.`placu_quantidadealunos`,
                         `planilhadecurso_placu`.`placu_quantidadealunospsg`,
                         `planilhadecurso_placu`.`placu_quantidadealunosisentos`,
-                        `planilhadecurso_placu`.`placu_quantidadeturmas` * (`planilhadecurso_placu`.`placu_quantidadealunos` + `planilhadecurso_placu`.`placu_quantidadealunospsg` + `planilhadecurso_placu`.`placu_quantidadealunosisentos`) AS MAT_TOTAL
+                        `planilhadecurso_placu`.`placu_quantidadeturmas` * (`planilhadecurso_placu`.`placu_quantidadealunos` + `planilhadecurso_placu`.`placu_quantidadealunospsg` + `planilhadecurso_placu`.`placu_quantidadealunosisentos`) AS MAT_TOTAL,
+                        `tipoprogramacao_tipro`.`tipro_descricao`
                     FROM 
                         `planilhadecurso_placu` 
                         INNER JOIN `ano_an` ON `planilhadecurso_placu`.`placu_codano` = `ano_an`.`an_codano`
@@ -79,6 +80,7 @@ class RelatoriosExcelController extends Controller
                         INNER JOIN `planodeacao_plan` ON `planilhadecurso_placu`.`placu_codplano` = `planodeacao_plan`.`plan_codplano` 
                         INNER JOIN `nivel_niv` ON `planilhadecurso_placu`.`placu_codnivel` = `nivel_niv`.`niv_codnivel`
                         INNER JOIN `categoriaplanilha_cat` ON `planilhadecurso_placu`.`placu_codcategoria` = `categoriaplanilha_cat`.`cat_codcategoria`
+                        INNER JOIN `tipoprogramacao_tipro` ON `tipoprogramacao_tipro`.`tipro_codprogramacao` = `planilhadecurso_placu`.`placu_codprogramacao`
                     WHERE 
                         `planilhadecurso_placu`.`placu_codsituacao` = 4
                     AND `seg_codsegmento` = `placu_codsegmento`
@@ -105,6 +107,7 @@ class RelatoriosExcelController extends Controller
             $objPHPExcel->getActiveSheet()->getColumnDimension('P')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('Q')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('R')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('S')->setWidth(10);
 
             //TÍTULO DAS COLUNAS
             $objPHPExcel->getActiveSheet()->setTitle('EXCEL-PAAR')                     
@@ -125,7 +128,8 @@ class RelatoriosExcelController extends Controller
              ->setCellValue('O1', 'MAT PAG')
              ->setCellValue('P1', 'MAT PSG')
              ->setCellValue('Q1', 'MAT ISE')
-             ->setCellValue('R1', 'MAT TOTAL');
+             ->setCellValue('R1', 'MAT TOTAL')
+             ->setCellValue('S1', 'PROGRAMÇÃO');
                  
          $row=2; //GERAÇÃO DOS DADOS A PARTIR DA LINHA 2
                                 
@@ -148,6 +152,7 @@ class RelatoriosExcelController extends Controller
                     $objPHPExcel->getActiveSheet()->setCellValue('P'.$row,$foo['placu_quantidadealunospsg']);
                     $objPHPExcel->getActiveSheet()->setCellValue('Q'.$row,$foo['placu_quantidadealunosisentos']);
                     $objPHPExcel->getActiveSheet()->setCellValue('R'.$row,$foo['MAT_TOTAL']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('S'.$row,$foo['tipro_descricao']);
 
                     $row++ ;
                }
