@@ -101,7 +101,7 @@ class Planodeacao extends \yii\db\ActiveRecord
             'plan_perfConclusao' => 'Perfil Profissional de Conclusão',
             'plan_nivelDocente' => 'Nível do Docente',
             'plan_perfTecnico' => 'Perfil do Docente',
-            'plan_codcolaborador' => 'Plan Codcolaborador',
+            'plan_codcolaborador' => 'Atualizado Por',
             'plan_data' => 'Data',
             'plan_status' => 'Situação',
             'plan_modelonacional' => 'Novo Modelo Pedagógico',

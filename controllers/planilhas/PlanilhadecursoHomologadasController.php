@@ -39,7 +39,7 @@ class PlanilhadecursoHomologadasController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = 'main-planilhadecurso';
+        $this->layout = 'main-full';
         $searchModel = new PlanilhadecursoHomologadasSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

@@ -58,6 +58,8 @@ class PlanodeacaoController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'main-full';
+        
         $searchModel = new PlanodeacaoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
       

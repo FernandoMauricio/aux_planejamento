@@ -60,7 +60,7 @@ class PlanilhadecursoAdminController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = 'main-planilhadecurso';
+        $this->layout = 'main-full';
         $searchModel = new PlanilhadecursoAdminSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

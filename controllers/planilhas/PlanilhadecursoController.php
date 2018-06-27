@@ -158,7 +158,7 @@ class PlanilhadecursoController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = 'main-planilhadecurso';
+        $this->layout = 'main-full';
         $searchModel = new PlanilhadecursoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

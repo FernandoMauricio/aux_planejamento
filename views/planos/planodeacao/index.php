@@ -11,6 +11,8 @@ use app\models\cadastros\Segmento;
 use app\models\cadastros\Tipo;
 use app\models\planos\Categoria;
 use app\models\planos\PlanoCategorias;
+use app\models\planos\Planodeacao;
+use app\models\base\Usuario;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\planos\PlanodeacaoSearch */
@@ -53,11 +55,11 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             'hover'=>true,
             'panel'=>['type'=>'primary', 'heading'=>'Listagem de Planos de Ação'],
             'columns'=>[
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn',  'options' => ['width' => '1%']],
 
             [
             'attribute'=>'plan_codsegmento', 
-            'width'=>'310px',
+            'width'=>'15%',
             'value'=>function ($model, $key, $index, $widget) { 
                 return $model->segmento->seg_descricao;
             },
@@ -82,37 +84,60 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
 
             [
-            'attribute'=>'plan_codtipoa', 
-            'width'=>'250px',
-            'value'=>function ($model, $key, $index, $widget) { 
-                return $model->tipo->tip_descricao;
-            },
-            'filterType'=>GridView::FILTER_SELECT2,
-            'filter'=>ArrayHelper::map(Tipo::find()->orderBy('tip_descricao')->asArray()->all(), 'tip_codtipoa', 'tip_descricao'), 
-            'filterWidgetOptions'=>[
-                'pluginOptions'=>['allowClear'=>true],
+                'attribute'=>'plan_codtipoa', 
+                'width'=>'15%',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->tipo->tip_descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(Tipo::find()->orderBy('tip_descricao')->asArray()->all(), 'tip_codtipoa', 'tip_descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'Selecione o Tipo de Ação'],
+                'group'=>true,  // enable grouping
+                'subGroupOf'=>1, // supplier column index is the parent group,
             ],
-            'filterInputOptions'=>['placeholder'=>'Selecione o Tipo de Ação'],
-            'group'=>true,  // enable grouping
-            'subGroupOf'=>1, // supplier column index is the parent group,
-        ],
-            'plan_codplano',
-            'plan_descricao',
 
+            [
+                'attribute' => 'plan_codplano',
+                'width'=>'5%',
+            ],
+
+            [
+                'attribute' => 'plan_descricao',
+                'width'=>'20%',
+            ],
+            
             [
                 'label' => 'Categorias do <br> Plano',
                 'encodeLabel' => false,
                 'attribute' => 'plan_categoriasPlano',
-                'width'=>'5%',
+                'width'=>'7%',
                 'value' => function($model) {
                         return implode(', ', \yii\helpers\ArrayHelper::map($model->planoCategorias, 'id', 'categoria.descricao'));
                     },
             ],
 
             [
+            'attribute'=>'plan_codcolaborador', 
+            'width'=>'5%',
+            'value'=>function ($model, $key, $index, $widget) { 
+                return $model->colaborador->usuario->usu_nomeusuario;
+            },
+            'filterType'=>GridView::FILTER_SELECT2,
+            'filter'=>ArrayHelper::map(Planodeacao::find()->select(['plan_codcolaborador', 'usu_nomeusuario'])->distinct()->innerJoin('db_base.colaborador_col', 'plan_codcolaborador = col_codcolaborador')->innerJoin('db_base.usuario_usu', 'col_codusuario = usu_codusuario')->asArray()->all(), 'plan_codcolaborador', 'usu_nomeusuario'),
+            'filterInputOptions'=>['placeholder'=>'Selecione o Usuário'],
+            'filterWidgetOptions'=>[
+                'pluginOptions'=>['allowClear'=>true],
+                ],
+            ],
+
+            [
                 'class'=>'kartik\grid\BooleanColumn',
                 'attribute'=>'plan_status', 
-                'vAlign'=>'middle'
+                'vAlign'=>'middle',
+                'width'=>'7%'
             ], 
 
             [
@@ -123,6 +148,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 'attribute'=>'plan_modelonacional', 
                 'vAlign'=>'middle',
                 'encodeLabel' => false,
+                'width'=>'7%'
             ],
 
             ['class' => 'yii\grid\ActionColumn',
