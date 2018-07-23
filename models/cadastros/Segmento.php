@@ -61,15 +61,14 @@ class Segmento extends \yii\db\ActiveRecord
         ];
     }
 
-
     //Busca dados dos eixos vinculados aos segmentos
     public static function getSegmentoSubCat($cat_id) {
         $data=\app\models\cadastros\Segmento::find()
-       ->where(['seg_codeixo'=>$cat_id])
-       ->select(['seg_codsegmento AS id','seg_descricao AS name'])->asArray()->all();
+        ->where(['seg_codeixo'=>$cat_id, 'seg_status' => 1])
+        ->select(['seg_codsegmento AS id','seg_descricao AS name'])->asArray()->all();
 
-            return $data;
-        }
+        return $data;
+    }
 
     public static function getDefaultSubCat($id) {
 
