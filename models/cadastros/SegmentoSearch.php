@@ -18,8 +18,8 @@ class SegmentoSearch extends Segmento
     public function rules()
     {
         return [
-            [['seg_codsegmento', 'seg_codeixo', 'seg_status'], 'integer'],
-            [['seg_descricao'], 'safe'],
+            [['seg_codsegmento', 'seg_status'], 'integer'],
+            [['seg_descricao', 'seg_codeixo'], 'safe'],
         ];
     }
 
@@ -60,11 +60,13 @@ class SegmentoSearch extends Segmento
         // grid filtering conditions
         $query->andFilterWhere([
             'seg_codsegmento' => $this->seg_codsegmento,
-            'seg_codeixo' => $this->seg_codeixo,
             'seg_status' => $this->seg_status,
         ]);
 
-        $query->andFilterWhere(['like', 'seg_descricao', $this->seg_descricao]);
+        $query->joinWith('eixo');
+
+        $query->andFilterWhere(['like', 'seg_descricao', $this->seg_descricao])
+            ->andFilterWhere(['like', 'eixo_eix.eix_descricao', $this->seg_codeixo]);
 
         return $dataProvider;
     }
