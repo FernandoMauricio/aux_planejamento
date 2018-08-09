@@ -62,7 +62,7 @@ class RelatoriosExcelController extends Controller
                         `categoriaplanilha_cat`.`cat_descricao`,
                         `planilhadecurso_placu`.`placu_quantidadeturmas`,
                         `planilhadecurso_placu`.`placu_anoexercicio`,
-                        `planilhadecurso_placu`.`placu_cargahorariaplano`,
+                        (`planilhadecurso_placu`.`placu_cargahorariaarealizar` + `planilhadecurso_placu`.`placu_cargahorariavivencia`) AS CH_TURMA,
                         (`planilhadecurso_placu`.`placu_quantidadeturmas` * `planilhadecurso_placu`.`placu_cargahorariaplano`) AS CH_TURMATOTAL,
                         (`planilhadecurso_placu`.`placu_cargahorariaplano` * (`planilhadecurso_placu`.`placu_quantidadealunos` + `planilhadecurso_placu`.`placu_quantidadealunospsg` + `planilhadecurso_placu`.`placu_quantidadealunosisentos`)) AS CHALUNO,
                         `planilhadecurso_placu`.`placu_quantidadeturmas` * (`planilhadecurso_placu`.`placu_cargahorariaplano` * (`planilhadecurso_placu`.`placu_quantidadealunos` + `planilhadecurso_placu`.`placu_quantidadealunospsg` + `planilhadecurso_placu`.`placu_quantidadealunosisentos`)) AS CH_ALUNOTOTAL,
@@ -153,7 +153,7 @@ class RelatoriosExcelController extends Controller
                     $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['cat_descricao']);
                     $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$foo['placu_quantidadeturmas']);
                     $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$foo['placu_anoexercicio']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['placu_cargahorariaplano']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['CH_TURMA']);
                     $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$foo['CH_TURMATOTAL']);
                     $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$foo['CHALUNO']);
                     $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['CH_ALUNOTOTAL']);

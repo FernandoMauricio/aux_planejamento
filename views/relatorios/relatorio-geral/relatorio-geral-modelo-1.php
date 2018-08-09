@@ -285,10 +285,8 @@ use app\models\planilhas\Planilhadecurso;
 			                        
 			                       $cor = "#FF0000";
 								  
-							$calculo1 = $carga_hora_para_aluno * ($quantidade_alunos + $quantidade_alunos_psg + $quantidade_alunos_isentos);
-			                $calculo1 = $calculo1 * $quantidade_turmas_para_aluno;
-							
-							
+							$calculo1 = ($carga_hora_para_aluno + $carga_horaria_vivencia) * ($quantidade_alunos + $quantidade_alunos_psg + $quantidade_alunos_isentos);
+			                //$calculo1 = $calculo1 * $quantidade_turmas_para_aluno;
 			?>
   <tr valign="middle"> 
     <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $nome_plano; ?></font></td>
@@ -382,20 +380,14 @@ use app\models\planilhas\Planilhadecurso;
   </tr>
 </table>
 											 										 
-			<?php
-									  
-									  } //FIM DOS TIPOS DE AÇÃO...
-							          
-							   
-							   
-							   } // FIM DOS SEGMENTOS...							
-							  							  
-							  
-							  
-					 } //FIM DOS EIXOS...
-                      
-			?>
-			
+<?php
+		} //FIM DOS TIPOS DE AÇÃO...
+		   
+	} // FIM DOS SEGMENTOS...							
+		  
+} //FIM DOS EIXOS...
+          
+?>
 			 <table width="100%" border="0">
              <tr> 
              <td width="37%"><table width="100%" border="1" cellspacing="0" bordercolor="#000000">
