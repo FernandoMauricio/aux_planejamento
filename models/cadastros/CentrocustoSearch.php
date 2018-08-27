@@ -41,7 +41,7 @@ class CentrocustoSearch extends Centrocusto
      */
     public function search($params)
     {
-        $query = Centrocusto::find()->where(['cen_codano' => 2018])->orderBy(['cen_codcentrocusto' => SORT_DESC]);;
+        $query = Centrocusto::find()->where(['in', 'cen_codano', [date('Y'),date('Y') + 1]])->orderBy(['cen_codcentrocusto' => SORT_DESC]);;
 
         // add conditions that should always apply here
 
