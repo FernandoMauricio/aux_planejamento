@@ -37,7 +37,7 @@
 
                   <div class="col-md-3"><strong>Nível Docente:</strong><br> <?php echo $model->despesasdocente->doce_descricao; ?></div>
 
-                  <div class="col-md-3"><strong>Total de Meses do Curso:</strong><br> <?php echo $model->planp_mesesdocurso; ?></div>
+                  <div class="col-md-3"><strong>Provisão de Ano:</strong><br> <?php echo $model->planp_mesesdocurso; ?></div>
 
                   <div class="col-md-3"><strong>Total Horas Docente:</strong><br> <?php echo $model->planp_totalhorasdocente; ?></div>
 

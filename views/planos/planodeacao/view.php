@@ -330,7 +330,7 @@ echo DetailView::widget([
         <td><?php echo $plama_editora ?></td>
         <td><?php echo $plama_tipoplano ?></td>
         <td><?php echo $plama_observacao ?></td>
-        <td><a target="_blank" href="http://portalsenac.am.senac.br/aux_planejamento/web/uploads/repositorio/<?php echo $plama_codrepositorio .'/'. $plama_arquivo ?>"> <?php echo $plama_arquivo ?></a></td>
+        <td><a target="_blank" href="https://portalsenac.am.senac.br/aux_planejamento/web/uploads/repositorio/<?php echo $plama_codrepositorio .'/'. $plama_arquivo ?>"> <?php echo $plama_arquivo ?></a></td>
       </tr>
         <?php
           }

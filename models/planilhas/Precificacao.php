@@ -165,7 +165,7 @@ class Precificacao extends \yii\db\ActiveRecord
             'planp_codunidade' => 'Unidade',
             'planp_planodeacao' => 'Cód. Plano',
             'planp_cargahoraria' => 'Carga Horária',
-            'planp_mesesdocurso' => 'Total de meses do curso',
+            'planp_mesesdocurso' => 'Provisão de Ano',
             'planp_qntaluno' => 'Qnt de Alunos',
             'planp_totalhorasdocente' => 'Total de horas docente',
             'planp_docente' => 'Nível Docente',

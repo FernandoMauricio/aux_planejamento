@@ -140,7 +140,7 @@ $(function() {
       //SEÇÃO 2
       var valor_servpedagogico        = planp_servpedagogico * hiddenplanejamento;
       var valorTotalMaoDeObra         = (planp_totalhorasdocente * planp_valorhoraaula) + valor_servpedagogico;
-      var valorDecimo                 = valorTotalMaoDeObra / planp_mesesdocurso;
+      var valorDecimo                 = valorTotalMaoDeObra / (planp_mesesdocurso*12);
       var valorFerias                 = valorDecimo;
       var valorTercoFerias            = valorFerias / 3;
       var totalSalarios               = valorTotalMaoDeObra + valorDecimo + valorFerias + valorTercoFerias;
@@ -171,8 +171,8 @@ $(function() {
 
       var valorParcelas =  planp_precosugerido / planp_parcelas;
 
-      //Reserva Técnica = CH do Plano >= 800  == 10 % senão == 5%;
-      planp_reservatecnica = planp_cargahoraria >= 800 ? 10 : 5;
+      //Reserva Técnica = CH do Plano >= 800  == 8% senão == 3%;
+      planp_reservatecnica = planp_cargahoraria >= 800 ? 8 : 3;
 
       //Aplicação do Desconto em cima do Preço Sugerido
       var valorComDesconto = planp_precosugerido - ((planp_precosugerido * planp_desconto) / 100);

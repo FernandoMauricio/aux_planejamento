@@ -282,7 +282,7 @@ class PrecificacaoController extends Controller
 
       //CÁLCULOS REALIZADOS - SEÇÃO 2
         $model->planp_totalcustodocente = ($model->planp_totalhorasdocente * $model->planp_valorhoraaula) + $model->planp_servpedagogico;
-        $model->planp_decimo = $model->planp_totalcustodocente / $model->planp_mesesdocurso;
+        $model->planp_decimo = $model->planp_totalcustodocente / ($model->planp_mesesdocurso * 12);
         $model->planp_ferias = $model->planp_decimo;
         $model->planp_tercoferias = $model->planp_ferias / 3;
         $model->planp_totalsalario = $model->planp_totalcustodocente + $model->planp_decimo + $model->planp_ferias + $model->planp_tercoferias;
@@ -306,7 +306,7 @@ class PrecificacaoController extends Controller
         $model->planp_porcentretornosugerido = ($model->planp_retornoprecosugerido /$model->planp_vendaturmasugerido) * 100;// % de Retorno / Preço de venda da Turma -- Valores em %
         $model->planp_minimoaluno = ceil($model->planp_despesatotal / $model->planp_precosugerido);
         $model->planp_valorparcelas = $model->planp_precosugerido / $model->planp_parcelas;
-        $model->planp_reservatecnica = $model->planp_cargahoraria >= 800 ? 10 : 5;//Reserva Técnica = CH do Plano >= 800  == 10 % senão == 5%;
+        $model->planp_reservatecnica = $model->planp_cargahoraria >= 800 ? 8 : 3;//Reserva Técnica = CH do Plano >= 800  == 8% senão == 3%;
         $model->planp_valorcomdesconto = $model->planp_precosugerido - (($model->planp_precosugerido * $model->planp_desconto) / 100);//Aplicação do Desconto em cima do Preço Sugerido
         $model->save();
 
@@ -397,7 +397,7 @@ class PrecificacaoController extends Controller
         $session = Yii::$app->session;
         if (!isset($session['sess_codusuario']) && !isset($session['sess_codcolaborador']) && !isset($session['sess_codunidade']) && !isset($session['sess_nomeusuario']) && !isset($session['sess_coddepartamento']) && !isset($session['sess_codcargo']) && !isset($session['sess_cargo']) && !isset($session['sess_setor']) && !isset($session['sess_unidade']) && !isset($session['sess_responsavelsetor'])) 
         {
-           return $this->redirect('http://portalsenac.am.senac.br');
+           return $this->redirect('https://portalsenac.am.senac.br');
         }
     }
 }
