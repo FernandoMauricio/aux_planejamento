@@ -53,48 +53,60 @@ use app\models\base\Unidade;
             $query_ListagemPrecificacao = "SELECT * FROM precificacao_unidades WHERE precificacao_id = '".$model->planp_id."'";
             $modelsPrecificacaoUnidades = PrecificacaoUnidades::findBySql($query_ListagemPrecificacao)->all(); 
             foreach ($modelsPrecificacaoUnidades as $modelPrecificacaoUnidades) {
-                
-              $uprec_codunidade       = $modelPrecificacaoUnidades["uprec_codunidade"];
-              $uprec_cargahoraria     = $modelPrecificacaoUnidades["uprec_cargahoraria"];
-              $uprec_qntaluno         = $modelPrecificacaoUnidades["uprec_qntaluno"];
-              $uprec_totalcustodireto = $modelPrecificacaoUnidades["uprec_totalcustodireto"];
-              $uprec_vendaturma       = $modelPrecificacaoUnidades["uprec_vendaturma"];
-              $uprec_vendaaluno       = $modelPrecificacaoUnidades["uprec_vendaaluno"];
-              $uprec_horaaula         = $modelPrecificacaoUnidades["uprec_horaaula"];
 
-            $query_Unidades = "SELECT * FROM unidade_uni WHERE uni_codunidade = '".$uprec_codunidade."' ";
+            $query_Unidades = "SELECT * FROM unidade_uni WHERE uni_cidade = 'Manaus' AND uni_codunidade = '".$modelPrecificacaoUnidades['uprec_codunidade']."' ";
             $modelsUnidades = Unidade::findBySql($query_Unidades)->all(); 
             foreach ($modelsUnidades as $modelUnidades) {
-                
-              $nomeUnidade       = $modelUnidades["uni_nomeabreviado"];
-
-            }
-        ?>
-      <tr>
-        <td><?php echo $nomeUnidade; ?></td>
-        <td><?php echo $uprec_cargahoraria; ?></td>
-        <td><?php echo $uprec_qntaluno; ?></td>
-        <td><?php echo 'R$ ' . number_format($uprec_totalcustodireto, 2, ',', '.'); ?></td>
-        <td><?php echo 'R$ ' . number_format($uprec_vendaturma, 2, ',', '.'); ?></td>
-        <td><?php echo 'R$ ' . number_format($uprec_vendaaluno, 2, ',', '.'); ?></td>
-        <td><?php echo 'R$ ' . number_format($uprec_horaaula, 2, ',', '.'); ?></td>
-        <td><?php echo 'R$ ' . number_format($model->planp_precosugerido, 2, ',', '.'); ?></td>
+         ?>
+      <tr><!-- Unidades da Capital--> 
+        <td><?= $modelUnidades['uni_nomeabreviado']; ?></td>
+        <td><?= $modelPrecificacaoUnidades['uprec_cargahoraria']; ?></td>
+        <td><?= $modelPrecificacaoUnidades['uprec_qntaluno']; ?></td>
+        <td><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_totalcustodireto'], 2, ',', '.'); ?></td>
+        <td><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_vendaturma'], 2, ',', '.'); ?></td>
+        <td><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_vendaaluno'], 2, ',', '.'); ?></td>
+        <td><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_horaaula'], 2, ',', '.'); ?></td>
+        <td><?= $modelUnidades['uni_cidade'] == "Manaus" ?  'R$ ' . number_format($model->planp_precosugerido, 2, ',', '.') : 'R$ ' . number_format($model->planp_valorcomdesconto, 2, ',', '.') ?></td>
       </tr>
       <?php
-        }
+         } 
+      }
+      ?>
+      <?php
+         $query_ListagemPrecificacao = "SELECT * FROM precificacao_unidades WHERE precificacao_id = '".$model->planp_id."'";
+         $modelsPrecificacaoUnidades = PrecificacaoUnidades::findBySql($query_ListagemPrecificacao)->all(); 
+         foreach ($modelsPrecificacaoUnidades as $modelPrecificacaoUnidades) {
+
+         $query_Unidades = "SELECT * FROM unidade_uni WHERE uni_cidade != 'Manaus' AND uni_codunidade = '".$modelPrecificacaoUnidades['uprec_codunidade']."' ";
+         $modelsUnidades = Unidade::findBySql($query_Unidades)->all(); 
+         foreach ($modelsUnidades as $modelUnidades) {
+      ?>
+      <tr><!-- Unidades do Interior--> 
+        <td><?= $modelUnidades['uni_nomeabreviado']; ?></td>
+        <td><?= $modelPrecificacaoUnidades['uprec_cargahoraria']; ?></td>
+        <td><?= $modelPrecificacaoUnidades['uprec_qntaluno']; ?></td>
+        <td><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_totalcustodireto'], 2, ',', '.'); ?></td>
+        <td><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_vendaturma'], 2, ',', '.'); ?></td>
+        <td><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_vendaaluno'], 2, ',', '.'); ?></td>
+        <td><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_horaaula'], 2, ',', '.'); ?></td>
+        <td><?= $modelUnidades['uni_cidade'] == "Manaus" ?  'R$ ' . number_format($model->planp_precosugerido, 2, ',', '.') : 'R$ ' . number_format($model->planp_valorcomdesconto, 2, ',', '.') ?></td>
+      </tr>
+      <?php
+         }
+      }
       ?>
     </tbody>
 
     <tfoot>
             <tr class="warning kv-edit-hidden" style="border-top: #dedede">
               <th>Média Total </th>
-               <th colspan="1" style="color:red"><?php echo $uprec_cargahoraria; ?></th>
-               <th colspan="1" style="color:red"><?php echo $uprec_qntaluno; ?></th>
-               <th colspan="1" style="color:red"><?php echo 'R$ ' . number_format($uprec_totalcustodireto, 2, ',', '.'); ?></th>
-               <th colspan="1" style="color:red"><?php echo 'R$ ' . number_format($MediaVendaTurma, 2, ',', '.'); ?></th>
-               <th colspan="1" style="color:red"><?php echo 'R$ ' . number_format($MediaVendaAluno, 2, ',', '.'); ?></th>
-               <th colspan="1" style="color:red"><?php echo 'R$ ' . number_format($MediaHoraAula, 2, ',', '.'); ?></th>
-               <th colspan="1" style="color:red"><?php echo 'R$ ' . number_format($model->planp_precosugerido, 2, ',', '.'); ?></th>
+               <th colspan="1" style="color:red"><?= $modelPrecificacaoUnidades['uprec_cargahoraria']; ?></th>
+               <th colspan="1" style="color:red"><?= $modelPrecificacaoUnidades['uprec_qntaluno']; ?></th>
+               <th colspan="1" style="color:red"><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_totalcustodireto'], 2, ',', '.'); ?></th>
+               <th colspan="1" style="color:red"><?= 'R$ ' . number_format($MediaVendaTurma, 2, ',', '.'); ?></th>
+               <th colspan="1" style="color:red"><?= 'R$ ' . number_format($MediaVendaAluno, 2, ',', '.'); ?></th>
+               <th colspan="1" style="color:red"><?= 'R$ ' . number_format($MediaHoraAula, 2, ',', '.'); ?></th>
+               <th colspan="1" style="color:red"><?= 'R$ ' . number_format($model->planp_precosugerido, 2, ',', '.'); ?></th>
             </tr>
     </tfoot>
 
