@@ -67,17 +67,6 @@ use kartik\nav\NavX;
             ],
 
             [
-            'label' => 'Solicitações de Cópias',
-            'items' => [
-                         ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
-                                     '<li class="divider"></li>',
-                            ['label' => 'Administração', 'items' => [
-                                ['label' => 'Solicitações em aprovação', 'url' => ['/solicitacoes/material-copias-aut-gerencia/index']],
-                            ]],
-                     ],
-            ],
-
-            [
             'label' => 'Planilhas',
             'items' => [
                          ['label' => 'Planilhas de Curso', 'url' => ['/planilhas/planilhadecurso/index']],
@@ -186,13 +175,6 @@ use kartik\nav\NavX;
             ],
 
             [
-            'label' => 'Solicitações de Cópias',
-            'items' => [
-                         ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
-                     ],
-            ],
-
-            [
             'label' => 'Planilhas',
             'items' => [
                          ['label' => 'Planilhas de Curso', 'url' => ['/planilhas/planilhadecurso/index']],
@@ -289,26 +271,6 @@ use kartik\nav\NavX;
             ],
 
             [
-            'label' => 'Solicitações de Cópias',
-            'items' => [
-                         ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
-                                     '<li class="divider"></li>',
-                            ['label' => 'Administração', 'items' => [
-                                ['label' => 'Solicitações em aprovação', 'url' => ['/solicitacoes/material-copias-aut-gerencia/index']],
-                                     '<li class="divider"></li>',
-                                ['label' => 'Solicitações Pendentes', 'url' => ['/solicitacoes/material-copias-pendentes/index']],
-                                ['label' => 'Solicitações Encerradas', 'url' => ['/solicitacoes/material-copias-encerradas/index']],
-                            ]],
-                            ['label' => 'Cadastros', 'items' => [
-                                ['label' => 'Tipos de Acabamento', 'url' => ['/solicitacoes/acabamento/index']],
-
-                            ]],
-
-
-                     ],
-            ],
-
-            [
             'label' => 'Relatórios',
             'items' => [
                             ['label' => 'Relatórios', 'items' => [
@@ -345,17 +307,6 @@ use kartik\nav\NavX;
             'label' => 'Plano de Ação',
             'items' => [
                          ['label' => 'Cadastro do Plano', 'url' => ['/planos/planodeacao/index']],
-                     ],
-            ],
-
-            [
-            'label' => 'Solicitações de Cópias',
-            'items' => [
-                         ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
-                                     '<li class="divider"></li>',
-                            ['label' => 'Administração', 'items' => [
-                                ['label' => 'Solicitações em aprovação', 'url' => ['/solicitacoes/material-copias-aut-gerencia/index']],
-                            ]],
                      ],
             ],
 
@@ -409,18 +360,6 @@ use kartik\nav\NavX;
             ['label' => 'Home', 'url' => ['/site/index']],
 
             [
-            'label' => 'Solicitações de Cópias',
-            'items' => [
-                         ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
-                                     '<li class="divider"></li>',
-                            ['label' => 'Administração', 'items' => [
-                                ['label' => 'Solicitações Aprovadas', 'url' => ['/solicitacoes/material-copias-aprovadas/index']],
-                                ['label' => 'Solicitações Encerradas', 'url' => ['/solicitacoes/material-copias-encerradas/index']],
-                            ]],
-                     ],
-            ],
-
-            [
             'label' => 'Usuário (' . utf8_encode(ucwords(strtolower($session['sess_nomeusuario']))) . ')',
             'items' => [
                          '<li class="dropdown-header">Área Usuário</li>',
@@ -445,13 +384,6 @@ use kartik\nav\NavX;
             'label' => 'Plano de Ação',
             'items' => [
                          ['label' => 'Cadastro do Plano', 'url' => ['/planos/planodeacao/index']],
-                     ],
-            ],
-
-            [
-            'label' => 'Solicitações de Cópias',
-            'items' => [
-                         ['label' => 'Nova Solicitação', 'url' => ['/solicitacoes/material-copias/index']],
                      ],
             ],
 
