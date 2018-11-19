@@ -60,7 +60,7 @@ $(function() {
       var markupDivisor               = (100 - totalIncidencia);
       var precoVendaTurmaSugerido     = (valorTotalDireto / markupDivisor) * 100; // Valores em %
       var valorTotalPrecoDeVendaTurma = (planp_precosugerido * planp_qntaluno);
-      var porcentagemRetornoSugerido  = (retornoPrecoSugerido / valorTotalPrecoDeVendaTurma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
+      var porcentagemRetornoSugerido  = (retornoPrecoSugerido / despesaTotal) * 100; // % de Retorno / Despesa Total -- Valores em %
 
       //Aplicação do Desconto em cima do Preço Sugerido
       var valorComDesconto = planp_precosugerido - ((planp_precosugerido * planp_desconto) / 100);

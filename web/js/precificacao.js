@@ -162,10 +162,10 @@ $(function() {
       var precoVendaAluno             = (precoVendaTurma / planp_qntaluno);
       var valorhoraAulaAluno          = precoVendaTurma / planp_cargahoraria / planp_qntaluno; //Preço de Venda da Turma / CH TOTAL / QNT Alunos
       var retornoPrecoVenda           = precoVendaTurma - despesaTotal; // Preço de venda da turma - Despesa Total;
-      var porcentagemRetorno          = (retornoPrecoVenda / precoVendaTurma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
+      var porcentagemRetorno          = (retornoPrecoVenda / despesaTotal) * 100; // % de Retorno / Despesa Total -- Valores em %
       var retornoPrecoSugerido        = (planp_precosugerido * planp_qntaluno) - despesaTotal; // Preço de Venda x Qnt de Alunos - Despesa Total;
       var valorTotalPrecoDeVendaTurma = (planp_precosugerido * planp_qntaluno);
-      var porcentagemRetornoSugerido  = (retornoPrecoSugerido / valorTotalPrecoDeVendaTurma) * 100; // % de Retorno / Preço de venda da Turma -- Valores em %
+      var porcentagemRetornoSugerido  = (retornoPrecoSugerido / despesaTotal) * 100; // % de Retorno / Despesa Total -- Valores em %
 
       var minimoAlunos = Math.ceil(despesaTotal / planp_precosugerido); // Despesa Total / Preço de Venda;
 
