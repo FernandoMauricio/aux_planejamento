@@ -169,11 +169,13 @@ class RepositorioMateriaisController extends Controller
                                 {
                                   if(!mkdir($subdiretorio));
                                 }
-                          $model->rep_arquivo = $model->file->baseName . '.' . $model->file->extension;
-                          //salva o arquivo no caminho da criação da pasta
-                          Yii::$app->params['uploadPath'] = Yii::$app->basePath . '/web/uploads/repositorio/' . $model->rep_codrepositorio .'/';
-                          $path = Yii::$app->params['uploadPath'] . $model->file;
-                           $model->file->saveAs($path);
+                            $model->rep_arquivo = $model->file->baseName . '.' . $model->file->extension;
+                            //salva o arquivo no caminho da criação da pasta
+                            Yii::$app->params['uploadPath'] = Yii::$app->basePath . '/web/uploads/repositorio/' . $model->rep_codrepositorio .'/';
+                            //exclui o arquivo existente
+                            unlink(Yii::$app->params['uploadPath'] . $model->file);
+                            $path = Yii::$app->params['uploadPath'] . $model->file;
+                            $model->file->saveAs($path);
                         }
             //INCLUSÃO DA CAPA
             $image = UploadedFile::getInstance($model, 'image');
