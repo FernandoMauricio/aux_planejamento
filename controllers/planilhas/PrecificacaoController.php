@@ -42,6 +42,73 @@ class PrecificacaoController extends Controller
         ];
     }
 
+    public function actionRecalcularPlanilha($id) 
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+        $model->planp_valorhoraaula = $model->despesasdocente->doce_valorhoraaula;
+        $model->planp_codcolaboradoratualizacao = $session['sess_codcolaborador'];
+        $model->planp_dataatualizacao = date('Y-m-d');
+
+      //CÁLCULOS REALIZADOS - SEÇÃO 2
+        $model->planp_totalcustodocente = ($model->planp_totalhorasdocente * $model->planp_valorhoraaula) + $model->planp_servpedagogico;
+        $model->planp_decimo = $model->planp_totalcustodocente / ($model->planp_mesesdocurso * 12);
+        $model->planp_ferias = $model->planp_decimo;
+        $model->planp_tercoferias = $model->planp_ferias / 3;
+        $model->planp_totalsalario = $model->planp_totalcustodocente + $model->planp_decimo + $model->planp_ferias + $model->planp_tercoferias;
+        $model->planp_totalencargos = ($model->planp_totalsalario * $model->planp_encargos) / 100;
+        $model->planp_totalsalarioencargo = $model->planp_totalencargos + $model->planp_totalsalario ;
+        $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_custosmateriais + $model->planp_custosconsumo;
+        $model->planp_totalhoraaulacustodireto = $model->planp_totalcustodireto / $model->planp_cargahoraria / $model->planp_qntaluno;
+
+      //CÁLCULOS REALIZADOS - SEÇÃO 3
+        $model->planp_totalincidencias = $model->planp_custosindiretos + $model->planp_ipca + $model->planp_reservatecnica + $model->planp_despesadm;
+        $model->planp_totalcustoindireto = ($model->planp_totalcustodireto * $model->planp_totalincidencias) / 100;
+        $model->planp_despesatotal = $model->planp_totalcustoindireto + $model->planp_totalcustodireto;
+        $model->planp_markdivisor = (100 - $model->planp_totalincidencias);
+        $model->planp_markmultiplicador = ((100 / $model->planp_markdivisor) - 1) * 100;
+        $model->planp_vendaturma = ($model->planp_totalcustodireto / $model->planp_markdivisor) * 100;
+        $model->planp_vendaaluno = $model->planp_vendaturma / $model->planp_qntaluno;
+        $model->planp_horaaulaaluno = $model->planp_vendaturma / $model->planp_cargahoraria / $model->planp_qntaluno;
+        $model->planp_retorno = $model->planp_vendaturma - $model->planp_despesatotal;
+        $model->planp_porcentretorno = ($model->planp_retorno / $model->planp_vendaturma) * 100;
+        $model->planp_retornoprecosugerido = ($model->planp_precosugerido * $model->planp_qntaluno) - $model->planp_despesatotal;
+        $model->planp_porcentretornosugerido = ($model->planp_retornoprecosugerido /$model->planp_vendaturmasugerido) * 100;// % de Retorno / Preço de venda da Turma -- Valores em %
+        $model->planp_minimoaluno = ceil($model->planp_despesatotal / $model->planp_precosugerido);
+        $model->planp_valorparcelas = $model->planp_precosugerido / $model->planp_parcelas;
+        $model->planp_reservatecnica = $model->planp_cargahoraria >= 800 ? 8 : 3;//Reserva Técnica = CH do Plano >= 800  == 8% senão == 3%;
+        $model->planp_valorcomdesconto = $model->planp_precosugerido - (($model->planp_precosugerido * $model->planp_desconto) / 100);//Aplicação do Desconto em cima do Preço Sugerido
+        $model->save();
+
+        if($model->save()) {
+
+            //SE A UNIDADE FOR FATESE OS ENCARGOS SERÃO 32.7
+            $model->planp_encargos = $model->planp_codunidade == 30 ? $model->planp_encargos = 32.70 : $model->planp_encargos = 33.29;
+
+            //Localiza as unidades configuradas pelo MARKUP
+            $listagemUnidades = "SELECT * FROM markup_mark WHERE mark_tipo = 1";
+            $unidadesMarkup = Markup::findBySql($listagemUnidades)->all();
+
+            foreach ($unidadesMarkup as $unidadeMarkup) {
+
+                $mark_codunidade = $unidadeMarkup['mark_codunidade'];
+                $mark_divisor    = $unidadeMarkup['mark_divisor'];
+
+                $PrecoVendaTurma    = ($model->planp_totalcustodireto / $mark_divisor) * 100; // Valores em % -> Preço de Venda = Total Custo Direto / Markup Divisor
+                $PrecoVendaAluno    = $PrecoVendaTurma / $model->planp_qntaluno; //Preço de Venda da Turma / QNT Alunos
+                $ValorHoraAulaAluno = $PrecoVendaTurma / $model->planp_cargahoraria / $model->planp_qntaluno; //Preço de Venda da Turma / CH TOTAL / QNT Alunos
+
+                $command = Yii::$app->db_apl->createCommand();
+                $command->update('db_apl2.precificacao_unidades', array('uprec_codunidade'=>$mark_codunidade, 'precificacao_id' => $model->planp_id, 'uprec_cargahoraria' => $model->planp_cargahoraria, 'uprec_qntaluno' => $model->planp_qntaluno, 'uprec_totalcustodireto' => $model->planp_totalcustodireto, 'uprec_vendaturma' => $PrecoVendaTurma, 'uprec_vendaaluno' => $PrecoVendaAluno, 'uprec_horaaula' => $ValorHoraAulaAluno), array('precificacao_id' => $model->planp_id, 'uprec_codunidade'=>$mark_codunidade));
+                $command->execute();
+            }
+        }
+
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Valores atualizados!</strong>');
+
+        return $this->redirect(['view', 'id' => $model->planp_id]);
+
+    }
     /**
      * Lists all Precificacao models.
      * @return mixed
