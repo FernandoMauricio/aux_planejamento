@@ -67,7 +67,7 @@
       <div class="col-md-3"><strong>Custos Indiretos(%):</strong><br> <?= number_format($model->planp_custosindiretos, 2, ',', '.') . '%'; ?></div>
       <div class="col-md-3"><strong>IPCA/Mês(%):</strong><br> <?= number_format($model->planp_ipca, 2, ',', '.') . '%'; ?></div>
       <div class="col-md-3"><strong>Rerserva Técnica(%):</strong><br> <?= number_format($model->planp_reservatecnica, 2, ',', '.') . '%'; ?></div>
-      <div class="col-md-3"><strong>Despesa Sede ADM 2016(%):</strong><br> <?= number_format($model->planp_despesadm, 2, ',', '.') . '%'; ?></div>
+      <div class="col-md-3"><strong>Despesa Sede ADM(%):</strong><br> <?= number_format($model->planp_despesadm, 2, ',', '.') . '%'; ?></div>
    </div><br>
 
    <div class="row">

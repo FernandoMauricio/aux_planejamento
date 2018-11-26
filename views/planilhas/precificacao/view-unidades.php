@@ -16,20 +16,19 @@ use app\models\base\Unidade;
   <table class="table table-condensed table-hover">
     <thead>
       <tr>
-        <th>Unidade</th>
-        <th>Carga Horária</th>
-        <th>Qnt Alunos</th>
-        <th>Total Custo Direto</th>
-        <th>Valor Total da Turma</th>
-        <th>Valor Por Aluno</th>
-        <th>Valor Hora/Aula</th>
-        <th>Preço de Venda</th>
+        <th style="font-size:10px;">Unidade</th>
+        <th style="font-size:10px;">Carga Horária</th>
+        <th style="font-size:10px;">Qnt Alunos</th>
+        <th style="font-size:10px;">Total Custo Direto</th>
+        <th style="font-size:10px;">Valor Total da Turma</th>
+        <th style="font-size:10px;">Valor Por Aluno</th>
+        <th style="font-size:10px;">Valor Hora/Aula</th>
+        <th style="font-size:10px;">Preço de Venda</th>
       </tr>
     </thead>
 
     <tbody>
         <?php
-
             //realiza a soma do valor total da turma das unidades
             $query = (new \yii\db\Query())->from('db_apl2.precificacao_unidades')->where(['precificacao_id' => $model->planp_id]);
             $totalVendaTurma = $query->sum('uprec_vendaturma');
@@ -59,14 +58,14 @@ use app\models\base\Unidade;
             foreach ($modelsUnidades as $modelUnidades) {
          ?>
       <tr><!-- Unidades da Capital--> 
-        <td><?= $modelUnidades['uni_nomeabreviado']; ?></td>
-        <td><?= $modelPrecificacaoUnidades['uprec_cargahoraria']; ?></td>
-        <td><?= $modelPrecificacaoUnidades['uprec_qntaluno']; ?></td>
-        <td><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_totalcustodireto'], 2, ',', '.'); ?></td>
-        <td><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_vendaturma'], 2, ',', '.'); ?></td>
-        <td><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_vendaaluno'], 2, ',', '.'); ?></td>
-        <td><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_horaaula'], 2, ',', '.'); ?></td>
-        <td><?= $modelUnidades['uni_cidade'] == "Manaus" ?  'R$ ' . number_format($model->planp_precosugerido, 2, ',', '.') : 'R$ ' . number_format($model->planp_valorcomdesconto, 2, ',', '.') ?></td>
+        <td style="font-size:10px;"><?= $modelUnidades['uni_nomeabreviado']; ?></td>
+        <td style="font-size:10px;"><?= $modelPrecificacaoUnidades['uprec_cargahoraria']; ?></td>
+        <td style="font-size:10px;"><?= $modelPrecificacaoUnidades['uprec_qntaluno']; ?></td>
+        <td style="font-size:10px;"><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_totalcustodireto'], 2, ',', '.'); ?></td>
+        <td style="font-size:10px;"><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_vendaturma'], 2, ',', '.'); ?></td>
+        <td style="font-size:10px;"><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_vendaaluno'], 2, ',', '.'); ?></td>
+        <td style="font-size:10px;"><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_horaaula'], 2, ',', '.'); ?></td>
+        <td style="font-size:10px;"><?= $modelUnidades['uni_cidade'] == "Manaus" ?  'R$ ' . number_format($model->planp_precosugerido, 2, ',', '.') : 'R$ ' . number_format($model->planp_valorcomdesconto, 2, ',', '.') ?></td>
       </tr>
       <?php
          } 
@@ -82,14 +81,14 @@ use app\models\base\Unidade;
          foreach ($modelsUnidades as $modelUnidades) {
       ?>
       <tr><!-- Unidades do Interior--> 
-        <td><?= $modelUnidades['uni_nomeabreviado']; ?></td>
-        <td><?= $modelPrecificacaoUnidades['uprec_cargahoraria']; ?></td>
-        <td><?= $modelPrecificacaoUnidades['uprec_qntaluno']; ?></td>
-        <td><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_totalcustodireto'], 2, ',', '.'); ?></td>
-        <td><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_vendaturma'], 2, ',', '.'); ?></td>
-        <td><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_vendaaluno'], 2, ',', '.'); ?></td>
-        <td><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_horaaula'], 2, ',', '.'); ?></td>
-        <td><?= $modelUnidades['uni_cidade'] == "Manaus" ?  'R$ ' . number_format($model->planp_precosugerido, 2, ',', '.') : 'R$ ' . number_format($model->planp_valorcomdesconto, 2, ',', '.') ?></td>
+        <td style="font-size:10px;"><?= $modelUnidades['uni_nomeabreviado']; ?></td>
+        <td style="font-size:10px;"><?= $modelPrecificacaoUnidades['uprec_cargahoraria']; ?></td>
+        <td style="font-size:10px;"><?= $modelPrecificacaoUnidades['uprec_qntaluno']; ?></td>
+        <td style="font-size:10px;"><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_totalcustodireto'], 2, ',', '.'); ?></td>
+        <td style="font-size:10px;"><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_vendaturma'], 2, ',', '.'); ?></td>
+        <td style="font-size:10px;"><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_vendaaluno'], 2, ',', '.'); ?></td>
+        <td style="font-size:10px;"><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_horaaula'], 2, ',', '.'); ?></td>
+        <td style="font-size:10px;"><?= $modelUnidades['uni_cidade'] == "Manaus" ?  'R$ ' . number_format($model->planp_precosugerido, 2, ',', '.') : 'R$ ' . number_format($model->planp_valorcomdesconto, 2, ',', '.') ?></td>
       </tr>
       <?php
          }
@@ -100,16 +99,14 @@ use app\models\base\Unidade;
     <tfoot>
             <tr class="warning kv-edit-hidden" style="border-top: #dedede">
               <th>Média Total </th>
-               <th colspan="1" style="color:red"><?= $modelPrecificacaoUnidades['uprec_cargahoraria']; ?></th>
-               <th colspan="1" style="color:red"><?= $modelPrecificacaoUnidades['uprec_qntaluno']; ?></th>
-               <th colspan="1" style="color:red"><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_totalcustodireto'], 2, ',', '.'); ?></th>
-               <th colspan="1" style="color:red"><?= 'R$ ' . number_format($MediaVendaTurma, 2, ',', '.'); ?></th>
-               <th colspan="1" style="color:red"><?= 'R$ ' . number_format($MediaVendaAluno, 2, ',', '.'); ?></th>
-               <th colspan="1" style="color:red"><?= 'R$ ' . number_format($MediaHoraAula, 2, ',', '.'); ?></th>
-               <th colspan="1" style="color:red"><?= 'R$ ' . number_format($model->planp_precosugerido, 2, ',', '.'); ?></th>
+               <th colspan="1" style="font-size:10px; color:red"><?= $modelPrecificacaoUnidades['uprec_cargahoraria']; ?></th>
+               <th colspan="1" style="font-size:10px; color:red"><?= $modelPrecificacaoUnidades['uprec_qntaluno']; ?></th>
+               <th colspan="1" style="font-size:10px; color:red"><?= 'R$ ' . number_format($modelPrecificacaoUnidades['uprec_totalcustodireto'], 2, ',', '.'); ?></th>
+               <th colspan="1" style="font-size:10px; color:red"><?= 'R$ ' . number_format($MediaVendaTurma, 2, ',', '.'); ?></th>
+               <th colspan="1" style="font-size:10px; color:red"><?= 'R$ ' . number_format($MediaVendaAluno, 2, ',', '.'); ?></th>
+               <th colspan="1" style="font-size:10px; color:red"><?= 'R$ ' . number_format($MediaHoraAula, 2, ',', '.'); ?></th>
+               <th colspan="1" style="font-size:10px; color:red"><?= 'R$ ' . number_format($model->planp_precosugerido, 2, ',', '.'); ?></th>
             </tr>
     </tfoot>
-
   </table>
-
 </div>

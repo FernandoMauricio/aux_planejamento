@@ -331,7 +331,7 @@ use yii\helpers\Html;
 
                   <div class="col-md-3"><strong>Rerserva Técnica(%):</strong><br> <?php echo number_format($model->placu_reservatecnica, 2, ',', '.') . '%'; ?></div>
 
-                  <div class="col-md-3"><strong>Despesa Sede ADM 2016(%):</strong><br> <?php echo number_format($model->placu_despesadm, 2, ',', '.') . '%'; ?></div>
+                  <div class="col-md-3"><strong>Despesa Sede ADM(%):</strong><br> <?php echo number_format($model->placu_despesadm, 2, ',', '.') . '%'; ?></div>
           </div>
 
         <br>

@@ -84,7 +84,7 @@ use yii\helpers\Html;
             <td style="font-size:11px;" colspan="3"><strong>Custos Indiretos(%): </strong><br> <?= number_format($model->planp_custosindiretos, 2, ',', '.') . '%'; ?></td>
             <td style="font-size:11px;" colspan="3"><strong>IPCA/Mês(%): </strong><br> <?= number_format($model->planp_ipca, 2, ',', '.') . '%'; ?></td>
             <td style="font-size:11px;" colspan="3"><strong>Rerserva Técnica(%): </strong><br> <?= number_format($model->planp_reservatecnica, 2, ',', '.') . '%'; ?></td>
-            <td style="font-size:11px;" colspan="3"><strong>Despesa Sede ADM 2016(%): </strong><br> <?= number_format($model->planp_despesadm, 2, ',', '.') . '%'; ?></td>
+            <td style="font-size:11px;" colspan="3"><strong>Despesa Sede ADM(%): </strong><br> <?= number_format($model->planp_despesadm, 2, ',', '.') . '%'; ?></td>
         </tr>
         <tr>
             <td style="font-size:11px;" colspan="4"><strong>Total Incidências(%): </strong><br> <?= number_format($model->planp_totalincidencias, 2, ',', '.') . '%'; ?></td>

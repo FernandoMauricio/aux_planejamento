@@ -148,11 +148,11 @@ class PrecificacaoController extends Controller
                 'cssInline'=> '.kv-heading-1{font-size:18px}',
                 'defaultFontSize' => '6px',
                 'options' => [
-                    'title' => 'Gerência de Planejamento e Orçamento - GPO',
+                    'title' => 'Divisão Financeira - DIF',
                 ],
                 'methods' => [
                     'SetHeader' => ['DETALHES DA PRECIFICAÇÃO DE CUSTO - SENAC AM||Gerado em: ' . date("d/m/Y - H:i:s")],
-                    'SetFooter' => ['Gerência de Planejamento e Orçamento - GPO||Página {PAGENO}'],
+                    'SetFooter' => ['Divisão Financeira - DIF||Página {PAGENO}'],
                 ]
             ]);
 
