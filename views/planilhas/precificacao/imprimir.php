@@ -98,7 +98,7 @@ use yii\helpers\Html;
         <tr>
             <td style="font-size:11px;" colspan="4"><strong>Mark-Up Divisor 100-X/100: </strong><br> <?php echo number_format($model->planp_markdivisor, 2, ',', '.') . '%'; ?></td>
             <td style="font-size:11px;" colspan="4"><strong>Mark-Up Multiplicador 100/Markup: </strong><br> <?php echo number_format($model->planp_markmultiplicador, 2, ',', '.') . '%'; ?></td>
-            <td style="font-size:11px;" colspan="3"><strong>Valor Hora/Aula por Aluno: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_horaaulaaluno, 2, ',', '.'); ?></td>
+            <td style="font-size:11px;" colspan="4"><strong>Valor Hora/Aula por Aluno: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_horaaulaaluno, 2, ',', '.'); ?></td>
         </tr>
         <tr>
             <td style="font-size:11px;" colspan="3"><strong>Preço de Venda pela planilha: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaaluno, 2, ',', '.'); ?></td>
@@ -106,24 +106,55 @@ use yii\helpers\Html;
             <td style="font-size:11px;" colspan="4"><strong>Preço de Venda Total da Turma: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaturma, 2, ',', '.'); ?></td>
             <td style="font-size:11px;" colspan="3"><strong>% de Retorno: </strong><br> <?php echo number_format($model->planp_porcentretorno, 2, ',', '.') . '%'; ?></td>
         </tr>
-        <tr>
-            <td style="font-size:11px;" colspan="3"><strong>Preço de Venda: </strong><br>  <?php echo 'R$ ' . number_format( $model->planp_precosugerido, 2, ',', '.'); ?></td>
-            <td style="font-size:11px;" colspan="3"><strong>Retorno com Preço de Venda: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_retornoprecosugerido, 2, ',', '.'); ?></td>
-            <td style="font-size:11px;" colspan="3"><strong>Valor Total:</strong><br> <?php echo 'R$ ' . number_format( $model->planp_vendaturmasugerido, 2, ',', '.'); ?></td>
-            <td style="font-size:11px;" colspan="3"><strong>% de Retorno(Preço de Venda):</strong><br> <?php echo number_format($model->planp_porcentretornosugerido, 2, ',', '.') . '%'; ?></td>
-        </tr>
-        <tr>
-            <td style="font-size:11px;" colspan="3"><strong>Quantidade de Parcelas: </strong><br> <?php echo $model->planp_parcelas; ?></td>
-            <td style="font-size:11px;" colspan="3"><strong>Valor das Parcelas: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_valorparcelas, 2, ',', '.'); ?></td>
-            <td style="font-size:11px;" colspan="3"><strong>Desconto:</strong><br> <?php echo $model->planp_desconto . '%'; ?></div>
-            <td style="font-size:11px;" colspan="3"><strong>Valor com desconto: </strong><br> <?php echo 'R$ ' . number_format( $model->planp_valorcomdesconto, 2, ',', '.'); ?></td>
-        </tr>
-        <tr>
-            <td style="font-size:11px;" colspan="12"><strong>Numero minimo de alunos por turma: </strong><br> <?php echo $model->planp_minimoaluno; ?></td>
         </tr>
     </tbody>
    </table>
 
+
+    <table class="table table-condensed" cellpadding=12 cellspacing=12 >
+    <tbody>
+        <tr>
+            <td style="font-size:11px; text-align: center; background-color: #FFE0B2; padding:1%" colspan="6"><b>Capital</b></td>
+            <table class="table table-condensed">
+                <tbody>
+                    <tr>
+                        <!-- Capital -->
+                        <td style="font-size:10px;"><b>Preço de Venda:</b><br> <?= 'R$ ' . number_format( $model->planp_precosugerido, 2, ',', '.'); ?></td>
+                        <td style="font-size:10px;"><b>Retorno R$:</b><br> <?= 'R$ ' . number_format( $model->planp_retornoprecosugerido, 2, ',', '.'); ?></td>
+                        <td style="font-size:10px;"><b>Valor Total:</b><br> <?= 'R$ ' . number_format( $model->planp_vendaturmasugerido, 2, ',', '.'); ?></td>
+                        <td style="font-size:10px;"><b>% de Retorno:</b><br> <?= number_format($model->planp_porcentretornosugerido, 2, ',', '.') . '%'; ?></td>
+                    </tr>
+                    <tr>
+                        <!-- Capital -->
+                        <td style="font-size:10px;"><b>Parcelas:</b><br> <?= $model->planp_parcelas; ?></td>
+                        <td style="font-size:10px;"><b>Valor das Parcelas:</b><br> <?= 'R$ ' . number_format( $model->planp_valorparcelas, 2, ',', '.'); ?></td>
+                        <td style="font-size:10px;" colspan="2"><b>Mínimo de Alunos:</b><br> <?= $model->planp_minimoaluno; ?></td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <td style="font-size:11px; text-align: center; background-color: #FFE0B2; padding:1%" colspan="6"><b>Municípios do Interior</b></td>
+            <table class="table table-condensed">
+                <tbody>
+                    <tr>
+                        <!-- Interior -->
+                        <td style="font-size:10px;"><b>Preço de Venda:</b><br> <?= 'R$ ' . number_format( $model->planp_valorcomdesconto, 2, ',', '.'); ?></td>
+                        <td style="font-size:10px;"><b>Retorno R$:</b><br> <?= 'R$ ' . number_format( $model->planp_retornoprecosugeridointerior, 2, ',', '.'); ?></td>
+                        <td style="font-size:10px;"><b>Valor Total:</b><br> <?= 'R$ ' . number_format( $model->planp_vendaturmasugeridointerior, 2, ',', '.'); ?></td>
+                        <td style="font-size:10px;"><b>% de Retorno:</b><br> <?= number_format($model->planp_porcentretornosugeridointerior, 2, ',', '.') . '%'; ?></td>
+                    </tr>
+                    <tr>
+                        <!-- Interior -->
+                        <td style="font-size:10px;"><b>Desconto:</b><br> <?= $model->planp_desconto . ' %'; ?></td>
+                        <td style="font-size:10px;"><b>Valor das Parcelas:</b><br> <?= 'R$ ' . number_format( $model->planp_valorparcelasinterior, 2, ',', '.'); ?></td>
+                        <td style="font-size:10px;" colspan="2"><b>Mínimo de Alunos:</b><br> <?= $model->planp_minimoalunointerior; ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </tr>
+    </tbody>
+    </table>
  <br>
 
    <table class="table table-condensed table-hover">

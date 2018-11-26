@@ -119,7 +119,7 @@
          </div><br>
    
          <div class="row">
-            <div class="col-md-3"><b>Parcelas:</b><br> <?= $model->planp_parcelas; ?></div>
+            <div class="col-md-3"><b>Desconto:</b><br> <?= $model->planp_desconto . ' %'; ?></div>
             <div class="col-md-4"><b>Valor das Parcelas:</b><br> <?= 'R$ ' . number_format( $model->planp_valorparcelasinterior, 2, ',', '.'); ?></div>
             <div class="col-md-4"><b>Mínimo de Alunos:</b><br> <?= $model->planp_minimoalunointerior; ?></div>
          </div><br>

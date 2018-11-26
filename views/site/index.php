@@ -22,7 +22,7 @@ $nome_user    = $session['sess_nomeusuario'];
             <h4><strong style="color: #337ab7;">Implementações</strong></h4>
             <h5><i class="glyphicon glyphicon-tag"></i><strong> Precificação</strong></h5>
                 <h5>- Alterado cálculo da taxa de retorno: <strong style="color: #e74c3c;">(Retorno R$ / Preço de venda total da turma)</strong> -> <strong style="color: #27ae60;">(Retorno R$ / Despesa Total)</strong>.</h5>
-                <h5>- Reserva técnica >= 800(CH) <strong style="color: #3498db;">será igual a 10%</strong>, se valor da CH for menor, <strong style="color: #3498db;">será igual a 5%</strong>. </h5>
+                <h5>- Reserva técnica >= 800(CH) <strong style="color: #3498db;">será igual a 8%</strong>, se valor da CH for menor, <strong style="color: #3498db;">será igual a 3%</strong>. </h5>
                 <h5>- Alterado campo <strong style="color: #e74c3c;">Total de meses do curso</strong> -> <strong style="color: #27ae60;">Provisão de Ano</strong>.</h5>
                 <h5>- Alterado cálculo de Provisão de Ano para 12 meses.</h5>
                 <h5>- Melhoria na listagem das unidades na aba: Preço de Venda por Unidade.</h5>
