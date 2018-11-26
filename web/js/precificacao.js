@@ -1,109 +1,109 @@
 $(function() {
 
-    //SEÇÃO 2
-    $('#precificacao-planp_encargos').keyup(function() {
-       updateTotal();
-    });
-    $('#precificacao-planp_cargahoraria').keyup(function() {
-       updateTotal();
-    });
+   //SEÇÃO 2
+   $('#precificacao-planp_encargos').keyup(function() {
+      updateTotal();
+   });
+   $('#precificacao-planp_cargahoraria').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_mesesdocurso').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_mesesdocurso').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_qntaluno').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_qntaluno').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-hiddenplanejamento').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-hiddenplanejamento').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_servpedagogico').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_servpedagogico').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_horaaulaplanejamento').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_horaaulaplanejamento').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_totalhorasdocente').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_totalhorasdocente').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_valorhoraaula').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_valorhoraaula').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_diarias').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_diarias').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_passagens').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_passagens').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_pessoafisica').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_pessoafisica').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_pessoajuridica').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_pessoajuridica').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-hiddenpjapostila').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-hiddenpjapostila').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_custosmateriais').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_custosmateriais').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-hiddenmaterialdidatico').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-hiddenmaterialdidatico').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_custosconsumo').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_custosconsumo').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-totalhoraaulacustodireto').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-totalhoraaulacustodireto').keyup(function() {
+      updateTotal();
+   });
 
-    //SEÇÃO 3
-    $('#precificacao-planp_custosindiretos').keyup(function() {
-       updateTotal();
-    });
+   //SEÇÃO 3
+   $('#precificacao-planp_custosindiretos').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_ipca').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_ipca').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_reservatecnica').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_reservatecnica').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_despesadm').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_despesadm').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_totalincidencias').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_totalincidencias').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_precosugerido').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_precosugerido').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_parcelas').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_parcelas').keyup(function() {
+      updateTotal();
+   });
 
-    $('#precificacao-planp_desconto').keyup(function() {
-       updateTotal();
-    });
+   $('#precificacao-planp_desconto').keyup(function() {
+      updateTotal();
+   });
 
     var updateTotal = function () {
       //SEÇÃO 2
@@ -167,6 +167,9 @@ $(function() {
       var valorTotalPrecoDeVendaTurma = (planp_precosugerido * planp_qntaluno);
       var porcentagemRetornoSugerido  = (retornoPrecoSugerido / despesaTotal) * 100; // % de Retorno / Despesa Total -- Valores em %
 
+      //Aplicação do Desconto em cima do Preço Sugerido
+      var valorComDesconto = planp_precosugerido - ((planp_precosugerido * planp_desconto) / 100);
+
       var minimoAlunos = Math.ceil(despesaTotal / planp_precosugerido); // Despesa Total / Preço de Venda;
 
       var valorParcelas =  planp_precosugerido / planp_parcelas;
@@ -174,8 +177,12 @@ $(function() {
       //Reserva Técnica = CH do Plano >= 800  == 8% senão == 3%;
       planp_reservatecnica = planp_cargahoraria >= 800 ? 8 : 3;
 
-      //Aplicação do Desconto em cima do Preço Sugerido
-      var valorComDesconto = planp_precosugerido - ((planp_precosugerido * planp_desconto) / 100);
+      //Valores do Interior
+      var retornoPrecoSugeridoInterior = (valorComDesconto * planp_qntaluno) - despesaTotal; // Preço de Venda x Qnt de Alunos - Despesa Total; (Interior)
+      var valorTotalPrecoDeVendaTurmaInterior = (valorComDesconto * planp_qntaluno);
+      var porcentagemRetornoSugeridoInterior  = (retornoPrecoSugeridoInterior / despesaTotal) * 100; // % de Retorno / Despesa Total -- Valores em %
+      var valorParcelasInterior =  valorComDesconto / planp_parcelas;
+      var minimoAlunosInterior = Math.ceil(despesaTotal / valorComDesconto); // Despesa Total / Preço de Venda;
 
         //OCULTAR O NAN
         //SEÇÃO 2
@@ -264,6 +271,12 @@ $(function() {
       $('#precificacao-planp_vendaturmasugerido').val(valorTotalPrecoDeVendaTurma); //Cálculo do Preço Sugerido x quantidade de alunos
       $('#precificacao-planp_porcentretornosugerido').val(porcentagemRetornoSugerido); //% de Retorno com preço sugerido
 
+      //Informações do Interior
+      $('#precificacao-planp_retornoprecosugeridointerior').val(retornoPrecoSugeridoInterior); // Preço de Venda x Qnt de Alunos - Despesa Total; (MUNICIPIOS DO INTERIOR)
+      $('#precificacao-planp_vendaturmasugeridointerior').val(valorTotalPrecoDeVendaTurmaInterior); //Cálculo do Preço Sugerido x quantidade de alunos
+      $('#precificacao-planp_porcentretornosugeridointerior').val(porcentagemRetornoSugeridoInterior); //% de Retorno com preço sugerido
+      $('#precificacao-planp_valorparcelasinterior').val(valorParcelasInterior); // Preço de Venda / Quantidade de Parcelas;
+      $('#precificacao-planp_minimoalunointerior').val(minimoAlunosInterior); // Despesa Total / Preço de Venda;
 
       //Aplicação do Desconto de 30%
       // $('#precificacao-planp_valorcomdesconto').text($('#precificacao-desconto').val());
