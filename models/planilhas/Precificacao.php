@@ -158,14 +158,6 @@ class Precificacao extends \yii\db\ActiveRecord
                 $this->planp_minimoalunointerior            = str_replace(",", ".", $this->planp_minimoalunointerior);
                 $this->planp_valorparcelasinterior          = str_replace(",", ".", $this->planp_valorparcelasinterior);
 
-                
-
-
-                
-
-
-
-
                 return true;
             } else {
                 return false;
@@ -210,7 +202,7 @@ class Precificacao extends \yii\db\ActiveRecord
             'planp_custosindiretos' => 'Custos Indiretos(%)',
             'planp_ipca' => 'IPCA/Mês(%)',
             'planp_reservatecnica' => 'Reserva Técnica(%)',
-            'planp_despesadm' => 'Despesa Sede ADM ' .  date('Y') . '(%)',
+            'planp_despesadm' => 'Despesa Sede ADM(%)',
             'planp_totalincidencias' => 'Total Incidências(%)',
             'planp_totalcustoindireto' => 'Total Custo Indireto',
             'planp_despesatotal' => 'Despesa Total',
