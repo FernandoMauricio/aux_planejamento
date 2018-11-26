@@ -17,21 +17,50 @@ $this->title = 'Auxílio ao Planejamento';
 
                 <div class="panel panel-primary">
                 <div class="panel-heading">
-                            <i class="glyphicon glyphicon-star-empty"></i> Versão 1.9 - (ATUALMENTE) - Publicado em 15/08/2017
+                    <i class="glyphicon glyphicon-star-empty"></i> Versão 2.0 - Publicado em 26/11/2018
                 </div>
                     <div class="panel-body">
-                      <h4><strong style="color: #337ab7;">Implementações</strong></h4>
-                        <h5><i class="glyphicon glyphicon-tag"></i><strong> Planos de Cursos</strong></h5>
-                                <h5>- Inclusão do campo "Qnt de Alunos" no cadastro de Planos.</h5>
-                                <h5>- Inclusão do campo "Nível de Docente" no cadastro de Planos.</h5>
-                                <h5>- Realizado a inclusão do nível de docente igual a "Docente Nível Superior" via bando de dados, para todos os planos já criados, conforme acertado em reunião com DEP, GPO e DIF no mesmo dia desta publicação. Para novos planos, essa inclusão se fará normalmente no cadastro.</h5><br>
+                        <h4><strong style="color: #337ab7;">Implementações</strong></h4>
+                        <h5><i class="glyphicon glyphicon-tag"></i><strong> Precificação</strong></h5>
+                            <h5>- Alterado cálculo da taxa de retorno: <strong style="color: #e74c3c;">(Retorno R$ / Preço de venda total da turma)</strong> -> <strong style="color: #27ae60;">(Retorno R$ / Despesa Total)</strong>.</h5>
+                            <h5>- Reserva técnica >= 800(CH) <strong style="color: #3498db;">será igual a 10%</strong>, se valor da CH for menor, <strong style="color: #3498db;">será igual a 5%</strong>. </h5>
+                            <h5>- Alterado campo <strong style="color: #e74c3c;">Total de meses do curso</strong> -> <strong style="color: #27ae60;">Provisão de Ano</strong>.</h5>
+                            <h5>- Alterado cálculo de Provisão de Ano para 12 meses.</h5>
+                            <h5>- Melhoria na listagem das unidades na aba: Preço de Venda por Unidade.</h5>
+                            <h5>- Implementado o recálculo da planilha caso o valor hora/aula do docente seja atualizado.</h5>
+                            <h5>- Implementado cálculos especificos para capital e municípios do interior.</h5>
+                        <h5><i class="glyphicon glyphicon-tag"></i><strong> Solicitações de Cópias</strong></h5>
+                            <h5>- Solicitações de Cópias migrado para o módulo de Reprografia.</h5>
 
-                        <h5><i class="glyphicon glyphicon-tag"></i><strong> Planilhas de Precificação</strong></h5>
-                                <h5>- Na criação das planilhas de precificações, o sistema trará "qnt de alunos" e "nível do docente" de forma automática no momento que for escolhido o plano a ser precificado.</h5><br>
+                        <h5><i class="glyphicon glyphicon-tag"></i><strong> Plano de Curso</strong></h5>
+                            <h5>- Melhorado sistema de busca por Eixos no cadastro de Segmento.</h5><br>
 
+                        <h4><strong style="color: #337ab7;">Correções</strong></h4>
                         <h5><i class="glyphicon glyphicon-tag"></i><strong> Relatórios</strong></h5>
-                                <h5>- Incluido na tela de relatórios DEP, o relatório em Excel que informa as planilhas de precificações criadas para as unidades, juntamente com a quantidade mínima de alunos.</h5>
+                            <h5>- Correção no cálculo da CH no relatório PAAR.</h5>
+                        <h5><i class="glyphicon glyphicon-tag"></i><strong> Centro de Custo</strong></h5>
+                            <h5>- Correção na listagem dos Centros de Custos.</h5><br>
                     </div>
+                </div>
+
+                <div class="panel panel-danger">
+                <div class="panel-heading">
+                            <i class="glyphicon glyphicon-folder-close"></i> Versão 1.9 - Publicado em 15/08/2017
+                </div>
+                <div class="panel-body">
+                    <h4><strong style="color: #337ab7;">Implementações</strong></h4>
+                    <h5><i class="glyphicon glyphicon-tag"></i><strong> Planos de Cursos</strong></h5>
+                        <h5>- Inclusão do campo "Qnt de Alunos" no cadastro de Planos.</h5>
+                        <h5>- Inclusão do campo "Nível de Docente" no cadastro de Planos.</h5>
+                        <h5>- Realizado a inclusão do nível de docente igual a "Docente Nível Superior" via bando de dados, para todos os planos já criados, conforme acertado em reunião com DEP, GPO e DIF no mesmo dia desta publicação. Para novos planos, essa inclusão se fará normalmente no cadastro.</h5><br>
+
+                    <h5><i class="glyphicon glyphicon-tag"></i><strong> Planilhas de Precificação</strong></h5>
+                        <h5>- Na criação das planilhas de precificações, o sistema trará "qnt de alunos" e "nível do docente" de forma automática no momento que for escolhido o plano a ser precificado.</h5><br>
+
+                    <h5><i class="glyphicon glyphicon-tag"></i><strong> Relatórios</strong></h5>
+                        <h5>- Incluido na tela de relatórios DEP, o relatório em Excel que informa as planilhas de precificações criadas para as unidades, juntamente com a quantidade mínima de alunos.</h5>
+                    <p><a href="index.php?r=site/versao" class="btn btn-warning" role="button">Histórico de Versões</a></p>
+                </div>
                 </div>
 
                 <div class="panel panel-danger">
