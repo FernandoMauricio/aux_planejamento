@@ -54,6 +54,11 @@ use app\models\base\Unidade;
  * @property double $planp_precosugerido
  * @property double $planp_retornoprecosugerido
  * @property double $planp_minimoaluno
+ * @property double $planp_vendaturmasugeridointerior
+ * @property double $planp_porcentretornosugeridointerior
+ * @property double $planp_retornoprecosugeridointerior
+ * @property double $planp_minimoalunointerior
+ * @property double $planp_valorparcelasinterior
  *
  * @property DespesasDocente $planpDocente
  * @property PlanodeacaoPlan $planpPlanodeacao
@@ -93,7 +98,7 @@ class Precificacao extends \yii\db\ActiveRecord
             [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_precosugerido', 'planp_parcelas', 'planp_mesesdocurso'], 'required'],
             [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_servpedagogico','planp_codcolaborador', 'planp_parcelas', 'planp_desconto', 'planp_mesesdocurso', 'planp_codcolaboradoratualizacao'], 'integer'],
             [['planp_qntaluno'], 'compare', 'compareValue' => 0, 'operator' => '>', 'message'=>'Valores maiores que 0 e sem vírgulas.'],
-            [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_custosmateriais', 'planp_custosconsumo', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'planp_custosindiretos', 'planp_ipca', 'planp_reservatecnica', 'planp_despesadm', 'planp_totalincidencias', 'planp_totalcustoindireto', 'planp_despesatotal', 'planp_markdivisor', 'planp_markmultiplicador', 'planp_vendaturma', 'planp_vendaturmasugerido', 'planp_vendaaluno', 'planp_horaaulaaluno', 'planp_retorno', 'planp_porcentretorno', 'planp_porcentretornosugerido', 'planp_precosugerido', 'planp_retornoprecosugerido', 'planp_minimoaluno', 'hiddenPlanejamento', 'hiddenMaterialDidatico', 'planp_data','labelCurso', 'planp_valorparcelas', 'desconto', 'planp_valorcomdesconto', 'planp_dataatualizacao'], 'safe'],
+            [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_custosmateriais', 'planp_custosconsumo', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'planp_custosindiretos', 'planp_ipca', 'planp_reservatecnica', 'planp_despesadm', 'planp_totalincidencias', 'planp_totalcustoindireto', 'planp_despesatotal', 'planp_markdivisor', 'planp_markmultiplicador', 'planp_vendaturma', 'planp_vendaturmasugerido', 'planp_vendaaluno', 'planp_horaaulaaluno', 'planp_retorno', 'planp_porcentretorno', 'planp_porcentretornosugerido', 'planp_precosugerido', 'planp_retornoprecosugerido', 'planp_minimoaluno', 'hiddenPlanejamento', 'hiddenMaterialDidatico', 'planp_data','labelCurso', 'planp_valorparcelas', 'desconto', 'planp_valorcomdesconto', 'planp_dataatualizacao', 'planp_vendaturmasugeridointerior', 'planp_porcentretornosugeridointerior', 'planp_retornoprecosugeridointerior', 'planp_minimoalunointerior', 'planp_valorparcelasinterior'], 'safe'],
             [['planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_PJApostila', 'planp_ipca', 'planp_precosugerido'], 'number'],
             [['planp_docente'], 'exist', 'skipOnError' => true, 'targetClass' => Despesasdocente::className(), 'targetAttribute' => ['planp_docente' => 'doce_id']],
             [['planp_planodeacao'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planp_planodeacao' => 'plan_codplano']],
@@ -106,47 +111,60 @@ class Precificacao extends \yii\db\ActiveRecord
     //Replace de ',' por '.' nos valores da precificação
     public function beforeSave($insert) {
             if (parent::beforeSave($insert)) {
-                $this->planp_valorhoraaula            = str_replace(",", ".", $this->planp_valorhoraaula);
-                $this->planp_horaaulaplanejamento     = str_replace(",", ".", $this->planp_horaaulaplanejamento);
-                $this->planp_totalcustodocente        = str_replace(",", ".", $this->planp_totalcustodocente);
-                $this->planp_decimo                   = str_replace(",", ".", $this->planp_decimo);
-                $this->planp_ferias                   = str_replace(",", ".", $this->planp_ferias);
-                $this->planp_tercoferias              = str_replace(",", ".", $this->planp_tercoferias);
-                $this->planp_totalsalario             = str_replace(",", ".", $this->planp_totalsalario);
-                $this->planp_encargos                 = str_replace(",", ".", $this->planp_encargos);
-                $this->planp_totalencargos            = str_replace(",", ".", $this->planp_totalencargos);
-                $this->planp_totalsalarioencargo      = str_replace(",", ".", $this->planp_totalsalarioencargo);
-                $this->planp_custosmateriais          = str_replace(",", ".", $this->planp_custosmateriais);
-                $this->planp_custosconsumo            = str_replace(",", ".", $this->planp_custosconsumo);
-                $this->planp_diarias                  = str_replace(",", ".", $this->planp_diarias);
-                $this->planp_passagens                = str_replace(",", ".", $this->planp_passagens);
-                $this->planp_pessoafisica             = str_replace(",", ".", $this->planp_pessoafisica);
-                $this->planp_pessoajuridica           = str_replace(",", ".", $this->planp_pessoajuridica);
-                $this->planp_totalcustodireto         = str_replace(",", ".", $this->planp_totalcustodireto);
-                $this->planp_totalhoraaulacustodireto = str_replace(",", ".", $this->planp_totalhoraaulacustodireto);
-                $this->hiddenPlanejamento             = str_replace(",", ".", $this->hiddenPlanejamento);
-                $this->hiddenMaterialDidatico         = str_replace(",", ".", $this->hiddenMaterialDidatico);
-                $this->planp_custosindiretos          = str_replace(",", ".", $this->planp_custosindiretos);
-                $this->planp_ipca                     = str_replace(",", ".", $this->planp_ipca);
-                $this->planp_reservatecnica           = str_replace(",", ".", $this->planp_reservatecnica);
-                $this->planp_despesadm                = str_replace(",", ".", $this->planp_despesadm);
-                $this->planp_totalincidencias         = str_replace(",", ".", $this->planp_totalincidencias);
-                $this->planp_totalcustoindireto       = str_replace(",", ".", $this->planp_totalcustoindireto);
-                $this->planp_despesatotal             = str_replace(",", ".", $this->planp_despesatotal);
-                $this->planp_markdivisor              = str_replace(",", ".", $this->planp_markdivisor);
-                $this->planp_markmultiplicador        = str_replace(",", ".", $this->planp_markmultiplicador);
-                $this->planp_vendaturma               = str_replace(",", ".", $this->planp_vendaturma);
-                $this->planp_vendaturmasugerido       = str_replace(",", ".", $this->planp_vendaturmasugerido);
-                $this->planp_vendaaluno               = str_replace(",", ".", $this->planp_vendaaluno);
-                $this->planp_horaaulaaluno            = str_replace(",", ".", $this->planp_horaaulaaluno);
-                $this->planp_retorno                  = str_replace(",", ".", $this->planp_retorno);
-                $this->planp_porcentretorno           = str_replace(",", ".", $this->planp_porcentretorno);
-                $this->planp_porcentretornosugerido   = str_replace(",", ".", $this->planp_porcentretornosugerido);
-                $this->planp_precosugerido            = str_replace(",", ".", $this->planp_precosugerido);
-                $this->planp_retornoprecosugerido     = str_replace(",", ".", $this->planp_retornoprecosugerido);
-                $this->planp_minimoaluno              = str_replace(",", ".", $this->planp_minimoaluno);
-                $this->planp_valorparcelas            = str_replace(",", ".", $this->planp_valorparcelas);
-                $this->planp_valorcomdesconto         = str_replace(",", ".", $this->planp_valorcomdesconto);
+                $this->planp_valorhoraaula                  = str_replace(",", ".", $this->planp_valorhoraaula);
+                $this->planp_horaaulaplanejamento           = str_replace(",", ".", $this->planp_horaaulaplanejamento);
+                $this->planp_totalcustodocente              = str_replace(",", ".", $this->planp_totalcustodocente);
+                $this->planp_decimo                         = str_replace(",", ".", $this->planp_decimo);
+                $this->planp_ferias                         = str_replace(",", ".", $this->planp_ferias);
+                $this->planp_tercoferias                    = str_replace(",", ".", $this->planp_tercoferias);
+                $this->planp_totalsalario                   = str_replace(",", ".", $this->planp_totalsalario);
+                $this->planp_encargos                       = str_replace(",", ".", $this->planp_encargos);
+                $this->planp_totalencargos                  = str_replace(",", ".", $this->planp_totalencargos);
+                $this->planp_totalsalarioencargo            = str_replace(",", ".", $this->planp_totalsalarioencargo);
+                $this->planp_custosmateriais                = str_replace(",", ".", $this->planp_custosmateriais);
+                $this->planp_custosconsumo                  = str_replace(",", ".", $this->planp_custosconsumo);
+                $this->planp_diarias                        = str_replace(",", ".", $this->planp_diarias);
+                $this->planp_passagens                      = str_replace(",", ".", $this->planp_passagens);
+                $this->planp_pessoafisica                   = str_replace(",", ".", $this->planp_pessoafisica);
+                $this->planp_pessoajuridica                 = str_replace(",", ".", $this->planp_pessoajuridica);
+                $this->planp_totalcustodireto               = str_replace(",", ".", $this->planp_totalcustodireto);
+                $this->planp_totalhoraaulacustodireto       = str_replace(",", ".", $this->planp_totalhoraaulacustodireto);
+                $this->hiddenPlanejamento                   = str_replace(",", ".", $this->hiddenPlanejamento);
+                $this->hiddenMaterialDidatico               = str_replace(",", ".", $this->hiddenMaterialDidatico);
+                $this->planp_custosindiretos                = str_replace(",", ".", $this->planp_custosindiretos);
+                $this->planp_ipca                           = str_replace(",", ".", $this->planp_ipca);
+                $this->planp_reservatecnica                 = str_replace(",", ".", $this->planp_reservatecnica);
+                $this->planp_despesadm                      = str_replace(",", ".", $this->planp_despesadm);
+                $this->planp_totalincidencias               = str_replace(",", ".", $this->planp_totalincidencias);
+                $this->planp_totalcustoindireto             = str_replace(",", ".", $this->planp_totalcustoindireto);
+                $this->planp_despesatotal                   = str_replace(",", ".", $this->planp_despesatotal);
+                $this->planp_markdivisor                    = str_replace(",", ".", $this->planp_markdivisor);
+                $this->planp_markmultiplicador              = str_replace(",", ".", $this->planp_markmultiplicador);
+                $this->planp_vendaturma                     = str_replace(",", ".", $this->planp_vendaturma);
+                $this->planp_vendaturmasugerido             = str_replace(",", ".", $this->planp_vendaturmasugerido);
+                $this->planp_vendaaluno                     = str_replace(",", ".", $this->planp_vendaaluno);
+                $this->planp_horaaulaaluno                  = str_replace(",", ".", $this->planp_horaaulaaluno);
+                $this->planp_retorno                        = str_replace(",", ".", $this->planp_retorno);
+                $this->planp_porcentretorno                 = str_replace(",", ".", $this->planp_porcentretorno);
+                $this->planp_porcentretornosugerido         = str_replace(",", ".", $this->planp_porcentretornosugerido);
+                $this->planp_precosugerido                  = str_replace(",", ".", $this->planp_precosugerido);
+                $this->planp_retornoprecosugerido           = str_replace(",", ".", $this->planp_retornoprecosugerido);
+                $this->planp_minimoaluno                    = str_replace(",", ".", $this->planp_minimoaluno);
+                $this->planp_valorparcelas                  = str_replace(",", ".", $this->planp_valorparcelas);
+                $this->planp_valorcomdesconto               = str_replace(",", ".", $this->planp_valorcomdesconto);
+                $this->planp_vendaturmasugeridointerior     = str_replace(",", ".", $this->planp_vendaturmasugeridointerior);
+                $this->planp_porcentretornosugeridointerior = str_replace(",", ".", $this->planp_porcentretornosugeridointerior);
+                $this->planp_retornoprecosugeridointerior   = str_replace(",", ".", $this->planp_retornoprecosugeridointerior);
+                $this->planp_minimoalunointerior            = str_replace(",", ".", $this->planp_minimoalunointerior);
+                $this->planp_valorparcelasinterior          = str_replace(",", ".", $this->planp_valorparcelasinterior);
+
+                
+
+
+                
+
+
+
 
                 return true;
             } else {
@@ -204,20 +222,25 @@ class Precificacao extends \yii\db\ActiveRecord
             'planp_horaaulaaluno' => 'Valor Hora/Aula por aluno',
             'planp_retorno' => 'Retorno com preço de venda',
             'planp_porcentretorno' => '% de Retorno',
-            'planp_porcentretornosugerido' => '% de Retorno (Preço de Venda)',
+            'planp_porcentretornosugerido' => '% de Retorno',
             'planp_precosugerido' => 'Preço de Venda',
-            'planp_retornoprecosugerido' => 'Retorno com Preço de Venda',
-            'planp_minimoaluno' => 'Numero minimo de alunos por turma',
-            'planp_parcelas' => 'Quantidade de Parcelas',
+            'planp_retornoprecosugerido' => 'Retorno R$',
+            'planp_minimoaluno' => 'Mínimo de Alunos',
+            'planp_parcelas' => 'Parcelas',
             'planp_valorparcelas' => 'Valor das Parcelas',
             'planp_data' => 'Data de Cadastro',
             'planp_observacao' => 'Observação',
             'planp_desconto' => '% Desconto',
-            'planp_valorcomdesconto' => 'Valor com desconto',
+            'planp_valorcomdesconto' => 'Preço de Venda',
             'planp_codcolaboradoratualizacao' => 'Atualizado por',
             'planp_dataatualizacao' => 'Data da Atualização',
             'desconto' => '30% de desconto',
             'labelCurso' => 'Curso',
+            'planp_vendaturmasugeridointerior' => 'Valor Total',
+            'planp_retornoprecosugeridointerior' => 'Retorno R$',
+            'planp_porcentretornosugeridointerior' => '% de Retorno',
+            'planp_minimoalunointerior' => 'Mínimo de Alunos',
+            'planp_valorparcelasinterior' => 'Valor das Parcelas',
         ];
     }
 

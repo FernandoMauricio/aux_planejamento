@@ -493,113 +493,174 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                     ]); ?>
                 </div>
             </div>
-
-            <div class="row">
-
-                <div class="col-md-3">
-                    <?= $form->field($model, 'planp_precosugerido')->textInput() ?>
-                </div>
-
-                <div class="col-md-3">
-                    <?= $form->field($model, 'planp_retornoprecosugerido')->widget(\yii\widgets\MaskedInput::className(), [
-                            'clientOptions' => [
-                            'alias' => 'decimal',
-                            'digits' => 2,
-                            'prefix' => 'R$ ',
-                            'groupSeparator' => '.',
-                            'radixPoint' => ',',
-                            'autoGroup' => true,
-                            'removeMaskOnSubmit' => true,
-                            ],
-                            'options' => ['readonly' => true, 'class' => 'form-control' ]
-                    ]); ?>
-                </div>
-
-                <div class="col-md-3">
-                    <?= $form->field($model, 'planp_vendaturmasugerido')->widget(\yii\widgets\MaskedInput::className(), [
-                            'clientOptions' => [
-                            'alias' => 'decimal',
-                            'digits' => 2,
-                            'prefix' => 'R$ ',
-                            'groupSeparator' => '.',
-                            'radixPoint' => ',',
-                            'autoGroup' => true,
-                            'removeMaskOnSubmit' => true,
-                            ],
-                            'options' => ['readonly' => true, 'class' => 'form-control' ]
-                    ]); ?>
-                </div>
-
-                <div class="col-md-3">
-                    <?= $form->field($model, 'planp_porcentretornosugerido')->widget(\yii\widgets\MaskedInput::className(), [
-                            'clientOptions' => [
-                            'alias' => 'decimal',
-                            'digits' => 2,
-                            'suffix' => '%',
-                            'autoGroup' => true,
-                            'removeMaskOnSubmit' => true,
-                            ],
-                            'options' => ['readonly' => true, 'class' => 'form-control' ]
-                    ]); ?>
-                </div>
-
-
-            </div>
-
-
-            <div class="row">
-                <div class="col-md-3">
-                    <?= $form->field($model, 'planp_parcelas')->textInput() ?>
-                </div>
-
-                <div class="col-md-3">
-                    <?= $form->field($model, 'planp_valorparcelas')->widget(\yii\widgets\MaskedInput::className(), [
-                            'clientOptions' => [
-                            'value' => $model->planp_valorparcelas,
-                            'alias' => 'decimal',
-                            'digits' => 0,
-                            'prefix' => 'R$ ',
-                            'groupSeparator' => '.',
-                            'radixPoint' => ',',
-                            'autoGroup' => true,
-                            'removeMaskOnSubmit' => true,
-                            ],
-                            'options' => ['readonly' => true, 'class' => 'form-control' ]
-                    ]); ?>
-                </div>
-
-            <div class="col-md-2">
-                <?= $form->field($model, 'planp_desconto')->textInput() ?>
-            </div>
-
-            <div class="col-md-3">
-                <?= $form->field($model, 'planp_valorcomdesconto')->widget(\yii\widgets\MaskedInput::className(), [
-                            'clientOptions' => [
-                            'alias' => 'decimal',
-                            'digits' => 0,
-                            'prefix' => 'R$ ',
-                            'groupSeparator' => '.',
-                            'radixPoint' => ',',
-                            'autoGroup' => true,
-                            'removeMaskOnSubmit' => true,
-                            ],
-                            'options' => ['readonly' => true, 'class' => 'form-control' ]
-                    ]); ?>
-            </div>
-
-            </div>
-
-            <div class="row">
-                <div class="col-md-3">
-                    <?= $form->field($model, 'planp_minimoaluno')->textInput(['readonly' => true]) ?>
-                </div>
-            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
+      <div class="col-sm-6" style="text-align: center; background-color: #FFE0B2; padding:1%"><b>Capital</b></div>
+
+      <div class="col-sm-6" style="text-align: center; background-color: #FFE0B2; padding:1%"><b>Municípios do Interior</b></div>
+
+      <div class="panel-body" style="font-size: 10px">
+         <div class="row">
+            <div class="col-sm-6" style="text-align: center; border-right: 4px solid rgb(255, 224, 174);"><br>
+               <div class="row">
+                  <div class="col-sm-3"><?= $form->field($model, 'planp_precosugerido')->textInput() ?></div>
+                  <div class="col-sm-3">
+                     <?= $form->field($model, 'planp_retornoprecosugerido')->widget(\yii\widgets\MaskedInput::className(), [
+                        'clientOptions' => [
+                        'alias' => 'decimal',
+                        'digits' => 2,
+                        'prefix' => 'R$ ',
+                        'groupSeparator' => '.',
+                        'radixPoint' => ',',
+                        'autoGroup' => true,
+                        'removeMaskOnSubmit' => true,
+                        ],
+                        'options' => ['readonly' => true, 'class' => 'form-control' ]
+                     ]); ?>
+                  </div>
+                  <div class="col-sm-3">
+                     <?= $form->field($model, 'planp_vendaturmasugerido')->widget(\yii\widgets\MaskedInput::className(), [
+                        'clientOptions' => [
+                        'alias' => 'decimal',
+                        'digits' => 2,
+                        'prefix' => 'R$ ',
+                        'groupSeparator' => '.',
+                        'radixPoint' => ',',
+                        'autoGroup' => true,
+                        'removeMaskOnSubmit' => true,
+                        ],
+                        'options' => ['readonly' => true, 'class' => 'form-control' ]
+                     ]); ?>
+                  </div>
+                  <div class="col-sm-3">
+                     <?= $form->field($model, 'planp_porcentretornosugerido')->widget(\yii\widgets\MaskedInput::className(), [
+                        'clientOptions' => [
+                        'alias' => 'decimal',
+                        'digits' => 2,
+                        'suffix' => '%',
+                        'autoGroup' => true,
+                        'removeMaskOnSubmit' => true,
+                        ],
+                        'options' => ['readonly' => true, 'class' => 'form-control' ]
+                     ]); ?>
+                  </div>
+               </div>
+
+               <div class="row">
+                  <div class="col-sm-3">
+                     <?= $form->field($model, 'planp_parcelas')->textInput() ?>
+                  </div>
+                  <div class="col-sm-3">
+                     <?= $form->field($model, 'planp_valorparcelas')->widget(\yii\widgets\MaskedInput::className(), [
+                        'clientOptions' => [
+                        'value' => $model->planp_valorparcelas,
+                        'alias' => 'decimal',
+                        'digits' => 0,
+                        'prefix' => 'R$ ',
+                        'groupSeparator' => '.',
+                        'radixPoint' => ',',
+                        'autoGroup' => true,
+                        'removeMaskOnSubmit' => true,
+                        ],
+                        'options' => ['readonly' => true, 'class' => 'form-control' ]
+                     ]); ?>
+                  </div>
+
+                  <div class="col-md-3"><?= $form->field($model, 'planp_minimoaluno')->textInput(['readonly' => true]) ?></div>
+
+               </div>
+
+            </div>
+
+            <div class="col-sm-6" style="text-align: center;"><br>
+               <div class="row">
+               <div class="col-md-3">
+                  <?= $form->field($model, 'planp_valorcomdesconto')->widget(\yii\widgets\MaskedInput::className(), [
+                        'clientOptions' => [
+                        'alias' => 'decimal',
+                        'digits' => 0,
+                        'prefix' => 'R$ ',
+                        'groupSeparator' => '.',
+                        'radixPoint' => ',',
+                        'autoGroup' => true,
+                        'removeMaskOnSubmit' => true,
+                        ],
+                        'options' => ['readonly' => true, 'class' => 'form-control' ]
+                  ]); ?>
+               </div>
+                  <div class="col-sm-3">
+                     <?= $form->field($model, 'planp_retornoprecosugeridointerior')->widget(\yii\widgets\MaskedInput::className(), [
+                        'clientOptions' => [
+                        'alias' => 'decimal',
+                        'digits' => 2,
+                        'prefix' => 'R$ ',
+                        'groupSeparator' => '.',
+                        'radixPoint' => ',',
+                        'autoGroup' => true,
+                        'removeMaskOnSubmit' => true,
+                        ],
+                        'options' => ['readonly' => true, 'class' => 'form-control' ]
+                     ]); ?>
+                  </div>
+
+                  <div class="col-sm-3">
+                     <?= $form->field($model, 'planp_vendaturmasugeridointerior')->widget(\yii\widgets\MaskedInput::className(), [
+                        'clientOptions' => [
+                        'alias' => 'decimal',
+                        'digits' => 2,
+                        'prefix' => 'R$ ',
+                        'groupSeparator' => '.',
+                        'radixPoint' => ',',
+                        'autoGroup' => true,
+                        'removeMaskOnSubmit' => true,
+                        ],
+                        'options' => ['readonly' => true, 'class' => 'form-control' ]
+                     ]); ?>
+                  </div>
+
+                  <div class="col-sm-3">
+                     <?= $form->field($model, 'planp_porcentretornosugeridointerior')->widget(\yii\widgets\MaskedInput::className(), [
+                        'clientOptions' => [
+                        'alias' => 'decimal',
+                        'digits' => 2,
+                        'suffix' => '%',
+                        'autoGroup' => true,
+                        'removeMaskOnSubmit' => true,
+                        ],
+                        'options' => ['readonly' => true, 'class' => 'form-control' ]
+                     ]); ?>
+                  </div>
+               </div>
+
+               <div class="row">
+                  <div class="col-md-3"><?= $form->field($model, 'planp_desconto')->textInput() ?></div>
+
+                  <div class="col-sm-3">
+                     <?= $form->field($model, 'planp_valorparcelasinterior')->widget(\yii\widgets\MaskedInput::className(), [
+                        'clientOptions' => [
+                        'value' => $model->planp_valorparcelas,
+                        'alias' => 'decimal',
+                        'digits' => 0,
+                        'prefix' => 'R$ ',
+                        'groupSeparator' => '.',
+                        'radixPoint' => ',',
+                        'autoGroup' => true,
+                        'removeMaskOnSubmit' => true,
+                        ],
+                        'options' => ['readonly' => true, 'class' => 'form-control' ]
+                     ]); ?>
+                  </div>
+
+                  <div class="col-md-3"><?= $form->field($model, 'planp_minimoalunointerior')->textInput(['readonly' => true]) ?></div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="form-group">
+         <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+   </div>
 
     <?php ActiveForm::end(); ?>
 

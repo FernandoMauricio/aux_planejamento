@@ -50,7 +50,7 @@ class PrecificacaoController extends Controller
         $model->planp_codcolaboradoratualizacao = $session['sess_codcolaborador'];
         $model->planp_dataatualizacao = date('Y-m-d');
 
-      //CÁLCULOS REALIZADOS - SEÇÃO 2
+        //CÁLCULOS REALIZADOS - SEÇÃO 2
         $model->planp_totalcustodocente = ($model->planp_totalhorasdocente * $model->planp_valorhoraaula) + $model->planp_servpedagogico;
         $model->planp_decimo = $model->planp_totalcustodocente / ($model->planp_mesesdocurso * 12);
         $model->planp_ferias = $model->planp_decimo;
@@ -61,7 +61,7 @@ class PrecificacaoController extends Controller
         $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_custosmateriais + $model->planp_custosconsumo;
         $model->planp_totalhoraaulacustodireto = $model->planp_totalcustodireto / $model->planp_cargahoraria / $model->planp_qntaluno;
 
-      //CÁLCULOS REALIZADOS - SEÇÃO 3
+        //CÁLCULOS REALIZADOS - SEÇÃO 3
         $model->planp_totalincidencias = $model->planp_custosindiretos + $model->planp_ipca + $model->planp_reservatecnica + $model->planp_despesadm;
         $model->planp_totalcustoindireto = ($model->planp_totalcustodireto * $model->planp_totalincidencias) / 100;
         $model->planp_despesatotal = $model->planp_totalcustoindireto + $model->planp_totalcustodireto;
@@ -78,6 +78,13 @@ class PrecificacaoController extends Controller
         $model->planp_valorparcelas = $model->planp_precosugerido / $model->planp_parcelas;
         $model->planp_reservatecnica = $model->planp_cargahoraria >= 800 ? 8 : 3;//Reserva Técnica = CH do Plano >= 800  == 8% senão == 3%;
         $model->planp_valorcomdesconto = $model->planp_precosugerido - (($model->planp_precosugerido * $model->planp_desconto) / 100);//Aplicação do Desconto em cima do Preço Sugerido
+
+        //CÁLCULOS DOS MUNICÍPIOS DO INTERIOR
+        $model->planp_retornoprecosugeridointerior = ($model->planp_valorcomdesconto * $model->planp_qntaluno) - $model->planp_despesatotal;
+        $model->planp_vendaturmasugeridointerior = $model->planp_valorcomdesconto * $model->planp_qntaluno;
+        $model->planp_porcentretornosugeridointerior = ($model->planp_retornoprecosugeridointerior /$model->planp_despesatotal) * 100;;
+        $model->planp_valorparcelasinterior = $model->planp_valorcomdesconto / $model->planp_parcelas;;
+        $model->planp_minimoalunointerior = ceil($model->planp_despesatotal / $model->planp_valorcomdesconto);
         $model->save();
 
         if($model->save()) {
@@ -134,7 +141,7 @@ class PrecificacaoController extends Controller
             $model = $this->findModel($id);
 
             $pdf = new Pdf([
-                'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+                'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
                 'format' => Pdf::FORMAT_A4,
                 'content' => $this->renderPartial('imprimir', ['model' => $model]),
                 'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
@@ -232,6 +239,7 @@ class PrecificacaoController extends Controller
         $model->planp_data             = date('Y-m-d');
         $model->planp_codcolaborador   = $session['sess_codcolaborador'];
         $model->planp_valorcomdesconto = 0;
+        $model->planp_desconto = 30; //Padrão de desconto
 
         //Realiza a Verificação se as configurações estão atualizadas do Markup
         foreach ($markups as $markup) {
