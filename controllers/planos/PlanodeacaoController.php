@@ -74,7 +74,7 @@ class PlanodeacaoController extends Controller
             $model = $this->findModel($id);
 
             $pdf = new Pdf([
-                'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+                'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
                 'format' => Pdf::FORMAT_A4,
                 'content' => $this->renderPartial('imprimir', ['model' => $model]),
                 'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
@@ -99,7 +99,7 @@ class PlanodeacaoController extends Controller
             $model = $this->findModel($id);
 
             $pdf = new Pdf([
-                'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+                'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
                 'format' => Pdf::FORMAT_A4,
                 'content' => $this->renderPartial('imprimir-informacoes-comerciais', ['model' => $model]),
                 'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
