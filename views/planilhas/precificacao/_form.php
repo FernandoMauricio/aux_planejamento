@@ -711,6 +711,8 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                <div class="row">
                   <div class="col-md-3"><?= $form->field($model, 'planp_desconto')->textInput() ?></div>
 
+                  <div class="col-md-3"><?= $form->field($model, 'planp_parcelasinterior')->textInput() ?></div>
+
                   <div class="col-sm-3">
                      <?= $form->field($model, 'planp_valorparcelasinterior')->widget(\yii\widgets\MaskedInput::className(), [
                         'clientOptions' => [

@@ -82,9 +82,13 @@ class PrecificacaoController extends Controller
         //CÁLCULOS DOS MUNICÍPIOS DO INTERIOR
         $model->planp_retornoprecosugeridointerior = ($model->planp_valorcomdesconto * $model->planp_qntaluno) - $model->planp_despesatotal;
         $model->planp_vendaturmasugeridointerior = $model->planp_valorcomdesconto * $model->planp_qntaluno;
-        $model->planp_porcentretornosugeridointerior = ($model->planp_retornoprecosugeridointerior /$model->planp_despesatotal) * 100;;
-        $model->planp_valorparcelasinterior = $model->planp_valorcomdesconto / $model->planp_parcelas;;
+        $model->planp_porcentretornosugeridointerior = ($model->planp_retornoprecosugeridointerior /$model->planp_despesatotal) * 100;
         $model->planp_minimoalunointerior = ceil($model->planp_despesatotal / $model->planp_valorcomdesconto);
+
+        if($model->planp_parcelasinterior != NULL ) {
+            $model->planp_valorparcelasinterior = $model->planp_valorcomdesconto / $model->planp_parcelasinterior;
+        }
+
         $model->save();
 
         if($model->save()) {

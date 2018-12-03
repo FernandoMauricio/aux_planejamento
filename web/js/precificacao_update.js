@@ -20,6 +20,10 @@ $(function() {
        updateTotal();
     });
 
+    $('#precificacao-planp_parcelasinterior').keyup(function() {
+       updateTotal();
+    });
+
     $('#precificacao-planp_desconto').keyup(function() {
        updateTotal();
     });
@@ -46,6 +50,7 @@ $(function() {
       var planp_qntaluno       = parseFloat($('#precificacao-planp_qntaluno').val());
       var planp_precosugerido  = parseFloat($('#precificacao-planp_precosugerido').val());
       var planp_parcelas       = parseFloat($('#precificacao-planp_parcelas').val());
+      var planp_parcelasinterior = parseFloat($('#precificacao-planp_parcelasinterior').val());
       var planp_desconto       = parseFloat($('#precificacao-planp_desconto').val());
       var despesaTotal         = parseFloat($('#precificacao-planp_despesatotal').val());
       var totalIncidencia      = parseFloat($('#precificacao-planp_totalincidencias').val());
@@ -69,7 +74,7 @@ $(function() {
       var retornoPrecoSugeridoInterior = (valorComDesconto * planp_qntaluno) - despesaTotal; // Preço de Venda x Qnt de Alunos - Despesa Total; (Interior)
       var valorTotalPrecoDeVendaTurmaInterior = (valorComDesconto * planp_qntaluno);
       var porcentagemRetornoSugeridoInterior  = (retornoPrecoSugeridoInterior / despesaTotal) * 100; // % de Retorno / Despesa Total -- Valores em %
-      var valorParcelasInterior =  valorComDesconto / planp_parcelas;
+      var valorParcelasInterior =  valorComDesconto / planp_parcelasinterior;
       var minimoAlunosInterior = Math.ceil(despesaTotal / valorComDesconto); // Despesa Total / Preço de Venda;
       
       //SEÇÃO 3
