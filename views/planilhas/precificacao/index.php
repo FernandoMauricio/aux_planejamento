@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     [
                     'attribute'=>'planp_codunidade', 
-                    'width'=>'30%',
+                    'width'=>'10%',
                     'value'=>function ($model, $key, $index, $widget) { 
                         return $model->unidade->uni_nomeabreviado;
                     },
@@ -67,17 +67,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     [
                       'attribute'=>'planp_ano',
-                      'width'=>'5%',
+                      'width'=>'3%',
                     ],
 
                     [
                       'attribute'=>'planp_id',
-                      'width'=>'5%',
+                      'width'=>'3%',
                     ],
 
                     [
                       'attribute'=>'planp_planodeacao',
-                      'width'=>'5%',
+                      'width'=>'3%',
                     ],
 
                     [
@@ -87,29 +87,63 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     [
                       'attribute'=>'planp_cargahoraria',
-                      'width'=>'5%',
+                      'width'=>'3%',
                     ],  
 
                     [
                       'attribute'=>'planp_qntaluno',
-                      'width'=>'5%',
+                      'width'=>'3%',
                     ],    
 
                     [
                       'attribute'=>'planp_precosugerido',
                       //'format' => 'currency',
-                      'width'=>'5%',
+                      'width'=>'3%',
                     ], 
 
                     [
                       'label' => 'Nº Min Aluno',
                       'attribute'=>'planp_minimoaluno',
-                      'width'=>'5%',
+                      'width'=>'3%',
                     ], 
 
-            ['class' => 'yii\grid\ActionColumn','template' => '{view} {update} {delete}'],
-        ];
-     ?>
+                     ['class' => 'yii\grid\ActionColumn',
+                                 'template' => '{view} {update} {delete}',
+                                 'contentOptions' => ['style' => 'width: 20%;'],
+                                 'buttons' => [
+
+                                 //VISUALIZAR CONTRATAÇÃO
+                                 'view' => function ($url, $model) {
+                                     return Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', $url, [
+                                                 'class'=>'btn btn-default btn-xs',
+                                                 'title' => Yii::t('app', 'Visualizar'),
+                                             ]);
+                                 },
+
+                                 //ATUALIZAR A SOLICITAÇÃO
+                                 'update' => function ($url, $model) {
+                                    $session = Yii::$app->session;
+                                     return $session['sess_codunidade'] == 51 ? Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                         'class'=>'btn btn-primary btn-xs',
+                                         'title' => Yii::t('app', 'Atualizar'),
+                                            ]): '';
+                                 },
+
+                                 //DELETAR A SOLICITAÇÃO
+                                 'delete' => function ($url, $model) {
+                                     return Html::a('<span class="glyphicon glyphicon-trash"></span> ', $url, [
+                                     'class'=>'btn btn-danger btn-xs',
+                                     'title' => Yii::t('app', 'Deletar'),
+                                     'data' =>  [
+                                                     'confirm' => 'Você tem CERTEZA que deseja EXCLUIR esse item?',
+                                                     'method' => 'post',
+                                                ]
+                                             ]);
+                                 },
+                              ],
+                     ]
+                  ];
+               ?>
 
 
  <?php Pjax::begin(['id'=>'w0-pjax']); ?>

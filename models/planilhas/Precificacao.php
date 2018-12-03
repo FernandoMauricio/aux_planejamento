@@ -170,11 +170,11 @@ class Precificacao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'planp_id' => 'Cód. Planilha',
+            'planp_id' => 'Cód.',
             'planp_ano' => 'Ano',
             'planp_codunidade' => 'Unidade',
             'planp_planodeacao' => 'Cód. Plano',
-            'planp_cargahoraria' => 'Carga Horária',
+            'planp_cargahoraria' => 'C.H',
             'planp_mesesdocurso' => 'Provisão de Ano',
             'planp_qntaluno' => 'Qnt de Alunos',
             'planp_totalhorasdocente' => 'Total de horas docente',
