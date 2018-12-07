@@ -131,14 +131,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                  //DELETAR A SOLICITAÇÃO
                                  'delete' => function ($url, $model) {
-                                     return Html::a('<span class="glyphicon glyphicon-trash"></span> ', $url, [
+                                    $session = Yii::$app->session;
+                                    return $session['sess_codunidade'] == 51 ? Html::a('<span class="glyphicon glyphicon-trash"></span> ', $url, [
                                      'class'=>'btn btn-danger btn-xs',
                                      'title' => Yii::t('app', 'Deletar'),
                                      'data' =>  [
                                                      'confirm' => 'Você tem CERTEZA que deseja EXCLUIR esse item?',
                                                      'method' => 'post',
                                                 ]
-                                             ]);
+                                             ]): '';
                                  },
                               ],
                      ]
