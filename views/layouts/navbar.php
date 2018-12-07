@@ -271,6 +271,13 @@ use kartik\nav\NavX;
             ],
 
             [
+            'label' => 'Planilhas',
+            'items' => [
+                         ['label' => 'Planilhas de Precificação', 'url' => ['/planilhas/precificacao/index']],
+                     ],
+            ],
+            
+            [
             'label' => 'Relatórios',
             'items' => [
                             ['label' => 'Relatórios', 'items' => [
@@ -387,13 +394,6 @@ use kartik\nav\NavX;
                      ],
             ],
 
-            [
-            'label' => 'Planilhas',
-            'items' => [
-                         ['label' => 'Planilhas de Precificação', 'url' => ['/planilhas/precificacao/index']],
-                     ],
-            ],
-            
             [
             'label' => 'Relatórios',
             'items' => [

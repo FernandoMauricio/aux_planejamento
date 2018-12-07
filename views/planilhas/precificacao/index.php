@@ -132,7 +132,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                  //DELETAR A SOLICITAÇÃO
                                  'delete' => function ($url, $model) {
                                     $session = Yii::$app->session;
-                                    return $session['sess_codunidade'] == 51 ? Html::a('<span class="glyphicon glyphicon-trash"></span> ', $url, [
+                                     return $session['sess_codunidade'] == 51 ? Html::a('<span class="glyphicon glyphicon-trash"></span> ', $url, [
                                      'class'=>'btn btn-danger btn-xs',
                                      'title' => Yii::t('app', 'Deletar'),
                                      'data' =>  [
