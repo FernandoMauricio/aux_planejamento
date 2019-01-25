@@ -46,6 +46,7 @@ class RepositorioMateriaisController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'main-full';
         $searchModel = new RepositorioMateriaisSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
