@@ -68,6 +68,7 @@ class Precificacao extends \yii\db\ActiveRecord
     public $hiddenPlanejamento;
     public $hiddenMaterialDidatico;
     public $hiddenPJApostila;
+    public $hiddenOutrosMateriais;
     public $labelCurso;
     public $desconto;
 
@@ -87,8 +88,6 @@ class Precificacao extends \yii\db\ActiveRecord
         return Yii::$app->get('db_apl');
     }
 
-    // 'numberPattern' => '/^\s*[-+]?[0-9]*[.,]?[0-9]+([eE][-+]?[0-9]+)?\s*$/'
-
     /**
      * @inheritdoc
      */
@@ -98,8 +97,8 @@ class Precificacao extends \yii\db\ActiveRecord
             [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_precosugerido', 'planp_parcelas', 'planp_mesesdocurso'], 'required'],
             [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_servpedagogico','planp_codcolaborador', 'planp_parcelas', 'planp_parcelasinterior', 'planp_mesesdocurso', 'planp_codcolaboradoratualizacao'], 'integer'],
             [['planp_qntaluno'], 'compare', 'compareValue' => 0, 'operator' => '>', 'message'=>'Valores maiores que 0 e sem vírgulas.'],
-            [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_custosmateriais', 'planp_custosconsumo', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'planp_custosindiretos', 'planp_ipca', 'planp_reservatecnica', 'planp_despesadm', 'planp_totalincidencias', 'planp_totalcustoindireto', 'planp_despesatotal', 'planp_markdivisor', 'planp_markmultiplicador', 'planp_vendaturma', 'planp_vendaturmasugerido', 'planp_vendaaluno', 'planp_horaaulaaluno', 'planp_retorno', 'planp_porcentretorno', 'planp_porcentretornosugerido', 'planp_precosugerido', 'planp_retornoprecosugerido', 'planp_minimoaluno', 'hiddenPlanejamento', 'hiddenMaterialDidatico', 'planp_data','labelCurso', 'planp_valorparcelas', 'desconto', 'planp_valorcomdesconto', 'planp_dataatualizacao', 'planp_vendaturmasugeridointerior', 'planp_porcentretornosugeridointerior', 'planp_retornoprecosugeridointerior', 'planp_minimoalunointerior', 'planp_valorparcelasinterior', 'planp_desconto'], 'safe'],
-            [['planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_PJApostila', 'planp_ipca', 'planp_precosugerido'], 'number'],
+            [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_custosmateriais', 'planp_custosconsumo', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'planp_custosindiretos', 'planp_ipca', 'planp_reservatecnica', 'planp_despesadm', 'planp_totalincidencias', 'planp_totalcustoindireto', 'planp_despesatotal', 'planp_markdivisor', 'planp_markmultiplicador', 'planp_vendaturma', 'planp_vendaturmasugerido', 'planp_vendaaluno', 'planp_horaaulaaluno', 'planp_retorno', 'planp_porcentretorno', 'planp_porcentretornosugerido', 'planp_precosugerido', 'planp_retornoprecosugerido', 'planp_minimoaluno', 'hiddenPlanejamento', 'hiddenMaterialDidatico', 'hiddenPJApostila', 'hiddenOutrosMateriais', 'planp_data','labelCurso', 'planp_valorparcelas', 'desconto', 'planp_valorcomdesconto', 'planp_dataatualizacao', 'planp_vendaturmasugeridointerior', 'planp_porcentretornosugeridointerior', 'planp_retornoprecosugeridointerior', 'planp_minimoalunointerior', 'planp_valorparcelasinterior', 'planp_desconto'], 'safe'],
+            [['planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_PJApostila', 'planp_outrosmateriais', 'planp_ipca', 'planp_precosugerido'], 'number'],
             [['planp_docente'], 'exist', 'skipOnError' => true, 'targetClass' => Despesasdocente::className(), 'targetAttribute' => ['planp_docente' => 'doce_id']],
             [['planp_planodeacao'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planp_planodeacao' => 'plan_codplano']],
             [['planp_observacao'], 'string', 'max' => 255],
@@ -131,6 +130,8 @@ class Precificacao extends \yii\db\ActiveRecord
                 $this->planp_totalhoraaulacustodireto       = str_replace(",", ".", $this->planp_totalhoraaulacustodireto);
                 $this->hiddenPlanejamento                   = str_replace(",", ".", $this->hiddenPlanejamento);
                 $this->hiddenMaterialDidatico               = str_replace(",", ".", $this->hiddenMaterialDidatico);
+                $this->hiddenPJApostila                     = str_replace(",", ".", $this->hiddenPJApostila);
+                $this->hiddenOutrosMateriais                = str_replace(",", ".", $this->hiddenOutrosMateriais);
                 $this->planp_custosindiretos                = str_replace(",", ".", $this->planp_custosindiretos);
                 $this->planp_ipca                           = str_replace(",", ".", $this->planp_ipca);
                 $this->planp_reservatecnica                 = str_replace(",", ".", $this->planp_reservatecnica);
@@ -191,13 +192,14 @@ class Precificacao extends \yii\db\ActiveRecord
             'planp_encargos' => '(%) Encargos s/13º, férias e salários',
             'planp_totalencargos' => 'Total de Encargos',
             'planp_totalsalarioencargo' => 'Total de Salários + Encargos',
-            'planp_custosmateriais' => 'Mat. Didático (Livros):',
+            'planp_PJApostila' => 'Mat. Didático (Apostilas)',
+            'planp_custosmateriais' => 'Mat. Didático (Livros)',
+            'planp_outrosmateriais' => 'Mat. Didático (Outros)',
             'planp_custosconsumo' => 'Mat. de Consumo',
             'planp_diarias' => 'Diarias',
             'planp_passagens' => 'Passagens',
             'planp_pessoafisica' => 'Serv. Terceiros (PF)',
             'planp_pessoajuridica' => 'Serv. Terceiros (PJ)',
-            'planp_PJApostila' => 'Mat. Didático (Apostilas):',
             'planp_totalcustodireto' => 'Total de Custo Direto',
             'planp_totalhoraaulacustodireto' => 'V. Hora/Aula de Custo Direto',
             'planp_custosindiretos' => 'Custos Indiretos(%)',

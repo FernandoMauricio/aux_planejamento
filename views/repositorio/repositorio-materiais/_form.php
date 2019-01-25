@@ -14,7 +14,7 @@ use yii\helpers\Json;
 /* @var $model app\models\repositorio\Repositorio */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+<meta charset="UTF-8">
 <div class="repositorio-form">
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>

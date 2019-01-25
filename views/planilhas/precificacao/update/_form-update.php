@@ -267,16 +267,23 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                 </div>
 
                 <div class="col-md-3">
-                    <?= $form->field($model, 'planp_custosconsumo')->textInput(['readonly' => true]); ?>
+                    <?= $form->field($model, 'planp_outrosmateriais')->textInput(['readonly' => true]); ?>
+
+                    <?= $form->field($model, 'hiddenOutrosMateriais')->hiddenInput()->label(false); ?>
                 </div>
 
                 <div class="col-md-3">
-                    <?= $form->field($model, 'planp_totalcustodireto')->textInput(['readonly' => true]); ?>
+                    <?= $form->field($model, 'planp_custosconsumo')->textInput(['readonly' => true]); ?>
                 </div>
             </div>
 
 
             <div class="row">
+
+                <div class="col-md-3">
+                    <?= $form->field($model, 'planp_totalcustodireto')->textInput(['readonly' => true]); ?>
+                </div>
+                
                 <div class="col-md-3">
                     <?= $form->field($model, 'planp_totalhoraaulacustodireto')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [

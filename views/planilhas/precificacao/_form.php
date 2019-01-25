@@ -48,10 +48,10 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
                                      var $zerahora             = $divPanelBody.find("input:eq(2)");
                                      var $inputEncargos        = $divPanelBody.find("input:eq(13)");
-                                     var $inputCustoIndireto   = $divPanelBody.find("input:eq(27)");
-                                     var $inputIPCA            = $divPanelBody.find("input:eq(28)");
-                                     var $inputReservaTecnica  = $divPanelBody.find("input:eq(29)");
-                                     var $inputDespesaSede     = $divPanelBody.find("input:eq(30)");
+                                     var $inputCustoIndireto   = $divPanelBody.find("input:eq(29)");
+                                     var $inputIPCA            = $divPanelBody.find("input:eq(30)");
+                                     var $inputReservaTecnica  = $divPanelBody.find("input:eq(31)");
+                                     var $inputDespesaSede     = $divPanelBody.find("input:eq(32)");
                                       
                                      $zerahora.val(0);
                                      $inputEncargos.val(data.mark_codunidade == 30 ? "32.70" : "32.99"); // Valor diferente para FATESE(Cód. 30)
@@ -84,13 +84,15 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                                              var $inputQntAluno            = $divPanelBody.find("input:eq(1)");
                                              var $inputMaterialApostila    = $divPanelBody.find("input:eq(21)");
                                              var $inputCustoMaterialLivro  = $divPanelBody.find("input:eq(23)");
-                                             var $inputCustoConsumo        = $divPanelBody.find("input:eq(24)");
+                                             var $inputCustoMaterialOutros = $divPanelBody.find("input:eq(25)");
+                                             var $inputCustoConsumo        = $divPanelBody.find("input:eq(26)");
 
                                              $zerahoratotal.val(data.plan_cargahoraria);
                                              //$zeraqntaluno.val(0);
                                              $inputQntAluno.val(data.plan_qntaluno);
                                              $inputMaterialApostila.val(data.plan_custoMaterialApostila);
                                              $inputCustoMaterialLivro.val(data.plan_custoMaterialLivro);
+                                             $inputCustoMaterialOutros.val(data.plan_custoMaterialOutros);
                                              $inputCustoConsumo.val(data.plan_custoTotalConsumo);
 
                                           });
@@ -137,12 +139,12 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                                                  var $zerahora = $divPanelBody.find("input:eq(3)");
                                                  var $zeraplanejmanento = $divPanelBody.find("input:eq(4)");
                                                  var $inputPlanejamento = $divPanelBody.find("input:eq(5)");
-                                                 var $inputCustoindireto = $divPanelBody.find("input:eq(6)");
+                                                 var $inputCustodireto = $divPanelBody.find("input:eq(6)");
 
                                                  //inputa valores
                                                  $zerahora.val(0);
                                                  $zeraplanejmanento.val(0);
-                                                 $inputCustoindireto.val(data.doce_valorhoraaula);
+                                                 $inputCustodireto.val(data.doce_valorhoraaula);
                                                  $inputPlanejamento.val(data.doce_planejamento);
 
                                               });
@@ -335,9 +337,18 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                   <?= $form->field($model, 'hiddenMaterialDidatico')->hiddenInput()->label(false); ?>
                </div>
 
-               <div class="col-md-3"><?= $form->field($model, 'planp_custosconsumo')->textInput(['readonly' => true]); ?></div>
-                    
                <div class="col-md-3">
+                  <?= $form->field($model, 'planp_outrosmateriais')->textInput(['readonly' => true]); ?>
+
+                  <?= $form->field($model, 'hiddenOutrosMateriais')->hiddenInput()->label(false); ?>
+               </div>
+
+               <div class="col-md-3"><?= $form->field($model, 'planp_custosconsumo')->textInput(['readonly' => true]); ?></div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-3">
                   <?= $form->field($model, 'planp_totalcustodireto')->widget(\yii\widgets\MaskedInput::className(), [
                      'clientOptions' => [
                      'alias' => 'decimal',
@@ -350,11 +361,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                      ],
                      'options' => ['readonly' => true, 'class' => 'form-control' ]
                   ]); ?>
-                </div>
-            </div>
-
-
-            <div class="row">
+              </div>
                <div class="col-md-3">
                   <?= $form->field($model, 'planp_totalhoraaulacustodireto')->widget(\yii\widgets\MaskedInput::className(), [
                      'clientOptions' => [

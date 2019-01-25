@@ -54,11 +54,12 @@
    <div class="row">
       <div class="col-md-3"><strong>Mat. Didático (Apostila):</strong><br> <?= 'R$ ' .  number_format($model->planp_PJApostila, 2, ',', '.'); ?></div>
       <div class="col-md-3"><strong>Mat. Didático (Livros):</strong><br> <?= 'R$ ' .  number_format($model->planp_custosmateriais, 2, ',', '.'); ?></div>
+      <div class="col-md-3"><strong>Mat. Didático (Outros):</strong><br> <?= 'R$ ' .  number_format($model->planp_outrosmateriais, 2, ',', '.'); ?></div>
       <div class="col-md-3"><strong>Material Consumo:</strong><br> <?= 'R$ ' .  number_format($model->planp_custosconsumo, 2, ',', '.'); ?></div>
-      <div class="col-md-3" style="color: #F7941D;"><b>Total de Custo Direto:</b><br> <?= 'R$ ' . number_format( $model->planp_totalcustodireto, 2, ',', '.'); ?></div>
    </div><br>
 
    <div class="row">
+      <div class="col-md-3" style="color: #F7941D;"><b>Total de Custo Direto:</b><br> <?= 'R$ ' . number_format( $model->planp_totalcustodireto, 2, ',', '.'); ?></div>
       <div class="col-md-3"><strong>Valor Hora/Aula de Custo Direto:</strong><br> <?= 'R$ ' . number_format( $model->planp_totalhoraaulacustodireto, 2, ',', '.'); ?></div>
    </div><br>
 

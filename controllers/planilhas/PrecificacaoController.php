@@ -50,6 +50,12 @@ class PrecificacaoController extends Controller
         $model->planp_codcolaboradoratualizacao = $session['sess_codcolaborador'];
         $model->planp_dataatualizacao = date('Y-m-d');
 
+        //realiza a soma dos custos de material didático(OUTROS) SOMENTE DO PLANO A - Implementação do campo após planilhas já criadas
+        $query = (new \yii\db\Query())->from('db_apl2.planomaterial_plama')->where(['plama_codplano' => $model->planp_planodeacao, 'plama_tipoplano' => 'Plano A'])->andWhere(['<>','plama_tipomaterial', 'LIVROS'])->andWhere(['<>','plama_tipomaterial', 'APOSTILAS']);
+        $totalValorMaterialOutros = $query->sum('plama_valor');
+
+        $model->planp_outrosmateriais = ($totalValorMaterialOutros + 0) * $model->planp_qntaluno; //save custo material didático - OUTROS
+
         //CÁLCULOS REALIZADOS - SEÇÃO 2
         $model->planp_totalcustodocente = ($model->planp_totalhorasdocente * $model->planp_valorhoraaula) + $model->planp_servpedagogico;
         $model->planp_decimo = $model->planp_totalcustodocente / ($model->planp_mesesdocurso * 12);
@@ -58,7 +64,7 @@ class PrecificacaoController extends Controller
         $model->planp_totalsalario = $model->planp_totalcustodocente + $model->planp_decimo + $model->planp_ferias + $model->planp_tercoferias;
         $model->planp_totalencargos = ($model->planp_totalsalario * $model->planp_encargos) / 100;
         $model->planp_totalsalarioencargo = $model->planp_totalencargos + $model->planp_totalsalario ;
-        $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_custosmateriais + $model->planp_custosconsumo;
+        $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_outrosmateriais + $model->planp_custosmateriais + $model->planp_custosconsumo;
         $model->planp_totalhoraaulacustodireto = $model->planp_totalcustodireto / $model->planp_cargahoraria / $model->planp_qntaluno;
 
         //CÁLCULOS REALIZADOS - SEÇÃO 3
@@ -275,7 +281,7 @@ class PrecificacaoController extends Controller
 
             if($model->save()){
 
-                $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_custosmateriais + $model->planp_custosconsumo;
+                $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_outrosmateriais + $model->planp_custosmateriais + $model->planp_custosconsumo;
 
                 //SE A UNIDADE FOR FATESE OS ENCARGOS SERÃO 32.7
                 $model->planp_encargos = $model->planp_codunidade == 30 ? $model->planp_encargos = 32.70 : $model->planp_encargos = 32.99;
@@ -367,7 +373,7 @@ class PrecificacaoController extends Controller
         $model->planp_totalsalario = $model->planp_totalcustodocente + $model->planp_decimo + $model->planp_ferias + $model->planp_tercoferias;
         $model->planp_totalencargos = ($model->planp_totalsalario * $model->planp_encargos) / 100;
         $model->planp_totalsalarioencargo = $model->planp_totalencargos + $model->planp_totalsalario ;
-        $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_custosmateriais + $model->planp_custosconsumo;
+        $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_outrosmateriais + $model->planp_custosmateriais + $model->planp_custosconsumo;
         $model->planp_totalhoraaulacustodireto = $model->planp_totalcustodireto / $model->planp_cargahoraria / $model->planp_qntaluno;
 
       //CÁLCULOS REALIZADOS - SEÇÃO 3
@@ -400,7 +406,7 @@ class PrecificacaoController extends Controller
 
             if($model->save()){
 
-                // $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_custosmateriais + $model->planp_custosconsumo;
+                // $model->planp_totalcustodireto = $model->planp_totalsalarioencargo + $model->planp_diarias + $model->planp_passagens + $model->planp_pessoafisica + $model->planp_pessoajuridica + $model->planp_PJApostila + $model->planp_outrosmateriais + $model->planp_custosmateriais + $model->planp_custosconsumo;
 
                 //SE A UNIDADE FOR FATESE OS ENCARGOS SERÃO 32.7
                 $model->planp_encargos = $model->planp_codunidade == 30 ? $model->planp_encargos = 32.70 : $model->planp_encargos = 33.29;

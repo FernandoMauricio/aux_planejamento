@@ -145,7 +145,8 @@ class RelatoriosDepController extends Controller
                         `planodeacao_plan`.`plan_status`, 
                         `planodeacao_plan`.`plan_modelonacional`, 
                         `planodeacao_plan`.`plan_custoMaterialLivro`, 
-                        `planodeacao_plan`.`plan_custoMaterialApostila`, 
+                        `planodeacao_plan`.`plan_custoMaterialApostila`,
+                        `planodeacao_plan`.`plan_custoMaterialOutros`,
                         `planodeacao_plan`.`plan_custoTotalConsumo`, 
                         `planodeacao_plan`.`plan_custoTotalAluno` 
                     FROM 
@@ -174,6 +175,7 @@ class RelatoriosDepController extends Controller
             $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(20);
             $objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(20);
             $objPHPExcel->getActiveSheet()->getColumnDimension('N')->setWidth(20);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('O')->setWidth(20);
 
             //TÍTULO DAS COLUNAS
             $objPHPExcel->getActiveSheet()->setTitle('Planos de Ação')                     
@@ -187,10 +189,11 @@ class RelatoriosDepController extends Controller
              ->setCellValue('H1', 'PERFIL DOCENTE')
              ->setCellValue('I1', 'CUSTO MATERIAL (LIVRO)')
              ->setCellValue('J1', 'CUSTO MATERIAL (APOSTILA)')
-             ->setCellValue('K1', 'CUSTO MATERIAL CONSUMO')
-             ->setCellValue('L1', 'CUSTO MATERIAL ALUNO')
-             ->setCellValue('M1', 'MODELO NACIONAL')
-             ->setCellValue('N1', 'SITUAÇÃO');
+             ->setCellValue('K1', 'CUSTO MATERIAL (OUTROS)')
+             ->setCellValue('L1', 'CUSTO MATERIAL CONSUMO')
+             ->setCellValue('M1', 'CUSTO MATERIAL ALUNO')
+             ->setCellValue('N1', 'MODELO NACIONAL')
+             ->setCellValue('O1', 'SITUAÇÃO');
                  
          $row=2; //GERAÇÃO DOS DADOS A PARTIR DA LINHA 2
                                 
@@ -206,10 +209,11 @@ class RelatoriosDepController extends Controller
                     $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['plan_perfTecnico']);
                     $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$foo['plan_custoMaterialLivro']);
                     $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$foo['plan_custoMaterialApostila']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['plan_custoTotalConsumo']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$foo['plan_custoTotalAluno']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$foo['plan_modelonacional'] ? 'Sim' : 'Não');
-                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['plan_status'] ? 'Ativo' : 'Inativo');
+                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['plan_custoMaterialOutros']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$foo['plan_custoTotalConsumo']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$foo['plan_custoTotalAluno']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['plan_modelonacional'] ? 'Sim' : 'Não');
+                    $objPHPExcel->getActiveSheet()->setCellValue('O'.$row,$foo['plan_status'] ? 'Ativo' : 'Inativo');
 
                     $row++ ;
                }

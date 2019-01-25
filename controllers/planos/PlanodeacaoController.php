@@ -266,6 +266,10 @@ class PlanodeacaoController extends Controller
                                 $query = (new \yii\db\Query())->from('db_apl2.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano, 'plama_tipoplano' => 'Plano A', 'plama_tipomaterial' => 'APOSTILAS']);
                                 $totalValorMaterialApostila = $query->sum('plama_valor');
 
+                                //realiza a soma dos custos de material didático(OUTROS) SOMENTE DO PLANO A
+                                $query = (new \yii\db\Query())->from('db_apl2.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano, 'plama_tipoplano' => 'Plano A'])->andWhere(['<>','plama_tipomaterial', 'LIVROS'])->andWhere(['<>','plama_tipomaterial', 'APOSTILAS']);
+                                $totalValorMaterialOutros = $query->sum('plama_valor');
+
                                 //realiza a soma dos custos de materiais de consumo (somatória de Quantidade * Valor de todas as linhas)
                                 $query = (new \yii\db\Query())->from('db_apl2.plano_materialconsumo')->where(['planodeacao_cod' => $model->plan_codplano]);
                                 $totalValorConsumo = $query->sum('planmatcon_valor*planmatcon_quantidade');
@@ -276,6 +280,7 @@ class PlanodeacaoController extends Controller
 
                                 $model->plan_custoMaterialLivro    = $totalValorMaterialLivro + 0; //save custo material didático - LIVROS
                                 $model->plan_custoMaterialApostila = $totalValorMaterialApostila + 0; //save custo material didático - APOSTILAS
+                                $model->plan_custoMaterialOutros   = $totalValorMaterialOutros + 0; //save custo material didático - OUTROS
                                 $model->plan_custoTotalConsumo     = $totalValorConsumo + 0; //save custo material aluno
                                 $model->plan_custoTotalAluno       = $totalValorAluno + 0; //save custo material consumo
                                 $model->save();
@@ -521,6 +526,10 @@ class PlanodeacaoController extends Controller
                                 $query = (new \yii\db\Query())->from('db_apl2.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano, 'plama_tipoplano' => 'Plano A', 'plama_tipomaterial' => 'APOSTILAS']);
                                 $totalValorMaterialApostila = $query->sum('plama_valor');
 
+                                //realiza a soma dos custos de material didático(OUTROS) SOMENTE DO PLANO A
+                                $query = (new \yii\db\Query())->from('db_apl2.planomaterial_plama')->where(['plama_codplano' => $model->plan_codplano, 'plama_tipoplano' => 'Plano A'])->andWhere(['<>','plama_tipomaterial', 'LIVROS'])->andWhere(['<>','plama_tipomaterial', 'APOSTILAS']);
+                                $totalValorMaterialOutros = $query->sum('plama_valor');
+
                                 //realiza a soma dos custos de materiais de consumo (somatória de Quantidade * Valor de todas as linhas)
                                 $query = (new \yii\db\Query())->from('db_apl2.plano_materialconsumo')->where(['planodeacao_cod' => $model->plan_codplano]);
                                 $totalValorConsumo = $query->sum('planmatcon_valor*planmatcon_quantidade');
@@ -530,7 +539,8 @@ class PlanodeacaoController extends Controller
                                 $totalValorAluno = $query->sum('planmatalu_valor*planmatalu_quantidade');
 
                                 $model->plan_custoMaterialLivro    = $totalValorMaterialLivro + 0; //save custo material didático - LIVROS
-                                $model->plan_custoMaterialApostila = $totalValorMaterialApostila + 0; //save custo material didático - LIVROS
+                                $model->plan_custoMaterialApostila = $totalValorMaterialApostila + 0; //save custo material didático - APOSTILAS
+                                $model->plan_custoMaterialOutros   = $totalValorMaterialOutros + 0; //save custo material didático - OUTROS
                                 $model->plan_custoTotalConsumo     = $totalValorConsumo + 0; //save custo material aluno
                                 $model->plan_custoTotalAluno       = $totalValorAluno + 0; //save custo material consumo
                                 $model->save();

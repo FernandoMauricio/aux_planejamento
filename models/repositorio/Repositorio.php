@@ -57,6 +57,7 @@ class Repositorio extends \yii\db\ActiveRecord
             [['image'], 'file', 'extensions'=>'jpg, gif, png'],
             [['image'], 'file', 'maxSize'=>'1000000'],
             [['rep_titulo'], 'string', 'max' => 80],
+            [['rep_arquivo_src'], 'string', 'max' => 255],
             [['rep_categoria', 'rep_editora'], 'string', 'max' => 50],
             [['rep_tipo'], 'string', 'max' => 100],
             [['rep_arquivo','rep_image_src_filename','rep_image_web_filename'], 'string', 'max' => 255],
@@ -72,6 +73,7 @@ class Repositorio extends \yii\db\ActiveRecord
         return [
             'rep_codrepositorio' => 'Código',
             'rep_titulo' => 'Título',
+            'rep_arquivo_src' => 'Título Arquivo',
             'rep_codmxm' => 'Cód. MXM',
             'rep_qtdoriginais' => 'QTD Originais',
             'rep_categoria' => 'Categoria',

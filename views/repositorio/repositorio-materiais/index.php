@@ -51,7 +51,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                          'format'=>'raw',
                          'contentOptions'=>['style'=>'max-width: 300px;'],
                          'value' => function($model, $key, $index){
-                             $url = Yii::$app->request->baseUrl. '/uploads/repositorio/' . $model->rep_codrepositorio . '/' . $model->rep_arquivo;
+                             $url = Yii::$app->request->baseUrl. '/uploads/repositorio/' . $model->rep_codrepositorio . '/' . $model->rep_arquivo_src;
                              return Html::a($model->rep_arquivo, $url, ['target'=> '_blank']); 
                          }
             ],
