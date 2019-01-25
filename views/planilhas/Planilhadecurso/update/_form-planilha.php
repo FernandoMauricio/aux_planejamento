@@ -382,7 +382,24 @@ use app\models\cadastros\Tipoprogramacao;
                     <?= $form->field($model, 'placu_hiddenmaterialdidatico')->hiddenInput()->label(false); ?>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
+                    <?= $form->field($model, 'placu_outrosmateriais')->widget(\yii\widgets\MaskedInput::className(), [
+                            'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'prefix' => 'R$ ',
+                            'groupSeparator' => '.',
+                            'radixPoint' => ',',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                            ],
+                            'options' => ['readonly' => true, 'class' => 'form-control' ]
+                    ]); ?>
+
+                    <?= $form->field($model, 'placu_hiddenoutrosmateriais')->hiddenInput()->label(false); ?>
+                </div>
+
+                <div class="col-md-2">
                     <?= $form->field($model, 'placu_custosconsumo')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',
@@ -394,7 +411,7 @@ use app\models\cadastros\Tipoprogramacao;
                     ]); ?>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <?= $form->field($model, 'placu_custosaluno')->widget(\yii\widgets\MaskedInput::className(), [
                             'clientOptions' => [
                             'alias' => 'decimal',

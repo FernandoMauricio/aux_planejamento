@@ -163,6 +163,12 @@ class PlanilhadecursoAdminController extends Controller
         if($model->placu_hiddenpjapostila == NULL){
             $model->placu_hiddenpjapostila = 0;
         }
+        if($model->placu_outrosmateriais == NULL){
+            $model->placu_outrosmateriais = 0;
+        }
+        if($model->placu_hiddenoutrosmateriais == NULL){
+            $model->placu_hiddenoutrosmateriais = 0;
+        }
         if($model->placu_custosmateriais == NULL){
             $model->placu_custosmateriais = 0;
         }
@@ -316,6 +322,10 @@ class PlanilhadecursoAdminController extends Controller
                                     $query = (new \yii\db\Query())->from('db_apl2.planilhamaterial_planima')->where(['planilhadecurso_cod' => $model->placu_codplanilha, 'planima_tipoplano' => 'Plano A', 'planima_tipomaterial' => 'APOSTILAS']);
                                     $totalValorMaterialApostila = $query->sum('planima_valor');
 
+                                    //realiza a soma dos custos de material didático(OUTROS) SOMENTE DO PLANO A
+                                    $query = (new \yii\db\Query())->from('db_apl2.planilhamaterial_planima')->where(['planilhadecurso_cod' => $model->placu_codplanilha, 'planima_tipoplano' => 'Plano A'])->andWhere(['<>','planima_tipomaterial', 'LIVROS'])->andWhere(['<>','planima_tipomaterial', 'APOSTILAS']);
+                                    $totalValorOutrosMateriais = $query->sum('planima_valor');
+
                                     //realiza a soma dos custos de materiais de consumo (somatória de Quantidade * Valor de todas as linhas)
                                     $query = (new \yii\db\Query())->from('db_apl2.planilhaconsumo_planico')->where(['planilhadecurso_cod' => $model->placu_codplanilha]);
                                     $totalValorConsumo = $query->sum('planico_valor*planico_quantidade');
@@ -327,19 +337,21 @@ class PlanilhadecursoAdminController extends Controller
                                     //Somatória Quantidade de Alunos Pagantes, Isentos e PSG 
                                     $valorTotalQntAlunos = $model->placu_quantidadealunos + $model->placu_quantidadealunosisentos + $model->placu_quantidadealunospsg;
                                     
-                                    $model->placu_custosmateriais  = $totalValorMaterialLivro * $valorTotalQntAlunos; //save custo material didático - LIVROS
-                                    $model->placu_PJApostila       = $totalValorMaterialApostila * $valorTotalQntAlunos; //save custo material didático - APOSTILAS
+                                    $model->placu_custosmateriais  = ($totalValorMaterialLivro * $valorTotalQntAlunos) + 0; //save custo material didático - LIVROS
+                                    $model->placu_PJApostila       = ($totalValorMaterialApostila * $valorTotalQntAlunos) + 0; //save custo material didático - APOSTILAS
+                                    $model->placu_outrosmateriais  = ($totalValorOutrosMateriais * $valorTotalQntAlunos) + 0; //save custo material didático - OUTROS
                                     $model->placu_custosconsumo    = $totalValorConsumo; //save custo material consumo
                                     $model->placu_custosaluno      = ($totalValorAluno * $model->placu_quantidadealunospsg) + 0; //save custo material do aluno
 
-                                    $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro; //save hidden custo para multiplicação javascript
-                                    $model->placu_hiddenpjapostila       = $totalValorMaterialApostila; //save hidden custo para multiplicação javascript
+                                    $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro + 0; //save hidden custo para multiplicação javascript
+                                    $model->placu_hiddenpjapostila       = $totalValorMaterialApostila + 0; //save hidden custo para multiplicação javascript
+                                    $model->placu_hiddenoutrosmateriais  = $totalValorOutrosMateriais + 0; //save hidden custo para multiplicação javascript
                                     $model->placu_hiddencustosaluno      = $totalValorAluno + 0; //save hidden custo para multiplicação javascript
                                     $model->placu_data                   = date('Y-m-d');
                                     $model->placu_codsituacao            = 1; //Situação Padrão: Em elaboração
 
                                     //Totalização das Despesas Diretas (Total de Custo Direto)
-                                    $model->placu_totalcustodireto = $model->placu_totalsalarioencargo + $model->placu_diarias + $model->placu_passagens + $model->placu_pessoafisica + $model->placu_pessoajuridica + $model->placu_PJApostila + $model->placu_custosmateriais + $model->placu_custosconsumo + $model->placu_custosaluno;
+                                    $model->placu_totalcustodireto = $model->placu_totalsalarioencargo + $model->placu_diarias + $model->placu_passagens + $model->placu_pessoafisica + $model->placu_pessoajuridica + $model->placu_PJApostila + $model->placu_outrosmateriais + $model->placu_custosmateriais + $model->placu_custosconsumo + $model->placu_custosaluno;
 
                                     //Despesas Indiretas
                                     $model->placu_totalincidencias     = $model->placu_custosindiretos + $model->placu_ipca + $model->placu_reservatecnica + $model->placu_despesadm;
@@ -532,6 +544,10 @@ class PlanilhadecursoAdminController extends Controller
                                     $query = (new \yii\db\Query())->from('db_apl2.planilhamaterial_planima')->where(['planilhadecurso_cod' => $model->placu_codplanilha, 'planima_tipoplano' => 'Plano A', 'planima_tipomaterial' => 'APOSTILAS']);
                                     $totalValorMaterialApostila = $query->sum('planima_valor');
 
+                                    //realiza a soma dos custos de material didático(OUTROS) SOMENTE DO PLANO A
+                                    $query = (new \yii\db\Query())->from('db_apl2.planilhamaterial_planima')->where(['planilhadecurso_cod' => $model->placu_codplanilha, 'planima_tipoplano' => 'Plano A'])->andWhere(['<>','planima_tipomaterial', 'LIVROS'])->andWhere(['<>','planima_tipomaterial', 'APOSTILAS']);
+                                    $totalValorOutrosMateriais = $query->sum('planima_valor');
+
                                     //realiza a soma dos custos de materiais de consumo (somatória de Quantidade * Valor de todas as linhas)
                                     $query = (new \yii\db\Query())->from('db_apl2.planilhaconsumo_planico')->where(['planilhadecurso_cod' => $model->placu_codplanilha]);
                                     $totalValorConsumo = $query->sum('planico_valor*planico_quantidade');
@@ -545,17 +561,19 @@ class PlanilhadecursoAdminController extends Controller
                                     
                                     $model->placu_custosmateriais  = $totalValorMaterialLivro * $valorTotalQntAlunos; //save custo material didático - LIVROS
                                     $model->placu_PJApostila       = $totalValorMaterialApostila * $valorTotalQntAlunos; //save custo material didático - APOSTILAS
+                                    $model->placu_outrosmateriais  = $totalValorOutrosMateriais * $valorTotalQntAlunos; //save custo material didático - APOSTILAS
                                     $model->placu_custosconsumo    = $totalValorConsumo; //save custo material consumo
                                     $model->placu_custosaluno      = ($totalValorAluno * $model->placu_quantidadealunospsg) + 0; //save custo material do aluno
 
                                     $model->placu_hiddenmaterialdidatico = $totalValorMaterialLivro; //save hidden custo para multiplicação javascript
                                     $model->placu_hiddenpjapostila       = $totalValorMaterialApostila; //save hidden custo para multiplicação javascript
+                                    $model->placu_hiddenoutrosmateriais  = $totalValorOutrosMateriais + 0; //save hidden custo para multiplicação javascript
                                     $model->placu_hiddencustosaluno      = $totalValorAluno + 0; //save hidden custo para multiplicação javascript
                                     $model->placu_data                   = date('Y-m-d');
                                     $model->placu_codsituacao  = 5; //Atualiza a Planilha para Aguardando Envio Planejamento
                                     
                                     //Totalização das Despesas Diretas (Total de Custo Direto)
-                                    $model->placu_totalcustodireto = $model->placu_totalsalarioencargo + $model->placu_diarias + $model->placu_passagens + $model->placu_pessoafisica + $model->placu_pessoajuridica + $model->placu_PJApostila + $model->placu_custosmateriais + $model->placu_custosconsumo + $model->placu_custosaluno;
+                                    $model->placu_totalcustodireto = $model->placu_totalsalarioencargo + $model->placu_diarias + $model->placu_passagens + $model->placu_pessoafisica + $model->placu_pessoajuridica + $model->placu_PJApostila + $model->placu_outrosmateriais + $model->placu_custosmateriais + $model->placu_custosconsumo + $model->placu_custosaluno;
 
                                     //Despesas Indiretas
                                     $model->placu_totalincidencias     = $model->placu_custosindiretos + $model->placu_ipca + $model->placu_reservatecnica + $model->placu_despesadm;

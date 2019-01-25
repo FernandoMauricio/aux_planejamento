@@ -304,9 +304,11 @@ use yii\helpers\Html;
 
                       <div class="col-md-3"><strong>Mat. Didático (Apostila):</strong><br> <?php echo 'R$ ' .  number_format($model->placu_PJApostila, 2, ',', '.'); ?></div>
 
-                      <div class="col-md-3"><strong>Mat. Didático (Livros):</strong><br> <?php echo 'R$ ' .  number_format($model->placu_custosmateriais, 2, ',', '.'); ?></div>
+                      <div class="col-md-2"><strong>Mat. Didático (Livros):</strong><br> <?php echo 'R$ ' .  number_format($model->placu_custosmateriais, 2, ',', '.'); ?></div>
 
-                      <div class="col-md-3"><strong>Material Consumo:</strong><br> <?php echo 'R$ ' .  number_format($model->placu_custosconsumo, 2, ',', '.'); ?></div>
+                      <div class="col-md-2"><strong>Mat. Didático (Outros):</strong><br> <?php echo 'R$ ' .  number_format($model->placu_outrosmateriais, 2, ',', '.'); ?></div>
+
+                      <div class="col-md-2"><strong>Material Consumo:</strong><br> <?php echo 'R$ ' .  number_format($model->placu_custosconsumo, 2, ',', '.'); ?></div>
               </div>
 
              <br>

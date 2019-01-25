@@ -234,6 +234,7 @@ class ModeloAController extends Controller
                     $placu_pessoajuridica          = $planilhaDeCurso['placu_pessoajuridica'];
                     $placu_custosmateriais         = $planilhaDeCurso['placu_custosmateriais'];
                     $placu_PJApostila              = $planilhaDeCurso['placu_PJApostila'];
+                    $placu_outrosmateriais         = $planilhaDeCurso['placu_outrosmateriais'];
                     $placu_custosconsumo           = $planilhaDeCurso['placu_custosconsumo'];
                     $placu_custosaluno             = $planilhaDeCurso['placu_custosaluno'];
                     $placu_totalsalarioPrestador   = $planilhaDeCurso['placu_totalsalarioPrestador'];
@@ -250,8 +251,7 @@ class ModeloAController extends Controller
                     }
                     else if($orcpro_identificacao == 430) { //MATERIAL DE CONSUMO, MATERIAL DIDÁTICO E (MATERIAL DO ALUNO->Verificar se entra no cálculo) - TOTAL ----->MATERIAL DE CONSUMO
 
-                        $valor_programado += ($placu_custosmateriais  + $placu_custosconsumo  + $placu_custosaluno) * $placu_quantidadeturmas;
-
+                        $valor_programado += ($placu_custosmateriais + $placu_outrosmateriais + $placu_custosconsumo  + $placu_custosaluno) * $placu_quantidadeturmas;
                     }
 
                     else if($orcpro_identificacao == 433) { //PASSAGENS URBANAS E INTERURBANAS ----->PASSAGENS E DESPESA COM LOCOMOÇÃO
@@ -406,6 +406,7 @@ class ModeloAController extends Controller
                     $placu_pessoajuridica          = $planilhaDeCurso['placu_pessoajuridica'];
                     $placu_custosmateriais         = $planilhaDeCurso['placu_custosmateriais'];
                     $placu_PJApostila              = $planilhaDeCurso['placu_PJApostila'];
+                    $placu_outrosmateriais         = $planilhaDeCurso['placu_outrosmateriais'];
                     $placu_custosconsumo           = $planilhaDeCurso['placu_custosconsumo'];
                     $placu_custosaluno             = $planilhaDeCurso['placu_custosaluno'];
                     $placu_totalsalarioPrestador   = $planilhaDeCurso['placu_totalsalarioPrestador'];
@@ -424,7 +425,7 @@ class ModeloAController extends Controller
                         }
                         else if($orcpro_identificacao == 430) { //MATERIAL DE CONSUMO, MATERIAL DIDÁTICO E (MATERIAL DO ALUNO->Verificar se entra no cálculo) - TOTAL ----->MATERIAL DE CONSUMO
 
-                            $valor_programado += ($placu_custosmateriais  + $placu_custosconsumo  + $placu_custosaluno) * $placu_quantidadeturmas;
+                            $valor_programado += ($placu_custosmateriais + $placu_outrosmateriais + $placu_custosconsumo  + $placu_custosaluno) * $placu_quantidadeturmas;
 
                         }
 
@@ -488,7 +489,7 @@ class ModeloAController extends Controller
                         }
                         else if($orcpro_identificacao == 430) { //MATERIAL DE CONSUMO, MATERIAL DIDÁTICO E (MATERIAL DO ALUNO->Verificar se entra no cálculo) - TOTAL ----->MATERIAL DE CONSUMO
 
-                            $valor_reforcoreducao += ($placu_custosmateriais  + $placu_custosconsumo  + $placu_custosaluno) * $placu_quantidadeturmas;
+                            $valor_reforcoreducao += ($placu_custosmateriais + $placu_outrosmateriais  + $placu_custosconsumo  + $placu_custosaluno) * $placu_quantidadeturmas;
 
                         }
 
