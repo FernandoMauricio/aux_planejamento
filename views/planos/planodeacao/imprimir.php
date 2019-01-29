@@ -26,41 +26,41 @@ $id = $model->plan_codplano;
     <tr class="info"><th colspan="12">SEÇÃO 1: Informações do Plano</th></tr>
     </thead>
     <tr>
-        <td colspan="12"><strong>Título: </strong><?php echo $model->plan_descricao; ?></td>
+        <td colspan="12"><strong>Título: </strong><?= $model->plan_descricao; ?></td>
     </tr> <br>
     <tr>
-        <td colspan="2" ><strong>Qnt Alunos: </strong><?php echo $model->plan_qntaluno; ?></td>
-        <td colspan="2" ><strong>CH: </strong><?php echo $model->plan_cargahoraria; ?></td>
-        <td colspan="3" ><strong>Cod. Plano DN: </strong><?php echo $model->plan_codnacional; ?></td>
-        <td colspan="3"><strong>Situação: </strong> <?php echo $model->plan_status ? '<span class="label label-success">Liberado</span>' : '<span class="label label-danger">Em elaboração</span>' ?></td>
-        <td colspan="4"><strong>Novo Modelo Pedagógico: </strong> <?php echo $model->plan_modelonacional ? '<span class="label label-success">Sim</span>' : '<span class="label label-danger">Não</span>' ?></td><br>
+        <td colspan="2" ><strong>Qnt Alunos: </strong><?= $model->plan_qntaluno; ?></td>
+        <td colspan="2" ><strong>CH: </strong><?= $model->plan_cargahoraria; ?></td>
+        <td colspan="3" ><strong>Cod. Plano DN: </strong><?= $model->plan_codnacional; ?></td>
+        <td colspan="3"><strong>Situação: </strong> <?= $model->plan_status ? '<span class="label label-success">Liberado</span>' : '<span class="label label-danger">Em elaboração</span>' ?></td>
+        <td colspan="4"><strong>Novo Modelo Pedagógico: </strong> <?= $model->plan_modelonacional ? '<span class="label label-success">Sim</span>' : '<span class="label label-danger">Não</span>' ?></td><br>
     </tr> <br>
 <tbody>
     <tr>
-        <td colspan="3"><strong>Nível: </strong> <?php echo $model->nivel->niv_descricao; ?></td>
-        <td colspan="3"><strong>Eixo: </strong> <?php echo $model->eixo->eix_descricao; ?></td>
-        <td colspan="3"><strong>Segmento: </strong> <?php echo $model->segmento->seg_descricao; ?></td>
-        <td colspan="3"><strong>Tipo de Ação: </strong> <?php echo $model->tipo->tip_descricao; ?></td>
+        <td colspan="3"><strong>Nível: </strong> <?= $model->nivel->niv_descricao; ?></td>
+        <td colspan="3"><strong>Eixo: </strong> <?= $model->eixo->eix_descricao; ?></td>
+        <td colspan="3"><strong>Segmento: </strong> <?= $model->segmento->seg_descricao; ?></td>
+        <td colspan="3"><strong>Tipo de Ação: </strong> <?= $model->tipo->tip_descricao; ?></td>
      </tr> 
 
     <tr>
-        <td colspan="12"><strong>Sobre: </strong><?php echo $model->plan_sobre; ?></td>
+        <td colspan="12"><strong>Sobre: </strong><?= $model->plan_sobre; ?></td>
     </tr>
 
     <tr>
-        <td colspan="12"><strong>Pré-Requisito: </strong><?php echo $model->plan_prerequisito; ?></td>
+        <td colspan="12"><strong>Pré-Requisito: </strong><?= $model->plan_prerequisito; ?></td>
     </tr> <br>
 
     <tr>
-        <td colspan="12"><strong>Perfil Profissional de Conclusão: </strong><?php echo $model->plan_perfConclusao; ?></td>
+        <td colspan="12"><strong>Perfil Profissional de Conclusão: </strong><?= $model->plan_perfConclusao; ?></td>
     </tr> <br>
 
     <tr>
-        <td colspan="12"><strong>Nível do Docente: </strong><?php echo  $model->despesasDocente->doce_descricao; ?></td>
+        <td colspan="12"><strong>Nível do Docente: </strong><?=  $model->despesasDocente->doce_descricao; ?></td>
     </tr> <br>
 
     <tr>
-        <td colspan="12"><strong>Perfil Docente: </strong><?php echo $model->plan_perfTecnico; ?></td>
+        <td colspan="12"><strong>Perfil Docente: </strong><?= $model->plan_perfTecnico; ?></td>
     </tr> 
 
     </tbody>
@@ -87,8 +87,8 @@ $id = $model->plan_codplano;
 
         ?>
         <tr>
-        <td><?php echo $uncu_descricao ?></td>
-        <td><?php echo $uncu_cargahoraria . " horas" ?></td>
+        <td><?= $uncu_descricao ?></td>
+        <td><?= $uncu_cargahoraria . " horas" ?></td>
       </tr>
         <?php
           }
@@ -97,7 +97,7 @@ $id = $model->plan_codplano;
      <tfoot>
             <tr class="warning kv-edit-hidden" style="border-top: #dedede">
               <th>TOTAL </th>
-               <th colspan="12" style="color:red"><?php echo $valorTotal . " horas" ?></th>
+               <th colspan="12" style="color:red"><?= $valorTotal . " horas" ?></th>
             </tr>
          </tfoot>
   </table>
@@ -145,14 +145,14 @@ $id = $model->plan_codplano;
 
         ?>
         <tr>
-        <td><?php echo $nivuc_descricao ?></td>
-        <td><?php echo $plama_codmxm ?></td>
-        <td><?php echo $plama_titulo ?></td>
-        <td><?php echo 'R$ ' . number_format($plama_valor, 2, ',', '.') ?></td>
-        <td><?php echo $plama_tipomaterial ?></td>
-        <td><?php echo $plama_editora ?></td>
-        <td><?php echo $plama_tipoplano ?></td>
-        <td><?php echo $plama_observacao ?></td>
+        <td><?= $nivuc_descricao ?></td>
+        <td><?= $plama_codmxm ?></td>
+        <td><?= $plama_titulo ?></td>
+        <td><?= 'R$ ' . number_format($plama_valor, 2, ',', '.') ?></td>
+        <td><?= $plama_tipomaterial ?></td>
+        <td><?= $plama_editora ?></td>
+        <td><?= $plama_tipoplano ?></td>
+        <td><?= $plama_observacao ?></td>
        </tr>
         <?php
           }
@@ -161,7 +161,7 @@ $id = $model->plan_codplano;
      <tfoot>
             <tr class="warning kv-edit-hidden" style="border-top: #dedede">
               <th>TOTAL <i>(Valor Unitário)</i> </th>
-               <th colspan="12" style="color:red"><?php echo 'R$ ' . number_format($valorTotal, 2, ',', '.') ?></th>
+               <th colspan="12" style="color:red"><?= 'R$ ' . number_format($valorTotal, 2, ',', '.') ?></th>
             </tr>
          </tfoot>
   </table>
@@ -192,11 +192,11 @@ $id = $model->plan_codplano;
 
         ?>
         <tr>
-        <td><?php echo $materialconsumo_cod ?></td>
-        <td><?php echo $planmatcon_descricao ?></td>
-        <td><?php echo 'R$ ' . number_format($planmatcon_valor, 2, ',', '.') ?></td>
-        <td><?php echo $planmatcon_quantidade ?></td>
-        <td><?php echo $planmatcon_tipo ?></td>
+        <td><?= $materialconsumo_cod ?></td>
+        <td><?= $planmatcon_descricao ?></td>
+        <td><?= 'R$ ' . number_format($planmatcon_valor, 2, ',', '.') ?></td>
+        <td><?= $planmatcon_quantidade ?></td>
+        <td><?= $planmatcon_tipo ?></td>
 
       </tr>
         <?php
@@ -212,7 +212,7 @@ $id = $model->plan_codplano;
                ?>
                <tr class="warning kv-edit-hidden" style="border-top: #dedede">
                <th colspan="2">TOTAL <i>(Valor Unitário * Quantidade)</i></th>
-               <th colspan="12" style="color:red"><?php echo 'R$ ' . number_format($sum, 2, ',', '.') ?></th>
+               <th colspan="12" style="color:red"><?= 'R$ ' . number_format($sum, 2, ',', '.') ?></th>
             </tr>
          </tfoot>
   </table>
@@ -228,6 +228,7 @@ $id = $model->plan_codplano;
         <th>Quantidade</th>
         <th>Unidade</th>
         <th>Fonte de Recursos</th>
+        <th>Aquisição</th>
       </tr>
     </thead>
     <tbody>
@@ -242,14 +243,16 @@ $id = $model->plan_codplano;
                 $planmatalu_unidade    = $modelPlanoAluno["planmatalu_unidade"];
                 $planmatalu_quantidade = $modelPlanoAluno["planmatalu_quantidade"];
                 $planmatalu_tipo       = $modelPlanoAluno["planmatalu_tipo"];
+                $planmatalu_aquisicao  = $modelPlanoAluno["planmatalu_aquisicao"];
                 $valorTotal           += $modelPlanoAluno["planmatalu_valor"]; //somatório de todos os valores dos itens
         ?>
         <tr>
-        <td><?php echo $planmatalu_descricao ?></td>
-        <td><?php echo 'R$ ' . number_format($planmatalu_valor, 2, ',', '.') ?></td>
-        <td><?php echo $planmatalu_quantidade ?></td>
-        <td><?php echo $planmatalu_unidade ?></td>
-        <td><?php echo $planmatalu_tipo ?></td>
+        <td><?= $planmatalu_descricao ?></td>
+        <td><?= 'R$ ' . number_format($planmatalu_valor, 2, ',', '.') ?></td>
+        <td><?= $planmatalu_quantidade ?></td>
+        <td><?= $planmatalu_unidade ?></td>
+        <td><?= $planmatalu_tipo ?></td>
+        <td><?= $planmatalu_aquisicao ?></td>
 
       </tr>
         <?php    }   ?>
@@ -263,7 +266,7 @@ $id = $model->plan_codplano;
                $query = (new \yii\db\Query())->from('db_apl2.plano_materialaluno')->where(['planodeacao_cod' => $id]);
                $sum = $query->sum('planmatalu_valor*planmatalu_quantidade');
                ?>
-               <th colspan="12" style="color:red"><?php echo 'R$ ' . number_format($sum, 2, ',', '.') ?></th>
+               <th colspan="12" style="color:red"><?= 'R$ ' . number_format($sum, 2, ',', '.') ?></th>
             </tr>
          </tfoot>
   </table>
@@ -290,9 +293,9 @@ $id = $model->plan_codplano;
                 $planestr_tipo       = $modelPlanoEstrutura["planestr_tipo"];
         ?>
         <tr>
-        <td><?php echo $planestr_descricao ?></td>
-        <td><?php echo $planestr_quantidade ?></td>
-        <td><?php echo $planestr_tipo ?></td>
+        <td><?= $planestr_descricao ?></td>
+        <td><?= $planestr_quantidade ?></td>
+        <td><?= $planestr_tipo ?></td>
 
       </tr>
         <?php    }   ?>
@@ -303,8 +306,8 @@ $id = $model->plan_codplano;
     <thead>
     <tr class="info"><th colspan="12">SEÇÃO 7: Auditoria</th></tr>
     <tr>
-        <th>Atualizado por: <?php echo $model->colaborador->usuario->usu_nomeusuario ?></th>
-        <th>Última Modifcação: <?php echo  date('d/m/Y', strtotime($model->plan_data)) ?></th>
+        <th>Atualizado por: <?= $model->colaborador->usuario->usu_nomeusuario ?></th>
+        <th>Última Modifcação: <?=  date('d/m/Y', strtotime($model->plan_data)) ?></th>
     </tr>
     </thead>
   </table>

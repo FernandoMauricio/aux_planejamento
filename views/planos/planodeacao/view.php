@@ -408,6 +408,7 @@ echo DetailView::widget([
         <th>Quantidade</th>
         <th>Unidade</th>
         <th>Fonte de Recursos</th>
+        <th>Aquisição</th>
         <th>Valores Atualizados Em</th>
       </tr>
     </thead>
@@ -424,6 +425,7 @@ echo DetailView::widget([
                 $planmatalu_quantidade = $modelPlanoAluno["planmatalu_quantidade"];
                 $planmatalu_tipo       = $modelPlanoAluno["planmatalu_tipo"];
                 $planmatalu_data       = $modelPlanoAluno["planmatalu_data"];
+                $planmatalu_aquisicao  = $modelPlanoAluno["planmatalu_aquisicao"];
                 $valorTotal           += $modelPlanoAluno["planmatalu_valor"]; //somatório de todos os valores dos itens
         ?>
         <tr>
@@ -432,6 +434,7 @@ echo DetailView::widget([
         <td><?php echo $planmatalu_quantidade ?></td>
         <td><?php echo $planmatalu_unidade ?></td>
         <td><?php echo $planmatalu_tipo ?></td>
+        <td><?php echo $planmatalu_aquisicao ?></td>
         <td><?php echo $planmatalu_data ?></td>
 
       </tr>

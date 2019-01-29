@@ -55,7 +55,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     }
                                 ?>
 
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-4">
                                     <?php
                                          $data_planoaluno = ArrayHelper::map($materialaluno, 'matalu_cod', 'matalu_descricao');
                                          echo $form->field($modelPlanoAluno, "[{$i}]materialaluno_cod")->widget(Select2::classname(), [
@@ -107,33 +107,37 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                       <?= $form->field($modelPlanoAluno, "[{$i}]planmatalu_descricao")->hiddenInput()->label(false) ?>
                                     </div>
 
-                                    <div class="col-sm-2">
-                                        <?= $form->field($modelPlanoAluno, "[{$i}]planmatalu_codMXM")->textInput(['readonly'=> true]) ?>
-                                    </div>
+                                    <div class="col-sm-1"><?= $form->field($modelPlanoAluno, "[{$i}]planmatalu_codMXM")->textInput(['readonly'=> true]) ?></div>
 
-                                    <div class="col-sm-1">
-                                        <?= $form->field($modelPlanoAluno, "[{$i}]planmatalu_unidade")->textInput(['readonly'=> true]) ?>
-                                    </div>
+                                    <div class="col-sm-1"><?= $form->field($modelPlanoAluno, "[{$i}]planmatalu_unidade")->textInput(['readonly'=> true]) ?> </div>
 
-                                    <div class="col-sm-1">
-                                        <?= $form->field($modelPlanoAluno, "[{$i}]planmatalu_valor")->textInput(['readonly'=> true]) ?>
-                                    </div>
-
-                                    <div class="col-sm-1">
-                                        <?= $form->field($modelPlanoAluno, "[{$i}]planmatalu_quantidade")->textInput() ?>
-                                    </div>
+                                    <div class="col-sm-1"><?= $form->field($modelPlanoAluno, "[{$i}]planmatalu_valor")->textInput(['readonly'=> true]) ?></div>
+                                        
+                                    <div class="col-sm-1"><?= $form->field($modelPlanoAluno, "[{$i}]planmatalu_quantidade")->textInput() ?></div>
 
                                     <div class="col-sm-2">
-                                         <?php
-                                                        echo $form->field($modelPlanoAluno, "[{$i}]planmatalu_tipo")->widget(Select2::classname(), [
-                                                                'data' =>  ['COMERCIAL'=>'COMERCIAL', 'COMERCIAL/PSG' => 'COMERCIAL/PSG', 'PRONATEC'=>'PRONATEC', 'PRONATEC/PSG'=>'PRONATEC/PSG','PSG'=>'PSG'],
-                                                                //, 'IN COMPANY'=>'IN COMPANY', 'CONVÊNIO' => 'CONVÊNIO', 'TERMO DE PARCERIA'=>'TERMO DE PARCERIA'
-                                                                'options' => ['placeholder' => 'Selecione o tipo do Material...'],
-                                                                'pluginOptions' => [
-                                                                        'allowClear' => true
-                                                                    ],
-                                                                ]);
-                                            ?>
+                                        <?php
+                                            echo $form->field($modelPlanoAluno, "[{$i}]planmatalu_tipo")->widget(Select2::classname(), [
+                                                'data' =>  ['COMERCIAL'=>'COMERCIAL', 'COMERCIAL/PSG' => 'COMERCIAL/PSG', 'PRONATEC'=>'PRONATEC', 'PRONATEC/PSG'=>'PRONATEC/PSG','PSG'=>'PSG'],
+                                                //, 'IN COMPANY'=>'IN COMPANY', 'CONVÊNIO' => 'CONVÊNIO', 'TERMO DE PARCERIA'=>'TERMO DE PARCERIA'
+                                                'options' => ['placeholder' => 'Selecione o tipo do Material...'],
+                                                'pluginOptions' => [
+                                                        'allowClear' => true
+                                                    ],
+                                                ]);
+                                        ?>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <?php
+                                            echo $form->field($modelPlanoAluno, "[{$i}]planmatalu_aquisicao")->widget(Select2::classname(), [
+                                                'data' =>  ['ALUNO'=>'ALUNO', 'SENAC'=>'SENAC'],
+                                                'options' => ['placeholder' => 'Selecione a aquisição...'],
+                                                'pluginOptions' => [
+                                                        'allowClear' => true
+                                                    ],
+                                                ]);
+                                        ?>
                                     </div>
 
                             </div>

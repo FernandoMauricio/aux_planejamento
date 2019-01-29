@@ -495,6 +495,9 @@ class PlanodeacaoController extends Controller
                                     }
                                     foreach ($modelsPlanoAluno as $modelPlanoAluno) {
                                         $modelPlanoAluno->planodeacao_cod = $model->plan_codplano;
+                                        if($modelPlanoAluno->planmatalu_aquisicao == 'ALUNO') {
+                                            $modelPlanoAluno->planmatalu_valor = 0;
+                                        }
                                         if (! ($flag = $modelPlanoAluno->save(false))) {
                                             $transaction->rollBack();
                                             break;

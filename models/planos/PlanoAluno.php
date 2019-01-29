@@ -44,12 +44,12 @@ class PlanoAluno extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['materialaluno_cod', 'planmatalu_unidade', 'planmatalu_valor', 'planmatalu_quantidade', 'planmatalu_tipo'], 'required'],
+            [['materialaluno_cod', 'planmatalu_unidade', 'planmatalu_valor', 'planmatalu_quantidade', 'planmatalu_tipo', 'planmatalu_aquisicao'], 'required'],
             [['planodeacao_cod', 'materialaluno_cod', 'planmatalu_quantidade', 'planmatalu_codMXM'], 'integer'],
             [['planmatalu_valor'], 'number'],
             [['planmatalu_unidade'], 'string', 'max' => 20],
             [['planmatalu_tipo'], 'string', 'max' => 45],
-            [['planmatalu_descricao'], 'string', 'max' => 255],
+            [['planmatalu_descricao', 'planmatalu_aquisicao'], 'string', 'max' => 255],
             [['materialaluno_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Materialaluno::className(), 'targetAttribute' => ['materialaluno_cod' => 'matalu_cod']],
             [['planodeacao_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planodeacao_cod' => 'plan_codplano']],
         ];
@@ -64,12 +64,13 @@ class PlanoAluno extends \yii\db\ActiveRecord
             'id' => 'Cod',
             'planodeacao_cod' => 'Planodeacao Cod',
             'materialaluno_cod' => 'Descrição',
-            'planmatalu_codMXM' => 'Cód. MXM',
+            'planmatalu_codMXM' => 'MXM',
             'planmatalu_descricao' => 'Descrição',
             'planmatalu_unidade' => 'Unidade',
             'planmatalu_tipo' => 'Fonte de Recursos',
             'planmatalu_valor' => 'Valor',
             'planmatalu_quantidade' => 'Qnt',
+            'planmatalu_aquisicao' => 'Aquisição',
         ];
     }
 
