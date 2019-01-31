@@ -2,6 +2,7 @@
 
 use kartik\detail\DetailView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use app\models\planos\NivelUnidadesCurriculares;
 use app\models\planos\Unidadescurriculares;
 use app\models\planos\PlanoMaterial;
@@ -32,42 +33,58 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 ?>
     <h1><?= Html::encode($this->title) ?></h1>
 
-  <p>
-    <?php
-        if($session['sess_codunidade'] == 11) { //ÁREA DA DEP
-    ?>
-           <?= Html::a('Atualizar', ['update', 'id' => $model->plan_codplano], ['class' => 'btn btn-primary']) ?>
-    <?php
-        }
-    ?>
-            <?php
-                  echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir','id' => $model->plan_codplano], [
-                      'class'=>'btn btn-warning', 
-                      'target'=>'_blank', 
-                      'data-toggle'=>'tooltip', 
-                      'title'=>' Clique aqui para gerar um arquivo PDF'
-                  ]);
-            ?>
 
-            <?php
-                  echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Informações Comerciais', ['imprimir-informacoes-comerciais','id' => $model->plan_codplano], [
-                      'class'=>'btn btn-danger', 
-                      'target'=>'_blank', 
-                      'data-toggle'=>'tooltip', 
-                      'title'=>' Clique aqui para gerar um arquivo PDF'
-                  ]);
-            ?>
+<div class="row">
+   <div class="col-sm-10">
+      <?php  if($session['sess_codunidade'] == 11) { //ÁREA DA DEP ?>
+      <?= Html::a('Atualizar', ['update', 'id' => $model->plan_codplano], ['class' => 'btn btn-primary']) ?>
+      <?php } ?>
+   </div>
+     <div class="col-sm-2">
+      <div class="dropdown">
+         <button class="btn btn-info  dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa glyphicon glyphicon-print"></i> Impressões <span class="caret"></span></button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li>
+                  <?=  Html::a('<span class="glyphicon glyphicon-book glyphicon"></span> Plano de Ação', ['imprimir','id' => $model->plan_codplano], 
+                     [
+                     'class' => 'btn btn-link',
+                     'target'=>'_blank',
+                     'style' => 'color:#337ab7; text-align:left;'
+                  ]); ?>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li>
+                  <?=  Html::a('<span class="glyphicon glyphicon-stats"></span> Informações Comerciais', ['imprimir-informacoes-comerciais','id' => $model->plan_codplano], 
+                     [
+                     'class' => 'btn btn-link',
+                     'target'=>'_blank', 
+                     'style' => 'color:#337ab7; text-align:left;'
+                  ]); ?>
+              </li>
 
-            <?php
-                  echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Material do Aluno', ['imprimir-material-aluno','id' => $model->plan_codplano], [
-                      'class'=>'btn btn-primary pull-right', 
-                      'target'=>'_blank', 
-                      'data-toggle'=>'tooltip', 
-                      'title'=>' Clique aqui para gerar um arquivo PDF'
-                  ]);
+              <li role="separator" class="divider"></li>
+              <li>
+                  <?=  Html::a('<span class="glyphicon glyphicon-duplicate"></span> Material do Aluno', ['imprimir-material-aluno','id' => $model->plan_codplano], 
+                     [
+                     'class' => 'btn btn-link',
+                     'target'=>'_blank', 
+                     'style' => 'color:#337ab7; text-align:left;'
+                  ]); ?>
+              </li>
 
-            ?>
-        </p>
+              <li role="separator" class="divider"></li>
+              <li>
+                  <?=  Html::a('<span class="glyphicon glyphicon-duplicate"></span> Aquisição do Aluno', ['imprimir-aquisicao-aluno','id' => $model->plan_codplano], 
+                     [
+                     'class' => 'btn btn-link',
+                     'target'=>'_blank', 
+                     'style' => 'color:#337ab7; text-align:left;'
+                  ]); ?>
+              </li>
+            </ul>
+      </div>
+   </div>
+</div><br>
 
 <div class="panel panel-primary">
   <div class="panel-heading">

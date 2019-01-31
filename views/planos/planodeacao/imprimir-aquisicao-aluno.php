@@ -10,7 +10,7 @@ use app\models\planos\PlanoAluno;
 <td width="21%"><img src="<?php echo Url::base().'/uploads/logo.png' ?>" height="100px"></td><br><br>
  <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12" style="text-align: center;">MATERIAIS DO ALUNO</th></tr>
+    <tr class="info"><th colspan="12" style="text-align: center;">AQUISIÇÕES DO ALUNO</th></tr>
       <tr>
         <th>Descrição</th>
         <th>Quantidade</th>
@@ -20,7 +20,7 @@ use app\models\planos\PlanoAluno;
     <tbody>
         <?php
              $valorTotal = 0;
-             $query_planoAluno = "SELECT * FROM plano_materialaluno WHERE planodeacao_cod = '".$model->plan_codplano."' AND planmatalu_aquisicao = 'SENAC' ORDER BY planmatalu_tipo ASC";
+             $query_planoAluno = "SELECT * FROM plano_materialaluno WHERE planodeacao_cod = '".$model->plan_codplano."' AND planmatalu_aquisicao = 'ALUNO' ORDER BY planmatalu_tipo ASC";
              $modelsPlanoAluno = PlanoAluno::findBySql($query_planoAluno)->all(); 
              foreach ($modelsPlanoAluno as $modelPlanoAluno) {
                 
