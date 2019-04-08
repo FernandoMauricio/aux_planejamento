@@ -119,6 +119,14 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                     },
             ],
 
+            /** COLOQUEI O CODIGO DO PLANO QUE FOI SOLICITADO **/
+               [
+                'label' => 'Cód. Plano DN',
+                'encodeLabel' => false,
+                'attribute' => 'plan_codnacional',
+                'width'=>'7%',
+            ],
+
             [
             'attribute'=>'plan_codcolaborador', 
             'width'=>'5%',
