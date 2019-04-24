@@ -41,7 +41,7 @@ class Estruturafisica extends \yii\db\ActiveRecord
             [['estr_descricao', 'estr_status'], 'required'],
             [['estr_status', 'estr_codcolaborador'], 'integer'],
             [['estr_data'], 'safe'],
-            [['estr_descricao'], 'string', 'max' => 45],
+            [['estr_descricao'], 'string', 'max' => 255],
         ];
     }
 
