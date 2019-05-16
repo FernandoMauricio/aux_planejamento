@@ -44,7 +44,7 @@ class PlanoEstruturafisica extends \yii\db\ActiveRecord
             [['estruturafisica_cod', 'planestr_quantidade', 'planestr_tipo'], 'required'],
             [['id', 'planodeacao_cod', 'estruturafisica_cod', 'planestr_quantidade'], 'integer'],
             [['planestr_tipo'], 'string', 'max' => 45],
-            [['planestr_descricao'], 'string', 'max' => 45],
+            [['planestr_descricao'], 'string', 'max' => 100],
             [['estruturafisica_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Estruturafisica::className(), 'targetAttribute' => ['estruturafisica_cod' => 'estr_cod']],
             [['planodeacao_cod'], 'exist', 'skipOnError' => true, 'targetClass' => Planodeacao::className(), 'targetAttribute' => ['planodeacao_cod' => 'plan_codplano']],
         ];
