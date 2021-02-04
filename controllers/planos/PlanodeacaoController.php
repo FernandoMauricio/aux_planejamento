@@ -73,6 +73,10 @@ class PlanodeacaoController extends Controller
 
             $model = $this->findModel($id);
 
+               //Corrigir bug do CentOS
+            \yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+            \yii::$app->response->headers->add('Content-Type', 'application/pdf');
+
             $pdf = new Pdf([
                 'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
                 'format' => Pdf::FORMAT_A4,
@@ -97,6 +101,10 @@ class PlanodeacaoController extends Controller
     public function actionImprimirInformacoesComerciais($id) {
 
             $model = $this->findModel($id);
+
+             \yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+            \yii::$app->response->headers->add('Content-Type', 'application/pdf');
+
 
             $pdf = new Pdf([
                 'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts

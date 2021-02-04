@@ -86,6 +86,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
 
                     [
+                      'attribute'=>'planp_observacao',
+                      'width'=>'3%',
+                    ],
+
+                    [
                       'attribute'=>'planp_cargahoraria',
                       'width'=>'3%',
                     ],  
@@ -102,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ], 
 
                     [
-                      'label' => 'Nº Min Aluno',
+                      'label' => 'Min. Alunos',
                       'attribute'=>'planp_minimoaluno',
                       'width'=>'3%',
                     ], 
@@ -164,7 +169,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes da Precificação de Custo', 'options'=>['colspan'=>10, 'class'=>'text-center warning']],
+                ['content'=>'Detalhes da Precificação de Custo', 'options'=>['colspan'=>11, 'class'=>'text-center warning']],
                 ['content'=>'Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]

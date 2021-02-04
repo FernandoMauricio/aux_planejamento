@@ -27,7 +27,7 @@ use kartik\select2\Select2;
                 <div class="col-md-4">
                 <?php 
                     $data_tipoProgramacao = ArrayHelper::map($tipoProgramacao, 'tipro_codprogramacao', 'tipro_descricao');
-                    echo $form->field($model, 'moda_codsituacao')->radioList($data_tipoProgramacao) 
+                    echo $form->field($model, 'moda_codentrada')->radioList($data_tipoProgramacao) 
                 ?>
 				</div>
 			</div>

@@ -302,7 +302,7 @@ use kartik\nav\NavX;
         ],
     ]);
 
-    }else if($session['sess_responsavelsetor'] == 1 || $session['sess_codusuario'] == 48 || $session['sess_codusuario'] == 74) {//ÁREA DE GERENTES E PARA A SAIANA E ELENI PODER ENTRAR EM CADA UNIDADE E VISUALIZAR COMO GERENTE
+    }else if($session['sess_responsavelsetor'] == 1 || $session['sess_codusuario'] == 48 || $session['sess_codusuario'] == 20) {//ÁREA DE GERENTES E PARA A SAIANA E ELENI PODER ENTRAR EM CADA UNIDADE E VISUALIZAR COMO GERENTE
 
     echo NavX::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

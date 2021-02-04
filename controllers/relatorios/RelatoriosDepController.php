@@ -212,7 +212,7 @@ class RelatoriosDepController extends Controller
                     $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['plan_custoMaterialOutros']);
                     $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$foo['plan_custoTotalConsumo']);
                     $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$foo['plan_custoTotalAluno']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['plan_modelonacional'] ? 'Sim' : 'Não');
+                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['plan_modelonacional']);
                     $objPHPExcel->getActiveSheet()->setCellValue('O'.$row,$foo['plan_status'] ? 'Ativo' : 'Inativo');
 
                     $row++ ;

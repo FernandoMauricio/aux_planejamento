@@ -148,7 +148,7 @@ $attributes = [
                             'attribute'=>'plan_modelonacional', 
                             'format'=>'raw',
                             'type'=>DetailView::INPUT_SWITCH,
-                            'value'=>$model->plan_modelonacional ? '<span class="label label-success">Sim</span>' : '<span class="label label-danger">Não</span>',
+                            'value'=>'<span class="label label-primary">'.$model->plan_modelonacional.'</span>',
                             'valueColOptions'=>['style'=>'width:0%']
                         ],
                     ],
@@ -256,7 +256,7 @@ echo DetailView::widget([
     <tbody>
         <?php
              $valorTotal = 0;
-             $query_planoUnidadesCurriculares = "SELECT * FROM unidadescurriculares_uncu WHERE planodeacao_cod = '".$model->plan_codplano."' ORDER BY id ASC";
+             $query_planoUnidadesCurriculares = "SELECT * FROM unidadescurriculares_uncu WHERE planodeacao_cod = '".$model->plan_codplano."' ORDER BY uncu_descricao ASC";
              $modelsUnidadesCurriculares = Unidadescurriculares::findBySql($query_planoUnidadesCurriculares)->all(); 
              foreach ($modelsUnidadesCurriculares as $modelUnidadesCurriculares) {
                 
@@ -295,7 +295,7 @@ echo DetailView::widget([
                               <!-- SEÇÃO 3 - MATERIAIS DIDÁTICOS -->
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 3: Materiais Didáticos</th></tr>
+    <tr class="info"><th colspan="12">SEÇÃO 3: Materiais Didáticos Livros</th></tr>
       <tr>
         <th>UC</th>
         <th>Cód MXM</th>
@@ -311,7 +311,7 @@ echo DetailView::widget([
     <tbody>
         <?php
              $valorTotal = 0;
-             $query_planoMaterial = "SELECT * FROM planomaterial_plama WHERE plama_codplano = '".$model->plan_codplano."' ORDER BY nivel_uc ASC";
+             $query_planoMaterial = "SELECT * FROM planomaterial_plama WHERE plama_tipomaterial = 'LIVROS' and plama_codplano = '".$model->plan_codplano."' ORDER BY plama_titulo ASC";
              $modelsPlanoMaterial = PlanoMaterial::findBySql($query_planoMaterial)->all(); 
              foreach ($modelsPlanoMaterial as $modelPlanoMaterial) {
 
@@ -360,10 +360,80 @@ echo DetailView::widget([
             </tr>
          </tfoot>
   </table>
+
+     <!-- SEÇÃO 3 - MATERIAIS DIDÁTICOS -->
+  <table class="table table-condensed table-hover">
+    <thead>
+    <tr class="info"><th colspan="12">SEÇÃO 4: Materiais Didáticos Apostilas</th></tr>
+      <tr>
+        <th>UC</th>
+        <th>Cód MXM</th>
+        <th>Descrição</th>
+        <th>Valor Unitário</th>
+        <th>Tipo Material</th>
+        <th>Editora</th>
+        <th>Plano</th>
+        <th>Observação</th>
+        <th>Arquivo</th>
+      </tr>
+    </thead>
+    <tbody>
+        <?php
+             $valorTotal = 0;
+             $query_planoMaterial = "SELECT * FROM planomaterial_plama WHERE plama_tipomaterial = 'APOSTILAS' and plama_codplano = '".$model->plan_codplano."' ORDER BY plama_titulo ASC";
+             $modelsPlanoMaterial = PlanoMaterial::findBySql($query_planoMaterial)->all(); 
+             foreach ($modelsPlanoMaterial as $modelPlanoMaterial) {
+
+                //$model->plan_codplano                   = $modelPlanoMaterial["id"];
+                $nivel_uc             = $modelPlanoMaterial["nivel_uc"];
+                $plama_codmxm         = $modelPlanoMaterial["plama_codmxm"];
+                $plama_codrepositorio = $modelPlanoMaterial["plama_codrepositorio"];
+                $plama_titulo         = $modelPlanoMaterial["plama_titulo"];
+                $plama_valor          = $modelPlanoMaterial["plama_valor"];
+                $plama_tipomaterial   = $modelPlanoMaterial["plama_tipomaterial"];
+                $plama_editora        = $modelPlanoMaterial["plama_editora"];
+                $plama_tipoplano      = $modelPlanoMaterial["plama_tipoplano"];
+                $plama_observacao     = $modelPlanoMaterial["plama_observacao"];
+                $plama_arquivo        = $modelPlanoMaterial["plama_arquivo"];
+                $valorTotal           += $modelPlanoMaterial["plama_valor"]; //somatório de todos os valores dos itens
+
+                //busca pelos níveis das unidades curriculares
+                $query_nivelUC = "SELECT nivuc_descricao FROM `nivelunidcurriculares_nivuc`, `unidadescurriculares_uncu` WHERE `nivuc_id` = '".$nivel_uc."' ";
+                $modelsNivelUC = NivelUnidadesCurriculares::findBySql($query_nivelUC)->all(); 
+
+                foreach ($modelsNivelUC as $modelNivelUC) {
+
+                 $nivuc_descricao   = $modelNivelUC["nivuc_descricao"];
+              }
+
+        ?>
+        <tr>
+        <td><?php echo $nivuc_descricao ?></td>
+        <td><?php echo $plama_codmxm ?></td>
+        <td><?php echo $plama_titulo ?></td>
+        <td><?php echo 'R$ ' . number_format($plama_valor, 2, ',', '.') ?></td>
+        <td><?php echo $plama_tipomaterial ?></td>
+        <td><?php echo $plama_editora ?></td>
+        <td><?php echo $plama_tipoplano ?></td>
+        <td><?php echo $plama_observacao ?></td>
+        <td><a target="_blank" href="https://portalsenac.am.senac.br/aux_planejamento/web/uploads/repositorio/<?php echo $plama_codrepositorio .'/'. $plama_arquivo ?>"> <?php echo $plama_arquivo ?></a></td>
+      </tr>
+        <?php
+          }
+        ?>
+    </tbody>
+     <tfoot>
+               <tr class="warning kv-edit-hidden" style="border-top: #dedede">
+               <th colspan="3">TOTAL <i>(Valor Unitário)</i></th>
+               <th colspan="9" style="color:red"><?php echo 'R$ ' . number_format($valorTotal, 2, ',', '.') ?></th>
+            </tr>
+         </tfoot>
+  </table>
+
                               <!-- SEÇÃO 4 - MATERIAIS DE CONSUMO -->
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 4: Materiais de Consumo</th></tr>
+    <tr class="info"><th colspan="12">SEÇÃO 5: Materiais de Consumo</th></tr>
       <tr>
         <th>Cód MXM</th>
         <th>Descrição</th>
@@ -376,7 +446,7 @@ echo DetailView::widget([
     <tbody>
         <?php
              $valorTotal = 0;
-             $query_planoConsumo = "SELECT * FROM plano_materialconsumo WHERE planodeacao_cod = '".$model->plan_codplano."' ORDER BY id ASC";
+             $query_planoConsumo = "SELECT * FROM plano_materialconsumo WHERE planodeacao_cod = '".$model->plan_codplano."' ORDER BY planmatcon_descricao ASC";
              $modelsPlanoConsumo = PlanoConsumo::findBySql($query_planoConsumo)->all(); 
              foreach ($modelsPlanoConsumo as $modelPlanoConsumo) {
                 $planmatcon_codMXM     = $modelPlanoConsumo["planmatcon_codMXM"];
@@ -418,7 +488,7 @@ echo DetailView::widget([
 
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 5: Materiais do Aluno</th></tr>
+    <tr class="info"><th colspan="12">SEÇÃO 6: Materiais do Aluno</th></tr>
       <tr>
         <th>Descrição</th>
         <th>Valor Unitário</th>
@@ -432,7 +502,7 @@ echo DetailView::widget([
     <tbody>
         <?php
              $valorTotal = 0;
-             $query_planoAluno = "SELECT * FROM plano_materialaluno WHERE planodeacao_cod = '".$model->plan_codplano."' ORDER BY planmatalu_tipo ASC";
+             $query_planoAluno = "SELECT * FROM plano_materialaluno WHERE planodeacao_cod = '".$model->plan_codplano."' ORDER BY planmatalu_descricao ASC";
              $modelsPlanoAluno = PlanoAluno::findBySql($query_planoAluno)->all(); 
              foreach ($modelsPlanoAluno as $modelPlanoAluno) {
                 
@@ -475,7 +545,7 @@ echo DetailView::widget([
 
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 6: Equipamentos / Utensílios do Plano</th></tr>
+    <tr class="info"><th colspan="12">SEÇÃO 7: Equipamentos / Utensílios do Plano</th></tr>
       <tr>
         <th>Descrição</th>
         <th>Quantidade</th>
@@ -485,7 +555,7 @@ echo DetailView::widget([
     <tbody>
       <tr>
         <?php
-             $query_PlanoEstrutura = "SELECT * FROM plano_estruturafisica WHERE planodeacao_cod = '".$model->plan_codplano."' ORDER BY planestr_tipo ASC";
+             $query_PlanoEstrutura = "SELECT * FROM plano_estruturafisica WHERE planodeacao_cod = '".$model->plan_codplano."' ORDER BY planestr_descricao ASC";
              $modelsPlanoEstrutura = PlanoEstruturafisica::findBySql($query_PlanoEstrutura)->all(); 
              foreach ($modelsPlanoEstrutura as $modelPlanoEstrutura) {
                 
@@ -504,7 +574,7 @@ echo DetailView::widget([
 
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 7: Auditoria</th></tr>
+    <tr class="info"><th colspan="12">SEÇÃO 8: Auditoria</th></tr>
         <th>Atualizado por: <?php echo $model->colaborador->usuario->usu_nomeusuario ?></th>
         <th>Última Modifcação: <?php echo  date('d/m/Y', strtotime($model->plan_data)) ?></th>
     </thead>

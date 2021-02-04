@@ -27,15 +27,27 @@ use app\models\cadastros\Segmento;
                     <div class="row">
 
                         <div class="col-md-2"><?= $form->field($model, 'plan_qntaluno')->textInput(['maxlength' => true]) ?></div>
-                        
+
                         <div class="col-md-2"><?= $form->field($model, 'plan_cargahoraria')->textInput(['maxlength' => true]) ?></div>
 
                         <div class="col-md-2"><?= $form->field($model, 'plan_codnacional')->textInput(['maxlength' => true]) ?></div>
 
-                        <div class="col-md-3"><?= $form->field($model, 'plan_status')->radioList([1 => 'Liberado', 0 => 'Em elaboração']) ?></div>
-                        
-                        <div class="col-md-3"><?= $form->field($model, 'plan_modelonacional')->radioList([1 => 'Sim', 0 => 'Não']) ?></div>
-                        
+                        <div class="col-md-3"><?= $form->field($model, 'plan_status')->radioList([0 => 'Em elaboração', 1 => 'Liberado']) ?></div>
+
+                        <div class="col-md-3"><?php
+                            echo  $form->field($model, 'plan_modelonacional')->widget(Select2::classname(), [
+                                     'data' =>  [
+                                        'Não Alinhado com Modelo Pedagógico' => 'Não Alinhado com Modelo Pedagógico',
+                                        'Plano de Curso Nacional' => 'Plano de Curso Nacional',
+                                        'Plano de Curso de Referência (Itinerários Formativos)' => 'Plano de Curso de Referência (Itinerários Formativos)',
+                                        'Plano de Curso MPS, Regional ou Núcleo' => 'Plano de Curso MPS, Regional ou Núcleo'],
+                                     'options' => ['placeholder' => 'Selecione...'],
+                                     'pluginOptions' => [
+                                             'allowClear' => true
+                                         ],
+                                     ]);
+                            ?>
+                        </div>
                     </div>
 
                     <div class="row">

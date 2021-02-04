@@ -143,20 +143,28 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
             [
                 'class'=>'kartik\grid\BooleanColumn',
-                'attribute'=>'plan_status', 
+                'attribute'=>'plan_status',
                 'vAlign'=>'middle',
                 'width'=>'7%'
-            ], 
+            ],
 
             [
                 'label' => 'Novo Modelo <br> Pedagógico',
-                'class'=>'kartik\grid\BooleanColumn',
-                'trueLabel' => 'Sim',
-                'falseLabel' => 'Não',
-                'attribute'=>'plan_modelonacional', 
-                'vAlign'=>'middle',
+                'attribute' => 'plan_modelonacional',
+                'width'=>'7%',
                 'encodeLabel' => false,
-                'width'=>'7%'
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>
+                    ['data' =>  [
+                               'Não Alinhado com Modelo Pedagógico' => 'Não Alinhado com Modelo Pedagógico',
+                               'Plano de Curso Nacional' => 'Plano de Curso Nacional',
+                               'Plano de Curso de Referência (Itinerários Formativos)' => 'Plano de Curso de Referência (Itinerários Formativos)',
+                               'Plano de Curso MPS, Regional ou Núcleo' => 'Plano de Curso MPS, Regional ou Núcleo'
+                                ],],
+                'filterInputOptions'=>['placeholder'=>'Selecione o Modelo'],
+                'filterWidgetOptions'=>[
+                'pluginOptions'=>['allowClear'=>true],
+                ],
             ],
 
             ['class' => 'yii\grid\ActionColumn',

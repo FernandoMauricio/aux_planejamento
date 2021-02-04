@@ -71,10 +71,10 @@ class Planodeacao extends \yii\db\ActiveRecord
     {
         return [
             [['plan_descricao', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria', 'plan_qntaluno', 'plan_codcolaborador', 'plan_data', 'plan_status', 'plan_modelonacional', 'plan_nivelDocente', 'plan_categoriasPlano', 'plan_codnacional'], 'required'],
-            [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria','plan_nivelDocente', 'plan_qntaluno', 'plan_codcolaborador', 'plan_status','plan_modelonacional', 'plan_codnacional'], 'integer'],
+            [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria','plan_nivelDocente', 'plan_qntaluno', 'plan_codcolaborador', 'plan_status', 'plan_codnacional'], 'integer'],
             [['plan_sobre', 'plan_prerequisito', 'plan_perfConclusao', 'plan_perfTecnico'], 'string'],
             [['plan_data','nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoLabel', 'plan_custoMaterialLivro', 'plan_custoMaterialApostila', 'plan_custoTotalConsumo', 'plan_custoTotalAluno'], 'safe'],
-            [['plan_descricao'], 'string', 'max' => 100],
+            [['plan_descricao','plan_modelonacional'], 'string', 'max' => 100],
             [['plan_codeixo'], 'exist', 'skipOnError' => true, 'targetClass' => Eixo::className(), 'targetAttribute' => ['plan_codeixo' => 'eix_codeixo']],
             [['plan_codnivel'], 'exist', 'skipOnError' => true, 'targetClass' => Nivel::className(), 'targetAttribute' => ['plan_codnivel' => 'niv_codnivel']],
             [['plan_codsegmento'], 'exist', 'skipOnError' => true, 'targetClass' => Segmento::className(), 'targetAttribute' => ['plan_codsegmento' => 'seg_codsegmento']],

@@ -42,6 +42,7 @@ class Materialconsumo extends \yii\db\ActiveRecord
         return [
             [['matcon_descricao', 'matcon_tipo', 'matcon_valor', 'matcon_status'], 'required'],
             ['matcon_codMXM', 'unique'],
+            ['matcon_descricao', 'unique', 'targetAttribute' => ['matcon_descricao'],'message' => '"{value} Já existe um item com este nome"'],
             [['matcon_valor'], 'number'],
             [['matalu_data'], 'safe'],
             [['matcon_status', 'matcon_codMXM', 'matcon_codcolaborador'], 'integer'],

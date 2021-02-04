@@ -9,6 +9,7 @@ use app\models\relatorios\RelatoriosDep;
 use app\models\planos\Planodeacao;
 use app\models\planilhas\Planilhadecurso;
 use app\models\relatorios\RelatorioItensConsumo;
+use app\models\relatorios\RelatorioPlanilhasPrecificacao;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -56,6 +57,7 @@ class RelatoriosExcelController extends Controller
                         `eixo_eix`.`eix_descricao`,
                         `segmento_seg`.`seg_descricao`, 
                         `tipodeacao_tip`.`tip_descricao`,
+                        `planodeacao_plan`.`plan_codnacional`,
                         `planodeacao_plan`.`plan_descricao`,
                         `nivel_niv`.`niv_sigla`,
                         `ano_an`.`an_ano`,
@@ -96,8 +98,8 @@ class RelatoriosExcelController extends Controller
             $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
             $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(30);
             $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(30);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(50);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(50);
             $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(10);
@@ -114,6 +116,7 @@ class RelatoriosExcelController extends Controller
             $objPHPExcel->getActiveSheet()->getColumnDimension('T')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('U')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('V')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('X')->setWidth(10);
 
             //TÍTULO DAS COLUNAS
             $objPHPExcel->getActiveSheet()->setTitle('EXCEL-PAAR')                     
@@ -121,24 +124,25 @@ class RelatoriosExcelController extends Controller
              ->setCellValue('B1', 'EIXO')
              ->setCellValue('C1', 'SEGMENTO')
              ->setCellValue('D1', 'TIPO')
-             ->setCellValue('E1', 'PLANO')
-             ->setCellValue('F1', 'NÍVEL')
-             ->setCellValue('G1', 'ANO')
-             ->setCellValue('H1', 'FINANCIAMENTO')
-             ->setCellValue('I1', 'QUANT. TURMAS')
-             ->setCellValue('J1', 'EXERCICIO')
-             ->setCellValue('K1', 'CH TURMA')
-             ->setCellValue('L1', 'CH TURMA TOTAL')
-             ->setCellValue('M1', 'CH ALUNO')
-             ->setCellValue('N1', 'CH ALUNO TOTAL')
-             ->setCellValue('O1', 'MAT PAG')
-             ->setCellValue('P1', 'MAT PSG')
-             ->setCellValue('Q1', 'MAT ISE')
-             ->setCellValue('R1', 'MAT TOTAL')
-             ->setCellValue('S1', 'CH ALUNO PAG')
-             ->setCellValue('T1', 'CH ALUNO PSG')
-             ->setCellValue('U1', 'CH ALUNO ISE')
-             ->setCellValue('V1', 'PROGRAMÇÃO');
+             ->setCellValue('E1', 'CÓD. DN')
+             ->setCellValue('F1', 'PLANO')
+             ->setCellValue('G1', 'NÍVEL')
+             ->setCellValue('H1', 'ANO')
+             ->setCellValue('I1', 'FINANCIAMENTO')
+             ->setCellValue('J1', 'QUANT. TURMAS')
+             ->setCellValue('K1', 'EXERCICIO')
+             ->setCellValue('L1', 'CH TURMA')
+             ->setCellValue('M1', 'CH TURMA TOTAL')
+             ->setCellValue('N1', 'CH ALUNO')
+             ->setCellValue('O1', 'CH ALUNO TOTAL')
+             ->setCellValue('P1', 'MAT PAG')
+             ->setCellValue('Q1', 'MAT PSG')
+             ->setCellValue('R1', 'MAT ISE')
+             ->setCellValue('S1', 'MAT TOTAL')
+             ->setCellValue('T1', 'CH ALUNO PAG')
+             ->setCellValue('U1', 'CH ALUNO PSG')
+             ->setCellValue('V1', 'CH ALUNO ISE')
+             ->setCellValue('X1', 'PROGRAMAÇÃO');
                  
          $row=2; //GERAÇÃO DOS DADOS A PARTIR DA LINHA 2
                                 
@@ -147,24 +151,25 @@ class RelatoriosExcelController extends Controller
                     $objPHPExcel->getActiveSheet()->setCellValue('B'.$row,$foo['eix_descricao']);
                     $objPHPExcel->getActiveSheet()->setCellValue('C'.$row,$foo['seg_descricao']); 
                     $objPHPExcel->getActiveSheet()->setCellValue('D'.$row,$foo['tip_descricao']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('E'.$row,$foo['plan_descricao']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$foo['niv_sigla']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$foo['an_ano']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['cat_descricao']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$foo['placu_quantidadeturmas']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$foo['placu_anoexercicio']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['CH_TURMA']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$foo['CH_TURMATOTAL']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$foo['CHALUNO']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['CH_ALUNOTOTAL']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('O'.$row,$foo['MAT_PAG']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('P'.$row,$foo['MAT_PSG']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('Q'.$row,$foo['MAT_ISE']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('R'.$row,$foo['MAT_TOTAL']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('S'.$row,$foo['CH_ALUNOPAG']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('T'.$row,$foo['CH_ALUNOPSG']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('U'.$row,$foo['CH_ALUNOISE']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('V'.$row,$foo['tipro_descricao']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('E'.$row,$foo['plan_codnacional']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$foo['plan_descricao']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$foo['niv_sigla']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['an_ano']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$foo['cat_descricao']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$foo['placu_quantidadeturmas']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['placu_anoexercicio']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$foo['CH_TURMA']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$foo['CH_TURMATOTAL']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['CHALUNO']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('O'.$row,$foo['CH_ALUNOTOTAL']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('P'.$row,$foo['MAT_PAG']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('Q'.$row,$foo['MAT_PSG']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('R'.$row,$foo['MAT_ISE']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('S'.$row,$foo['MAT_TOTAL']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('T'.$row,$foo['CH_ALUNOPAG']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('U'.$row,$foo['CH_ALUNOPSG']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('V'.$row,$foo['CH_ALUNOISE']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('X'.$row,$foo['tipro_descricao']);
 
                     $row++ ;
                }
@@ -422,6 +427,151 @@ class RelatoriosExcelController extends Controller
 
     }else{
         return $this->renderAjax('gerar-relatorio-itens-material-didatico', [
+           'model'    => $model,
+           'ano'      => $ano,
+           ]);
+        }
+    }
+
+    public function actionGerarRelatorioPlanilhasPrecificacao()
+    {
+
+        $model = new RelatorioPlanilhasPrecificacao();
+        $ano = Ano::find()->orderBy(['an_codano'=>SORT_DESC])->all();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $objPHPExcel = new \PHPExcel();
+            $sheet=0;
+            $objPHPExcel->setActiveSheetIndex($sheet);
+
+                $connection = Yii::$app->db_apl;
+                $command = $connection->createCommand('
+                    SELECT 
+                            plan_descricao,
+                            planp_ano,
+                            planp_cargahoraria, 
+                            planp_mesesdocurso, 
+                            planp_qntaluno, 
+                            seg_descricao,
+                            planp_totalcustodireto,
+                            planp_totalcustoindireto,
+                            planp_vendaturmasugeridointerior,
+                            planp_parcelas,
+                            planp_valorparcelas,
+                            planp_porcentretornosugerido,
+                            plan_prerequisito,
+                            planp_codunidade,
+                            planp_observacao,
+                            planp_precosugerido,
+                            (CASE WHEN planp_codunidade = 16 THEN "CEP-PF"
+                                  WHEN planp_codunidade = 30 THEN "FATESE" 
+                                  WHEN planp_codunidade = 2 THEN "CTH" 
+                                  WHEN planp_codunidade = 15 THEN "CEP-LSR" 
+                                  WHEN planp_codunidade = 14 THEN "CIN" 
+                                  WHEN planp_codunidade = 17 THEN "CEP-JT" 
+                                  WHEN planp_codunidade = 19 THEN "CEP-MBI" 
+                                  WHEN planp_codunidade = 18 THEN "CEP-MPR" 
+                                  WHEN planp_codunidade = 22 THEN "CEP-LB" 
+                                  WHEN planp_codunidade = 25 THEN "CEP-PJP" 
+                                  WHEN planp_codunidade = 29 THEN "UMF"
+                                  WHEN planp_codunidade = 46 THEN "CARRETA DE BELEZA" 
+                                  WHEN planp_codunidade = 45 THEN "CARRETA DE HOSPITALIDADE" 
+                                  WHEN planp_codunidade = 44 THEN "CARRETA DE INFORMÁTICA" 
+                             END) AS unidade
+                        FROM precificacao_planp 
+                        INNER JOIN `planodeacao_plan` ON `precificacao_planp`.`planp_planodeacao` = `planodeacao_plan`.`plan_codplano`
+                        INNER JOIN `segmento_seg` ON `planodeacao_plan`.`plan_codsegmento` = `segmento_seg`.`seg_codsegmento`
+                    ');
+                //WHERE planp_ano = '.$_POST['RelatorioPlanilhasPrecificacao']['relat_codano'].'
+
+                $foos = $command->queryAll();
+
+            //TAMANHO DAS COLUNAS  
+            $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(40);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(25);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(25);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(20);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(40);
+
+            //TÍTULO DAS COLUNAS
+            $objPHPExcel->getActiveSheet()->setTitle('EXCEL-PAAR') 
+             ->setCellValue('A1', 'ANO')                    
+             ->setCellValue('B1', 'UNIDADE')
+             ->setCellValue('C1', 'SEGMENTO')
+             ->setCellValue('D1', 'PROGRAMAÇÃO')
+             ->setCellValue('E1', 'NOME DO CURSO')
+             ->setCellValue('F1', 'CH')
+             ->setCellValue('G1', 'TOTAL DO CUSTO DIRETO')
+             ->setCellValue('H1', 'TOTAL DO CUSTO INDIRETO')
+             ->setCellValue('I1', 'PREÇO ATUAL')
+             ->setCellValue('J1', 'PARCELAMENTO')
+             ->setCellValue('K1', 'VALOR POR PARCELA')
+             ->setCellValue('L1', 'RETORNO')
+             ->setCellValue('M1', 'PRÉ - REQUISITOS');
+             // ->setCellValue('H1', 'CEP-PF')
+             // ->setCellValue('I1', 'FATESE')
+             // ->setCellValue('J1', 'CEP-LSR')
+             // ->setCellValue('K1', 'CEP-MBI')
+             // ->setCellValue('L1', 'CEP-MPR')
+             // ->setCellValue('M1', 'CEP-LB')
+             // ->setCellValue('N1', 'CEP-PJP')
+             // ->setCellValue('O1', 'UMF')
+             // ->setCellValue('P1', 'CARRETA DE BELEZA')
+             // ->setCellValue('Q1', 'CARRETA DE HOSPITALIDADE')
+             // ->setCellValue('R1', 'CARRETA DE INFORMÁTICA')
+             // ->setCellValue('S1', 'QUANTIDADE')
+             // ->setCellValue('T1', 'VALOR_UNITARIO');
+                 
+         $row=2; //GERAÇÃO DOS DADOS A PARTIR DA LINHA 2
+                                
+                foreach ($foos as $foo) {  
+                    $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$foo['planp_ano']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('B'.$row,$foo['unidade']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('C'.$row,$foo['seg_descricao']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('D'.$row,$foo['planp_observacao']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('E'.$row,$foo['plan_descricao']); 
+                    $objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$foo['planp_cargahoraria']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$foo['planp_totalcustodireto']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['planp_totalcustoindireto']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$foo['planp_precosugerido']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$foo['planp_parcelas']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['planp_valorparcelas']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,number_format($foo['planp_porcentretornosugerido'], 2, ',', '.') . '%');
+                    $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$foo['plan_prerequisito']);
+                    // $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['PF']);
+                    // $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$foo['FATESE']);
+                    // $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$foo['LSR']);
+                    // $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['MBI']);
+                    // $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$foo['MPR']);
+                    // $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$foo['LB']);
+                    // $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['PJP']);
+                    // $objPHPExcel->getActiveSheet()->setCellValue('O'.$row,$foo['BALSA_ESCOLA']);
+                    // $objPHPExcel->getActiveSheet()->setCellValue('P'.$row,$foo['CARRETA_BELEZA']);
+                    // $objPHPExcel->getActiveSheet()->setCellValue('Q'.$row,$foo['CARRETA_HOSPITALIDADE']);
+                    // $objPHPExcel->getActiveSheet()->setCellValue('R'.$row,$foo['CARRETA_INFORMATICA']);
+                    // $objPHPExcel->getActiveSheet()->setCellValue('S'.$row,$foo['QUANTIDADE_TOTAL']);
+                    // $objPHPExcel->getActiveSheet()->setCellValue('T'.$row,$foo['VALOR_UNITARIO']);
+
+                    $row++ ;
+                }
+
+        header('Content-Type: application/vnd.ms-excel');
+        $filename = "Relatorio_Planilha_Precificacao".date("d-m-Y-His").".xls";
+        header('Content-Disposition: attachment;filename='.$filename .' ');
+        header('Cache-Control: max-age=0');
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');      
+
+    }else{
+        return $this->renderAjax('gerar-relatorio-planilhas-precificacao', [
            'model'    => $model,
            'ano'      => $ano,
            ]);

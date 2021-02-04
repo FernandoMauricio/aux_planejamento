@@ -149,6 +149,11 @@ class PrecificacaoController extends Controller
     public function actionImprimir($id) {
 
             $model = $this->findModel($id);
+            
+             //Corrigir bug do CentOS
+             \yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+             \yii::$app->response->headers->add('Content-Type', 'application/pdf');
+
 
             $pdf = new Pdf([
                 'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
@@ -245,7 +250,7 @@ class PrecificacaoController extends Controller
         $unidades     = Unidade::find()->where(['uni_codsituacao' => 1, 'uni_coddisp' => 1])->orderBy('uni_nomeabreviado')->all();
         $nivelDocente = Despesasdocente::find()->where(['doce_status' => 1])->all();
 
-        $model->planp_ano              = date('Y');
+        $model->planp_ano              = date('Y') + 1; //2020
         $model->planp_data             = date('Y-m-d');
         $model->planp_codcolaborador   = $session['sess_codcolaborador'];
         $model->planp_valorcomdesconto = 0;
