@@ -71,9 +71,11 @@ class Planodeacao extends \yii\db\ActiveRecord
     {
         return [
             [['plan_descricao', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria', 'plan_qntaluno', 'plan_codcolaborador', 'plan_data', 'plan_status', 'plan_modelonacional', 'plan_nivelDocente', 'plan_categoriasPlano', 'plan_codnacional'], 'required'],
-            [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria','plan_nivelDocente', 'plan_qntaluno', 'plan_codcolaborador', 'plan_status', 'plan_codnacional'], 'integer'],
+            ['plan_codnacional', 'unique','filter' => ['!=','plan_codnacional',0]],
+            [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria','plan_nivelDocente', 'plan_qntaluno', 'plan_codcolaborador', 'plan_status'], 'integer'],
             [['plan_sobre', 'plan_prerequisito', 'plan_perfConclusao', 'plan_perfTecnico'], 'string'],
             [['plan_data','nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoLabel', 'plan_custoMaterialLivro', 'plan_custoMaterialApostila', 'plan_custoTotalConsumo', 'plan_custoTotalAluno'], 'safe'],
+            [['plan_codnacional', 'plan_interativa'], 'string', 'max' => 10],
             [['plan_descricao','plan_modelonacional'], 'string', 'max' => 100],
             [['plan_codeixo'], 'exist', 'skipOnError' => true, 'targetClass' => Eixo::className(), 'targetAttribute' => ['plan_codeixo' => 'eix_codeixo']],
             [['plan_codnivel'], 'exist', 'skipOnError' => true, 'targetClass' => Nivel::className(), 'targetAttribute' => ['plan_codnivel' => 'niv_codnivel']],
@@ -105,13 +107,13 @@ class Planodeacao extends \yii\db\ActiveRecord
             'plan_data' => 'Data',
             'plan_status' => 'Situação',
             'plan_modelonacional' => 'Novo Modelo Pedagógico',
-
             'nivelLabel' => 'Nível',
             'segmentoLabel' => 'Segmento',
             'eixoLabel' => 'Eixo',
             'tipoLabel' => 'Tipo de Ação',
-            'plan_categoriasPlano' => 'Categorias do Plano',
+            'plan_categoriasPlano' => 'Fonte de Recursos',
             'plan_codnacional' => 'Cód. Plano DN',
+            'plan_interativa' => 'Escola Interativa?',
         ];
     }
 

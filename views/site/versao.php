@@ -244,7 +244,7 @@ $this->title = 'Auxílio ao Planejamento';
                                     </ul>
                                 <h5>- Todos os produtos que sofrerem atualizações em seus valores, automaticamente serão atualizados onde estiverem inseridos nos Planos.</h5><br>
                                 
-                                <h5><i class="glyphicon glyphicon-tag"></i><strong> Planos de Ação</strong></h5>
+                                <h5><i class="glyphicon glyphicon-tag"></i><strong> Planos de Curso</strong></h5>
                                 <h5>- Alterado a nomenclatura da situação do Plano de: <strong style="color: red;">Ativo/Inativo</strong> para <strong style="color: green;">Liberado/Em elaboração</strong>. </h5>
                                 <h5>- Informações de Níveis, Eixos, Segmentos e Tipos de Ação por enquanto, não poderão ser editadas. Caso necessite, informe à GIC para realizar a alteração. (*Obs.: Essa ação foi tomada pois a cada atualização do plano, o usuário tinha que incluir novamente as informações de Segmentos e Tipos de Ação. Nas próximas atualizações iremos corrigir para que o próprio usuário edite informações de Segmento e Tipo de Ação).</h5>
                     </div>

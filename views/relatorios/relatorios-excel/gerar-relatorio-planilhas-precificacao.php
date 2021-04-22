@@ -23,8 +23,16 @@ use kartik\select2\Select2;
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-3">
-                       <?= $form->field($model, 'relat_codano')->hiddenInput() ?>
-      
+                <?php
+                    $data_ano = ArrayHelper::map($ano, 'an_ano', 'an_ano');
+                    echo $form->field($model, 'relat_codano')->widget(Select2::classname(), [
+                            'data' =>  $data_ano,
+                            'options' => ['placeholder' => 'Selecione o ano...'],
+                            'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ]);
+                ?>
 				</div>
 			</div>
 

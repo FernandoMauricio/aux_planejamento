@@ -19,20 +19,19 @@ use app\models\cadastros\Segmento;
 <div class="planodeacao-form">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-12">
-                        <?= $form->field($model, 'plan_descricao')->textInput(['maxlength' => true]) ?>
-                        </div>
+                        <div class="col-md-10"><?= $form->field($model, 'plan_descricao')->textInput(['maxlength' => true]) ?></div>
+
+                        <div class="col-md-2"><?= $form->field($model, 'plan_interativa')->radioList(['Sim' => 'Sim', 'Não' => 'Não']) ?></div>
                     </div>
 
                     <div class="row">
-
                         <div class="col-md-2"><?= $form->field($model, 'plan_qntaluno')->textInput(['maxlength' => true]) ?></div>
 
                         <div class="col-md-2"><?= $form->field($model, 'plan_cargahoraria')->textInput(['maxlength' => true]) ?></div>
 
                         <div class="col-md-2"><?= $form->field($model, 'plan_codnacional')->textInput(['maxlength' => true]) ?></div>
 
-                        <div class="col-md-3"><?= $form->field($model, 'plan_status')->radioList([0 => 'Em elaboração', 1 => 'Liberado']) ?></div>
+                        <div class="col-md-3"><?= $form->field($model, 'plan_status')->radioList([1 => 'Liberado', 0 => 'Em elaboração']) ?></div>
 
                         <div class="col-md-3"><?php
                             echo  $form->field($model, 'plan_modelonacional')->widget(Select2::classname(), [
@@ -70,59 +69,46 @@ use app\models\cadastros\Segmento;
                         </div>
 
                         <div class="col-md-3">
+                        
                             <?php
                                 $EixoList=ArrayHelper::map(app\models\cadastros\Eixo::find()->all(), 'eix_codeixo', 'eix_descricao' ); 
-                                if ($model->isNewRecord) {
-                                            echo $form->field($model, 'plan_codeixo')->widget(Select2::classname(), [
-                                                    'data' =>  $EixoList,
-                                                    'options' => ['id' => 'eixo-id','placeholder' => 'Selecione o Eixo...'],
-                                                    'pluginOptions' => [
-                                                            'allowClear' => true
-                                                        ],
-                                                    ]);
-                            }else{
-                                     echo $form->field($model, 'eixoLabel')->textInput(['value' => $model->eixo->eix_descricao, 'readonly' => true]);
-                                }
+                                    echo $form->field($model, 'plan_codeixo')->widget(Select2::classname(), [
+                                            'data' =>  $EixoList,
+                                            'options' => ['id' => 'eixo-id','placeholder' => 'Selecione o Eixo...'],
+                                            'pluginOptions' => [
+                                                    'allowClear' => true
+                                                ],
+                                            ]);
+
                             ?>
                         </div>
 
                         <div class="col-md-3">
-                            <?php
-                            if ($model->isNewRecord) {
-                                // Child # 1
-                                echo $form->field($model, 'plan_codsegmento')->widget(DepDrop::classname(), [
+                            <?= $form->field($model, 'plan_codsegmento')->widget(DepDrop::classname(), [ // Child # 1
+                                    'data' => [$model->segmento->seg_descricao],
+                                    'options'=>['id'=>'segmento-id'],
                                     'type'=>DepDrop::TYPE_SELECT2,
                                     'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
-                                    'options'=>['id'=>'segmento-id'],
                                     'pluginOptions'=>[
                                         'depends'=>['eixo-id'],
                                         'placeholder'=>'Selecione o Segmento...',
-                                        'initialize' => true,
-                                        'url'=>Url::to(['/planos/planodeacao/segmento'])
+                                        'url'=>yii\helpers\Url::to(['/planos/planodeacao/segmento'])
                                     ]
-                                ]);
-                            }else{
-                                     echo $form->field($model, 'segmentoLabel')->textInput(['value' => $model->segmento->seg_descricao, 'readonly' => true]);
-                                }
+                                ]);  
                             ?>
                         </div>
 
                         <div class="col-md-3">
-                            <?php
-                            if ($model->isNewRecord) {
-                                // Child # 2
-                                echo $form->field($model, 'plan_codtipoa')->widget(DepDrop::classname(), [
+                            <?= $form->field($model, 'plan_codtipoa')->widget(DepDrop::classname(), [ // Child # 2
+                                    'data' => [$model->tipo->tip_descricao],
                                     'type'=>DepDrop::TYPE_SELECT2,
                                     'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                                     'pluginOptions'=>[
-                                        'depends'=>['segmento-id'],
+                                        'depends'=>['eixo-id','segmento-id'],
                                         'placeholder'=>'Selecione o Tipo de Ação...',
                                         'url'=>Url::to(['/planos/planodeacao/tipos'])
                                     ]
                                 ]);
-                            }else{
-                                     echo $form->field($model, 'tipoLabel')->textInput(['value' => $model->tipo->tip_descricao, 'readonly' => true]);
-                                }
                             ?>
                         </div>
 

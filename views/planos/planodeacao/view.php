@@ -45,7 +45,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
          <button class="btn btn-info  dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa glyphicon glyphicon-print"></i> Impressões <span class="caret"></span></button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
               <li>
-                  <?=  Html::a('<span class="glyphicon glyphicon-book glyphicon"></span> Plano de Ação', ['imprimir','id' => $model->plan_codplano], 
+                  <?=  Html::a('<span class="glyphicon glyphicon-book glyphicon"></span> Plano de Curso', ['imprimir','id' => $model->plan_codplano], 
                      [
                      'class' => 'btn btn-link',
                      'target'=>'_blank',
@@ -106,6 +106,13 @@ $attributes = [
                         [
                             'attribute'=>'plan_descricao', 
                             'displayOnly'=>true,
+                        ],
+
+                        [
+                          'attribute'=>'plan_interativa', 
+                          'format'=>'raw',
+                          'displayOnly'=>true,
+                          'value'=>$model->plan_interativa == 'Sim' ? '<span class="label label-success">'.$model->plan_interativa.'</span>' : '<span class="label label-danger">'.$model->plan_interativa.'</span>',
                         ],
                     ],
                 ],

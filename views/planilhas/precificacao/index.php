@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
 
 use app\models\base\Unidade;
 
@@ -28,9 +30,21 @@ $this->params['breadcrumbs'][] = $this->title;
         $session = Yii::$app->session;
         if($session['sess_codunidade'] == 51) { //ÁREA DO GPO
     ?>
-            <p>
-                <?= Html::a('Nova', ['create'], ['class' => 'btn btn-success']) ?>
-            </p>
+    <p>
+        <?= Html::button('Nova Solicitação', ['value'=> Url::to(['gerar-precificacao']), 'class' => 'btn btn-success', 'id'=>'modalButton']) ?>
+    </p>
+
+<?php
+    Modal::begin([
+        'options' => ['tabindex' => false ], // important for Select2 to work properly
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => true],
+        'header' => '<h4>Tipo de Curso</h4>',
+        'id' => 'modal',
+        'size' => 'modal-lg',
+        ]);
+    echo "<div id='modalContent'></div>";
+    Modal::end();
+?>
     <?php
         }
     ?>

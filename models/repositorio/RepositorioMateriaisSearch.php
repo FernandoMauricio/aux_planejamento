@@ -19,7 +19,7 @@ class RepositorioMateriaisSearch extends Repositorio
     {
         return [
             [['rep_codrepositorio', 'rep_codunidade', 'rep_codcolaborador', 'rep_status', 'rep_codmxm'], 'integer'],
-            [['rep_titulo', 'rep_categoria', 'rep_tipo', 'rep_editora', 'rep_sobre', 'rep_arquivo', 'rep_data'], 'safe'],
+            [['rep_titulo', 'rep_categoria', 'rep_tipo', 'rep_editora', 'rep_sobre', 'rep_arquivo', 'rep_data', 'rep_biblioteca'], 'safe'],
             [['rep_valor'], 'number'],
         ];
     }
@@ -74,7 +74,8 @@ class RepositorioMateriaisSearch extends Repositorio
             ->andFilterWhere(['like', 'rep_tipo', $this->rep_tipo])
             ->andFilterWhere(['like', 'rep_editora', $this->rep_editora])
             ->andFilterWhere(['like', 'rep_sobre', $this->rep_sobre])
-            ->andFilterWhere(['like', 'rep_arquivo', $this->rep_arquivo]);
+            ->andFilterWhere(['like', 'rep_arquivo', $this->rep_arquivo])
+            ->andFilterWhere(['like', 'rep_biblioteca', $this->rep_biblioteca]);
 
         return $dataProvider;
     }

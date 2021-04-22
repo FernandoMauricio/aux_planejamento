@@ -20,7 +20,7 @@ use yii\helpers\Html;
         </tr>
         <tr>
             <td style="font-size:11px;" colspan="2"><strong>Cód. Plano: </strong> <?= $model->planp_planodeacao; ?></td>
-            <td style="font-size:11px;" colspan="5"><strong>Plano de Ação: </strong> <?= $model->planodeacao->plan_descricao; ?></td>
+            <td style="font-size:11px;" colspan="5"><strong>Plano de Curso: </strong> <?= $model->planodeacao->plan_descricao; ?></td>
             <td style="font-size:11px;" colspan="2"><strong>Carga Horária: </strong><br> <?= $model->planp_cargahoraria; ?></td>
             <td style="font-size:11px;" colspan="2"><strong>Qnt Alunos: </strong><br> <?= $model->planp_qntaluno; ?></td>
         </tr>

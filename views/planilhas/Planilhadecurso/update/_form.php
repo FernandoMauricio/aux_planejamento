@@ -97,9 +97,9 @@ use app\models\planilhas\PlanilhaMaterial;
          </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Atualizar', ['class' =>'btn btn-primary']); ?>
+        <?= Html::submitButton('Salvar', ['class' =>'btn btn-primary']); ?>
 
-        <?= Html::a('Finalizar Planilha', ['finalizar', 'id' => $model->placu_codplanilha], [
+        <?= Html::a('Enviar Planilha', ['finalizar', 'id' => $model->placu_codplanilha], [
             'class' => 'btn btn-success',
             'data' => [
                 'confirm' => 'Você tem certeza que deseja finalizar a planilha?',
@@ -107,7 +107,7 @@ use app\models\planilhas\PlanilhaMaterial;
             ],
         ]) ?>
 
-    </div>   
+    </div>
 
     <?php ActiveForm::end(); ?>
 

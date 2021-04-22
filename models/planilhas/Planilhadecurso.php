@@ -77,6 +77,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
     public $situacaoLabel;
     public $categoriaLabel;
     public $unidades;
+    public $planModeloPedagogico;
 
     /**
      * @inheritdoc
@@ -105,7 +106,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             [['placu_parcelas'], 'compare', 'compareValue' => 0, 'operator' => '>', 'message'=>'Valores maiores que 0 e sem vírgulas.'],
             [['placu_codeixo', 'placu_codsegmento', 'placu_codplano', 'placu_codtipoa', 'placu_codnivel', 'placu_codano', 'placu_codcategoria', 'placu_codtipla', 'placu_quantidadeturmas', 'placu_quantidadealunos', 'placu_codsituacao', 'placu_codcolaborador', 'placu_codunidade', 'placu_quantidadealunospsg', 'placu_tipocalculo', 'placu_cargahorariavivencia', 'placu_quantidadealunosisentos', 'placu_codprogramacao', 'placu_anoexercicio'], 'integer'],
             [['placu_cargahorariaplano', 'placu_cargahorariarealizada', 'placu_cargahorariaarealizar'], 'number'],
-            [['nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoAcaoLabel', 'PlanoLabel', 'anoLabel', 'tipoProgramacaoLabel', 'placu_diarias', 'placu_passagens', 'placu_equipamentos', 'placu_pessoafisica', 'placu_pessoajuridica', 'placu_totalcustodocente', 'placu_decimo', 'placu_ferias', 'placu_tercoferias', 'placu_totalsalario', 'placu_totalencargosPrestador', 'placu_totalencargos', 'placu_outdespvariaveis', 'placu_totalsalarioencargo', 'placu_custosmateriais', 'placu_custosconsumo', 'placu_custosaluno', 'placu_PJApostila', 'placu_outrosmateriais', 'placu_hiddenoutrosmateriais', 'placu_totalcustodireto', 'placu_totalhoraaulacustodireto', 'placu_hiddenmaterialdidatico', 'placu_hiddenpjapostila', 'placu_hiddencustosaluno', 'placu_custosindiretos', 'placu_ipca', 'placu_reservatecnica', 'placu_despesadm', 'placu_totalincidencias', 'placu_totalcustoindireto', 'placu_despesatotal', 'placu_markdivisor', 'placu_markmultiplicador', 'placu_vendaturma', 'placu_vendaaluno', 'placu_horaaulaaluno', 'placu_retorno', 'placu_porcentretorno', 'placu_precosugerido', 'placu_retornoprecosugerido', 'placu_porcentprecosugerido', 'placu_minimoaluno', 'placu_parcelas', 'placu_valorparcelas', 'nomeUsuario', 'situacaoLabel', 'categoriaLabel', 'placu_data', 'unidades', 'placu_totalsalarioPrestador'], 'safe'],
+            [['nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoAcaoLabel', 'PlanoLabel', 'anoLabel', 'tipoProgramacaoLabel', 'placu_diarias', 'placu_passagens', 'placu_equipamentos', 'placu_pessoafisica', 'placu_pessoajuridica', 'placu_totalcustodocente', 'placu_decimo', 'placu_ferias', 'placu_tercoferias', 'placu_totalsalario', 'placu_totalencargosPrestador', 'placu_totalencargos', 'placu_outdespvariaveis', 'placu_totalsalarioencargo', 'placu_custosmateriais', 'placu_custosconsumo', 'placu_custosaluno', 'placu_PJApostila', 'placu_outrosmateriais', 'placu_hiddenoutrosmateriais', 'placu_totalcustodireto', 'placu_totalhoraaulacustodireto', 'placu_hiddenmaterialdidatico', 'placu_hiddenpjapostila', 'placu_hiddencustosaluno', 'placu_custosindiretos', 'placu_ipca', 'placu_reservatecnica', 'placu_despesadm', 'placu_totalincidencias', 'placu_totalcustoindireto', 'placu_despesatotal', 'placu_markdivisor', 'placu_markmultiplicador', 'placu_vendaturma', 'placu_vendaaluno', 'placu_horaaulaaluno', 'placu_retorno', 'placu_porcentretorno', 'placu_precosugerido', 'placu_retornoprecosugerido', 'placu_porcentprecosugerido', 'placu_minimoaluno', 'placu_parcelas', 'placu_valorparcelas', 'nomeUsuario', 'situacaoLabel', 'categoriaLabel', 'placu_data', 'unidades', 'placu_totalsalarioPrestador', 'planModeloPedagogico'], 'safe'],
             [['placu_observacao'], 'string'],
             [['placu_nomeunidade'], 'string', 'max' => 150],
             [['placu_codano'], 'exist', 'skipOnError' => true, 'targetClass' => Ano::className(), 'targetAttribute' => ['placu_codano' => 'an_codano']],
@@ -188,11 +189,11 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             'placu_codplanilha' => 'Cód. Planilha',
             'placu_codeixo' => 'Eixo',
             'placu_codsegmento' => 'Segmento',
-            'placu_codplano' => 'Plano de Ação',
+            'placu_codplano' => 'Plano de Curso',
             'placu_codtipoa' => 'Tipo de Ação',
             'placu_codnivel' => 'Nível',
-            'placu_cargahorariaplano' => 'CH do Plano',
-            'placu_cargahorariarealizada' => 'Carga Horária Realizada',
+            'placu_cargahorariaplano' => 'CH',
+            'placu_cargahorariarealizada' => 'Carga Horária Realizada no Exercicio Anterior',
             'placu_cargahorariaarealizar' => 'Carga Horária a Realizar no SENAC',
             'placu_cargahorariavivencia' => 'Carga Horária na Vivência(Aprend)',
             'placu_codano' => 'Orçamento',
@@ -201,7 +202,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             'placu_quantidadeturmas' => 'Quantidade Turmas',
             'placu_quantidadealunos' => 'Quantidade Alunos Pagantes por Turma',
             'placu_quantidadealunospsg' => 'Quantidade Alunos PSG por Turma',
-            'placu_quantidadealunosisentos' => 'Quantidade Alunos Isentos por Turma',
+            'placu_quantidadealunosisentos' => 'Quantidade Alunos Isentos por Turma - Não PSG',
             'placu_codsituacao' => 'Situação da Planilha',
             'placu_codcolaborador' => 'Colaborador',
             'placu_codunidade' => 'Cód. Unidade',
@@ -247,7 +248,7 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             'placu_horaaulaaluno' => 'Valor Hora/Aula por aluno',
             'placu_retorno' => 'Retorno com preço de venda',
             'placu_porcentretorno' => '% de Retorno',
-            'placu_precosugerido' => 'Preço de Venda',
+            'placu_precosugerido' => 'Preço de Venda da Precificação',
             'placu_retornoprecosugerido' => 'Retorno com Preço de Venda',
             'placu_porcentprecosugerido' => '% de Retorno - Preço de Venda',
             'placu_minimoaluno' => 'Numero minimo de alunos por turma',
@@ -260,13 +261,14 @@ class Planilhadecurso extends \yii\db\ActiveRecord
             'segmentoLabel' => 'Segmento',
             'eixoLabel' => 'Eixo',
             'tipoAcaoLabel' => 'Tipo de Ação',
-            'PlanoLabel' => 'Plano de Ação',
+            'PlanoLabel' => 'Plano de Curso',
             'anoLabel' => 'Início da Turma',
             'tipoPlanilhaLabel' => 'Tipo de Planilha',
             'tipoProgramacaoLabel' => 'Tipo de Programação',
             'nomeUsuario' => 'Última modificação',
             'situacaoLabel' => 'Situação da Planilha',
             'categoriaLabel' => 'Financiamento',
+            'planModeloPedagogico' => 'Novo Modelo Pedagógico',
         ];
     }
 

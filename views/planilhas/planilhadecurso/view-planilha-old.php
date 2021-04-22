@@ -45,7 +45,7 @@ use yii\helpers\Html;
                             [
                                 'columns' => [
                                     [
-                                        'label'=>'Plano de Ação',
+                                        'label'=>'Plano de Curso',
                                         'format'=>'raw', 
                                         'value'=>$model->plano->plan_descricao,
                                         'displayOnly'=>true,

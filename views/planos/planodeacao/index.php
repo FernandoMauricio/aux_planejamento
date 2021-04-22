@@ -18,7 +18,7 @@ use app\models\base\Usuario;
 /* @var $searchModel app\models\planos\PlanodeacaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Planos de Ação';
+$this->title = 'Planos de Curso';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="planodeacao-index">
@@ -39,7 +39,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
         if($session['sess_codunidade'] == 11) { //ÁREA DA DEP
     ?>
             <p>
-                <?= Html::a('Novo Plano de Ação', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= Html::a('Novo Plano de Curso', ['create'], ['class' => 'btn btn-success']) ?>
             </p>
     <?php
         }
@@ -53,7 +53,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             'pjax'=>true,
             'striped'=>true,
             'hover'=>true,
-            'panel'=>['type'=>'primary', 'heading'=>'Listagem de Planos de Ação'],
+            'panel'=>['type'=>'primary', 'heading'=>'Listagem de Planos de Curso'],
             'columns'=>[
             ['class' => 'yii\grid\SerialColumn',  'options' => ['width' => '1%']],
 
@@ -128,42 +128,48 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             ],
 
             [
-            'attribute'=>'plan_codcolaborador', 
-            'width'=>'5%',
-            'value'=>function ($model, $key, $index, $widget) { 
-                return $model->colaborador->usuario->usu_nomeusuario;
-            },
-            'filterType'=>GridView::FILTER_SELECT2,
-            'filter'=>ArrayHelper::map(Planodeacao::find()->select(['plan_codcolaborador', 'usu_nomeusuario'])->distinct()->innerJoin('db_base.colaborador_col', 'plan_codcolaborador = col_codcolaborador')->innerJoin('db_base.usuario_usu', 'col_codusuario = usu_codusuario')->asArray()->all(), 'plan_codcolaborador', 'usu_nomeusuario'),
-            'filterInputOptions'=>['placeholder'=>'Selecione o Usuário'],
-            'filterWidgetOptions'=>[
-                'pluginOptions'=>['allowClear'=>true],
+                'attribute'=>'plan_interativa', 
+                'format'=>'html',
+                'value'=> function ($data) {
+                    return Html::a($data->plan_interativa == 'Sim' ? '<span class="label label-success">'.$data->plan_interativa.'</span>' : '<span class="label label-danger">'.$data->plan_interativa.'</span>');
+                    },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=> ['Sim' => 'Sim', 'Não' => 'Não'],
+                'filterInputOptions'=>['placeholder'=>'Selecione...'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
                 ],
             ],
 
             [
                 'class'=>'kartik\grid\BooleanColumn',
-                'attribute'=>'plan_status',
+                'attribute'=>'plan_status', 
                 'vAlign'=>'middle',
+                'width'=>'7%'
+            ], 
+
+            [
+                'label' => 'Novo Modelo <br> Pedagógico',
+                'class'=>'kartik\grid\BooleanColumn',
+                // 'trueLabel' => 'Sim',
+                // 'falseLabel' => 'Não',
+                'attribute'=>'plan_modelonacional', 
+                'vAlign'=>'middle',
+                'encodeLabel' => false,
                 'width'=>'7%'
             ],
 
             [
-                'label' => 'Novo Modelo <br> Pedagógico',
-                'attribute' => 'plan_modelonacional',
-                'width'=>'7%',
-                'encodeLabel' => false,
+                'attribute'=>'plan_codcolaborador', 
+                'width'=>'5%',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->colaborador->usuario->usu_nomeusuario;
+                },
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>
-                    ['data' =>  [
-                               'Não Alinhado com Modelo Pedagógico' => 'Não Alinhado com Modelo Pedagógico',
-                               'Plano de Curso Nacional' => 'Plano de Curso Nacional',
-                               'Plano de Curso de Referência (Itinerários Formativos)' => 'Plano de Curso de Referência (Itinerários Formativos)',
-                               'Plano de Curso MPS, Regional ou Núcleo' => 'Plano de Curso MPS, Regional ou Núcleo'
-                                ],],
-                'filterInputOptions'=>['placeholder'=>'Selecione o Modelo'],
+                'filter'=>ArrayHelper::map(Planodeacao::find()->select(['plan_codcolaborador', 'usu_nomeusuario'])->distinct()->innerJoin('db_base.colaborador_col', 'plan_codcolaborador = col_codcolaborador')->innerJoin('db_base.usuario_usu', 'col_codusuario = usu_codusuario')->asArray()->all(), 'plan_codcolaborador', 'usu_nomeusuario'),
+                'filterInputOptions'=>['placeholder'=>'Selecione o Usuário'],
                 'filterWidgetOptions'=>[
-                'pluginOptions'=>['allowClear'=>true],
+                    'pluginOptions'=>['allowClear'=>true],
                 ],
             ],
 

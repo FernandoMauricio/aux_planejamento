@@ -25,9 +25,9 @@ class RelatoriosController extends Controller
     	$model = new Planilhadecurso();
 
     	$ano              = Ano::find()->orderBy(['an_codano'=>SORT_DESC])->all();
-      $tipoPlanilha     = Tipoplanilha::find()->all();
+        $tipoPlanilha     = Tipoplanilha::find()->all();
     	$situacaoPlanilha = Situacaoplanilha::find()->all();
-      $tipoRelatorio    = Tiporelatorio::find()->all();
+        $tipoRelatorio    = Tiporelatorio::find()->all();
 
         if ($model->load(Yii::$app->request->post())) {
 

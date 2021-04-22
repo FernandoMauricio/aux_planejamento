@@ -108,19 +108,20 @@ use app\models\cadastros\Tipoprogramacao;
 
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-2">
+                <!-- <div class="col-md-2">
                 <?php
-                        $rows = Ano::find()->where(['an_status'=> 1])->orderBy(['an_codano'=>SORT_DESC])->all();
-                        $data_ano = ArrayHelper::map($rows, 'an_codano', 'an_ano');
-                        echo $form->field($model, 'placu_codano')->widget(Select2::classname(), [
-                                'data' =>  $data_ano,
-                                'options' => ['placeholder' => 'Selecione o Ano...'],
-                                'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
-                                ]);
+                    //Campo inativado a pedido da APO
+                        // $rows = Ano::find()->where(['an_status'=> 1])->orderBy(['an_codano'=>SORT_DESC])->all();
+                        // $data_ano = ArrayHelper::map($rows, 'an_codano', 'an_ano');
+                        // echo $form->field($model, 'placu_codano')->widget(Select2::classname(), [
+                        //         'data' =>  $data_ano,
+                        //         'options' => ['placeholder' => 'Selecione o Ano...'],
+                        //         'pluginOptions' => [
+                        //                 'allowClear' => true
+                        //             ],
+                        //         ]);
                 ?>
-                </div>
+                </div> -->
                 
                 <div class="col-md-2">
                 <?php
@@ -136,9 +137,9 @@ use app\models\cadastros\Tipoprogramacao;
                 ?>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                 <?php
-                        $rows = Categoriaplanilha::find()->orderBy('cat_descricao')->all();
+                        $rows = Categoriaplanilha::find()->where(['cat_situacao' => 'Ativo'])->orderBy('cat_descricao')->all();
                         $data_ano = ArrayHelper::map($rows, 'cat_codcategoria', 'cat_descricao');
                         echo $form->field($model, 'placu_codcategoria')->widget(Select2::classname(), [
                                 'data' =>  $data_ano,
@@ -164,7 +165,7 @@ use app\models\cadastros\Tipoprogramacao;
                 ?>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                 <?php
                         $rows = Tipoprogramacao::find()->all();
                         $data_tipoprogramacao = ArrayHelper::map($rows, 'tipro_codprogramacao', 'tipro_descricao');

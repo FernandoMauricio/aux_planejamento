@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\planos\Planodeacao */
 
-$this->title = 'Novo Plano de Ação';
+$this->title = 'Novo Plano de Curso';
 $this->params['breadcrumbs'][] = ['label' => 'Listagem de Planos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -95,7 +95,7 @@ class PlanilhadecursoSearch extends Planilhadecurso
             'placu_quantidadealunosisentos' => $this->placu_quantidadealunosisentos,
             'placu_codprogramacao' => $this->placu_codprogramacao,
             'placu_codunidade' => $session['sess_codunidade'],
-            'placu_codano' => 10, //2021
+            'placu_codano' => 9, //2020
         ]);
 
         $query->andFilterWhere(['like', 'placu_nomeunidade', $this->placu_nomeunidade])

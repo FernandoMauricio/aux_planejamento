@@ -42,7 +42,19 @@ class PrecificacaoController extends Controller
         ];
     }
 
-    public function actionRecalcularPlanilha($id) 
+    public function actionGerarPrecificacao()
+    {
+        $model = new Precificacao();
+
+        if ($model->load(Yii::$app->request->post())) {
+            return $this->redirect(['create', 'planp_ead' => $model->planp_ead]);
+        }
+        return $this->renderAjax('gerar-precificacao', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionRecalcularPlanilha($id)
     {
         $session = Yii::$app->session;
         $model = $this->findModel($id);
@@ -241,6 +253,8 @@ class PrecificacaoController extends Controller
 
         $model = new Precificacao();
         $precificacaoUnidades = new PrecificacaoUnidades();
+
+        $model->planp_ead = $_GET['planp_ead']; //tipo de curso
 
         $sourceMarkup = new MarkupSearch();
         $dataProvider = $sourceMarkup->search(Yii::$app->request->getQueryParams());

@@ -178,7 +178,7 @@ class RelatoriosDepController extends Controller
             $objPHPExcel->getActiveSheet()->getColumnDimension('O')->setWidth(20);
 
             //TÍTULO DAS COLUNAS
-            $objPHPExcel->getActiveSheet()->setTitle('Planos de Ação')                     
+            $objPHPExcel->getActiveSheet()->setTitle('Planos de Curso')                     
              ->setCellValue('A1', 'SEGMENTO')
              ->setCellValue('B1', 'CÓD. PLANO')
              ->setCellValue('C1', 'PLANO')
@@ -212,7 +212,7 @@ class RelatoriosDepController extends Controller
                     $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['plan_custoMaterialOutros']);
                     $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$foo['plan_custoTotalConsumo']);
                     $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$foo['plan_custoTotalAluno']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['plan_modelonacional']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['plan_modelonacional'] ? 'Sim' : 'Não');
                     $objPHPExcel->getActiveSheet()->setCellValue('O'.$row,$foo['plan_status'] ? 'Ativo' : 'Inativo');
 
                     $row++ ;
@@ -262,7 +262,7 @@ class RelatoriosDepController extends Controller
             //TÍTULO DAS COLUNAS
             $objPHPExcel->getActiveSheet()->setTitle('Segmento-Plano-Material')                     
              ->setCellValue('A1', 'UNIDADE OPERATIVA')
-             ->setCellValue('B1', 'PLANO DE AÇÃO')
+             ->setCellValue('B1', 'PLANO DE CURSO')
              ->setCellValue('C1', 'QUANT. MÍNIMA DE ALUNOS');
                  
          $row=2; //GERAÇÃO DOS DADOS A PARTIR DA LINHA 2
@@ -272,6 +272,95 @@ class RelatoriosDepController extends Controller
                     $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$foo['uni_nomecompleto']); 
                     $objPHPExcel->getActiveSheet()->setCellValue('B'.$row,$foo['plan_descricao']);
                     $objPHPExcel->getActiveSheet()->setCellValue('C'.$row,$foo['planp_minimoaluno']);
+
+                    $row++ ;
+               }
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        $filename = "Relatoio_DEP_".date("d-m-Y-His").".xls";
+        header('Content-Disposition: attachment;filename='.$filename .' ');
+        header('Cache-Control: max-age=0');
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');      
+
+    }
+
+    public function actionPlanoDeCurso()
+    {
+
+        $objPHPExcel = new \PHPExcel();
+
+        $sheet=0;
+                  
+            $objPHPExcel->setActiveSheetIndex($sheet);
+
+                $connection = Yii::$app->db_apl;
+                $command = $connection->createCommand('
+                SELECT 
+                    `planodeacao_plan`.`plan_codplano`, 
+                    `segmento_seg`.`seg_descricao`, 
+                    `planodeacao_plan`.`plan_descricao`, 
+                    `planodeacao_plan`.`plan_cargahoraria`, 
+                    group_concat(`plano_materialconsumo`.`planmatcon_descricao`) as `Material_de_Consumo`,
+                    `planodeacao_plan`.`plan_qntaluno`,
+                    `planodeacao_plan`.`plan_codnacional`,
+                    `planodeacao_plan`.`plan_status`,
+                    `planodeacao_plan`.`plan_modelonacional`,
+                    group_concat(DISTINCT(`categoria`.`descricao`)) as `Categorias_do_Plano`
+                FROM
+                    `planodeacao_plan`
+               INNER JOIN `segmento_seg` ON `planodeacao_plan`.`plan_codsegmento` = `segmento_seg`.`seg_codsegmento`
+               LEFT JOIN `plano_categorias` ON `planodeacao_plan`.`plan_codplano` = `plano_categorias`.`planodeacao_cod` 
+               LEFT JOIN `categoria` ON `plano_categorias`.`categoria_cod` = `categoria`.`idcategoria` 
+               LEFT JOIN `plano_materialconsumo` ON `planodeacao_plan`.`plan_codplano` = `plano_materialconsumo`.`planodeacao_cod` 
+               GROUP BY 
+                     `planodeacao_plan`.`plan_codplano`
+               
+
+                    ');
+
+                $foos = $command->queryAll();
+
+            //TAMANHO DAS COLUNAS  
+            $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(50);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(20);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(20);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(20);
+
+            //TÍTULO DAS COLUNAS
+            $objPHPExcel->getActiveSheet()->setTitle('Planos de Curso')                     
+             ->setCellValue('A1', 'CÓD. TÍTULO')
+             ->setCellValue('B1', 'SEGMENTO')
+             ->setCellValue('C1', 'TITULO')
+             ->setCellValue('D1', 'CARGA HORÁRIA')
+             ->setCellValue('E1', 'MATERIAL DE CONSUMO')
+             ->setCellValue('F1', 'QNT ALUNOS')
+             ->setCellValue('G1', 'CÓD. PLANO DN')
+             ->setCellValue('H1', 'SITUAÇÃO')
+             ->setCellValue('I1', 'MODELO PEDAGÓGICO SENAC')
+             ->setCellValue('J1', 'CATEGORIAS DO PLANO');
+                 
+         $row=2; //GERAÇÃO DOS DADOS A PARTIR DA LINHA 2
+                                
+                foreach ($foos as $foo) {  
+
+                    $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$foo['plan_codplano']); 
+                    $objPHPExcel->getActiveSheet()->setCellValue('B'.$row,$foo['seg_descricao']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('C'.$row,$foo['plan_descricao']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('D'.$row,$foo['plan_cargahoraria']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('E'.$row,$foo['Material_de_Consumo']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$foo['plan_qntaluno']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$foo['plan_codnacional']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['plan_status'] ? 'Ativo' : 'Inativo');
+                    $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$foo['plan_modelonacional']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$foo['Categorias_do_Plano']);
 
                     $row++ ;
                }

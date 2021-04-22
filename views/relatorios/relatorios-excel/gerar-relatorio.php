@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
         Modal::begin([
-            'header' => '<h4>Planilhas de Precificação:</h4>',
+            'header' => '<h4>Defina o ano da Planilha:</h4>',
             'id' => 'modal3',
             'size' => 'modal-lg',
             ]);

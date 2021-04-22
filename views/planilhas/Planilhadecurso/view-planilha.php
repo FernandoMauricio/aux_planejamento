@@ -45,7 +45,7 @@ use yii\helpers\Html;
                             [
                                 'columns' => [
                                     [
-                                        'label'=>'Plano de Ação',
+                                        'label'=>'Plano de Curso',
                                         'format'=>'raw', 
                                         'value'=>$model->plano->plan_descricao,
                                         'displayOnly'=>true,
@@ -70,6 +70,22 @@ use yii\helpers\Html;
                                     ],
 
                                 ],
+                            ],
+
+                            [
+                                'label'=>'Escola Interativa',
+                                'format' => 'raw',
+                                'value'=> $model->plano->plan_interativa == 'Sim' ? '<span class="label label-success"> '.$model->plano->plan_interativa.' </span>' : '<span class="label label-danger"> '.$model->plano->plan_interativa.' </span>',
+                                'valueColOptions'=>['style'=>'width:0%'],
+                                'displayOnly'=>true,
+                            ],
+
+                            [
+                                'label'=>'Novo Modelo Pedagógico',
+                                'format' => 'raw',
+                                'value'=> '<span class="label label-danger"> '.$model->plano->plan_modelonacional .'</span>',
+                                'valueColOptions'=>['style'=>'width:0%'],
+                                'displayOnly'=>true,
                             ],
 
                             [

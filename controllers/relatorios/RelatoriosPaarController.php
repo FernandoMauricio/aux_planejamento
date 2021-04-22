@@ -235,15 +235,6 @@ class RelatoriosPaarController extends Controller
     public function actionMatriculaEducacaoprofissional($ano_orcamento, $tipo_programacao, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
     {
        $this->layout = 'main-imprimir';
-
-      //        $data =  date("Y-m-d H:i:s"); 
-      // $nome_arquivo = 'extracao-office365-'.$data.'';
-      // header('Content-Type: text/html; charset=UTF-8');
-      // header("Content-type: application/vnd.ms-excel");
-      // header("Content-type: application/force-download");
-      // header("Content-Disposition: attachment; filename=$nome_arquivo.xls");
-      // header("Pragma: no-cache");
-      
        $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
        $tipo_programacao  = $this->findModelTipoProgramacaoPlanilha($tipo_programacao);
        $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);

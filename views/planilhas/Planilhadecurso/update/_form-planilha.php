@@ -45,11 +45,15 @@ use app\models\cadastros\Tipoprogramacao;
                     </div>
 
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-5">
                             <?= $form->field($model, 'PlanoLabel')->textInput(['value'=> $model->plano->plan_descricao,'readonly'=>true]) ?>
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-md-4">
+                            <?= $form->field($model, 'planModeloPedagogico')->textInput(['value'=> $model->plano->plan_modelonacional,'readonly'=>true]) ?>
+                        </div>
+
+                        <div class="col-md-1">
                             <?= $form->field($model, 'placu_cargahorariaplano')->textInput(['readonly'=>true]) ?>
                         </div>
 

@@ -8,7 +8,7 @@
 
    <div class="row">
       <div class="col-md-2"><strong>Cód. Plano:</strong> <?= $model->planp_planodeacao; ?></div>
-      <div class="col-md-6"><strong>Plano de Ação:</strong> <?= $model->planodeacao->plan_descricao; ?></div>
+      <div class="col-md-6"><strong>Plano de Curso:</strong> <?= $model->planodeacao->plan_descricao; ?></div>
       <div class="col-md-2"><strong>Carga Horária:</strong> <?= $model->planp_cargahoraria; ?></div>
       <div class="col-md-2"><strong>Qnt Alunos:</strong> <?= $model->planp_qntaluno; ?></div>
    </div><br>

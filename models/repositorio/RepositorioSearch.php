@@ -19,7 +19,7 @@ class RepositorioSearch extends Repositorio
     {
         return [
             [['rep_codrepositorio', 'rep_codcategoria', 'rep_codunidade', 'rep_codcolaborador', 'rep_codvisualizacao'], 'integer'],
-            [['rep_titulo', 'rep_tipo', 'rep_editora', 'rep_sobre', 'rep_arquivo', 'rep_data', 'rep_palavrachave'], 'safe'],
+            [['rep_titulo', 'rep_tipo', 'rep_editora', 'rep_sobre', 'rep_arquivo', 'rep_data', 'rep_palavrachave', 'rep_biblioteca'], 'safe'],
             [['rep_valor'], 'number'],
         ];
     }

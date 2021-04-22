@@ -95,6 +95,7 @@ class Precificacao extends \yii\db\ActiveRecord
     {
         return [
             [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_precosugerido', 'planp_parcelas', 'planp_mesesdocurso'], 'required'],
+            [['planp_ead'], 'string', 'max' => 5],
             [['planp_codunidade', 'planp_planodeacao', 'planp_cargahoraria', 'planp_qntaluno', 'planp_totalhorasdocente', 'planp_docente', 'planp_servpedagogico','planp_codcolaborador', 'planp_parcelas', 'planp_parcelasinterior', 'planp_mesesdocurso', 'planp_codcolaboradoratualizacao'], 'integer'],
             [['planp_qntaluno'], 'compare', 'compareValue' => 0, 'operator' => '>', 'message'=>'Valores maiores que 0 e sem vírgulas.'],
             [['planp_valorhoraaula', 'planp_horaaulaplanejamento', 'planp_totalcustodocente', 'planp_decimo', 'planp_ferias', 'planp_tercoferias', 'planp_totalsalario', 'planp_encargos', 'planp_totalencargos', 'planp_totalsalarioencargo', 'planp_custosmateriais', 'planp_custosconsumo', 'planp_diarias', 'planp_passagens', 'planp_pessoafisica', 'planp_pessoajuridica', 'planp_totalcustodireto', 'planp_totalhoraaulacustodireto', 'planp_custosindiretos', 'planp_ipca', 'planp_reservatecnica', 'planp_despesadm', 'planp_totalincidencias', 'planp_totalcustoindireto', 'planp_despesatotal', 'planp_markdivisor', 'planp_markmultiplicador', 'planp_vendaturma', 'planp_vendaturmasugerido', 'planp_vendaaluno', 'planp_horaaulaaluno', 'planp_retorno', 'planp_porcentretorno', 'planp_porcentretornosugerido', 'planp_precosugerido', 'planp_retornoprecosugerido', 'planp_minimoaluno', 'hiddenPlanejamento', 'hiddenMaterialDidatico', 'hiddenPJApostila', 'hiddenOutrosMateriais', 'planp_data','labelCurso', 'planp_valorparcelas', 'desconto', 'planp_valorcomdesconto', 'planp_dataatualizacao', 'planp_vendaturmasugeridointerior', 'planp_porcentretornosugeridointerior', 'planp_retornoprecosugeridointerior', 'planp_minimoalunointerior', 'planp_valorparcelasinterior', 'planp_desconto'], 'safe'],
@@ -179,6 +180,7 @@ class Precificacao extends \yii\db\ActiveRecord
             'planp_cargahoraria' => 'C.H',
             'planp_mesesdocurso' => 'Provisão de Ano',
             'planp_qntaluno' => 'Qnt de Alunos',
+            'planp_ead' => 'Curso EAD?',
             'planp_totalhorasdocente' => 'Total de horas docente',
             'planp_docente' => 'Nível Docente',
             'planp_valorhoraaula' => 'Valor hora/aula',

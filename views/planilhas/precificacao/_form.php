@@ -52,7 +52,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                                      var $inputIPCA            = $divPanelBody.find("input:eq(30)");
                                      var $inputReservaTecnica  = $divPanelBody.find("input:eq(31)");
                                      var $inputDespesaSede     = $divPanelBody.find("input:eq(32)");
-                                      
+
                                      $zerahora.val(0);
                                      $inputEncargos.val(data.mark_codunidade == 30 ? "32.70" : "32.99"); // Valor diferente para FATESE(Cód. 30)
                                      $inputCustoIndireto.val(data.mark_custoindireto);
@@ -80,7 +80,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                                              var $divPanelBody = $(select).parent().parent().parent().parent().parent();
 
                                              var $zerahoratotal            = $divPanelBody.find("input:eq(0)");
-                                             //var $zeraqntaluno             = $divPanelBody.find("input:eq(1)");
+                                             //var $zeraqntaluno           = $divPanelBody.find("input:eq(1)");
                                              var $inputQntAluno            = $divPanelBody.find("input:eq(1)");
                                              var $inputMaterialApostila    = $divPanelBody.find("input:eq(21)");
                                              var $inputCustoMaterialLivro  = $divPanelBody.find("input:eq(23)");
@@ -118,7 +118,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
          <div class="panel-body">
             <div class="row">
                <div class="col-md-4">
-                  <?php
+                <?php if($model->planp_ead == 'Sim') {
                      echo $form->field($model, 'planp_docente')->widget(DepDrop::classname(), [
                                     'type'=>DepDrop::TYPE_SELECT2,
                                     'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
@@ -150,11 +150,44 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                                               });
                                           '
                                     ]]);
-                    ?>
+                  }else{
+                     echo $form->field($model, 'planp_docente')->widget(DepDrop::classname(), [
+                                    'type'=>DepDrop::TYPE_SELECT2,
+                                    'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                                    'pluginOptions'=>[
+                                        'depends'=>['plano-id'],
+                                        'placeholder'=>'Selecione o Nível do Docente...',
+                                        'initialize' => true,
+                                        'url'=>Url::to(['/planilhas/precificacao/despesasdocente'])
+                                    ],
+                                    'options' => ['id' => 'nivelDocente-id',
+                                    'onchange'=>'
+                                          var select = this;
+                                          $.getJSON( "'.Url::toRoute('/planilhas/precificacao/get-nivel-docente').'", { niveldocente: $(this).val() } )
+                                          .done(function( data ) {
+
+                                                 var $divPanelBody = $(select).parent().parent().parent().parent().parent();
+
+                                                 var $zerahora = $divPanelBody.find("input:eq(3)");
+                                                 var $zeraplanejmanento = $divPanelBody.find("input:eq(4)");
+                                                 var $inputPlanejamento = $divPanelBody.find("input:eq(5)");
+                                                 var $inputCustodireto = $divPanelBody.find("input:eq(6)");
+
+                                                 //inputa valores
+                                                 $zerahora.val(0);
+                                                 $zeraplanejmanento.val(0);
+                                                 $inputCustodireto.val(0);
+                                                 $inputPlanejamento.val(data.doce_planejamento);
+
+                                              });
+                                          '
+                                    ]]);
+                  }
+                ?>
                </div>
 
                <div class="col-md-3"><?= $form->field($model, 'planp_mesesdocurso')->textInput() ?></div>
-                
+
                <div class="col-md-2"><?= $form->field($model, 'planp_totalhorasdocente')->textInput() ?></div>
 
                <div class="col-md-3">
@@ -750,5 +783,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
    <?php ActiveForm::end(); ?>
 
 </div>
+
+<?= $form->field($model, 'planp_ead')->textInput() ?>
 
 <?php $this->registerJsFile('@web/js/precificacao.js', ['depends' => [\yii\web\JqueryAsset::className()]]); ?>

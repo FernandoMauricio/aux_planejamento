@@ -43,6 +43,19 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             'rep_codrepositorio',
             'rep_codmxm',
             'rep_titulo',
+            [
+                'attribute'=>'rep_biblioteca', 
+                'format'=>'html',
+                'value'=> function ($data) {
+                    return Html::a($data->rep_biblioteca == 'Sim' ? '<span class="label label-success">'.$data->rep_biblioteca.'</span>' : '<span class="label label-danger">'.$data->rep_biblioteca.'</span>');
+                    },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=> ['Sim' => 'Sim', 'Não' => 'Não'],
+                'filterInputOptions'=>['placeholder'=>'Selecione...'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+            ],
             'rep_categoria',
             'rep_tipo',
             'rep_editora',

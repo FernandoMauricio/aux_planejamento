@@ -47,7 +47,7 @@ class Repositorio extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rep_titulo', 'rep_categoria', 'rep_tipo', 'rep_sobre', 'rep_codunidade', 'rep_codcolaborador', 'rep_data', 'rep_status'], 'required'],
+            [['rep_titulo', 'rep_categoria', 'rep_tipo', 'rep_sobre', 'rep_codunidade', 'rep_codcolaborador', 'rep_data', 'rep_status', 'rep_biblioteca'], 'required'],
             [['rep_valor'], 'number'],
             ['rep_codmxm', 'unique'],
             [['rep_sobre'], 'string'],
@@ -57,6 +57,7 @@ class Repositorio extends \yii\db\ActiveRecord
             [['image'], 'file', 'extensions'=>'jpg, gif, png'],
             [['image'], 'file', 'maxSize'=>'1000000'],
             [['rep_titulo'], 'string', 'max' => 80],
+            [['rep_biblioteca'], 'string', 'max' => 45],
             [['rep_arquivo_src'], 'string', 'max' => 255],
             [['rep_categoria', 'rep_editora'], 'string', 'max' => 50],
             [['rep_tipo'], 'string', 'max' => 100],
@@ -91,6 +92,7 @@ class Repositorio extends \yii\db\ActiveRecord
             'rep_image_src_filename' => Yii::t('app', 'Filename'),
             'rep_image_web_filename' => Yii::t('app', 'Pathname'),
             'image' => 'Imagem Capa',
+            'rep_biblioteca' => 'Biblioteca Digital?',
         ];
     }
 }

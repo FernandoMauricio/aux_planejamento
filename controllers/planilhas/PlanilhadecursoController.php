@@ -226,7 +226,7 @@ class PlanilhadecursoController extends Controller
     {
         $session = Yii::$app->session;
         $model = new Planilhadecurso();
-        
+
         $model->placu_codcolaborador = $session['sess_codcolaborador'];
         $model->placu_codunidade     = $session['sess_codunidade'];
         $model->placu_nomeunidade    = $session['sess_unidade'];
@@ -238,6 +238,7 @@ class PlanilhadecursoController extends Controller
         $model->placu_pessoafisica   = 0;
         $model->placu_pessoajuridica = 0;
         $model->placu_data           = date('Y-m-d');
+        $model->placu_codano         = date('Y');
 
             //Localiza as Despesas Indiretas da Unidade
             $ListagemMarkups = "SELECT * FROM  `markup_mark` WHERE `mark_codunidade` = '".$model->placu_codunidade."'";
@@ -259,17 +260,17 @@ class PlanilhadecursoController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            //Se a CH do Plano for inferior a 15 horas e for selecionado a Fonte de Financiamento PSG, o sistema não deixará prosseguir
-            if($model->placu_cargahorariaplano < 15 && $model->placu_codcategoria == 2){
+            //Se a CH do Plano for inferior a 40 horas e for selecionado a Fonte de Financiamento PSG, o sistema não deixará prosseguir
+            if($model->placu_cargahorariaplano < 40 && $model->placu_codcategoria == 2){
                  Yii::$app->session->setFlash('danger', '<strong>AVISO! </strong> Fonte de Financiamento selecionado não pode ter a Carga Horária do Plano inferior a <strong>40 horas</strong>.');
 
                  return $this->redirect(['create']);
             }
-            
+
             //Localiza as Despesas com Docentes
             $ListagemDespDocente = "SELECT * FROM `despesas_docente` WHERE doce_status = 1";
 
-                $despDocentes = Despesasdocente::findBySql($ListagemDespDocente)->all(); 
+                $despDocentes = Despesasdocente::findBySql($ListagemDespDocente)->all();
 
                 foreach ($despDocentes as $despDocente) {
 
@@ -301,7 +302,7 @@ class PlanilhadecursoController extends Controller
             //Localiza os Materiais Didáticos do Plano
             $ListagemUC = "SELECT * FROM `unidadescurriculares_uncu` WHERE `planodeacao_cod` = '".$model->placu_codplano."' ORDER BY `nivel_uc` DESC";
 
-                $materiais = Unidadescurriculares::findBySql($ListagemUC)->all(); 
+                $materiais = Unidadescurriculares::findBySql($ListagemUC)->all();
 
                 foreach ($materiais as $material) {
 
@@ -325,7 +326,7 @@ class PlanilhadecursoController extends Controller
             //Localiza os Materiais Didáticos do Plano
             $ListagemMaterial = "SELECT * FROM `planomaterial_plama` WHERE `plama_codplano` = '".$model->placu_codplano."' ORDER BY `nivel_uc` DESC";
 
-                $materiais = PlanoMaterial::findBySql($ListagemMaterial)->all(); 
+                $materiais = PlanoMaterial::findBySql($ListagemMaterial)->all();
 
                 foreach ($materiais as $material) {
 
@@ -388,27 +389,27 @@ class PlanilhadecursoController extends Controller
                     ->execute();
                 }
 
-            //Localiza os Materiais do Aluno do Plano 
+            //Localiza os Materiais do Aluno do Plano
             if($model->placu_codcategoria == 1){//COMERCIAL
             $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'COMERCIAL'";
             }
             if($model->placu_codcategoria == 2){//PSG
-               $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'PSG'"; 
-            } 
+               $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'PSG'";
+            }
             if($model->placu_codcategoria == 3){//COMERCIAL/PSG
-               $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'COMERCIAL/PSG'"; 
+               $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'COMERCIAL/PSG'";
             }
             if($model->placu_codcategoria == 4){//PRONATEC
-                $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'PRONATEC'"; 
+                $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'PRONATEC'";
             }
             if($model->placu_codcategoria == 5){//PRONATEC/PSG
-                $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'PRONATEC/PSG'"; 
+                $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'PRONATEC/PSG'";
             }
             if($model->placu_codcategoria == 6){//RECURSOS DA EMPRESA
-                $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'RECURSOS DA EMPRESA'"; 
+                $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'RECURSOS DA EMPRESA'";
             }
             if($model->placu_codcategoria == 7){//ISENTO
-                $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'ISENTO'"; 
+                $ListagemMaterialAluno = "SELECT * FROM `plano_materialaluno` WHERE `planodeacao_cod` = '".$model->placu_codplano."' AND `planmatalu_tipo` = 'ISENTO'";
             }
 
                 $materiaisAluno = PlanoAluno::findBySql($ListagemMaterialAluno)->all(); 
@@ -494,8 +495,8 @@ class PlanilhadecursoController extends Controller
                     $model->placu_totalencargos          = 0;
                     $model->placu_outdespvariaveis       = 0;
                     $model->placu_totalsalarioencargo    = 0;
-                    
-                    //Somatória Quantidade de Alunos Pagantes, Isentos e PSG 
+
+                    //Somatória Quantidade de Alunos Pagantes, Isentos e PSG
                     $valorTotalQntAlunos = $model->placu_quantidadealunos + $model->placu_quantidadealunosisentos + $model->placu_quantidadealunospsg;
                     // + 0 -> Caso não tenha nenhum item relacionado será adicionado por default o 0
                     $model->placu_custosmateriais  = ($totalValorMaterialLivro * $valorTotalQntAlunos) + 0; //save custo material didático - LIVROS
@@ -590,7 +591,7 @@ class PlanilhadecursoController extends Controller
         }
 
         // Se a Planilha estiver HOMOLOGADA e o usuário tentar acessar, será redirecionada automaticamente para a listagem
-        if($model->placu_codsituacao == 4){ 
+        if($model->placu_codsituacao == 4){
             return $this->redirect(['index']);
         }
 
@@ -733,9 +734,9 @@ class PlanilhadecursoController extends Controller
                                     $query = (new \yii\db\Query())->from('db_apl2.planilhamaterialaluno_planimatalun')->where(['planilhadecurso_cod' => $model->placu_codplanilha]);
                                     $totalValorAluno = $query->sum('planimatalun_valor*planimatalun_quantidade');
 
-                                    //Somatória Quantidade de Alunos Pagantes, Isentos e PSG 
+                                    //Somatória Quantidade de Alunos Pagantes, Isentos e PSG
                                     $valorTotalQntAlunos = $model->placu_quantidadealunos + $model->placu_quantidadealunosisentos + $model->placu_quantidadealunospsg;
-                                    
+
                                     $model->placu_custosmateriais  = $totalValorMaterialLivro * $valorTotalQntAlunos; //save custo material didático - LIVROS
                                     $model->placu_PJApostila       = $totalValorMaterialApostila * $valorTotalQntAlunos; //save custo material didático - APOSTILAS
                                     $model->placu_outrosmateriais  = $totalValorOutrosMateriais * $valorTotalQntAlunos; //save custo material didático - OUTROS

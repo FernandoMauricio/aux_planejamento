@@ -20,21 +20,25 @@ use yii\helpers\Json;
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
 <div class="row">
-    <div class="col-md-6">
-    <?= $form->field($model, 'rep_titulo')->textInput(['maxlength' => true]) ?>
-    </div>
-
+    <div class="col-md-4"><?= $form->field($model, 'rep_titulo')->textInput(['maxlength' => true]) ?></div>
+    
     <div class="col-md-2">
-    <?php echo $form->field($model, 'rep_codmxm')->textInput() ?>
+        <?php
+            echo $form->field($model, 'rep_biblioteca')->widget(Select2::classname(), [
+                    'data' => ['Sim' => 'Sim', 'Não' => 'Não'],
+                    'options' => ['placeholder' => 'Selecione...'],
+                    'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]);
+        ?>
     </div>
+    <div class="col-md-2"><?= $form->field($model, 'rep_codmxm')->textInput() ?></div>
+    
+    <div class="col-md-2"><?= $form->field($model, 'rep_qtdoriginais')->textInput() ?></div>
 
-    <div class="col-md-2">
-    <?php echo $form->field($model, 'rep_qtdoriginais')->textInput() ?>
-    </div>
-
-    <div class="col-md-2">
-    <?php echo $form->field($model, 'rep_valor')->widget(MaskMoney::classname());  ?>
-    </div>
+    <div class="col-md-2"><?= $form->field($model, 'rep_valor')->widget(MaskMoney::classname());  ?></div>
+    
 </div>
 
 <div class="row">
@@ -50,7 +54,7 @@ use yii\helpers\Json;
                     ]);
         ?>
     </div>
-
+        
     <div class="col-md-3">
         <?php
             $data_editora = ArrayHelper::map($editora, 'edi_descricao', 'edi_descricao');

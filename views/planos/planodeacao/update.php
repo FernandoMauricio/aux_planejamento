@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\planos\Planodeacao */
 
-$this->title = 'Atualizar Plano de Ação: ' . $model->plan_codplano;
+$this->title = 'Atualizar Plano de Curso: ' . $model->plan_codplano;
 $this->params['breadcrumbs'][] = ['label' => 'Listagem de Planos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->plan_codplano, 'url' => ['view', 'id' => $model->plan_codplano]];
 $this->params['breadcrumbs'][] = 'Atualizar';
