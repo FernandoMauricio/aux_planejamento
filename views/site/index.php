@@ -33,7 +33,7 @@ $nome_user    = $session['sess_nomeusuario'];
                 <h5>- Incluído campo para informar quantas turmas serão <strong style="color: #27ae60;">presenciais, EAD ou remotas</strong>.</h5>
                 <h5>- Incluído pesquisa na listagem de planilhas sobre o <strong style="color: #27ae60;">Novo Modelo Pedagógico</strong>.</h5><br>
 
-            <h5><i class="glyphicon glyphicon-tag"></i><strong> Planilha de Curso</strong></h5>
+            <h5><i class="glyphicon glyphicon-tag"></i><strong> Planilha de Precificação</strong></h5>
                 <h5>- Adicionado campo EAD para as planilhas de precificação </h5>
                 <h5>- Adicionado a informação para cursos EAD cujo valor tenderá a 0.</h5><br>
 
