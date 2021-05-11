@@ -62,7 +62,10 @@ class RelatoriosExcelController extends Controller
                         `ano_an`.`an_ano`,
                         `categoriaplanilha_cat`.`cat_descricao`,
                         `planilhadecurso_placu`.`placu_quantidadeturmas`,
+                        `planilhadecurso_placu`.`placu_remoto`,
+                        `planilhadecurso_placu`.`placu_ead`,
                         `planilhadecurso_placu`.`placu_anoexercicio`,
+                        `planilhadecurso_placu`.`placu_cargahorariarealizada`,
                         (`planilhadecurso_placu`.`placu_cargahorariaarealizar` + `planilhadecurso_placu`.`placu_cargahorariavivencia`) AS CH_TURMA,
                         (`planilhadecurso_placu`.`placu_quantidadeturmas` * `planilhadecurso_placu`.`placu_cargahorariaplano`) AS CH_TURMATOTAL,
                         (`planilhadecurso_placu`.`placu_cargahorariaplano` * (`planilhadecurso_placu`.`placu_quantidadealunos` + `planilhadecurso_placu`.`placu_quantidadealunospsg` + `planilhadecurso_placu`.`placu_quantidadealunosisentos`)) AS CHALUNO,
@@ -74,7 +77,8 @@ class RelatoriosExcelController extends Controller
                         `planilhadecurso_placu`.`placu_quantidadeturmas` * `planilhadecurso_placu`.`placu_cargahorariaarealizar` * `planilhadecurso_placu`.`placu_quantidadealunos` AS CH_ALUNOPAG,
                         `planilhadecurso_placu`.`placu_quantidadeturmas` * `planilhadecurso_placu`.`placu_cargahorariaarealizar` * `planilhadecurso_placu`.`placu_quantidadealunospsg` AS CH_ALUNOPSG,
                         `planilhadecurso_placu`.`placu_quantidadeturmas` * `planilhadecurso_placu`.`placu_cargahorariaarealizar` * `planilhadecurso_placu`.`placu_quantidadealunosisentos` AS CH_ALUNOISE,
-                        `tipoprogramacao_tipro`.`tipro_descricao`
+                        `tipoprogramacao_tipro`.`tipro_descricao`,
+                        `planodeacao_plan`.`plan_modelonacional`
                     FROM 
                         `planilhadecurso_placu` 
                         INNER JOIN `ano_an` ON `planilhadecurso_placu`.`placu_codano` = `ano_an`.`an_codano`
@@ -104,17 +108,21 @@ class RelatoriosExcelController extends Controller
             $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(10);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(15);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(10);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('N')->setWidth(15);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('O')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('N')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('O')->setWidth(15);
             $objPHPExcel->getActiveSheet()->getColumnDimension('P')->setWidth(10);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('Q')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('Q')->setWidth(15);
             $objPHPExcel->getActiveSheet()->getColumnDimension('R')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('S')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('T')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('U')->setWidth(10);
             $objPHPExcel->getActiveSheet()->getColumnDimension('V')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('W')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('Y')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('X')->setWidth(10);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('Z')->setWidth(10);
 
             //TÍTULO DAS COLUNAS
             $objPHPExcel->getActiveSheet()->setTitle('EXCEL-PAAR')                     
@@ -126,20 +134,24 @@ class RelatoriosExcelController extends Controller
              ->setCellValue('F1', 'NÍVEL')
              ->setCellValue('G1', 'ANO')
              ->setCellValue('H1', 'FINANCIAMENTO')
-             ->setCellValue('I1', 'QUANT. TURMAS')
-             ->setCellValue('J1', 'EXERCICIO')
-             ->setCellValue('K1', 'CH TURMA')
-             ->setCellValue('L1', 'CH TURMA TOTAL')
-             ->setCellValue('M1', 'CH ALUNO')
-             ->setCellValue('N1', 'CH ALUNO TOTAL')
-             ->setCellValue('O1', 'MAT PAG')
-             ->setCellValue('P1', 'MAT PSG')
-             ->setCellValue('Q1', 'MAT ISE')
-             ->setCellValue('R1', 'MAT TOTAL')
-             ->setCellValue('S1', 'CH ALUNO PAG')
-             ->setCellValue('T1', 'CH ALUNO PSG')
-             ->setCellValue('U1', 'CH ALUNO ISE')
-             ->setCellValue('V1', 'PROGRAMÇÃO');
+             ->setCellValue('I1', 'QUANT. TURMAS PRESENCIAIS')
+             ->setCellValue('J1', 'QUANT. TURMAS REMOTAS')
+             ->setCellValue('K1', 'QUANT. TURMAS EAD')
+             ->setCellValue('L1', 'EXERCICIO')
+             ->setCellValue('M1', 'CH EXERCICIO ANTERIOR')
+             ->setCellValue('N1', 'CH TURMA')
+             ->setCellValue('O1', 'CH TURMA TOTAL')
+             ->setCellValue('P1', 'CH ALUNO')
+             ->setCellValue('Q1', 'CH ALUNO TOTAL')
+             ->setCellValue('R1', 'MAT PAG')
+             ->setCellValue('S1', 'MAT PSG')
+             ->setCellValue('T1', 'MAT ISE')
+             ->setCellValue('U1', 'MAT TOTAL')
+             ->setCellValue('V1', 'CH ALUNO PAG')
+             ->setCellValue('W1', 'CH ALUNO PSG')
+             ->setCellValue('X1', 'CH ALUNO ISE')
+             ->setCellValue('Y1', 'PROGRAMAÇÃO')
+             ->setCellValue('Z1', 'MODELO PEDAÓGICO NACIONAL');
                  
          $row=2; //GERAÇÃO DOS DADOS A PARTIR DA LINHA 2
                                 
@@ -153,22 +165,27 @@ class RelatoriosExcelController extends Controller
                     $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$foo['an_ano']);
                     $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$foo['cat_descricao']);
                     $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$foo['placu_quantidadeturmas']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$foo['placu_anoexercicio']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['CH_TURMA']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$foo['CH_TURMATOTAL']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$foo['CHALUNO']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['CH_ALUNOTOTAL']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('O'.$row,$foo['MAT_PAG']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('P'.$row,$foo['MAT_PSG']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('Q'.$row,$foo['MAT_ISE']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('R'.$row,$foo['MAT_TOTAL']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('S'.$row,$foo['CH_ALUNOPAG']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('T'.$row,$foo['CH_ALUNOPSG']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('U'.$row,$foo['CH_ALUNOISE']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('V'.$row,$foo['tipro_descricao']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$foo['placu_remoto']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$foo['placu_ead']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$foo['placu_anoexercicio']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$foo['placu_cargahorariarealizada']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$foo['CH_TURMA']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('O'.$row,$foo['CH_TURMATOTAL']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('P'.$row,$foo['CHALUNO']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('Q'.$row,$foo['CH_ALUNOTOTAL']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('R'.$row,$foo['MAT_PAG']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('S'.$row,$foo['MAT_PSG']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('T'.$row,$foo['MAT_ISE']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('U'.$row,$foo['MAT_TOTAL']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('V'.$row,$foo['CH_ALUNOPAG']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('W'.$row,$foo['CH_ALUNOPSG']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('X'.$row,$foo['CH_ALUNOISE']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('Y'.$row,$foo['tipro_descricao']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('Z'.$row,$foo['plan_modelonacional']);
 
                     $row++ ;
                }
+
 
         header('Content-Type: application/vnd.ms-excel');
         $filename = "Relatorio_PAAR_".date("d-m-Y-His").".xls";
@@ -487,7 +504,7 @@ class RelatoriosExcelController extends Controller
                  
          $row=2; //GERAÇÃO DOS DADOS A PARTIR DA LINHA 2
                                 
-                foreach ($foos as $foo) {  
+                foreach ($foos as $foo) {
                     $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$foo['planp_ano']);
                     $objPHPExcel->getActiveSheet()->setCellValue('B'.$row,$foo['plan_descricao']);
                     $objPHPExcel->getActiveSheet()->setCellValue('C'.$row,$foo['planp_cargahoraria']);

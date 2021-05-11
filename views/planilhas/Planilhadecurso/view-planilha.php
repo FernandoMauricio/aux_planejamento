@@ -144,7 +144,6 @@ use yii\helpers\Html;
                                     ],
                                 ],
                             ],
-
                             [
                                 'columns' => [
                                     [
@@ -157,9 +156,24 @@ use yii\helpers\Html;
                                         'value'=> $model->tipoprogramacao->tipro_descricao,
                                         'displayOnly'=>true
                                     ],
+                                ],
+                            ],
+                            [
+                                'columns' => [
+
                                     [
                                         'attribute'=>'placu_quantidadeturmas', 
                                         'value'=> $model->placu_quantidadeturmas,
+                                        'displayOnly'=>true
+                                    ],
+                                    [
+                                        'attribute'=>'placu_remoto', 
+                                        'value'=> $model->placu_remoto,
+                                        'displayOnly'=>true
+                                    ],
+                                    [
+                                        'attribute'=>'placu_ead', 
+                                        'value'=> $model->placu_ead,
                                         'displayOnly'=>true
                                     ],
                                 ],

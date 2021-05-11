@@ -85,7 +85,7 @@ use app\models\cadastros\Segmento;
 
                         <div class="col-md-3">
                             <?= $form->field($model, 'plan_codsegmento')->widget(DepDrop::classname(), [ // Child # 1
-                                    'data' => [$model->segmento->seg_descricao],
+                                    //'data' => [$model->plan_codsegmento => $model->segmento->seg_descricao],
                                     'options'=>['id'=>'segmento-id'],
                                     'type'=>DepDrop::TYPE_SELECT2,
                                     'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
@@ -100,7 +100,7 @@ use app\models\cadastros\Segmento;
 
                         <div class="col-md-3">
                             <?= $form->field($model, 'plan_codtipoa')->widget(DepDrop::classname(), [ // Child # 2
-                                    'data' => [$model->tipo->tip_descricao],
+                                    //'data' => [$model->plan_codtipo => $model->tipo->tip_descricao],
                                     'type'=>DepDrop::TYPE_SELECT2,
                                     'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                                     'pluginOptions'=>[

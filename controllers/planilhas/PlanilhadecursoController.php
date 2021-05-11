@@ -238,7 +238,7 @@ class PlanilhadecursoController extends Controller
         $model->placu_pessoafisica   = 0;
         $model->placu_pessoajuridica = 0;
         $model->placu_data           = date('Y-m-d');
-        $model->placu_codano         = date('Y');
+        $model->placu_codano         = 10; // Ano 2021
 
             //Localiza as Despesas Indiretas da Unidade
             $ListagemMarkups = "SELECT * FROM  `markup_mark` WHERE `mark_codunidade` = '".$model->placu_codunidade."'";

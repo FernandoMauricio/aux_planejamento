@@ -19,22 +19,22 @@ use app\models\planilhas\Planilhadecurso;
            <tr> 
            <td width="21%"><img src="<?php echo Url::base().'/uploads/logo.png' ?>" height="100px"></td>
            <td width="11%" align="left" valign="middle"> <p><br>
-           <font size="3" face="Verdana, Arial, Helvetica, sans-serif"><strong>M&oacute;dulo: 
+           <font size="3" face="Verdana, Arial, Helvetica, sans-serif"><strong>Módulo: 
            </strong><strong><br>
-           Relat&oacute;rio: </strong></font><br>
+           Relatório: </strong></font><br>
            <br>
            </p></td>
-           <td width="41%" align="left" valign="middle"><font size="3" face="Verdana, Arial, Helvetica, sans-serif">Aux&iacute;lio 
+           <td width="41%" align="left" valign="middle"><font size="3" face="Verdana, Arial, Helvetica, sans-serif">Auxílio 
            ao Planejamento<strong><br>
-           </strong>Relat&oacute;rio Geral - Modelo I</font></td>
+           </strong>Relatório Geral - Modelo I</font></td>
            <td width="27%" align="right" valign="bottom"><em></em></td>
            </tr>
            <tr> 
            <td colspan="4"><hr align="left" width="70%"></td>
            </tr>
            <tr> 
-           <td colspan="4"><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CRIT&Eacute;RIOS 
-           DO RELAT&Oacute;RIO</font></td>
+           <td colspan="4"><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CRITÉRIOS 
+           DO RELATÓRIO</font></td>
            </tr>
            <tr> 
            <td colspan="4"><table width="100%" border="0">
@@ -47,7 +47,7 @@ use app\models\planilhas\Planilhadecurso;
            <td>&nbsp;</td>
            <td valign="middle"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">ORÇAMENTO</font></strong></td>
            <td width="12%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $ano_orcamento['an_ano'];?></font></td>
-           <td width="13%" valign="middle"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong>SITUA&Ccedil;&Atilde;O</strong></font></td>
+           <td width="13%" valign="middle"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong>SITUAÇÃO</strong></font></td>
            <td width="62%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $situacao_planilha['sipla_descricao'];?></font></td>
            </tr>
            <tr> 
@@ -184,22 +184,24 @@ use app\models\planilhas\Planilhadecurso;
 												 
 <table width="100%" border="1" cellspacing="0" bordercolor="#000000">
   <tr> 
-    <td colspan="3">&nbsp;</td>
-    <td width="7%">&nbsp;</td>
+    <td rowspan ="2" width="30%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Plano</font></strong></div></td>
+    <td rowspan ="2"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Nível</font></strong></div></td>
+    <td rowspan ="2" width="20%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Novo Modelo Pedagógico</font></strong></div></td>
+    <td rowspan ="2"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Início Turma</font></strong></div></td>
+    <td width="15%" colspan="3"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">TURMAS</font></strong></div></td>
     <td colspan="3"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CARGA 
-        HOR&Aacute;RIAS</font></strong></div></td>
-    <td colspan="4"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">MATR&Iacute;CULAS</font></strong></div></td>
+        HORÁRIAS</font></strong></div></td>
+    <td colspan="4"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">MATRÍCULAS</font></strong></div></td>
     <td colspan="2"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">RECEITA 
         PREV. </font></strong></div></td>
     <td colspan="2"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">DESPESA</font></strong></div></td>
-    <td width="6%">&nbsp;</td>
+    <td rowspan ="2"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Retorno %</font></strong></div></td>
   </tr>
   <tr valign="middle"> 
-    <td width="12%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Plano</font></strong></div></td>
-    <td width="7%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">N&iacute;vel</font></strong></div></td>
-    <td> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Ano</font></strong></div></td>
-    <td> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Turmas</font></strong></div></td>
-    <td width="6%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Uma  Turma</font></strong></div></td>
+    <td> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Presencial</font></strong></div></td>
+    <td> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">EAD</font></strong></div></td>
+    <td> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Remoto</font></strong></div></td>
+    <td width="6%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Uma Turma</font></strong></div></td>
     <td width="4%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CHT</font></strong></div></td>
     <td width="5%"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CHA</font></strong></div></td>
     <td width="5%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">PAG</font></strong></div></td>
@@ -210,8 +212,7 @@ use app\models\planilhas\Planilhadecurso;
     <td width="8%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Total</font></strong></div></td>
     <td width="8%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Turma</font></strong></div></td>
     <td width="9%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Total</font></strong></div></td>
-    <td> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Retorno 
-        %</font></strong></div></td>
+    
   </tr>
   			<?php
 				 
@@ -220,25 +221,32 @@ use app\models\planilhas\Planilhadecurso;
 				 $matriculas_turmas_tipoacao = 0;
 				 $receita_turmas_tipoacao = 0;
 				 $despesa_turmas_tipoacao = 0;
+         $quantidade_turmas_ead = 0;
+         $quantidade_turmas_remoto = 0;
 				 
 				 //EXTRAINDO AS PLANILHAS E SUAS INFORMAÇÕES...
-				 $query_planilhas = "SELECT placu_codplanilha, plan_descricao, niv_sigla, placu_quantidadeturmas,placu_quantidadealunosisentos, placu_cargahorariavivencia, placu_cargahorariaarealizar,placu_quantidadealunos, placu_quantidadealunospsg,placu_precosugerido, placu_despesatotal, placu_porcentprecosugerido, placu_codnivel, placu_codplano, placu_codano, placu_anoexercicio FROM planodeacao_plan, planilhadecurso_placu, nivel_niv WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = '".$codigo_eixo."' AND placu_codsegmento = '".$codigo_segmento."' AND placu_codtipoa = '".$codigo_tipodeacao."' AND placu_codplano = plan_codplano AND placu_codnivel = niv_codnivel AND placu_codprogramacao = '".$combotipoprogramacao['tipro_codprogramacao']."'  ORDER BY plan_descricao";
+				 $query_planilhas = "SELECT placu_codplanilha, placu_ead, placu_remoto, plan_descricao, plan_modelonacional, niv_sigla, placu_quantidadeturmas,placu_quantidadealunosisentos, placu_cargahorariavivencia, placu_cargahorariaarealizar,placu_quantidadealunos, placu_quantidadealunospsg,placu_precosugerido, placu_despesatotal, placu_porcentprecosugerido, placu_codnivel, placu_codplano, placu_codano, placu_anoexercicio FROM planodeacao_plan, planilhadecurso_placu, nivel_niv WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_codeixo = '".$codigo_eixo."' AND placu_codsegmento = '".$codigo_segmento."' AND placu_codtipoa = '".$codigo_tipodeacao."' AND placu_codplano = plan_codplano AND placu_codnivel = niv_codnivel AND placu_codprogramacao = '".$combotipoprogramacao['tipro_codprogramacao']."'  ORDER BY plan_descricao";
 			     	$planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
 						         foreach ($planilhas as $planilha) {
-			         	 $codigo_planilha  			   = $planilha['placu_codplanilha'];
-			         	 $nome_plano  				   = $planilha['plano']['plan_descricao'];
-			         	 $quantidade_turmas  		   = $planilha['placu_quantidadeturmas'];
-			         	 $carga_horaria_turma 	       = $planilha['placu_cargahorariaarealizar'];
-			         	 $carga_horaria_vivencia       = $planilha['placu_cargahorariavivencia'];
-			         	 $quantidade_alunos  	       = $planilha['placu_quantidadealunos'];
-			         	 $quantidade_alunos_psg        = $planilha['placu_quantidadealunospsg'];
-			         	 $valor_mensalidade  	       = $planilha['placu_precosugerido'];
-			         	 $sigla_nivel  		           = $planilha['nivel']['niv_sigla'];
-			         	 $quantidade_alunos_isentos    = $planilha['placu_quantidadealunosisentos'];
-			         	 $carga_hora_para_aluno        = $planilha['placu_cargahorariaarealizar'];
-			         	 $quantidade_turmas_para_aluno = $planilha['placu_quantidadeturmas'];
-			         	 $placu_anoexercicio           = $planilha['placu_anoexercicio'];
-			         	 $placu_codano                 = $planilha['planilhaAno']['an_ano'];
+			          $codigo_planilha  			      = $planilha['placu_codplanilha'];
+			          $nome_plano  				          = $planilha['plano']['plan_descricao'];
+                $modeloPedagogico  				    = $planilha['plano']['plan_modelonacional'];
+			         	$quantidade_turmas  		      = $planilha['placu_quantidadeturmas'];
+			         	$carga_horaria_turma 	        = $planilha['placu_cargahorariaarealizar'];
+			         	$carga_horaria_vivencia       = $planilha['placu_cargahorariavivencia'];
+			         	$quantidade_alunos  	        = $planilha['placu_quantidadealunos'];
+			         	$quantidade_alunos_psg        = $planilha['placu_quantidadealunospsg'];
+			         	$valor_mensalidade  	        = $planilha['placu_precosugerido'];
+			         	$sigla_nivel  		            = $planilha['nivel']['niv_sigla'];
+			         	$quantidade_alunos_isentos    = $planilha['placu_quantidadealunosisentos'];
+			         	$carga_hora_para_aluno        = $planilha['placu_cargahorariaarealizar'];
+			         	$quantidade_turmas_para_aluno = $planilha['placu_quantidadeturmas'];
+			         	$placu_anoexercicio           = $planilha['placu_anoexercicio'];
+			         	$placu_codano                 = $planilha['planilhaAno']['an_ano'];
+                $placu_ead                    = $planilha['placu_ead'];
+                $placu_remoto                 = $planilha['placu_remoto'];
+                  
+                  
 
 			         	 $custo_planilha               = $planilha['placu_despesatotal'];
 			         	 $placu_porcentprecosugerido   = $planilha['placu_porcentprecosugerido'];
@@ -248,7 +256,7 @@ use app\models\planilhas\Planilhadecurso;
 						  $carga_horaria_planilha       = $carga_horaria_vivencia + $carga_horaria_turma;
 						  $carga_horaria_total_turma    = $carga_horaria_turma * $quantidade_turmas;
 						  $matriculas_total_turma       = ( $quantidade_alunos + $quantidade_alunos_psg + $quantidade_alunos_isentos ) * $quantidade_turmas;
-						  $receita_prevista_aluno 		= $valor_mensalidade;
+						  $receita_prevista_aluno 		  = $valor_mensalidade;
 						  $receita_prevista_total_aluno = $receita_prevista_aluno *  ( $quantidade_alunos * $quantidade_turmas );
 						  $custo_total_planilha         = $custo_planilha * $quantidade_turmas;
                            
@@ -291,8 +299,11 @@ use app\models\planilhas\Planilhadecurso;
   <tr valign="middle"> 
     <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $nome_plano; ?></font></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $sigla_nivel; ?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $modeloPedagogico; ?></font></font></font></font></div></td>
 	<td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $placu_anoexercicio; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_turmas; ?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $placu_ead; ?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $placu_remoto; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $carga_horaria_planilha; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"> 
         <?php  echo number_format($carga_horaria_planilha * $quantidade_turmas, 0, ',', '.'); ?>
@@ -312,8 +323,10 @@ use app\models\planilhas\Planilhadecurso;
   </tr>
   			<?php
 						  
-						  $quantidade_turmas_tipoacao   += $quantidade_turmas;
-						  $cargahoraria_turmas_tipoacao += $carga_horaria_planilha * $quantidade_turmas;
+						      $quantidade_turmas_tipoacao   += $quantidade_turmas;
+                  $quantidade_turmas_ead        += $placu_ead;
+                  $quantidade_turmas_remoto     += $placu_remoto;
+						      $cargahoraria_turmas_tipoacao += $carga_horaria_planilha * $quantidade_turmas;
 				          $matriculas_turmas_tipoacao   += $matriculas_total_turma;
 				          $receita_turmas_tipoacao      += $receita_prevista_total_aluno;
 				          $despesa_turmas_tipoacao      += $custo_total_planilha;
@@ -321,41 +334,39 @@ use app\models\planilhas\Planilhadecurso;
 						  //RESUMO DAS UNIDADES...
 						  if($codigo_eixo != 8) //EDUCACAO PROFISSIONAL...
 						  {
-						         $quantidade_turmas_educacao_profissional     += $quantidade_turmas;
-								 $quantidade_matriculas_educacao_profissional += $matriculas_total_turma;
-								 $carga_horaria_educacao_profissional         += $carga_horaria_planilha * $quantidade_turmas;
-								 $receita_prevista_educacao_profissional      += $receita_prevista_total_aluno;
-								 $despesa_prevista_educacao_profissional      += $custo_planilha * $quantidade_turmas;
-								 
-								 															 
-								 //TOTAIS GERAIS.......
-								 $quantidade_turmas_educacao_profissional_geral     += $quantidade_turmas;
-								 $quantidade_matriculas_educacao_profissional_geral += $matriculas_total_turma;
-								 $carga_horaria_educacao_profissional_geral         += $carga_horaria_planilha * $quantidade_turmas;
-								 $receita_prevista_educacao_profissional_geral      += $receita_prevista_total_aluno;
-								 $despesa_prevista_educacao_profissional_geral      += $custo_total_planilha;
-								 
-						  		 
-								 $hora_aluno_unidade 	       += $calculo1;
-								 $hora_aluno_total_unidade     += $calculo1;
-			                     $valor_hora_aluno_total_geral += $calculo1;
+						    $quantidade_turmas_educacao_profissional     += $quantidade_turmas;
+								$quantidade_matriculas_educacao_profissional += $matriculas_total_turma;
+								$carga_horaria_educacao_profissional         += $carga_horaria_planilha * $quantidade_turmas;
+								$receita_prevista_educacao_profissional      += $receita_prevista_total_aluno;
+								$despesa_prevista_educacao_profissional      += $custo_planilha * $quantidade_turmas;
+								
+								//TOTAIS GERAIS.......
+								$quantidade_turmas_educacao_profissional_geral     += $quantidade_turmas;
+								$quantidade_matriculas_educacao_profissional_geral += $matriculas_total_turma;
+								$carga_horaria_educacao_profissional_geral         += $carga_horaria_planilha * $quantidade_turmas;
+								$receita_prevista_educacao_profissional_geral      += $receita_prevista_total_aluno;
+								$despesa_prevista_educacao_profissional_geral      += $custo_total_planilha;
+						  	 
+								$hora_aluno_unidade 	        += $calculo1;
+								$hora_aluno_total_unidade     += $calculo1;
+			          $valor_hora_aluno_total_geral += $calculo1;
 						         
 						  
 						  }
 						  else   //AÇÕES EXTENSIVAS...
 						  {
-						         $quantidade_turmas_acao_extensivas     += $quantidade_turmas;
-								 $quantidade_matriculas_acao_extensivas += $matriculas_total_turma;
-								 $carga_horaria_acao_extensivas         += $carga_horaria_planilha * $quantidade_turmas;
-								 $receita_prevista_acao_extensivas      += $receita_prevista_total_aluno;
-								 $despesa_prevista_acao_extensivas      += $custo_total_planilha;
-								 
-								 //TOTAIS GERAIS.....
-								 $quantidade_turmas_acao_extensivas_geral     += $quantidade_turmas;
-								 $quantidade_matriculas_acao_extensivas_geral += $matriculas_total_turma;
-								 $carga_horaria_acao_extensivas_geral         += $carga_horaria_planilha * $quantidade_turmas;
-								 $receita_prevista_acao_extensivas_geral      += $receita_prevista_total_aluno;
-								 $despesa_prevista_acao_extensivas_geral      += $custo_total_planilha;
+						    $quantidade_turmas_acao_extensivas     += $quantidade_turmas;
+								$quantidade_matriculas_acao_extensivas += $matriculas_total_turma;
+								$carga_horaria_acao_extensivas         += $carga_horaria_planilha * $quantidade_turmas;
+								$receita_prevista_acao_extensivas      += $receita_prevista_total_aluno;
+								$despesa_prevista_acao_extensivas      += $custo_total_planilha;
+								
+								//TOTAIS GERAIS.....
+								$quantidade_turmas_acao_extensivas_geral     += $quantidade_turmas;
+								$quantidade_matriculas_acao_extensivas_geral += $matriculas_total_turma;
+								$carga_horaria_acao_extensivas_geral         += $carga_horaria_planilha * $quantidade_turmas;
+								$receita_prevista_acao_extensivas_geral      += $receita_prevista_total_aluno;
+								$despesa_prevista_acao_extensivas_geral      += $custo_total_planilha;
 								 
 						  }
 						  
@@ -363,9 +374,10 @@ use app\models\planilhas\Planilhadecurso;
 				 }// FIM DAS PLANILHAS
 			?>
   <tr valign="middle"> 
-    <td colspan="2"><div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><em><strong>TOTAL</strong></em></font></div></td>
-    <td bgcolor="#E0E0E0"><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif">-</font></font></div></td>
+    <td colspan="4"><div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><em><strong>TOTAL</strong></em></font></div></td>
     <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_turmas_tipoacao; ?></font></font></div></td>
+    <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_turmas_ead; ?></font></font></div></td>
+    <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_turmas_remoto; ?></font></font></div></td>
     <td bgcolor="#E0E0E0"> <div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif">-</font></font></div></td>
     <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($cargahoraria_turmas_tipoacao, 0, ',', '.'); ?></font></font></div></td>
     <td><div align="center"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($hora_aluno_unidade, 0, ',', '.'); ?></font></font></div></td>
@@ -393,24 +405,24 @@ use app\models\planilhas\Planilhadecurso;
              <td width="37%"><table width="100%" border="1" cellspacing="0" bordercolor="#000000">
              <tr valign="middle"> 
              <td colspan="2"> <div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">TOTAIS 
-              [ <strong>Educa&ccedil;&atilde;o Profissional </strong>]</font></div></td>
+              [ <strong>Educação Profissional </strong>]</font></div></td>
              </tr>
              <tr> 
              <td width="49%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Turmas</font></td>
              <td width="51%" valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_turmas_educacao_profissional; ?></font></div></td>
              </tr>
              <tr> 
-             <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Matr&iacute;culas</font></td>
+             <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Matrículas</font></td>
              <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_matriculas_educacao_profissional; ?></font></div></td>
              </tr>
              <tr> 
              <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Carga 
-             Hor&aacute;ria</font></td>
+             Horária</font></td>
              <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($carga_horaria_educacao_profissional, 0, ',', '.'); ?></font></div></td>
              </tr>
              <tr>
                <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Carga 
-             Hor&aacute;ria</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> Aluno</font></td>
+             Horária</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> Aluno</font></td>
                <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($hora_aluno_total_unidade, 0, ',', '.'); ?></font></div></td>
              </tr>
              <tr> 
@@ -434,12 +446,12 @@ use app\models\planilhas\Planilhadecurso;
              <td width="51%"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_turmas_acao_extensivas; ?></font></div></td>
              </tr>
              <tr> 
-             <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Matr&iacute;culas</font></td>
+             <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Matrículas</font></td>
              <td><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_matriculas_acao_extensivas; ?></font></div></td>
              </tr>
              <tr> 
     		 <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Carga 
-              Hor&aacute;ria</font></td>
+              Horária</font></td>
              <td><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $carga_horaria_acao_extensivas; ?></font></div></td>
              </tr>
              <tr> 
@@ -477,24 +489,24 @@ use app\models\planilhas\Planilhadecurso;
     <td width="37%"><table width="100%" border="1" cellspacing="0" bordercolor="#000000">
         <tr valign="middle"> 
           <td colspan="2"> <div align="center"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">TOTAL 
-              GERAL [ <strong>Educa&ccedil;&atilde;o Profissional </strong>]</font></div></td>
+              GERAL [ <strong>Educação Profissional </strong>]</font></div></td>
         </tr>
         <tr> 
           <td width="49%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Turmas</font></td>
           <td width="51%" valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_turmas_educacao_profissional_geral; ?></font></div></td>
         </tr>
         <tr> 
-          <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Matr&iacute;culas</font></td>
+          <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Matrículas</font></td>
           <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($quantidade_matriculas_educacao_profissional_geral, 0, ',', '.'); ?></font></div></td>
         </tr>
         <tr>
           <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Carga 
-          Hor&aacute;ria Aluno</font></td>
+          Horária Aluno</font></td>
           <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($valor_hora_aluno_total_geral, 0, ',', '.'); ?></font></div></td>
         </tr>
         <tr> 
           <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Carga 
-            Hor&aacute;ria</font></td>
+            Horária</font></td>
           <td valign="middle"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($carga_horaria_educacao_profissional_geral, 0, ',', '.'); ?></font></div></td>
         </tr>
         <tr> 
@@ -518,12 +530,12 @@ use app\models\planilhas\Planilhadecurso;
           <td width="51%"><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $quantidade_turmas_acao_extensivas_geral; ?></font></div></td>
         </tr>
         <tr> 
-          <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Matr&iacute;culas</font></td>
+          <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Matrículas</font></td>
           <td><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($quantidade_matriculas_acao_extensivas_geral, 0, ',', '.'); ?></font></div></td>
         </tr>
         <tr> 
           <td valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Carga 
-            Hor&aacute;ria</font></td>
+            Horária</font></td>
           <td><div align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo number_format($carga_horaria_acao_extensivas_geral, 0, ',', '.'); ?></font></div></td>
         </tr>
         <tr> 

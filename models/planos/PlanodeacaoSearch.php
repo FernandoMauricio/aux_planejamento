@@ -18,8 +18,8 @@ class PlanodeacaoSearch extends Planodeacao
     public function rules()
     {
         return [
-            [['plan_codplano', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_codcolaborador', 'plan_status', 'plan_modelonacional'], 'integer'],
-            [['plan_descricao', 'plan_cargahoraria', 'plan_sobre', 'plan_prerequisito', 'plan_perfTecnico', 'plan_data', 'plan_categoriasPlano', 'plan_codnacional', 'plan_interativa'], 'safe'],
+            [['plan_codplano', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_codcolaborador', 'plan_status'], 'integer'],
+            [['plan_descricao', 'plan_cargahoraria', 'plan_sobre', 'plan_prerequisito', 'plan_perfTecnico', 'plan_data', 'plan_categoriasPlano', 'plan_codnacional', 'plan_interativa', 'plan_modelonacional'], 'safe'],
         ];
     }
 
@@ -74,7 +74,6 @@ class PlanodeacaoSearch extends Planodeacao
             'plan_codcolaborador' => $this->plan_codcolaborador,
             'plan_data' => $this->plan_data,
             'plan_status' => $this->plan_status,
-            'plan_modelonacional' => $this->plan_modelonacional,
         ]);
 
         $query->andFilterWhere(['like', 'plan_descricao', $this->plan_descricao])
@@ -84,7 +83,8 @@ class PlanodeacaoSearch extends Planodeacao
             ->andFilterWhere(['like', 'plan_perfTecnico', $this->plan_perfTecnico])
             ->andFilterWhere(['like', 'descricao', $this->plan_categoriasPlano])
             ->andFilterWhere(['like', 'plan_codnacional', $this->plan_codnacional])
-            ->andFilterWhere(['like', 'plan_interativa', $this->plan_interativa]);
+            ->andFilterWhere(['like', 'plan_interativa', $this->plan_interativa])
+            ->andFilterWhere(['like', 'plan_modelonacional', $this->plan_modelonacional]);
 
         return $dataProvider;
     }

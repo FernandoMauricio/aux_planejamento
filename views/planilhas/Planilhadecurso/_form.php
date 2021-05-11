@@ -80,8 +80,8 @@ use app\models\cadastros\Tipoprogramacao;
                                                    var $divPanelBody =  $(select).parent().parent().parent().parent().parent();
 
                                                    var $inputCargaHoraria = $divPanelBody.find("input:eq(0)");
-                                                   var $inputTipoacao = $divPanelBody.find("input:eq(2)");
-                                                   var $inputNivel = $divPanelBody.find("input:eq(3)");
+                                                   var $inputTipoacao = $divPanelBody.find("input:eq(1)");
+                                                   var $inputNivel = $divPanelBody.find("input:eq(2)");
 
                                                    $inputTipoacao.val(data.plan_codtipoa);
                                                    $inputNivel.val(data.plan_codnivel);
@@ -123,7 +123,7 @@ use app\models\cadastros\Tipoprogramacao;
                 ?>
                 </div> -->
                 
-                <div class="col-md-2">
+                <div class="col-md-3">
                 <?php
                         $rows = Ano::find()->where(['an_status'=> 1])->orderBy(['an_codano'=>SORT_DESC])->all();
                         $data_ano = ArrayHelper::map($rows, 'an_ano', 'an_ano');
@@ -151,7 +151,7 @@ use app\models\cadastros\Tipoprogramacao;
                 ?>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                 <?php
                         $rows = Tipoplanilha::find()->all();
                         $data_tipoplanilha = ArrayHelper::map($rows, 'tipla_codtipla', 'tipla_descricao');
@@ -178,17 +178,20 @@ use app\models\cadastros\Tipoprogramacao;
                                 ]);
                 ?>
                 </div>                
-
-                <div class="col-md-2">
-                    <?= $form->field($model, 'placu_quantidadeturmas')->textInput() ?>
-                </div>
-
             </div>
 
         <?= $form->field($model, 'placu_codtipoa')->hiddenInput()->label(false); ?>
 
         <?= $form->field($model, 'placu_codnivel')->hiddenInput()->label(false); ?>
 
+            <div class="row">
+                <div class="col-md-4"><?= $form->field($model, 'placu_quantidadeturmas')->textInput() ?></div>
+
+                <div class="col-md-4"><?= $form->field($model, 'placu_remoto')->textInput() ?></div>
+
+                <div class="col-md-4"><?= $form->field($model, 'placu_ead')->textInput() ?></div>
+            </div>
+                        
             <div class="row">
                 <div class="col-md-4">
                     <?= $form->field($model, 'placu_cargahorariarealizada')->textInput() ?>

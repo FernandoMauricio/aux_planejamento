@@ -118,7 +118,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
          <div class="panel-body">
             <div class="row">
                <div class="col-md-4">
-                <?php if($model->planp_ead == 'Sim') {
+                <?php //if($model->planp_ead == 'Sim') {
                      echo $form->field($model, 'planp_docente')->widget(DepDrop::classname(), [
                                     'type'=>DepDrop::TYPE_SELECT2,
                                     'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
@@ -150,39 +150,39 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                                               });
                                           '
                                     ]]);
-                  }else{
-                     echo $form->field($model, 'planp_docente')->widget(DepDrop::classname(), [
-                                    'type'=>DepDrop::TYPE_SELECT2,
-                                    'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
-                                    'pluginOptions'=>[
-                                        'depends'=>['plano-id'],
-                                        'placeholder'=>'Selecione o Nível do Docente...',
-                                        'initialize' => true,
-                                        'url'=>Url::to(['/planilhas/precificacao/despesasdocente'])
-                                    ],
-                                    'options' => ['id' => 'nivelDocente-id',
-                                    'onchange'=>'
-                                          var select = this;
-                                          $.getJSON( "'.Url::toRoute('/planilhas/precificacao/get-nivel-docente').'", { niveldocente: $(this).val() } )
-                                          .done(function( data ) {
+                  // }else{
+                  //    echo $form->field($model, 'planp_docente')->widget(DepDrop::classname(), [
+                  //                   'type'=>DepDrop::TYPE_SELECT2,
+                  //                   'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                  //                   'pluginOptions'=>[
+                  //                       'depends'=>['plano-id'],
+                  //                       'placeholder'=>'Selecione o Nível do Docente...',
+                  //                       'initialize' => true,
+                  //                       'url'=>Url::to(['/planilhas/precificacao/despesasdocente'])
+                  //                   ],
+                  //                   'options' => ['id' => 'nivelDocente-id',
+                  //                   'onchange'=>'
+                  //                         var select = this;
+                  //                         $.getJSON( "'.Url::toRoute('/planilhas/precificacao/get-nivel-docente').'", { niveldocente: $(this).val() } )
+                  //                         .done(function( data ) {
 
-                                                 var $divPanelBody = $(select).parent().parent().parent().parent().parent();
+                  //                                var $divPanelBody = $(select).parent().parent().parent().parent().parent();
 
-                                                 var $zerahora = $divPanelBody.find("input:eq(3)");
-                                                 var $zeraplanejmanento = $divPanelBody.find("input:eq(4)");
-                                                 var $inputPlanejamento = $divPanelBody.find("input:eq(5)");
-                                                 var $inputCustodireto = $divPanelBody.find("input:eq(6)");
+                  //                                var $zerahora = $divPanelBody.find("input:eq(3)");
+                  //                                var $zeraplanejmanento = $divPanelBody.find("input:eq(4)");
+                  //                                var $inputPlanejamento = $divPanelBody.find("input:eq(5)");
+                  //                                var $inputCustodireto = $divPanelBody.find("input:eq(6)");
 
-                                                 //inputa valores
-                                                 $zerahora.val(0);
-                                                 $zeraplanejmanento.val(0);
-                                                 $inputCustodireto.val(0);
-                                                 $inputPlanejamento.val(data.doce_planejamento);
+                  //                                //inputa valores
+                  //                                $zerahora.val(0);
+                  //                                $zeraplanejmanento.val(0);
+                  //                                $inputCustodireto.val(0);
+                  //                                $inputPlanejamento.val(data.doce_planejamento);
 
-                                              });
-                                          '
-                                    ]]);
-                  }
+                  //                             });
+                  //                         '
+                  //                   ]]);
+                  //}
                 ?>
                </div>
 
@@ -784,6 +784,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
 </div>
 
-<?= $form->field($model, 'planp_ead')->textInput() ?>
+<?php // $form->field($model, 'planp_ead')->textInput() ?>
 
 <?php $this->registerJsFile('@web/js/precificacao.js', ['depends' => [\yii\web\JqueryAsset::className()]]); ?>

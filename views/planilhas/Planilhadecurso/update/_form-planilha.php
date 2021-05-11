@@ -18,7 +18,6 @@ use app\models\cadastros\Tipoprogramacao;
 ?>
 
 <div class="planilhadecurso-form">
-
             <table class="table table-condensed table-hover">
               <thead>
                 <tr class="info"><th colspan="12">SEÇÃO 1: Informações do Plano</th></tr>
@@ -49,16 +48,16 @@ use app\models\cadastros\Tipoprogramacao;
                             <?= $form->field($model, 'PlanoLabel')->textInput(['value'=> $model->plano->plan_descricao,'readonly'=>true]) ?>
                         </div>
 
-                        <div class="col-md-4">
-                            <?= $form->field($model, 'planModeloPedagogico')->textInput(['value'=> $model->plano->plan_modelonacional,'readonly'=>true]) ?>
-                        </div>
-
                         <div class="col-md-1">
                             <?= $form->field($model, 'placu_cargahorariaplano')->textInput(['readonly'=>true]) ?>
                         </div>
 
+                        <div class="col-md-4">
+                            <?= $form->field($model, 'planModeloPedagogico')->textInput(['value'=> $model->plano->plan_modelonacional,'readonly'=>true]) ?>
+                        </div>
+
                         <div class="col-md-2">
-                            <?= $form->field($model, 'situacaoLabel')->textInput(['value'=> $model->situacaoPlani->sipla_descricao,'readonly'=>true]) ?>
+                            <?= $form->field($model, 'placu_interativa')->radioList(['Sim' => 'Sim', 'Não' => 'Não']) ?>
                         </div>
                     </div>
         </div>
@@ -84,7 +83,7 @@ use app\models\cadastros\Tipoprogramacao;
                     <?= $form->field($model, 'categoriaLabel')->textInput(['value'=> $model->categoriaPlanilha->cat_descricao,'readonly'=>true]) ?>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <?php
                             $rows = Tipoplanilha::find()->all();
                             $data_tipoplanilha = ArrayHelper::map($rows, 'tipla_codtipla', 'tipla_descricao');
@@ -98,14 +97,17 @@ use app\models\cadastros\Tipoprogramacao;
                     ?>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <?= $form->field($model, 'tipoProgramacaoLabel')->textInput(['value'=> $model->tipoprogramacao->tipro_descricao,'readonly'=>true]) ?>
                 </div>
+            </div>
 
-                <div class="col-md-2">
-                    <?= $form->field($model, 'placu_quantidadeturmas')->textInput() ?>
-                </div>
+            <div class="row">
+                <div class="col-md-4"><?= $form->field($model, 'placu_quantidadeturmas')->textInput() ?></div>
 
+                <div class="col-md-4"><?= $form->field($model, 'placu_remoto')->textInput() ?></div>
+
+                <div class="col-md-4"><?= $form->field($model, 'placu_ead')->textInput() ?></div>
             </div>
 
         <?= $form->field($model, 'placu_codtipoa')->hiddenInput()->label(false); ?>

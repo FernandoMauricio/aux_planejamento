@@ -13,12 +13,12 @@ use app\models\planilhas\Planilhadecurso;
            <tr> 
            <td width="21%"><img src="<?php echo Url::base().'/uploads/logo.png' ?>" height="100px"></td>
            <td width="11%" align="left" valign="middle"> <p><br>
-           <font size="3" face="Verdana, Arial, Helvetica, sans-serif"><strong>M&oacute;dulo: 
+           <font size="3" face="Verdana, Arial, Helvetica, sans-serif"><strong>Módulo: 
            </strong><strong><br>
-           Relat&oacute;rio: </strong></font><br>
+           Relatório: </strong></font><br>
            <br>
            </p></td>
-           <td width="41%" align="left" valign="middle"><font size="3" face="Verdana, Arial, Helvetica, sans-serif">Aux&iacute;lio 
+           <td width="41%" align="left" valign="middle"><font size="3" face="Verdana, Arial, Helvetica, sans-serif">Auxílio 
            ao Planejamento<strong><br>
            </strong>Carga Horária Aluno</font></td>
            <td width="27%" align="right" valign="bottom"><em></em></td>
@@ -27,8 +27,8 @@ use app\models\planilhas\Planilhadecurso;
            <td colspan="4"><hr align="left" width="70%"></td>
            </tr>
            <tr> 
-           <td colspan="4"><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CRIT&Eacute;RIOS 
-           DO RELAT&Oacute;RIO</font></td>
+           <td colspan="4"><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CRITÉRIOS 
+           DO RELATÓRIO</font></td>
            </tr>
            <tr> 
            <td colspan="4"><table width="100%" border="0">
@@ -41,7 +41,7 @@ use app\models\planilhas\Planilhadecurso;
            <td>&nbsp;</td>
            <td valign="middle"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">ORÇAMENTO</font></strong></td>
            <td width="12%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $ano_orcamento['an_ano'];?></font></td>
-           <td width="13%" valign="middle"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong>SITUA&Ccedil;&Atilde;O</strong></font></td>
+           <td width="13%" valign="middle"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong>SITUAÇÃO</strong></font></td>
            <td width="62%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $situacao_planilha['sipla_descricao'];?></font></td>
            </tr>
            <tr> 
@@ -51,7 +51,7 @@ use app\models\planilhas\Planilhadecurso;
            </tr>
            <tr> 
            <td>&nbsp;</td>
-           <td valign="middle"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">PROGRAMA&Ccedil;&Atilde;O</font></strong></td>
+           <td valign="middle"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">PROGRAMAÇÃO</font></strong></td>
            <td width="3%" valign="middle"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $tipo_programacao['tipro_descricao'];?></font></td>
            </tr>
            </table></td>
@@ -67,8 +67,8 @@ use app\models\planilhas\Planilhadecurso;
               <thead>
                 <tr>
                   <th>UNIDADES</th>
-                  <th>EDUCA&Ccedil;&Atilde;O <br> PROFISSIONAL</th>
-                  <th>A&Ccedil;&Otilde;ES  <br>  EXTENSIVAS </th>
+                  <th>EDUCAÇÃO <br> PROFISSIONAL</th>
+                  <th>AÇÕES  <br>  EXTENSIVAS </th>
                   <th>TOTAL</th>
                 </tr>
               </thead>

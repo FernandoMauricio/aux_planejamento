@@ -71,7 +71,7 @@ class Planodeacao extends \yii\db\ActiveRecord
     {
         return [
             [['plan_descricao', 'plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria', 'plan_qntaluno', 'plan_codcolaborador', 'plan_data', 'plan_status', 'plan_modelonacional', 'plan_nivelDocente', 'plan_categoriasPlano', 'plan_codnacional'], 'required'],
-            ['plan_codnacional', 'unique','filter' => ['!=','plan_codnacional',0]],
+            //['plan_codnacional', 'unique','filter' => ['!=','plan_codnacional',0]],
             [['plan_codeixo', 'plan_codsegmento', 'plan_codtipoa', 'plan_codnivel', 'plan_cargahoraria','plan_nivelDocente', 'plan_qntaluno', 'plan_codcolaborador', 'plan_status'], 'integer'],
             [['plan_sobre', 'plan_prerequisito', 'plan_perfConclusao', 'plan_perfTecnico'], 'string'],
             [['plan_data','nivelLabel', 'segmentoLabel', 'eixoLabel', 'tipoLabel', 'plan_custoMaterialLivro', 'plan_custoMaterialApostila', 'plan_custoTotalConsumo', 'plan_custoTotalAluno'], 'safe'],

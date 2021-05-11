@@ -149,16 +149,20 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             ], 
 
             [
-                'label' => 'Novo Modelo <br> Pedagógico',
-                'class'=>'kartik\grid\BooleanColumn',
-                // 'trueLabel' => 'Sim',
-                // 'falseLabel' => 'Não',
-                'attribute'=>'plan_modelonacional', 
-                'vAlign'=>'middle',
-                'encodeLabel' => false,
-                'width'=>'7%'
+                'attribute' => 'plan_modelonacional',
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=> [
+                    'Não Alinhado com Modelo Pedagógico' => 'Não Alinhado com Modelo Pedagógico',
+                    'Plano de Curso Nacional' => 'Plano de Curso Nacional',
+                    'Plano de Curso de Referência (Itinerários Formativos)' => 'Plano de Curso de Referência (Itinerários Formativos)',
+                    'Plano de Curso MPS, Regional ou Núcleo' => 'Plano de Curso MPS, Regional ou Núcleo',
+                ],
+                'filterInputOptions'=>['placeholder'=>'Selecione...'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
             ],
-
             [
                 'attribute'=>'plan_codcolaborador', 
                 'width'=>'5%',

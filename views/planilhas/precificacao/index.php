@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         if($session['sess_codunidade'] == 51) { //ÁREA DO GPO
     ?>
     <p>
-        <?= Html::button('Nova Solicitação', ['value'=> Url::to(['gerar-precificacao']), 'class' => 'btn btn-success', 'id'=>'modalButton']) ?>
+    <?= Html::a('Nova Solicitação', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 <?php

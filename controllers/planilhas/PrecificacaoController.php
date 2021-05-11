@@ -47,7 +47,7 @@ class PrecificacaoController extends Controller
         $model = new Precificacao();
 
         if ($model->load(Yii::$app->request->post())) {
-            return $this->redirect(['create', 'planp_ead' => $model->planp_ead]);
+            return $this->redirect(['create']);
         }
         return $this->renderAjax('gerar-precificacao', [
             'model' => $model,
@@ -254,7 +254,7 @@ class PrecificacaoController extends Controller
         $model = new Precificacao();
         $precificacaoUnidades = new PrecificacaoUnidades();
 
-        $model->planp_ead = $_GET['planp_ead']; //tipo de curso
+        //$model->planp_ead = $_GET['planp_ead']; //tipo de curso
 
         $sourceMarkup = new MarkupSearch();
         $dataProvider = $sourceMarkup->search(Yii::$app->request->getQueryParams());

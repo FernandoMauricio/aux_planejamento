@@ -110,6 +110,9 @@ class RelatoriosPaarController extends Controller
             else if($model->relat_tiporelatorio == 21){
                   return $this->redirect(['cargahoraria-aluno-acaoextensiva', 'ano_orcamento' => $model->relat_codano, 'tipo_programacao' => $model->relat_codprogramacao, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
                 }
+            else if($model->relat_tiporelatorio == 22){
+                  return $this->redirect(['matricula-cargahoraria-aluno-psg', 'ano_orcamento' => $model->relat_codano, 'tipo_programacao' => $model->relat_codprogramacao, 'tipo_planilha'=> $model->relat_codtipla, 'situacao_planilha' => $model->relat_codsituacao, 'tipo_relatorio' => $model->relat_tiporelatorio]);
+                }
 
         }else{
             return $this->render('/relatorios/relatorios-paar/gerar-relatorio', [
@@ -512,6 +515,24 @@ class RelatoriosPaarController extends Controller
        $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
 
             return $this->render('/relatorios/relatorios-paar/cargahoraria-aluno-acaoextensiva', [
+              'ano_orcamento'     => $ano_orcamento,
+              'tipo_programacao'  => $tipo_programacao, 
+              'situacao_planilha' => $situacao_planilha,
+              'tipo_planilha'     => $tipo_planilha, 
+              'tipo_relatorio'    => $tipo_relatorio,
+              ]);
+    }
+
+    public function actionMatriculaCargahorariaAlunoPsg($ano_orcamento, $tipo_programacao, $situacao_planilha, $tipo_planilha, $tipo_relatorio)
+    {
+       $this->layout = 'main-imprimir';
+       $ano_orcamento     = $this->findModelAnoPlanilha($ano_orcamento);
+       $tipo_programacao  = $this->findModelTipoProgramacaoPlanilha($tipo_programacao);
+       $situacao_planilha = $this->findModelSituacaoPlanilha($situacao_planilha);
+       $tipo_planilha     = $this->findModelTipoPlanilha($tipo_planilha);
+       $tipo_relatorio    = $this->findModelTipoRelatorio($tipo_relatorio);
+
+            return $this->render('/relatorios/relatorios-paar/matricula-cargahoraria-aluno-psg', [
               'ano_orcamento'     => $ano_orcamento,
               'tipo_programacao'  => $tipo_programacao, 
               'situacao_planilha' => $situacao_planilha,

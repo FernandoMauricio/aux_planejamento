@@ -146,6 +146,23 @@ $this->params['breadcrumbs'][] = $this->title;
             'placu_observacao',
 
             [
+                'attribute' => 'planModeloPedagogico',
+                'value' => 'plano.plan_modelonacional',
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=> [
+                    'Não Alinhado com Modelo Pedagógico' => 'Não Alinhado com Modelo Pedagógico',
+                    'Plano de Curso Nacional' => 'Plano de Curso Nacional',
+                    'Plano de Curso de Referência (Itinerários Formativos)' => 'Plano de Curso de Referência (Itinerários Formativos)',
+                    'Plano de Curso MPS, Regional ou Núcleo' => 'Plano de Curso MPS, Regional ou Núcleo',
+                ],
+                'filterInputOptions'=>['placeholder'=>'Selecione...'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+            ],
+            
+            [
                 'attribute'=>'placu_codsituacao', 
                 'width'=>'250px',
                 'value'=>function ($model, $key, $index, $widget) { 
@@ -158,7 +175,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'filterInputOptions'=>['placeholder'=>'Situação'],
             ],
-        
+            
             ['class' => 'yii\grid\ActionColumn',
                 'template' => '{observacoes-gerentes} {view} {update} {delete}',
                 'options' => ['width' => '5%'],
