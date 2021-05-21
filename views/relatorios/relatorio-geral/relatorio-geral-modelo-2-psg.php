@@ -101,6 +101,8 @@ use app\models\planilhas\Planilhadecurso;
 				 
 				 $carga_horaria_total = 0;
 		     $quantidade_turmas_total = 0;
+         $quantidade_turmas_total_ead = 0;
+         $quantidade_turmas_total_remoto = 0;
 		     $matricula_pag_total = 0;
 		     $matricula_psg_total = 0;
 				 $matricula_isento_total = 0;
@@ -118,34 +120,26 @@ use app\models\planilhas\Planilhadecurso;
 					 
 <table width="100%" border="1" cellspacing="0" bordercolor="#000000">
   <tr valign="middle"> 
-    <td width="27%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">PLANO</font></strong></div></td>
-    <td width="8%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">TURMAS</font></strong></div></td>
-    <td width="9%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CH</font></strong></div></td>
-    <td width="6%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CH 
-        SUBTOTAL</font></strong></div></td>
-    <td width="6%"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CHA 
-        - PSG</font></strong></div></td>
-    <td width="8%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">QTD 
-        ALUNO PAGANTE</font></strong></div></td>
-    <td width="10%"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">QTD 
-        ALUNO<br>
-        PSG</font></strong></div></td>
-    <td width="7%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">QTD 
-        ALUNO<br>
-        ISEN</font></strong></div></td>
-    <td width="8%"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">SUBTOTAL 
-        <br>
-        PAGANTE</font></strong></div></td>
-    <td width="5%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">SUBTOTAL 
-        <br>
-        PSG </font></strong></div></td>
-    <td width="6%"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">SUBTOTAL 
-        <br>
-        ISEN</font></strong></div></td>
+    <td rowspan ="2" width="27%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">PLANO</font></strong></div></td>
+    <td colspan="3" width="8%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">TURMAS</font></strong></div></td>
+    <td rowspan ="2" width="9%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CH</font></strong></div></td>
+    <td rowspan ="2" width="6%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CH SUBTOTAL</font></strong></div></td>
+    <td rowspan ="2" width="6%"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">CHA - PSG</font></strong></div></td>
+    <td rowspan ="2" width="8%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">QTD ALUNO PAGANTE</font></strong></div></td>
+    <td rowspan ="2" width="10%"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">QTD ALUNO<br>PSG</font></strong></div></td>
+    <td rowspan ="2" width="7%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">QTD ALUNO<br>ISEN</font></strong></div></td>
+    <td rowspan ="2" width="8%"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">SUBTOTAL <br>PAGANTE</font></strong></div></td>
+    <td rowspan ="2" width="5%"> <div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">SUBTOTAL <br>PSG </font></strong></div></td>
+    <td rowspan ="2" width="6%"><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">SUBTOTAL <br>ISEN</font></strong></div></td>
+  </tr>
+  <tr valign="middle"> 
+    <td><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Presencial</font></strong></div></td>
+    <td><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">EAD</font></strong></div></td>
+    <td><div align="center"><strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Remoto</font></strong></div></td>
   </tr>
   <?php
 					 //EXTRAINDO AS INFORMAÇÕES DAS PLANILHAS...
-					 $query_planilhas = "SELECT plan_descricao, placu_cargahorariaarealizar,placu_quantidadealunosisentos, placu_cargahorariavivencia, placu_quantidadeturmas, placu_codeixo, placu_quantidadealunos, placu_quantidadealunospsg, placu_codplano FROM  planilhadecurso_placu, planodeacao_plan WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_quantidadealunospsg > 0 AND placu_codplano = plan_codplano AND placu_codprogramacao = '".$combotipoprogramacao['tipro_codprogramacao']."' ORDER BY plan_descricao";
+					 $query_planilhas = "SELECT plan_descricao, placu_ead, placu_remoto, placu_cargahorariaarealizar,placu_quantidadealunosisentos, placu_cargahorariavivencia, placu_quantidadeturmas, placu_codeixo, placu_quantidadealunos, placu_quantidadealunospsg, placu_codplano FROM  planilhadecurso_placu, planodeacao_plan WHERE placu_codunidade = '".$codigo_unidade."' AND placu_codsituacao = '".$situacao_planilha['sipla_codsituacao']."' AND placu_codano = '".$ano_orcamento['an_codano']."' AND placu_codtipla = '".$tipo_planilha['tipla_codtipla']."' AND placu_quantidadealunospsg > 0 AND placu_codplano = plan_codplano AND placu_codprogramacao = '".$combotipoprogramacao['tipro_codprogramacao']."' ORDER BY plan_descricao";
 
             $planilhas = Planilhadecurso::findBySql($query_planilhas)->all(); 
                      foreach ($planilhas as $planilha) {
@@ -158,26 +152,30 @@ use app\models\planilhas\Planilhadecurso;
                       $quantidade_alunos_psg       = $planilha['placu_quantidadealunospsg'];
                       $quantidade_alunos_isentos   = $planilha['placu_quantidadealunosisentos'];
                       $codigo_eixo                 = $planilha['placu_codeixo'];
+                      $placu_ead                   = $planilha['placu_ead'];
+                      $placu_remoto                = $planilha['placu_remoto'];
 
     							  $carga_horaria_planilha = $carga_horaria_realizar +  $carga_horaria_vivencia;
     							  
-    							  $carga_horaria_total     += $carga_horaria_planilha * $quantidade_turmas;
-    							  $matricula_pag_total     += $quantidade_alunos * $quantidade_turmas;
-    							  $matricula_psg_total     += $quantidade_alunos_psg * $quantidade_turmas;
-    							  $matricula_isento_total  += $quantidade_alunos_isentos * $quantidade_turmas;
-    							  $quantidade_turmas_total += $quantidade_turmas;
+    							  $carga_horaria_total            += $carga_horaria_planilha * ($quantidade_turmas + $placu_ead + $placu_remoto);
+    							  $matricula_pag_total            += $quantidade_alunos * ($quantidade_turmas + $placu_ead + $placu_remoto);
+    							  $matricula_psg_total            += $quantidade_alunos_psg * ($quantidade_turmas + $placu_ead + $placu_remoto);
+    							  $matricula_isento_total         += $quantidade_alunos_isentos * ($quantidade_turmas + $placu_ead + $placu_remoto);
+    							  $quantidade_turmas_total        += $quantidade_turmas;
+                    $quantidade_turmas_total_ead    += $placu_ead;
+							      $quantidade_turmas_total_remoto += $placu_remoto;
     							  
-    							  $carga_horaria_total_geral     += $carga_horaria_planilha * $quantidade_turmas;
+    							  $carga_horaria_total_geral     += $carga_horaria_planilha * ($quantidade_turmas + $placu_ead + $placu_remoto);
     		            $quantidade_turmas_total_geral += $quantidade_turmas;
-    		            $matricula_pag_total_geral     += $quantidade_alunos * $quantidade_turmas; 
-    		            $matricula_psg_total_geral     += $quantidade_alunos_psg * $quantidade_turmas; 
-    							  $matricula_isento_total_geral  += $quantidade_alunos_isentos * $quantidade_turmas; 
+    		            $matricula_pag_total_geral     += $quantidade_alunos * ($quantidade_turmas + $placu_ead + $placu_remoto); 
+    		            $matricula_psg_total_geral     += $quantidade_alunos_psg * ($quantidade_turmas + $placu_ead + $placu_remoto); 
+    							  $matricula_isento_total_geral  += $quantidade_alunos_isentos * ($quantidade_turmas + $placu_ead + $placu_remoto); 
     							  
     							 $calculo1 = $carga_horaria_realizar * ($quantidade_alunos + $quantidade_alunos_psg + $quantidade_alunos_isentos);
-    							 $calculo1 = $calculo1 * $quantidade_turmas;
+    							 $calculo1 = $calculo1 * ($quantidade_turmas + $placu_ead + $placu_remoto);
     							 
     							 $calculo20 = $carga_horaria_realizar * $quantidade_alunos_psg;
-    							 $calculo20 = $calculo20 * $quantidade_turmas;
+    							 $calculo20 = $calculo20 * ($quantidade_turmas + $placu_ead + $placu_remoto);
     							 
     							 if($codigo_eixo != 8)
     							 {
@@ -192,14 +190,14 @@ use app\models\planilhas\Planilhadecurso;
     <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><?php echo $nome_plano; ?></font></td>
     <td> <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_turmas; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $carga_horaria_planilha; ?></font></font></font></font></div></td>
-    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_turmas * $carga_horaria_planilha; ?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php ech* ($quantidade_turmas + $placu_ead + $placu_remoto) * $carga_horaria_planilha; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $calculo20; ?></font></font></font></font></div></td>
     <td> <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_alunos; ?></font></font></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_alunos_psg; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_alunos_isentos; ?></font></font></font></font></font></font></div></td>
-    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_alunos * $quantidade_turmas; ?></font></font></font></font></div></td>
-    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_alunos_psg * $quantidade_turmas; ?></font></font></font></font></div></td>
-    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_alunos_isentos * $quantidade_turmas; ?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_alunos * ($quantidade_turmas + $placu_ead + $placu_remoto); ?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_alunos_psg * ($quantidade_turmas + $placu_ead + $placu_remoto); ?></font></font></font></font></div></td>
+    <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_alunos_isentos * ($quantidade_turmas + $placu_ead + $placu_remoto); ?></font></font></font></font></div></td>
   </tr>
     <?php
 							  
@@ -209,6 +207,9 @@ use app\models\planilhas\Planilhadecurso;
   <tr valign="middle"> 
     <td bgcolor="#E0E0E0"> <div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><em><strong>TOTAL</strong></em></font></div></td>
     <td bgcolor="#E0E0E0"> <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_turmas_total; ?></font></font></font></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><em></em></font></div></td>
+    <td bgcolor="#E0E0E0"> <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_turmas_total_ead; ?></font></font></font></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><em></em></font></div></td>
+    <td bgcolor="#E0E0E0"> <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $quantidade_turmas_total_remoto; ?></font></font></font></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><em></em></font></div></td>
+
     <td bgcolor="#E0E0E0"><div align="center">--------</div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $carga_horaria_total; ?></font></font></font></font></div></td>
     <td><div align="center"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><font face="Verdana, Arial, Helvetica, sans-serif"><font size="2"><?php echo $hora_aluno_unidade; ?></font></font></font></font></div></td>

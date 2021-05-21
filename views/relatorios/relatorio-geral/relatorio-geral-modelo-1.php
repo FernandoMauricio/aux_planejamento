@@ -254,11 +254,11 @@ use app\models\planilhas\Planilhadecurso;
 
 			         	 //Cálculos Realizados
 						  $carga_horaria_planilha       = $carga_horaria_vivencia + $carga_horaria_turma;
-						  $carga_horaria_total_turma    = $carga_horaria_turma * $quantidade_turmas;
-						  $matriculas_total_turma       = ( $quantidade_alunos + $quantidade_alunos_psg + $quantidade_alunos_isentos ) * $quantidade_turmas;
+						  $carga_horaria_total_turma    = $carga_horaria_turma * ($quantidade_turmas + $placu_ead + $placu_remoto);
+						  $matriculas_total_turma       = ($quantidade_alunos + $quantidade_alunos_psg + $quantidade_alunos_isentos ) * ($quantidade_turmas + $placu_ead + $placu_remoto);
 						  $receita_prevista_aluno 		  = $valor_mensalidade;
-						  $receita_prevista_total_aluno = $receita_prevista_aluno *  ( $quantidade_alunos * $quantidade_turmas );
-						  $custo_total_planilha         = $custo_planilha * $quantidade_turmas;
+						  $receita_prevista_total_aluno = $receita_prevista_aluno * ($quantidade_alunos * ($quantidade_turmas + $placu_ead + $placu_remoto));
+						  $custo_total_planilha         = $custo_planilha * ($quantidade_turmas + $placu_ead + $placu_remoto);
                            
 							$cor = "#006633";
 						     
@@ -326,7 +326,7 @@ use app\models\planilhas\Planilhadecurso;
 						      $quantidade_turmas_tipoacao   += $quantidade_turmas;
                   $quantidade_turmas_ead        += $placu_ead;
                   $quantidade_turmas_remoto     += $placu_remoto;
-						      $cargahoraria_turmas_tipoacao += $carga_horaria_planilha * $quantidade_turmas;
+						      $cargahoraria_turmas_tipoacao += $carga_horaria_planilha * ($quantidade_turmas + $placu_ead + $placu_remoto);
 				          $matriculas_turmas_tipoacao   += $matriculas_total_turma;
 				          $receita_turmas_tipoacao      += $receita_prevista_total_aluno;
 				          $despesa_turmas_tipoacao      += $custo_total_planilha;
@@ -336,14 +336,14 @@ use app\models\planilhas\Planilhadecurso;
 						  {
 						    $quantidade_turmas_educacao_profissional     += $quantidade_turmas;
 								$quantidade_matriculas_educacao_profissional += $matriculas_total_turma;
-								$carga_horaria_educacao_profissional         += $carga_horaria_planilha * $quantidade_turmas;
+								$carga_horaria_educacao_profissional         += $carga_horaria_planilha * ($quantidade_turmas + $placu_ead + $placu_remoto);
 								$receita_prevista_educacao_profissional      += $receita_prevista_total_aluno;
-								$despesa_prevista_educacao_profissional      += $custo_planilha * $quantidade_turmas;
+								$despesa_prevista_educacao_profissional      += $custo_planilha * ($quantidade_turmas + $placu_ead + $placu_remoto);
 								
 								//TOTAIS GERAIS.......
 								$quantidade_turmas_educacao_profissional_geral     += $quantidade_turmas;
 								$quantidade_matriculas_educacao_profissional_geral += $matriculas_total_turma;
-								$carga_horaria_educacao_profissional_geral         += $carga_horaria_planilha * $quantidade_turmas;
+								$carga_horaria_educacao_profissional_geral         += $carga_horaria_planilha * ($quantidade_turmas + $placu_ead + $placu_remoto);
 								$receita_prevista_educacao_profissional_geral      += $receita_prevista_total_aluno;
 								$despesa_prevista_educacao_profissional_geral      += $custo_total_planilha;
 						  	 
@@ -357,14 +357,14 @@ use app\models\planilhas\Planilhadecurso;
 						  {
 						    $quantidade_turmas_acao_extensivas     += $quantidade_turmas;
 								$quantidade_matriculas_acao_extensivas += $matriculas_total_turma;
-								$carga_horaria_acao_extensivas         += $carga_horaria_planilha * $quantidade_turmas;
+								$carga_horaria_acao_extensivas         += $carga_horaria_planilha * ($quantidade_turmas + $placu_ead + $placu_remoto);
 								$receita_prevista_acao_extensivas      += $receita_prevista_total_aluno;
 								$despesa_prevista_acao_extensivas      += $custo_total_planilha;
 								
 								//TOTAIS GERAIS.....
 								$quantidade_turmas_acao_extensivas_geral     += $quantidade_turmas;
 								$quantidade_matriculas_acao_extensivas_geral += $matriculas_total_turma;
-								$carga_horaria_acao_extensivas_geral         += $carga_horaria_planilha * $quantidade_turmas;
+								$carga_horaria_acao_extensivas_geral         += $carga_horaria_planilha * ($quantidade_turmas + $placu_ead + $placu_remoto);
 								$receita_prevista_acao_extensivas_geral      += $receita_prevista_total_aluno;
 								$despesa_prevista_acao_extensivas_geral      += $custo_total_planilha;
 								 
